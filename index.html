@@ -1,1215 +1,1707 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!--
-   ______                            __
-  / ____/___  ____ ___  ____  __  __/ /____  _____
- / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
-/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
-\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
-                    /_/
-        Created with Perplexity Computer
-        https://www.perplexity.ai/computer
--->
-
-<!-- Perplexity Computer Attribution — SEO Meta Tags -->
-<meta name="generator" content="Perplexity Computer">
-<meta name="author" content="Perplexity Computer">
-<meta property="og:see_also" content="https://www.perplexity.ai/computer">
-<link rel="author" href="https://www.perplexity.ai/computer">
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BRAND.SBDC — NorCal SBDC Brand House</title>
+<title>NorCal SBDC — Brand House</title>
+
+<!-- IBM Carbon Icons via Iconify -->
+<script src="https://code.iconify.design/iconify-icon/3.0.2/iconify-icon.min.js"></script>
 
 <style>
-/* ═══════════════════════════════════════════════════════════════
-   FONT FACES — GT America + GT Era Display + Tiempos Text
-   ═══════════════════════════════════════════════════════════════ */
-@font-face { font-family: 'GT America Extended'; src: url('./fonts/GT-America-Extended-Regular.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: 'GT America Expanded'; src: url('./fonts/GT-America-Expanded-Black.otf') format('opentype'); font-weight: 900; font-style: normal; font-display: swap; }
-@font-face { font-family: 'GT America Condensed'; src: url('./fonts/GT-America-Condensed-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
-@font-face { font-family: 'GT America Mono'; src: url('./fonts/GT-America-Mono-Regular.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: 'GT America Mono'; src: url('./fonts/GT-America-Mono-Bold.otf') format('opentype'); font-weight: 700; font-style: normal; font-display: swap; }
-@font-face { font-family: 'GT Era Display'; src: url('./fonts/GT-Era-Display-Light.otf') format('opentype'); font-weight: 300; font-style: normal; font-display: swap; }
-@font-face { font-family: 'GT Era Display'; src: url('./fonts/GT-Era-Display-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Tiempos Text'; src: url('./fonts/TiemposText-Regular.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+/* ═══════════════════════════════════════════
+   FONTS — Tobias + GT America (Chamber weight)
+   ═══════════════════════════════════════════ */
 
-/* ═══════════════════════════════════════════════════════════════
-   DESIGN TOKENS
-   ═══════════════════════════════════════════════════════════════ */
+/* Tobias — Regular only (the Chamber way) */
+@font-face { font-family: 'Tobias'; src: url('new-fonts/Tobias/TobiasTRIAL-Regular.woff2') format('woff2'), url('new-fonts/Tobias/TobiasTRIAL-Regular.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Tobias'; src: url('new-fonts/Tobias/TobiasTRIAL-RegularItalic.woff2') format('woff2'), url('new-fonts/Tobias/TobiasTRIAL-RegularItalic.otf') format('opentype'); font-weight: 400; font-style: italic; font-display: swap; }
+
+/* GT America */
+@font-face { font-family: 'GT America'; src: url('new-fonts/GT-America/GT-America-Standard-Light.otf') format('opentype'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'GT America'; src: url('new-fonts/GT-America/GT-America-Standard-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'GT America'; src: url('new-fonts/GT-America/GT-America-Standard-Medium.otf') format('opentype'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'GT America'; src: url('new-fonts/GT-America/GT-America-Standard-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'GT America Extended'; src: url('new-fonts/GT-America/GT-America-Extended-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'GT America Mono'; src: url('new-fonts/GT-America/GT-America-Mono-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
+
+/* ═══════════════════════════════════════════
+   RESET + BASE
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+img { display: block; max-width: 100%; height: auto; object-fit: contain; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+ul { list-style: none; }
+
+/* ═══════════════════════════════════════════
+   TOKENS
+   ═══════════════════════════════════════════ */
 :root {
   --navy: #0f1c2e;
   --navy-deep: #091422;
   --royal: #1D5AA7;
+  --royal-dim: rgba(29,90,167,0.08);
+  --royal-dim-2: rgba(29,90,167,0.15);
   --pool: #8FC5D9;
-  --cream: #f5f3ef;
+  --pool-bright: #a8d8e8;
+  --cream: #f0efeb;
   --white: #ffffff;
+  --black: #111111;
   --text: #0a1528;
+  --text-secondary: #4a5568;
+  --text-tertiary: #8a8a8a;
+  --rule: rgba(0,0,0,0.12);
+  --rule-light: rgba(0,0,0,0.06);
+  --green: #16a34a;
+  --green-dim: rgba(22,163,74,0.06);
+  --red: #a82039;
+  --red-dim: rgba(168,32,57,0.06);
 
-  --font-expanded: 'GT America Expanded', -apple-system, sans-serif;
-  --font-extended: 'GT America Extended', -apple-system, sans-serif;
-  --font-condensed: 'GT America Condensed', -apple-system, sans-serif;
-  --font-mono: 'GT America Mono', 'Courier New', monospace;
-  --font-era: 'GT Era Display', Georgia, serif;
-  --font-tiempos: 'Tiempos Text', Georgia, serif;
+  --sans: 'GT America', -apple-system, Helvetica, sans-serif;
+  --serif: 'Tobias', Georgia, serif;
+  --mono: 'GT America Mono', 'SF Mono', monospace;
 
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in: cubic-bezier(0.4, 0, 1, 1);
-  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  --pad: clamp(32px, 5vw, 64px);
+  --max: 1080px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   RESET & BASE
-   ═══════════════════════════════════════════════════════════════ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: auto; -webkit-font-smoothing: antialiased; }
 body {
-  font-family: var(--font-extended);
-  background: var(--navy-deep);
-  color: var(--white);
+  font-family: var(--sans);
+  background: var(--cream);
+  color: var(--text);
   overflow-x: hidden;
-}
-img { display: block; max-width: 100%; }
-a { color: inherit; text-decoration: none; }
-button { cursor: pointer; border: none; background: none; }
-
-/* ═══════════════════════════════════════════════════════════════
-   FILM GRAIN OVERLAY
-   ═══════════════════════════════════════════════════════════════ */
-.grain-overlay {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.03;
+  line-height: 1.5;
+  font-weight: 300;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   NAV
-   ═══════════════════════════════════════════════════════════════ */
+iconify-icon { display: inline-flex; vertical-align: middle; }
+
+/* ═══════════════════════════════════════════
+   NAV — Chamber style: white bar, understated
+   ═══════════════════════════════════════════ */
 .nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   height: 56px;
-  transition: background 400ms var(--ease-in-out), backdrop-filter 400ms var(--ease-in-out);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--pad);
+  background: var(--navy);
+  border-bottom: none;
 }
-.nav.scrolled {
-  background: rgba(9, 20, 34, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+.nav-left { display: flex; align-items: center; gap: 16px; }
+.nav-logo { height: 18px; width: auto; }
+.nav-title {
+  font-family: var(--sans); font-size: 0.82rem; font-weight: 300;
+  color: rgba(255,255,255,0.5);
 }
-.nav-brand {
-  font-family: var(--font-extended);
-  font-weight: 900;
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--white);
-}
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-}
-.nav-links {
-  display: flex;
-  gap: 28px;
-  list-style: none;
-}
+.nav-links { display: flex; gap: 0; }
 .nav-links a {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.55);
-  transition: color var(--transition-interactive);
+  font-family: var(--sans); font-size: 0.82rem; font-weight: 300;
+  letter-spacing: -0.01em; text-transform: none; color: rgba(255,255,255,0.5);
+  padding: 18px 16px; position: relative;
+  transition: color 0.2s ease;
 }
-.nav-links a:hover { color: var(--white); }
+.nav-links a:hover { color: rgba(255,255,255,0.85); }
+.nav-links a.active { color: var(--white); }
+.nav-links a.active::after {
+  content: ''; position: absolute; bottom: 0; left: 16px; right: 16px;
+  height: 2px; background: var(--pool);
+}
+.nav-version {
+  font-family: var(--mono); font-size: 0.55rem; font-weight: 400;
+  color: rgba(255,255,255,0.25);
+  padding: 3px 8px;
+}
 
-/* Hamburger */
-.hamburger {
-  width: 28px;
-  height: 18px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 8px;
-  cursor: pointer;
+/* ═══════════════════════════════════════════
+   SECTION HEADER — Chamber pattern:
+   thin rule → bold section title → optional subtitle
+   ═══════════════════════════════════════════ */
+.section-header {
+  border-top: 1px solid var(--rule);
+  padding-top: 24px;
+  margin-bottom: 48px;
 }
-.hamburger span {
-  display: block;
-  width: 100%;
-  height: 1px;
+.section-header-title {
+  font-family: var(--sans); font-weight: 700;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: var(--text);
+  letter-spacing: -0.02em;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-header-title iconify-icon { font-size: 18px; color: var(--text-tertiary); }
+.section-header-sub {
+  font-family: var(--sans); font-weight: 300;
+  font-size: 0.95rem; line-height: 1.5;
+  color: var(--text-secondary);
+  margin-top: 8px; max-width: 560px;
+  letter-spacing: -0.015em;
+}
+
+/* Section editorial intro — Tobias for the big moment */
+.section-editorial {
+  margin-bottom: 56px;
+}
+.section-editorial h2 {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--text);
+  max-width: 600px;
+}
+.section-editorial h2 em { font-style: italic; color: var(--royal); }
+.section-editorial p {
+  font-family: var(--sans); font-weight: 300;
+  font-size: 1rem; line-height: 1.55;
+  color: var(--text-secondary);
+  margin-top: 16px; max-width: 520px;
+  letter-spacing: -0.015em;
+}
+
+/* ═══════════════════════════════════════════
+   SHARED
+   ═══════════════════════════════════════════ */
+.container { max-width: var(--max); margin: 0 auto; }
+
+.section {
+  padding: clamp(64px, 8vh, 100px) var(--pad);
+}
+
+/* Tag badge — Chamber style: dark border, tiny uppercase */
+.tag {
+  font-family: var(--sans); font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 2px;
+  border: 1px solid var(--rule);
+  color: var(--text-secondary);
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.tag-royal { border-color: rgba(29,90,167,0.3); color: var(--royal); }
+.tag-green { border-color: rgba(22,163,74,0.3); color: var(--green); }
+.tag-pool { border-color: rgba(143,197,217,0.4); color: #2d7d9c; }
+
+/* Copy button */
+.copy-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--sans); font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--text-tertiary); padding: 5px 10px;
+  border-radius: 3px; cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+}
+.copy-btn:hover { color: var(--royal); }
+.copy-btn.copied { color: var(--green); }
+.copy-btn iconify-icon { font-size: 14px; }
+
+/* White content card (sits on gray background) */
+.content-card {
   background: var(--white);
-  transition: transform 300ms var(--ease-out), opacity 300ms var(--ease-out);
-  transform-origin: center;
-}
-.hamburger.open span:first-child { transform: translateY(4.5px) rotate(45deg); }
-.hamburger.open span:last-child  { transform: translateY(-4.5px) rotate(-45deg); }
-
-/* Fullscreen menu */
-.fullscreen-menu {
-  position: fixed;
-  inset: 0;
-  z-index: 190;
-  background: var(--navy-deep);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 400ms var(--ease-out);
-}
-.fullscreen-menu.open {
-  opacity: 1;
-  pointer-events: all;
-}
-.menu-nav {
-  list-style: none;
-  text-align: center;
-}
-.menu-nav li {
-  overflow: hidden;
-  margin-bottom: 8px;
-}
-.menu-nav a {
-  display: block;
-  font-family: var(--font-expanded);
-  font-weight: 900;
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  letter-spacing: -0.03em;
-  line-height: 1;
-  color: var(--white);
-  padding: 8px 0;
-  transform: translateY(100%);
-  opacity: 0;
-  transition: color var(--transition-interactive), transform 500ms var(--ease-out), opacity 500ms var(--ease-out);
-}
-.menu-nav a:hover { color: var(--pool); }
-.fullscreen-menu.open .menu-nav a {
-  transform: translateY(0);
-  opacity: 1;
-}
-.fullscreen-menu.open .menu-nav li:nth-child(1) a { transition-delay: 0.05s; }
-.fullscreen-menu.open .menu-nav li:nth-child(2) a { transition-delay: 0.10s; }
-.fullscreen-menu.open .menu-nav li:nth-child(3) a { transition-delay: 0.15s; }
-.fullscreen-menu.open .menu-nav li:nth-child(4) a { transition-delay: 0.20s; }
-.fullscreen-menu.open .menu-nav li:nth-child(5) a { transition-delay: 0.25s; }
-
-/* ═══════════════════════════════════════════════════════════════
-   INTRO OVERLAY (logo animation)
-   ═══════════════════════════════════════════════════════════════ */
-#intro-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  background: var(--navy-deep);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  transition: opacity 600ms var(--ease-in);
-}
-#intro-overlay.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-.intro-logo {
-  width: 140px;
-  opacity: 0;
-  transform: scale(0.92);
-  transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
-}
-.intro-logo.visible {
-  opacity: 1;
-  transform: scale(1);
-}
-.intro-label {
-  font-family: var(--font-extended);
-  font-weight: 400;
-  font-size: 0.65rem;
-  letter-spacing: 0.45em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 600ms var(--ease-out) 200ms, transform 600ms var(--ease-out) 200ms;
-}
-.intro-label.visible {
-  opacity: 1;
-  transform: translateY(0);
+  padding: clamp(32px, 5vw, 56px);
+  margin-bottom: 2px;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   HERO SECTION — SCROLL-PINNED REVEAL
-   ═══════════════════════════════════════════════════════════════ */
-#hero-section {
-  /* Height is set by ScrollTrigger pin — we give scroll distance */
-  height: 100vh;
+/* Toast */
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+  font-family: var(--sans); font-size: 0.75rem; font-weight: 500;
+  color: var(--white); background: var(--navy);
+  padding: 10px 24px; border-radius: 6px;
+  z-index: 9999; pointer-events: none;
+  transition: transform 0.35s var(--ease), opacity 0.35s ease;
+  opacity: 0;
+  display: flex; align-items: center; gap: 8px;
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* ═══════════════════════════════════════════
+   HERO — GSAP scroll-reveal grid
+   (matches brand.norcalsbdc.org/voice effect)
+   ═══════════════════════════════════════════ */
+.hero {
   position: relative;
-  overflow: hidden;
+  width: 100%;
+  background: var(--navy);
+  margin-top: 56px;
 }
 
-/* The inner container that starts inset and expands */
-.hero-container {
-  position: absolute;
-  inset: 0;
-  margin: 50px;
+/* Intro overlay: logo + "Brand" → fades out */
+.hero-intro {
+  position: absolute; inset: 0; z-index: 10;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 16px;
+  background: var(--navy-deep);
+  pointer-events: none;
+}
+.hero-intro-logo {
+  width: clamp(160px, 22vw, 280px); height: auto;
+  opacity: 0; transform: translateY(8px);
+}
+.hero-intro-label {
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 300;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  opacity: 0; transform: translateY(6px);
+}
+
+/* Inner container — starts inset with rounded corners */
+.hero-inner {
+  position: relative;
+  width: calc(100% - 96px);
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  margin: 48px;
   border-radius: 20px;
   background: var(--navy-deep);
-  overflow: hidden;
-  /* GSAP will animate margin → 0 and border-radius → 0 */
 }
 
-/* 3x3 image grid — starts invisible */
+/* 3x3 image grid */
 .hero-grid {
-  position: absolute;
-  inset: 0;
   display: grid;
   grid-template-columns: 1fr 2.5fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: repeat(3, 1fr);
   gap: 3px;
-  background: #000;
+  position: absolute; inset: 0; z-index: 1;
   opacity: 0;
-  /* GSAP animates opacity in */
+  transform: skewX(5deg);
 }
-.hero-grid-cell {
-  overflow: hidden;
-  transform: scale(0.7) skewX(5deg);
-  /* GSAP animates to scale(1) skewX(0) */
-}
-.hero-grid-cell img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.hero-grid .cell {
+  background-size: cover;
+  background-position: center;
+  background-color: var(--navy-deep);
+  transform: scale(0.7);
 }
 
-/* Vignette so text stays legible */
+/* Vignette over images */
 .hero-vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, rgba(9,20,34,0.15) 0%, rgba(9,20,34,0.7) 100%);
-  z-index: 2;
+  position: absolute; inset: 0; z-index: 2;
   pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, rgba(9,20,34,0) 25%, rgba(9,20,34,0.65) 100%),
+    linear-gradient(to bottom, rgba(9,20,34,0.35) 0%, rgba(9,20,34,0) 20%, rgba(9,20,34,0) 80%, rgba(9,20,34,0.35) 100%);
 }
 
-/* Hero text — always centered, always above the grid */
+/* Centered text overlay */
 .hero-text {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 40px;
+  position: absolute; inset: 0; z-index: 3;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  pointer-events: none;
 }
 .hero-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
-  margin-bottom: 20px;
-  opacity: 0;
+  font-family: var(--sans); font-size: 0.7rem; font-weight: 300;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 16px;
+  opacity: 0; transform: translateY(8px);
 }
 .hero-heading {
-  font-family: var(--font-expanded);
-  font-weight: 900;
-  font-size: clamp(44px, 8.5vw, 120px);
-  letter-spacing: -0.04em;
-  line-height: 0.92;
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(2.8rem, 7vw, 6.5rem);
   color: var(--white);
-  margin-bottom: 20px;
-  opacity: 0;
+  text-shadow: 0 4px 60px rgba(0,0,0,0.4);
+  text-align: center;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  opacity: 0; transform: translateY(16px);
+}
+.hero-heading em {
+  font-style: italic;
+  color: var(--pool);
 }
 .hero-sub {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.55);
-  opacity: 0;
-}
-.hero-scroll-indicator {
-  position: absolute;
-  bottom: 36px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 4;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  opacity: 0;
-}
-.hero-scroll-indicator span {
-  font-family: var(--font-mono);
-  font-size: 0.5rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
-}
-.scroll-line {
-  width: 1px;
-  height: 32px;
-  background: rgba(255,255,255,0.25);
-  position: relative;
-  overflow: hidden;
-}
-.scroll-line::after {
-  content: '';
-  position: absolute;
-  top: -100%;
-  left: 0;
-  width: 1px;
-  height: 100%;
-  background: rgba(255,255,255,0.7);
-  animation: scroll-pulse 2s ease-in-out infinite;
-}
-@keyframes scroll-pulse {
-  0% { top: -100%; }
-  100% { top: 200%; }
+  font-family: var(--sans); font-size: clamp(0.7rem, 1vw, 0.85rem);
+  font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-top: 20px;
+  opacity: 0; transform: translateY(8px);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   MANIFESTO SECTION — TFG-Style Bold Stats
-   ═══════════════════════════════════════════════════════════════ */
-#manifesto {
-  background: var(--royal);
-  padding: clamp(80px, 12vw, 140px) clamp(24px, 8vw, 120px);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-.manifesto-label {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.55);
-  margin-bottom: 48px;
+/* Scroll indicator */
+.hero-scroll {
+  position: absolute; bottom: 28px; left: 50%;
+  transform: translateX(-50%); z-index: 4;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 6px;
   opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
 }
-.manifesto-label.revealed { opacity: 1; transform: translateY(0); }
+.hero-scroll-label {
+  font-family: var(--mono); font-size: 0.45rem; font-weight: 400;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+}
+.hero-scroll-line {
+  width: 1px; height: 28px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.15), transparent);
+  animation: scrollPulse 2.5s ease infinite;
+}
+@keyframes scrollPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
-.manifesto-text {
-  font-family: var(--font-era);
-  font-weight: 300;
-  font-size: clamp(1.75rem, 4.5vw, 4.5rem);
-  line-height: 1.1;
-  color: var(--white);
-  max-width: 1000px;
-  margin: 0 auto 56px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 800ms var(--ease-out) 100ms, transform 800ms var(--ease-out) 100ms;
-}
-.manifesto-text.revealed { opacity: 1; transform: translateY(0); }
-.manifesto-bold {
-  font-family: var(--font-era);
-  font-weight: 700;
+@media (max-width: 768px) {
+  .hero-inner { aspect-ratio: 3/4; margin: 12px; width: calc(100% - 24px); border-radius: 12px; }
+  .hero-heading { font-size: clamp(2.2rem, 10vw, 3.5rem); }
+  .hero-scroll { display: none; }
 }
 
-.manifesto-pillars {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 700ms var(--ease-out) 200ms, transform 700ms var(--ease-out) 200ms;
+/* ═══════════════════════════════════════════
+   START HERE
+   ═══════════════════════════════════════════ */
+.start-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
 }
-.manifesto-pillars.revealed { opacity: 1; transform: translateY(0); }
-.pillar {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.7);
-}
-.pillar-sep {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: rgba(255,255,255,0.35);
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   DIRECTORY SECTION — Brand Toolkit Grid
-   ═══════════════════════════════════════════════════════════════ */
-#directory {
-  background: var(--cream);
-  padding: clamp(80px, 10vw, 120px) clamp(24px, 5vw, 80px);
-}
-.directory-header {
-  margin-bottom: 64px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.section-label {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(10,21,40,0.35);
-  opacity: 0;
-  transition: opacity 600ms var(--ease-out);
-}
-.section-label.revealed { opacity: 1; }
-.directory-title {
-  font-family: var(--font-era);
-  font-weight: 300;
-  font-size: clamp(2rem, 5vw, 4rem);
-  letter-spacing: -0.02em;
-  line-height: 1.0;
-  color: var(--text);
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 700ms var(--ease-out) 80ms, transform 700ms var(--ease-out) 80ms;
-}
-.directory-title.revealed { opacity: 1; transform: translateY(0); }
-
-.toolkit-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: rgba(10,21,40,0.08);
-  border: 1px solid rgba(10,21,40,0.08);
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.toolkit-card {
+.start-cell {
   background: var(--white);
-  padding: 32px 28px 28px;
-  position: relative;
-  cursor: pointer;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: background 200ms var(--ease-out), opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+  padding: 32px;
+  cursor: pointer; text-decoration: none; color: inherit; display: block;
+  transition: background 0.2s ease;
 }
-.toolkit-card.revealed { opacity: 1; transform: translateY(0); }
-.toolkit-card:hover { background: #f7f8fa; }
-.toolkit-card:hover .card-icon { color: var(--royal); }
-.toolkit-card:hover .card-arrow { opacity: 1; transform: translate(0, 0); }
+.start-cell:hover { background: #f8f7f5; }
+.start-cell-icon {
+  font-size: 20px; color: var(--royal); margin-bottom: 16px;
+  display: flex; align-items: center;
+}
+.start-cell-num {
+  font-family: var(--mono); font-size: 0.5rem; font-weight: 400;
+  color: var(--text-tertiary); margin-bottom: 4px;
+}
+.start-cell-title {
+  font-family: var(--sans); font-weight: 700;
+  font-size: 0.65rem; text-transform: uppercase;
+  letter-spacing: 0.04em; color: var(--text);
+  margin-bottom: 8px;
+}
+.start-cell-desc {
+  font-family: var(--sans); font-weight: 300;
+  font-size: 0.88rem; line-height: 1.6;
+  color: var(--text-secondary);
+}
+.start-cell-meta {
+  display: inline-block; margin-top: 16px;
+}
 
-.card-arrow {
+/* ═══════════════════════════════════════════
+   LOGO USAGE
+   ═══════════════════════════════════════════ */
+.logo-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  margin: 0 0 32px;
+}
+.logo-cell {
+  aspect-ratio: 16/10;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 28px;
+  position: relative;
+}
+.logo-cell img { max-height: 45%; max-width: 60%; object-fit: contain; margin-bottom: 10px; }
+.logo-cell-label {
+  font-family: var(--sans); font-size: 0.55rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  opacity: 0.4;
+}
+.logo-dark { background: var(--navy); color: var(--white); }
+.logo-light { background: var(--white); color: var(--navy); }
+.logo-pool { background: var(--pool); color: var(--navy); }
+.logo-royal { background: var(--royal); color: var(--white); }
+
+/* Asset download links */
+.asset-links {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px;
+}
+.asset-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--sans); font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--royal);
+  padding: 6px 12px;
+  border: 1px solid rgba(29,90,167,0.2);
+  border-radius: 3px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.asset-link:hover { background: var(--royal-dim); }
+.asset-link iconify-icon { font-size: 14px; }
+
+.clearspace-demo {
+  display: flex; align-items: center; justify-content: center;
+  background: var(--white);
+  padding: 48px; margin: 24px 0;
+  position: relative;
+}
+.clearspace-demo img { height: 36px; }
+.clearspace-guide {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 16px;
-  height: 16px;
-  opacity: 0;
-  transform: translate(-4px, 4px);
-  transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
-  color: var(--text);
+  border: 1px dashed var(--royal);
+  opacity: 0.3;
+  pointer-events: none;
 }
-.card-num {
-  font-family: var(--font-mono);
-  font-size: 0.5rem;
-  letter-spacing: 0.2em;
-  color: rgba(10,21,40,0.3);
-  margin-bottom: 20px;
+
+/* Do/Don't — Chamber-like clean cards */
+.do-dont {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  margin: 24px 0;
 }
-.card-icon {
-  width: 24px;
-  height: 24px;
-  color: rgba(10,21,40,0.4);
-  margin-bottom: 16px;
-  transition: color var(--transition-interactive);
+.do-card, .dont-card {
+  padding: 28px; background: var(--white);
 }
-.card-title {
-  font-family: var(--font-extended);
-  font-weight: 400;
-  font-size: 0.88rem;
-  letter-spacing: 0.01em;
-  color: var(--text);
+.do-card-label, .dont-card-label {
+  font-family: var(--sans); font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 6px;
+}
+.do-card-label { color: var(--green); }
+.dont-card-label { color: var(--red); }
+.do-card p, .dont-card p {
+  font-family: var(--sans); font-weight: 300;
+  font-size: 0.88rem; line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+/* ═══════════════════════════════════════════
+   COLORS
+   ═══════════════════════════════════════════ */
+.color-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;
+  margin: 0 0 28px;
+}
+.color-swatch {
+  padding: 20px 16px;
+  min-height: 140px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  position: relative;
+}
+.color-swatch:hover { opacity: 0.88; }
+.color-swatch-name {
+  font-family: var(--sans); font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.color-swatch-values { display: flex; flex-direction: column; gap: 2px; }
+.color-swatch-hex {
+  font-family: var(--mono); font-size: 0.55rem; font-weight: 400;
+  opacity: 0.65;
+}
+.color-swatch-rgb {
+  font-family: var(--mono); font-size: 0.48rem; font-weight: 400;
+  opacity: 0.35;
+}
+.color-swatch-copy {
+  position: absolute; top: 8px; right: 8px;
+  font-family: var(--sans); font-size: 0.5rem; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  opacity: 0; padding: 3px 6px; border-radius: 2px;
+  background: rgba(0,0,0,0.2); color: var(--white);
+  transition: opacity 0.2s ease;
+  display: flex; align-items: center; gap: 4px;
+}
+.color-swatch:hover .color-swatch-copy { opacity: 1; }
+
+.swatch-navy { background: var(--navy); color: var(--white); }
+.swatch-royal { background: var(--royal); color: var(--white); }
+.swatch-pool { background: var(--pool); color: var(--navy); }
+.swatch-cream { background: #f0efeb; color: var(--navy); }
+.swatch-white { background: var(--white); color: var(--navy); }
+
+/* Pair grid */
+.pair-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 0;
+  margin: 16px 0; background: var(--white);
+  border: 1px solid var(--rule-light);
+}
+.pair-cell {
+  padding: 10px; text-align: center;
+  font-family: var(--mono); font-size: 0.52rem; font-weight: 400;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  border-right: 1px solid var(--rule-light);
+  border-bottom: 1px solid var(--rule-light);
+}
+.pair-cell:nth-child(5n) { border-right: none; }
+.pair-cell:nth-last-child(-n+5) { border-bottom: none; }
+.pair-cell.header { background: #f8f7f5; color: var(--text-tertiary); font-size: 0.48rem; }
+.pair-pass { color: var(--green); }
+.pair-fail { color: var(--red); opacity: 0.5; }
+.pair-warn { color: #ca8a04; }
+
+/* Token block */
+.token-block {
+  background: var(--navy); color: rgba(255,255,255,0.6);
+  padding: 20px 24px;
+  margin: 16px 0; position: relative;
+}
+.token-block pre {
+  font-family: var(--mono); font-size: 0.72rem; font-weight: 400;
+  line-height: 1.8; overflow-x: auto; white-space: pre;
+}
+.token-block .token-key { color: var(--pool); }
+.token-block .token-val { color: #f4f1ea; }
+.token-block .copy-all {
+  position: absolute; top: 12px; right: 12px;
+  color: rgba(255,255,255,0.3); background: transparent;
+}
+.token-block .copy-all:hover { color: var(--pool); }
+
+/* ═══════════════════════════════════════════
+   TYPOGRAPHY — Specimens
+   ═══════════════════════════════════════════ */
+.type-specimens { margin: 0 0 32px; }
+.type-card {
+  background: var(--white);
+  padding: 36px;
+  margin-bottom: 2px;
+}
+.type-role {
+  font-family: var(--sans); font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-tertiary); margin-bottom: 20px;
+}
+.type-sample { margin-bottom: 16px; }
+.type-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 16px; border-top: 1px solid var(--rule-light);
+}
+.type-family {
+  font-family: var(--sans); font-size: 0.75rem; font-weight: 300;
+  color: var(--text-secondary);
+}
+.type-css {
+  font-family: var(--mono); font-size: 0.5rem; font-weight: 400;
+  color: var(--text-tertiary); cursor: pointer;
+  display: inline-flex; align-items: center; gap: 4px;
+  transition: color 0.2s ease;
+}
+.type-css:hover { color: var(--royal); }
+.type-css iconify-icon { font-size: 12px; }
+
+.type-sample-tobias-hero {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  color: var(--text); line-height: 1.05; letter-spacing: -0.02em;
+}
+.type-sample-tobias-italic {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--royal); line-height: 1.2; font-style: italic;
+}
+.type-sample-gt {
+  font-family: var(--sans); font-weight: 300;
+  font-size: clamp(1rem, 1.4vw, 1.1rem);
+  color: var(--text); letter-spacing: -0.015em;
+  line-height: 1.55;
+}
+.type-sample-mono {
+  font-family: var(--mono); font-weight: 400;
+  font-size: 0.85rem; color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+/* ═══════════════════════════════════════════
+   GUIDELINES
+   ═══════════════════════════════════════════ */
+.guide-sub {
+  font-family: var(--sans); font-weight: 700;
+  font-size: 0.65rem; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--text-secondary);
+  margin: 40px 0 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.guide-sub iconify-icon { font-size: 15px; color: var(--text-tertiary); }
+
+/* Channel cards */
+.channel-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  margin: 16px 0;
+}
+.channel-cell {
+  background: var(--white);
+  padding: 28px;
+}
+.channel-cell-title {
+  font-family: var(--sans); font-weight: 700;
+  font-size: 0.62rem; text-transform: uppercase;
+  letter-spacing: 0.04em; color: var(--text);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+.channel-cell-title iconify-icon { font-size: 15px; color: var(--text-tertiary); }
+.channel-cell-body {
+  font-family: var(--sans); font-weight: 300;
+  font-size: 0.88rem; line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+/* ═══════════════════════════════════════════
+   MESSAGING
+   ═══════════════════════════════════════════ */
+.voice-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  margin: 0 0 32px;
+}
+.voice-cell {
+  background: var(--white);
+  padding: 32px;
+}
+.voice-cell-title {
+  font-family: var(--serif); font-weight: 400;
+  font-size: 1.05rem; color: var(--text);
   margin-bottom: 10px;
 }
-.card-desc {
-  font-family: var(--font-tiempos);
-  font-size: 0.8rem;
-  line-height: 1.55;
-  color: rgba(10,21,40,0.55);
+.voice-cell-body {
+  font-family: var(--sans); font-weight: 300;
+  font-size: 0.88rem; line-height: 1.7;
+  color: var(--text-secondary);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   FOOTER
-   ═══════════════════════════════════════════════════════════════ */
-footer {
-  background: var(--navy-deep);
-  padding: 28px 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-  border-top: 1px solid rgba(255,255,255,0.06);
+.phrase-table {
+  width: 100%; border-collapse: collapse;
+  margin: 20px 0; background: var(--white);
 }
-.footer-brand {
-  font-family: var(--font-extended);
-  font-weight: 900;
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.55);
+.phrase-table th {
+  font-family: var(--sans); font-size: 0.58rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-tertiary); text-align: left;
+  padding: 12px 16px; border-bottom: 1px solid var(--rule);
 }
-.footer-links {
-  display: flex;
-  gap: 24px;
-  list-style: none;
-  flex-wrap: wrap;
+.phrase-table td {
+  font-family: var(--sans); font-weight: 300;
+  font-size: 0.88rem;
+  color: var(--text-secondary); padding: 12px 16px;
+  border-bottom: 1px solid var(--rule-light);
 }
-.footer-links a {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
-  transition: color var(--transition-interactive);
-}
-.footer-links a:hover { color: rgba(255,255,255,0.7); }
-.footer-version {
-  font-family: var(--font-mono);
-  font-size: 0.5rem;
-  letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.18);
-}
+.phrase-table .use { color: var(--green); font-weight: 500; }
+.phrase-table .avoid { color: var(--red); text-decoration: line-through; opacity: 0.5; }
 
-/* ═══════════════════════════════════════════════════════════════
-   GRID EDITOR PANEL
-   ═══════════════════════════════════════════════════════════════ */
-.editor-toggle {
-  position: fixed;
-  bottom: 28px;
-  right: 28px;
-  z-index: 500;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(8px);
-  cursor: pointer;
-  transition: background 200ms var(--ease-out), border-color 200ms var(--ease-out);
-}
-.editor-toggle:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); }
-.editor-toggle svg { color: rgba(255,255,255,0.6); }
-
-.editor-panel {
-  position: fixed;
-  bottom: 78px;
-  right: 28px;
-  z-index: 500;
-  width: 320px;
+/* Tagline block */
+.tagline-block {
   background: var(--navy);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 12px;
-  padding: 20px;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(8px) scale(0.97);
-  transition: opacity 250ms var(--ease-out), transform 250ms var(--ease-out);
+  text-align: center; padding: 56px;
+  margin: 16px 0; position: relative;
 }
-.editor-panel.open { opacity: 1; pointer-events: all; transform: translateY(0) scale(1); }
-.editor-panel h3 {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
-  margin-bottom: 16px;
+.tagline-block .copy-all {
+  position: absolute; top: 12px; right: 12px;
+  color: rgba(255,255,255,0.3); background: transparent;
 }
-.editor-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-.editor-input {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.editor-input label {
-  font-family: var(--font-mono);
-  font-size: 0.5rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
-}
-.editor-input input {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 4px;
-  padding: 5px 8px;
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  color: var(--white);
-  width: 100%;
-  outline: none;
-}
-.editor-input input:focus { border-color: var(--pool); }
-.editor-actions {
-  display: flex;
-  gap: 8px;
-}
-.editor-btn {
-  flex: 1;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 200ms var(--ease-out);
-}
-.editor-btn-export { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.1); }
-.editor-btn-export:hover { background: rgba(255,255,255,0.15); }
-.editor-btn-import { background: var(--royal); color: var(--white); border: 1px solid transparent; }
-.editor-btn-import:hover { background: #2468b8; }
 
-/* ═══════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════
+   TEMPLATES
+   ═══════════════════════════════════════════ */
+.template-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+}
+.template-cell {
+  background: var(--white);
+  padding: 0;
+  cursor: default;
+}
+.template-cell-preview {
+  aspect-ratio: 16/9;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.template-cell-preview img { max-height: 45%; max-width: 55%; }
+
+/* Mini CSS mockups */
+.mini {
+  width: 58%; height: 68%;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+.mini-bar { height: 12%; border-radius: 1px 1px 0 0; }
+.mini-line { border-radius: 1px; }
+.mini-block { border-radius: 1px; }
+.mini-img { border-radius: 1px; }
+.template-cell-badge { position: absolute; top: 10px; right: 10px; }
+.template-cell-body { padding: 20px 24px; }
+.template-cell-name {
+  font-family: var(--sans); font-weight: 700;
+  font-size: 0.62rem; text-transform: uppercase;
+  letter-spacing: 0.04em; color: var(--text);
+  margin-bottom: 3px;
+}
+.template-cell-meta {
+  font-family: var(--mono); font-size: 0.5rem; font-weight: 400;
+  color: var(--text-tertiary); margin-bottom: 10px;
+}
+.template-cell-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* ═══════════════════════════════════════════
+   CAMPAIGNS
+   ═══════════════════════════════════════════ */
+.campaign-list { margin: 0; }
+.campaign-row {
+  display: grid; grid-template-columns: 200px 1fr auto; gap: 24px;
+  padding: 24px 28px; background: var(--white);
+  margin-bottom: 2px;
+  align-items: center;
+}
+.campaign-name {
+  font-family: var(--sans); font-weight: 700;
+  font-size: 0.62rem; text-transform: uppercase;
+  letter-spacing: 0.03em; color: var(--text);
+  display: flex; align-items: center; gap: 6px;
+}
+.campaign-name iconify-icon { font-size: 16px; color: var(--text-tertiary); }
+.campaign-date {
+  font-family: var(--mono); font-size: 0.5rem;
+  color: var(--text-tertiary); margin-top: 4px;
+}
+.campaign-desc {
+  font-family: var(--sans); font-weight: 300;
+  font-size: 0.88rem;
+  line-height: 1.65; color: var(--text-secondary);
+}
+
+/* ═══════════════════════════════════════════
+   CONTACT
+   ═══════════════════════════════════════════ */
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+}
+.contact-cell {
+  background: var(--white);
+  padding: 36px;
+}
+.contact-cell-icon { font-size: 22px; color: var(--royal); margin-bottom: 14px; }
+.contact-cell-title {
+  font-family: var(--sans); font-weight: 700;
+  font-size: 0.62rem; text-transform: uppercase;
+  letter-spacing: 0.03em; color: var(--text);
+  margin-bottom: 12px;
+}
+.contact-cell-body {
+  font-family: var(--sans); font-weight: 300;
+  font-size: 0.88rem; line-height: 1.7;
+  color: var(--text-secondary);
+}
+.contact-cell-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--sans); font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--royal); margin-top: 16px;
+  transition: gap 0.2s var(--ease);
+}
+.contact-cell-link:hover { gap: 12px; }
+.contact-cell-link iconify-icon { font-size: 14px; }
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
+.footer {
+  padding: 28px var(--pad);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-left { display: flex; align-items: center; gap: 10px; }
+.footer-logo { height: 14px; opacity: 0.35; }
+.footer-text {
+  font-family: var(--mono); font-size: 0.5rem; font-weight: 400;
+  color: var(--text-tertiary);
+}
+
+/* ═══════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════ */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+.reveal {
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ═══════════════════════════════════════════
    RESPONSIVE
-   ═══════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .nav-links a { padding: 18px 10px; font-size: 0.72rem; }
+  .start-grid { grid-template-columns: repeat(2, 1fr); }
+  .template-grid { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 768px) {
-  .nav { padding: 0 20px; }
-  .nav-links { display: none; }
-  .hero-container { margin: 20px; border-radius: 12px; }
-  .toolkit-grid { grid-template-columns: repeat(2, 1fr); }
-  .manifesto-pillars { flex-direction: column; gap: 12px; }
-  .pillar-sep { display: none; }
-  footer { padding: 20px; }
-  .editor-panel { width: 280px; right: 16px; }
-  .editor-toggle { bottom: 20px; right: 16px; }
+  .nav-links, .nav-version { display: none; }
+  .hero-inner { aspect-ratio: 3/4; margin: 12px; width: calc(100% - 24px); border-radius: 12px; }
+  .hero-heading { font-size: clamp(2rem, 10vw, 3rem); }
+  .start-grid, .template-grid, .channel-grid, .voice-grid,
+  .contact-grid, .do-dont { grid-template-columns: 1fr; }
+  .logo-grid { grid-template-columns: 1fr 1fr; }
+  .color-grid { grid-template-columns: repeat(3, 1fr); }
+  .pair-grid { grid-template-columns: repeat(3, 1fr); }
+  .campaign-row { grid-template-columns: 1fr; gap: 6px; }
+  .section-editorial h2 { font-size: clamp(1.8rem, 5vw, 2.6rem); }
 }
 @media (max-width: 480px) {
-  .toolkit-grid { grid-template-columns: 1fr; }
+  .logo-grid { grid-template-columns: 1fr; }
+  .color-grid { grid-template-columns: 1fr 1fr; }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   REDUCED MOTION
-   ═══════════════════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
-  #intro-overlay { transition: none; }
-  .intro-logo, .intro-label { transition: none; }
-  .scroll-line::after { animation: none; }
-  .hero-text *, .manifesto-label, .manifesto-text, .manifesto-pillars,
-  .section-label, .directory-title, .toolkit-card {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+  .hero-breadcrumb, .hero-h1, .hero-desc, .hero-actions, .hero-meta { opacity: 1; transform: none; }
 }
 </style>
 </head>
 <body>
 
-<!-- ═══ FILM GRAIN ═══ -->
-<svg class="grain-overlay" xmlns="http://www.w3.org/2000/svg">
-  <filter id="grain">
-    <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
-    <feColorMatrix type="saturate" values="0"/>
-  </filter>
-  <rect width="100%" height="100%" filter="url(#grain)"/>
-</svg>
-
-<!-- ═══ LOGO INTRO OVERLAY ═══ -->
-<div id="intro-overlay">
-  <img src="./NCN_Band_Logo_White.png" alt="NorCal SBDC" class="intro-logo" id="intro-logo">
-  <p class="intro-label" id="intro-label">Brand</p>
-</div>
-
-<!-- ═══ FULLSCREEN MENU ═══ -->
-<div class="fullscreen-menu" id="fullscreen-menu">
-  <nav>
-    <ul class="menu-nav">
-      <li><a href="#hero-section">Home</a></li>
-      <li><a href="#manifesto">Our Impact</a></li>
-      <li><a href="#directory">Brand Toolkit</a></li>
-      <li><a href="https://www.norcalsbdc.org" target="_blank" rel="noopener">Main Site</a></li>
-      <li><a href="mailto:brand@norcalsbdc.org">Contact</a></li>
-    </ul>
-  </nav>
-</div>
-
-<!-- ═══ NAV ═══ -->
-<nav class="nav" id="main-nav">
-  <a href="#" class="nav-brand">Brand.SBDC</a>
-  <div class="nav-actions">
-    <ul class="nav-links">
-      <li><a href="#manifesto">Impact</a></li>
-      <li><a href="#directory">Toolkit</a></li>
-      <li><a href="https://www.norcalsbdc.org" target="_blank" rel="noopener">SBDC.org</a></li>
-    </ul>
-    <div class="hamburger" id="hamburger" aria-label="Menu" role="button" tabindex="0">
-      <span></span>
-      <span></span>
-    </div>
+<!-- NAV -->
+<nav class="nav" role="navigation" aria-label="Brand house navigation">
+  <div class="nav-left">
+    <img src="assets/sbdc-white-2026.png" alt="NorCal SBDC" class="nav-logo">
+    <span class="nav-title">Brand House</span>
   </div>
+  <div class="nav-links">
+    <a href="#start" class="active">Start Here</a>
+    <a href="#assets">Assets</a>
+    <a href="#colors">Colors</a>
+    <a href="#type">Type</a>
+    <a href="#guidelines">Guidelines</a>
+    <a href="#templates">Templates</a>
+    <a href="#messaging">Messaging</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <span class="nav-version">v2026.1</span>
 </nav>
 
-<!-- ═══ HERO SECTION ═══ -->
-<section id="hero-section">
-  <div class="hero-container" id="hero-container">
-
-    <!-- 3×3 image grid -->
-    <div class="hero-grid" id="hero-grid">
-      <div class="hero-grid-cell" id="cell-0"><img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80&fit=crop&auto=format" alt="" loading="lazy" style="object-position:center 40%"></div>
-      <div class="hero-grid-cell" id="cell-1"><img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&q=80&fit=crop&auto=format" alt="" loading="lazy" style="object-position:center center"></div>
-      <div class="hero-grid-cell" id="cell-2"><img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80&fit=crop&auto=format" alt="" loading="lazy" style="object-position:center center"></div>
-      <div class="hero-grid-cell" id="cell-3"><img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=800&q=80&fit=crop&auto=format" alt="" loading="lazy" style="object-position:center center"></div>
-      <div class="hero-grid-cell" id="cell-4"><img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80&fit=crop&auto=format" alt="" loading="lazy" style="object-position:center center"></div>
-      <div class="hero-grid-cell" id="cell-5"><img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&q=80&fit=crop&auto=format" alt="" loading="lazy" style="object-position:center 30%"></div>
-      <div class="hero-grid-cell" id="cell-6"><img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80&fit=crop&auto=format" alt="" loading="lazy" style="object-position:center center"></div>
-      <div class="hero-grid-cell" id="cell-7"><img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&q=80&fit=crop&auto=format" alt="" loading="lazy" style="object-position:center center"></div>
-      <div class="hero-grid-cell" id="cell-8"><img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80&fit=crop&auto=format" alt="" loading="lazy" style="object-position:center center"></div>
+<!-- HERO — GSAP scroll-reveal grid -->
+<section class="hero" id="hero">
+  <div class="hero-inner" id="heroInner">
+    <!-- Intro: logo + Brand label, fades out -->
+    <div class="hero-intro" id="heroIntro">
+      <img class="hero-intro-logo" id="introLogo" src="./NCN_Band_Logo_White.png" alt="NorCal SBDC">
+      <div class="hero-intro-label" id="introLabel">Brand</div>
     </div>
-
-    <!-- Vignette -->
+    <!-- Image grid -->
+    <div class="hero-grid" id="heroGrid"></div>
     <div class="hero-vignette"></div>
-
     <!-- Text overlay -->
-    <div class="hero-text">
-      <p class="hero-eyebrow" id="hero-eyebrow">Northern California SBDC</p>
-      <h1 class="hero-heading" id="hero-heading">Your Business<br>People</h1>
-      <p class="hero-sub" id="hero-sub">The trusted partner for Northern California's small businesses</p>
+    <div class="hero-text" id="heroText">
+      <div class="hero-eyebrow">Northern California SBDC</div>
+      <h1 class="hero-heading">Your Business<br><em>People</em></h1>
+      <p class="hero-sub">Standards &middot; Assets &middot; Voice</p>
     </div>
-
     <!-- Scroll indicator -->
-    <div class="hero-scroll-indicator" id="hero-scroll-indicator">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
+    <div class="hero-scroll" id="heroScroll">
+      <span class="hero-scroll-label">Scroll</span>
+      <div class="hero-scroll-line"></div>
     </div>
-
   </div>
 </section>
 
-<!-- ═══ MANIFESTO SECTION ═══ -->
-<section id="manifesto">
-  <p class="manifesto-label" id="manifesto-label">Success</p>
-  <p class="manifesto-text" id="manifesto-text">
-    To date — we have helped <span class="manifesto-bold">36 counties</span>, <span class="manifesto-bold">14 centers</span>, and thousands of businesses access over <span class="manifesto-bold">$258M</span> in capital.
-  </p>
-  <div class="manifesto-pillars" id="manifesto-pillars">
-    <span class="pillar">One Brand</span>
-    <span class="pillar-sep">·</span>
-    <span class="pillar">One Message</span>
-    <span class="pillar-sep">·</span>
-    <span class="pillar">Exponential Impact</span>
+<!-- START HERE -->
+<section class="section" id="start">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-header-title">Start Here</div>
+      <div class="section-header-sub">Jump to the section that matches your task.</div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="start-grid reveal">
+      <a href="#assets" class="start-cell">
+        <div class="start-cell-icon"><iconify-icon icon="carbon:image"></iconify-icon></div>
+        <div class="start-cell-num">01</div>
+        <div class="start-cell-title">Brand Assets</div>
+        <div class="start-cell-desc">Logos, color swatches with click-to-copy, and typography specimens with CSS tokens.</div>
+        <span class="tag tag-royal start-cell-meta">4 Logos</span>
+      </a>
+      <a href="#guidelines" class="start-cell">
+        <div class="start-cell-icon"><iconify-icon icon="carbon:rule"></iconify-icon></div>
+        <div class="start-cell-num">02</div>
+        <div class="start-cell-title">Guidelines</div>
+        <div class="start-cell-desc">Logo clear space, color accessibility, type hierarchy per channel, and do/don&rsquo;t guidance.</div>
+        <span class="tag start-cell-meta">Rules</span>
+      </a>
+      <a href="#templates" class="start-cell">
+        <div class="start-cell-icon"><iconify-icon icon="carbon:template"></iconify-icon></div>
+        <div class="start-cell-num">03</div>
+        <div class="start-cell-title">Templates</div>
+        <div class="start-cell-desc">Social kits, decks, email signatures, one-pagers, and event graphics.</div>
+        <span class="tag start-cell-meta">6 Categories</span>
+      </a>
+      <a href="messaging.html" class="start-cell" target="_blank">
+        <div class="start-cell-icon"><iconify-icon icon="carbon:chat"></iconify-icon></div>
+        <div class="start-cell-num">04</div>
+        <div class="start-cell-title">Messaging</div>
+        <div class="start-cell-desc">Voice attributes, approved phrases, elevator pitches, visual mockups, and tagline usage.</div>
+        <span class="tag tag-royal start-cell-meta" style="display: flex; align-items: center; gap: 3px;"><iconify-icon icon="carbon:launch" style="font-size: 8px;"></iconify-icon> Open</span>
+      </a>
+      <a href="event-graphics.html" class="start-cell" target="_blank">
+        <div class="start-cell-icon"><iconify-icon icon="carbon:events"></iconify-icon></div>
+        <div class="start-cell-num">05</div>
+        <div class="start-cell-title">Event Graphics</div>
+        <div class="start-cell-desc">Templates, live samples, and usage guidelines for banners, badges, signage, and social graphics.</div>
+        <span class="tag tag-royal start-cell-meta" style="display: flex; align-items: center; gap: 3px;"><iconify-icon icon="carbon:launch" style="font-size: 8px;"></iconify-icon> Open</span>
+      </a>
+      <a href="success-stories.html" class="start-cell" target="_blank">
+        <div class="start-cell-icon"><iconify-icon icon="carbon:trophy"></iconify-icon></div>
+        <div class="start-cell-num">06</div>
+        <div class="start-cell-title">Success Stories</div>
+        <div class="start-cell-desc">Client stories organized by tier — signature, growth, and spotlight — with scoring rubric and writing toolkit.</div>
+        <span class="tag tag-royal start-cell-meta" style="display: flex; align-items: center; gap: 3px;"><iconify-icon icon="carbon:launch" style="font-size: 8px;"></iconify-icon> Open</span>
+      </a>
+      <a href="#campaigns" class="start-cell">
+        <div class="start-cell-icon"><iconify-icon icon="carbon:calendar"></iconify-icon></div>
+        <div class="start-cell-num">07</div>
+        <div class="start-cell-title">Campaigns</div>
+        <div class="start-cell-desc">Annual campaign calendar, toolkit links, and messaging frameworks.</div>
+        <span class="tag start-cell-meta">3 Campaigns</span>
+      </a>
+      <a href="lender-resources.html" class="start-cell" target="_blank">
+        <div class="start-cell-icon"><iconify-icon icon="carbon:partnership"></iconify-icon></div>
+        <div class="start-cell-num">08</div>
+        <div class="start-cell-title">Lender Resources</div>
+        <div class="start-cell-desc">Guides, spotlights, outreach ads, and talking points for lender &amp; partner relationships.</div>
+        <span class="tag tag-royal start-cell-meta" style="display: flex; align-items: center; gap: 3px;"><iconify-icon icon="carbon:launch" style="font-size: 8px;"></iconify-icon> Open</span>
+      </a>
+      <a href="#contact" class="start-cell">
+        <div class="start-cell-icon"><iconify-icon icon="carbon:help"></iconify-icon></div>
+        <div class="start-cell-num">09</div>
+        <div class="start-cell-title">Request &amp; Contact</div>
+        <div class="start-cell-desc">Custom asset requests, brand questions, or updates.</div>
+        <span class="tag tag-green start-cell-meta">Get Help</span>
+      </a>
+    </div>
   </div>
 </section>
 
-<!-- ═══ DIRECTORY SECTION ═══ -->
-<section id="directory">
-  <div class="directory-header">
-    <p class="section-label" id="dir-label">02 — Brand Toolkit</p>
-    <h2 class="directory-title" id="dir-title">Everything you need</h2>
-  </div>
-
-  <div class="toolkit-grid">
-
-    <!-- Card 1 -->
-    <div class="toolkit-card" tabindex="0">
-      <svg class="card-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
-      <p class="card-num">01</p>
-      <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
-      <h3 class="card-title">Logos &amp; Assets</h3>
-      <p class="card-desc">Primary, secondary, and mono lockups in every format. Download-ready SVG, PNG, and EPS.</p>
+<!-- BRAND ASSETS -->
+<section class="section" id="assets">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-header-title">Brand Assets</div>
+      <div class="section-header-sub">Two forms: the full wordmark and the standalone star mark.</div>
     </div>
 
-    <!-- Card 2 -->
-    <div class="toolkit-card" tabindex="0">
-      <svg class="card-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
-      <p class="card-num">02</p>
-      <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
-      <h3 class="card-title">Color System</h3>
-      <p class="card-desc">Navy, Royal, Pool, Cream — the complete NorCal SBDC palette with usage rules and accessibility grades.</p>
+    <div class="logo-grid reveal">
+      <div class="logo-cell logo-dark">
+        <img src="assets/sbdc-white-2026.png" alt="White logo on dark">
+        <span class="logo-cell-label">Wordmark — Dark</span>
+      </div>
+      <div class="logo-cell logo-light">
+        <img src="assets/sbdc-blue-2026.png" alt="Blue logo on light">
+        <span class="logo-cell-label">Wordmark — Light</span>
+      </div>
+      <div class="logo-cell logo-royal">
+        <img src="assets/sbdc-white-2026.png" alt="White logo on royal">
+        <span class="logo-cell-label">Wordmark — Royal</span>
+      </div>
+      <div class="logo-cell logo-dark">
+        <img src="assets/starwhite@4x.png" alt="Star mark white">
+        <span class="logo-cell-label">Star Mark — White</span>
+      </div>
+      <div class="logo-cell logo-light">
+        <img src="assets/starblue@4x.png" alt="Star mark blue">
+        <span class="logo-cell-label">Star Mark — Blue</span>
+      </div>
+      <div class="logo-cell logo-pool">
+        <img src="assets/sbdc-blue-2026.png" alt="Blue logo on pool">
+        <span class="logo-cell-label">Wordmark — Pool</span>
+      </div>
     </div>
 
-    <!-- Card 3 -->
-    <div class="toolkit-card" tabindex="0">
-      <svg class="card-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
-      <p class="card-num">03</p>
-      <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h10M4 17h7"/></svg>
-      <h3 class="card-title">Typography</h3>
-      <p class="card-desc">GT America and GT Era Display type system. Hierarchy rules, size scales, and pairing guidelines.</p>
+    <div class="asset-links reveal">
+      <a class="asset-link" href="assets/sbdc-white-2026.png" download><iconify-icon icon="carbon:download"></iconify-icon> White Wordmark</a>
+      <a class="asset-link" href="assets/sbdc-blue-2026.png" download><iconify-icon icon="carbon:download"></iconify-icon> Blue Wordmark</a>
+      <a class="asset-link" href="assets/starwhite@4x.png" download><iconify-icon icon="carbon:download"></iconify-icon> Star White</a>
+      <a class="asset-link" href="assets/starblue@4x.png" download><iconify-icon icon="carbon:download"></iconify-icon> Star Blue</a>
     </div>
 
-    <!-- Card 4 -->
-    <div class="toolkit-card" tabindex="0">
-      <svg class="card-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
-      <p class="card-num">04</p>
-      <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4"/><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/></svg>
-      <h3 class="card-title">Compliance</h3>
-      <p class="card-desc">Federal co-branding requirements, SBA logo rules, and partner acknowledgment standards.</p>
+    <div class="reveal">
+      <h3 class="guide-sub"><iconify-icon icon="carbon:fit-to-screen"></iconify-icon> Clear Space</h3>
+      <p style="font-family: var(--sans); font-weight: 300; font-size: 0.88rem; line-height: 1.65; color: var(--text-secondary); max-width: 520px;">Minimum clear space equal to the height of the &ldquo;S&rdquo; in SBDC around all sides.</p>
+    </div>
+    <div class="clearspace-demo reveal">
+      <img src="assets/sbdc-blue-2026.png" alt="Logo clear space" style="height: 36px;">
+      <div class="clearspace-guide" style="inset: 24px 38%; border-radius: 2px;"></div>
     </div>
 
-    <!-- Card 5 -->
-    <div class="toolkit-card" tabindex="0">
-      <svg class="card-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
-      <p class="card-num">05</p>
-      <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      <h3 class="card-title">Voice &amp; Messaging</h3>
-      <p class="card-desc">Tone of voice, key messages, taglines, and writing principles that define the NorCal SBDC brand.</p>
+    <div class="do-dont reveal">
+      <div class="do-card">
+        <div class="do-card-label"><iconify-icon icon="carbon:checkmark" style="font-size:13px"></iconify-icon> Do</div>
+        <p>Use provided files exactly as supplied. Place on approved backgrounds. Maintain clear space. Star mark for small applications (favicons, pins).</p>
+      </div>
+      <div class="dont-card">
+        <div class="dont-card-label"><iconify-icon icon="carbon:close" style="font-size:13px"></iconify-icon> Don&rsquo;t</div>
+        <p>Stretch, rotate, or recolor. Place on busy photos without a color block. Add shadows, outlines, or effects. Recreate with other typefaces.</p>
+      </div>
     </div>
-
-    <!-- Card 6 -->
-    <div class="toolkit-card" tabindex="0">
-      <svg class="card-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
-      <p class="card-num">06</p>
-      <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-      <h3 class="card-title">Templates</h3>
-      <p class="card-desc">Print, digital, and social templates. Business cards, letterhead, PowerPoint decks, and social media formats.</p>
-    </div>
-
-    <!-- Card 7 -->
-    <div class="toolkit-card" tabindex="0">
-      <svg class="card-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
-      <p class="card-num">07</p>
-      <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      <h3 class="card-title">Success Stories</h3>
-      <p class="card-desc">Client narrative framework, testimonial formats, and impact storytelling templates for your region.</p>
-    </div>
-
-    <!-- Card 8 -->
-    <div class="toolkit-card" tabindex="0">
-      <svg class="card-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
-      <p class="card-num">08</p>
-      <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      <h3 class="card-title">Campaigns &amp; Events</h3>
-      <p class="card-desc">Seasonal campaign playbooks, event signage specs, and promotional asset bundles.</p>
-    </div>
-
-    <!-- Card 9 -->
-    <div class="toolkit-card" tabindex="0">
-      <svg class="card-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H6M13 3v7"/></svg>
-      <p class="card-num">09</p>
-      <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      <h3 class="card-title">Tools &amp; Builders</h3>
-      <p class="card-desc">Interactive brand builders, social post generators, and co-branded material tools for center staff.</p>
-    </div>
-
   </div>
 </section>
 
-<!-- ═══ FOOTER ═══ -->
-<footer>
-  <span class="footer-brand">Brand.SBDC</span>
-  <ul class="footer-links">
-    <li><a href="https://www.norcalsbdc.org" target="_blank" rel="noopener noreferrer">NorCal SBDC</a></li>
-    <li><a href="https://www.sba.gov" target="_blank" rel="noopener noreferrer">SBA</a></li>
-    <li><a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a></li>
-  </ul>
-  <span class="footer-version">v4.0.0</span>
+<!-- COLORS -->
+<section class="section" id="colors">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-header-title">Color Palette</div>
+      <div class="section-header-sub">Five core colors. Click any swatch to copy the hex value.</div>
+    </div>
+
+    <div class="color-grid reveal" id="colorGrid">
+      <div class="color-swatch swatch-navy" data-hex="#0f1c2e" data-rgb="15, 28, 46" data-name="Navy" role="button" tabindex="0" aria-label="Copy Navy hex">
+        <span class="color-swatch-name">Navy</span>
+        <div class="color-swatch-values"><span class="color-swatch-hex">#0f1c2e</span><span class="color-swatch-rgb">RGB 15, 28, 46</span></div>
+        <span class="color-swatch-copy"><iconify-icon icon="carbon:copy" style="font-size:11px"></iconify-icon> Copy</span>
+      </div>
+      <div class="color-swatch swatch-royal" data-hex="#1D5AA7" data-rgb="29, 90, 167" data-name="Royal" role="button" tabindex="0" aria-label="Copy Royal hex">
+        <span class="color-swatch-name">Royal</span>
+        <div class="color-swatch-values"><span class="color-swatch-hex">#1D5AA7</span><span class="color-swatch-rgb">RGB 29, 90, 167</span></div>
+        <span class="color-swatch-copy"><iconify-icon icon="carbon:copy" style="font-size:11px"></iconify-icon> Copy</span>
+      </div>
+      <div class="color-swatch swatch-pool" data-hex="#8FC5D9" data-rgb="143, 197, 217" data-name="Pool" role="button" tabindex="0" aria-label="Copy Pool hex">
+        <span class="color-swatch-name">Pool</span>
+        <div class="color-swatch-values"><span class="color-swatch-hex">#8FC5D9</span><span class="color-swatch-rgb">RGB 143, 197, 217</span></div>
+        <span class="color-swatch-copy"><iconify-icon icon="carbon:copy" style="font-size:11px"></iconify-icon> Copy</span>
+      </div>
+      <div class="color-swatch swatch-cream" data-hex="#f0efeb" data-rgb="240, 239, 235" data-name="Cream" role="button" tabindex="0" aria-label="Copy Cream hex">
+        <span class="color-swatch-name">Cream</span>
+        <div class="color-swatch-values"><span class="color-swatch-hex">#f0efeb</span><span class="color-swatch-rgb">RGB 240, 239, 235</span></div>
+        <span class="color-swatch-copy"><iconify-icon icon="carbon:copy" style="font-size:11px"></iconify-icon> Copy</span>
+      </div>
+      <div class="color-swatch swatch-white" data-hex="#ffffff" data-rgb="255, 255, 255" data-name="White" role="button" tabindex="0" aria-label="Copy White hex">
+        <span class="color-swatch-name">White</span>
+        <div class="color-swatch-values"><span class="color-swatch-hex">#ffffff</span><span class="color-swatch-rgb">RGB 255, 255, 255</span></div>
+        <span class="color-swatch-copy"><iconify-icon icon="carbon:copy" style="font-size:11px"></iconify-icon> Copy</span>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <h3 class="guide-sub"><iconify-icon icon="carbon:accessibility"></iconify-icon> Contrast &amp; Accessibility</h3>
+      <p style="font-family: var(--sans); font-weight: 300; font-size: 0.88rem; line-height: 1.65; color: var(--text-secondary); max-width: 520px;">WCAG 2.1 AA (4.5:1 normal text). Green = pass. Red = fail. Yellow = large text only (3:1).</p>
+    </div>
+
+    <div class="pair-grid reveal" aria-label="Color contrast matrix">
+      <div class="pair-cell header">Text / BG &rarr;</div><div class="pair-cell header">Navy</div><div class="pair-cell header">Royal</div><div class="pair-cell header">Pool</div><div class="pair-cell header">Cream</div>
+      <div class="pair-cell header">White</div><div class="pair-cell pair-pass">16.1 &check;</div><div class="pair-cell pair-pass">5.7 &check;</div><div class="pair-cell pair-fail">1.9 &cross;</div><div class="pair-cell pair-fail">1.3 &cross;</div>
+      <div class="pair-cell header">Navy</div><div class="pair-cell pair-fail">&mdash;</div><div class="pair-cell pair-fail">2.8 &cross;</div><div class="pair-cell pair-pass">8.4 &check;</div><div class="pair-cell pair-pass">12.4 &check;</div>
+      <div class="pair-cell header">Pool</div><div class="pair-cell pair-pass">8.4 &check;</div><div class="pair-cell pair-warn">3.0 &#9650;</div><div class="pair-cell pair-fail">&mdash;</div><div class="pair-cell pair-fail">1.5 &cross;</div>
+      <div class="pair-cell header">Royal</div><div class="pair-cell pair-warn">2.8 &#9650;</div><div class="pair-cell pair-fail">&mdash;</div><div class="pair-cell pair-warn">3.0 &#9650;</div><div class="pair-cell pair-pass">4.4 &check;</div>
+    </div>
+
+    <div class="reveal" style="margin-top: 28px;">
+      <h3 class="guide-sub" style="margin-top: 0;"><iconify-icon icon="carbon:code"></iconify-icon> CSS Tokens</h3>
+    </div>
+    <div class="token-block reveal">
+      <button class="copy-btn copy-all" onclick="copyText(this, document.getElementById('cssTokens').textContent)" aria-label="Copy all CSS tokens">
+        <iconify-icon icon="carbon:copy"></iconify-icon> Copy All
+      </button>
+      <pre id="cssTokens"><span class="token-key">--navy:</span> <span class="token-val">#0f1c2e;</span>
+<span class="token-key">--royal:</span> <span class="token-val">#1D5AA7;</span>
+<span class="token-key">--pool:</span> <span class="token-val">#8FC5D9;</span>
+<span class="token-key">--cream:</span> <span class="token-val">#f0efeb;</span>
+<span class="token-key">--white:</span> <span class="token-val">#ffffff;</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section class="section" id="type">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-header-title">Typography</div>
+      <div class="section-header-sub">Two families, one principle: the serif form carries authority, the sans does everything else. Weight is quiet.</div>
+    </div>
+
+    <div class="type-specimens">
+      <div class="type-card reveal">
+        <div class="type-role">Tobias — Editorial</div>
+        <div class="type-sample">
+          <div class="type-sample-tobias-hero">Your Business, Better.</div>
+          <div class="type-sample-tobias-italic" style="margin-top: 8px;">Helping 36 counties grow.</div>
+        </div>
+        <div class="type-foot">
+          <span class="type-family">Headlines, taglines, pull quotes. Regular weight only — the serif form carries authority.</span>
+          <span class="type-css" data-copy="font-family: var(--serif);"><iconify-icon icon="carbon:copy"></iconify-icon> var(--serif)</span>
+        </div>
+      </div>
+
+      <div class="type-card reveal">
+        <div class="type-role">GT America — Everything Else</div>
+        <div class="type-sample">
+          <div class="type-sample-gt">The NorCal SBDC connects entrepreneurs with expert advisors, capital access, and the tools to grow across Northern California.</div>
+        </div>
+        <div class="type-foot">
+          <span class="type-family">Body, navigation, labels, UI. Light (300) for text, Bold (700) only on tiny uppercase labels.</span>
+          <span class="type-css" data-copy="font-family: var(--sans);"><iconify-icon icon="carbon:copy"></iconify-icon> var(--sans)</span>
+        </div>
+      </div>
+
+      <div class="type-card reveal">
+        <div class="type-role">GT America Mono — Data</div>
+        <div class="type-sample">
+          <div class="type-sample-mono">$547M+ CAPITAL &middot; 7,500 CLIENTS &middot; 36 COUNTIES</div>
+        </div>
+        <div class="type-foot">
+          <span class="type-family">Stats, metadata, code tokens, version labels.</span>
+          <span class="type-css" data-copy="font-family: var(--mono);"><iconify-icon icon="carbon:copy"></iconify-icon> var(--mono)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="token-block reveal">
+      <button class="copy-btn copy-all" onclick="copyText(this, document.getElementById('fontTokens').textContent)" aria-label="Copy all font tokens">
+        <iconify-icon icon="carbon:copy"></iconify-icon> Copy All
+      </button>
+      <pre id="fontTokens"><span class="token-key">--serif:</span> <span class="token-val">'Tobias', Georgia, serif;</span>
+<span class="token-key">--sans:</span> <span class="token-val">'GT America', sans-serif;</span>
+<span class="token-key">--mono:</span> <span class="token-val">'GT America Mono', monospace;</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- GUIDELINES -->
+<section class="section" id="guidelines">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-header-title">Guidelines</div>
+      <div class="section-header-sub">Each rule includes a rationale — the &ldquo;why,&rdquo; not just the &ldquo;what.&rdquo;</div>
+    </div>
+
+    <h3 class="guide-sub reveal"><iconify-icon icon="carbon:color-palette"></iconify-icon> Color Usage</h3>
+    <div class="do-dont reveal">
+      <div class="do-card"><div class="do-card-label"><iconify-icon icon="carbon:checkmark" style="font-size:13px"></iconify-icon> Do</div><p>Navy for dark backgrounds. Pool for interactive accents. Cream for light sections. White text on Navy or Royal. Navy text on Cream or Pool.</p></div>
+      <div class="dont-card"><div class="dont-card-label"><iconify-icon icon="carbon:close" style="font-size:13px"></iconify-icon> Don&rsquo;t</div><p>White text on Pool or Cream — fails accessibility. Royal as full-page background. Pool and Royal as adjacent elements. Colors outside the five-color palette.</p></div>
+    </div>
+
+    <h3 class="guide-sub reveal"><iconify-icon icon="carbon:text-font"></iconify-icon> Typography Hierarchy</h3>
+    <div class="do-dont reveal">
+      <div class="do-card"><div class="do-card-label"><iconify-icon icon="carbon:checkmark" style="font-size:13px"></iconify-icon> Do</div><p>Tobias Regular for editorial headlines — the serif form carries authority without needing bold. GT America Light (300) for body. Bold (700) only on tiny uppercase labels. Mono for stats and metadata.</p></div>
+      <div class="dont-card"><div class="dont-card-label"><iconify-icon icon="carbon:close" style="font-size:13px"></iconify-icon> Don&rsquo;t</div><p>Use Tobias below 20px or in bold weights (the form carries itself). Mix more than two families on a single component. Use bold GT America for body or headlines. Mono for body copy.</p></div>
+    </div>
+
+    <h3 class="guide-sub reveal"><iconify-icon icon="carbon:camera"></iconify-icon> Photography</h3>
+    <div class="do-dont reveal">
+      <div class="do-card"><div class="do-card-label"><iconify-icon icon="carbon:checkmark" style="font-size:13px"></iconify-icon> Do</div><p>Real NorCal clients and communities. Natural light, authentic settings. Diversity of geography — urban, rural, agricultural. Slight warm grade for consistency.</p></div>
+      <div class="dont-card"><div class="dont-card-label"><iconify-icon icon="carbon:close" style="font-size:13px"></iconify-icon> Don&rsquo;t</div><p>Generic stock that doesn&rsquo;t reflect Northern California. Over-filtered or heavily stylized. Logo on busy photos without a color block or overlay.</p></div>
+    </div>
+
+    <h3 class="guide-sub reveal"><iconify-icon icon="carbon:flow"></iconify-icon> Type by Channel</h3>
+    <div class="channel-grid reveal">
+      <div class="channel-cell">
+        <div class="channel-cell-title"><iconify-icon icon="carbon:logo-instagram"></iconify-icon> Social Media</div>
+        <div class="channel-cell-body">Tobias Regular for headline. GT America for supporting text. Pool accent for key stats. Max 2 lines for legibility at feed size. Navy background preferred.</div>
+      </div>
+      <div class="channel-cell">
+        <div class="channel-cell-title"><iconify-icon icon="carbon:presentation-file"></iconify-icon> Presentations</div>
+        <div class="channel-cell-body">Tobias for slide titles. GT America for body. Mono for section labels. One idea per slide. Navy backgrounds for impact, Cream for data slides.</div>
+      </div>
+      <div class="channel-cell">
+        <div class="channel-cell-title"><iconify-icon icon="carbon:email"></iconify-icon> Email</div>
+        <div class="channel-cell-body">GT America as primary (web-safe fallback). 16px body minimum. Royal CTA buttons on cream or white. Subject lines under 50 characters.</div>
+      </div>
+      <div class="channel-cell">
+        <div class="channel-cell-title"><iconify-icon icon="carbon:printer"></iconify-icon> Print</div>
+        <div class="channel-cell-body">Tobias for posters and banners. GT America for brochure body. Mono for wayfinding. Minimum 10pt body. Use CMYK conversions from guide.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEMPLATES -->
+<section class="section" id="templates">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-header-title">Templates</div>
+      <div class="section-header-sub">Grab a template, customize, ship. Colors, type, and spacing are already on-brand.</div>
+    </div>
+
+    <div class="template-grid reveal">
+
+      <!-- Social Media Kit -->
+      <div class="template-cell">
+        <div class="template-cell-preview" style="background: var(--navy);">
+          <div class="mini" style="background: var(--white); width: 48%; height: 72%; display: flex; flex-direction: column;">
+            <div style="height: 52%; background: var(--pool); position: relative;">
+              <div style="position: absolute; bottom: 6px; left: 6px; width: 40%; height: 3px; background: var(--white); border-radius: 1px;"></div>
+            </div>
+            <div style="padding: 6px;">
+              <div style="width: 70%; height: 3px; background: var(--navy); border-radius: 1px; margin-bottom: 3px;"></div>
+              <div style="width: 50%; height: 2px; background: rgba(0,0,0,0.12); border-radius: 1px; margin-bottom: 4px;"></div>
+              <div style="width: 28%; height: 4px; background: var(--royal); border-radius: 1px;"></div>
+            </div>
+          </div>
+          <span class="tag tag-pool template-cell-badge">16 Designs</span>
+        </div>
+        <div class="template-cell-body">
+          <div class="template-cell-name">Social Media Kit</div>
+          <div class="template-cell-meta">1080 &times; 1080 &middot; 1920 &times; 1080 PNG</div>
+          <div class="template-cell-actions"><span class="tag">Instagram</span><span class="tag">LinkedIn</span><span class="tag">Facebook</span></div>
+        </div>
+      </div>
+
+      <!-- Presentation Decks -->
+      <div class="template-cell">
+        <div class="template-cell-preview" style="background: var(--royal);">
+          <div class="mini" style="background: var(--navy); display: flex; flex-direction: column; padding: 8%;">
+            <div style="width: 20%; height: 3px; background: var(--pool); border-radius: 1px; margin-bottom: 6px;"></div>
+            <div style="width: 75%; height: 4px; background: var(--white); border-radius: 1px; margin-bottom: 3px;"></div>
+            <div style="width: 55%; height: 4px; background: var(--white); border-radius: 1px; margin-bottom: auto;"></div>
+            <div style="display: flex; gap: 4px; align-items: flex-end;">
+              <div style="width: 16%; height: 14px; background: rgba(143,197,217,0.3); border-radius: 1px;"></div>
+              <div style="width: 16%; height: 20px; background: rgba(143,197,217,0.4); border-radius: 1px;"></div>
+              <div style="width: 16%; height: 28px; background: var(--pool); border-radius: 1px;"></div>
+            </div>
+          </div>
+          <span class="tag tag-pool template-cell-badge">3 Decks</span>
+        </div>
+        <div class="template-cell-body">
+          <div class="template-cell-name">Presentation Decks</div>
+          <div class="template-cell-meta">16:9 PPTX &middot; Google Slides</div>
+          <div class="template-cell-actions"><span class="tag">Keynote</span><span class="tag">Training</span><span class="tag">Stakeholder</span></div>
+        </div>
+      </div>
+
+      <!-- Email Templates -->
+      <div class="template-cell">
+        <div class="template-cell-preview" style="background: #e8e7e3;">
+          <div class="mini" style="background: var(--white); width: 44%; height: 76%; display: flex; flex-direction: column; box-shadow: 0 1px 4px rgba(0,0,0,0.08);">
+            <div style="height: 8%; background: var(--navy);"></div>
+            <div style="height: 28%; background: var(--royal); display: flex; align-items: center; justify-content: center;">
+              <div style="width: 30%; height: 3px; background: rgba(255,255,255,0.6); border-radius: 1px;"></div>
+            </div>
+            <div style="padding: 5px;">
+              <div style="width: 80%; height: 2px; background: rgba(0,0,0,0.15); border-radius: 1px; margin-bottom: 3px;"></div>
+              <div style="width: 90%; height: 2px; background: rgba(0,0,0,0.08); border-radius: 1px; margin-bottom: 2px;"></div>
+              <div style="width: 65%; height: 2px; background: rgba(0,0,0,0.08); border-radius: 1px; margin-bottom: 4px;"></div>
+              <div style="width: 35%; height: 4px; background: var(--pool); border-radius: 1px;"></div>
+            </div>
+            <div style="margin-top: auto; height: 6%; background: var(--navy);"></div>
+          </div>
+          <span class="tag template-cell-badge">4 Templates</span>
+        </div>
+        <div class="template-cell-body">
+          <div class="template-cell-name">Email Templates</div>
+          <div class="template-cell-meta">HTML Email &middot; 600px</div>
+          <div class="template-cell-actions"><span class="tag">Newsletter</span><span class="tag">Event</span><span class="tag">Signature</span></div>
+        </div>
+      </div>
+
+      <!-- One-Pagers -->
+      <a href="brand-house.html" class="template-cell" style="text-decoration: none; color: inherit;" target="_blank">
+        <div class="template-cell-preview" style="background: #e8e7e3;">
+          <div class="mini" style="background: var(--white); width: 40%; height: 78%; display: flex; flex-direction: column; box-shadow: 0 1px 4px rgba(0,0,0,0.08);">
+            <div style="height: 22%; background: var(--navy); display: flex; align-items: flex-end; padding: 5px;">
+              <div style="width: 50%; height: 3px; background: var(--white); border-radius: 1px;"></div>
+            </div>
+            <div style="padding: 5px; flex: 1; display: flex; flex-direction: column;">
+              <div style="width: 85%; height: 2px; background: rgba(0,0,0,0.15); border-radius: 1px; margin-bottom: 2px;"></div>
+              <div style="width: 90%; height: 2px; background: rgba(0,0,0,0.08); border-radius: 1px; margin-bottom: 2px;"></div>
+              <div style="width: 70%; height: 2px; background: rgba(0,0,0,0.08); border-radius: 1px; margin-bottom: 4px;"></div>
+              <div style="display: flex; gap: 3px; margin-bottom: 4px;">
+                <div style="flex: 1; height: 12px; background: var(--royal-dim); border-radius: 1px;"></div>
+                <div style="flex: 1; height: 12px; background: var(--royal-dim); border-radius: 1px;"></div>
+              </div>
+              <div style="width: 90%; height: 2px; background: rgba(0,0,0,0.06); border-radius: 1px; margin-bottom: 2px;"></div>
+              <div style="width: 75%; height: 2px; background: rgba(0,0,0,0.06); border-radius: 1px;"></div>
+            </div>
+          </div>
+          <span class="tag tag-green template-cell-badge" style="display: flex; align-items: center; gap: 3px;"><iconify-icon icon="carbon:launch" style="font-size: 8px;"></iconify-icon> Live</span>
+        </div>
+        <div class="template-cell-body">
+          <div class="template-cell-name" style="display: flex; align-items: center; gap: 4px;">One-Pagers <iconify-icon icon="carbon:arrow-up-right" style="font-size: 10px; color: var(--royal);"></iconify-icon></div>
+          <div class="template-cell-meta">8.5 &times; 11 PDF &middot; Print Ready</div>
+          <div class="template-cell-actions"><span class="tag">Program</span><span class="tag">Impact</span><span class="tag">Legislative</span></div>
+        </div>
+      </a>
+
+      <!-- Event Graphics -->
+      <div class="template-cell">
+        <div class="template-cell-preview" style="background: linear-gradient(135deg, var(--navy), var(--royal));">
+          <div class="mini" style="background: transparent; width: 70%; height: 65%; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.15); border-radius: 2px;">
+            <div style="width: 20%; height: 3px; background: var(--pool); border-radius: 1px; margin-bottom: 4px;"></div>
+            <div style="width: 55%; height: 4px; background: var(--white); border-radius: 1px; margin-bottom: 2px;"></div>
+            <div style="width: 40%; height: 4px; background: var(--white); border-radius: 1px; margin-bottom: 6px;"></div>
+            <div style="width: 30%; height: 2px; background: rgba(255,255,255,0.3); border-radius: 1px; margin-bottom: 2px;"></div>
+            <div style="width: 22%; height: 2px; background: rgba(255,255,255,0.2); border-radius: 1px;"></div>
+          </div>
+          <span class="tag tag-pool template-cell-badge">8 Designs</span>
+        </div>
+        <div class="template-cell-body">
+          <div class="template-cell-name">Event Graphics</div>
+          <div class="template-cell-meta">1920 &times; 1080 PNG &middot; 24 &times; 36 PDF</div>
+          <div class="template-cell-actions"><span class="tag">Banners</span><span class="tag">Posters</span><span class="tag">Signage</span></div>
+        </div>
+      </div>
+
+      <!-- Print Collateral -->
+      <div class="template-cell">
+        <div class="template-cell-preview" style="background: var(--pool);">
+          <div style="display: flex; gap: 4px; align-items: center;">
+            <div class="mini" style="background: var(--white); width: 22%; height: 65%; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+              <div style="height: 35%; background: var(--navy);"></div>
+              <div style="padding: 3px;">
+                <div style="width: 80%; height: 2px; background: rgba(0,0,0,0.12); border-radius: 1px; margin-bottom: 2px;"></div>
+                <div style="width: 60%; height: 2px; background: rgba(0,0,0,0.06); border-radius: 1px;"></div>
+              </div>
+            </div>
+            <div class="mini" style="background: var(--white); width: 22%; height: 65%; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transform: translateY(-3px);">
+              <div style="height: 35%; background: var(--royal);"></div>
+              <div style="padding: 3px;">
+                <div style="width: 80%; height: 2px; background: rgba(0,0,0,0.12); border-radius: 1px; margin-bottom: 2px;"></div>
+                <div style="width: 60%; height: 2px; background: rgba(0,0,0,0.06); border-radius: 1px;"></div>
+              </div>
+            </div>
+            <div class="mini" style="background: var(--white); width: 22%; height: 65%; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+              <div style="height: 35%; background: var(--navy);"></div>
+              <div style="padding: 3px;">
+                <div style="width: 80%; height: 2px; background: rgba(0,0,0,0.12); border-radius: 1px; margin-bottom: 2px;"></div>
+                <div style="width: 60%; height: 2px; background: rgba(0,0,0,0.06); border-radius: 1px;"></div>
+              </div>
+            </div>
+          </div>
+          <span class="tag template-cell-badge">6 Pieces</span>
+        </div>
+        <div class="template-cell-body">
+          <div class="template-cell-name">Print Collateral</div>
+          <div class="template-cell-meta">Trifold &middot; Rack Card &middot; Flyer</div>
+          <div class="template-cell-actions"><span class="tag">CMYK</span><span class="tag">Bleed Ready</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MESSAGING -->
+<section class="section" id="messaging">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-header-title">Messaging</div>
+      <div class="section-header-sub">How we sound matters as much as how we look. Four attributes define the NorCal SBDC voice.</div>
+    </div>
+
+    <div class="voice-grid reveal">
+      <div class="voice-cell">
+        <div class="voice-cell-title">Expert, not academic</div>
+        <div class="voice-cell-body">We translate SBA programs, capital markets, and business fundamentals into plain, actionable language. No jargon walls.</div>
+      </div>
+      <div class="voice-cell">
+        <div class="voice-cell-title">Warm, not casual</div>
+        <div class="voice-cell-body">Encouraging and human, but never unprofessional. Think trusted advisor at a coffee meeting, not a text from a friend.</div>
+      </div>
+      <div class="voice-cell">
+        <div class="voice-cell-title">Confident, not boastful</div>
+        <div class="voice-cell-body">$547M in capital accessed. 20 years. 36 counties. We let the numbers speak. Clear facts, no overselling.</div>
+      </div>
+      <div class="voice-cell">
+        <div class="voice-cell-title">Action-oriented</div>
+        <div class="voice-cell-body">Every message points toward a next step. &ldquo;Your business, better&rdquo; isn&rsquo;t just a tagline — it&rsquo;s a promise that we meet you where you are and move you forward.</div>
+      </div>
+    </div>
+
+    <div class="reveal"><h3 class="guide-sub" style="margin-top: 0;"><iconify-icon icon="carbon:quotes"></iconify-icon> Tagline</h3></div>
+    <div class="tagline-block reveal">
+      <button class="copy-btn copy-all" onclick="copyText(this, 'Your Business, Better.')" aria-label="Copy tagline">
+        <iconify-icon icon="carbon:copy"></iconify-icon> Copy
+      </button>
+      <span style="font-family: var(--serif); font-weight: 400; font-style: italic; font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--pool);">Your Business, Better.</span>
+    </div>
+
+    <div class="reveal" style="margin-top: 16px;">
+      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <span class="tag tag-royal" style="font-size: 0.55rem; padding: 5px 12px; cursor: pointer;" onclick="copyText(this, 'Your Business, People.')" title="Click to copy">Your Business, People.</span>
+        <span class="tag tag-royal" style="font-size: 0.55rem; padding: 5px 12px; cursor: pointer;" onclick="copyText(this, 'Your Business, Funded.')" title="Click to copy">Your Business, Funded.</span>
+        <span class="tag tag-royal" style="font-size: 0.55rem; padding: 5px 12px; cursor: pointer;" onclick="copyText(this, 'Your Business, Connected.')" title="Click to copy">Your Business, Connected.</span>
+      </div>
+      <div style="margin-top: 8px; font-family: var(--mono); font-size: 0.5rem; color: var(--text-tertiary);">Campaign variants — click to copy. &ldquo;People&rdquo; positions the human element in an increasingly automated world.</div>
+    </div>
+
+    <div class="reveal"><h3 class="guide-sub"><iconify-icon icon="carbon:user-speaker"></iconify-icon> Elevator Pitches</h3></div>
+    <div class="voice-grid reveal">
+      <div class="voice-cell" style="position: relative;">
+        <button class="copy-btn" style="position: absolute; top: 16px; right: 16px;" onclick="copyText(this, this.closest('.voice-cell').querySelector('.voice-cell-body').textContent)" aria-label="Copy entrepreneur pitch">
+          <iconify-icon icon="carbon:copy"></iconify-icon> Copy
+        </button>
+        <div class="voice-cell-title">For entrepreneurs</div>
+        <div class="voice-cell-body">NorCal SBDC provides no-fee, confidential business advising and training across 36 counties in Northern California. Whether you&rsquo;re starting up or scaling, we connect you with expert advisors, capital resources, and the tools to grow.</div>
+      </div>
+      <div class="voice-cell" style="position: relative;">
+        <button class="copy-btn" style="position: absolute; top: 16px; right: 16px;" onclick="copyText(this, this.closest('.voice-cell').querySelector('.voice-cell-body').textContent)" aria-label="Copy stakeholder pitch">
+          <iconify-icon icon="carbon:copy"></iconify-icon> Copy
+        </button>
+        <div class="voice-cell-title">For stakeholders &amp; legislators</div>
+        <div class="voice-cell-body">The NorCal SBDC network has helped small businesses access over $547M in capital and serves 7,500+ clients annually across 36 Northern California counties. Our no-fee advising model generates measurable ROI through job creation, revenue growth, and business starts.</div>
+      </div>
+    </div>
+
+    <div class="reveal"><h3 class="guide-sub"><iconify-icon icon="carbon:text-selection"></iconify-icon> Approved Language</h3></div>
+    <table class="phrase-table reveal">
+      <thead><tr><th>Use This</th><th>Instead Of</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td class="use">Your business, better</td><td class="avoid">Add momentum</td><td>Our brand tagline — own it</td></tr>
+        <tr><td class="use">No-fee advising</td><td class="avoid">Free consulting</td><td>Value without devaluing</td></tr>
+        <tr><td class="use">Entrepreneurs</td><td class="avoid">Clients / customers</td><td>Centers the person</td></tr>
+        <tr><td class="use">Expert advisors</td><td class="avoid">Counselors</td><td>Positions as knowledgeable peers</td></tr>
+        <tr><td class="use">Capital access</td><td class="avoid">Loans / funding</td><td>Broader financial pathways</td></tr>
+        <tr><td class="use">NorCal SBDC</td><td class="avoid">The SBDC</td><td>Consistent brand name</td></tr>
+        <tr><td class="use">Serving 36 counties</td><td class="avoid">Regional</td><td>Specificity builds credibility</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- CAMPAIGNS -->
+<section class="section" id="campaigns">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-header-title">Campaigns</div>
+      <div class="section-header-sub">Three anchors in the annual calendar. Each has its own toolkit.</div>
+    </div>
+
+    <div class="campaign-list reveal">
+      <a href="campaign-sbdc-day.html" class="campaign-row" target="_blank" style="text-decoration:none;color:inherit;">
+        <div><div class="campaign-name"><iconify-icon icon="carbon:star"></iconify-icon> SBDC Day</div><div class="campaign-date">March 18 &middot; Annual</div></div>
+        <div class="campaign-desc">National day of recognition. Coordinated social blitz, client spotlights, impact infographics, and community events across all 14 centers.</div>
+        <span class="tag tag-royal" style="display:flex;align-items:center;gap:3px;"><iconify-icon icon="carbon:launch" style="font-size:8px;"></iconify-icon> Open Toolkit</span>
+      </a>
+      <a href="campaign-nsbw.html" class="campaign-row" target="_blank" style="text-decoration:none;color:inherit;">
+        <div><div class="campaign-name"><iconify-icon icon="carbon:enterprise"></iconify-icon> National Small Business Week</div><div class="campaign-date">May &middot; Annual</div></div>
+        <div class="campaign-desc">SBA&rsquo;s flagship week. Workshops, networking, award ceremonies, and media outreach highlighting NorCal&rsquo;s most inspiring entrepreneurs.</div>
+        <span class="tag tag-royal" style="display:flex;align-items:center;gap:3px;"><iconify-icon icon="carbon:launch" style="font-size:8px;"></iconify-icon> Open Toolkit</span>
+      </a>
+      <a href="campaign-ybb.html" class="campaign-row" target="_blank" style="text-decoration:none;color:inherit;">
+        <div><div class="campaign-name"><iconify-icon icon="carbon:arrow-up-right"></iconify-icon> Your Business, Better</div><div class="campaign-date">Year-Round</div></div>
+        <div class="campaign-desc">Signature brand platform. Unifies all communications under one promise — we meet you where you are and make your business better. Variants: People, Funded, Connected.</div>
+        <span class="tag tag-royal" style="display:flex;align-items:center;gap:3px;"><iconify-icon icon="carbon:launch" style="font-size:8px;"></iconify-icon> Open Toolkit</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS MAP -->
+<section class="section" id="programs">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-header-title">Programs &amp; Network</div>
+      <div class="section-header-sub">The full picture — services, programs, partnerships, and infrastructure.</div>
+    </div>
+    <div class="campaign-list reveal">
+      <a href="programs-map.html" class="campaign-row" target="_blank" style="text-decoration:none;color:inherit;">
+        <div><div class="campaign-name"><iconify-icon icon="carbon:network-4"></iconify-icon> Programs &amp; Network Map</div><div class="campaign-date">Reference</div></div>
+        <div class="campaign-desc">Core services, specialty programs (TFG, Manufacturing, Capital Advisors), client journey, 14-center network, partner ecosystem, events, and platforms.</div>
+        <span class="tag tag-royal" style="display:flex;align-items:center;gap:3px;"><iconify-icon icon="carbon:launch" style="font-size:8px;"></iconify-icon> Open Map</span>
+      </a>
+      <a href="attribution-collection.html" class="campaign-row" target="_blank" style="text-decoration:none;color:inherit;">
+        <div><div class="campaign-name"><iconify-icon icon="carbon:api"></iconify-icon> Attribution Collection</div><div class="campaign-date">Process Guide</div></div>
+        <div class="campaign-desc">Bulk campaign milestone collection — Constant Contact integration, client form journey, API validation, dynamic fields, admin notifications, and Neoserra sync.</div>
+        <span class="tag tag-royal" style="display:flex;align-items:center;gap:3px;"><iconify-icon icon="carbon:launch" style="font-size:8px;"></iconify-icon> Open Guide</span>
+      </a>
+      <a href="annual-impact.html" class="campaign-row" target="_blank" style="text-decoration:none;color:inherit;">
+        <div><div class="campaign-name"><iconify-icon icon="carbon:chart-line-data"></iconify-icon> FY 2025 Impact Report</div><div class="campaign-date">Annual</div></div>
+        <div class="campaign-desc">$549M capital accessed, 3,723 jobs created, 712 businesses started, $201M sales growth. TFG and SBDC Health callouts, client success stories, national context.</div>
+        <span class="tag tag-royal" style="display:flex;align-items:center;gap:3px;"><iconify-icon icon="carbon:launch" style="font-size:8px;"></iconify-icon> Open Report</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-header-title">Request &amp; Contact</div>
+      <div class="section-header-sub">Custom asset, brand question, or update needed?</div>
+    </div>
+
+    <div class="contact-grid reveal">
+      <div class="contact-cell">
+        <div class="contact-cell-icon"><iconify-icon icon="carbon:request-quote"></iconify-icon></div>
+        <div class="contact-cell-title">Request a Custom Asset</div>
+        <div class="contact-cell-body">Need a one-off design, co-branded piece, or a format we don&rsquo;t have? We&rsquo;ll respond within 2 business days.</div>
+        <a href="mailto:phelps@norcalsbdc.org?subject=Brand%20Asset%20Request" class="contact-cell-link"><iconify-icon icon="carbon:arrow-right"></iconify-icon> Submit request</a>
+      </div>
+      <div class="contact-cell">
+        <div class="contact-cell-icon"><iconify-icon icon="carbon:warning-alt"></iconify-icon></div>
+        <div class="contact-cell-title">Report an Issue</div>
+        <div class="contact-cell-body">Broken link, outdated asset, or inconsistency? Let us know so we can keep the brand house accurate.</div>
+        <a href="mailto:phelps@norcalsbdc.org?subject=Brand%20House%20Issue" class="contact-cell-link"><iconify-icon icon="carbon:arrow-right"></iconify-icon> Report issue</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-left">
+    <img src="assets/sbdc-blue-2026.png" alt="NorCal SBDC" class="footer-logo">
+    <span class="footer-text">Brand House &middot; v2026.1 &middot; Last updated Feb 2026</span>
+  </div>
+  <span class="footer-text">&copy; 2026 Northern California SBDC</span>
 </footer>
 
-<!-- ═══ GRID EDITOR PANEL ═══ -->
-<button class="editor-toggle" id="editor-toggle" aria-label="Edit hero images">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-  </svg>
-</button>
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<div class="editor-panel" id="editor-panel">
-  <h3>Hero Grid Editor</h3>
-  <div class="editor-grid" id="editor-inputs"></div>
-  <div class="editor-actions">
-    <button class="editor-btn editor-btn-export" id="editor-export">Export JSON</button>
-    <button class="editor-btn editor-btn-import" id="editor-import">Import JSON</button>
-  </div>
-</div>
-
-<!-- GSAP 3 + ScrollTrigger -->
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 <script>
-// ═══════════════════════════════════════════════════════════════
-// IMAGE DATA
-// ═══════════════════════════════════════════════════════════════
-let heroImages = [
-  { src: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80&fit=crop&auto=format', pos: 'center 40%' },
-  { src: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&q=80&fit=crop&auto=format', pos: 'center center' },
-  { src: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80&fit=crop&auto=format', pos: 'center center' },
-  { src: 'https://images.unsplash.com/photo-1573164713988-8665fc963095?w=800&q=80&fit=crop&auto=format', pos: 'center center' },
-  { src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80&fit=crop&auto=format', pos: 'center center' },
-  { src: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&q=80&fit=crop&auto=format', pos: 'center 30%' },
-  { src: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80&fit=crop&auto=format', pos: 'center center' },
-  { src: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&q=80&fit=crop&auto=format', pos: 'center center' },
-  { src: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80&fit=crop&auto=format', pos: 'center center' }
-];
+(function() {
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// ═══════════════════════════════════════════════════════════════
-// INTRO ANIMATION SEQUENCE
-// ═══════════════════════════════════════════════════════════════
-function runIntroSequence() {
-  const overlay = document.getElementById('intro-overlay');
-  const logo    = document.getElementById('intro-logo');
-  const label   = document.getElementById('intro-label');
-
-  // Check reduced motion preference
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduced) {
-    overlay.classList.add('hidden');
-    revealHeroText();
-    return;
-  }
-
-  // Step 1: Show logo + label (0ms)
-  setTimeout(() => {
-    logo.classList.add('visible');
-    label.classList.add('visible');
-  }, 100);
-
-  // Step 2: Hold logo for ~1.2s then fade overlay out
-  setTimeout(() => {
-    overlay.classList.add('hidden');
-  }, 1800);
-
-  // Step 3: After overlay fades, reveal hero text
-  setTimeout(() => {
-    revealHeroText();
-  }, 2200);
-}
-
-function revealHeroText() {
-  const eyebrow   = document.getElementById('hero-eyebrow');
-  const heading   = document.getElementById('hero-heading');
-  const sub       = document.getElementById('hero-sub');
-  const indicator = document.getElementById('hero-scroll-indicator');
-
-  gsap.to(eyebrow, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: 0 });
-  gsap.fromTo(heading,
-    { opacity: 0, y: 24, clipPath: 'inset(0 0 100% 0)' },
-    { opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)', duration: 0.8, ease: 'power3.out', delay: 0.15 }
-  );
-  gsap.to(sub, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: 0.4 });
-  gsap.to(indicator, { opacity: 1, duration: 0.6, ease: 'power3.out', delay: 0.8 });
-}
-
-// ═══════════════════════════════════════════════════════════════
-// GSAP SCROLL-PINNED HERO REVEAL
-// ═══════════════════════════════════════════════════════════════
-function initHeroScrollReveal() {
   gsap.registerPlugin(ScrollTrigger);
 
-  const section   = document.getElementById('hero-section');
-  const container = document.getElementById('hero-container');
-  const grid      = document.getElementById('hero-grid');
-  const cells     = document.querySelectorAll('.hero-grid-cell');
+  /* ─── HERO GRID IMAGES ─── */
+  var heroImages = [
+    { src: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80&fit=crop&auto=format', pos: 'center 40%' },
+    { src: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&q=80&fit=crop&auto=format', pos: 'center center' },
+    { src: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80&fit=crop&auto=format', pos: 'center center' },
+    { src: 'https://images.unsplash.com/photo-1573164713988-8665fc963095?w=800&q=80&fit=crop&auto=format', pos: 'center center' },
+    { src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80&fit=crop&auto=format', pos: 'center center' },
+    { src: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&q=80&fit=crop&auto=format', pos: 'center 30%' },
+    { src: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80&fit=crop&auto=format', pos: 'center center' },
+    { src: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&q=80&fit=crop&auto=format', pos: 'center center' },
+    { src: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80&fit=crop&auto=format', pos: 'center center' },
+  ];
 
-  // Determine margin based on viewport
-  const isMobile = window.innerWidth < 768;
-  const startMargin = isMobile ? 20 : 50;
-  const startRadius = isMobile ? 12 : 20;
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: section,
-      start: 'top top',
-      end: '+=150%',
-      pin: true,
-      scrub: 1,
-      anticipatePin: 1,
-    }
+  var grid = document.getElementById('heroGrid');
+  heroImages.forEach(function(img) {
+    var d = document.createElement('div');
+    d.className = 'cell';
+    d.style.backgroundImage = 'url(' + img.src + ')';
+    d.style.backgroundPosition = img.pos;
+    d.style.backgroundSize = 'cover';
+    grid.appendChild(d);
   });
 
-  // Phase 1 (0 → 0.35): container expands from inset to full-bleed
-  tl.fromTo(container,
-    { margin: startMargin, borderRadius: startRadius },
-    { margin: 0, borderRadius: 0, ease: 'none' },
-    0
-  );
+  /* ─── HERO INTRO SEQUENCE ─── */
+  if (!reduced) {
+    var introTl = gsap.timeline({ onComplete: initScrollReveal });
 
-  // Phase 2 (0.2 → 0.6): grid fades in
-  tl.fromTo(grid,
-    { opacity: 0 },
-    { opacity: 1, ease: 'none' },
-    0.2
-  );
+    // Phase 1: Logo + label fade in
+    introTl.to('#introLogo', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0.3);
+    introTl.to('#introLabel', { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.6);
 
-  // Phase 3 (0.15 → 0.7): cells scale + deskew, staggered
-  tl.fromTo(cells,
-    { scale: 0.7, skewX: 5 },
-    {
-      scale: 1,
-      skewX: 0,
-      ease: 'none',
-      stagger: { amount: 0.3, from: 'center' }
-    },
-    0.15
-  );
-}
+    // Phase 2: Hold, then fade out intro
+    introTl.to('#heroIntro', { opacity: 0, duration: 0.4, ease: 'power2.in', delay: 0.8 });
+    introTl.set('#heroIntro', { display: 'none' });
 
-// ═══════════════════════════════════════════════════════════════
-// INTERSECTION OBSERVER — Section reveals
-// ═══════════════════════════════════════════════════════════════
-function initScrollReveals() {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-
-  // Manifesto reveals
-  ['manifesto-label', 'manifesto-text', 'manifesto-pillars'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) observer.observe(el);
-  });
-
-  // Directory reveals
-  ['dir-label', 'dir-title'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) observer.observe(el);
-  });
-
-  // Cards stagger
-  const cards = document.querySelectorAll('.toolkit-card');
-  cards.forEach((card, i) => {
-    card.style.transitionDelay = `${i * 0.05}s`;
-    observer.observe(card);
-  });
-}
-
-// ═══════════════════════════════════════════════════════════════
-// NAV SCROLL BEHAVIOR
-// ═══════════════════════════════════════════════════════════════
-function initNav() {
-  const nav = document.getElementById('main-nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-  }, { passive: true });
-}
-
-// ═══════════════════════════════════════════════════════════════
-// HAMBURGER / FULLSCREEN MENU
-// ═══════════════════════════════════════════════════════════════
-function initMenu() {
-  const hamburger = document.getElementById('hamburger');
-  const menu      = document.getElementById('fullscreen-menu');
-
-  function toggleMenu() {
-    hamburger.classList.toggle('open');
-    menu.classList.toggle('open');
-    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+    // Phase 3: Hero text snaps in
+    introTl.to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, '-=0.1');
+    introTl.to('.hero-heading', { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' }, '-=0.3');
+    introTl.to('.hero-sub', { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, '-=0.35');
+    introTl.to('#heroScroll', { opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.1');
+  } else {
+    document.getElementById('heroIntro').style.display = 'none';
+    document.querySelectorAll('.hero-eyebrow, .hero-heading, .hero-sub').forEach(function(el) { el.style.opacity = 1; el.style.transform = 'none'; });
+    document.getElementById('heroScroll').style.opacity = 1;
+    initScrollReveal();
   }
 
-  hamburger.addEventListener('click', toggleMenu);
-  hamburger.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMenu(); } });
-
-  menu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      hamburger.classList.remove('open');
-      menu.classList.remove('open');
-      document.body.style.overflow = '';
+  /* ─── GSAP SCROLL-REVEAL (exact Nectar/Salient effect) ─── */
+  function initScrollReveal() {
+    var tl = gsap.timeline({
+      scrollTrigger: { trigger: '#hero', pin: true, end: '+=200%', scrub: 1 }
     });
-  });
-}
 
-// ═══════════════════════════════════════════════════════════════
-// GRID EDITOR PANEL
-// ═══════════════════════════════════════════════════════════════
-function initEditor() {
-  const toggle = document.getElementById('editor-toggle');
-  const panel  = document.getElementById('editor-panel');
-  const grid   = document.getElementById('editor-inputs');
-  const expBtn = document.getElementById('editor-export');
-  const impBtn = document.getElementById('editor-import');
+    // Layer 1: Container inset → full-bleed
+    tl.to('#heroInner', {
+      margin: 0, width: '100%', borderRadius: '0px',
+      duration: 0.4, ease: 'none'
+    }, 0);
 
-  // Build inputs
-  function buildInputs() {
-    grid.innerHTML = '';
-    heroImages.forEach((img, i) => {
-      const wrap = document.createElement('div');
-      wrap.className = 'editor-input';
-      wrap.innerHTML = `
-        <label>Cell ${i + 1} URL</label>
-        <input type="text" value="${img.src}" data-idx="${i}" placeholder="https://...">
-      `;
-      wrap.querySelector('input').addEventListener('change', e => {
-        heroImages[i].src = e.target.value;
-        const cellImg = document.querySelector(`#cell-${i} img`);
-        if (cellImg) cellImg.src = e.target.value;
+    // Layer 2: Grid skew + fade
+    tl.to('#heroGrid', {
+      opacity: 1, skewX: 0,
+      duration: 0.4, ease: 'none'
+    }, 0.1);
+
+    // Layer 3: Each cell scales up
+    document.querySelectorAll('#heroGrid .cell').forEach(function(cell, i) {
+      tl.to(cell, { scale: 1, duration: 0.3, ease: 'none' }, 0.15 + i * 0.03);
+    });
+
+    // Fade scroll indicator
+    tl.to('#heroScroll', { opacity: 0, duration: 0.15, ease: 'none' }, 0);
+  }
+
+  window.copyText = function(btn, text) {
+    navigator.clipboard.writeText(text.trim()).then(function() {
+      btn.classList.add('copied');
+      var orig = btn.innerHTML;
+      btn.innerHTML = '<iconify-icon icon="carbon:checkmark" style="font-size:14px"></iconify-icon> Copied';
+      showToast('Copied to clipboard');
+      setTimeout(function() { btn.classList.remove('copied'); btn.innerHTML = orig; }, 1800);
+    });
+  };
+
+  var toastEl = document.getElementById('toast');
+  var toastTimer;
+  window.showToast = function(msg) {
+    clearTimeout(toastTimer);
+    toastEl.innerHTML = '<iconify-icon icon="carbon:checkmark" style="font-size:14px"></iconify-icon> ' + msg;
+    toastEl.classList.add('show');
+    toastTimer = setTimeout(function() { toastEl.classList.remove('show'); }, 2000);
+  };
+
+  document.querySelectorAll('.color-swatch').forEach(function(swatch) {
+    swatch.addEventListener('click', function() {
+      var hex = this.dataset.hex;
+      var name = this.dataset.name;
+      navigator.clipboard.writeText(hex).then(function() {
+        showToast(name + ' \u2014 ' + hex + ' copied');
       });
-      grid.appendChild(wrap);
     });
+    swatch.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+    });
+  });
+
+  document.querySelectorAll('.type-css').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var val = this.dataset.copy;
+      navigator.clipboard.writeText(val).then(function() {
+        showToast(val + ' copied');
+      });
+    });
+  });
+
+  var revealEls = document.querySelectorAll('.reveal');
+  if (!reduced && revealEls.length) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    revealEls.forEach(function(el) { io.observe(el); });
+  } else {
+    revealEls.forEach(function(el) { el.classList.add('visible'); });
   }
-  buildInputs();
 
-  toggle.addEventListener('click', () => panel.classList.toggle('open'));
-
-  expBtn.addEventListener('click', () => {
-    const json = JSON.stringify(heroImages, null, 2);
-    const blob = new Blob([json], { type: 'application/json' });
-    const url  = URL.createObjectURL(blob);
-    const a    = document.createElement('a');
-    a.href = url; a.download = 'hero-images.json'; a.click();
-    URL.revokeObjectURL(url);
+  var navLinks = document.querySelectorAll('.nav-links a');
+  var sections = [];
+  navLinks.forEach(function(link) {
+    var id = link.getAttribute('href').replace('#', '');
+    var sec = document.getElementById(id);
+    if (sec) sections.push({ el: sec, link: link });
   });
+  function updateNav() {
+    var scrollY = window.pageYOffset + 80;
+    var current = sections[0];
+    sections.forEach(function(s) { if (s.el.offsetTop <= scrollY) current = s; });
+    navLinks.forEach(function(l) { l.classList.remove('active'); });
+    if (current) current.link.classList.add('active');
+  }
+  var navTicking = false;
+  window.addEventListener('scroll', function() {
+    if (!navTicking) { requestAnimationFrame(function() { updateNav(); navTicking = false; }); navTicking = true; }
+  }, { passive: true });
+  updateNav();
 
-  impBtn.addEventListener('click', () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.json';
-    input.onchange = e => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = ev => {
-        try {
-          const data = JSON.parse(ev.target.result);
-          if (Array.isArray(data)) {
-            heroImages = data;
-            data.forEach((img, i) => {
-              const cellImg = document.querySelector(`#cell-${i} img`);
-              if (cellImg) { cellImg.src = img.src; cellImg.style.objectPosition = img.pos || 'center center'; }
-            });
-            buildInputs();
-          }
-        } catch(err) { alert('Invalid JSON file.'); }
-      };
-      reader.readAsText(file);
-    };
-    input.click();
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      window.scrollTo({ top: target.offsetTop - 56, behavior: reduced ? 'auto' : 'smooth' });
+    });
   });
-}
-
-// ═══════════════════════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════════════════════
-document.addEventListener('DOMContentLoaded', () => {
-  runIntroSequence();
-  initHeroScrollReveal();
-  initScrollReveals();
-  initNav();
-  initMenu();
-  initEditor();
-});
+})();
 </script>
 </body>
 </html>
