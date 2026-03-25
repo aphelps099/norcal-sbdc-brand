@@ -1,0 +1,1986 @@
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+
+<!-- Perplexity Computer Attribution — SEO Meta Tags -->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scroll Reveal Grid Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --surface-2: #1c1c1c;
+  --surface-3: #242424;
+  --border: #2a2a2a;
+  --border-hover: #3a3a3a;
+  --text: #e8e8e8;
+  --text-muted: #888;
+  --text-dim: #555;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --accent-muted: rgba(59, 130, 246, 0.15);
+  --danger: #ef4444;
+  --success: #22c55e;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { font-size: 14px; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Layout ─── */
+.app { display: flex; height: 100vh; overflow: hidden; }
+
+.sidebar {
+  width: 340px;
+  min-width: 340px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sidebar-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.sidebar-header h1 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.sidebar-header p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.sidebar-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+}
+
+.sidebar-body::-webkit-scrollbar { width: 4px; }
+.sidebar-body::-webkit-scrollbar-track { background: transparent; }
+.sidebar-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+.main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.canvas-area {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  padding: 40px;
+}
+
+/* ─── Section Groups ─── */
+.section-group { margin-bottom: 20px; }
+.section-group:last-child { margin-bottom: 0; }
+
+.section-label {
+  font-size: 0.71rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+/* ─── Form Controls ─── */
+.control-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.control-row label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.control-row input[type="range"] {
+  width: 120px;
+  accent-color: var(--accent);
+}
+
+.control-row input[type="number"] {
+  width: 64px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  text-align: center;
+  font-family: var(--font-body);
+}
+
+.control-row input[type="number"]:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.control-row input[type="color"] {
+  width: 32px;
+  height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.control-row select {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+.control-row select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+input[type="text"].full-width {
+  width: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  margin-bottom: 10px;
+}
+
+input[type="text"].full-width:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+input[type="text"].full-width::placeholder {
+  color: var(--text-dim);
+}
+
+/* ─── Buttons ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.78rem;
+  font-weight: 500;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: background 180ms var(--ease-out), border-color 180ms var(--ease-out);
+  white-space: nowrap;
+}
+
+.btn:hover { background: var(--surface-3); border-color: var(--border-hover); }
+.btn:active { transform: scale(0.97); }
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+
+.btn-danger {
+  color: var(--danger);
+}
+.btn-danger:hover { background: rgba(239, 68, 68, 0.1); border-color: var(--danger); }
+
+.btn-sm { padding: 4px 10px; font-size: 0.71rem; }
+
+.btn-icon {
+  padding: 6px;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 180ms var(--ease-out), background 180ms var(--ease-out);
+}
+.btn-icon:hover { color: var(--text); background: var(--surface-3); }
+
+/* ─── Grid Image Cells ─── */
+.grid-cells-list { display: flex; flex-direction: column; gap: 6px; }
+
+.grid-cell-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: grab;
+  transition: border-color 180ms var(--ease-out), background 180ms var(--ease-out);
+}
+
+.grid-cell-item:hover { border-color: var(--border-hover); }
+.grid-cell-item.dragging { opacity: 0.4; }
+.grid-cell-item.drag-over { border-color: var(--accent); background: var(--accent-muted); }
+
+.grid-cell-item.selected {
+  border-color: var(--accent);
+  background: var(--accent-muted);
+}
+
+.cell-thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  background: var(--surface-3);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.71rem;
+  color: var(--text-dim);
+}
+
+.cell-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cell-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.cell-info .cell-name {
+  font-size: 0.78rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cell-info .cell-size {
+  font-size: 0.71rem;
+  color: var(--text-dim);
+}
+
+.cell-actions { display: flex; gap: 2px; }
+
+.add-cell-area {
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 180ms var(--ease-out), background 180ms var(--ease-out);
+  margin-top: 8px;
+}
+
+.add-cell-area:hover { border-color: var(--accent); background: var(--accent-muted); }
+.add-cell-area span { font-size: 0.78rem; color: var(--text-muted); }
+
+/* ─── Canvas Preview ─── */
+.preview-frame {
+  width: 900px;
+  max-width: 100%;
+  background: #000;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.preview-hero {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-grid {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.preview-grid .grid-item {
+  background-size: cover;
+  background-position: center;
+  background-color: var(--surface-3);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: outline 180ms var(--ease-out);
+}
+
+.preview-grid .grid-item.selected-cell {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  z-index: 10;
+}
+
+.preview-grid .grid-item .placeholder-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.71rem;
+  color: var(--text-dim);
+  pointer-events: none;
+}
+
+.preview-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.preview-overlay .hero-heading {
+  font-family: var(--font-display);
+  color: #fff;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  text-align: center;
+  line-height: 1.1;
+}
+
+.preview-overlay .hero-sub {
+  font-family: var(--font-body);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.85);
+  text-shadow: 0 1px 10px rgba(0,0,0,0.5);
+  text-align: center;
+  margin-top: 4px;
+}
+
+/* ─── Tabs ─── */
+.tab-row {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+
+.tab-btn {
+  padding: 8px 16px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color 180ms var(--ease-out), border-color 180ms var(--ease-out);
+  font-family: var(--font-body);
+}
+
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--text); border-bottom-color: var(--accent); }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ─── Export Modal ─── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 800px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-header h2 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.modal-body {
+  flex: 1;
+  overflow: auto;
+  padding: 20px;
+}
+
+.modal-body pre {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  color: var(--text-muted);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+}
+
+.copy-feedback {
+  font-size: 0.78rem;
+  color: var(--success);
+  opacity: 0;
+  transition: opacity 300ms var(--ease-out);
+}
+
+.copy-feedback.show { opacity: 1; }
+
+/* ─── Toggle Switch ─── */
+.toggle-switch {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.toggle-track {
+  position: absolute;
+  inset: 0;
+  background: var(--surface-3);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 180ms var(--ease-out), border-color 180ms var(--ease-out);
+}
+
+.toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background: var(--text-muted);
+  border-radius: 50%;
+  transition: transform 180ms var(--ease-out), background 180ms var(--ease-out);
+}
+
+.toggle-switch input:checked + .toggle-track {
+  background: var(--accent-muted);
+  border-color: var(--accent);
+}
+
+.toggle-switch input:checked + .toggle-track::after {
+  transform: translateX(16px);
+  background: var(--accent);
+}
+
+/* ─── Column Width Inputs ─── */
+.col-width-inputs {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.col-width-inputs input[type="number"] {
+  width: 44px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 4px 6px;
+  font-size: 0.85rem;
+  text-align: center;
+  font-family: var(--font-body);
+}
+
+.col-width-inputs input[type="number"]:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.col-width-inputs .sep {
+  color: var(--text-dim);
+  font-size: 0.71rem;
+}
+
+/* ─── Vignette layer ─── */
+.preview-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ─── Add URL Area ─── */
+.add-url-area {
+  margin-top: 10px;
+  padding: 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.url-input-row {
+  display: flex;
+  gap: 6px;
+}
+
+.url-input {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 7px 10px;
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  min-width: 0;
+}
+
+.url-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.url-input::placeholder { color: var(--text-dim); }
+
+.url-feedback {
+  font-size: 0.71rem;
+  margin-top: 6px;
+  min-height: 16px;
+  line-height: 16px;
+}
+
+.url-feedback.valid { color: var(--success); }
+.url-feedback.invalid { color: var(--danger); }
+.url-feedback.loading { color: var(--text-muted); }
+
+.add-cell-secondary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.secondary-divider {
+  font-size: 0.71rem;
+  color: var(--text-dim);
+}
+
+/* ─── Cell URL Editor ─── */
+.cell-url-editor { position: relative; }
+
+.cell-url-status {
+  font-size: 0.71rem;
+  min-height: 18px;
+  line-height: 18px;
+  margin-bottom: 6px;
+}
+
+.cell-url-status.hosted { color: var(--success); }
+.cell-url-status.local { color: #f59e0b; }
+.cell-url-status.empty { color: var(--text-dim); }
+
+/* ─── Data URI Warning Badge ─── */
+.badge-warn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.64rem;
+  font-weight: 600;
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
+  padding: 1px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.02em;
+}
+
+.badge-ok {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.64rem;
+  font-weight: 600;
+  color: var(--success);
+  background: rgba(34, 197, 94, 0.12);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+/* ─── Footer ─── */
+footer {
+  padding: 8px 20px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+footer a {
+  font-size: 0.71rem;
+  color: var(--text-dim);
+  text-decoration: none;
+}
+
+footer a:hover { color: var(--text-muted); }
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .app { flex-direction: column; }
+  .sidebar { width: 100%; min-width: 0; max-height: 45vh; border-right: none; border-bottom: 1px solid var(--border); }
+  .canvas-area { padding: 20px; }
+  .preview-frame { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- ─── Sidebar ─── -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1>Grid Builder</h1>
+      <p>Scroll-reveal hero section</p>
+    </div>
+    <div class="sidebar-body">
+
+      <!-- Tabs -->
+      <div class="tab-row">
+        <button class="tab-btn active" data-tab="images">Images</button>
+        <button class="tab-btn" data-tab="text">Text</button>
+        <button class="tab-btn" data-tab="layout">Layout</button>
+        <button class="tab-btn" data-tab="animation">Animation</button>
+      </div>
+
+      <!-- Images Tab -->
+      <div class="tab-panel active" id="tab-images">
+        <div class="section-group">
+          <div class="section-label">Grid Cells</div>
+          <div class="grid-cells-list" id="cellList"></div>
+          <!-- Add by URL -->
+          <div class="add-url-area">
+            <div class="url-input-row">
+              <input type="text" class="url-input" id="addUrlInput" placeholder="Paste image URL...">
+              <button class="btn btn-primary btn-sm" id="addUrlBtn" disabled>Add</button>
+            </div>
+            <div class="url-feedback" id="urlFeedback"></div>
+          </div>
+          <div class="add-cell-secondary">
+            <span class="secondary-divider">or</span>
+            <button class="btn btn-sm" id="addFileBtn">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Upload file (preview only)
+            </button>
+            <input type="file" id="imageInput" accept="image/*" multiple style="display:none">
+          </div>
+        </div>
+
+        <!-- Selected Cell Editor -->
+        <div class="section-group" id="cellEditor" style="display:none">
+          <div class="section-label">Selected Image</div>
+          <div class="cell-url-editor">
+            <input type="text" class="full-width" id="cellUrlInput" placeholder="https://your-domain.com/image.jpg">
+            <div class="cell-url-status" id="cellUrlStatus"></div>
+          </div>
+          <div class="control-row">
+            <label>Label</label>
+            <input type="text" style="width:140px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);padding:4px 8px;font-size:0.85rem;font-family:var(--font-body)" id="cellLabelInput" placeholder="Cell name">
+          </div>
+          <div class="control-row">
+            <label>Position X</label>
+            <select id="cellPosX">
+              <option value="left">Left</option>
+              <option value="center" selected>Center</option>
+              <option value="right">Right</option>
+            </select>
+          </div>
+          <div class="control-row">
+            <label>Position Y</label>
+            <select id="cellPosY">
+              <option value="top">Top</option>
+              <option value="center" selected>Center</option>
+              <option value="bottom">Bottom</option>
+            </select>
+          </div>
+          <div class="control-row">
+            <label>Zoom / Crop</label>
+            <input type="range" id="cellZoom" min="1" max="3" step="0.1" value="1">
+            <span id="cellZoomVal" style="font-size:.78rem;color:var(--text-dim);width:32px;text-align:right">1.0×</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text Tab -->
+      <div class="tab-panel" id="tab-text">
+        <div class="section-group">
+          <div class="section-label">Overlay Text</div>
+          <div class="control-row">
+            <label>Show text</label>
+            <div class="toggle-switch">
+              <input type="checkbox" id="showText" checked>
+              <span class="toggle-track"></span>
+            </div>
+          </div>
+          <input type="text" class="full-width" id="headingInput" placeholder="Heading" value="Mesmerize">
+          <input type="text" class="full-width" id="subheadInput" placeholder="Subheading" value="With immersive animations">
+          <div class="control-row">
+            <label>Heading size</label>
+            <input type="range" id="headingSize" min="24" max="120" value="64">
+            <span id="headingSizeVal" style="font-size:.78rem;color:var(--text-dim);width:36px;text-align:right">64</span>
+          </div>
+          <div class="control-row">
+            <label>Sub size</label>
+            <input type="range" id="subSize" min="10" max="32" value="13">
+            <span id="subSizeVal" style="font-size:.78rem;color:var(--text-dim);width:36px;text-align:right">13</span>
+          </div>
+          <div class="control-row">
+            <label>Text color</label>
+            <input type="color" id="textColor" value="#ffffff">
+          </div>
+        </div>
+        <div class="section-group">
+          <div class="section-label">Vignette / Overlay</div>
+          <div class="control-row">
+            <label>Center vignette</label>
+            <div class="toggle-switch">
+              <input type="checkbox" id="enableVignette" checked>
+              <span class="toggle-track"></span>
+            </div>
+          </div>
+          <div class="control-row">
+            <label>Vignette strength</label>
+            <input type="range" id="vignetteStrength" min="0" max="100" value="60">
+            <span id="vignetteStrengthVal" style="font-size:.78rem;color:var(--text-dim);width:32px;text-align:right">60%</span>
+          </div>
+          <div class="control-row">
+            <label>Vignette spread</label>
+            <input type="range" id="vignetteSpread" min="10" max="80" value="40">
+            <span id="vignetteSpreadVal" style="font-size:.78rem;color:var(--text-dim);width:32px;text-align:right">40%</span>
+          </div>
+          <div class="control-row">
+            <label>Edge darken</label>
+            <input type="range" id="edgeDarken" min="0" max="100" value="30">
+            <span id="edgeDarkenVal" style="font-size:.78rem;color:var(--text-dim);width:32px;text-align:right">30%</span>
+          </div>
+          <div class="control-row">
+            <label>Overlay color</label>
+            <input type="color" id="overlayColor" value="#000000">
+          </div>
+        </div>
+      </div>
+
+      <!-- Layout Tab -->
+      <div class="tab-panel" id="tab-layout">
+        <div class="section-group">
+          <div class="section-label">Grid</div>
+          <div class="control-row">
+            <label>Columns</label>
+            <input type="number" id="gridCols" min="1" max="6" value="3">
+          </div>
+          <div class="control-row">
+            <label>Rows</label>
+            <input type="number" id="gridRows" min="1" max="6" value="3">
+          </div>
+          <div class="control-row">
+            <label>Gap (px)</label>
+            <input type="number" id="gridGap" min="0" max="40" value="6">
+          </div>
+        </div>
+        <div class="section-group">
+          <div class="section-label">Column Widths</div>
+          <p style="font-size:0.71rem;color:var(--text-dim);margin-bottom:8px;">Relative proportions per column (e.g. 1 : 3 : 1 makes center wide)</p>
+          <div id="colWidthInputs" class="col-width-inputs"></div>
+          <div class="control-row" style="margin-top:6px">
+            <label>Row Heights</label>
+            <select id="rowHeightMode">
+              <option value="equal" selected>Equal</option>
+              <option value="custom">Custom</option>
+            </select>
+          </div>
+          <div id="rowHeightInputs" class="col-width-inputs" style="display:none"></div>
+        </div>
+        <div class="section-group">
+          <div class="section-label">Container</div>
+          <div class="control-row">
+            <label>Aspect ratio</label>
+            <select id="aspectRatio">
+              <option value="16/10" selected>16 : 10</option>
+              <option value="16/9">16 : 9</option>
+              <option value="4/3">4 : 3</option>
+              <option value="1/1">1 : 1</option>
+              <option value="21/9">21 : 9</option>
+            </select>
+          </div>
+          <div class="control-row">
+            <label>Background</label>
+            <input type="color" id="bgColor" value="#000000">
+          </div>
+          <div class="control-row">
+            <label>Border radius (px)</label>
+            <input type="number" id="containerRadius" min="0" max="40" value="0">
+          </div>
+        </div>
+      </div>
+
+      <!-- Animation Tab -->
+      <div class="tab-panel" id="tab-animation">
+        <div class="section-group">
+          <div class="section-label">Scroll Pin</div>
+          <div class="control-row">
+            <label>Enable pin</label>
+            <div class="toggle-switch">
+              <input type="checkbox" id="enablePin" checked>
+              <span class="toggle-track"></span>
+            </div>
+          </div>
+          <div class="control-row">
+            <label>Pin duration (%)</label>
+            <input type="range" id="pinDuration" min="50" max="400" value="200">
+            <span id="pinDurationVal" style="font-size:.78rem;color:var(--text-dim);width:40px;text-align:right">200%</span>
+          </div>
+        </div>
+        <div class="section-group">
+          <div class="section-label">Inset Reveal</div>
+          <div class="control-row">
+            <label>Enable inset</label>
+            <div class="toggle-switch">
+              <input type="checkbox" id="enableInset" checked>
+              <span class="toggle-track"></span>
+            </div>
+          </div>
+          <div class="control-row">
+            <label>Start inset (px)</label>
+            <input type="number" id="insetStart" min="0" max="100" value="40">
+          </div>
+          <div class="control-row">
+            <label>Start radius (px)</label>
+            <input type="number" id="insetRadius" min="0" max="50" value="16">
+          </div>
+        </div>
+        <div class="section-group">
+          <div class="section-label">Grid Animation</div>
+          <div class="control-row">
+            <label>Skew X (deg)</label>
+            <input type="range" id="skewX" min="0" max="15" value="5">
+            <span id="skewXVal" style="font-size:.78rem;color:var(--text-dim);width:28px;text-align:right">5°</span>
+          </div>
+          <div class="control-row">
+            <label>Fade in</label>
+            <div class="toggle-switch">
+              <input type="checkbox" id="enableFade" checked>
+              <span class="toggle-track"></span>
+            </div>
+          </div>
+        </div>
+        <div class="section-group">
+          <div class="section-label">Cell Scale</div>
+          <div class="control-row">
+            <label>Start scale</label>
+            <input type="range" id="scaleStart" min="0.3" max="1" step="0.05" value="0.7">
+            <span id="scaleStartVal" style="font-size:.78rem;color:var(--text-dim);width:32px;text-align:right">0.7</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ─── Main ─── -->
+  <div class="main-area">
+    <div class="toolbar">
+      <button class="btn btn-primary" id="exportBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Export HTML
+      </button>
+      <button class="btn" id="previewAnimBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Preview Animation
+      </button>
+      <button class="btn" id="loadDemoBtn">Load Demo</button>
+      <div style="flex:1"></div>
+      <span style="font-size:0.71rem;color:var(--text-dim)" id="gridInfo">3 × 3 · 9 cells</span>
+    </div>
+
+    <div class="canvas-area">
+      <div class="preview-frame" id="previewFrame">
+        <div class="preview-hero" id="previewHero">
+          <div class="preview-grid" id="previewGrid"></div>
+          <div class="preview-vignette" id="previewVignette"></div>
+          <div class="preview-overlay" id="previewOverlay">
+            <div class="hero-heading" id="previewHeading">Mesmerize</div>
+            <div class="hero-sub" id="previewSub">With immersive animations</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
+    </footer>
+  </div>
+</div>
+
+<!-- Export Modal -->
+<div class="modal-overlay" id="exportModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Exported HTML</h2>
+      <button class="btn-icon" id="closeModal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">
+        Paste this anywhere in your page. It is self-contained — includes all CSS, HTML, and JS (GSAP loaded via CDN). Fully responsive.
+      </p>
+      <pre id="exportCode"></pre>
+    </div>
+    <div class="modal-footer">
+      <span class="copy-feedback" id="copyFeedback">Copied to clipboard</span>
+      <button class="btn btn-primary" id="copyBtn">Copy to Clipboard</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── State ─── //
+const state = {
+  cells: [],
+  selectedCellIndex: -1,
+  // text
+  showText: true,
+  heading: 'Mesmerize',
+  subhead: 'With immersive animations',
+  headingSize: 64,
+  subSize: 13,
+  textColor: '#ffffff',
+  // vignette
+  enableVignette: true,
+  vignetteStrength: 60,
+  vignetteSpread: 40,
+  edgeDarken: 30,
+  overlayColor: '#000000',
+  // layout
+  cols: 3,
+  rows: 3,
+  gap: 6,
+  colWidths: [1, 3, 1],
+  rowHeightMode: 'equal',
+  rowHeights: [1, 1, 1],
+  aspectRatio: '16/10',
+  bgColor: '#000000',
+  containerRadius: 0,
+  // animation
+  enablePin: true,
+  pinDuration: 200,
+  enableInset: true,
+  insetStart: 40,
+  insetRadius: 16,
+  skewX: 5,
+  enableFade: true,
+  scaleStart: 0.7,
+};
+
+// ─── DOM refs ─── //
+const $ = (s) => document.querySelector(s);
+const cellListEl = $('#cellList');
+const previewGrid = $('#previewGrid');
+const previewHero = $('#previewHero');
+const previewFrame = $('#previewFrame');
+const previewHeading = $('#previewHeading');
+const previewSub = $('#previewSub');
+const previewOverlay = $('#previewOverlay');
+const previewVignette = $('#previewVignette');
+
+// ─── Tabs ─── //
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    $(`#tab-${btn.dataset.tab}`).classList.add('active');
+  });
+});
+
+// ─── Cell Management ─── //
+function createCell(src = '', name = 'Untitled') {
+  state.cells.push({ src, name, posX: 'center', posY: 'center', zoom: 1 });
+  renderCellList();
+  renderPreview();
+}
+
+function removeCell(index) {
+  state.cells.splice(index, 1);
+  if (state.selectedCellIndex >= state.cells.length) {
+    state.selectedCellIndex = state.cells.length - 1;
+  }
+  renderCellList();
+  renderPreview();
+  updateCellEditor();
+}
+
+function selectCell(index) {
+  state.selectedCellIndex = index;
+  renderCellList();
+  renderPreview();
+  updateCellEditor();
+}
+
+function renderCellList() {
+  cellListEl.innerHTML = '';
+  state.cells.forEach((cell, i) => {
+    const el = document.createElement('div');
+    el.className = 'grid-cell-item' + (i === state.selectedCellIndex ? ' selected' : '');
+    el.draggable = true;
+    el.dataset.index = i;
+
+    const thumbHTML = cell.src
+      ? `<img src="${cell.src}" alt="">`
+      : `${i + 1}`;
+
+    const statusBadge = isDataUri(cell.src)
+      ? '<span class="badge-warn">⚠ local</span>'
+      : (cell.src && isValidImageUrl(cell.src))
+        ? '<span class="badge-ok">✓ hosted</span>'
+        : '';
+
+    el.innerHTML = `
+      <div class="cell-thumb">${thumbHTML}</div>
+      <div class="cell-info">
+        <div class="cell-name">${cell.name || `Cell ${i + 1}`}</div>
+        <div class="cell-size">Position ${i + 1} ${statusBadge}</div>
+      </div>
+      <div class="cell-actions">
+        <button class="btn-icon btn-remove" data-index="${i}" title="Remove">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    `;
+
+    el.addEventListener('click', (e) => {
+      if (!e.target.closest('.btn-remove')) selectCell(i);
+    });
+
+    el.querySelector('.btn-remove').addEventListener('click', (e) => {
+      e.stopPropagation();
+      removeCell(i);
+    });
+
+    // Drag and drop
+    el.addEventListener('dragstart', (e) => {
+      el.classList.add('dragging');
+      e.dataTransfer.setData('text/plain', i.toString());
+    });
+    el.addEventListener('dragend', () => el.classList.remove('dragging'));
+    el.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      el.classList.add('drag-over');
+    });
+    el.addEventListener('dragleave', () => el.classList.remove('drag-over'));
+    el.addEventListener('drop', (e) => {
+      e.preventDefault();
+      el.classList.remove('drag-over');
+      const fromIndex = parseInt(e.dataTransfer.getData('text/plain'));
+      const toIndex = i;
+      if (fromIndex !== toIndex) {
+        const moved = state.cells.splice(fromIndex, 1)[0];
+        state.cells.splice(toIndex, 0, moved);
+        if (state.selectedCellIndex === fromIndex) state.selectedCellIndex = toIndex;
+        renderCellList();
+        renderPreview();
+      }
+    });
+
+    cellListEl.appendChild(el);
+  });
+}
+
+function updateCellEditor() {
+  const editor = $('#cellEditor');
+  if (state.selectedCellIndex < 0 || state.selectedCellIndex >= state.cells.length) {
+    editor.style.display = 'none';
+    return;
+  }
+  editor.style.display = 'block';
+  const cell = state.cells[state.selectedCellIndex];
+  $('#cellUrlInput').value = isDataUri(cell.src) ? '' : cell.src;
+  $('#cellUrlInput').placeholder = isDataUri(cell.src) ? 'Replace with a hosted URL (current: local file)' : 'https://your-domain.com/image.jpg';
+  $('#cellLabelInput').value = cell.name || '';
+  $('#cellPosX').value = cell.posX;
+  $('#cellPosY').value = cell.posY;
+  $('#cellZoom').value = cell.zoom || 1;
+  $('#cellZoomVal').textContent = (cell.zoom || 1).toFixed(1) + '×';
+
+  // URL status indicator
+  const status = getUrlStatus(cell.src);
+  const statusEl = $('#cellUrlStatus');
+  statusEl.textContent = status.text;
+  statusEl.className = 'cell-url-status ' + status.cls;
+}
+
+$('#cellUrlInput').addEventListener('input', (e) => {
+  if (state.selectedCellIndex >= 0) {
+    state.cells[state.selectedCellIndex].src = e.target.value;
+    // Update status indicator
+    const status = getUrlStatus(e.target.value);
+    const statusEl = $('#cellUrlStatus');
+    statusEl.textContent = status.text;
+    statusEl.className = 'cell-url-status ' + status.cls;
+    renderCellList();
+    renderPreview();
+  }
+});
+
+$('#cellLabelInput').addEventListener('input', (e) => {
+  if (state.selectedCellIndex >= 0) {
+    state.cells[state.selectedCellIndex].name = e.target.value;
+    renderCellList();
+  }
+});
+
+$('#cellPosX').addEventListener('change', (e) => {
+  if (state.selectedCellIndex >= 0) {
+    state.cells[state.selectedCellIndex].posX = e.target.value;
+    renderPreview();
+  }
+});
+
+$('#cellPosY').addEventListener('change', (e) => {
+  if (state.selectedCellIndex >= 0) {
+    state.cells[state.selectedCellIndex].posY = e.target.value;
+    renderPreview();
+  }
+});
+
+$('#cellZoom').addEventListener('input', (e) => {
+  if (state.selectedCellIndex >= 0) {
+    const val = parseFloat(e.target.value);
+    state.cells[state.selectedCellIndex].zoom = val;
+    $('#cellZoomVal').textContent = val.toFixed(1) + '×';
+    renderPreview();
+  }
+});
+
+// ─── URL Validation ─── //
+function isValidImageUrl(str) {
+  try {
+    const url = new URL(str);
+    return url.protocol === 'https:' || url.protocol === 'http:';
+  } catch { return false; }
+}
+
+function isDataUri(str) {
+  return str && str.startsWith('data:');
+}
+
+function getUrlStatus(src) {
+  if (!src) return { cls: 'empty', text: 'No image URL set' };
+  if (isDataUri(src)) return { cls: 'local', text: '⚠ Local file — will not export. Replace with a hosted URL.' };
+  if (isValidImageUrl(src)) return { cls: 'hosted', text: '✓ Hosted URL — ready for export' };
+  return { cls: 'local', text: '⚠ Invalid URL format' };
+}
+
+// Add by URL
+const addUrlInput = $('#addUrlInput');
+const addUrlBtn = $('#addUrlBtn');
+const urlFeedback = $('#urlFeedback');
+
+addUrlInput.addEventListener('input', () => {
+  const val = addUrlInput.value.trim();
+  if (!val) {
+    addUrlBtn.disabled = true;
+    urlFeedback.textContent = '';
+    urlFeedback.className = 'url-feedback';
+    return;
+  }
+  if (isValidImageUrl(val)) {
+    addUrlBtn.disabled = false;
+    urlFeedback.textContent = '';
+    urlFeedback.className = 'url-feedback';
+  } else {
+    addUrlBtn.disabled = true;
+    urlFeedback.textContent = 'Enter a valid https:// or http:// image URL';
+    urlFeedback.className = 'url-feedback invalid';
+  }
+});
+
+// Allow pressing Enter to add
+addUrlInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !addUrlBtn.disabled) addUrlBtn.click();
+});
+
+addUrlBtn.addEventListener('click', () => {
+  const val = addUrlInput.value.trim();
+  if (!isValidImageUrl(val)) return;
+
+  // Extract a friendly name from the URL
+  let name = 'Image';
+  try {
+    const parts = new URL(val).pathname.split('/');
+    const last = parts[parts.length - 1];
+    if (last) name = decodeURIComponent(last).replace(/\.[^.]+$/, '').slice(0, 30);
+  } catch {}
+
+  // Check the image loads
+  urlFeedback.textContent = 'Verifying image...';
+  urlFeedback.className = 'url-feedback loading';
+
+  const img = new Image();
+  img.onload = () => {
+    createCell(val, name || 'Image');
+    selectCell(state.cells.length - 1);
+    addUrlInput.value = '';
+    addUrlBtn.disabled = true;
+    urlFeedback.textContent = '✓ Image added';
+    urlFeedback.className = 'url-feedback valid';
+    setTimeout(() => { urlFeedback.textContent = ''; urlFeedback.className = 'url-feedback'; }, 2000);
+  };
+  img.onerror = () => {
+    // Still add it — some URLs block cross-origin img loads but work in CSS background-image
+    createCell(val, name || 'Image');
+    selectCell(state.cells.length - 1);
+    addUrlInput.value = '';
+    addUrlBtn.disabled = true;
+    urlFeedback.textContent = '✓ Added (could not verify — may be CORS-restricted)';
+    urlFeedback.className = 'url-feedback valid';
+    setTimeout(() => { urlFeedback.textContent = ''; urlFeedback.className = 'url-feedback'; }, 3000);
+  };
+  img.src = val;
+});
+
+// File upload as secondary option
+$('#addFileBtn').addEventListener('click', () => $('#imageInput').click());
+
+$('#imageInput').addEventListener('change', (e) => {
+  Array.from(e.target.files).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      createCell(ev.target.result, file.name);
+    };
+    reader.readAsDataURL(file);
+  });
+  e.target.value = '';
+});
+
+// ─── Preview Rendering ─── //
+function renderPreview() {
+  const { cols, rows, gap, aspectRatio, bgColor, containerRadius, colWidths, rowHeightMode, rowHeights } = state;
+
+  previewHero.style.aspectRatio = aspectRatio;
+  previewFrame.style.background = bgColor;
+  previewFrame.style.borderRadius = containerRadius + 'px';
+
+  // Column widths as fr units
+  const colTemplate = colWidths.slice(0, cols).map(w => `${w}fr`).join(' ');
+  previewGrid.style.gridTemplateColumns = colTemplate;
+
+  // Row heights
+  if (rowHeightMode === 'custom') {
+    const rowTemplate = rowHeights.slice(0, rows).map(h => `${h}fr`).join(' ');
+    previewGrid.style.gridTemplateRows = rowTemplate;
+  } else {
+    previewGrid.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+  }
+  previewGrid.style.gap = gap + 'px';
+
+  const totalSlots = cols * rows;
+  previewGrid.innerHTML = '';
+
+  for (let i = 0; i < totalSlots; i++) {
+    const div = document.createElement('div');
+    div.className = 'grid-item' + (i === state.selectedCellIndex ? ' selected-cell' : '');
+
+    if (i < state.cells.length && state.cells[i].src) {
+      const cell = state.cells[i];
+      const zoom = cell.zoom || 1;
+      div.style.backgroundImage = `url(${cell.src})`;
+      div.style.backgroundPosition = `${cell.posX} ${cell.posY}`;
+      // Zoom: scale > 1 means zoomed in. We use background-size to control this.
+      if (zoom > 1) {
+        div.style.backgroundSize = `${zoom * 100}%`;
+      } else {
+        div.style.backgroundSize = 'cover';
+      }
+    } else {
+      div.innerHTML = `<div class="placeholder-label">${i < state.cells.length ? (state.cells[i].name || i + 1) : '+'}</div>`;
+    }
+
+    div.addEventListener('click', () => {
+      if (i < state.cells.length) {
+        selectCell(i);
+      } else {
+        createCell('', `Cell ${state.cells.length + 1}`);
+        selectCell(state.cells.length - 1);
+      }
+    });
+
+    previewGrid.appendChild(div);
+  }
+
+  // Vignette
+  if (state.enableVignette) {
+    const c = state.overlayColor;
+    const r = parseInt(c.slice(1,3),16), g = parseInt(c.slice(3,5),16), b = parseInt(c.slice(5,7),16);
+    const strength = state.vignetteStrength / 100;
+    const spread = state.vignetteSpread;
+    const edge = state.edgeDarken / 100;
+
+    // Build composite gradient: radial vignette + edge darkening
+    const gradients = [];
+    // Center radial vignette (transparent center, dark edges)
+    gradients.push(`radial-gradient(ellipse at center, rgba(${r},${g},${b},0) ${spread}%, rgba(${r},${g},${b},${strength}) 100%)`);
+    // Edge darkening (top and bottom strips)
+    if (edge > 0) {
+      gradients.push(`linear-gradient(to bottom, rgba(${r},${g},${b},${edge * 0.6}) 0%, rgba(${r},${g},${b},0) 25%, rgba(${r},${g},${b},0) 75%, rgba(${r},${g},${b},${edge * 0.6}) 100%)`);
+    }
+    previewVignette.style.background = gradients.join(', ');
+    previewVignette.style.display = 'block';
+  } else {
+    previewVignette.style.display = 'none';
+  }
+
+  // Text overlay
+  previewOverlay.style.display = state.showText ? 'flex' : 'none';
+  previewHeading.textContent = state.heading;
+  previewHeading.style.fontSize = state.headingSize + 'px';
+  previewHeading.style.color = state.textColor;
+  previewSub.textContent = state.subhead;
+  previewSub.style.fontSize = state.subSize + 'px';
+  previewSub.style.color = state.textColor;
+
+  // Grid info
+  $('#gridInfo').textContent = `${cols} × ${rows} · ${state.cells.length}/${totalSlots} cells`;
+}
+
+// ─── Bind Controls ─── //
+function bindControl(id, stateKey, type = 'value', displayId = null, suffix = '') {
+  const el = $(`#${id}`);
+  const handler = () => {
+    let val = el[type === 'checked' ? 'checked' : 'value'];
+    if (type === 'value' && el.type === 'number') val = parseFloat(val);
+    if (type === 'value' && el.type === 'range') val = parseFloat(val);
+    state[stateKey] = val;
+    if (displayId) $(`#${displayId}`).textContent = val + suffix;
+    renderPreview();
+  };
+  el.addEventListener('input', handler);
+  el.addEventListener('change', handler);
+}
+
+// Text
+bindControl('showText', 'showText', 'checked');
+$('#headingInput').addEventListener('input', (e) => { state.heading = e.target.value; renderPreview(); });
+$('#subheadInput').addEventListener('input', (e) => { state.subhead = e.target.value; renderPreview(); });
+bindControl('headingSize', 'headingSize', 'value', 'headingSizeVal');
+bindControl('subSize', 'subSize', 'value', 'subSizeVal');
+bindControl('textColor', 'textColor');
+
+// Vignette
+bindControl('enableVignette', 'enableVignette', 'checked');
+bindControl('vignetteStrength', 'vignetteStrength', 'value', 'vignetteStrengthVal', '%');
+bindControl('vignetteSpread', 'vignetteSpread', 'value', 'vignetteSpreadVal', '%');
+bindControl('edgeDarken', 'edgeDarken', 'value', 'edgeDarkenVal', '%');
+bindControl('overlayColor', 'overlayColor');
+
+// Layout
+$('#gridCols').addEventListener('change', (e) => {
+  state.cols = parseInt(e.target.value);
+  // Ensure colWidths array matches
+  while (state.colWidths.length < state.cols) state.colWidths.push(1);
+  state.colWidths = state.colWidths.slice(0, state.cols);
+  renderColWidthInputs();
+  renderPreview();
+});
+$('#gridRows').addEventListener('change', (e) => {
+  state.rows = parseInt(e.target.value);
+  while (state.rowHeights.length < state.rows) state.rowHeights.push(1);
+  state.rowHeights = state.rowHeights.slice(0, state.rows);
+  renderRowHeightInputs();
+  renderPreview();
+});
+bindControl('gridGap', 'gap');
+bindControl('aspectRatio', 'aspectRatio');
+bindControl('bgColor', 'bgColor');
+bindControl('containerRadius', 'containerRadius');
+
+// Row height mode toggle
+$('#rowHeightMode').addEventListener('change', (e) => {
+  state.rowHeightMode = e.target.value;
+  const container = $('#rowHeightInputs');
+  container.style.display = state.rowHeightMode === 'custom' ? 'flex' : 'none';
+  renderRowHeightInputs();
+  renderPreview();
+});
+
+// ─── Column Width Inputs ─── //
+function renderColWidthInputs() {
+  const container = $('#colWidthInputs');
+  container.innerHTML = '';
+  for (let i = 0; i < state.cols; i++) {
+    if (i > 0) {
+      const sep = document.createElement('span');
+      sep.className = 'sep';
+      sep.textContent = ':';
+      container.appendChild(sep);
+    }
+    const input = document.createElement('input');
+    input.type = 'number';
+    input.min = 1;
+    input.max = 10;
+    input.value = state.colWidths[i] || 1;
+    input.addEventListener('change', (e) => {
+      state.colWidths[i] = Math.max(1, parseInt(e.target.value) || 1);
+      renderPreview();
+    });
+    container.appendChild(input);
+  }
+}
+
+function renderRowHeightInputs() {
+  const container = $('#rowHeightInputs');
+  container.innerHTML = '';
+  if (state.rowHeightMode !== 'custom') return;
+  for (let i = 0; i < state.rows; i++) {
+    if (i > 0) {
+      const sep = document.createElement('span');
+      sep.className = 'sep';
+      sep.textContent = ':';
+      container.appendChild(sep);
+    }
+    const input = document.createElement('input');
+    input.type = 'number';
+    input.min = 1;
+    input.max = 10;
+    input.value = state.rowHeights[i] || 1;
+    input.addEventListener('change', (e) => {
+      state.rowHeights[i] = Math.max(1, parseInt(e.target.value) || 1);
+      renderPreview();
+    });
+    container.appendChild(input);
+  }
+}
+
+renderColWidthInputs();
+renderRowHeightInputs();
+
+// Animation
+bindControl('enablePin', 'enablePin', 'checked');
+bindControl('pinDuration', 'pinDuration', 'value', 'pinDurationVal', '%');
+bindControl('enableInset', 'enableInset', 'checked');
+bindControl('insetStart', 'insetStart');
+bindControl('insetRadius', 'insetRadius');
+bindControl('skewX', 'skewX', 'value', 'skewXVal', '°');
+bindControl('enableFade', 'enableFade', 'checked');
+bindControl('scaleStart', 'scaleStart', 'value', 'scaleStartVal');
+
+// ─── Preview Animation ─── //
+$('#previewAnimBtn').addEventListener('click', () => {
+  const grid = previewGrid;
+  const cells = grid.querySelectorAll('.grid-item');
+  const frame = previewFrame;
+
+  // Reset
+  grid.style.transition = 'none';
+  grid.style.opacity = '0';
+  grid.style.transform = `skewX(${state.skewX}deg)`;
+  cells.forEach(c => { c.style.transition = 'none'; c.style.transform = `scale(${state.scaleStart})`; });
+
+  if (state.enableInset) {
+    frame.style.transition = 'none';
+    frame.style.margin = `${state.insetStart}px`;
+    frame.style.borderRadius = `${state.insetRadius}px`;
+  }
+
+  // Force reflow
+  void grid.offsetWidth;
+
+  // Animate
+  setTimeout(() => {
+    if (state.enableInset) {
+      frame.style.transition = 'margin 1.2s cubic-bezier(0.16, 1, 0.3, 1), border-radius 1.2s cubic-bezier(0.16, 1, 0.3, 1)';
+      frame.style.margin = '0px';
+      frame.style.borderRadius = state.containerRadius + 'px';
+    }
+
+    grid.style.transition = 'opacity 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s, transform 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s';
+    grid.style.opacity = '1';
+    grid.style.transform = 'skewX(0deg)';
+
+    cells.forEach((c, i) => {
+      c.style.transition = `transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${0.4 + i * 0.05}s`;
+      c.style.transform = 'scale(1)';
+    });
+  }, 100);
+
+  // Cleanup
+  setTimeout(() => {
+    grid.style.transition = '';
+    grid.style.opacity = '';
+    grid.style.transform = '';
+    frame.style.transition = '';
+    frame.style.margin = '';
+    frame.style.borderRadius = state.containerRadius + 'px';
+    cells.forEach(c => { c.style.transition = ''; c.style.transform = ''; });
+  }, 3000);
+});
+
+// ─── Demo Data ─── //
+$('#loadDemoBtn').addEventListener('click', () => {
+  const demoImages = [
+    { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&fit=crop', name: 'Mountains', zoom: 1.4, posX: 'center', posY: 'bottom' },
+    { src: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&fit=crop', name: 'Night Sky', zoom: 1, posX: 'center', posY: 'center' },
+    { src: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&fit=crop', name: 'Lake', zoom: 1.6, posX: 'right', posY: 'center' },
+    { src: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600&fit=crop', name: 'Forest', zoom: 1.3, posX: 'left', posY: 'center' },
+    { src: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&fit=crop', name: 'Canopy', zoom: 1, posX: 'center', posY: 'center' },
+    { src: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600&fit=crop', name: 'Fields', zoom: 1.5, posX: 'center', posY: 'top' },
+    { src: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&fit=crop', name: 'Valley', zoom: 1.2, posX: 'center', posY: 'center' },
+    { src: 'https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800&fit=crop', name: 'Waterfall', zoom: 1, posX: 'center', posY: 'top' },
+    { src: 'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=600&fit=crop', name: 'Autumn', zoom: 1.8, posX: 'center', posY: 'center' },
+  ];
+  state.cells = demoImages;
+  // Set layout to match reference (wide center column)
+  state.cols = 3;
+  state.rows = 3;
+  state.colWidths = [1, 3, 1];
+  state.gap = 6;
+  state.enableVignette = true;
+  state.vignetteStrength = 60;
+  state.vignetteSpread = 35;
+  state.edgeDarken = 40;
+  $('#gridCols').value = 3;
+  $('#gridRows').value = 3;
+  $('#enableVignette').checked = true;
+  $('#vignetteStrength').value = 60;
+  $('#vignetteSpread').value = 35;
+  $('#edgeDarken').value = 40;
+  state.selectedCellIndex = -1;
+  renderColWidthInputs();
+  renderCellList();
+  renderPreview();
+  updateCellEditor();
+});
+
+// ─── Export ─── //
+$('#exportBtn').addEventListener('click', () => {
+  const html = generateExportHTML();
+  $('#exportCode').textContent = html;
+
+  // Count data URIs and show warning
+  const totalSlots = state.cols * state.rows;
+  const usedCells = state.cells.slice(0, totalSlots);
+  const dataUriCount = usedCells.filter(c => isDataUri(c.src)).length;
+  const hostedCount = usedCells.filter(c => c.src && isValidImageUrl(c.src)).length;
+  const emptyCount = usedCells.filter(c => !c.src).length;
+
+  let warningHTML = '';
+  if (dataUriCount > 0) {
+    warningHTML = `<div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:12px;margin-bottom:12px;font-size:0.85rem;color:#f59e0b;">
+      <strong>⚠ ${dataUriCount} image${dataUriCount > 1 ? 's use' : ' uses'} local file references</strong> that won't work when pasted into a page.
+      Go back and replace them with hosted URLs (Unsplash, your CDN, Google Drive, etc.).
+    </div>`;
+  }
+
+  const statsHTML = `<div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:12px;">
+    ${hostedCount} hosted image${hostedCount !== 1 ? 's' : ''}
+    ${dataUriCount > 0 ? ` · <span style="color:#f59e0b">${dataUriCount} local (won't export)</span>` : ''}
+    ${emptyCount > 0 ? ` · ${emptyCount} empty slot${emptyCount !== 1 ? 's' : ''}` : ''}
+  </div>`;
+
+  // Insert before the <pre>
+  const modalBody = $('#exportModal .modal-body');
+  modalBody.innerHTML = `
+    <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">
+      Paste this anywhere in your page. It is self-contained — includes all CSS, HTML, and JS (GSAP loaded via CDN). Fully responsive.
+    </p>
+    ${warningHTML}
+    ${statsHTML}
+    <pre id="exportCode"></pre>
+  `;
+  $('#exportCode').textContent = html;
+  $('#exportModal').classList.add('open');
+});
+
+$('#closeModal').addEventListener('click', () => $('#exportModal').classList.remove('open'));
+$('#exportModal').addEventListener('click', (e) => {
+  if (e.target === $('#exportModal')) $('#exportModal').classList.remove('open');
+});
+
+$('#copyBtn').addEventListener('click', () => {
+  navigator.clipboard.writeText($('#exportCode').textContent).then(() => {
+    const fb = $('#copyFeedback');
+    fb.classList.add('show');
+    setTimeout(() => fb.classList.remove('show'), 2000);
+  });
+});
+
+function generateExportHTML() {
+  const { cols, rows, gap, aspectRatio, bgColor, containerRadius, cells, colWidths, rowHeightMode, rowHeights,
+    showText, heading, subhead, headingSize, subSize, textColor,
+    enableVignette, vignetteStrength, vignetteSpread, edgeDarken, overlayColor,
+    enablePin, pinDuration, enableInset, insetStart, insetRadius,
+    skewX, enableFade, scaleStart } = state;
+
+  const totalSlots = cols * rows;
+  const usedCells = cells.slice(0, totalSlots);
+  const colTemplate = colWidths.slice(0, cols).map(w => `${w}fr`).join(' ');
+  const rowTemplate = rowHeightMode === 'custom' ? rowHeights.slice(0, rows).map(h => `${h}fr`).join(' ') : `repeat(${rows}, 1fr)`;
+
+  let cellsHTML = '';
+  for (let i = 0; i < totalSlots; i++) {
+    if (i < usedCells.length && usedCells[i].src) {
+      const c = usedCells[i];
+      const imgSrc = c.src.startsWith('data:') ? '' : c.src;
+      const zoom = c.zoom || 1;
+      const bgSize = zoom > 1 ? `background-size:${zoom * 100}%` : 'background-size:cover';
+      if (imgSrc) {
+        cellsHTML += `    <div class="srg-cell" style="background-image:url('${imgSrc}');background-position:${c.posX} ${c.posY};${bgSize}"></div>\n`;
+      } else {
+        cellsHTML += `    <div class="srg-cell"><!-- Replace: style="background-image:url('...');background-position:${c.posX} ${c.posY};${bgSize}" --></div>\n`;
+      }
+    } else {
+      cellsHTML += `    <div class="srg-cell"></div>\n`;
+    }
+  }
+
+  // Vignette HTML
+  let vignetteHTML = '';
+  let vignetteCSS = '';
+  if (enableVignette) {
+    const oc = overlayColor;
+    const r = parseInt(oc.slice(1,3),16), g = parseInt(oc.slice(3,5),16), b = parseInt(oc.slice(5,7),16);
+    const str = vignetteStrength / 100;
+    const spr = vignetteSpread;
+    const edg = edgeDarken / 100;
+    const grads = [`radial-gradient(ellipse at center, rgba(${r},${g},${b},0) ${spr}%, rgba(${r},${g},${b},${str}) 100%)`];
+    if (edg > 0) {
+      grads.push(`linear-gradient(to bottom, rgba(${r},${g},${b},${(edg*0.6).toFixed(2)}) 0%, rgba(${r},${g},${b},0) 25%, rgba(${r},${g},${b},0) 75%, rgba(${r},${g},${b},${(edg*0.6).toFixed(2)}) 100%)`);
+    }
+    vignetteHTML = `\n  <div class="srg-vignette"></div>`;
+    vignetteCSS = `.srg-vignette {\n  position: absolute;\n  inset: 0;\n  z-index: 2;\n  pointer-events: none;\n  background: ${grads.join(', ')};\n}`;
+  }
+
+  let textHTML = '';
+  if (showText) {
+    textHTML = `
+  <div class="srg-overlay">
+    <div class="srg-heading">${escapeHTML(heading)}</div>
+    <div class="srg-sub">${escapeHTML(subhead)}</div>
+  </div>`;
+  }
+
+  return `<!-- Scroll Reveal Grid Hero — Self-Contained Component -->
+<div class="scroll-reveal-grid-hero" id="srgHero">
+  <div class="srg-inner">
+    <div class="srg-grid">
+${cellsHTML.trimEnd()}
+    </div>${vignetteHTML}${textHTML}
+  </div>
+</div>
+
+<style>
+/* ─── Scroll Reveal Grid ─── */
+.scroll-reveal-grid-hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.srg-inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: ${aspectRatio};
+  background: ${bgColor};
+  border-radius: ${containerRadius}px;
+  overflow: hidden;
+${enableInset ? `  margin: ${insetStart}px;
+  width: calc(100% - ${insetStart * 2}px);
+  border-radius: ${insetRadius}px;` : ''}
+}
+.srg-grid {
+  display: grid;
+  grid-template-columns: ${colTemplate};
+  grid-template-rows: ${rowTemplate};
+  gap: ${gap}px;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+${enableFade ? '  opacity: 0;' : ''}
+${skewX > 0 ? `  transform: skewX(${skewX}deg);` : ''}
+}
+.srg-cell {
+  background-size: cover;
+  background-position: center;
+  background-color: ${bgColor === '#000000' ? '#111' : '#ddd'};
+${scaleStart < 1 ? `  transform: scale(${scaleStart});` : ''}
+}
+${vignetteCSS}
+${showText ? `.srg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.srg-heading {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(28px, 5vw, ${headingSize}px);
+  color: ${textColor};
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  text-align: center;
+  line-height: 1.1;
+}
+.srg-sub {
+  font-family: system-ui, sans-serif;
+  font-size: clamp(10px, 1.2vw, ${subSize}px);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: ${textColor};
+  opacity: 0.85;
+  text-shadow: 0 1px 10px rgba(0,0,0,0.5);
+  text-align: center;
+  margin-top: 4px;
+}` : ''}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .srg-inner { aspect-ratio: 4/3; }
+${enableInset ? `  .srg-inner { margin: ${Math.round(insetStart / 2)}px; width: calc(100% - ${insetStart}px); }` : ''}
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"><\/script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"><\/script>
+<script>
+(function() {
+  gsap.registerPlugin(ScrollTrigger);
+
+  const hero = document.querySelector('#srgHero');
+  const inner = hero.querySelector('.srg-inner');
+  const grid = hero.querySelector('.srg-grid');
+  const cells = hero.querySelectorAll('.srg-cell');
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: hero,
+${enablePin ? `      pin: true,
+      end: '+=${pinDuration}%',` : `      start: 'top 80%',
+      end: 'bottom 20%',`}
+      scrub: 1,
+    }
+  });
+
+${enableInset ? `  // Inset reveal
+  tl.to(inner, {
+    margin: 0,
+    width: '100%',
+    borderRadius: '${containerRadius}px',
+    duration: 0.4,
+    ease: 'none',
+  }, 0);
+` : ''}
+${enableFade || skewX > 0 ? `  // Grid skew + fade
+  tl.to(grid, {
+${enableFade ? '    opacity: 1,' : ''}
+${skewX > 0 ? '    skewX: 0,' : ''}
+    duration: 0.4,
+    ease: 'none',
+  }, 0.1);
+` : ''}
+${scaleStart < 1 ? `  // Cell scale
+  cells.forEach(function(cell, i) {
+    tl.to(cell, {
+      scale: 1,
+      duration: 0.3,
+      ease: 'none',
+    }, 0.15 + i * 0.03);
+  });
+` : ''}
+})();
+<\/script>
+<!-- End Scroll Reveal Grid Hero -->`;
+}
+
+function escapeHTML(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─── Init ─── //
+renderCellList();
+renderPreview();
+</script>
+
+<script data-pplx-inline-edit>
+(function(){
+  if(window===window.top)return;
+  function inlineAll(orig,clone){
+    if(orig.nodeType!==1)return;
+    try{
+      var cs=getComputedStyle(orig);
+      var t='';
+      for(var i=0;i<cs.length;i++){t+=cs[i]+':'+cs.getPropertyValue(cs[i])+';';}
+      clone.style.cssText=t;
+    }catch(e){}
+    var oc=orig.children,cc=clone.children;
+    for(var j=0;j<oc.length&&j<cc.length;j++){inlineAll(oc[j],cc[j]);}
+  }
+  function stripExternal(clone){
+    var imgs=clone.querySelectorAll('img');
+    for(var i=0;i<imgs.length;i++){
+      var s=imgs[i].getAttribute('src');
+      if(s&&!s.startsWith('data:'))imgs[i].removeAttribute('src');
+    }
+    var all=clone.querySelectorAll('*');
+    for(var i=0;i<all.length;i++){
+      var st=all[i].style.cssText;
+      if(st&&st.indexOf('url(')>=0){
+        all[i].style.cssText=st.replace(/url\(["']?(?!data:)[^)"']*["']?\)/gi,'none');
+      }
+    }
+  }
+  window.addEventListener('message',function(e){
+    if(!e.data||e.data.type!=='INLINE_EDIT_CAPTURE_REQUEST')return;
+    var scrollX=window.scrollX||window.pageXOffset||0;
+    var scrollY=window.scrollY||window.pageYOffset||0;
+    var w=window.innerWidth,h=window.innerHeight;
+    try{
+      var clone=document.documentElement.cloneNode(true);
+      var rm=clone.querySelectorAll('script,link[rel="stylesheet"],style');
+      for(var i=0;i<rm.length;i++){rm[i].remove();}
+      inlineAll(document.documentElement,clone);
+      stripExternal(clone);
+      var html=new XMLSerializer().serializeToString(clone);
+      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+        +'<foreignObject width="100%" height="100%">'
+        +'<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;height:'+h+'px;overflow:hidden">'
+        +'<div style="transform:translate(-'+scrollX+'px,-'+scrollY+'px);transform-origin:top left">'
+        +html+'</div></div></foreignObject></svg>';
+      var svgUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+      var img=new Image();
+      img.onload=function(){
+        var c=document.createElement('canvas');c.width=w;c.height=h;
+        c.getContext('2d').drawImage(img,0,0);
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:c.toDataURL('image/png'),scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.onerror=function(){
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.src=svgUrl;
+    }catch(err){
+      window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+    }
+  });
+})();
+</script></body>
+</html>
