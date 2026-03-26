@@ -1,0 +1,2183 @@
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+
+<!-- Perplexity Computer Attribution — SEO Meta Tags -->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manifesto Section Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&display=swap" rel="stylesheet">
+<style>
+/* ─── Reset ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --surface-2: #1c1c1c;
+  --surface-3: #242424;
+  --border: #2a2a2a;
+  --border-hover: #3a3a3a;
+  --text: #e8e8e8;
+  --text-muted: #888;
+  --text-dim: #555;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --accent-muted: rgba(59, 130, 246, 0.15);
+  --danger: #ef4444;
+  --success: #22c55e;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { font-size: 14px; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Layout ─── */
+.app { display: flex; height: 100vh; overflow: hidden; }
+
+.sidebar {
+  width: 340px;
+  min-width: 340px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sidebar-header {
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.sidebar-header h1 {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.sidebar-header p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ─── Preset Bar ─── */
+.preset-bar {
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.preset-bar label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.preset-bar select {
+  flex: 1;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 5px 8px;
+  font-size: 0.82rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+.preset-bar select:focus { outline: none; border-color: var(--accent); }
+
+.preset-bar button {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  padding: 5px 10px;
+  font-size: 0.82rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.preset-bar button:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ─── Tabs ─── */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  padding: 0 8px;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  padding: 10px 10px 9px;
+  font-size: 0.78rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+  margin-bottom: -1px;
+}
+
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ─── Sidebar Body ─── */
+.sidebar-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+}
+
+.sidebar-body::-webkit-scrollbar { width: 4px; }
+.sidebar-body::-webkit-scrollbar-track { background: transparent; }
+.sidebar-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ─── Section Groups ─── */
+.section-group { margin-bottom: 20px; }
+.section-group:last-child { margin-bottom: 0; }
+
+.section-label {
+  font-size: 0.71rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+/* ─── Controls ─── */
+.control-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.control-row label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.control-row input[type="range"] {
+  width: 120px;
+  accent-color: var(--accent);
+}
+
+.control-row input[type="color"] {
+  width: 32px;
+  height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.control-row select {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  max-width: 170px;
+}
+
+.control-row select:focus { outline: none; border-color: var(--accent); }
+
+.val-badge {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  min-width: 38px;
+  text-align: right;
+}
+
+/* ─── Textareas & Inputs ─── */
+textarea, input[type="text"] {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 10px 12px;
+  font-size: 0.88rem;
+  font-family: var(--font-body);
+  width: 100%;
+  resize: vertical;
+  transition: border-color 0.15s;
+}
+
+textarea:focus, input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.input-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+  display: block;
+}
+
+.input-group { margin-bottom: 12px; }
+
+/* ─── Contenteditable ─── */
+.rich-editor-wrap {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 12px;
+  transition: border-color 0.15s;
+}
+
+.rich-editor-wrap:focus-within { border-color: var(--accent); }
+
+.format-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 8px;
+  background: var(--surface-3);
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.fmt-btn {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--text-muted);
+  padding: 3px 7px;
+  font-size: 0.82rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.12s;
+  line-height: 1.4;
+}
+
+.fmt-btn:hover { background: var(--surface-2); color: var(--text); border-color: var(--border); }
+.fmt-btn.active { background: var(--accent-muted); color: var(--accent); border-color: var(--accent); }
+
+.fmt-sep {
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+  margin: 0 2px;
+}
+
+.rich-editor {
+  min-height: 120px;
+  max-height: 220px;
+  overflow-y: auto;
+  padding: 10px 12px;
+  font-size: 0.88rem;
+  font-family: var(--font-body);
+  color: var(--text);
+  outline: none;
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.rich-editor::-webkit-scrollbar { width: 4px; }
+.rich-editor::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+/* Hint for the editor */
+.rich-editor:empty::before {
+  content: attr(data-placeholder);
+  color: var(--text-dim);
+  pointer-events: none;
+}
+
+/* ─── Color Presets ─── */
+.color-presets {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.color-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.12s;
+  position: relative;
+}
+
+.color-swatch:hover { transform: scale(1.15); }
+.color-swatch.selected { border-color: var(--accent); }
+
+/* ─── Align Buttons ─── */
+.align-group {
+  display: flex;
+  gap: 4px;
+}
+
+.align-btn {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  padding: 5px 12px;
+  font-size: 0.82rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.12s;
+  flex: 1;
+  text-align: center;
+}
+
+.align-btn:hover { border-color: var(--border-hover); color: var(--text); }
+.align-btn.active { background: var(--accent-muted); border-color: var(--accent); color: var(--accent); }
+
+/* ─── Toggle Switch ─── */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.toggle-row label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.toggle {
+  position: relative;
+  width: 36px;
+  height: 20px;
+}
+
+.toggle input { opacity: 0; width: 0; height: 0; }
+
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  left: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--text-muted);
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.toggle input:checked + .toggle-slider { background: var(--accent); border-color: var(--accent); }
+.toggle input:checked + .toggle-slider::before { transform: translateX(16px) translateY(-50%); background: #fff; }
+
+/* ─── Underline Word List ─── */
+.underline-list {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.underline-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px 10px;
+}
+
+.underline-item span {
+  flex: 1;
+  font-size: 0.85rem;
+  color: var(--text);
+  font-family: 'Newsreader', Georgia, serif;
+  font-style: italic;
+}
+
+.underline-item button {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 2px;
+  transition: color 0.12s;
+}
+
+.underline-item button:hover { color: var(--danger); }
+
+.add-underline-row {
+  display: flex;
+  gap: 6px;
+}
+
+.add-underline-row input {
+  flex: 1;
+  resize: none;
+}
+
+.add-underline-row button {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.12s;
+}
+
+.add-underline-row button:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ─── Buttons ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 0.88rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+
+.btn-secondary {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.btn-secondary:hover { background: var(--surface-3); border-color: var(--border-hover); }
+
+.btn-full { width: 100%; justify-content: center; }
+.btn-success { background: #16a34a; border-color: #16a34a; }
+.btn-success:hover { background: #15803d; border-color: #15803d; }
+
+/* ─── Export Panel ─── */
+.export-preview {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  margin-bottom: 12px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: 'Courier New', monospace;
+  max-height: 200px;
+  overflow-y: auto;
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+.export-preview::-webkit-scrollbar { width: 4px; }
+.export-preview::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+.copy-notice {
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: var(--radius);
+  color: var(--success);
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  text-align: center;
+  margin-top: 10px;
+  display: none;
+}
+
+/* ─── Main Area ─── */
+.main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.toolbar-label {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.toolbar-spacer { flex: 1; }
+
+/* ─── Canvas ─── */
+.canvas-area {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  padding: 40px;
+  position: relative;
+}
+
+/* Film grain on canvas */
+.canvas-area::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+.preview-frame {
+  width: 100%;
+  max-width: 1100px;
+  min-height: 420px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+/* ─── Manifesto Preview Section ─── */
+.manifesto-section {
+  width: 100%;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.manifesto-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  margin-bottom: 28px;
+  opacity: 0.7;
+}
+
+.manifesto-text {
+  font-size: 3rem;
+  line-height: 1.15;
+  max-width: 880px;
+  font-family: 'Newsreader', Georgia, serif;
+}
+
+.manifesto-text strong {
+  font-weight: 800;
+}
+
+.manifesto-text em {
+  font-style: italic;
+}
+
+.manifesto-text .accent {
+  /* set dynamically */
+}
+
+.manifesto-subtitle {
+  font-size: 0.95rem;
+  margin-top: 32px;
+  opacity: 0.6;
+  max-width: 600px;
+}
+
+/* film grain overlay for preview */
+.manifesto-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* ─── Animations ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes snapScale {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes gradientUnderlineAnim {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* Underline styles */
+.ul-solid { text-decoration: underline; text-decoration-style: solid; text-underline-offset: 5px; }
+.ul-dashed { text-decoration: underline; text-decoration-style: dashed; text-underline-offset: 5px; }
+.ul-gradient {
+  text-decoration: none;
+  background-image: linear-gradient(90deg, var(--ul-color, #3b82f6) 0%, var(--ul-accent, #8FC5D9) 50%, var(--ul-color, #3b82f6) 100%);
+  background-size: 200% 2px;
+  background-position: bottom left;
+  background-repeat: no-repeat;
+  padding-bottom: 3px;
+}
+
+.ul-animate { animation: gradientUnderlineAnim 2s linear infinite; }
+
+/* Animation states */
+.anim-fade-up {
+  opacity: 0;
+  animation: fadeUp 0.7s var(--ease-out) forwards;
+}
+
+.anim-snap-scale {
+  opacity: 0;
+  animation: snapScale 0.6s var(--ease-out) forwards;
+}
+
+.word-stagger .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+}
+
+.word-stagger.is-visible .word {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Footer ─── */
+.sidebar-footer {
+  padding: 10px 20px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.sidebar-footer a { color: var(--text-dim); text-decoration: none; }
+.sidebar-footer a:hover { color: var(--text-muted); }
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .app { flex-direction: column; height: auto; min-height: 100vh; }
+  .sidebar { width: 100%; min-width: unset; border-right: none; border-bottom: 1px solid var(--border); max-height: 60vh; }
+  .main-area { min-height: 50vh; }
+  .canvas-area { padding: 20px; }
+  .manifesto-section { padding: 50px 30px; }
+  .manifesto-text { font-size: 2rem; }
+}
+
+/* ─── Divider ─── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+
+/* ─── Info text ─── */
+.info-text {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+/* segment control (eyebrow style) */
+.seg-control {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.seg-btn {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.seg-btn:hover { border-color: var(--border-hover); color: var(--text); }
+.seg-btn.active { background: var(--accent-muted); border-color: var(--accent); color: var(--accent); }
+
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- ─── SIDEBAR ─── -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h1>Manifesto Builder</h1>
+      <p>Design impact text sections. Preview live. Export clean HTML.</p>
+    </div>
+
+    <!-- Preset bar -->
+    <div class="preset-bar">
+      <label>Preset</label>
+      <select id="presetSelect">
+        <option value="">— choose preset —</option>
+        <option value="sbdc">SBDC Impact</option>
+        <option value="dark">Dark Manifesto</option>
+        <option value="bold">Bold Statement</option>
+        <option value="accent">Accent Block</option>
+      </select>
+      <button onclick="loadPreset()">Load</button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="text">Text</button>
+      <button class="tab-btn" data-tab="style">Style</button>
+      <button class="tab-btn" data-tab="underlines">Underlines</button>
+      <button class="tab-btn" data-tab="animation">Animation</button>
+      <button class="tab-btn" data-tab="export">Export</button>
+    </div>
+
+    <!-- Sidebar body -->
+    <div class="sidebar-body">
+
+      <!-- ── Tab: Text ── -->
+      <div class="tab-panel active" id="tab-text">
+
+        <div class="section-group">
+          <div class="section-label">Main Text</div>
+          <p class="info-text">Select text then use the toolbar to apply formatting.</p>
+
+          <div class="rich-editor-wrap">
+            <div class="format-toolbar">
+              <button class="fmt-btn" data-cmd="bold" title="Bold"><strong>B</strong></button>
+              <button class="fmt-btn" data-cmd="italic" title="Italic"><em>I</em></button>
+              <div class="fmt-sep"></div>
+              <button class="fmt-btn" id="accentBtn" data-cmd="accent" title="Accent Color">Ac</button>
+              <div class="fmt-sep"></div>
+              <button class="fmt-btn" data-cmd="removeFormat" title="Clear Formatting">✕</button>
+            </div>
+            <div
+              class="rich-editor"
+              id="manifestoEditor"
+              contenteditable="true"
+              data-placeholder="Type your manifesto text here…"
+            ></div>
+          </div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-label">Labels &amp; Subtitle</div>
+          <div class="input-group">
+            <label class="input-label" for="eyebrowInput">Eyebrow label</label>
+            <input type="text" id="eyebrowInput" placeholder="e.g. THE MISSION" value="SUCCESS">
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="subtitleInput">Subtitle / caption</label>
+            <input type="text" id="subtitleInput" placeholder="Small supporting text below the statement">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Tab: Style ── -->
+      <div class="tab-panel" id="tab-style">
+
+        <div class="section-group">
+          <div class="section-label">Background</div>
+          <div class="color-presets" id="bgPresets"></div>
+          <div class="control-row">
+            <label>Custom color</label>
+            <input type="color" id="bgColorPicker" value="#ffffff">
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="section-group">
+          <div class="section-label">Text Color</div>
+          <div class="color-presets" id="textPresets"></div>
+          <div class="control-row">
+            <label>Custom color</label>
+            <input type="color" id="textColorPicker" value="#0a1528">
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="section-group">
+          <div class="section-label">Accent Color</div>
+          <div class="color-presets" id="accentPresets"></div>
+          <div class="control-row">
+            <label>Custom color</label>
+            <input type="color" id="accentColorPicker" value="#1D5AA7">
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="section-group">
+          <div class="section-label">Typography</div>
+
+          <div class="control-row">
+            <label>Font size</label>
+            <input type="range" id="fontSizeSlider" min="28" max="80" value="48" step="1">
+            <span class="val-badge" id="fontSizeVal">48px</span>
+          </div>
+
+          <div class="control-row">
+            <label>Line height</label>
+            <input type="range" id="lineHeightSlider" min="100" max="150" value="115" step="1">
+            <span class="val-badge" id="lineHeightVal">1.15</span>
+          </div>
+
+          <div class="control-row">
+            <label>Letter spacing</label>
+            <input type="range" id="letterSpacingSlider" min="-4" max="2" value="-1" step="0.5">
+            <span class="val-badge" id="letterSpacingVal">-0.01em</span>
+          </div>
+
+          <div class="control-row">
+            <label>Alignment</label>
+            <div class="align-group" id="alignGroup">
+              <button class="align-btn active" data-align="center">Center</button>
+              <button class="align-btn" data-align="left">Left</button>
+            </div>
+          </div>
+
+          <div class="control-row">
+            <label>Eyebrow style</label>
+            <select id="eyebrowStyleSelect">
+              <option value="mono-upper">Mono uppercase</option>
+              <option value="sans-light">Sans light</option>
+              <option value="hidden">Hidden</option>
+            </select>
+          </div>
+
+          <div class="control-row">
+            <label>Max width</label>
+            <select id="maxWidthSelect">
+              <option value="600px">Narrow (600)</option>
+              <option value="800px">Medium (800)</option>
+              <option value="920px">Wide (920)</option>
+              <option value="1000px">Wide (1000)</option>
+              <option value="1200px">Max (1200)</option>
+              <option value="100%">Full width</option>
+            </select>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="section-group">
+          <div class="section-label">Film Grain</div>
+          <div class="toggle-row">
+            <label>Enable grain overlay</label>
+            <label class="toggle">
+              <input type="checkbox" id="grainToggle">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="control-row" id="grainOpacityRow" style="display:none">
+            <label>Grain opacity</label>
+            <input type="range" id="grainOpacitySlider" min="0" max="5" value="2" step="0.5">
+            <span class="val-badge" id="grainOpacityVal">2%</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Tab: Underlines ── -->
+      <div class="tab-panel" id="tab-underlines">
+
+        <div class="section-group">
+          <div class="section-label">Underlined Phrases</div>
+          <p class="info-text">Add words or phrases to underline. They will be matched case-insensitively in the preview.</p>
+          <div class="underline-list" id="underlineList"></div>
+          <div class="add-underline-row">
+            <input type="text" id="newUnderlineInput" placeholder="Word or phrase…">
+            <button onclick="addUnderlineWord()">+ Add</button>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="section-group">
+          <div class="section-label">Underline Style</div>
+
+          <div class="control-row">
+            <label>Style</label>
+            <select id="underlineStyleSelect">
+              <option value="solid">Solid line</option>
+              <option value="gradient">Gradient animated</option>
+              <option value="dashed">Dashed</option>
+            </select>
+          </div>
+
+          <div class="control-row">
+            <label>Color</label>
+            <select id="underlineColorSelect">
+              <option value="accent">Match accent</option>
+              <option value="text">Match text</option>
+              <option value="custom">Custom</option>
+            </select>
+          </div>
+
+          <div class="control-row" id="underlineCustomColorRow" style="display:none">
+            <label>Custom color</label>
+            <input type="color" id="underlineCustomColor" value="#3b82f6">
+          </div>
+
+          <div class="control-row">
+            <label>Thickness</label>
+            <div class="seg-control" id="ulThicknessGroup">
+              <button class="seg-btn" data-val="1px">1px</button>
+              <button class="seg-btn active" data-val="2px">2px</button>
+              <button class="seg-btn" data-val="3px">3px</button>
+            </div>
+          </div>
+
+          <div class="control-row">
+            <label>Offset</label>
+            <div class="seg-control" id="ulOffsetGroup">
+              <button class="seg-btn" data-val="3px">Close</button>
+              <button class="seg-btn active" data-val="6px">Mid</button>
+              <button class="seg-btn" data-val="10px">Far</button>
+            </div>
+          </div>
+
+          <div id="gradientAnimSection">
+            <div class="toggle-row">
+              <label>Animate gradient</label>
+              <label class="toggle">
+                <input type="checkbox" id="ulAnimateToggle" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="control-row">
+              <label>Speed</label>
+              <input type="range" id="ulSpeedSlider" min="1" max="6" value="2" step="0.5">
+              <span class="val-badge" id="ulSpeedVal">2s</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ── Tab: Animation ── -->
+      <div class="tab-panel" id="tab-animation">
+
+        <div class="section-group">
+          <div class="section-label">Entrance Animation</div>
+
+          <div class="control-row">
+            <label>Animation type</label>
+            <select id="animTypeSelect">
+              <option value="none">None</option>
+              <option value="fade-up">Fade up</option>
+              <option value="stagger-words">Stagger words</option>
+              <option value="snap-scale">Snap scale</option>
+            </select>
+          </div>
+
+          <div class="control-row">
+            <label>Trigger</label>
+            <select id="animTriggerSelect">
+              <option value="on-load">On load</option>
+              <option value="on-scroll">On scroll</option>
+            </select>
+          </div>
+
+          <div class="control-row" id="staggerDelayRow" style="display:none">
+            <label>Stagger delay</label>
+            <input type="range" id="staggerDelaySlider" min="20" max="100" value="40" step="5">
+            <span class="val-badge" id="staggerDelayVal">40ms</span>
+          </div>
+
+          <div class="control-row">
+            <label>Duration</label>
+            <input type="range" id="animDurationSlider" min="300" max="1500" value="700" step="50">
+            <span class="val-badge" id="animDurationVal">0.7s</span>
+          </div>
+
+          <div class="control-row">
+            <label>Easing</label>
+            <select id="easingSelect">
+              <option value="ease-out">Ease out</option>
+              <option value="expo">Expo</option>
+              <option value="spring">Spring feel</option>
+            </select>
+          </div>
+
+        </div>
+
+        <hr class="divider">
+
+        <div class="section-group">
+          <div class="section-label">Preview Animation</div>
+          <button class="btn btn-secondary btn-full" onclick="replayAnimation()">↺ Replay Animation</button>
+        </div>
+
+      </div>
+
+      <!-- ── Tab: Export ── -->
+      <div class="tab-panel" id="tab-export">
+
+        <div class="section-group">
+          <div class="section-label">Export Preview</div>
+          <p class="info-text">Self-contained HTML — no external dependencies. Paste into any page.</p>
+          <div class="export-preview" id="exportPreview"></div>
+          <button class="btn btn-full" onclick="copyHTML()" id="copyBtn">Copy HTML</button>
+          <div class="copy-notice" id="copyNotice">✓ HTML copied to clipboard!</div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="section-group">
+          <div class="section-label">Notes</div>
+          <p class="info-text">• Uses CSS custom properties for easy font swaps<br>• Animations use pure CSS keyframes<br>• Scroll trigger uses IntersectionObserver<br>• Film grain uses inline SVG filter</p>
+        </div>
+
+      </div>
+
+    </div><!-- /sidebar-body -->
+
+    <div class="sidebar-footer">
+      <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
+    </div>
+  </div><!-- /sidebar -->
+
+  <!-- ─── MAIN AREA ─── -->
+  <div class="main-area">
+    <div class="toolbar">
+      <span class="toolbar-label">Live Preview</span>
+      <div class="toolbar-spacer"></div>
+      <button class="btn btn-secondary" style="font-size:0.78rem;padding:5px 12px;" onclick="replayAnimation()">↺ Replay</button>
+      <button class="btn" style="font-size:0.78rem;padding:5px 12px;" onclick="switchToExport()">Export HTML →</button>
+    </div>
+    <div class="canvas-area">
+      <div class="preview-frame" id="previewFrame">
+        <!-- Manifesto section rendered here -->
+        <section class="manifesto-section" id="manifestoSection">
+          <div class="manifesto-grain" id="manifestoGrain"></div>
+          <div class="manifesto-eyebrow" id="previewEyebrow">SUCCESS</div>
+          <div class="manifesto-text" id="previewText"></div>
+          <div class="manifesto-subtitle" id="previewSubtitle"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════
+   STATE
+════════════════════════════════════════════════════ */
+const state = {
+  /* Text */
+  editorHTML: '',
+  eyebrow: 'SUCCESS',
+  subtitle: '',
+
+  /* Style */
+  bgColor: '#ffffff',
+  textColor: '#0a1528',
+  accentColor: '#1D5AA7',
+  fontSize: 48,
+  lineHeight: 1.15,
+  letterSpacing: -0.01,
+  alignment: 'center',
+  eyebrowStyle: 'mono-upper',
+  maxWidth: '920px',
+  grainEnabled: false,
+  grainOpacity: 2,
+
+  /* Underlines */
+  underlineWords: [],
+  underlineStyle: 'solid',
+  underlineColor: 'accent',
+  underlineCustomColor: '#3b82f6',
+  ulThickness: '2px',
+  ulOffset: '6px',
+  ulAnimate: true,
+  ulSpeed: 2,
+
+  /* Animation */
+  animType: 'none',
+  animTrigger: 'on-load',
+  staggerDelay: 40,
+  animDuration: 700,
+  easing: 'ease-out',
+};
+
+/* ════════════════════════════════════════════════════
+   COLOR PRESETS
+════════════════════════════════════════════════════ */
+const BG_PRESETS = [
+  { label: 'White', value: '#ffffff' },
+  { label: 'Cream', value: '#f0efeb' },
+  { label: 'Navy', value: '#0f1c2e' },
+  { label: 'Royal Blue', value: '#1D5AA7' },
+  { label: 'Black', value: '#111111' },
+  { label: 'Yellow', value: '#FFD700' },
+];
+
+const TEXT_PRESETS = [
+  { label: 'Dark', value: '#0a1528' },
+  { label: 'White', value: '#ffffff' },
+  { label: 'Black', value: '#111111' },
+];
+
+const ACCENT_PRESETS = [
+  { label: 'Royal Blue', value: '#1D5AA7' },
+  { label: 'Pool', value: '#8FC5D9' },
+  { label: 'Green', value: '#16a34a' },
+  { label: 'Red', value: '#a82039' },
+  { label: 'Gold', value: '#FFD700' },
+];
+
+function buildColorPresets(containerId, presets, stateKey, pickerId) {
+  const container = document.getElementById(containerId);
+  const picker = document.getElementById(pickerId);
+  container.innerHTML = '';
+  presets.forEach(p => {
+    const swatch = document.createElement('div');
+    swatch.className = 'color-swatch' + (state[stateKey] === p.value ? ' selected' : '');
+    swatch.style.background = p.value;
+    swatch.title = p.label;
+    swatch.onclick = () => {
+      state[stateKey] = p.value;
+      picker.value = p.value;
+      updateAllSwatchSelected(containerId, p.value);
+      updatePreview();
+    };
+    container.appendChild(swatch);
+  });
+}
+
+function updateAllSwatchSelected(containerId, value) {
+  const container = document.getElementById(containerId);
+  container.querySelectorAll('.color-swatch').forEach(sw => {
+    sw.classList.toggle('selected', sw.style.background === value || rgbToHex(sw.style.background) === value.toLowerCase());
+  });
+}
+
+function rgbToHex(rgb) {
+  if (!rgb || !rgb.startsWith('rgb')) return rgb;
+  const parts = rgb.match(/\d+/g);
+  if (!parts) return rgb;
+  return '#' + parts.slice(0,3).map(n => parseInt(n).toString(16).padStart(2,'0')).join('');
+}
+
+/* ════════════════════════════════════════════════════
+   INIT
+════════════════════════════════════════════════════ */
+function init() {
+  buildColorPresets('bgPresets', BG_PRESETS, 'bgColor', 'bgColorPicker');
+  buildColorPresets('textPresets', TEXT_PRESETS, 'textColor', 'textColorPicker');
+  buildColorPresets('accentPresets', ACCENT_PRESETS, 'accentColor', 'accentColorPicker');
+
+  // Color pickers
+  document.getElementById('bgColorPicker').addEventListener('input', e => {
+    state.bgColor = e.target.value;
+    updateAllSwatchSelected('bgPresets', e.target.value);
+    updatePreview();
+  });
+  document.getElementById('textColorPicker').addEventListener('input', e => {
+    state.textColor = e.target.value;
+    updateAllSwatchSelected('textPresets', e.target.value);
+    updatePreview();
+  });
+  document.getElementById('accentColorPicker').addEventListener('input', e => {
+    state.accentColor = e.target.value;
+    updateAllSwatchSelected('accentPresets', e.target.value);
+    updatePreview();
+  });
+
+  // Sliders
+  bindSlider('fontSizeSlider', 'fontSizeVal', v => { state.fontSize = v; return v + 'px'; });
+  bindSlider('lineHeightSlider', 'lineHeightVal', v => { state.lineHeight = v / 100; return (v/100).toFixed(2); });
+  bindSlider('letterSpacingSlider', 'letterSpacingVal', v => { state.letterSpacing = v / 100; return (v/100).toFixed(2) + 'em'; });
+  bindSlider('grainOpacitySlider', 'grainOpacityVal', v => { state.grainOpacity = v; return v + '%'; });
+  bindSlider('staggerDelaySlider', 'staggerDelayVal', v => { state.staggerDelay = v; return v + 'ms'; });
+  bindSlider('animDurationSlider', 'animDurationVal', v => { state.animDuration = v; return (v/1000).toFixed(1) + 's'; });
+  bindSlider('ulSpeedSlider', 'ulSpeedVal', v => { state.ulSpeed = v; return v + 's'; });
+
+  // Selects
+  bindSelect('eyebrowStyleSelect', 'eyebrowStyle');
+  bindSelect('maxWidthSelect', 'maxWidth');
+  bindSelect('underlineStyleSelect', v => {
+    state.underlineStyle = v;
+    const isGrad = v === 'gradient';
+    document.getElementById('gradientAnimSection').style.display = isGrad ? '' : 'none';
+  });
+  bindSelect('underlineColorSelect', v => {
+    state.underlineColor = v;
+    document.getElementById('underlineCustomColorRow').style.display = v === 'custom' ? '' : 'none';
+  });
+  bindSelect('animTypeSelect', v => {
+    state.animType = v;
+    document.getElementById('staggerDelayRow').style.display = v === 'stagger-words' ? '' : 'none';
+  });
+  bindSelect('animTriggerSelect', 'animTrigger');
+  bindSelect('easingSelect', 'easing');
+
+  // Underline custom color
+  document.getElementById('underlineCustomColor').addEventListener('input', e => {
+    state.underlineCustomColor = e.target.value;
+    updatePreview();
+  });
+
+  // Toggles
+  document.getElementById('grainToggle').addEventListener('change', e => {
+    state.grainEnabled = e.target.checked;
+    document.getElementById('grainOpacityRow').style.display = e.target.checked ? '' : 'none';
+    updatePreview();
+  });
+  document.getElementById('ulAnimateToggle').addEventListener('change', e => {
+    state.ulAnimate = e.target.checked;
+    updatePreview();
+  });
+
+  // Text inputs
+  document.getElementById('eyebrowInput').addEventListener('input', e => {
+    state.eyebrow = e.target.value;
+    updatePreview();
+  });
+  document.getElementById('subtitleInput').addEventListener('input', e => {
+    state.subtitle = e.target.value;
+    updatePreview();
+  });
+
+  // Rich editor
+  const editor = document.getElementById('manifestoEditor');
+  editor.addEventListener('input', () => {
+    state.editorHTML = editor.innerHTML;
+    updatePreview();
+  });
+  editor.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      document.execCommand('insertLineBreak');
+    }
+  });
+
+  // Format toolbar
+  document.querySelectorAll('.fmt-btn[data-cmd]').forEach(btn => {
+    btn.addEventListener('mousedown', e => {
+      e.preventDefault();
+      const cmd = btn.dataset.cmd;
+      if (cmd === 'bold') {
+        document.execCommand('bold');
+      } else if (cmd === 'italic') {
+        document.execCommand('italic');
+      } else if (cmd === 'accent') {
+        applyAccentColor();
+      } else if (cmd === 'removeFormat') {
+        document.execCommand('removeFormat');
+        // Also remove accent spans
+        const sel = window.getSelection();
+        if (sel.rangeCount) {
+          const range = sel.getRangeAt(0);
+          const fragment = range.cloneContents();
+          const text = fragment.textContent;
+          const textNode = document.createTextNode(text);
+          range.deleteContents();
+          range.insertNode(textNode);
+        }
+      }
+      state.editorHTML = editor.innerHTML;
+      updatePreview();
+    });
+  });
+
+  // Align buttons
+  document.querySelectorAll('#alignGroup .align-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.alignment = btn.dataset.align;
+      document.querySelectorAll('#alignGroup .align-btn').forEach(b => b.classList.toggle('active', b === btn));
+      updatePreview();
+    });
+  });
+
+  // Seg control groups
+  setupSegGroup('ulThicknessGroup', v => { state.ulThickness = v; });
+  setupSegGroup('ulOffsetGroup', v => { state.ulOffset = v; });
+
+  // Tabs
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tabId = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + tabId).classList.add('active');
+      if (tabId === 'export') updateExportPreview();
+    });
+  });
+
+  // Enter on underline input
+  document.getElementById('newUnderlineInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') addUnderlineWord();
+  });
+
+  // Load default preset
+  loadPresetByKey('sbdc');
+
+  updatePreview();
+}
+
+function bindSlider(id, valId, transform) {
+  const slider = document.getElementById(id);
+  const valEl = document.getElementById(valId);
+  slider.addEventListener('input', () => {
+    const display = transform(parseFloat(slider.value));
+    valEl.textContent = display;
+    updatePreview();
+  });
+}
+
+function bindSelect(id, stateKeyOrFn) {
+  const select = document.getElementById(id);
+  select.addEventListener('change', () => {
+    if (typeof stateKeyOrFn === 'string') {
+      state[stateKeyOrFn] = select.value;
+    } else {
+      stateKeyOrFn(select.value);
+    }
+    updatePreview();
+  });
+}
+
+function setupSegGroup(id, onChange) {
+  const group = document.getElementById(id);
+  group.querySelectorAll('.seg-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      group.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      onChange(btn.dataset.val);
+      updatePreview();
+    });
+  });
+}
+
+/* ════════════════════════════════════════════════════
+   ACCENT COLOR FORMATTING
+════════════════════════════════════════════════════ */
+function applyAccentColor() {
+  const sel = window.getSelection();
+  if (!sel.rangeCount || sel.isCollapsed) return;
+  const range = sel.getRangeAt(0);
+  const text = sel.toString();
+  if (!text) return;
+  const span = document.createElement('span');
+  span.className = 'accent';
+  span.style.color = state.accentColor;
+  span.setAttribute('data-accent', 'true');
+  range.surroundContents(span);
+  updateAccentSpans();
+}
+
+function updateAccentSpans() {
+  const editor = document.getElementById('manifestoEditor');
+  editor.querySelectorAll('[data-accent]').forEach(span => {
+    span.style.color = state.accentColor;
+  });
+}
+
+/* ════════════════════════════════════════════════════
+   UNDERLINES
+════════════════════════════════════════════════════ */
+function addUnderlineWord() {
+  const input = document.getElementById('newUnderlineInput');
+  const word = input.value.trim();
+  if (!word || state.underlineWords.includes(word)) return;
+  state.underlineWords.push(word);
+  input.value = '';
+  renderUnderlineList();
+  updatePreview();
+}
+
+function removeUnderlineWord(word) {
+  state.underlineWords = state.underlineWords.filter(w => w !== word);
+  renderUnderlineList();
+  updatePreview();
+}
+
+function renderUnderlineList() {
+  const list = document.getElementById('underlineList');
+  list.innerHTML = '';
+  if (state.underlineWords.length === 0) {
+    list.innerHTML = '<p class="info-text" style="font-style:italic;">No phrases added yet.</p>';
+    return;
+  }
+  state.underlineWords.forEach(word => {
+    const item = document.createElement('div');
+    item.className = 'underline-item';
+    item.innerHTML = `<span>${escapeHtml(word)}</span><button onclick="removeUnderlineWord('${word.replace(/'/g, "\\'")}')" title="Remove">×</button>`;
+    list.appendChild(item);
+  });
+}
+
+/* ════════════════════════════════════════════════════
+   PREVIEW UPDATE
+════════════════════════════════════════════════════ */
+function getEasingCSS() {
+  switch (state.easing) {
+    case 'expo': return 'cubic-bezier(0.16, 1, 0.3, 1)';
+    case 'spring': return 'cubic-bezier(0.34, 1.56, 0.64, 1)';
+    default: return 'ease-out';
+  }
+}
+
+function getUnderlineColor() {
+  if (state.underlineColor === 'accent') return state.accentColor;
+  if (state.underlineColor === 'text') return state.textColor;
+  return state.underlineCustomColor;
+}
+
+function applyUnderlinesToHTML(html) {
+  if (!state.underlineWords.length) return html;
+
+  // Parse html to DOM
+  const temp = document.createElement('div');
+  temp.innerHTML = html;
+
+  const ulColor = getUnderlineColor();
+  const ulStyle = state.underlineStyle;
+  const ulThick = state.ulThickness;
+  const ulOffset = state.ulOffset;
+  const ulAnimSpeed = state.ulSpeed;
+  const shouldAnimate = state.ulAnimate && ulStyle === 'gradient';
+
+  function processNode(node) {
+    if (node.nodeType === 3) {
+      // text node
+      let text = node.textContent;
+      let modified = false;
+      for (const word of state.underlineWords) {
+        const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escaped})`, 'gi');
+        if (regex.test(text)) {
+          modified = true;
+          break;
+        }
+      }
+      if (!modified) return node.cloneNode(true);
+
+      const wrapper = document.createElement('span');
+      let result = text;
+      for (const word of state.underlineWords) {
+        const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escaped})`, 'gi');
+        result = result.replace(regex, (match) => {
+          if (ulStyle === 'gradient') {
+            const animAttr = shouldAnimate ? `animation:gradientUnderlineAnim ${ulAnimSpeed}s linear infinite;` : '';
+            const accentHex = state.accentColor;
+            return `<span style="text-decoration:none;background-image:linear-gradient(90deg,${ulColor} 0%,${accentHex} 50%,${ulColor} 100%);background-size:200% ${ulThick};background-position:bottom left;background-repeat:no-repeat;padding-bottom:${ulOffset};${animAttr}display:inline;">${match}</span>`;
+          } else {
+            const dashStyle = ulStyle === 'dashed' ? 'dashed' : 'solid';
+            return `<span style="text-decoration:underline;text-decoration-style:${dashStyle};text-decoration-color:${ulColor};text-decoration-thickness:${ulThick};text-underline-offset:${ulOffset};display:inline;">${match}</span>`;
+          }
+        });
+      }
+      wrapper.innerHTML = result;
+      return wrapper;
+    } else if (node.nodeType === 1) {
+      const clone = node.cloneNode(false);
+      // Use Array.from to avoid live NodeList mutation bug
+      Array.from(node.childNodes).forEach(child => {
+        const processed = processNode(child);
+        clone.appendChild(processed);
+      });
+      return clone;
+    }
+    return node.cloneNode(true);
+  }
+
+  const processed = document.createElement('div');
+  // Use Array.from to avoid live NodeList mutation bug when appending processed nodes
+  Array.from(temp.childNodes).forEach(child => {
+    processed.appendChild(processNode(child));
+  });
+
+  return processed.innerHTML;
+}
+
+function staggerWordsHTML(html) {
+  // Wrap each word in a .word span while preserving markup structure
+  const temp = document.createElement('div');
+  temp.innerHTML = html;
+
+  function wrapWords(node) {
+    if (node.nodeType === 3) {
+      const words = node.textContent.split(/(\s+)/);
+      const frag = document.createDocumentFragment();
+      words.forEach(part => {
+        if (/^\s+$/.test(part)) {
+          frag.appendChild(document.createTextNode(part));
+        } else if (part) {
+          const span = document.createElement('span');
+          span.className = 'word';
+          span.textContent = part;
+          frag.appendChild(span);
+        }
+      });
+      return frag;
+    } else if (node.nodeType === 1) {
+      const clone = node.cloneNode(false);
+      // Use Array.from to avoid live NodeList mutation bug
+      Array.from(node.childNodes).forEach(child => {
+        clone.appendChild(wrapWords(child));
+      });
+      return clone;
+    }
+    return node.cloneNode(true);
+  }
+
+  const out = document.createElement('div');
+  Array.from(temp.childNodes).forEach(c => out.appendChild(wrapWords(c)));
+  return out.innerHTML;
+}
+
+let animObserver = null;
+
+function updatePreview() {
+  const section = document.getElementById('manifestoSection');
+  const eyebrow = document.getElementById('previewEyebrow');
+  const textEl = document.getElementById('previewText');
+  const subtitle = document.getElementById('previewSubtitle');
+  const grain = document.getElementById('manifestoGrain');
+
+  // BG + text
+  section.style.background = state.bgColor;
+  section.style.color = state.textColor;
+  section.style.textAlign = state.alignment;
+  section.style.alignItems = state.alignment === 'center' ? 'center' : 'flex-start';
+
+  // Eyebrow
+  eyebrow.textContent = state.eyebrow;
+  eyebrow.style.display = state.eyebrowStyle === 'hidden' ? 'none' : '';
+  eyebrow.style.color = state.textColor;
+  if (state.eyebrowStyle === 'mono-upper') {
+    eyebrow.style.fontFamily = 'monospace';
+    eyebrow.style.fontWeight = '600';
+    eyebrow.style.textTransform = 'uppercase';
+    eyebrow.style.letterSpacing = '0.18em';
+  } else {
+    eyebrow.style.fontFamily = '\'Inter\', sans-serif';
+    eyebrow.style.fontWeight = '300';
+    eyebrow.style.textTransform = 'none';
+    eyebrow.style.letterSpacing = '0.04em';
+  }
+
+  // Text styles
+  textEl.style.fontSize = state.fontSize + 'px';
+  textEl.style.lineHeight = state.lineHeight;
+  textEl.style.letterSpacing = state.letterSpacing + 'em';
+  textEl.style.textAlign = state.alignment;
+  textEl.style.maxWidth = state.maxWidth;
+  textEl.style.color = state.textColor;
+
+  // Subtitle
+  subtitle.textContent = state.subtitle;
+  subtitle.style.color = state.textColor;
+  subtitle.style.display = state.subtitle ? '' : 'none';
+  subtitle.style.textAlign = state.alignment;
+
+  // Grain
+  if (state.grainEnabled) {
+    grain.style.opacity = state.grainOpacity / 100;
+  } else {
+    grain.style.opacity = 0;
+  }
+
+  // Update accent spans
+  updateAccentSpans();
+
+  // Build display HTML with underlines
+  let displayHTML = state.editorHTML;
+  displayHTML = applyUnderlinesToHTML(displayHTML);
+
+  // Animation
+  textEl.className = 'manifesto-text';
+  if (animObserver) { animObserver.disconnect(); animObserver = null; }
+
+  const easingCSS = getEasingCSS();
+  const dur = state.animDuration / 1000;
+
+  if (state.animType === 'stagger-words') {
+    displayHTML = staggerWordsHTML(displayHTML);
+    textEl.innerHTML = displayHTML;
+    textEl.classList.add('word-stagger');
+
+    // Apply stagger delays
+    const words = textEl.querySelectorAll('.word');
+    words.forEach((w, i) => {
+      w.style.transitionDelay = (i * state.staggerDelay) + 'ms';
+      w.style.transitionDuration = dur + 's';
+      w.style.transitionTimingFunction = easingCSS;
+    });
+
+    if (state.animTrigger === 'on-load') {
+      requestAnimationFrame(() => requestAnimationFrame(() => textEl.classList.add('is-visible')));
+    } else {
+      animObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { textEl.classList.add('is-visible'); animObserver.disconnect(); } });
+      }, { threshold: 0.2 });
+      animObserver.observe(textEl);
+    }
+  } else {
+    textEl.innerHTML = displayHTML;
+
+    if (state.animType !== 'none') {
+      const animName = state.animType === 'fade-up' ? 'fadeUp' : 'snapScale';
+      const animCSS = `${animName} ${dur}s ${easingCSS} forwards`;
+
+      if (state.animTrigger === 'on-load') {
+        textEl.style.animation = 'none';
+        textEl.style.opacity = '';
+        void textEl.offsetWidth; // reflow
+        textEl.style.animation = animCSS;
+      } else {
+        textEl.style.opacity = '0';
+        textEl.style.animation = 'none';
+        animObserver = new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              textEl.style.animation = animCSS;
+              animObserver.disconnect();
+            }
+          });
+        }, { threshold: 0.2 });
+        animObserver.observe(textEl);
+      }
+    } else {
+      textEl.style.animation = 'none';
+      textEl.style.opacity = '';
+    }
+  }
+}
+
+function replayAnimation() {
+  const textEl = document.getElementById('previewText');
+  if (state.animType === 'stagger-words') {
+    textEl.classList.remove('is-visible');
+    requestAnimationFrame(() => requestAnimationFrame(() => textEl.classList.add('is-visible')));
+  } else if (state.animType !== 'none') {
+    const easingCSS = getEasingCSS();
+    const dur = state.animDuration / 1000;
+    const animName = state.animType === 'fade-up' ? 'fadeUp' : 'snapScale';
+    textEl.style.animation = 'none';
+    void textEl.offsetWidth;
+    textEl.style.animation = `${animName} ${dur}s ${easingCSS} forwards`;
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   EXPORT
+════════════════════════════════════════════════════ */
+function buildExportHTML() {
+  const ulColor = getUnderlineColor();
+  const easingCSS = getEasingCSS();
+  const dur = state.animDuration / 1000;
+
+  // Build the text HTML with underlines applied
+  let mainHTML = state.editorHTML;
+  mainHTML = applyUnderlinesToHTML(mainHTML);
+
+  // Wrap in stagger if needed
+  const needsStagger = state.animType === 'stagger-words';
+  let staggerCSS = '';
+  if (needsStagger) {
+    mainHTML = staggerWordsHTML(mainHTML);
+    staggerCSS = `
+    .manifesto-word { display: inline-block; opacity: 0; transform: translateY(12px); transition: opacity ${dur}s ${easingCSS}, transform ${dur}s ${easingCSS}; }
+    .manifesto-text.is-visible .manifesto-word { opacity: 1; transform: translateY(0); }`;
+    mainHTML = mainHTML.replace(/class="word"/g, 'class="manifesto-word"');
+  }
+
+  // Animation CSS
+  let animCSS = '';
+  if (state.animType === 'fade-up') {
+    animCSS = `@keyframes manifestoFadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+    .manifesto-text { opacity:0; animation: manifestoFadeUp ${dur}s ${easingCSS} forwards; }
+    .manifesto-text.anim-ready { animation-play-state: running; }`;
+  } else if (state.animType === 'snap-scale') {
+    animCSS = `@keyframes manifestoSnap { from { opacity:0; transform:scale(0.92); } to { opacity:1; transform:scale(1); } }
+    .manifesto-text { opacity:0; animation: manifestoSnap ${dur}s ${easingCSS} forwards; }`;
+  }
+
+  // Stagger delays (inline)
+  // They're applied per-word with inline styles
+
+  // Grain CSS
+  const grainCSS = state.grainEnabled ? `
+    .manifesto-section::before { content:''; position:absolute; inset:0; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E"); opacity:${state.grainOpacity/100}; pointer-events:none; }` : '';
+
+  // Eyebrow style
+  let eyebrowStyleCSS = '';
+  if (state.eyebrowStyle === 'mono-upper') {
+    eyebrowStyleCSS = `font-family:monospace; font-weight:600; text-transform:uppercase; letter-spacing:0.18em;`;
+  } else {
+    eyebrowStyleCSS = `font-family:sans-serif; font-weight:300; text-transform:none; letter-spacing:0.04em;`;
+  }
+
+  // gradient underline keyframe
+  let gradientKeyframe = '';
+  if (state.underlineStyle === 'gradient') {
+    gradientKeyframe = `@keyframes gradientUnderlineAnim { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }`;
+  }
+
+  // IntersectionObserver JS
+  let observerJS = '';
+  if (state.animTrigger === 'on-scroll' && state.animType !== 'none') {
+    if (state.animType === 'stagger-words') {
+      observerJS = `<script>
+  (function() {
+    var el = document.querySelector('.manifesto-text');
+    if (!el) return;
+    var words = el.querySelectorAll('.manifesto-word');
+    words.forEach(function(w, i) { w.style.transitionDelay = (i * ${state.staggerDelay}) + 'ms'; });
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) { el.classList.add('is-visible'); observer.disconnect(); } });
+    }, { threshold: 0.2 });
+    observer.observe(el);
+  })();
+<\/script>`;
+    } else {
+      observerJS = `<script>
+  (function() {
+    var el = document.querySelector('.manifesto-text');
+    if (!el) return;
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) { el.style.animationPlayState = 'running'; observer.disconnect(); } });
+    }, { threshold: 0.2 });
+    el.style.animationPlayState = 'paused';
+    observer.observe(el);
+  })();
+<\/script>`;
+    }
+  } else if (state.animType === 'stagger-words' && state.animTrigger === 'on-load') {
+    observerJS = `<script>
+  (function() {
+    var el = document.querySelector('.manifesto-text');
+    if (!el) return;
+    var words = el.querySelectorAll('.manifesto-word');
+    words.forEach(function(w, i) { w.style.transitionDelay = (i * ${state.staggerDelay}) + 'ms'; });
+    setTimeout(function() { el.classList.add('is-visible'); }, 100);
+  })();
+<\/script>`;
+  }
+
+  const eyebrowHTML = state.eyebrowStyle === 'hidden' ? '' : `
+  <p class="manifesto-eyebrow" style="${eyebrowStyleCSS}">${escapeHtml(state.eyebrow)}</p>`;
+
+  const subtitleHTML = state.subtitle ? `
+  <p class="manifesto-subtitle">${escapeHtml(state.subtitle)}</p>` : '';
+
+  return `<!-- Manifesto Section — generated by Manifesto Builder (Perplexity Computer) -->
+<style>
+  :root {
+    --manifesto-bg: ${state.bgColor};
+    --manifesto-text: ${state.textColor};
+    --manifesto-accent: ${state.accentColor};
+    --manifesto-font-size: ${state.fontSize}px;
+    --manifesto-line-height: ${state.lineHeight};
+    --manifesto-letter-spacing: ${state.letterSpacing}em;
+    --manifesto-align: ${state.alignment};
+    --manifesto-max-width: ${state.maxWidth};
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&display=swap');
+
+  .manifesto-section {
+    background: var(--manifesto-bg);
+    color: var(--manifesto-text);
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: ${state.alignment === 'center' ? 'center' : 'flex-start'};
+    justify-content: center;
+    padding: 80px 60px;
+    text-align: var(--manifesto-align);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .manifesto-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    opacity: 0.7;
+    margin-bottom: 28px;
+  }
+
+  .manifesto-text {
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: var(--manifesto-font-size);
+    line-height: var(--manifesto-line-height);
+    letter-spacing: var(--manifesto-letter-spacing);
+    max-width: var(--manifesto-max-width);
+    color: var(--manifesto-text);
+  }
+
+  .manifesto-text .accent {
+    color: var(--manifesto-accent);
+  }
+
+  .manifesto-text strong { font-weight: 800; }
+  .manifesto-text em { font-style: italic; }
+
+  .manifesto-subtitle {
+    font-size: 1rem;
+    margin-top: 32px;
+    opacity: 0.6;
+    max-width: 600px;
+  }
+
+  ${grainCSS}
+  ${animCSS}
+  ${staggerCSS}
+  ${gradientKeyframe}
+
+  @media (max-width: 768px) {
+    .manifesto-section { padding: 50px 24px; }
+    .manifesto-text { font-size: clamp(1.6rem, 5vw, var(--manifesto-font-size)); }
+  }
+</style>
+
+<section class="manifesto-section">${eyebrowHTML}
+  <div class="manifesto-text">${mainHTML}</div>${subtitleHTML}
+</section>
+${observerJS}`;
+}
+
+function updateExportPreview() {
+  const preview = document.getElementById('exportPreview');
+  const html = buildExportHTML();
+  preview.textContent = html;
+}
+
+function copyHTML() {
+  const html = buildExportHTML();
+  navigator.clipboard.writeText(html).then(() => {
+    const notice = document.getElementById('copyNotice');
+    const btn = document.getElementById('copyBtn');
+    notice.style.display = 'block';
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('btn-success');
+    setTimeout(() => {
+      notice.style.display = 'none';
+      btn.textContent = 'Copy HTML';
+      btn.classList.remove('btn-success');
+    }, 2500);
+  }).catch(() => {
+    alert('Copy failed — please select the preview text and copy manually.');
+  });
+}
+
+function switchToExport() {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  const btn = document.querySelector('[data-tab="export"]');
+  btn.classList.add('active');
+  document.getElementById('tab-export').classList.add('active');
+  updateExportPreview();
+}
+
+/* ════════════════════════════════════════════════════
+   PRESETS
+════════════════════════════════════════════════════ */
+const PRESETS = {
+  sbdc: {
+    editorHTML: `$2.8B raised. 42,000 jobs created. Kitchen-table ideas turned into <span class="accent" data-accent="true" style="color:#1D5AA7;font-style:italic;">million-dollar companies.</span>`,
+    eyebrow: 'SUCCESS',
+    subtitle: 'NorCal SBDC — Powering the next generation of California entrepreneurs.',
+    bgColor: '#ffffff',
+    textColor: '#0a1528',
+    accentColor: '#1D5AA7',
+    fontSize: 52,
+    lineHeight: 1.12,
+    letterSpacing: -0.02,
+    alignment: 'center',
+    eyebrowStyle: 'mono-upper',
+    maxWidth: '920px',
+    grainEnabled: false,
+    grainOpacity: 2,
+    underlineWords: [],
+    underlineStyle: 'solid',
+    underlineColor: 'accent',
+    ulThickness: '2px',
+    ulOffset: '6px',
+    ulAnimate: true,
+    ulSpeed: 2,
+    animType: 'fade-up',
+    animTrigger: 'on-scroll',
+    staggerDelay: 40,
+    animDuration: 800,
+    easing: 'expo',
+  },
+  dark: {
+    editorHTML: `We are <em><span class="accent" data-accent="true" style="color:#8FC5D9;">Your Business People.</span></em>`,
+    eyebrow: 'OUR VOICE',
+    subtitle: 'Dedicated to helping small businesses thrive across Northern California.',
+    bgColor: '#0f1c2e',
+    textColor: '#ffffff',
+    accentColor: '#8FC5D9',
+    fontSize: 64,
+    lineHeight: 1.1,
+    letterSpacing: -0.03,
+    alignment: 'center',
+    eyebrowStyle: 'mono-upper',
+    maxWidth: '800px',
+    grainEnabled: true,
+    grainOpacity: 2,
+    underlineWords: ['Business People'],
+    underlineStyle: 'gradient',
+    underlineColor: 'accent',
+    ulThickness: '2px',
+    ulOffset: '8px',
+    ulAnimate: true,
+    ulSpeed: 2,
+    animType: 'fade-up',
+    animTrigger: 'on-scroll',
+    staggerDelay: 40,
+    animDuration: 900,
+    easing: 'expo',
+  },
+  bold: {
+    editorHTML: `<strong>42,000</strong> jobs. <strong>$2.8B</strong> raised. One region. <em>Limitless potential.</em>`,
+    eyebrow: 'THE MISSION',
+    subtitle: '',
+    bgColor: '#1D5AA7',
+    textColor: '#ffffff',
+    accentColor: '#FFD700',
+    fontSize: 56,
+    lineHeight: 1.1,
+    letterSpacing: -0.02,
+    alignment: 'center',
+    eyebrowStyle: 'mono-upper',
+    maxWidth: '900px',
+    grainEnabled: false,
+    grainOpacity: 2,
+    underlineWords: ['42,000', '$2.8B'],
+    underlineStyle: 'gradient',
+    underlineColor: 'accent',
+    ulThickness: '3px',
+    ulOffset: '8px',
+    ulAnimate: true,
+    ulSpeed: 2.5,
+    animType: 'stagger-words',
+    animTrigger: 'on-scroll',
+    staggerDelay: 50,
+    animDuration: 600,
+    easing: 'expo',
+  },
+  accent: {
+    editorHTML: `<strong>42,000</strong> jobs created. <strong>$2.8B</strong> in capital raised. <em><strong>Zero excuses.</strong></em>`,
+    eyebrow: 'IMPACT',
+    subtitle: 'What happens when small businesses get real support.',
+    bgColor: '#FFD700',
+    textColor: '#111111',
+    accentColor: '#111111',
+    fontSize: 54,
+    lineHeight: 1.1,
+    letterSpacing: -0.02,
+    alignment: 'left',
+    eyebrowStyle: 'mono-upper',
+    maxWidth: '900px',
+    grainEnabled: false,
+    grainOpacity: 2,
+    underlineWords: ['Zero excuses'],
+    underlineStyle: 'solid',
+    underlineColor: 'text',
+    ulThickness: '3px',
+    ulOffset: '6px',
+    ulAnimate: false,
+    ulSpeed: 2,
+    animType: 'snap-scale',
+    animTrigger: 'on-scroll',
+    staggerDelay: 40,
+    animDuration: 700,
+    easing: 'spring',
+  }
+};
+
+function loadPreset() {
+  const key = document.getElementById('presetSelect').value;
+  if (!key) return;
+  loadPresetByKey(key);
+}
+
+function loadPresetByKey(key) {
+  const preset = PRESETS[key];
+  if (!preset) return;
+
+  Object.assign(state, preset);
+
+  // Sync UI
+  const editor = document.getElementById('manifestoEditor');
+  editor.innerHTML = preset.editorHTML;
+
+  document.getElementById('eyebrowInput').value = state.eyebrow;
+  document.getElementById('subtitleInput').value = state.subtitle;
+
+  // Style tab
+  document.getElementById('bgColorPicker').value = state.bgColor;
+  document.getElementById('textColorPicker').value = state.textColor;
+  document.getElementById('accentColorPicker').value = state.accentColor;
+
+  setSlider('fontSizeSlider', 'fontSizeVal', state.fontSize, v => v + 'px');
+  setSlider('lineHeightSlider', 'lineHeightVal', Math.round(state.lineHeight * 100), v => (v/100).toFixed(2));
+  setSlider('letterSpacingSlider', 'letterSpacingVal', Math.round(state.letterSpacing * 100), v => (v/100).toFixed(2) + 'em');
+  setSlider('grainOpacitySlider', 'grainOpacityVal', state.grainOpacity, v => v + '%');
+
+  document.getElementById('grainToggle').checked = state.grainEnabled;
+  document.getElementById('grainOpacityRow').style.display = state.grainEnabled ? '' : 'none';
+
+  setSelect('eyebrowStyleSelect', state.eyebrowStyle);
+  setSelect('maxWidthSelect', state.maxWidth);
+
+  // Alignment
+  document.querySelectorAll('#alignGroup .align-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.align === state.alignment);
+  });
+
+  // Underlines tab
+  renderUnderlineList();
+  setSelect('underlineStyleSelect', state.underlineStyle);
+  setSelect('underlineColorSelect', state.underlineColor);
+  document.getElementById('underlineCustomColorRow').style.display = state.underlineColor === 'custom' ? '' : 'none';
+  document.getElementById('gradientAnimSection').style.display = state.underlineStyle === 'gradient' ? '' : 'none';
+  document.getElementById('ulAnimateToggle').checked = state.ulAnimate;
+  setSlider('ulSpeedSlider', 'ulSpeedVal', state.ulSpeed, v => v + 's');
+  setSegGroup('ulThicknessGroup', state.ulThickness);
+  setSegGroup('ulOffsetGroup', state.ulOffset);
+
+  // Animation tab
+  setSelect('animTypeSelect', state.animType);
+  setSelect('animTriggerSelect', state.animTrigger);
+  setSelect('easingSelect', state.easing);
+  setSlider('staggerDelaySlider', 'staggerDelayVal', state.staggerDelay, v => v + 'ms');
+  setSlider('animDurationSlider', 'animDurationVal', state.animDuration, v => (v/1000).toFixed(1) + 's');
+  document.getElementById('staggerDelayRow').style.display = state.animType === 'stagger-words' ? '' : 'none';
+
+  // Refresh color presets visual
+  buildColorPresets('bgPresets', BG_PRESETS, 'bgColor', 'bgColorPicker');
+  buildColorPresets('textPresets', TEXT_PRESETS, 'textColor', 'textColorPicker');
+  buildColorPresets('accentPresets', ACCENT_PRESETS, 'accentColor', 'accentColorPicker');
+
+  updatePreview();
+}
+
+function setSlider(id, valId, value, fmt) {
+  const slider = document.getElementById(id);
+  const valEl = document.getElementById(valId);
+  slider.value = value;
+  valEl.textContent = fmt(value);
+}
+
+function setSelect(id, value) {
+  const select = document.getElementById(id);
+  select.value = value;
+}
+
+function setSegGroup(id, value) {
+  const group = document.getElementById(id);
+  group.querySelectorAll('.seg-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.val === value);
+  });
+}
+
+/* ════════════════════════════════════════════════════
+   UTILS
+════════════════════════════════════════════════════ */
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+/* ════════════════════════════════════════════════════
+   BOOT
+════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>
