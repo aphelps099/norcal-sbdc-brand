@@ -296,7 +296,7 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
 .hero-inner {
   position: relative;
   width: calc(100% - 96px);
-  height: calc(100vh - 56px - 48px);
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   margin: 48px 48px 0;
   border-radius: 20px 20px 0 0;
@@ -306,7 +306,7 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
 /* 3x3 image grid — oversized so cells bleed outside container */
 .hero-grid {
   display: grid;
-  grid-template-columns: 1fr 2.5fr 1fr;
+  grid-template-columns: 1fr 1.8fr 1fr;
   grid-template-rows: repeat(3, 1fr);
   gap: 3px;
   position: absolute; inset: -8%; z-index: 1;
@@ -351,7 +351,7 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
   color: var(--pool);
 }
 @media (max-width: 768px) {
-  .hero-inner { height: calc(100vh - 56px - 12px); margin: 12px 12px 0; width: calc(100% - 24px); border-radius: 12px 12px 0 0; }
+  .hero-inner { aspect-ratio: 16 / 10; margin: 12px 12px 0; width: calc(100% - 24px); border-radius: 12px 12px 0 0; }
   .hero-heading { font-size: clamp(2.2rem, 10vw, 3.5rem); }
 }
 
