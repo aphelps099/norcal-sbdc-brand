@@ -18,12 +18,12 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {children}
         <SearchModal />
-        {/* Film grain overlay */}
+        {/* Film grain — subtle texture */}
         <svg className="film-grain" aria-hidden="true">
           <filter id="grain">
             <feTurbulence
               type="fractalNoise"
-              baseFrequency="0.65"
+              baseFrequency="0.7"
               numOctaves="3"
               stitchTiles="stitch"
             />

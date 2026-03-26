@@ -7,7 +7,6 @@ export default function SplashIntro() {
   const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
-    // Respect reduced motion
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setDismissed(true);
       return;
@@ -17,7 +16,6 @@ export default function SplashIntro() {
 
     async function playIntro() {
       const { gsap } = await import("gsap");
-
       if (!overlayRef.current) return;
 
       ctx = gsap.context(() => {
@@ -25,46 +23,26 @@ export default function SplashIntro() {
           onComplete: () => setDismissed(true),
         });
 
-        // Phase 1: Logo fades in + rises
         tl.to(".intro-logo", {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power3.out",
-        }, 0.4);
+          opacity: 1, y: 0, duration: 0.9, ease: "power3.out",
+        }, 0.5);
 
-        // Phase 1b: Rule extends
         tl.to(".intro-rule", {
-          opacity: 1,
-          scaleX: 1,
-          duration: 0.5,
-          ease: "power2.out",
-        }, 0.7);
+          opacity: 1, scaleX: 1, duration: 0.6, ease: "power2.out",
+        }, 0.8);
 
-        // Phase 1c: Subtitle rises in
         tl.to(".intro-sub", {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          ease: "power3.out",
-        }, 0.85);
+          opacity: 1, y: 0, duration: 0.6, ease: "power3.out",
+        }, 1.0);
 
-        // Phase 2: Hold, then snap/fade out entire overlay
         tl.to(overlayRef.current, {
-          opacity: 0,
-          scale: 0.97,
-          duration: 0.5,
-          ease: "power2.in",
-          delay: 1.0,
+          opacity: 0, duration: 0.6, ease: "power2.in", delay: 0.9,
         });
       }, overlayRef.current);
     }
 
     playIntro();
-
-    return () => {
-      ctx?.revert();
-    };
+    return () => { ctx?.revert(); };
   }, []);
 
   if (dismissed) return null;
@@ -72,27 +50,23 @@ export default function SplashIntro() {
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center"
-      style={{ background: "var(--navy)" }}
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-cream"
     >
-      {/* Logo text */}
       <div
-        className="intro-logo font-mono text-sm tracking-[0.3em] uppercase text-cream/80"
-        style={{ opacity: 0, transform: "translateY(20px)" }}
+        className="intro-logo font-serif text-lg tracking-[0.02em] text-navy"
+        style={{ opacity: 0, transform: "translateY(16px)" }}
       >
         NorCal SBDC
       </div>
 
-      {/* Horizontal rule */}
       <div
-        className="intro-rule w-16 h-px bg-cream/20 my-6"
+        className="intro-rule w-12 h-px bg-navy/15 my-5"
         style={{ opacity: 0, transform: "scaleX(0)" }}
       />
 
-      {/* Subtitle */}
       <div
-        className="intro-sub font-mono text-xs tracking-[0.2em] uppercase text-cream/40"
-        style={{ opacity: 0, transform: "translateY(12px)" }}
+        className="intro-sub font-mono text-[0.6rem] tracking-[0.25em] uppercase text-text-secondary"
+        style={{ opacity: 0, transform: "translateY(10px)" }}
       >
         Brand House
       </div>

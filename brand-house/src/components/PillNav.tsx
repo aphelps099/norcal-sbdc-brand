@@ -4,15 +4,18 @@ interface PillNavProps {
 
 export default function PillNav({ items }: PillNavProps) {
   return (
-    <div className="flex flex-wrap items-center justify-center gap-3 py-8 px-6">
-      <span className="font-sans text-sm text-cream/40 mr-2">Your Business,</span>
+    <div className="bg-cream flex flex-wrap items-center justify-center gap-3 py-6 px-6">
+      <span className="font-serif text-sm text-text-tertiary italic mr-1">
+        Your Business,
+      </span>
       {items.map((item) => (
         <a
           key={item.label}
           href={item.href}
-          className="px-5 py-2 rounded-full border border-cream/20 text-cream/70 font-mono text-xs tracking-wider uppercase hover:bg-cream/10 hover:text-cream hover:border-cream/40 transition-all duration-300"
+          className="group relative px-5 py-2.5 rounded-full border border-navy/10 text-navy/70 font-sans text-[0.7rem] font-500 tracking-[0.08em] uppercase transition-all duration-400 hover:border-navy/30 hover:text-navy hover:shadow-[0_2px_12px_rgba(0,0,0,0.06)]"
         >
           {item.label}
+          <span className="absolute inset-0 rounded-full bg-navy/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
         </a>
       ))}
     </div>

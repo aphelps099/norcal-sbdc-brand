@@ -23,19 +23,19 @@ export default function ColorSwatch({ name, hex, usage }: ColorSwatchProps) {
       className="group text-left w-full"
     >
       <div
-        className="w-full aspect-[4/3] rounded-xl mb-3 border border-white/5 group-hover:scale-[1.02] transition-transform duration-300"
+        className="w-full aspect-[4/3] rounded-xl mb-3 border border-black/[0.04] group-hover:scale-[1.02] transition-transform duration-300 shadow-sm"
         style={{ backgroundColor: hex }}
       />
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm font-medium text-cream">{name}</p>
-          <p className="font-mono text-xs text-cream/40">{hex}</p>
+          <p className="text-sm font-sans font-800 text-navy">{name}</p>
+          <p className="font-mono text-xs text-text-tertiary">{hex}</p>
         </div>
-        <span className="font-mono text-[10px] text-cream/30 opacity-0 group-hover:opacity-100 transition-opacity">
+        <span className="font-mono text-[0.6rem] text-text-tertiary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           {copied ? "Copied!" : "Click to copy"}
         </span>
       </div>
-      <p className="text-xs text-cream/30 mt-1">{usage}</p>
+      <p className="text-xs text-text-tertiary mt-1 font-sans font-500">{usage}</p>
     </button>
   );
 }
