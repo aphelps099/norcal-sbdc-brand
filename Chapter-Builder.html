@@ -1,0 +1,2109 @@
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+
+<!-- Perplexity Computer Attribution — SEO Meta Tags -->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter Grid Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,300..800&family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&display=swap" rel="stylesheet">
+<style>
+/* ─── Reset ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --surface-2: #1c1c1c;
+  --surface-3: #242424;
+  --border: #2a2a2a;
+  --border-hover: #3a3a3a;
+  --text: #e8e8e8;
+  --text-muted: #888;
+  --text-dim: #555;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --accent-muted: rgba(59, 130, 246, 0.15);
+  --danger: #ef4444;
+  --success: #22c55e;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { font-size: 14px; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Layout ─── */
+.app { display: flex; height: 100vh; overflow: hidden; }
+
+.sidebar {
+  width: 340px;
+  min-width: 340px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sidebar-header {
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.sidebar-header h1 {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.sidebar-header p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ─── Preset Bar ─── */
+.preset-bar {
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.preset-bar label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.preset-bar select {
+  flex: 1;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 5px 8px;
+  font-size: 0.82rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+.preset-bar select:focus { outline: none; border-color: var(--accent); }
+
+.preset-bar button {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  padding: 5px 10px;
+  font-size: 0.82rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.preset-bar button:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ─── Tabs ─── */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  padding: 0 8px;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  padding: 10px 10px 9px;
+  font-size: 0.78rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+  margin-bottom: -1px;
+}
+
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ─── Sidebar Body ─── */
+.sidebar-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+}
+
+.sidebar-body::-webkit-scrollbar { width: 4px; }
+.sidebar-body::-webkit-scrollbar-track { background: transparent; }
+.sidebar-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ─── Section Groups ─── */
+.section-group { margin-bottom: 20px; }
+.section-group:last-child { margin-bottom: 0; }
+
+.section-label {
+  font-size: 0.71rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+/* ─── Controls ─── */
+.control-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.control-row label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.control-row input[type="range"] {
+  width: 120px;
+  accent-color: var(--accent);
+}
+
+.control-row input[type="color"] {
+  width: 32px;
+  height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.control-row select {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  max-width: 170px;
+}
+
+.control-row select:focus { outline: none; border-color: var(--accent); }
+
+.val-badge {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  min-width: 38px;
+  text-align: right;
+}
+
+/* ─── Textareas & Inputs ─── */
+textarea, input[type="text"] {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 10px 12px;
+  font-size: 0.88rem;
+  font-family: var(--font-body);
+  width: 100%;
+  resize: vertical;
+  transition: border-color 0.15s;
+}
+
+textarea:focus, input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.input-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+  display: block;
+}
+
+.input-group { margin-bottom: 12px; }
+
+/* ─── Segment Controls ─── */
+.seg-ctrl {
+  display: flex;
+  gap: 2px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2px;
+}
+
+.seg-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  padding: 5px 4px;
+  font-size: 0.78rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.15s;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.seg-btn:hover { color: var(--text); }
+.seg-btn.active {
+  background: var(--surface-3);
+  color: var(--text);
+  border: 1px solid var(--border-hover);
+}
+
+/* ─── Toggle Switch ─── */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.toggle-row label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.toggle {
+  position: relative;
+  width: 34px;
+  height: 18px;
+}
+
+.toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+
+.toggle-track {
+  position: absolute;
+  inset: 0;
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toggle-track::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  top: 2px;
+  left: 2px;
+  transition: all 0.2s;
+}
+
+.toggle input:checked + .toggle-track {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.toggle input:checked + .toggle-track::after {
+  transform: translateX(16px);
+  background: white;
+}
+
+/* ─── Color Preset Swatches ─── */
+.color-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.swatch {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s;
+}
+
+.swatch:hover { transform: scale(1.15); }
+.swatch.active { border-color: var(--accent); }
+
+/* ─── Card List ─── */
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.card-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.card-item:hover { border-color: var(--border-hover); }
+.card-item.active { border-color: var(--accent); background: var(--accent-muted); }
+.card-item.dragging { opacity: 0.4; }
+.card-item.drag-over { border-color: var(--accent); background: rgba(59,130,246,0.08); }
+
+.drag-handle {
+  color: var(--text-dim);
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.drag-handle:active { cursor: grabbing; }
+
+.card-icon-preview {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+
+.card-item-title {
+  flex: 1;
+  font-size: 0.82rem;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-remove {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 1rem;
+  line-height: 1;
+  transition: color 0.15s;
+  flex-shrink: 0;
+}
+
+.card-remove:hover { color: var(--danger); }
+
+/* ─── Card Editor Panel ─── */
+.card-editor {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.card-editor-header {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+/* ─── Icon Grid ─── */
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.icon-opt {
+  aspect-ratio: 1;
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.15s;
+}
+
+.icon-opt:hover { border-color: var(--border-hover); color: var(--text); }
+.icon-opt.active { border-color: var(--accent); background: var(--accent-muted); color: var(--accent); }
+
+/* ─── Add Card Button ─── */
+.add-card-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  background: none;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  color: var(--text-dim);
+  padding: 10px;
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.add-card-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ─── Sidebar Footer ─── */
+.sidebar-footer {
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+  display: flex;
+  gap: 8px;
+}
+
+.btn-primary {
+  flex: 1;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  color: white;
+  padding: 8px 16px;
+  font-size: 0.88rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+
+.btn-secondary {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ─── Preview Pane ─── */
+.preview-pane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #0f0f0f;
+}
+
+.preview-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  background: var(--surface);
+  gap: 12px;
+}
+
+.preview-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.preview-canvas {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.preview-frame {
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* ─── Export Modal ─── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.modal-backdrop.open { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 680px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.95);
+  transition: transform 0.2s var(--ease-out);
+}
+
+.modal-backdrop.open .modal { transform: scale(1); }
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-header h2 { font-size: 1rem; font-weight: 600; }
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1.4rem;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+
+.modal-close:hover { color: var(--text); }
+
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+}
+
+.code-block {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: #a8c4ff;
+  overflow: auto;
+  max-height: 400px;
+  white-space: pre;
+  line-height: 1.6;
+}
+
+.modal-footer {
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* ─── Toast ─── */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 10px 16px;
+  font-size: 0.88rem;
+  z-index: 200;
+  transform: translateY(16px);
+  opacity: 0;
+  transition: all 0.3s var(--ease-out);
+  pointer-events: none;
+}
+
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast.success { border-color: var(--success); }
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .app { flex-direction: column; height: auto; }
+  .sidebar { width: 100%; min-width: unset; height: auto; max-height: 60vh; }
+  .preview-pane { height: 50vh; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1>Chapter Grid Builder</h1>
+      <p>Visual card grid composer &amp; exporter</p>
+    </div>
+
+    <!-- Preset Bar -->
+    <div class="preset-bar">
+      <label>Preset</label>
+      <select id="preset-select">
+        <option value="">— choose preset —</option>
+        <option value="sbdc">SBDC Brand Toolkit</option>
+        <option value="dark">Dark Directory</option>
+        <option value="minimal">Minimal Grid</option>
+        <option value="feature">Feature Showcase</option>
+      </select>
+      <button id="load-preset-btn">Load</button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="cards">Cards</button>
+      <button class="tab-btn" data-tab="layout">Layout</button>
+      <button class="tab-btn" data-tab="style">Style</button>
+      <button class="tab-btn" data-tab="header">Header</button>
+      <button class="tab-btn" data-tab="animation">Anim</button>
+      <button class="tab-btn" data-tab="export">Export</button>
+    </div>
+
+    <!-- Sidebar Scroll Body -->
+    <div class="sidebar-body">
+
+      <!-- ── Tab: Cards ── -->
+      <div class="tab-panel active" id="tab-cards">
+        <div class="card-list" id="card-list"></div>
+
+        <!-- Card Editor (shown when card selected) -->
+        <div class="card-editor" id="card-editor" style="display:none;">
+          <div class="card-editor-header">Edit Card</div>
+
+          <div class="section-group">
+            <div class="section-label">Icon</div>
+            <div class="icon-grid" id="icon-grid"></div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Title</label>
+            <input type="text" id="card-title-input" placeholder="e.g. LOGOS &amp; ASSETS" maxlength="60">
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Description</label>
+            <textarea id="card-desc-input" rows="3" placeholder="Brief description of this section..."></textarea>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Badge / Tag (optional)</label>
+            <input type="text" id="card-tag-input" placeholder="e.g. NEW, 4 Logos" maxlength="20">
+          </div>
+        </div>
+
+        <button class="add-card-btn" id="add-card-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Card
+        </button>
+      </div>
+
+      <!-- ── Tab: Layout ── -->
+      <div class="tab-panel" id="tab-layout">
+        <div class="section-group">
+          <div class="section-label">Grid Columns</div>
+          <div class="seg-ctrl" id="cols-ctrl">
+            <button class="seg-btn" data-val="2">2</button>
+            <button class="seg-btn active" data-val="3">3</button>
+            <button class="seg-btn" data-val="4">4</button>
+          </div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-label">Gap / Dividers</div>
+          <div class="seg-ctrl" id="gap-ctrl">
+            <button class="seg-btn active" data-val="1px">1px</button>
+            <button class="seg-btn" data-val="2px">2px</button>
+            <button class="seg-btn" data-val="none">None</button>
+          </div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-label">Card Padding</div>
+          <div class="seg-ctrl" id="padding-ctrl">
+            <button class="seg-btn" data-val="24">S</button>
+            <button class="seg-btn active" data-val="32">M</button>
+            <button class="seg-btn" data-val="40">L</button>
+            <button class="seg-btn" data-val="56">XL</button>
+          </div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-label">Container Radius</div>
+          <div class="seg-ctrl" id="radius-ctrl">
+            <button class="seg-btn" data-val="0">0</button>
+            <button class="seg-btn active" data-val="8">8</button>
+            <button class="seg-btn" data-val="12">12</button>
+            <button class="seg-btn" data-val="16">16</button>
+          </div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-label">Max Width</div>
+          <div class="seg-ctrl" id="maxwidth-ctrl">
+            <button class="seg-btn" data-val="900">900</button>
+            <button class="seg-btn active" data-val="1000">1000</button>
+            <button class="seg-btn" data-val="1080">1080</button>
+            <button class="seg-btn" data-val="1200">1200</button>
+            <button class="seg-btn" data-val="full">Full</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Tab: Style ── -->
+      <div class="tab-panel" id="tab-style">
+        <div class="section-group">
+          <div class="section-label">Section Background</div>
+          <div class="color-presets" id="bg-presets">
+            <div class="swatch active" data-color="#f0efeb" style="background:#f0efeb;" title="Cream"></div>
+            <div class="swatch" data-color="#ffffff" style="background:#ffffff;" title="White"></div>
+            <div class="swatch" data-color="#f3f4f6" style="background:#f3f4f6;" title="Light Gray"></div>
+            <div class="swatch" data-color="#0f1c2e" style="background:#0f1c2e;" title="Navy"></div>
+          </div>
+          <div class="control-row">
+            <label>Custom</label>
+            <input type="color" id="bg-custom" value="#f0efeb">
+          </div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-label">Card Background</div>
+          <div class="color-presets" id="card-bg-presets">
+            <div class="swatch active" data-color="#ffffff" style="background:#ffffff;" title="White"></div>
+            <div class="swatch" data-color="#f5f4f0" style="background:#f5f4f0;" title="Cream"></div>
+            <div class="swatch" data-color="transparent" style="background:linear-gradient(135deg,#ccc 25%,transparent 25%) -6px 0,linear-gradient(135deg,transparent 75%,#ccc 75%) -6px 0,linear-gradient(45deg,#ccc 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#ccc 75%);background-size:12px 12px;background-color:#fff;" title="Transparent"></div>
+            <div class="swatch" data-color="rgba(255,255,255,0.04)" style="background:rgba(255,255,255,0.1);border-color:#444;" title="Dark Subtle"></div>
+          </div>
+          <div class="control-row">
+            <label>Custom</label>
+            <input type="color" id="card-bg-custom" value="#ffffff">
+          </div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-label">Title Style</div>
+          <div class="seg-ctrl" id="title-style-ctrl">
+            <button class="seg-btn active" data-val="bold-upper">BOLD UPPER</button>
+            <button class="seg-btn" data-val="bold-normal">Bold</button>
+            <button class="seg-btn" data-val="medium">Medium</button>
+          </div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-label">Description Font</div>
+          <div class="seg-ctrl" id="desc-font-ctrl">
+            <button class="seg-btn active" data-val="sans">Sans</button>
+            <button class="seg-btn" data-val="serif">Serif</button>
+          </div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-label">Icon Color</div>
+          <div class="color-presets" id="icon-color-presets">
+            <div class="swatch active" data-color="#1D5AA7" style="background:#1D5AA7;" title="Royal Blue"></div>
+            <div class="swatch" data-color="#8FC5D9" style="background:#8FC5D9;" title="Pool"></div>
+            <div class="swatch" data-color="#0a1528" style="background:#0a1528;" title="Dark"></div>
+            <div class="swatch" data-color="#6b7280" style="background:#6b7280;" title="Gray"></div>
+          </div>
+          <div class="control-row">
+            <label>Custom</label>
+            <input type="color" id="icon-color-custom" value="#1D5AA7">
+          </div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-label">Icon Size</div>
+          <div class="seg-ctrl" id="icon-size-ctrl">
+            <button class="seg-btn" data-val="18">S</button>
+            <button class="seg-btn active" data-val="22">M</button>
+            <button class="seg-btn" data-val="28">L</button>
+          </div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-label">Divider Color</div>
+          <div class="seg-ctrl" id="divider-ctrl">
+            <button class="seg-btn active" data-val="rgba(0,0,0,0.08)">Light</button>
+            <button class="seg-btn" data-val="rgba(0,0,0,0.12)">Mid</button>
+            <button class="seg-btn" data-val="rgba(0,0,0,0.2)">Dark</button>
+          </div>
+          <div class="control-row" style="margin-top:6px;">
+            <label>Custom</label>
+            <input type="color" id="divider-custom" value="#dddddd">
+          </div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-label">Film Grain</div>
+          <div class="toggle-row">
+            <label>Enable grain</label>
+            <label class="toggle">
+              <input type="checkbox" id="grain-toggle">
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+          <div class="control-row">
+            <label>Opacity</label>
+            <input type="range" id="grain-opacity" min="0" max="0.15" step="0.01" value="0.04">
+            <span class="val-badge" id="grain-opacity-val">4%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Tab: Header ── -->
+      <div class="tab-panel" id="tab-header">
+        <div class="toggle-row">
+          <label>Show section header</label>
+          <label class="toggle">
+            <input type="checkbox" id="header-show" checked>
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+
+        <div id="header-options">
+          <div class="input-group">
+            <label class="input-label">Title</label>
+            <input type="text" id="header-title" value="Brand Toolkit">
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Subtitle</label>
+            <textarea id="header-subtitle" rows="2">Everything you need to represent the NorCal SBDC brand.</textarea>
+          </div>
+
+          <div class="section-group">
+            <div class="section-label">Title Font</div>
+            <div class="seg-ctrl" id="header-font-ctrl">
+              <button class="seg-btn active" data-val="sans">Sans Bold</button>
+              <button class="seg-btn" data-val="serif">Serif</button>
+            </div>
+          </div>
+
+          <div class="section-group">
+            <div class="section-label">Title Size</div>
+            <div class="seg-ctrl" id="header-size-ctrl">
+              <button class="seg-btn" data-val="small">S</button>
+              <button class="seg-btn active" data-val="medium">M</button>
+              <button class="seg-btn" data-val="large">L</button>
+            </div>
+          </div>
+
+          <div class="toggle-row">
+            <label>Show top rule</label>
+            <label class="toggle">
+              <input type="checkbox" id="header-rule" checked>
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="section-group">
+            <div class="section-label">Alignment</div>
+            <div class="seg-ctrl" id="header-align-ctrl">
+              <button class="seg-btn active" data-val="left">Left</button>
+              <button class="seg-btn" data-val="center">Center</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Tab: Animation ── -->
+      <div class="tab-panel" id="tab-animation">
+        <div class="section-group">
+          <div class="section-label">Card Entrance</div>
+          <div class="seg-ctrl" id="anim-type-ctrl">
+            <button class="seg-btn active" data-val="none">None</button>
+            <button class="seg-btn" data-val="stagger-fade">Fade</button>
+            <button class="seg-btn" data-val="stagger-slide">Slide Up</button>
+          </div>
+        </div>
+
+        <div class="control-row">
+          <label>Stagger delay</label>
+          <input type="range" id="anim-stagger" min="30" max="120" step="5" value="60">
+          <span class="val-badge" id="anim-stagger-val">60ms</span>
+        </div>
+
+        <div class="control-row">
+          <label>Duration</label>
+          <input type="range" id="anim-duration" min="300" max="1000" step="50" value="500">
+          <span class="val-badge" id="anim-duration-val">0.5s</span>
+        </div>
+
+        <div class="section-group">
+          <div class="section-label">Trigger</div>
+          <div class="seg-ctrl" id="anim-trigger-ctrl">
+            <button class="seg-btn active" data-val="load">On Load</button>
+            <button class="seg-btn" data-val="scroll">On Scroll</button>
+          </div>
+        </div>
+
+        <button class="btn-secondary" id="replay-btn" style="width:100%;margin-top:8px;">
+          ↺ Replay Animation
+        </button>
+      </div>
+
+      <!-- ── Tab: Export ── -->
+      <div class="tab-panel" id="tab-export">
+        <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:16px;line-height:1.6;">
+          Exports a fully self-contained HTML snippet with inline styles and CSS custom properties. Includes IntersectionObserver for scroll animations.
+        </p>
+        <button class="btn-primary" id="export-open-btn" style="width:100%;">
+          Preview Export HTML
+        </button>
+        <button class="btn-secondary" id="copy-export-btn" style="width:100%;margin-top:8px;">
+          Copy HTML to Clipboard
+        </button>
+      </div>
+
+    </div><!-- /sidebar-body -->
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+      <button class="btn-primary" id="export-toolbar-btn">Export HTML →</button>
+      <button class="btn-secondary" id="replay-footer-btn">↺</button>
+    </div>
+  </aside>
+
+  <!-- ═══ PREVIEW PANE ═══ -->
+  <main class="preview-pane">
+    <div class="preview-toolbar">
+      <span class="preview-label">Live Preview</span>
+      <div class="toolbar-actions">
+        <button class="btn-secondary" id="replay-toolbar-btn" style="padding:6px 10px;font-size:0.8rem;">↺ Replay</button>
+        <button class="btn-primary" id="export-preview-btn" style="padding:6px 14px;font-size:0.8rem;">Export HTML →</button>
+      </div>
+    </div>
+    <div class="preview-canvas">
+      <div class="preview-frame" id="preview-frame"></div>
+    </div>
+  </main>
+</div>
+
+<!-- Export Modal -->
+<div class="modal-backdrop" id="export-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Export HTML</h2>
+      <button class="modal-close" id="modal-close-btn">×</button>
+    </div>
+    <div class="modal-body">
+      <pre class="code-block" id="export-code"></pre>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" id="modal-close-btn2">Close</button>
+      <button class="btn-primary" id="modal-copy-btn">Copy to Clipboard</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Footer -->
+<footer style="display:none;">
+  <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
+</footer>
+
+<script>
+/* ════════════════════════════════════════
+   ICON LIBRARY
+   ════════════════════════════════════════ */
+const ICONS = {
+  layers: { label: 'Layers', path: `<path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>` },
+  palette: { label: 'Palette', path: `<circle cx="12" cy="12" r="10"/><circle cx="8" cy="14" r="1.5" fill="currentColor"/><circle cx="12" cy="9" r="1.5" fill="currentColor"/><circle cx="16" cy="14" r="1.5" fill="currentColor"/><path d="M12 2a10 10 0 00-8.95 14.45C4 18 5.5 18 6 16.5c.5-1.5 2-2.5 4-2.5h4c2 0 4-1 4-3a6 6 0 00-6-9z"/>` },
+  type: { label: 'Type', path: `<polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/>` },
+  shield: { label: 'Shield', path: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>` },
+  'message-square': { label: 'Message', path: `<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>` },
+  grid: { label: 'Grid', path: `<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>` },
+  star: { label: 'Star', path: `<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>` },
+  calendar: { label: 'Calendar', path: `<rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>` },
+  'file-text': { label: 'File', path: `<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>` },
+  settings: { label: 'Settings', path: `<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>` },
+  users: { label: 'Users', path: `<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>` },
+  zap: { label: 'Zap', path: `<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>` },
+  award: { label: 'Award', path: `<circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.89"/>` },
+  book: { label: 'Book', path: `<path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M4 19.5V4a2 2 0 012-2h13v16"/>` },
+  link: { label: 'Link', path: `<path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>` },
+  'bar-chart': { label: 'Chart', path: `<line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/>` },
+  'check-circle': { label: 'Check', path: `<path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>` },
+  globe: { label: 'Globe', path: `<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>` },
+  rocket: { label: 'Rocket', path: `<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>` },
+  megaphone: { label: 'Megaphone', path: `<path d="M18 8a5 5 0 010 8"/><path d="M22 6a9 9 0 010 12"/><path d="M11 5L6 9H2v6h4l5 4V5z"/>` }
+};
+
+const ICON_KEYS = Object.keys(ICONS);
+
+/* ════════════════════════════════════════
+   STATE
+   ════════════════════════════════════════ */
+let state = {
+  cards: [],
+  selectedCardIndex: null,
+  layout: { cols: 3, gap: '1px', padding: 32, radius: 8, maxWidth: 1000 },
+  style: {
+    sectionBg: '#f0efeb',
+    cardBg: '#ffffff',
+    titleStyle: 'bold-upper',
+    descFont: 'sans',
+    iconColor: '#1D5AA7',
+    iconSize: 22,
+    dividerColor: 'rgba(0,0,0,0.08)',
+    grain: false,
+    grainOpacity: 0.04
+  },
+  header: {
+    show: true,
+    title: 'Brand Toolkit',
+    subtitle: 'Everything you need to represent the NorCal SBDC brand.',
+    font: 'sans',
+    size: 'medium',
+    rule: true,
+    align: 'left'
+  },
+  animation: {
+    type: 'none',
+    stagger: 60,
+    duration: 500,
+    trigger: 'load'
+  }
+};
+
+/* ════════════════════════════════════════
+   PRESETS
+   ════════════════════════════════════════ */
+const PRESETS = {
+  sbdc: {
+    cards: [
+      { icon: 'layers', title: 'LOGOS & ASSETS', desc: 'Wordmarks, star mark, and approved logo files for all backgrounds.', tag: '' },
+      { icon: 'palette', title: 'COLOR SYSTEM', desc: 'Primary palette, contrast pairs, and CSS design tokens.', tag: '' },
+      { icon: 'type', title: 'TYPOGRAPHY', desc: 'Tobias, GT America, and GT America Mono type specimens and usage.', tag: '' },
+      { icon: 'shield', title: 'COMPLIANCE', desc: 'Logo clear space, do/don\'t rules, and accessibility standards.', tag: '' },
+      { icon: 'message-square', title: 'VOICE & MESSAGING', desc: 'Tone attributes, elevator pitches, approved phrases, and tagline usage.', tag: '' },
+      { icon: 'grid', title: 'TEMPLATES', desc: 'Social kits, decks, email signatures, one-pagers, and event graphics.', tag: '' },
+      { icon: 'star', title: 'SUCCESS STORIES', desc: 'Client spotlights organized by tier with writing toolkit and scoring rubric.', tag: '' },
+      { icon: 'calendar', title: 'CAMPAIGNS', desc: 'SBDC Day, National Small Business Week, and Your Business Better toolkits.', tag: '' },
+      { icon: 'file-text', title: 'GUIDELINES', desc: 'Channel-specific rules for social, presentations, email, and print.', tag: '' }
+    ],
+    layout: { cols: 3, gap: '1px', padding: 32, radius: 8, maxWidth: 1000 },
+    style: { sectionBg: '#f0efeb', cardBg: '#ffffff', titleStyle: 'bold-upper', descFont: 'sans', iconColor: '#1D5AA7', iconSize: 22, dividerColor: 'rgba(0,0,0,0.08)', grain: false, grainOpacity: 0.04 },
+    header: { show: true, title: 'Brand Toolkit', subtitle: 'Everything you need to represent the NorCal SBDC brand.', font: 'sans', size: 'medium', rule: true, align: 'left' },
+    animation: { type: 'none', stagger: 60, duration: 500, trigger: 'load' }
+  },
+  dark: {
+    cards: [
+      { icon: 'layers', title: 'Brand Assets', desc: 'Logos, marks, and visual identity files.', tag: '' },
+      { icon: 'palette', title: 'Color System', desc: 'Design tokens and palette documentation.', tag: '' },
+      { icon: 'type', title: 'Typography', desc: 'Typefaces, scale, and usage guidelines.', tag: '' },
+      { icon: 'globe', title: 'Web Standards', desc: 'Digital brand rules for web and app.', tag: '' },
+      { icon: 'megaphone', title: 'Campaigns', desc: 'Seasonal and evergreen campaign kits.', tag: '' },
+      { icon: 'file-text', title: 'Guidelines', desc: 'Channel-specific brand rules.', tag: '' }
+    ],
+    layout: { cols: 3, gap: '1px', padding: 32, radius: 12, maxWidth: 1000 },
+    style: { sectionBg: '#0f1c2e', cardBg: 'rgba(255,255,255,0.04)', titleStyle: 'bold-normal', descFont: 'sans', iconColor: '#8FC5D9', iconSize: 22, dividerColor: 'rgba(255,255,255,0.08)', grain: false, grainOpacity: 0.04 },
+    header: { show: true, title: 'Directory', subtitle: 'Navigate your brand resources.', font: 'sans', size: 'medium', rule: false, align: 'left' },
+    animation: { type: 'stagger-fade', stagger: 60, duration: 500, trigger: 'scroll' }
+  },
+  minimal: {
+    cards: [
+      { icon: 'star', title: 'Vision', desc: 'Our guiding north star and long-term purpose.', tag: '' },
+      { icon: 'users', title: 'Team', desc: 'The people behind the work.', tag: '' },
+      { icon: 'bar-chart', title: 'Impact', desc: 'Data, outcomes, and client stories.', tag: '' },
+      { icon: 'book', title: 'Resources', desc: 'Reading list, tools, and reference materials.', tag: '' }
+    ],
+    layout: { cols: 2, gap: 'none', padding: 40, radius: 0, maxWidth: 900 },
+    style: { sectionBg: '#ffffff', cardBg: '#ffffff', titleStyle: 'medium', descFont: 'serif', iconColor: '#6b7280', iconSize: 22, dividerColor: 'rgba(0,0,0,0.08)', grain: false, grainOpacity: 0.04 },
+    header: { show: false, title: '', subtitle: '', font: 'sans', size: 'medium', rule: false, align: 'left' },
+    animation: { type: 'none', stagger: 60, duration: 500, trigger: 'load' }
+  },
+  feature: {
+    cards: [
+      { icon: 'zap', title: 'Lightning Fast', desc: 'Optimized performance for instant response times.', tag: 'NEW' },
+      { icon: 'shield', title: 'Enterprise Security', desc: 'SOC 2 Type II certified. Your data stays yours.', tag: 'UPDATED' },
+      { icon: 'globe', title: 'Global CDN', desc: 'Delivered from edge nodes in 40+ regions.', tag: '' },
+      { icon: 'users', title: 'Team Workspaces', desc: 'Collaborate in real time with unlimited members.', tag: 'NEW' },
+      { icon: 'bar-chart', title: 'Analytics', desc: 'Deep usage insights and custom dashboards.', tag: '' },
+      { icon: 'rocket', title: 'Deployments', desc: 'One-click publish to any environment.', tag: 'BETA' }
+    ],
+    layout: { cols: 3, gap: '1px', padding: 32, radius: 12, maxWidth: 1080 },
+    style: { sectionBg: '#f3f4f6', cardBg: '#ffffff', titleStyle: 'bold-normal', descFont: 'sans', iconColor: '#1D5AA7', iconSize: 28, dividerColor: 'rgba(0,0,0,0.08)', grain: false, grainOpacity: 0.04 },
+    header: { show: true, title: 'Everything you need', subtitle: 'A complete platform for modern teams.', font: 'sans', size: 'large', rule: false, align: 'center' },
+    animation: { type: 'stagger-slide', stagger: 60, duration: 500, trigger: 'scroll' }
+  }
+};
+
+/* ════════════════════════════════════════
+   DRAG & DROP STATE
+   ════════════════════════════════════════ */
+let dragSrcIndex = null;
+
+/* ════════════════════════════════════════
+   SVG HELPER
+   ════════════════════════════════════════ */
+function iconSVG(key, size = 24, color = 'currentColor') {
+  const icon = ICONS[key] || ICONS['layers'];
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${icon.path}</svg>`;
+}
+
+function iconSVGExport(key, size, color) {
+  const icon = ICONS[key] || ICONS['layers'];
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icon.path}</svg>`;
+}
+
+/* ════════════════════════════════════════
+   RENDER ICON GRID IN SIDEBAR
+   ════════════════════════════════════════ */
+function renderIconGrid(selectedKey) {
+  const grid = document.getElementById('icon-grid');
+  grid.innerHTML = ICON_KEYS.map(key => {
+    const active = key === selectedKey ? ' active' : '';
+    return `<div class="icon-opt${active}" data-icon="${key}" title="${ICONS[key].label}">${iconSVG(key, 18)}</div>`;
+  }).join('');
+
+  grid.querySelectorAll('.icon-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      if (state.selectedCardIndex === null) return;
+      state.cards[state.selectedCardIndex].icon = opt.dataset.icon;
+      grid.querySelectorAll('.icon-opt').forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      renderCardList();
+      renderPreview();
+    });
+  });
+}
+
+/* ════════════════════════════════════════
+   RENDER CARD LIST IN SIDEBAR
+   ════════════════════════════════════════ */
+function renderCardList() {
+  const list = document.getElementById('card-list');
+  list.innerHTML = '';
+
+  state.cards.forEach((card, idx) => {
+    const div = document.createElement('div');
+    div.className = 'card-item' + (state.selectedCardIndex === idx ? ' active' : '');
+    div.draggable = true;
+    div.dataset.idx = idx;
+
+    div.innerHTML = `
+      <div class="drag-handle" title="Drag to reorder">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="5" r="1.5" fill="currentColor"/><circle cx="15" cy="5" r="1.5" fill="currentColor"/><circle cx="9" cy="12" r="1.5" fill="currentColor"/><circle cx="15" cy="12" r="1.5" fill="currentColor"/><circle cx="9" cy="19" r="1.5" fill="currentColor"/><circle cx="15" cy="19" r="1.5" fill="currentColor"/></svg>
+      </div>
+      <div class="card-icon-preview">${iconSVG(card.icon, 16, 'var(--accent)')}</div>
+      <div class="card-item-title">${card.title || 'Untitled Card'}</div>
+      <button class="card-remove" data-idx="${idx}" title="Remove">×</button>
+    `;
+
+    // Select card
+    div.addEventListener('click', (e) => {
+      if (e.target.classList.contains('card-remove')) return;
+      if (e.target.closest('.drag-handle')) return;
+      selectCard(idx);
+    });
+
+    // Drag events
+    div.addEventListener('dragstart', (e) => {
+      dragSrcIndex = idx;
+      setTimeout(() => div.classList.add('dragging'), 0);
+    });
+    div.addEventListener('dragend', () => {
+      div.classList.remove('dragging');
+      dragSrcIndex = null;
+      list.querySelectorAll('.card-item').forEach(d => d.classList.remove('drag-over'));
+    });
+    div.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      list.querySelectorAll('.card-item').forEach(d => d.classList.remove('drag-over'));
+      div.classList.add('drag-over');
+    });
+    div.addEventListener('drop', (e) => {
+      e.preventDefault();
+      if (dragSrcIndex === null || dragSrcIndex === idx) return;
+      const moved = state.cards.splice(dragSrcIndex, 1)[0];
+      state.cards.splice(idx, 0, moved);
+      if (state.selectedCardIndex === dragSrcIndex) state.selectedCardIndex = idx;
+      dragSrcIndex = null;
+      renderCardList();
+      renderPreview();
+    });
+
+    list.appendChild(div);
+  });
+
+  // Remove handlers
+  list.querySelectorAll('.card-remove').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const idx = parseInt(btn.dataset.idx);
+      state.cards.splice(idx, 1);
+      if (state.selectedCardIndex === idx) state.selectedCardIndex = null;
+      else if (state.selectedCardIndex > idx) state.selectedCardIndex--;
+      renderCardList();
+      showCardEditor();
+      renderPreview();
+    });
+  });
+}
+
+/* ════════════════════════════════════════
+   SELECT CARD
+   ════════════════════════════════════════ */
+function selectCard(idx) {
+  state.selectedCardIndex = idx;
+  renderCardList();
+  showCardEditor();
+}
+
+function showCardEditor() {
+  const editor = document.getElementById('card-editor');
+  if (state.selectedCardIndex === null || !state.cards[state.selectedCardIndex]) {
+    editor.style.display = 'none';
+    return;
+  }
+  editor.style.display = 'block';
+  const card = state.cards[state.selectedCardIndex];
+  document.getElementById('card-title-input').value = card.title;
+  document.getElementById('card-desc-input').value = card.desc;
+  document.getElementById('card-tag-input').value = card.tag || '';
+  renderIconGrid(card.icon);
+}
+
+/* ════════════════════════════════════════
+   RENDER PREVIEW
+   ════════════════════════════════════════ */
+function getPreviewFontFamilies() {
+  const descFont = state.style.descFont === 'serif'
+    ? "'Newsreader', Georgia, serif"
+    : "'DM Sans', system-ui, sans-serif";
+  const titleFont = state.header.font === 'serif'
+    ? "'Newsreader', Georgia, serif"
+    : "'DM Sans', system-ui, sans-serif";
+  return { descFont, titleFont };
+}
+
+function getTitleStyles(titleStyle) {
+  switch(titleStyle) {
+    case 'bold-upper': return 'font-weight:700;text-transform:uppercase;letter-spacing:0.06em;';
+    case 'bold-normal': return 'font-weight:700;text-transform:none;letter-spacing:-0.01em;';
+    case 'medium': return 'font-weight:500;text-transform:none;letter-spacing:0em;';
+    default: return 'font-weight:700;text-transform:uppercase;letter-spacing:0.06em;';
+  }
+}
+
+function getHeaderTitleSize(size) {
+  switch(size) {
+    case 'small': return '1.25rem';
+    case 'medium': return '1.75rem';
+    case 'large': return '2.25rem';
+    default: return '1.75rem';
+  }
+}
+
+function isDark(color) {
+  // Rough luminance check
+  if (!color || color === 'transparent') return false;
+  if (color.startsWith('rgba')) {
+    // For rgba, check if it's a dark base with low opacity overlay
+    const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+      const [,r,g,b] = match.map(Number);
+      return (r*299 + g*587 + b*114) / 1000 < 128;
+    }
+    return false;
+  }
+  if (color.startsWith('#')) {
+    let hex = color.slice(1);
+    if (hex.length === 3) hex = hex.split('').map(c=>c+c).join('');
+    const r = parseInt(hex.slice(0,2),16);
+    const g = parseInt(hex.slice(2,4),16);
+    const b = parseInt(hex.slice(4,6),16);
+    return (r*299 + g*587 + b*114) / 1000 < 128;
+  }
+  return false;
+}
+
+function renderPreview() {
+  const frame = document.getElementById('preview-frame');
+  const { descFont, titleFont } = getPreviewFontFamilies();
+  const { cols, gap, padding, radius, maxWidth } = state.layout;
+  const { sectionBg, cardBg, titleStyle, iconColor, iconSize, dividerColor, grain, grainOpacity } = state.style;
+  const { show: showHeader, title: hTitle, subtitle: hSub, font: hFont, size: hSize, rule: hRule, align: hAlign } = state.header;
+  const { type: animType, stagger, duration, trigger } = state.animation;
+
+  // Determine text colors based on backgrounds
+  const sectionIsDark = isDark(sectionBg);
+  // For transparent/low-opacity card bg, inherit section darkness
+  const cardEffectivelyDark = cardBg === 'transparent' || 
+    (cardBg.startsWith('rgba') && (() => {
+      const m = cardBg.match(/rgba\(\d+,\s*\d+,\s*\d+,\s*([\d.]+)/);
+      return m && parseFloat(m[1]) < 0.2;
+    })()) ? sectionIsDark : isDark(cardBg);
+  const cardIsDark = cardEffectivelyDark;
+  const headerTitleColor = sectionIsDark ? '#e8e8e8' : '#1a1a1a';
+  const headerSubColor = sectionIsDark ? '#aaa' : '#666';
+  const cardTitleColor = cardIsDark ? '#e8e8e8' : '#1a1a1a';
+  const cardDescColor = cardIsDark ? '#aaa' : '#555';
+
+  const mw = maxWidth === 'full' ? '100%' : maxWidth + 'px';
+
+  // Build gap/divider styles
+  let gridGap, gridBorder, cardBorderRight, cardBorderBottom;
+  if (gap === 'none') {
+    gridGap = '0';
+    gridBorder = 'none';
+    cardBorderRight = 'none';
+    cardBorderBottom = 'none';
+  } else {
+    const w = gap === '2px' ? '2px' : '1px';
+    gridGap = '0';
+    gridBorder = `${w} solid ${dividerColor}`;
+    cardBorderRight = `${w} solid ${dividerColor}`;
+    cardBorderBottom = `${w} solid ${dividerColor}`;
+  }
+
+  // Title style for cards
+  const titleCSS = getTitleStyles(titleStyle);
+
+  // Header
+  let headerHTML = '';
+  if (showHeader) {
+    const ruleHTML = hRule ? `<div style="width:100%;height:1px;background:${dividerColor};margin-bottom:20px;"></div>` : '';
+    const textAlign = hAlign === 'center' ? 'center' : 'left';
+    const titleSize = getHeaderTitleSize(hSize);
+    headerHTML = `
+      <div style="max-width:${mw};margin:0 auto 32px;text-align:${textAlign};">
+        ${ruleHTML}
+        <h2 style="font-family:${titleFont};font-size:${titleSize};font-weight:700;letter-spacing:-0.02em;color:${headerTitleColor};margin-bottom:10px;">${escapeHtml(hTitle)}</h2>
+        ${hSub ? `<p style="font-family:${descFont};font-size:1rem;color:${headerSubColor};line-height:1.6;">${escapeHtml(hSub)}</p>` : ''}
+      </div>
+    `;
+  }
+
+  // Cards
+  const cardsHTML = state.cards.map((card, idx) => {
+    const tag = card.tag ? `<span style="display:inline-block;background:${iconColor};color:white;font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:2px 7px;border-radius:999px;margin-left:8px;vertical-align:middle;">${escapeHtml(card.tag)}</span>` : '';
+
+    // Determine animation class
+    let animClass = '';
+    if (animType !== 'none') {
+      animClass = `data-anim-idx="${idx}"`;
+    }
+
+    return `
+      <div class="chapter-card" style="background:${cardBg};padding:${padding}px;border-right:${cardBorderRight};border-bottom:${cardBorderBottom};transition:background 0.2s ease;cursor:default;" ${animClass}
+        onmouseenter="this.style.background='${hoverBg(cardBg)}'"
+        onmouseleave="this.style.background='${cardBg}'">
+        <div style="margin-bottom:16px;color:${iconColor};">${iconSVGExport(card.icon, iconSize, iconColor)}</div>
+        <div style="font-family:'DM Sans',system-ui,sans-serif;font-size:0.8rem;${titleCSS}color:${cardTitleColor};margin-bottom:10px;">${escapeHtml(card.title)}${tag}</div>
+        <div style="font-family:${descFont};font-size:0.9rem;color:${cardDescColor};line-height:1.65;">${escapeHtml(card.desc)}</div>
+      </div>
+    `;
+  }).join('');
+
+  // Grain filter
+  let grainSVG = '';
+  let grainOverlay = '';
+  if (grain) {
+    grainSVG = `<svg style="display:none;"><filter id="grain-filter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter></svg>`;
+    grainOverlay = `<div style="position:absolute;inset:0;pointer-events:none;opacity:${grainOpacity};filter:url(#grain-filter);mix-blend-mode:overlay;"></div>`;
+  }
+
+  // Animation styles
+  let animStyles = '';
+  let animScript = '';
+  if (animType !== 'none') {
+    if (animType === 'stagger-fade') {
+      animStyles = `.chapter-card[data-anim-idx]{opacity:0;transition:opacity ${duration}ms ease;}
+.chapter-card[data-anim-idx].anim-in{opacity:1;}`;
+    } else {
+      animStyles = `.chapter-card[data-anim-idx]{opacity:0;transform:translateY(20px);transition:opacity ${duration}ms ease,transform ${duration}ms ease;}
+.chapter-card[data-anim-idx].anim-in{opacity:1;transform:translateY(0);}`;
+    }
+
+    if (trigger === 'scroll') {
+      animScript = `(function(){var cards=document.querySelectorAll('.chapter-card[data-anim-idx]');var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var idx=parseInt(e.target.getAttribute('data-anim-idx'));setTimeout(function(){e.target.classList.add('anim-in');},idx*${stagger});io.unobserve(e.target);}});},{threshold:0.1});cards.forEach(function(c){io.observe(c);});})();`;
+    } else {
+      animScript = `(function(){var cards=document.querySelectorAll('.chapter-card[data-anim-idx]');cards.forEach(function(c,i){setTimeout(function(){c.classList.add('anim-in');},i*${stagger}+100);});})();`;
+    }
+  }
+
+  frame.innerHTML = `
+    <style>
+      ${animStyles}
+      .chapter-grid { display: grid; grid-template-columns: repeat(${cols}, 1fr); gap: 0; overflow: hidden; }
+    </style>
+    ${grainSVG}
+    <div style="position:relative;background:${sectionBg};padding:48px 40px;">
+      ${grainOverlay}
+      ${headerHTML}
+      <div style="max-width:${mw};margin:0 auto;border:${gridBorder};border-radius:${radius}px;overflow:hidden;position:relative;">
+        <div class="chapter-grid">
+          ${cardsHTML}
+        </div>
+      </div>
+    </div>
+    ${animScript ? `<script>${animScript}<\/script>` : ''}
+  `;
+
+  // Run inline scripts in preview
+  if (animType !== 'none') {
+    frame.querySelectorAll('.chapter-card[data-anim-idx]').forEach((c, i) => {
+      c.style.opacity = '0';
+      if (animType === 'stagger-slide') c.style.transform = 'translateY(20px)';
+      // Always animate in preview (treat scroll same as load for live preview)
+      setTimeout(() => {
+        c.style.opacity = '1';
+        if (animType === 'stagger-slide') c.style.transform = 'translateY(0)';
+        c.style.transition = `opacity ${duration}ms ease, transform ${duration}ms ease`;
+      }, i * stagger + 50);
+    });
+  }
+}
+
+function hoverBg(bg) {
+  if (bg === '#ffffff') return '#f9f9f9';
+  if (bg === 'transparent') return 'rgba(0,0,0,0.02)';
+  if (bg.startsWith('rgba(255,255,255')) return 'rgba(255,255,255,0.08)';
+  // Darken slightly for other colors
+  return bg;
+}
+
+function escapeHtml(str) {
+  return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ════════════════════════════════════════
+   REPLAY ANIMATION
+   ════════════════════════════════════════ */
+function replayAnimation() {
+  if (state.animation.type === 'none') return;
+  const cards = document.querySelectorAll('#preview-frame .chapter-card[data-anim-idx]');
+  const { stagger, duration, type } = state.animation;
+
+  cards.forEach(c => {
+    c.style.transition = 'none';
+    c.style.opacity = '0';
+    if (type === 'stagger-slide') c.style.transform = 'translateY(20px)';
+  });
+
+  setTimeout(() => {
+    cards.forEach((c, i) => {
+      c.style.transition = `opacity ${duration}ms ease, transform ${duration}ms ease`;
+      setTimeout(() => {
+        c.style.opacity = '1';
+        if (type === 'stagger-slide') c.style.transform = 'translateY(0)';
+      }, i * stagger);
+    });
+  }, 50);
+}
+
+/* ════════════════════════════════════════
+   EXPORT HTML GENERATOR
+   ════════════════════════════════════════ */
+function generateExportHTML() {
+  const { descFont: dFont, titleFont: tFont } = getPreviewFontFamilies();
+  const { cols, gap, padding, radius, maxWidth } = state.layout;
+  const { sectionBg, cardBg, titleStyle, iconColor, iconSize, dividerColor, grain, grainOpacity } = state.style;
+  const { show: showHeader, title: hTitle, subtitle: hSub, font: hFont, size: hSize, rule: hRule, align: hAlign } = state.header;
+  const { type: animType, stagger, duration, trigger } = state.animation;
+
+  // Text colors for export
+  const expSectionDark = isDark(sectionBg);
+  const expCardEffDark = cardBg === 'transparent' || 
+    (cardBg.startsWith('rgba') && (() => {
+      const m = cardBg.match(/rgba\(\d+,\s*\d+,\s*\d+,\s*([\d.]+)/);
+      return m && parseFloat(m[1]) < 0.2;
+    })()) ? expSectionDark : isDark(cardBg);
+  const expHeaderTitleColor = expSectionDark ? '#e8e8e8' : '#1a1a1a';
+  const expHeaderSubColor = expSectionDark ? '#aaa' : '#666';
+  const expCardTitleColor = expCardEffDark ? '#e8e8e8' : '#1a1a1a';
+  const expCardDescColor = expCardEffDark ? '#aaa' : '#555';
+
+  const mw = maxWidth === 'full' ? '100%' : maxWidth + 'px';
+
+  let gridBorder, cardBorderRight, cardBorderBottom;
+  if (gap === 'none') {
+    gridBorder = 'none';
+    cardBorderRight = 'none';
+    cardBorderBottom = 'none';
+  } else {
+    const w = gap === '2px' ? '2px' : '1px';
+    gridBorder = `${w} solid var(--cg-divider)`;
+    cardBorderRight = `${w} solid var(--cg-divider)`;
+    cardBorderBottom = `${w} solid var(--cg-divider)`;
+  }
+
+  const titleCSS = getTitleStyles(titleStyle);
+  const headerTitleSize = getHeaderTitleSize(hSize);
+  const textAlign = hAlign === 'center' ? 'center' : 'left';
+
+  // Header
+  let headerHTML = '';
+  if (showHeader) {
+    const ruleHTML = hRule ? `<div class="cg-header-rule"></div>` : '';
+    headerHTML = `
+  <div class="cg-header" style="text-align:${textAlign};">
+    ${ruleHTML}
+    <h2 class="cg-title" style="color:${expHeaderTitleColor};">${escapeHtml(hTitle)}</h2>
+    ${hSub ? `<p class="cg-subtitle" style="color:${expHeaderSubColor};">${escapeHtml(hSub)}</p>` : ''}
+  </div>`;
+  }
+
+  // Cards
+  const cardsHTML = state.cards.map((card, idx) => {
+    const tag = card.tag ? `<span class="cg-badge">${escapeHtml(card.tag)}</span>` : '';
+    const animAttr = animType !== 'none' ? ` data-cg-idx="${idx}"` : '';
+    return `    <div class="cg-card"${animAttr}>
+      <div class="cg-icon">${iconSVGExport(card.icon, iconSize, 'var(--cg-icon-color)')}</div>
+      <div class="cg-card-title" style="color:${expCardTitleColor};">${escapeHtml(card.title)}${tag}</div>
+      <div class="cg-card-desc" style="color:${expCardDescColor};">${escapeHtml(card.desc)}</div>
+    </div>`;
+  }).join('\n');
+
+  // Animation CSS
+  let animCSS = '';
+  if (animType === 'stagger-fade') {
+    animCSS = `\n  .cg-card[data-cg-idx]{opacity:0;}\n  .cg-card[data-cg-idx].cg-in{opacity:1;transition:opacity var(--cg-dur) ease;}`;
+  } else if (animType === 'stagger-slide') {
+    animCSS = `\n  .cg-card[data-cg-idx]{opacity:0;transform:translateY(20px);}\n  .cg-card[data-cg-idx].cg-in{opacity:1;transform:translateY(0);transition:opacity var(--cg-dur) ease,transform var(--cg-dur) ease;}`;
+  }
+
+  // Animation script
+  let animScript = '';
+  if (animType !== 'none') {
+    if (trigger === 'scroll') {
+      animScript = `
+<script>
+(function(){
+  var cards = document.querySelectorAll('.cg-card[data-cg-idx]');
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        var idx = parseInt(e.target.getAttribute('data-cg-idx'));
+        setTimeout(function(){ e.target.classList.add('cg-in'); }, idx * ${stagger});
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  cards.forEach(function(c){ io.observe(c); });
+})();
+<\/script>`;
+    } else {
+      animScript = `
+<script>
+(function(){
+  var cards = document.querySelectorAll('.cg-card[data-cg-idx]');
+  cards.forEach(function(c, i){
+    setTimeout(function(){ c.classList.add('cg-in'); }, i * ${stagger} + 100);
+  });
+})();
+<\/script>`;
+    }
+  }
+
+  // Grain
+  const grainFilter = grain ? `
+    <svg style="display:none;"><filter id="cg-grain"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter></svg>` : '';
+  const grainOverlay = grain ? `\n    <div class="cg-grain"></div>` : '';
+  const grainCSS = grain ? `\n  .cg-grain{position:absolute;inset:0;pointer-events:none;opacity:var(--cg-grain-opacity);filter:url(#cg-grain);mix-blend-mode:overlay;}` : '';
+
+  // Font imports
+  const needsNewsreader = (state.style.descFont === 'serif' || state.header.font === 'serif');
+  const fontImport = `<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,300..800${needsNewsreader ? '&family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800' : ''}&display=swap" rel="stylesheet">`;
+
+  return `<!-- Chapter Grid — Generated by Chapter Grid Builder (Perplexity Computer) -->
+${fontImport}
+<style>
+  .cg-section {
+    --cg-section-bg: ${sectionBg};
+    --cg-card-bg: ${cardBg};
+    --cg-icon-color: ${iconColor};
+    --cg-divider: ${dividerColor};
+    --cg-dur: ${duration}ms;
+    --cg-grain-opacity: ${grainOpacity};
+    position: relative;
+    background: var(--cg-section-bg);
+    padding: 48px 40px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    box-sizing: border-box;
+  }
+  .cg-inner {
+    max-width: ${mw};
+    margin: 0 auto;
+  }
+  .cg-header {
+    margin-bottom: 32px;
+  }
+  .cg-header-rule {
+    width: 100%;
+    height: 1px;
+    background: var(--cg-divider);
+    margin-bottom: 20px;
+  }
+  .cg-title {
+    font-size: ${headerTitleSize};
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    font-family: ${tFont};
+    line-height: 1.15;
+  }
+  .cg-subtitle {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    font-family: ${dFont};
+  }
+  .cg-grid-wrap {
+    border: ${gridBorder};
+    border-radius: ${radius}px;
+    overflow: hidden;
+  }
+  .cg-grid {
+    display: grid;
+    grid-template-columns: repeat(${cols}, 1fr);
+    gap: 0;
+  }
+  .cg-card {
+    background: var(--cg-card-bg);
+    padding: ${padding}px;
+    border-right: ${cardBorderRight};
+    border-bottom: ${cardBorderBottom};
+    transition: background 0.2s ease;
+  }
+  .cg-card:hover { background: ${hoverBg(cardBg)}; }
+  .cg-icon {
+    color: var(--cg-icon-color);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+  }
+  .cg-card-title {
+    font-size: 0.8rem;
+    ${titleCSS}
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .cg-card-desc {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.65;
+    font-family: ${dFont};
+  }
+  .cg-badge {
+    display: inline-block;
+    background: var(--cg-icon-color);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 999px;
+  }
+  ${animCSS}${grainCSS}
+</style>
+${grainFilter}
+<section class="cg-section" aria-label="${escapeHtml(hTitle || 'Chapter Grid')}">
+  ${grainOverlay}
+  <div class="cg-inner">
+    ${headerHTML}
+    <div class="cg-grid-wrap">
+      <div class="cg-grid">
+${cardsHTML}
+      </div>
+    </div>
+  </div>
+</section>
+${animScript}
+<!-- End Chapter Grid — Created with Perplexity Computer https://www.perplexity.ai/computer -->`;
+}
+
+/* ════════════════════════════════════════
+   LOAD PRESET
+   ════════════════════════════════════════ */
+function loadPreset(key) {
+  if (!PRESETS[key]) return;
+  const p = PRESETS[key];
+  state.cards = p.cards.map(c => ({ ...c }));
+  state.layout = { ...p.layout };
+  state.style = { ...p.style };
+  state.header = { ...p.header };
+  state.animation = { ...p.animation };
+  state.selectedCardIndex = null;
+
+  syncUIFromState();
+  renderCardList();
+  showCardEditor();
+  renderPreview();
+}
+
+/* ════════════════════════════════════════
+   SYNC UI FROM STATE
+   ════════════════════════════════════════ */
+function syncUIFromState() {
+  // Layout
+  syncSegCtrl('cols-ctrl', String(state.layout.cols));
+  syncSegCtrl('gap-ctrl', state.layout.gap);
+  syncSegCtrl('padding-ctrl', String(state.layout.padding));
+  syncSegCtrl('radius-ctrl', String(state.layout.radius));
+  syncSegCtrl('maxwidth-ctrl', String(state.layout.maxWidth));
+
+  // Style
+  document.getElementById('bg-custom').value = toHexColor(state.style.sectionBg);
+  document.getElementById('card-bg-custom').value = toHexColor(state.style.cardBg);
+  syncSwatches('bg-presets', state.style.sectionBg);
+  syncSwatches('card-bg-presets', state.style.cardBg);
+
+  syncSegCtrl('title-style-ctrl', state.style.titleStyle);
+  syncSegCtrl('desc-font-ctrl', state.style.descFont);
+
+  document.getElementById('icon-color-custom').value = toHexColor(state.style.iconColor);
+  syncSwatches('icon-color-presets', state.style.iconColor);
+  syncSegCtrl('icon-size-ctrl', String(state.style.iconSize));
+  syncSegCtrl('divider-ctrl', state.style.dividerColor);
+
+  document.getElementById('grain-toggle').checked = state.style.grain;
+  document.getElementById('grain-opacity').value = state.style.grainOpacity;
+  document.getElementById('grain-opacity-val').textContent = Math.round(state.style.grainOpacity * 100) + '%';
+
+  // Header
+  document.getElementById('header-show').checked = state.header.show;
+  document.getElementById('header-title').value = state.header.title;
+  document.getElementById('header-subtitle').value = state.header.subtitle;
+  document.getElementById('header-rule').checked = state.header.rule;
+  syncSegCtrl('header-font-ctrl', state.header.font);
+  syncSegCtrl('header-size-ctrl', state.header.size);
+  syncSegCtrl('header-align-ctrl', state.header.align);
+  document.getElementById('header-options').style.display = state.header.show ? 'block' : 'none';
+
+  // Animation
+  syncSegCtrl('anim-type-ctrl', state.animation.type);
+  document.getElementById('anim-stagger').value = state.animation.stagger;
+  document.getElementById('anim-stagger-val').textContent = state.animation.stagger + 'ms';
+  document.getElementById('anim-duration').value = state.animation.duration;
+  document.getElementById('anim-duration-val').textContent = (state.animation.duration/1000).toFixed(1) + 's';
+  syncSegCtrl('anim-trigger-ctrl', state.animation.trigger);
+}
+
+function syncSegCtrl(id, val) {
+  const ctrl = document.getElementById(id);
+  if (!ctrl) return;
+  ctrl.querySelectorAll('.seg-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.val === val);
+  });
+}
+
+function syncSwatches(id, val) {
+  const cont = document.getElementById(id);
+  if (!cont) return;
+  cont.querySelectorAll('.swatch').forEach(s => {
+    s.classList.toggle('active', s.dataset.color === val);
+  });
+}
+
+function toHexColor(color) {
+  if (!color || color.startsWith('rgba') || color === 'transparent') return '#ffffff';
+  return color;
+}
+
+/* ════════════════════════════════════════
+   WIRE CONTROLS
+   ════════════════════════════════════════ */
+function wireSegCtrl(id, callback) {
+  const ctrl = document.getElementById(id);
+  if (!ctrl) return;
+  ctrl.querySelectorAll('.seg-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      ctrl.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      callback(btn.dataset.val);
+    });
+  });
+}
+
+function wireSwatches(id, callback) {
+  const cont = document.getElementById(id);
+  if (!cont) return;
+  cont.querySelectorAll('.swatch').forEach(sw => {
+    sw.addEventListener('click', () => {
+      cont.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+      sw.classList.add('active');
+      callback(sw.dataset.color);
+    });
+  });
+}
+
+function wireAll() {
+  // ── TABS ──
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ── PRESET ──
+  document.getElementById('load-preset-btn').addEventListener('click', () => {
+    const key = document.getElementById('preset-select').value;
+    if (key) loadPreset(key);
+  });
+
+  // ── LAYOUT ──
+  wireSegCtrl('cols-ctrl', v => { state.layout.cols = parseInt(v); renderPreview(); });
+  wireSegCtrl('gap-ctrl', v => { state.layout.gap = v; renderPreview(); });
+  wireSegCtrl('padding-ctrl', v => { state.layout.padding = parseInt(v); renderPreview(); });
+  wireSegCtrl('radius-ctrl', v => { state.layout.radius = parseInt(v); renderPreview(); });
+  wireSegCtrl('maxwidth-ctrl', v => { state.layout.maxWidth = v === 'full' ? 'full' : parseInt(v); renderPreview(); });
+
+  // ── STYLE ──
+  wireSwatches('bg-presets', v => { state.style.sectionBg = v; document.getElementById('bg-custom').value = toHexColor(v); renderPreview(); });
+  document.getElementById('bg-custom').addEventListener('input', e => {
+    state.style.sectionBg = e.target.value;
+    document.querySelectorAll('#bg-presets .swatch').forEach(s => s.classList.remove('active'));
+    renderPreview();
+  });
+
+  wireSwatches('card-bg-presets', v => { state.style.cardBg = v; document.getElementById('card-bg-custom').value = toHexColor(v); renderPreview(); });
+  document.getElementById('card-bg-custom').addEventListener('input', e => {
+    state.style.cardBg = e.target.value;
+    document.querySelectorAll('#card-bg-presets .swatch').forEach(s => s.classList.remove('active'));
+    renderPreview();
+  });
+
+  wireSegCtrl('title-style-ctrl', v => { state.style.titleStyle = v; renderPreview(); });
+  wireSegCtrl('desc-font-ctrl', v => { state.style.descFont = v; renderPreview(); });
+
+  wireSwatches('icon-color-presets', v => { state.style.iconColor = v; document.getElementById('icon-color-custom').value = toHexColor(v); renderPreview(); });
+  document.getElementById('icon-color-custom').addEventListener('input', e => {
+    state.style.iconColor = e.target.value;
+    document.querySelectorAll('#icon-color-presets .swatch').forEach(s => s.classList.remove('active'));
+    renderPreview();
+  });
+
+  wireSegCtrl('icon-size-ctrl', v => { state.style.iconSize = parseInt(v); renderPreview(); });
+  wireSegCtrl('divider-ctrl', v => { state.style.dividerColor = v; renderPreview(); });
+  document.getElementById('divider-custom').addEventListener('input', e => {
+    state.style.dividerColor = e.target.value;
+    document.querySelectorAll('#divider-ctrl .seg-btn').forEach(b => b.classList.remove('active'));
+    renderPreview();
+  });
+
+  document.getElementById('grain-toggle').addEventListener('change', e => {
+    state.style.grain = e.target.checked;
+    renderPreview();
+  });
+  document.getElementById('grain-opacity').addEventListener('input', e => {
+    state.style.grainOpacity = parseFloat(e.target.value);
+    document.getElementById('grain-opacity-val').textContent = Math.round(state.style.grainOpacity * 100) + '%';
+    renderPreview();
+  });
+
+  // ── HEADER ──
+  document.getElementById('header-show').addEventListener('change', e => {
+    state.header.show = e.target.checked;
+    document.getElementById('header-options').style.display = e.target.checked ? 'block' : 'none';
+    renderPreview();
+  });
+  document.getElementById('header-title').addEventListener('input', e => { state.header.title = e.target.value; renderPreview(); });
+  document.getElementById('header-subtitle').addEventListener('input', e => { state.header.subtitle = e.target.value; renderPreview(); });
+  document.getElementById('header-rule').addEventListener('change', e => { state.header.rule = e.target.checked; renderPreview(); });
+  wireSegCtrl('header-font-ctrl', v => { state.header.font = v; renderPreview(); });
+  wireSegCtrl('header-size-ctrl', v => { state.header.size = v; renderPreview(); });
+  wireSegCtrl('header-align-ctrl', v => { state.header.align = v; renderPreview(); });
+
+  // ── ANIMATION ──
+  wireSegCtrl('anim-type-ctrl', v => { state.animation.type = v; renderPreview(); });
+  document.getElementById('anim-stagger').addEventListener('input', e => {
+    state.animation.stagger = parseInt(e.target.value);
+    document.getElementById('anim-stagger-val').textContent = e.target.value + 'ms';
+  });
+  document.getElementById('anim-duration').addEventListener('input', e => {
+    state.animation.duration = parseInt(e.target.value);
+    document.getElementById('anim-duration-val').textContent = (parseInt(e.target.value)/1000).toFixed(1) + 's';
+  });
+  wireSegCtrl('anim-trigger-ctrl', v => { state.animation.trigger = v; });
+
+  // Replay buttons
+  const replayFn = () => replayAnimation();
+  document.getElementById('replay-btn').addEventListener('click', replayFn);
+  document.getElementById('replay-footer-btn').addEventListener('click', replayFn);
+  document.getElementById('replay-toolbar-btn').addEventListener('click', replayFn);
+
+  // ── CARD EDITOR ──
+  document.getElementById('add-card-btn').addEventListener('click', () => {
+    state.cards.push({ icon: 'star', title: 'NEW CARD', desc: 'Add a description here.', tag: '' });
+    selectCard(state.cards.length - 1);
+    renderPreview();
+    // Switch to cards tab
+    document.querySelector('.tab-btn[data-tab="cards"]').click();
+  });
+
+  document.getElementById('card-title-input').addEventListener('input', e => {
+    if (state.selectedCardIndex === null) return;
+    state.cards[state.selectedCardIndex].title = e.target.value;
+    renderCardList();
+    renderPreview();
+  });
+
+  document.getElementById('card-desc-input').addEventListener('input', e => {
+    if (state.selectedCardIndex === null) return;
+    state.cards[state.selectedCardIndex].desc = e.target.value;
+    renderPreview();
+  });
+
+  document.getElementById('card-tag-input').addEventListener('input', e => {
+    if (state.selectedCardIndex === null) return;
+    state.cards[state.selectedCardIndex].tag = e.target.value;
+    renderPreview();
+  });
+
+  // ── EXPORT ──
+  const openExport = () => {
+    document.getElementById('export-code').textContent = generateExportHTML();
+    document.getElementById('export-modal').classList.add('open');
+  };
+
+  document.getElementById('export-open-btn').addEventListener('click', openExport);
+  document.getElementById('export-toolbar-btn').addEventListener('click', openExport);
+  document.getElementById('export-preview-btn').addEventListener('click', openExport);
+
+  const copyExportFn = () => {
+    const code = generateExportHTML();
+    navigator.clipboard.writeText(code).then(() => showToast('Copied to clipboard!', 'success'));
+  };
+
+  document.getElementById('copy-export-btn').addEventListener('click', copyExportFn);
+  document.getElementById('modal-copy-btn').addEventListener('click', copyExportFn);
+
+  document.getElementById('modal-close-btn').addEventListener('click', () => {
+    document.getElementById('export-modal').classList.remove('open');
+  });
+  document.getElementById('modal-close-btn2').addEventListener('click', () => {
+    document.getElementById('export-modal').classList.remove('open');
+  });
+  document.getElementById('export-modal').addEventListener('click', e => {
+    if (e.target === document.getElementById('export-modal')) {
+      document.getElementById('export-modal').classList.remove('open');
+    }
+  });
+}
+
+/* ════════════════════════════════════════
+   TOAST
+   ════════════════════════════════════════ */
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (type ? ' ' + type : '');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+/* ════════════════════════════════════════
+   INIT
+   ════════════════════════════════════════ */
+(function init() {
+  // Load SBDC preset as default
+  loadPreset('sbdc');
+
+  wireAll();
+})();
+</script>
+</body>
+</html>
