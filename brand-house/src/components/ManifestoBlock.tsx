@@ -68,7 +68,7 @@ export default function ManifestoBlock({
       className="relative flex items-center justify-center overflow-hidden"
       style={{
         minHeight: "80vh",
-        background: "var(--navy)",
+        background: "var(--royal)",
         padding: "120px var(--pad)",
       }}
     >
