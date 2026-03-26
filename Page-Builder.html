@@ -757,6 +757,8 @@ function getDefaultState() {
           gridRows: 3,
           rowHeights: [1, 1, 1],
           gap: 4,
+          gapStart: 40,
+          cellRadius: 14,
           aspectRatio: '16/10',
           bgColor: '#0f1c2e',
           insetMargin: 48,
@@ -768,10 +770,16 @@ function getDefaultState() {
           edgeDarken: 35,
           overlayColor: '#091422',
           // Animation
+          fullBleed: true,
+          bleedAmount: 60,
           pinDuration: 200,
           skewDeg: 5,
           fadeIn: true,
-          cellScaleStart: 0.7
+          cellScaleStart: 0.7,
+          easing: 'power2.inOut',
+          cellStagger: 0.03,
+          gridRotateStart: 0,
+          parallaxStrength: 0
         }
       },
       {
@@ -1181,6 +1189,8 @@ function renderHeroConfig(panel, sec) {
         c.rowHeights = c.rowHeights.slice(0, v);
       }, { min: 2, max: 5, step: 1 }),
       makeField('Gap (px)', 'range', c.gap, v => c.gap = v, { min: 0, max: 16, step: 1, unit: 'px' }),
+      makeField('Start Gap (px)', 'range', c.gapStart, v => c.gapStart = v, { min: 0, max: 80, step: 2, unit: 'px' }),
+      makeField('Cell Radius (px)', 'range', c.cellRadius, v => c.cellRadius = v, { min: 0, max: 30, step: 1, unit: 'px' }),
       makeField('Aspect Ratio', 'select', c.aspectRatio, v => c.aspectRatio = v, {
         options: [
           { value: '16/10', label: '16:10' },
@@ -1220,8 +1230,23 @@ function renderHeroConfig(panel, sec) {
   } else if (heroTab === 'animation') {
     fields = [
       makeField('Pin Duration (%)', 'range', c.pinDuration, v => c.pinDuration = v, { min: 100, max: 400, step: 10, unit: '%' }),
-      makeField('Skew (deg)', 'range', c.skewDeg, v => c.skewDeg = v, { min: 0, max: 15, step: 0.5, unit: '°' }),
+      makeField('Full Bleed', 'checkbox', c.fullBleed, v => c.fullBleed = v),
+      makeField('Bleed Amount (px)', 'range', c.bleedAmount, v => c.bleedAmount = v, { min: 0, max: 120, step: 5, unit: 'px' }),
+      makeField('Easing', 'select', c.easing, v => c.easing = v, {
+        options: [
+          { value: 'none', label: 'None (linear)' },
+          { value: 'power1.inOut', label: 'Power1 InOut' },
+          { value: 'power2.inOut', label: 'Power2 InOut' },
+          { value: 'power3.inOut', label: 'Power3 InOut' },
+          { value: 'back.out(1.4)', label: 'Back Out' },
+          { value: 'expo.inOut', label: 'Expo InOut' },
+        ]
+      }),
       makeField('Cell Scale Start', 'range', c.cellScaleStart, v => c.cellScaleStart = v, { min: 0.3, max: 1, step: 0.05 }),
+      makeField('Cell Stagger (s)', 'range', c.cellStagger, v => c.cellStagger = v, { min: 0, max: 0.1, step: 0.005, unit: 's' }),
+      makeField('Skew (deg)', 'range', c.skewDeg, v => c.skewDeg = v, { min: 0, max: 15, step: 0.5, unit: '°' }),
+      makeField('Rotation Start (deg)', 'range', c.gridRotateStart, v => c.gridRotateStart = v, { min: 0, max: 5, step: 0.5, unit: '°' }),
+      makeField('Parallax (px)', 'range', c.parallaxStrength, v => c.parallaxStrength = v, { min: 0, max: 50, step: 1, unit: 'px' }),
       makeField('Fade In', 'checkbox', c.fadeIn, v => c.fadeIn = v),
     ];
   }
@@ -1889,24 +1914,67 @@ function generateExport() {
     const hasSkew = (c.skewDeg || 0) > 0;
     const hasFade = !!c.fadeIn;
     const hasScale = (c.cellScaleStart || 1) < 1;
+    const isFullBleed = c.fullBleed !== false;
+    const bleedAmt = c.bleedAmount || 60;
+    const easing = c.easing || 'power2.inOut';
+    const gapEnd = c.gap || 4;
+    const gapBegin = c.gapStart || gapEnd;
+    const hasGapAnim = gapBegin > gapEnd;
+    const cellStagger = c.cellStagger || 0.03;
+    const hasRotation = (c.gridRotateStart || 0) > 0;
+    const hasParallax = (c.parallaxStrength || 0) > 0;
+    const parallaxAmt = c.parallaxStrength || 0;
+
     let tlSteps = '';
-    if (hasInset) {
+
+    // Step 1: Inset → full-bleed expand (or simple inset reveal)
+    if (isFullBleed && hasInset) {
+      tlSteps += `
+    // Full-bleed expand: inset → past viewport edges
+    tl.to(inner, { margin: 0, width: 'calc(100% + ${bleedAmt * 2}px)', marginLeft: '-${bleedAmt}px', borderRadius: '0px', duration: 0.5, ease: '${easing}' }, 0);`;
+    } else if (hasInset) {
       tlSteps += `
     // Inset reveal
     tl.to(inner, { margin: 0, width: '100%', borderRadius: '${c.containerRadius || 0}px', duration: 0.4, ease: 'none' }, 0);`;
     }
-    if (hasFade || hasSkew) {
+
+    // Step 2: Gap close (large → small)
+    if (hasGapAnim) {
       tlSteps += `
-    // Grid skew + fade
-    tl.to(grid, {${hasFade ? ' opacity: 1,' : ''}${hasSkew ? ' skewX: 0,' : ''} duration: 0.4, ease: 'none' }, 0.1);`;
+    // Gap close
+    tl.to(grid, { gap: '${gapEnd}px', duration: 0.5, ease: '${easing}' }, 0);`;
     }
+
+    // Step 3: Fade + skew/rotation resolve
+    if (hasFade || hasSkew || hasRotation) {
+      let gridProps = '';
+      if (hasFade) gridProps += ' opacity: 1,';
+      if (hasSkew) gridProps += ' skewX: 0,';
+      if (hasRotation) gridProps += ' rotation: 0,';
+      tlSteps += `
+    // Grid fade / skew / rotation
+    tl.to(grid, {${gridProps} duration: 0.4, ease: '${easing}' }, 0.05);`;
+    }
+
+    // Step 4: Cell scale (staggered)
     if (hasScale) {
       tlSteps += `
-    // Cell scale
+    // Cell scale (staggered)
     cells.forEach(function(cell, i) {
-      tl.to(cell, { scale: 1, duration: 0.3, ease: 'none' }, 0.15 + i * 0.03);
+      tl.to(cell, { scale: 1, duration: 0.3, ease: '${easing}' }, ${cellStagger} * i);
     });`;
     }
+
+    // Step 5: Parallax (optional)
+    if (hasParallax) {
+      tlSteps += `
+    // Parallax
+    cells.forEach(function(cell, i) {
+      var dir = (i % 2 === 0) ? ${parallaxAmt} : -${parallaxAmt};
+      tl.fromTo(cell, { y: dir }, { y: 0, duration: 0.5, ease: 'none' }, 0);
+    });`;
+    }
+
     return `
   // Hero Grid #${idx}
   (function() {
@@ -1919,8 +1987,10 @@ function generateExport() {
       scrollTrigger: {
         trigger: hero,
         pin: true,
+        start: 'top top',
         end: '+=${c.pinDuration || 200}%',
-        scrub: 1
+        scrub: 1,
+        anticipatePin: 1
       }
     });${tlSteps}
   })();`;
@@ -1996,10 +2066,11 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #0f1c2e; color: 
 .chapter-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.15) !important; }
 
 /* Scroll Reveal Grid Hero */
-.scroll-reveal-grid-hero { position: relative; width: 100%; overflow: hidden; }
-.srg-inner { position: relative; overflow: hidden; }
-.srg-grid { display: grid; position: absolute; inset: 0; z-index: 1; }
-.srg-cell { background-size: cover; background-position: center; background-color: rgba(255,255,255,0.04); }
+.srg-section { overflow: hidden; }
+.scroll-reveal-grid-hero { position: relative; width: 100%; overflow: visible; }
+.srg-inner { position: relative; }
+.srg-grid { display: grid; position: absolute; inset: 0; z-index: 1; transform-origin: center center; }
+.srg-cell { background-size: cover; background-position: center; background-color: rgba(255,255,255,0.04); will-change: transform; overflow: hidden; }
 .srg-vignette { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 .srg-overlay { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; }
 .srg-eyebrow { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 14px; font-family: 'Inter', sans-serif; }
@@ -2014,7 +2085,9 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #0f1c2e; color: 
 @media (max-width: 768px) {
   .site-nav { padding: 12px 20px; }
   .nav-link { display: none; }
-  .srg-inner { aspect-ratio: 4/3 !important; margin: 20px !important; width: calc(100% - 40px) !important; }
+  .srg-inner { aspect-ratio: 4/3 !important; margin: 12px !important; width: calc(100% - 24px) !important; }
+  .srg-cell { border-radius: 8px !important; }
+  .srg-grid { gap: 4px !important; }
 }
 </style>
 </head>
@@ -2121,9 +2194,14 @@ function generateHeroHTML(sec, idx) {
   const scaleStart = c.cellScaleStart || 1;
   const skewDeg = c.skewDeg || 0;
   const hasFade = !!c.fadeIn;
+  const cellRadius = c.cellRadius || 0;
+  const gapStart = c.gapStart || c.gap || 4;
+  const isFullBleed = c.fullBleed !== false;
+  const gridRotateStart = c.gridRotateStart || 0;
 
   // Build cell HTML using background-image (not <img>) for zoom control
   const scaleCSS = scaleStart < 1 ? `transform:scale(${scaleStart});` : '';
+  const radiusCSS = cellRadius > 0 ? `border-radius:${cellRadius}px;` : '';
   let cellsHTML = '';
   for (let i = 0; i < totalCells; i++) {
     if (i < c.images.length && c.images[i].url) {
@@ -2131,9 +2209,9 @@ function generateHeroHTML(sec, idx) {
       const zoom = img.zoom || 1;
       const bgSize = zoom > 1 ? `background-size:${zoom * 100}%` : 'background-size:cover';
       const bgPos = `background-position:${img.posX || 'center'} ${img.posY || 'center'}`;
-      cellsHTML += `      <div class="srg-cell" style="background-image:url('${escapeHtml(img.url)}');${bgPos};${bgSize};${scaleCSS}"></div>\n`;
+      cellsHTML += `      <div class="srg-cell" style="${radiusCSS}background-image:url('${escapeHtml(img.url)}');${bgPos};${bgSize};${scaleCSS}"></div>\n`;
     } else {
-      cellsHTML += `      <div class="srg-cell" style="${scaleCSS}"></div>\n`;
+      cellsHTML += `      <div class="srg-cell" style="${radiusCSS}${scaleCSS}"></div>\n`;
     }
   }
 
@@ -2158,11 +2236,24 @@ function generateHeroHTML(sec, idx) {
       <div class="srg-sub">${escapeHtml(c.subtitle)}</div>
     </div>`;
 
+  // Build grid transform (initial state)
+  let gridTransforms = [];
+  if (skewDeg > 0) gridTransforms.push(`skewX(${skewDeg}deg)`);
+  if (gridRotateStart > 0) gridTransforms.push(`rotate(${gridRotateStart}deg)`);
+  const gridTransformCSS = gridTransforms.length ? `transform:${gridTransforms.join(' ')};` : '';
+
+  // Use gapStart for initial gap (GSAP will animate to final gap)
+  const initialGap = gapStart;
+
+  // Overflow behavior: full-bleed allows overflow past viewport
+  const innerOverflow = isFullBleed ? 'overflow:visible;' : 'overflow:hidden;';
+  const heroOverflow = isFullBleed ? 'overflow:visible' : 'overflow:hidden';
+
   return `
-<section id="section-${idx}" class="srg-section" style="background:${bgColor}">
-  <div class="scroll-reveal-grid-hero" id="srgHero-${idx}">
-    <div class="srg-inner" style="margin:${insetMargin}px;width:calc(100% - ${insetMargin * 2}px);aspect-ratio:${c.aspectRatio || '16/10'};border-radius:${insetRadius}px;background:${bgColor}">
-      <div class="srg-grid" style="grid-template-columns:${colTemplate};grid-template-rows:${rowTemplate};gap:${c.gap}px;${hasFade ? 'opacity:0;' : ''}${skewDeg > 0 ? `transform:skewX(${skewDeg}deg);` : ''}">
+<section id="section-${idx}" class="srg-section" style="background:${bgColor};overflow:hidden">
+  <div class="scroll-reveal-grid-hero" id="srgHero-${idx}" style="${heroOverflow}">
+    <div class="srg-inner" style="margin:${insetMargin}px;width:calc(100% - ${insetMargin * 2}px);aspect-ratio:${c.aspectRatio || '16/10'};border-radius:${insetRadius}px;background:${bgColor};${innerOverflow}">
+      <div class="srg-grid" style="grid-template-columns:${colTemplate};grid-template-rows:${rowTemplate};gap:${initialGap}px;${hasFade ? 'opacity:0;' : ''}${gridTransformCSS}">
 ${cellsHTML.trimEnd()}
       </div>${vignetteHTML}${textHTML}
     </div>
