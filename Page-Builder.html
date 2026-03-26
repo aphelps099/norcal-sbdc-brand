@@ -772,9 +772,9 @@ function getDefaultState() {
           // Animation
           fullBleed: true,
           bleedAmount: 60,
-          pinDuration: 200,
-          skewDeg: 5,
-          fadeIn: true,
+          pinDuration: 150,
+          skewDeg: 0,
+          fadeIn: false,
           cellScaleStart: 0.7,
           easing: 'power2.inOut',
           cellStagger: 0.03,
@@ -2253,7 +2253,7 @@ function generateHeroHTML(sec, idx) {
 <section id="section-${idx}" class="srg-section" style="background:${bgColor};overflow:hidden">
   <div class="scroll-reveal-grid-hero" id="srgHero-${idx}" style="${heroOverflow}">
     <div class="srg-inner" style="margin:${insetMargin}px;width:calc(100% - ${insetMargin * 2}px);aspect-ratio:${c.aspectRatio || '16/10'};border-radius:${insetRadius}px;background:${bgColor};${innerOverflow}">
-      <div class="srg-grid" style="grid-template-columns:${colTemplate};grid-template-rows:${rowTemplate};gap:${initialGap}px;${hasFade ? 'opacity:0;' : ''}${gridTransformCSS}">
+      <div class="srg-grid" style="grid-template-columns:${colTemplate};grid-template-rows:${rowTemplate};gap:${initialGap}px;${hasFade ? 'opacity:0.5;' : ''}${gridTransformCSS}">
 ${cellsHTML.trimEnd()}
       </div>${vignetteHTML}${textHTML}
     </div>
