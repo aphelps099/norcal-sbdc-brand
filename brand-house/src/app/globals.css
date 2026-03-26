@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════
+   FONTS
+   ═══════════════════════════════════════════ */
+@font-face { font-family: 'GT America'; src: url('/fonts/GT-America-Extended-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'GT America'; src: url('/fonts/GT-America-Expanded-Black.otf') format('opentype'); font-weight: 900; font-display: swap; }
+@font-face { font-family: 'GT America'; src: url('/fonts/GT-America-Condensed-Medium.otf') format('opentype'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'GT Era Display'; src: url('/fonts/GT-Era-Display-Bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'GT Era Display'; src: url('/fonts/GT-Era-Display-Light.ttf') format('truetype'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'GT America Mono'; src: url('/fonts/GT-America-Mono-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'GT America Mono'; src: url('/fonts/GT-America-Mono-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Tiempos'; src: url('/fonts/TiemposText-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
+
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS
+   ═══════════════════════════════════════════ */
+:root {
+  --navy: #0f1c2e;
+  --navy-deep: #091422;
+  --royal: #1D5AA7;
+  --royal-dim: rgba(29,90,167,0.08);
+  --royal-dim-2: rgba(29,90,167,0.15);
+  --pool: #8FC5D9;
+  --pool-bright: #a8d8e8;
+  --cream: #f0efeb;
+  --white: #ffffff;
+  --black: #111111;
+  --strawberry: #F7024D;
+  --text: #0a1528;
+  --text-secondary: #4a5568;
+  --text-tertiary: #8a8a8a;
+  --rule: rgba(0,0,0,0.12);
+  --rule-light: rgba(0,0,0,0.06);
+
+  --sans: 'GT America', -apple-system, Helvetica, sans-serif;
+  --serif: 'GT Era Display', Georgia, serif;
+  --mono: 'GT America Mono', 'SF Mono', monospace;
+  --body-serif: 'Tiempos', Georgia, serif;
+
+  --pad: clamp(32px, 5vw, 64px);
+  --max: 1080px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* ═══════════════════════════════════════════
+   TAILWIND THEME
+   ═══════════════════════════════════════════ */
+@theme inline {
+  --color-navy: #0f1c2e;
+  --color-navy-deep: #091422;
+  --color-royal: #1D5AA7;
+  --color-pool: #8FC5D9;
+  --color-pool-bright: #a8d8e8;
+  --color-cream: #f0efeb;
+  --color-strawberry: #F7024D;
+  --color-text-primary: #0a1528;
+  --color-text-secondary: #4a5568;
+  --color-text-tertiary: #8a8a8a;
+
+  --font-sans: 'GT America', -apple-system, Helvetica, sans-serif;
+  --font-serif: 'GT Era Display', Georgia, serif;
+  --font-mono: 'GT America Mono', 'SF Mono', monospace;
+}
+
+/* ═══════════════════════════════════════════
+   BASE
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+body {
+  font-family: var(--sans);
+  background: var(--navy);
+  color: var(--cream);
+  overflow-x: hidden;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* ═══════════════════════════════════════════
+   FILM GRAIN OVERLAY
+   ═══════════════════════════════════════════ */
+.film-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+}
+
+/* ═══════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--navy-deep); }
+::-webkit-scrollbar-thumb { background: var(--royal); border-radius: 3px; }
+
+/* ═══════════════════════════════════════════
+   SELECTION
+   ═══════════════════════════════════════════ */
+::selection { background: var(--royal); color: var(--white); }
