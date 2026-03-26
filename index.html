@@ -409,22 +409,33 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
   opacity: 0.035;
   pointer-events: none;
 }
-.mantra .container { position: relative; max-width: 720px; }
+.mantra .container { position: relative; max-width: 780px; }
 .mantra-text {
   font-family: var(--serif); font-weight: 400;
   font-size: clamp(1.6rem, 3.5vw, 2.8rem);
-  line-height: 1.25;
+  line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--text);
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.8s var(--ease-out), transform 0.9s var(--ease);
 }
-.mantra-text strong {
-  font-weight: 400; font-style: italic;
-  color: var(--navy);
-  text-decoration: underline;
-  text-decoration-color: var(--pool);
-  text-underline-offset: 4px;
-  text-decoration-thickness: 2px;
+.mantra-text.visible { opacity: 1; transform: translateY(0); }
+.mantra-text em {
+  font-style: italic;
+  color: var(--royal);
 }
+.mantra-stat {
+  display: block;
+  font-family: var(--sans); font-weight: 300;
+  font-size: clamp(0.85rem, 1.2vw, 1rem);
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  color: var(--text-secondary);
+  margin-top: 28px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.7s var(--ease-out) 0.2s, transform 0.8s var(--ease) 0.2s;
+}
+.mantra-stat.visible { opacity: 1; transform: translateY(0); }
 @media (max-width: 768px) {
   .mantra { padding: clamp(56px, 10vh, 100px) var(--pad); }
   .mantra-text { font-size: clamp(1.3rem, 5vw, 1.8rem); }
@@ -546,8 +557,9 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
 
 <!-- MANTRA -->
 <section class="mantra" id="mantra">
-  <div class="container reveal">
-    <p class="mantra-text">Behind every small business in Northern California is someone who bet on themselves. We exist to make sure that bet <strong>pays off</strong>.</p>
+  <div class="container">
+    <p class="mantra-text">$2.8B raised. 42,000 jobs created. Kitchen-table ideas turned into <em>million-dollar companies.</em></p>
+    <p class="mantra-stat">Since 1980, NorCal SBDC advisors have helped businesses launch, scale, and stay open. 100% confidential. 100% free.</p>
   </div>
 </section>
 
@@ -777,7 +789,7 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
     toastTimer = setTimeout(function() { toastEl.classList.remove('show'); }, 2000);
   };
 
-  var revealEls = document.querySelectorAll('.reveal');
+  var revealEls = document.querySelectorAll('.reveal, .mantra-text, .mantra-stat');
   if (!reduced && revealEls.length) {
     var io = new IntersectionObserver(function(entries) {
       entries.forEach(function(e) {
