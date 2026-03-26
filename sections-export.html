@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NorCal SBDC — Brand House Sections</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,300..800&family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════
+   RESET
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; overflow-x: hidden; }
+
+/* ═══════════════════════════════════════════
+   SECTION 1 — SCROLL REVEAL GRID HERO
+   ═══════════════════════════════════════════ */
+.scroll-reveal-grid-hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #090a1a;
+}
+
+.srg-inner {
+  position: relative;
+  width: calc(100% - 80px);
+  aspect-ratio: 16 / 10;
+  background: #090a1a;
+  overflow: hidden;
+  margin: 40px;
+  border-radius: 16px;
+}
+
+.srg-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 2fr 1fr;
+  grid-template-rows: repeat(4, 1fr);
+  gap: 6px;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+  transform: skewX(5deg);
+}
+
+.srg-cell {
+  background-size: cover;
+  background-position: center;
+  background-color: #1a1d24;
+  transform: scale(0.7);
+}
+
+.srg-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.6) 100%),
+    linear-gradient(to bottom, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 75%, rgba(0,0,0,0.18) 100%);
+}
+
+.srg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.srg-heading {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(28px, 5vw, 64px);
+  color: #ffffff;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  text-align: center;
+  line-height: 1.1;
+}
+
+.srg-sub {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: clamp(10px, 1.2vw, 13px);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.85);
+  text-shadow: 0 1px 10px rgba(0,0,0,0.5);
+  text-align: center;
+  margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+  .srg-inner { aspect-ratio: 4/3; margin: 20px; width: calc(100% - 40px); }
+}
+
+/* ═══════════════════════════════════════════
+   SECTION 2 — MANIFESTO
+   ═══════════════════════════════════════════ */
+.manifesto-section {
+  --manifesto-bg: #ffffff;
+  --manifesto-text: #0a1528;
+  --manifesto-accent: #1D5AA7;
+  --manifesto-font-size: 53px;
+  --manifesto-line-height: 1.24;
+  --manifesto-letter-spacing: -0.025em;
+  --manifesto-align: center;
+  --manifesto-max-width: 1000px;
+
+  background: var(--manifesto-bg);
+  color: var(--manifesto-text);
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 60px;
+  text-align: var(--manifesto-align);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Film grain */
+.manifesto-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  pointer-events: none;
+}
+
+.manifesto-eyebrow {
+  font-family: monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  opacity: 0.7;
+  margin-bottom: 28px;
+}
+
+.manifesto-text {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: var(--manifesto-font-size);
+  line-height: var(--manifesto-line-height);
+  letter-spacing: var(--manifesto-letter-spacing);
+  max-width: var(--manifesto-max-width);
+  color: var(--manifesto-text);
+}
+
+.manifesto-text .accent {
+  color: var(--manifesto-accent);
+}
+
+.manifesto-text strong { font-weight: 800; }
+.manifesto-text em { font-style: italic; }
+
+.manifesto-subtitle {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 1rem;
+  margin-top: 32px;
+  opacity: 0.6;
+  max-width: 600px;
+}
+
+/* Word stagger animation */
+.manifesto-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.manifesto-text.is-visible .manifesto-word {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .manifesto-section { padding: 50px 24px; }
+  .manifesto-text { font-size: clamp(1.6rem, 5vw, var(--manifesto-font-size)); }
+}
+
+/* ═══════════════════════════════════════════
+   SECTION 3 — CHAPTER GRID
+   ═══════════════════════════════════════════ */
+.cg-section {
+  --cg-section-bg: #0f1c2e;
+  --cg-card-bg: #f5f4f0;
+  --cg-icon-color: #0a1528;
+  --cg-divider: rgba(0,0,0,0.08);
+  --cg-dur: 400ms;
+  --cg-grain-opacity: 0.13;
+
+  position: relative;
+  background: var(--cg-section-bg);
+  padding: 48px 40px;
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+.cg-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.cg-header {
+  margin-bottom: 32px;
+}
+
+.cg-header-rule {
+  width: 100%;
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  margin-bottom: 20px;
+}
+
+.cg-title {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+
+.cg-subtitle {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.cg-grid-wrap {
+  border: 1px solid var(--cg-divider);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.cg-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+
+.cg-card {
+  background: var(--cg-card-bg);
+  padding: 24px;
+  border-right: 1px solid var(--cg-divider);
+  border-bottom: 1px solid var(--cg-divider);
+  transition: background 0.2s ease;
+}
+
+/* Remove right border on last column */
+.cg-card:nth-child(3n) { border-right: none; }
+/* Remove bottom border on last row */
+.cg-card:nth-last-child(-n+3) { border-bottom: none; }
+
+.cg-card:hover { filter: brightness(0.97); }
+
+.cg-icon {
+  color: var(--cg-icon-color);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.cg-card-title {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.cg-card-desc {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.65;
+}
+
+.cg-badge {
+  display: inline-block;
+  background: var(--cg-icon-color);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+/* Card entrance animation */
+.cg-card[data-cg-idx] { opacity: 0; transform: translateY(12px); }
+.cg-card[data-cg-idx].cg-in { opacity: 1; transform: translateY(0); transition: opacity var(--cg-dur) ease, transform var(--cg-dur) ease; }
+
+/* Film grain */
+.cg-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--cg-grain-opacity);
+  mix-blend-mode: overlay;
+}
+
+/* The SVG filter ref needs to exist for the grain to work */
+.cg-grain { filter: url(#cg-grain); }
+
+@media (max-width: 768px) {
+  .cg-section { padding: 36px 20px; }
+  .cg-grid { grid-template-columns: 1fr; }
+  .cg-card { border-right: none; }
+  .cg-card:last-child { border-bottom: none; }
+}
+</style>
+</head>
+<body>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION 1 — SCROLL REVEAL GRID HERO
+     ═══════════════════════════════════════════ -->
+<div class="scroll-reveal-grid-hero" id="srgHero">
+  <div class="srg-inner">
+    <div class="srg-grid">
+      <div class="srg-cell"></div>
+      <div class="srg-cell"></div>
+      <div class="srg-cell"></div>
+      <div class="srg-cell"></div>
+      <div class="srg-cell"></div>
+      <div class="srg-cell"></div>
+      <div class="srg-cell"></div>
+      <div class="srg-cell"></div>
+      <div class="srg-cell"></div>
+      <div class="srg-cell"></div>
+      <div class="srg-cell"></div>
+      <div class="srg-cell"></div>
+      <div class="srg-cell"></div>
+      <div class="srg-cell"></div>
+      <div class="srg-cell"></div>
+      <div class="srg-cell"></div>
+      <div class="srg-cell"></div>
+      <div class="srg-cell"></div>
+      <div class="srg-cell"></div>
+      <div class="srg-cell"></div>
+    </div>
+    <div class="srg-vignette"></div>
+    <div class="srg-overlay">
+      <div class="srg-heading">Mesmerize</div>
+      <div class="srg-sub">With immersive animations</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION 2 — MANIFESTO
+     ═══════════════════════════════════════════ -->
+<section class="manifesto-section">
+  <p class="manifesto-eyebrow">SUCCESS</p>
+  <div class="manifesto-text">
+    <span class="manifesto-word">$2.8B</span>
+    <span class="manifesto-word">raised.</span>
+    <span class="manifesto-word">42,000</span>
+    <span class="manifesto-word">jobs</span>
+    <span class="manifesto-word">created.</span>
+    <span class="manifesto-word">Kitchen-table</span>
+    <span style="text-decoration:underline;text-decoration-style:solid;text-decoration-color:#1D5AA7;text-decoration-thickness:2px;text-underline-offset:6px;"><span class="manifesto-word">ideas</span></span>
+    <span class="manifesto-word">turned</span>
+    <span class="manifesto-word">into</span>
+    <span class="accent" data-accent="true" style="color:#1D5AA7;font-style:italic;"><span class="manifesto-word">million-dollar</span> <span class="manifesto-word">companies.</span></span>
+  </div>
+  <p class="manifesto-subtitle">NorCal SBDC — Powering the next generation of California entrepreneurs.</p>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION 3 — CHAPTER GRID
+     ═══════════════════════════════════════════ -->
+<!-- SVG filter for grain (must be in DOM before use) -->
+<svg style="position:absolute;width:0;height:0;" aria-hidden="true">
+  <filter id="cg-grain">
+    <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+  </filter>
+</svg>
+
+<section class="cg-section" aria-label="Brand Toolkit">
+  <div class="cg-grain"></div>
+  <div class="cg-inner">
+    <div class="cg-header" style="text-align:left;">
+      <div class="cg-header-rule"></div>
+      <h2 class="cg-title" style="color:#e8e8e8;">Brand Toolkit</h2>
+      <p class="cg-subtitle" style="color:#aaa;">Everything you need to represent the NorCal SBDC brand.</p>
+    </div>
+    <div class="cg-grid-wrap">
+      <div class="cg-grid">
+        <div class="cg-card" data-cg-idx="0">
+          <div class="cg-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+          <div class="cg-card-title">LOGOS &amp; ASSETS</div>
+          <div class="cg-card-desc">Wordmarks, star mark, and approved logo files for all backgrounds.</div>
+        </div>
+        <div class="cg-card" data-cg-idx="1">
+          <div class="cg-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 010 20 15 15 0 010-20"/><path d="M2 12h20"/></svg></div>
+          <div class="cg-card-title">COLOR SYSTEM</div>
+          <div class="cg-card-desc">Primary palette, contrast pairs, and CSS design tokens.</div>
+        </div>
+        <div class="cg-card" data-cg-idx="2">
+          <div class="cg-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg></div>
+          <div class="cg-card-title">TYPOGRAPHY</div>
+          <div class="cg-card-desc">Tobias, GT America, and GT America Mono type specimens and usage.</div>
+        </div>
+        <div class="cg-card" data-cg-idx="3">
+          <div class="cg-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="cg-card-title">COMPLIANCE</div>
+          <div class="cg-card-desc">Logo clear space, do/don't rules, and accessibility standards.</div>
+        </div>
+        <div class="cg-card" data-cg-idx="4">
+          <div class="cg-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+          <div class="cg-card-title">VOICE &amp; MESSAGING</div>
+          <div class="cg-card-desc">Tone attributes, elevator pitches, approved phrases, and tagline usage.</div>
+        </div>
+        <div class="cg-card" data-cg-idx="5">
+          <div class="cg-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
+          <div class="cg-card-title">TEMPLATES</div>
+          <div class="cg-card-desc">Social kits, decks, email signatures, one-pagers, and event graphics.</div>
+        </div>
+        <div class="cg-card" data-cg-idx="6">
+          <div class="cg-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <div class="cg-card-title">SUCCESS STORIES</div>
+          <div class="cg-card-desc">Client spotlights organized by tier with writing toolkit and scoring rubric.</div>
+        </div>
+        <div class="cg-card" data-cg-idx="7">
+          <div class="cg-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div class="cg-card-title">CAMPAIGNS</div>
+          <div class="cg-card-desc">SBDC Day, National Small Business Week, and Your Business Better toolkits.</div>
+        </div>
+        <div class="cg-card" data-cg-idx="8">
+          <div class="cg-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <div class="cg-card-title">GUIDELINES</div>
+          <div class="cg-card-desc">Channel-specific rules for social, presentations, email, and print.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SCRIPTS
+     ═══════════════════════════════════════════ -->
+
+<!-- GSAP for scroll reveal hero -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+<script>
+(function() {
+  'use strict';
+
+  /* ─── 1. SCROLL REVEAL HERO ─── */
+  gsap.registerPlugin(ScrollTrigger);
+
+  var hero = document.querySelector('#srgHero');
+  if (hero) {
+    var inner = hero.querySelector('.srg-inner');
+    var grid = hero.querySelector('.srg-grid');
+    var cells = hero.querySelectorAll('.srg-cell');
+
+    var tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: hero,
+        pin: true,
+        end: '+=277%',
+        scrub: 1,
+      }
+    });
+
+    tl.to(inner, { margin: 0, width: '100%', borderRadius: '3px', duration: 0.4, ease: 'none' }, 0);
+    tl.to(grid, { opacity: 1, skewX: 0, duration: 0.4, ease: 'none' }, 0.1);
+    cells.forEach(function(cell, i) {
+      tl.to(cell, { scale: 1, duration: 0.3, ease: 'none' }, 0.15 + i * 0.03);
+    });
+  }
+
+  /* ─── 2. MANIFESTO WORD STAGGER ─── */
+  var manifestoText = document.querySelector('.manifesto-text');
+  if (manifestoText) {
+    var words = manifestoText.querySelectorAll('.manifesto-word');
+    words.forEach(function(w, i) {
+      w.style.transitionDelay = (i * 40) + 'ms';
+    });
+
+    var mObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          manifestoText.classList.add('is-visible');
+          mObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+    mObserver.observe(manifestoText);
+  }
+
+  /* ─── 3. CHAPTER GRID CARD STAGGER ─── */
+  var cgCards = document.querySelectorAll('.cg-card[data-cg-idx]');
+  if (cgCards.length) {
+    var cgObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          // Stagger all cards once first one is visible
+          cgCards.forEach(function(c, i) {
+            setTimeout(function() { c.classList.add('cg-in'); }, i * 60);
+          });
+          cgObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.1 });
+
+    // Observe the grid wrapper, not individual cards
+    var cgWrap = document.querySelector('.cg-grid-wrap');
+    if (cgWrap) cgObserver.observe(cgWrap);
+  }
+
+})();
+</script>
+
+</body>
+</html>
