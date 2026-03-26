@@ -36,9 +36,9 @@ export default function ScrollRevealGrid({
   colWidths = [1, 3, 1],
   rowHeights = [1, 2, 1],
   gap = 6,
-  aspectRatio = "16/9",
+  aspectRatio = "3/2",
   bgColor = "#0f1c2e",
-  pinDuration = 200,
+  pinDuration = 100,
   insetStart = 40,
   insetRadius = 16,
   skewX = 5,
@@ -147,13 +147,28 @@ export default function ScrollRevealGrid({
                 key={i}
                 className="srg-cell"
                 style={{
-                  backgroundSize: "cover",
-                  backgroundPosition: img?.pos || "center",
-                  backgroundImage: img?.src ? `url(${img.src})` : undefined,
-                  backgroundColor: img?.src ? undefined : "rgba(255,255,255,0.04)",
+                  position: "relative",
+                  overflow: "hidden",
+                  backgroundColor: "rgba(255,255,255,0.04)",
                   transform: `translate(${offset.x}%, ${offset.y}%) scale(${scaleStart})`,
                 }}
-              />
+              >
+                {img?.src && (
+                  <img
+                    src={img.src}
+                    alt=""
+                    loading="eager"
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      objectPosition: img.pos || "center",
+                    }}
+                  />
+                )}
+              </div>
             );
           })}
         </div>
@@ -188,7 +203,7 @@ export default function ScrollRevealGrid({
           </div>
         )}
 
-        {/* Vignette — cinematic */}
+        {/* Vignette */}
         <div
           className="absolute inset-0 z-2 pointer-events-none"
           style={{
