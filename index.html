@@ -728,6 +728,10 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
     });
 
     // Layer 1: Container inset → full-bleed
+    tl.to('#hero', {
+      paddingTop: 0,
+      duration: 0.4, ease: 'none'
+    }, 0);
     tl.to('#heroInner', {
       margin: 0, width: '100%', borderRadius: '0px',
       duration: 0.4, ease: 'none'
