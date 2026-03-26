@@ -23,7 +23,7 @@
 <title>Manifesto Section Builder</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,300..800&display=swap" rel="stylesheet">
 <style>
 /* ─── Reset ─── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -641,6 +641,10 @@ textarea:focus, input[type="text"]:focus {
   font-family: 'Newsreader', Georgia, serif;
 }
 
+.manifesto-text.font-serif { font-family: 'Newsreader', Georgia, serif; }
+.manifesto-text.font-sans { font-family: 'DM Sans', 'Proxima Nova', -apple-system, sans-serif; }
+.manifesto-text.font-extended { font-family: 'GT America Extended', 'Inter', -apple-system, sans-serif; }
+
 .manifesto-text strong {
   font-weight: 800;
 }
@@ -710,6 +714,31 @@ textarea:focus, input[type="text"]:focus {
 .anim-snap-scale {
   opacity: 0;
   animation: snapScale 0.6s var(--ease-out) forwards;
+}
+
+/* Line stagger */
+.line-stagger .line-wrap {
+  display: block;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--anim-duration, 0.7s) var(--anim-ease, ease-out),
+              transform var(--anim-duration, 0.7s) var(--anim-ease, ease-out);
+}
+
+.line-stagger.is-visible .line-wrap {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Sentence stagger */
+.sentence-stagger .sentence-wrap {
+  display: inline;
+  opacity: 0;
+  transition: opacity var(--anim-duration, 0.7s) var(--anim-ease, ease-out);
+}
+
+.sentence-stagger.is-visible .sentence-wrap {
+  opacity: 1;
 }
 
 .word-stagger .word {
@@ -941,6 +970,31 @@ textarea:focus, input[type="text"]:focus {
               <option value="100%">Full width</option>
             </select>
           </div>
+
+          <div class="control-row">
+            <label>Font family</label>
+            <select id="fontFamilySelect">
+              <option value="serif">Newsreader (Serif)</option>
+              <option value="sans">DM Sans (Sans-serif)</option>
+              <option value="extended">GT America Extended</option>
+            </select>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="section-group">
+          <div class="section-label">Section Padding</div>
+          <div class="control-row">
+            <label>Top</label>
+            <input type="range" id="paddingTopSlider" min="20" max="200" value="80" step="5">
+            <span class="val-badge" id="paddingTopVal">80px</span>
+          </div>
+          <div class="control-row">
+            <label>Bottom</label>
+            <input type="range" id="paddingBottomSlider" min="20" max="200" value="80" step="5">
+            <span class="val-badge" id="paddingBottomVal">80px</span>
+          </div>
         </div>
 
         <hr class="divider">
@@ -1053,6 +1107,8 @@ textarea:focus, input[type="text"]:focus {
               <option value="none">None</option>
               <option value="fade-up">Fade up</option>
               <option value="stagger-words">Stagger words</option>
+              <option value="stagger-lines">Stagger lines</option>
+              <option value="stagger-sentences">Stagger sentences</option>
               <option value="snap-scale">Snap scale</option>
             </select>
           </div>
@@ -1166,6 +1222,9 @@ const state = {
   alignment: 'center',
   eyebrowStyle: 'mono-upper',
   maxWidth: '920px',
+  fontFamily: 'serif',
+  paddingTop: 80,
+  paddingBottom: 80,
   grainEnabled: false,
   grainOpacity: 2,
 
@@ -1283,6 +1342,9 @@ function init() {
   // Selects
   bindSelect('eyebrowStyleSelect', 'eyebrowStyle');
   bindSelect('maxWidthSelect', 'maxWidth');
+  bindSelect('fontFamilySelect', 'fontFamily');
+  bindSlider('paddingTopSlider', 'paddingTopVal', v => { state.paddingTop = v; return v + 'px'; });
+  bindSlider('paddingBottomSlider', 'paddingBottomVal', v => { state.paddingBottom = v; return v + 'px'; });
   bindSelect('underlineStyleSelect', v => {
     state.underlineStyle = v;
     const isGrad = v === 'gradient';
@@ -1294,7 +1356,7 @@ function init() {
   });
   bindSelect('animTypeSelect', v => {
     state.animType = v;
-    document.getElementById('staggerDelayRow').style.display = v === 'stagger-words' ? '' : 'none';
+    document.getElementById('staggerDelayRow').style.display = (v === 'stagger-words' || v === 'stagger-lines' || v === 'stagger-sentences') ? '' : 'none';
   });
   bindSelect('animTriggerSelect', 'animTrigger');
   bindSelect('easingSelect', 'easing');
@@ -1626,11 +1688,13 @@ function updatePreview() {
   const subtitle = document.getElementById('previewSubtitle');
   const grain = document.getElementById('manifestoGrain');
 
-  // BG + text
+  // BG + text + padding
   section.style.background = state.bgColor;
   section.style.color = state.textColor;
   section.style.textAlign = state.alignment;
   section.style.alignItems = state.alignment === 'center' ? 'center' : 'flex-start';
+  section.style.paddingTop = state.paddingTop + 'px';
+  section.style.paddingBottom = state.paddingBottom + 'px';
 
   // Eyebrow
   eyebrow.textContent = state.eyebrow;
@@ -1656,6 +1720,10 @@ function updatePreview() {
   textEl.style.maxWidth = state.maxWidth;
   textEl.style.color = state.textColor;
 
+  // Font family
+  textEl.classList.remove('font-serif', 'font-sans', 'font-extended');
+  textEl.classList.add('font-' + state.fontFamily);
+
   // Subtitle
   subtitle.textContent = state.subtitle;
   subtitle.style.color = state.textColor;
@@ -1677,33 +1745,68 @@ function updatePreview() {
   displayHTML = applyUnderlinesToHTML(displayHTML);
 
   // Animation
-  textEl.className = 'manifesto-text';
+  textEl.className = 'manifesto-text font-' + state.fontFamily;
   if (animObserver) { animObserver.disconnect(); animObserver = null; }
 
   const easingCSS = getEasingCSS();
   const dur = state.animDuration / 1000;
 
+  function applyStaggerTrigger(el) {
+    if (state.animTrigger === 'on-load') {
+      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('is-visible')));
+    } else {
+      animObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { el.classList.add('is-visible'); animObserver.disconnect(); } });
+      }, { threshold: 0.2 });
+      animObserver.observe(el);
+    }
+  }
+
   if (state.animType === 'stagger-words') {
     displayHTML = staggerWordsHTML(displayHTML);
     textEl.innerHTML = displayHTML;
     textEl.classList.add('word-stagger');
-
-    // Apply stagger delays
     const words = textEl.querySelectorAll('.word');
     words.forEach((w, i) => {
       w.style.transitionDelay = (i * state.staggerDelay) + 'ms';
       w.style.transitionDuration = dur + 's';
       w.style.transitionTimingFunction = easingCSS;
     });
+    applyStaggerTrigger(textEl);
 
-    if (state.animTrigger === 'on-load') {
-      requestAnimationFrame(() => requestAnimationFrame(() => textEl.classList.add('is-visible')));
-    } else {
-      animObserver = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) { textEl.classList.add('is-visible'); animObserver.disconnect(); } });
-      }, { threshold: 0.2 });
-      animObserver.observe(textEl);
-    }
+  } else if (state.animType === 'stagger-lines') {
+    // Split by <br> and wrap each line
+    const lines = displayHTML.split(/<br\s*\/?>/);
+    textEl.innerHTML = lines.map(line => `<span class="line-wrap">${line}</span>`).join('<br>');
+    textEl.classList.add('line-stagger');
+    textEl.style.setProperty('--anim-duration', dur + 's');
+    textEl.style.setProperty('--anim-ease', easingCSS);
+    textEl.querySelectorAll('.line-wrap').forEach((el, i) => {
+      el.style.transitionDelay = (i * state.staggerDelay) + 'ms';
+    });
+    applyStaggerTrigger(textEl);
+
+  } else if (state.animType === 'stagger-sentences') {
+    // Split by sentence boundaries (. ! ? followed by space or end)
+    const temp = document.createElement('div');
+    temp.innerHTML = displayHTML;
+    const text = temp.textContent;
+    const sentences = text.match(/[^.!?]+[.!?]+[\s]*/g) || [text];
+    let rebuilt = displayHTML;
+    // Wrap each sentence
+    sentences.forEach((s, i) => {
+      const trimmed = s.trim();
+      if (trimmed) {
+        const escaped = trimmed.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        rebuilt = rebuilt.replace(new RegExp(escaped), `<span class="sentence-wrap" style="transition-delay:${i * state.staggerDelay}ms">${trimmed}</span>`);
+      }
+    });
+    textEl.innerHTML = rebuilt;
+    textEl.classList.add('sentence-stagger');
+    textEl.style.setProperty('--anim-duration', dur + 's');
+    textEl.style.setProperty('--anim-ease', easingCSS);
+    applyStaggerTrigger(textEl);
+
   } else {
     textEl.innerHTML = displayHTML;
 
@@ -1714,7 +1817,7 @@ function updatePreview() {
       if (state.animTrigger === 'on-load') {
         textEl.style.animation = 'none';
         textEl.style.opacity = '';
-        void textEl.offsetWidth; // reflow
+        void textEl.offsetWidth;
         textEl.style.animation = animCSS;
       } else {
         textEl.style.opacity = '0';
@@ -1734,11 +1837,16 @@ function updatePreview() {
       textEl.style.opacity = '';
     }
   }
+
+  // Fix accent color in preview (must run AFTER innerHTML is set)
+  textEl.querySelectorAll('[data-accent], .accent').forEach(span => {
+    span.style.color = state.accentColor;
+  });
 }
 
 function replayAnimation() {
   const textEl = document.getElementById('previewText');
-  if (state.animType === 'stagger-words') {
+  if (state.animType === 'stagger-words' || state.animType === 'stagger-lines' || state.animType === 'stagger-sentences') {
     textEl.classList.remove('is-visible');
     requestAnimationFrame(() => requestAnimationFrame(() => textEl.classList.add('is-visible')));
   } else if (state.animType !== 'none') {
@@ -1979,6 +2087,9 @@ const PRESETS = {
     alignment: 'center',
     eyebrowStyle: 'mono-upper',
     maxWidth: '920px',
+    fontFamily: 'serif',
+    paddingTop: 80,
+    paddingBottom: 80,
     grainEnabled: false,
     grainOpacity: 2,
     underlineWords: [],
@@ -2007,6 +2118,9 @@ const PRESETS = {
     alignment: 'center',
     eyebrowStyle: 'mono-upper',
     maxWidth: '800px',
+    fontFamily: 'serif',
+    paddingTop: 100,
+    paddingBottom: 100,
     grainEnabled: true,
     grainOpacity: 2,
     underlineWords: ['Business People'],
@@ -2035,6 +2149,9 @@ const PRESETS = {
     alignment: 'center',
     eyebrowStyle: 'mono-upper',
     maxWidth: '900px',
+    fontFamily: 'sans',
+    paddingTop: 90,
+    paddingBottom: 90,
     grainEnabled: false,
     grainOpacity: 2,
     underlineWords: ['42,000', '$2.8B'],
@@ -2063,6 +2180,9 @@ const PRESETS = {
     alignment: 'left',
     eyebrowStyle: 'mono-upper',
     maxWidth: '900px',
+    fontFamily: 'extended',
+    paddingTop: 100,
+    paddingBottom: 100,
     grainEnabled: false,
     grainOpacity: 2,
     underlineWords: ['Zero excuses'],
@@ -2114,6 +2234,9 @@ function loadPresetByKey(key) {
 
   setSelect('eyebrowStyleSelect', state.eyebrowStyle);
   setSelect('maxWidthSelect', state.maxWidth);
+  setSelect('fontFamilySelect', state.fontFamily);
+  setSlider('paddingTopSlider', 'paddingTopVal', state.paddingTop, v => v + 'px');
+  setSlider('paddingBottomSlider', 'paddingBottomVal', state.paddingBottom, v => v + 'px');
 
   // Alignment
   document.querySelectorAll('#alignGroup .align-btn').forEach(b => {
@@ -2137,7 +2260,7 @@ function loadPresetByKey(key) {
   setSelect('easingSelect', state.easing);
   setSlider('staggerDelaySlider', 'staggerDelayVal', state.staggerDelay, v => v + 'ms');
   setSlider('animDurationSlider', 'animDurationVal', state.animDuration, v => (v/1000).toFixed(1) + 's');
-  document.getElementById('staggerDelayRow').style.display = state.animType === 'stagger-words' ? '' : 'none';
+  document.getElementById('staggerDelayRow').style.display = (state.animType === 'stagger-words' || state.animType === 'stagger-lines' || state.animType === 'stagger-sentences') ? '' : 'none';
 
   // Refresh color presets visual
   buildColorPresets('bgPresets', BG_PRESETS, 'bgColor', 'bgColorPicker');
