@@ -1,0 +1,65 @@
+%!Adobe-FontList 1.25
+%Locale:0x409
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:/Users/ap457/Desktop/cip0flyer/hosts Folder/Document fonts/AdobeFnt25.lst
+FileLength:1287
+FileModTime:790801621
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:TiemposHeadline-Medium
+FamilyName:Tiempos Headline Medium
+StyleName:Regular
+MenuName:Tiempos Headline Medium
+StyleBits:0
+WeightClass:600
+WidthClass:5
+AngleClass:0
+FullName:Tiempos Headline Medium
+WritingScript:Roman
+OutlineFileName:/Users/ap457/Desktop/cip0flyer/hosts Folder/Document fonts/TiemposHeadline-Medium.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:59480
+FileModTime:755804816
+NameArray:0,Mac,4,Tiempos Headline Medium
+NameArray:0,Win,1,Tiempos Headline Medium
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:TiemposText-MediumItalic
+FamilyName:Tiempos Text
+StyleName:Medium Italic
+MenuName:Tiempos Text
+StyleBits:1
+WeightClass:500
+WidthClass:5
+AngleClass:1
+FullName:Tiempos Text Medium Italic
+WritingScript:Roman
+OutlineFileName:/Users/ap457/Desktop/cip0flyer/hosts Folder/Document fonts/TiemposText-Medium Italic (2).otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:92844
+FileModTime:755816942
+NameArray:0,Mac,4,Tiempos Text Medium Italic
+NameArray:0,Win,1,Tiempos Text
+%EndFont
+
