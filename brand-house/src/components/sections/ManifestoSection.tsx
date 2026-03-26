@@ -26,13 +26,10 @@ function getEasingCSS(easing: string): string {
 }
 
 function staggerWordsHTML(html: string): string {
-  // Split HTML into words, wrapping each in a span
-  // Preserve HTML tags (em, strong, etc.)
-  const div = typeof document !== 'undefined' ? document.createElement('div') : null;
-  if (!div) return html;
-  div.innerHTML = html;
-  const text = div.textContent || '';
-  const words = text.split(/\s+/).filter(Boolean);
+  // Regex-based word wrapping that works on both server and client
+  // Strip tags to get plain text, then wrap each word
+  const text = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  const words = text.split(' ').filter(Boolean);
   return words.map(w => `<span class="manifesto-word">${w}</span>`).join(' ');
 }
 
