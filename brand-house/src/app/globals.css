@@ -68,7 +68,7 @@
    BASE
    ═══════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-behavior: smooth; }
 
 body {
   font-family: var(--sans);
@@ -101,3 +101,30 @@ body {
    SELECTION
    ═══════════════════════════════════════════ */
 ::selection { background: var(--royal); color: var(--white); }
+
+/* ═══════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL GRID — HERO
+   ═══════════════════════════════════════════ */
+.scroll-reveal-grid-hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .srg-inner { aspect-ratio: 4/3 !important; }
+  .srg-cell { border-radius: 4px; }
+  .srg-grid { gap: 3px !important; }
+}
