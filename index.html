@@ -291,12 +291,6 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
   width: clamp(160px, 22vw, 280px); height: auto;
   opacity: 0; transform: translateY(8px);
 }
-.hero-intro-label {
-  font-family: var(--sans); font-size: 0.72rem; font-weight: 300;
-  letter-spacing: 0.3em; text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
-  opacity: 0; transform: translateY(6px);
-}
 
 /* Inner container — starts inset with rounded corners */
 .hero-inner {
@@ -309,13 +303,13 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
   background: var(--navy);
 }
 
-/* 3x3 image grid */
+/* 3x3 image grid — oversized so cells bleed outside container */
 .hero-grid {
   display: grid;
   grid-template-columns: 1fr 2.5fr 1fr;
   grid-template-rows: repeat(3, 1fr);
   gap: 3px;
-  position: absolute; inset: 0; z-index: 1;
+  position: absolute; inset: -8%; z-index: 1;
   opacity: 0;
   transform: skewX(5deg);
 }
@@ -323,7 +317,7 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
   background-size: cover;
   background-position: center;
   background-color: var(--navy);
-  transform: scale(0.7);
+  will-change: transform;
 }
 
 /* Vignette over images */
@@ -331,8 +325,8 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
   position: absolute; inset: 0; z-index: 2;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at center, rgba(15,28,46,0) 25%, rgba(15,28,46,0.6) 100%),
-    linear-gradient(to bottom, rgba(15,28,46,0.3) 0%, rgba(15,28,46,0) 20%, rgba(15,28,46,0) 80%, rgba(15,28,46,0.3) 100%);
+    radial-gradient(ellipse at center, rgba(15,28,46,0) 15%, rgba(15,28,46,0.75) 100%),
+    linear-gradient(to bottom, rgba(15,28,46,0.45) 0%, rgba(15,28,46,0) 20%, rgba(15,28,46,0) 80%, rgba(15,28,46,0.45) 100%);
 }
 
 /* Centered text overlay */
@@ -341,13 +335,6 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   pointer-events: none;
-}
-.hero-eyebrow {
-  font-family: var(--sans); font-size: 0.7rem; font-weight: 400;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: rgba(255,255,255,0.55);
-  margin-bottom: 16px;
-  opacity: 0; transform: translateY(8px);
 }
 .hero-heading {
   font-family: var(--serif); font-weight: 400;
@@ -363,38 +350,9 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
   font-style: italic;
   color: var(--pool);
 }
-.hero-sub {
-  font-family: var(--sans); font-size: clamp(0.72rem, 1vw, 0.88rem);
-  font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase;
-  color: rgba(255,255,255,0.55);
-  margin-top: 20px;
-  opacity: 0; transform: translateY(8px);
-}
-
-/* Scroll indicator */
-.hero-scroll {
-  position: absolute; bottom: 28px; left: 50%;
-  transform: translateX(-50%); z-index: 4;
-  display: flex; flex-direction: column;
-  align-items: center; gap: 6px;
-  opacity: 0;
-}
-.hero-scroll-label {
-  font-family: var(--mono); font-size: 0.45rem; font-weight: 400;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
-}
-.hero-scroll-line {
-  width: 1px; height: 28px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.15), transparent);
-  animation: scrollPulse 2.5s ease infinite;
-}
-@keyframes scrollPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-
 @media (max-width: 768px) {
   .hero-inner { height: calc(100vh - 56px - 24px); margin: 12px; width: calc(100% - 24px); border-radius: 12px; }
   .hero-heading { font-size: clamp(2.2rem, 10vw, 3.5rem); }
-  .hero-scroll { display: none; }
 }
 
 /* ═══════════════════════════════════════════
@@ -564,7 +522,7 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
 
 <!-- NAV -->
 <nav class="nav" id="mainNav" role="navigation" aria-label="Brand house navigation">
-  <div class="nav-brand">Brand</div>
+  <div class="nav-brand">NorCal SBDC &middot; Brand</div>
   <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
     <span class="nav-toggle-bar"></span>
     <span class="nav-toggle-bar"></span>
@@ -591,21 +549,13 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
     <!-- Intro: logo + Brand label, fades out -->
     <div class="hero-intro" id="heroIntro">
       <img class="hero-intro-logo" id="introLogo" src="./NCN_Band_Logo_White.png" alt="NorCal SBDC">
-      <div class="hero-intro-label" id="introLabel">Brand</div>
     </div>
     <!-- Image grid -->
     <div class="hero-grid" id="heroGrid"></div>
     <div class="hero-vignette"></div>
     <!-- Text overlay -->
     <div class="hero-text" id="heroText">
-      <div class="hero-eyebrow">Northern California SBDC</div>
       <h1 class="hero-heading">Your Business<br><em>People</em></h1>
-      <p class="hero-sub">Standards &middot; Assets &middot; Voice</p>
-    </div>
-    <!-- Scroll indicator -->
-    <div class="hero-scroll" id="heroScroll">
-      <span class="hero-scroll-label">Scroll</span>
-      <div class="hero-scroll-line"></div>
     </div>
   </div>
 </section>
@@ -736,13 +686,23 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
     { src: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80&fit=crop&auto=format', pos: 'center center' },
   ];
 
+  // Off-screen starting positions per grid cell (3x3):
+  // top-left, top-center, top-right, mid-left, center, mid-right, bot-left, bot-center, bot-right
+  var cellOffsets = [
+    { x: -120, y: -120 }, { x: 0,    y: -140 }, { x: 120,  y: -120 },
+    { x: -140, y: 0    }, { x: 0,    y: 0     }, { x: 140,  y: 0    },
+    { x: -120, y: 120  }, { x: 0,    y: 140   }, { x: 120,  y: 120  }
+  ];
+
   var grid = document.getElementById('heroGrid');
-  heroImages.forEach(function(img) {
+  heroImages.forEach(function(img, i) {
     var d = document.createElement('div');
     d.className = 'cell';
     d.style.backgroundImage = 'url(' + img.src + ')';
     d.style.backgroundPosition = img.pos;
     d.style.backgroundSize = 'cover';
+    var off = cellOffsets[i];
+    d.style.transform = 'translate(' + off.x + '%, ' + off.y + '%) scale(0.6)';
     grid.appendChild(d);
   });
 
@@ -750,23 +710,19 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
   if (!reduced) {
     var introTl = gsap.timeline({ onComplete: initScrollReveal });
 
-    // Phase 1: Logo + label fade in
+    // Phase 1: Logo fade in
     introTl.to('#introLogo', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0.3);
-    introTl.to('#introLabel', { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.6);
 
     // Phase 2: Hold, then fade out intro
     introTl.to('#heroIntro', { opacity: 0, duration: 0.4, ease: 'power2.in', delay: 0.8 });
     introTl.set('#heroIntro', { display: 'none' });
 
-    // Phase 3: Hero text snaps in
-    introTl.to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, '-=0.1');
-    introTl.to('.hero-heading', { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' }, '-=0.3');
-    introTl.to('.hero-sub', { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, '-=0.35');
-    introTl.to('#heroScroll', { opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.1');
+    // Phase 3: Hero heading snaps in
+    introTl.to('.hero-heading', { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' }, '-=0.1');
   } else {
     document.getElementById('heroIntro').style.display = 'none';
-    document.querySelectorAll('.hero-eyebrow, .hero-heading, .hero-sub').forEach(function(el) { el.style.opacity = 1; el.style.transform = 'none'; });
-    document.getElementById('heroScroll').style.opacity = 1;
+    document.querySelector('.hero-heading').style.opacity = 1;
+    document.querySelector('.hero-heading').style.transform = 'none';
     initScrollReveal();
   }
 
@@ -788,13 +744,11 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
       duration: 0.4, ease: 'none'
     }, 0.1);
 
-    // Layer 3: Each cell scales up
+    // Layer 3: Each cell flies in from off-screen and scales up
     document.querySelectorAll('#heroGrid .cell').forEach(function(cell, i) {
-      tl.to(cell, { scale: 1, duration: 0.3, ease: 'none' }, 0.15 + i * 0.03);
+      tl.to(cell, { x: 0, y: 0, scale: 1, duration: 0.4, ease: 'none' }, 0.1 + i * 0.03);
     });
 
-    // Fade scroll indicator
-    tl.to('#heroScroll', { opacity: 0, duration: 0.15, ease: 'none' }, 0);
   }
 
   /* ─── NAV SCROLL + HAMBURGER MENU ─── */
