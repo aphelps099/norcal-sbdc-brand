@@ -1,11 +1,10 @@
 "use client";
 
-import { useReducer, useCallback, useEffect } from "react";
+import { useReducer, useCallback, useEffect, useState } from "react";
 import { BuilderContext, builderReducer } from "@/lib/builder-store";
 import type { BuilderState } from "@/lib/builder-store";
 import type { PageConfig, SectionType } from "@/lib/section-types";
 import { DEFAULT_PAGE_CONFIG } from "@/lib/default-config";
-import { exportPageHTML } from "@/lib/export-html";
 import SectionList from "./SectionList";
 import ConfigPanel from "./ConfigPanel";
 import SectionRenderer from "@/components/sections/SectionRenderer";
@@ -69,15 +68,14 @@ export default function BuilderShell() {
     input.click();
   }, []);
 
-  const handleExportHTML = useCallback(() => {
-    const html = exportPageHTML(state.page);
-    const blob = new Blob([html], { type: "text/html" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "page.html";
-    a.click();
-    URL.revokeObjectURL(url);
+  const [saved, setSaved] = useState(false);
+
+  const handleSavePage = useCallback(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.page));
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch { /* ignore */ }
   }, [state.page]);
 
   const handleReset = useCallback(() => {
@@ -152,9 +150,14 @@ export default function BuilderShell() {
             gap: "8px",
           }}>
             <AddSectionDropdown onAdd={handleAddSection} />
-            <button onClick={handleExportHTML} style={{
-              ...smallBtn, width: "100%", background: "#1D5AA7", color: "#fff", border: "none", marginBottom: "4px",
-            }}>Export HTML</button>
+            <button onClick={handleSavePage} style={{
+              ...smallBtn, width: "100%", background: saved ? "#22c55e" : "#1D5AA7", color: "#fff", border: "none", marginBottom: "4px",
+              transition: "background 0.3s",
+            }}>{saved ? "✓ Saved!" : "Save Page"}</button>
+            <a href="/" target="_blank" style={{
+              ...smallBtn, width: "100%", display: "block", textAlign: "center", textDecoration: "none",
+              background: "#0f1c2e", color: "#fff", border: "none", marginBottom: "4px",
+            }}>View Site &rarr;</a>
             <div style={{ display: "flex", gap: "6px" }}>
               <button onClick={handleExportJSON} style={smallBtn}>JSON</button>
               <button onClick={handleImportJSON} style={smallBtn}>Import</button>
