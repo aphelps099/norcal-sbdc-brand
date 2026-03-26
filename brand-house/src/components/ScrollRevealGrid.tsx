@@ -2,8 +2,6 @@
 
 import { useEffect, useRef } from "react";
 
-// Off-screen starting positions per grid cell (3x3):
-// Corner cells fly from corners, edge cells from edges, center stays
 const cellOffsets = [
   { x: -120, y: -120 }, { x: 0, y: -140 }, { x: 120, y: -120 },
   { x: -140, y: 0 },    { x: 0, y: 0 },     { x: 140, y: 0 },
@@ -62,12 +60,10 @@ export default function ScrollRevealGrid({
       gsap.registerPlugin(ScrollTrigger);
 
       if (!heroRef.current) return;
-
       const hero = heroRef.current;
       const inner = hero.querySelector<HTMLElement>(".srg-inner");
       const grid = hero.querySelector<HTMLElement>(".srg-grid");
       const cells = hero.querySelectorAll<HTMLElement>(".srg-cell");
-
       if (!inner || !grid || !cells.length) return;
 
       ctx = gsap.context(() => {
@@ -81,60 +77,34 @@ export default function ScrollRevealGrid({
           },
         });
 
-        // Layer 1: Container inset → full-bleed
         if (enableInset) {
-          tl.to(
-            inner,
-            {
-              margin: 0,
-              width: "100%",
-              borderRadius: "0px",
-              duration: 0.4,
-              ease: "none",
-            },
-            0
-          );
+          tl.to(inner, {
+            margin: 0, width: "100%", borderRadius: "0px",
+            duration: 0.4, ease: "none",
+          }, 0);
         }
 
-        // Layer 1b: Gap closes
         tl.to(grid, { gap: "0px", duration: 0.4, ease: "none" }, 0);
 
-        // Layer 2: Grid skew + fade
         if (enableFade || skewX > 0) {
-          tl.to(
-            grid,
-            {
-              ...(enableFade ? { opacity: 1 } : {}),
-              ...(skewX > 0 ? { skewX: 0 } : {}),
-              duration: 0.4,
-              ease: "none",
-            },
-            0.1
-          );
+          tl.to(grid, {
+            ...(enableFade ? { opacity: 1 } : {}),
+            ...(skewX > 0 ? { skewX: 0 } : {}),
+            duration: 0.4, ease: "none",
+          }, 0.1);
         }
 
-        // Layer 3: Each cell flies in from off-screen position and scales up
         cells.forEach((cell, i) => {
-          tl.to(
-            cell,
-            {
-              xPercent: 0,
-              yPercent: 0,
-              scale: 1,
-              duration: 0.4,
-              ease: "none",
-            },
-            0.1 + i * 0.03
-          );
+          tl.to(cell, {
+            xPercent: 0, yPercent: 0, scale: 1,
+            duration: 0.4, ease: "none",
+          }, 0.1 + i * 0.03);
         });
       }, hero);
     }
 
     initGSAP();
-
-    return () => {
-      ctx?.revert();
-    };
+    return () => { ctx?.revert(); };
   }, [enablePin, pinDuration, enableInset, enableFade, skewX, scaleStart]);
 
   const colTemplate = colWidths.map((w) => `${w}fr`).join(" ");
@@ -142,11 +112,7 @@ export default function ScrollRevealGrid({
   const totalCells = cols * rows;
 
   return (
-    <div
-      className="scroll-reveal-grid-hero"
-      ref={heroRef}
-      style={{ position: "relative", width: "100%", overflow: "hidden" }}
-    >
+    <div className="scroll-reveal-grid-hero" ref={heroRef}>
       <div
         className="srg-inner"
         style={{
@@ -183,12 +149,8 @@ export default function ScrollRevealGrid({
                 style={{
                   backgroundSize: "cover",
                   backgroundPosition: img?.pos || "center",
-                  backgroundImage: img?.src
-                    ? `url(${img.src})`
-                    : undefined,
-                  backgroundColor: img?.src
-                    ? undefined
-                    : "rgba(255,255,255,0.04)",
+                  backgroundImage: img?.src ? `url(${img.src})` : undefined,
+                  backgroundColor: img?.src ? undefined : "rgba(255,255,255,0.04)",
                   transform: `translate(${offset.x}%, ${offset.y}%) scale(${scaleStart})`,
                 }}
               />
@@ -198,28 +160,13 @@ export default function ScrollRevealGrid({
 
         {/* Text overlay */}
         {(heading || subheading) && (
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              zIndex: 3,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              pointerEvents: "none",
-            }}
-          >
+          <div className="absolute inset-0 z-3 flex flex-col items-center justify-center pointer-events-none">
             {heading && (
               <h1
-                className="font-serif"
+                className="font-serif text-white text-center leading-[1.05]"
                 style={{
-                  fontSize: "clamp(28px, 5vw, 72px)",
-                  color: "#fff",
-                  textShadow: "0 2px 30px rgba(0,0,0,0.6)",
-                  textAlign: "center",
-                  lineHeight: 1.1,
-                  fontWeight: 700,
+                  fontSize: "clamp(32px, 5.5vw, 80px)",
+                  textShadow: "0 2px 40px rgba(0,0,0,0.5)",
                   letterSpacing: "-0.02em",
                 }}
               >
@@ -228,16 +175,11 @@ export default function ScrollRevealGrid({
             )}
             {subheading && (
               <p
-                className="font-mono"
+                className="font-mono text-white/60 text-center uppercase mt-3"
                 style={{
-                  fontSize: "clamp(10px, 1.2vw, 16px)",
+                  fontSize: "clamp(9px, 1vw, 13px)",
+                  letterSpacing: "0.25em",
                   fontWeight: 500,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.2em",
-                  color: "rgba(255,255,255,0.7)",
-                  textShadow: "0 1px 10px rgba(0,0,0,0.5)",
-                  textAlign: "center",
-                  marginTop: "8px",
                 }}
               >
                 {subheading}
@@ -246,15 +188,11 @@ export default function ScrollRevealGrid({
           </div>
         )}
 
-        {/* Vignette */}
+        {/* Vignette — cinematic */}
         <div
+          className="absolute inset-0 z-2 pointer-events-none"
           style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 2,
-            pointerEvents: "none",
-            background:
-              "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.5) 100%), linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 25%, transparent 75%, rgba(0,0,0,0.3) 100%)",
+            background: "radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.55) 100%), linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.25) 100%)",
           }}
         />
       </div>

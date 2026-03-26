@@ -16,17 +16,20 @@ export default function ChapterCard({
   return (
     <Link
       href={href}
-      className="group block p-6 md:p-8 rounded-2xl border border-cream/8 bg-white/[0.02] hover:bg-white/[0.05] hover:border-cream/15 transition-all duration-500"
+      className="group block p-7 md:p-9 rounded-xl bg-white border border-black/[0.04] hover-lift transition-all duration-500"
     >
-      <span className="font-mono text-xs text-cream/30 tracking-wider">
+      <span className="font-mono text-[0.6rem] text-text-tertiary tracking-[0.15em]">
         {String(index + 1).padStart(2, "0")}
       </span>
-      <h3 className="font-serif text-xl md:text-2xl font-bold text-cream mt-3 mb-2 group-hover:text-pool transition-colors duration-300">
+      <h3 className="font-serif text-xl md:text-2xl text-navy mt-4 mb-3 transition-colors duration-400 group-hover:text-royal">
         {title}
       </h3>
-      <p className="text-sm text-cream/40 leading-relaxed">{description}</p>
-      <span className="inline-block mt-4 font-mono text-xs tracking-wider text-royal group-hover:text-pool transition-colors duration-300">
-        Explore &rarr;
+      <p className="text-sm text-text-secondary leading-relaxed font-sans font-500">
+        {description}
+      </p>
+      <span className="inline-block mt-5 font-mono text-[0.65rem] tracking-[0.1em] uppercase text-royal/60 group-hover:text-royal transition-colors duration-400">
+        Explore
+        <span className="inline-block ml-1 transition-transform duration-400 group-hover:translate-x-1">&rarr;</span>
       </span>
     </Link>
   );

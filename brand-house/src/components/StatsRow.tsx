@@ -25,37 +25,39 @@ export default function StatsRow({ stats, heading }: StatsRowProps) {
           observer.disconnect();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.25 }
     );
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section className="py-20 px-6 border-t border-cream/5" ref={ref}>
+    <section className="bg-white py-24 px-6" ref={ref}>
       {heading && (
-        <p className="font-mono text-xs tracking-[0.2em] uppercase text-cream/40 text-center mb-12">
+        <p className="font-mono text-[0.6rem] tracking-[0.25em] uppercase text-text-tertiary text-center mb-16">
           {heading}
         </p>
       )}
-      <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+      <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-16">
         {stats.map((stat, i) => (
           <div
             key={stat.label}
-            className="text-center opacity-0 translate-y-6 transition-all duration-700 ease-out"
-            style={{ transitionDelay: `${i * 0.1}s` }}
+            className="stat-item text-center opacity-0 translate-y-5 transition-all duration-700 ease-out"
+            style={{ transitionDelay: `${i * 120}ms` }}
           >
-            <div className="font-serif text-3xl md:text-5xl font-bold text-cream">
+            <div className="font-serif text-navy leading-none tracking-[-0.02em]"
+              style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)" }}
+            >
               {stat.value}
             </div>
-            <div className="font-mono text-xs tracking-wider uppercase text-cream/40 mt-2">
+            <div className="font-mono text-[0.6rem] tracking-[0.15em] uppercase text-text-tertiary mt-3">
               {stat.label}
             </div>
           </div>
         ))}
       </div>
       <style>{`
-        .stats-visible div[style] {
+        .stats-visible .stat-item {
           opacity: 1 !important;
           transform: translateY(0) !important;
         }

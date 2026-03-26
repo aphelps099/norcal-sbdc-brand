@@ -29,40 +29,32 @@ export default function ManifestoBlock({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          // Label fades in
           if (labelEl) {
             labelEl.style.opacity = "1";
             labelEl.style.transform = "translateY(0)";
           }
-
-          // Words stagger in
           words.forEach((word, i) => {
             setTimeout(() => {
               word.style.opacity = "1";
               word.style.transform = "translateY(0)";
-            }, 200 + i * 50);
+            }, 200 + i * 45);
           });
-
-          // Rule extends
           if (ruleEl) {
             setTimeout(() => {
               ruleEl.style.opacity = "1";
               ruleEl.style.transform = "scaleX(1)";
-            }, 200 + words.length * 50);
+            }, 200 + words.length * 45);
           }
-
-          // Pillars fade in
           if (pillarsEl) {
             setTimeout(() => {
               pillarsEl.style.opacity = "1";
               pillarsEl.style.transform = "translateY(0)";
-            }, 400 + words.length * 50);
+            }, 400 + words.length * 45);
           }
-
           observer.disconnect();
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.12 }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -75,22 +67,24 @@ export default function ManifestoBlock({
       ref={ref}
       className="relative flex items-center justify-center overflow-hidden"
       style={{
-        minHeight: "85vh",
-        background: "var(--royal)",
-        padding: "140px var(--pad)",
+        minHeight: "80vh",
+        background: "var(--navy)",
+        padding: "120px var(--pad)",
       }}
     >
-      <div className="max-w-[1100px] mx-auto text-center">
+      <div className="max-w-[960px] mx-auto text-center">
         {/* Label */}
         <div
-          className="manifesto-label font-mono text-[0.65rem] font-medium uppercase tracking-[0.3em] text-white/40 mb-14 transition-all duration-600 ease-out"
-          style={{ opacity: 0, transform: "translateY(20px)", transitionDuration: "0.6s" }}
+          className="manifesto-label font-mono text-[0.6rem] font-500 uppercase tracking-[0.3em] text-white/30 mb-16"
+          style={{ opacity: 0, transform: "translateY(16px)", transition: "all 0.6s var(--ease-out)" }}
         >
           {label}
         </div>
 
-        {/* Statement — word by word */}
-        <p className="font-sans text-[clamp(1.6rem,4vw,3rem)] font-normal leading-[1.45] text-white tracking-[-0.015em]">
+        {/* Statement */}
+        <p className="font-serif leading-[1.5] text-white/90"
+          style={{ fontSize: "clamp(1.4rem, 3.2vw, 2.4rem)" }}
+        >
           {wordsArr.map((word, i) => {
             const isAccent = accentWords.some((a) =>
               word.toLowerCase().replace(/[^a-z]/g, "").includes(a.toLowerCase())
@@ -98,15 +92,15 @@ export default function ManifestoBlock({
             return (
               <span
                 key={i}
-                className="m-word inline-block mr-[0.3em] transition-all ease-out"
+                className="m-word inline-block mr-[0.28em]"
                 style={{
                   opacity: 0,
-                  transform: "translateY(14px)",
-                  transitionDuration: "0.5s",
+                  transform: "translateY(12px)",
+                  transition: "all 0.5s var(--ease-out)",
                 }}
               >
                 {isAccent ? (
-                  <strong className="font-extrabold text-white">{word}</strong>
+                  <em className="text-pool italic">{word}</em>
                 ) : (
                   word
                 )}
@@ -117,34 +111,28 @@ export default function ManifestoBlock({
 
         {/* Rule */}
         <div
-          className="manifesto-rule w-16 h-px bg-white/25 mx-auto transition-all ease-out"
+          className="manifesto-rule w-12 h-px bg-white/15 mx-auto"
           style={{
-            marginTop: "56px",
-            marginBottom: "48px",
-            opacity: 0,
-            transform: "scaleX(0)",
-            transformOrigin: "center",
-            transitionDuration: "0.6s",
-            transitionDelay: "0.6s",
+            marginTop: "48px", marginBottom: "40px",
+            opacity: 0, transform: "scaleX(0)", transformOrigin: "center",
+            transition: "all 0.6s var(--ease-out)",
           }}
         />
 
         {/* Pillars */}
         <div
-          className="manifesto-pillars flex items-center justify-center gap-6 flex-wrap transition-all ease-out"
+          className="manifesto-pillars flex items-center justify-center gap-5 flex-wrap"
           style={{
-            opacity: 0,
-            transform: "translateY(12px)",
-            transitionDuration: "0.6s",
-            transitionDelay: "0.75s",
+            opacity: 0, transform: "translateY(10px)",
+            transition: "all 0.6s var(--ease-out)",
           }}
         >
           {pillars.map((pillar, i) => (
-            <span key={pillar} className="flex items-center gap-6">
+            <span key={pillar} className="flex items-center gap-5">
               {i > 0 && (
-                <span className="w-[3px] h-[3px] rounded-full bg-white/20 flex-shrink-0" />
+                <span className="w-[3px] h-[3px] rounded-full bg-white/15" />
               )}
-              <span className="font-sans text-[0.625rem] font-semibold uppercase tracking-[0.14em] text-white/45">
+              <span className="font-sans text-[0.6rem] font-500 uppercase tracking-[0.15em] text-white/35">
                 {pillar}
               </span>
             </span>

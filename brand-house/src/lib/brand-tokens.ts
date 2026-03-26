@@ -1,19 +1,18 @@
 export const colors = {
-  navy: { hex: "#0f1c2e", name: "Navy", usage: "Primary background, depth" },
-  navyDeep: { hex: "#091422", name: "Navy Deep", usage: "Deepest background" },
-  royal: { hex: "#1D5AA7", name: "Royal", usage: "Primary brand blue, links" },
-  pool: { hex: "#8FC5D9", name: "Pool", usage: "Accent, emphasis text" },
+  navy: { hex: "#0f1c2e", name: "Navy", usage: "Primary brand, headlines" },
+  navyDeep: { hex: "#091422", name: "Navy Deep", usage: "Deepest backgrounds" },
+  royal: { hex: "#1D5AA7", name: "Royal", usage: "Primary blue, links, accents" },
+  pool: { hex: "#8FC5D9", name: "Pool", usage: "Light accent, emphasis" },
   poolBright: { hex: "#a8d8e8", name: "Pool Bright", usage: "Hover states" },
-  cream: { hex: "#f0efeb", name: "Cream", usage: "Primary text on dark" },
+  cream: { hex: "#f5f4f0", name: "Cream", usage: "Primary background" },
   strawberry: { hex: "#F7024D", name: "Strawberry", usage: "CTAs, alerts" },
-  white: { hex: "#ffffff", name: "White", usage: "High contrast text" },
+  white: { hex: "#ffffff", name: "White", usage: "Cards, clean sections" },
 } as const;
 
 export const fonts = {
-  sans: { family: "GT America", weights: ["400", "500", "900"], usage: "Body text, UI" },
-  serif: { family: "GT Era Display", weights: ["300", "700"], usage: "Headlines, emphasis" },
+  sans: { family: "Proxima Nova", weights: ["500", "800", "900"], usage: "Body text, UI, navigation" },
+  serif: { family: "Tiempos", weights: ["400"], usage: "Headlines, editorial emphasis" },
   mono: { family: "GT America Mono", weights: ["400", "700"], usage: "Labels, stats, code" },
-  body: { family: "Tiempos", weights: ["400"], usage: "Long-form reading" },
 } as const;
 
 export const chapters = [

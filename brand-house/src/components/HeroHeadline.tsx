@@ -23,42 +23,52 @@ export default function HeroHeadline({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.classList.add("animate-in");
+          el.classList.add("is-visible");
           observer.disconnect();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.2 }
     );
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section className="py-24 md:py-32 px-6" ref={ref}>
+    <section
+      ref={ref}
+      className="bg-cream py-28 md:py-40 px-6"
+    >
       <div className="max-w-4xl mx-auto text-center">
-        <h2
-          className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold text-cream leading-[1.1] opacity-0 translate-y-8 transition-all duration-1000 ease-out"
-          style={{ transitionDelay: "0.1s" }}
+        <h2 className="hero-h font-serif text-navy leading-[1.08] tracking-[-0.02em]"
+          style={{ fontSize: "clamp(2rem, 5.5vw, 4.5rem)" }}
         >
-          {line1}{" "}
-          <em className="text-pool italic">{emphasis}</em>
+          <span className="hero-h-line opacity-0 translate-y-6 inline-block transition-all duration-[900ms] ease-out">
+            {line1}
+          </span>
+          <br />
+          <span className="hero-h-em opacity-0 translate-y-6 inline-block transition-all duration-[900ms] ease-out delay-150">
+            <em className="text-royal italic">{emphasis}</em>
+          </span>
         </h2>
+
         {stat && (
-          <div className="mt-12 flex flex-col items-center gap-1 opacity-0 translate-y-8 transition-all duration-1000 ease-out" style={{ transitionDelay: "0.3s" }}>
-            <span className="font-mono text-5xl md:text-7xl font-bold text-strawberry">
+          <div className="hero-stat mt-16 flex flex-col items-center gap-2 opacity-0 translate-y-6 transition-all duration-[900ms] ease-out delay-300">
+            <span className="font-sans text-[clamp(3rem,8vw,5.5rem)] font-900 text-strawberry leading-none tracking-[-0.03em]">
               {stat}
             </span>
             {statLabel && (
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-cream/50 mt-2">
+              <span className="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-text-tertiary mt-1">
                 {statLabel}
               </span>
             )}
           </div>
         )}
       </div>
+
       <style>{`
-        .animate-in h2,
-        .animate-in .mt-12 {
+        .is-visible .hero-h-line,
+        .is-visible .hero-h-em,
+        .is-visible .hero-stat {
           opacity: 1 !important;
           transform: translateY(0) !important;
         }

@@ -1,16 +1,18 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════
-   FONTS
+   FONTS — Tiempos (serif) + Proxima Nova (sans)
    ═══════════════════════════════════════════ */
-@font-face { font-family: 'GT America'; src: url('/fonts/GT-America-Extended-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'GT America'; src: url('/fonts/GT-America-Expanded-Black.otf') format('opentype'); font-weight: 900; font-display: swap; }
-@font-face { font-family: 'GT America'; src: url('/fonts/GT-America-Condensed-Medium.otf') format('opentype'); font-weight: 500; font-display: swap; }
-@font-face { font-family: 'GT Era Display'; src: url('/fonts/GT-Era-Display-Bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
-@font-face { font-family: 'GT Era Display'; src: url('/fonts/GT-Era-Display-Light.ttf') format('truetype'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'Tiempos'; src: url('/fonts/TiemposText-Regular.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+
+@font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-MediumIt.otf') format('opentype'); font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-Extrabold.otf') format('opentype'); font-weight: 800; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-Black.otf') format('opentype'); font-weight: 900; font-style: normal; font-display: swap; }
+
+/* Keep mono for code/labels */
 @font-face { font-family: 'GT America Mono'; src: url('/fonts/GT-America-Mono-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
 @font-face { font-family: 'GT America Mono'; src: url('/fonts/GT-America-Mono-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
-@font-face { font-family: 'Tiempos'; src: url('/fonts/TiemposText-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
 
 /* ═══════════════════════════════════════════
    DESIGN TOKENS
@@ -19,27 +21,25 @@
   --navy: #0f1c2e;
   --navy-deep: #091422;
   --royal: #1D5AA7;
-  --royal-dim: rgba(29,90,167,0.08);
-  --royal-dim-2: rgba(29,90,167,0.15);
+  --royal-light: #2568bf;
   --pool: #8FC5D9;
   --pool-bright: #a8d8e8;
-  --cream: #f0efeb;
+  --cream: #f5f4f0;
+  --cream-warm: #edecea;
   --white: #ffffff;
   --black: #111111;
   --strawberry: #F7024D;
-  --text: #0a1528;
-  --text-secondary: #4a5568;
-  --text-tertiary: #8a8a8a;
-  --rule: rgba(0,0,0,0.12);
-  --rule-light: rgba(0,0,0,0.06);
+  --text: #1a1a1a;
+  --text-secondary: #555555;
+  --text-tertiary: #999999;
+  --rule: rgba(0,0,0,0.08);
 
-  --sans: 'GT America', -apple-system, Helvetica, sans-serif;
-  --serif: 'GT Era Display', Georgia, serif;
-  --mono: 'GT America Mono', 'SF Mono', monospace;
-  --body-serif: 'Tiempos', Georgia, serif;
+  --sans: 'Proxima Nova', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+  --serif: 'Tiempos', Georgia, 'Times New Roman', serif;
+  --mono: 'GT America Mono', 'SF Mono', 'Fira Code', monospace;
 
-  --pad: clamp(32px, 5vw, 64px);
-  --max: 1080px;
+  --pad: clamp(24px, 5vw, 64px);
+  --max: 1120px;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
 }
@@ -51,17 +51,19 @@
   --color-navy: #0f1c2e;
   --color-navy-deep: #091422;
   --color-royal: #1D5AA7;
+  --color-royal-light: #2568bf;
   --color-pool: #8FC5D9;
   --color-pool-bright: #a8d8e8;
-  --color-cream: #f0efeb;
+  --color-cream: #f5f4f0;
+  --color-cream-warm: #edecea;
   --color-strawberry: #F7024D;
-  --color-text-primary: #0a1528;
-  --color-text-secondary: #4a5568;
-  --color-text-tertiary: #8a8a8a;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #555555;
+  --color-text-tertiary: #999999;
 
-  --font-sans: 'GT America', -apple-system, Helvetica, sans-serif;
-  --font-serif: 'GT Era Display', Georgia, serif;
-  --font-mono: 'GT America Mono', 'SF Mono', monospace;
+  --font-sans: 'Proxima Nova', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+  --font-serif: 'Tiempos', Georgia, 'Times New Roman', serif;
+  --font-mono: 'GT America Mono', 'SF Mono', 'Fira Code', monospace;
 }
 
 /* ═══════════════════════════════════════════
@@ -72,11 +74,42 @@ html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 
 body {
   font-family: var(--sans);
-  background: var(--navy);
-  color: var(--cream);
+  background: var(--cream);
+  color: var(--text);
   overflow-x: hidden;
-  line-height: 1.5;
-  font-weight: 400;
+  line-height: 1.6;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* ═══════════════════════════════════════════
+   TYPOGRAPHY UTILITIES
+   ═══════════════════════════════════════════ */
+.serif { font-family: var(--serif); }
+.mono { font-family: var(--mono); }
+
+/* ═══════════════════════════════════════════
+   LINK EFFECTS — underline reveal on hover
+   ═══════════════════════════════════════════ */
+.link-reveal {
+  position: relative;
+  text-decoration: none;
+}
+.link-reveal::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s var(--ease);
+}
+.link-reveal:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 /* ═══════════════════════════════════════════
@@ -87,15 +120,17 @@ body {
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.035;
+  opacity: 0.025;
+  mix-blend-mode: multiply;
 }
 
 /* ═══════════════════════════════════════════
-   SCROLLBAR
+   SCROLLBAR — minimal
    ═══════════════════════════════════════════ */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--navy-deep); }
-::-webkit-scrollbar-thumb { background: var(--royal); border-radius: 3px; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.25); }
 
 /* ═══════════════════════════════════════════
    SELECTION
@@ -103,19 +138,7 @@ body {
 ::selection { background: var(--royal); color: var(--white); }
 
 /* ═══════════════════════════════════════════
-   REDUCED MOTION
-   ═══════════════════════════════════════════ */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* ═══════════════════════════════════════════
-   SCROLL REVEAL GRID — HERO
+   SCROLL REVEAL GRID — HERO (stays dark)
    ═══════════════════════════════════════════ */
 .scroll-reveal-grid-hero {
   position: relative;
@@ -127,4 +150,37 @@ body {
   .srg-inner { aspect-ratio: 4/3 !important; }
   .srg-cell { border-radius: 4px; }
   .srg-grid { gap: 3px !important; }
+}
+
+/* ═══════════════════════════════════════════
+   MICRO-ANIMATIONS
+   ═══════════════════════════════════════════ */
+.hover-lift {
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
