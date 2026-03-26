@@ -2,8 +2,16 @@
 
 import { useEffect, useRef } from "react";
 
+// Off-screen starting positions per grid cell (3x3):
+// Corner cells fly from corners, edge cells from edges, center stays
+const cellOffsets = [
+  { x: -120, y: -120 }, { x: 0, y: -140 }, { x: 120, y: -120 },
+  { x: -140, y: 0 },    { x: 0, y: 0 },     { x: 140, y: 0 },
+  { x: -120, y: 120 },  { x: 0, y: 140 },   { x: 120, y: 120 },
+];
+
 interface ScrollRevealGridProps {
-  images: string[];
+  images: { src: string; pos?: string }[];
   cols?: number;
   rows?: number;
   colWidths?: number[];
@@ -36,7 +44,7 @@ export default function ScrollRevealGrid({
   insetStart = 40,
   insetRadius = 16,
   skewX = 5,
-  scaleStart = 0.7,
+  scaleStart = 0.6,
   enableFade = true,
   enableInset = true,
   enablePin = true,
@@ -73,6 +81,7 @@ export default function ScrollRevealGrid({
           },
         });
 
+        // Layer 1: Container inset → full-bleed
         if (enableInset) {
           tl.to(
             inner,
@@ -87,10 +96,10 @@ export default function ScrollRevealGrid({
           );
         }
 
-        // Gap close
+        // Layer 1b: Gap closes
         tl.to(grid, { gap: "0px", duration: 0.4, ease: "none" }, 0);
 
-        // Fade + skew
+        // Layer 2: Grid skew + fade
         if (enableFade || skewX > 0) {
           tl.to(
             grid,
@@ -104,16 +113,20 @@ export default function ScrollRevealGrid({
           );
         }
 
-        // Cell scale stagger
-        if (scaleStart < 1) {
-          cells.forEach((cell, i) => {
-            tl.to(
-              cell,
-              { scale: 1, duration: 0.3, ease: "none" },
-              0.15 + i * 0.03
-            );
-          });
-        }
+        // Layer 3: Each cell flies in from off-screen position and scales up
+        cells.forEach((cell, i) => {
+          tl.to(
+            cell,
+            {
+              xPercent: 0,
+              yPercent: 0,
+              scale: 1,
+              duration: 0.4,
+              ease: "none",
+            },
+            0.1 + i * 0.03
+          );
+        });
       }, hero);
     }
 
@@ -129,7 +142,11 @@ export default function ScrollRevealGrid({
   const totalCells = cols * rows;
 
   return (
-    <div className="scroll-reveal-grid-hero" ref={heroRef}>
+    <div
+      className="scroll-reveal-grid-hero"
+      ref={heroRef}
+      style={{ position: "relative", width: "100%", overflow: "hidden" }}
+    >
       <div
         className="srg-inner"
         style={{
@@ -156,21 +173,27 @@ export default function ScrollRevealGrid({
             transform: skewX > 0 ? `skewX(${skewX}deg)` : "none",
           }}
         >
-          {Array.from({ length: totalCells }, (_, i) => (
-            <div
-              key={i}
-              className="srg-cell"
-              style={{
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundImage: images[i]
-                  ? `url(${images[i]})`
-                  : undefined,
-                backgroundColor: images[i] ? undefined : "rgba(255,255,255,0.04)",
-                transform: scaleStart < 1 ? `scale(${scaleStart})` : "none",
-              }}
-            />
-          ))}
+          {Array.from({ length: totalCells }, (_, i) => {
+            const img = images[i];
+            const offset = cellOffsets[i] || { x: 0, y: 0 };
+            return (
+              <div
+                key={i}
+                className="srg-cell"
+                style={{
+                  backgroundSize: "cover",
+                  backgroundPosition: img?.pos || "center",
+                  backgroundImage: img?.src
+                    ? `url(${img.src})`
+                    : undefined,
+                  backgroundColor: img?.src
+                    ? undefined
+                    : "rgba(255,255,255,0.04)",
+                  transform: `translate(${offset.x}%, ${offset.y}%) scale(${scaleStart})`,
+                }}
+              />
+            );
+          })}
         </div>
 
         {/* Text overlay */}
@@ -193,9 +216,11 @@ export default function ScrollRevealGrid({
                 style={{
                   fontSize: "clamp(28px, 5vw, 72px)",
                   color: "#fff",
-                  textShadow: "0 2px 20px rgba(0,0,0,0.5)",
+                  textShadow: "0 2px 30px rgba(0,0,0,0.6)",
                   textAlign: "center",
                   lineHeight: 1.1,
+                  fontWeight: 700,
+                  letterSpacing: "-0.02em",
                 }}
               >
                 {heading}
@@ -208,12 +233,11 @@ export default function ScrollRevealGrid({
                   fontSize: "clamp(10px, 1.2vw, 16px)",
                   fontWeight: 500,
                   textTransform: "uppercase",
-                  letterSpacing: "0.15em",
-                  color: "#fff",
-                  opacity: 0.85,
+                  letterSpacing: "0.2em",
+                  color: "rgba(255,255,255,0.7)",
                   textShadow: "0 1px 10px rgba(0,0,0,0.5)",
                   textAlign: "center",
-                  marginTop: "4px",
+                  marginTop: "8px",
                 }}
               >
                 {subheading}
@@ -230,7 +254,7 @@ export default function ScrollRevealGrid({
             zIndex: 2,
             pointerEvents: "none",
             background:
-              "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.4) 100%)",
+              "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.5) 100%), linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 25%, transparent 75%, rgba(0,0,0,0.3) 100%)",
           }}
         />
       </div>

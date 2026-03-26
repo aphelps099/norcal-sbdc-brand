@@ -28,8 +28,13 @@ export default function SearchModal() {
       }
       if (e.key === "Escape") setOpen(false);
     };
+    const onOpenSearch = () => setOpen(true);
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener("open-search", onOpenSearch);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("open-search", onOpenSearch);
+    };
   }, []);
 
   useEffect(() => {
