@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NORCAL SBDC · BRAND</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,300..800&family=DM+Serif+Display&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', system-ui, sans-serif; background: #0f1c2e; color: #e8e8e8; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+/* Film Grain */
+.grain-overlay { position: fixed; inset: 0; opacity: 0.035; pointer-events: none; z-index: 9999; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"); }
+
+/* Nav */
+.site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; transition: background 0.4s ease, backdrop-filter 0.4s ease; }
+.site-nav.scrolled { background: rgba(15,28,46,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); }
+.site-nav .brand { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: #fff; }
+.site-nav .nav-links { display: flex; align-items: center; gap: 24px; }
+.nav-link { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; letter-spacing: 0.04em; transition: color 0.2s; }
+.nav-link:hover { color: #fff; }
+.hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+.hamburger span { display: block; height: 1.5px; background: #fff; transition: all 0.3s; }
+.hamburger span:first-child { width: 20px; }
+.hamburger span:last-child { width: 14px; }
+
+/* Menu Overlay */
+.menu-overlay { position: fixed; inset: 0; background: rgba(8,12,20,0.97); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+.menu-overlay.open { opacity: 1; pointer-events: auto; }
+.menu-overlay .close-menu { position: absolute; top: 20px; right: 32px; font-size: 24px; color: #fff; background: none; border: none; cursor: pointer; }
+.overlay-link { display: block; font-size: clamp(28px, 5vw, 48px); font-weight: 300; color: rgba(255,255,255,0.7); text-decoration: none; margin: 16px 0; letter-spacing: 0.02em; transition: color 0.2s; }
+.overlay-link:hover { color: #fff; }
+
+/* Splash */
+.splash { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #0f1c2e; position: relative; z-index: 1; }
+.splash img { max-width: 200px; }
+.splash .splash-label { margin-top: 16px; font-size: 14px; letter-spacing: 0.2em; color: rgba(255,255,255,0.5); text-transform: uppercase; }
+
+/* Manifesto */
+.manifesto-section { position: relative; overflow: hidden; }
+.manifesto-section em { font-style: italic; }
+
+/* Animate on scroll */
+.animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+
+/* Chapter Cards */
+.chapter-card { transition: transform 0.3s ease, border-color 0.3s ease; }
+.chapter-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.15) !important; }
+
+/* Footer */
+.site-footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 48px 40px; }
+.site-footer a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+.site-footer a:hover { color: rgba(255,255,255,0.8); }
+
+@media (max-width: 768px) {
+  .site-nav { padding: 12px 20px; }
+  .nav-link { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="grain-overlay"></div>
+
+<!-- Navigation -->
+<nav class="site-nav" id="siteNav">
+  <div class="brand">NORCAL SBDC · BRAND</div>
+  <div class="nav-links">
+    <a href="#" class="nav-link">Home</a>
+          <a href="#manifesto" class="nav-link">Our Voice</a>
+          <a href="#directory" class="nav-link">Brand Toolkit</a>
+          <a href="mailto:marketing@norcalsbdc.org" class="nav-link">Support</a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Menu Overlay -->
+<div class="menu-overlay" id="menuOverlay">
+  <button class="close-menu" id="closeMenu">&times;</button>
+  <div style="text-align:center">
+    <a href="#" class="overlay-link">Home</a>
+          <a href="#manifesto" class="overlay-link">Our Voice</a>
+          <a href="#directory" class="overlay-link">Brand Toolkit</a>
+          <a href="mailto:marketing@norcalsbdc.org" class="overlay-link">Support</a>
+  </div>
+</div>
+
+<!-- Logo Splash -->
+<div class="splash" id="splash">
+  <img src="./NCN_Band_Logo_White.png" alt="Logo" id="splashLogo">
+  <div class="splash-label" id="splashLabel">Brand</div>
+</div>
+
+<!-- Content Sections -->
+
+<section id="section-0" style="min-height:100vh;background:#0f1c2e;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;position:relative">
+  <div style="text-align:center;margin-bottom:40px;z-index:2">
+    
+    <h2 style="font-size:clamp(32px,5vw,56px);font-weight:400;color:#fff;font-family:'DM Serif Display',Georgia,serif;margin-bottom:8px">Your Business People</h2>
+    <p style="font-size:14px;letter-spacing:0.12em;color:rgba(255,255,255,0.4);text-transform:uppercase">Standards · Assets · Voice</p>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 2.5fr 1fr;grid-template-rows:repeat(3,1fr);gap:4px;width:100%;max-width:1000px;aspect-ratio:4/3;margin:0 auto;border-radius:20px;overflow:hidden">
+    
+      <div class="grid-cell" style="overflow:hidden;border-radius:4px">
+        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&amp;h=400&amp;fit=crop" style="width:100%;height:100%;object-fit:cover;object-position:center" alt="">
+      </div>
+      <div class="grid-cell" style="overflow:hidden;border-radius:4px">
+        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&amp;h=400&amp;fit=crop" style="width:100%;height:100%;object-fit:cover;object-position:center" alt="">
+      </div>
+      <div class="grid-cell" style="overflow:hidden;border-radius:4px">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&amp;h=400&amp;fit=crop" style="width:100%;height:100%;object-fit:cover;object-position:center" alt="">
+      </div>
+      <div class="grid-cell" style="overflow:hidden;border-radius:4px">
+        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&amp;h=400&amp;fit=crop" style="width:100%;height:100%;object-fit:cover;object-position:center" alt="">
+      </div>
+      <div class="grid-cell" style="overflow:hidden;border-radius:4px">
+        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&amp;h=400&amp;fit=crop" style="width:100%;height:100%;object-fit:cover;object-position:center" alt="">
+      </div>
+      <div class="grid-cell" style="overflow:hidden;border-radius:4px">
+        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&amp;h=400&amp;fit=crop" style="width:100%;height:100%;object-fit:cover;object-position:center" alt="">
+      </div>
+      <div class="grid-cell" style="overflow:hidden;border-radius:4px">
+        <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=600&amp;h=400&amp;fit=crop" style="width:100%;height:100%;object-fit:cover;object-position:center" alt="">
+      </div>
+      <div class="grid-cell" style="overflow:hidden;border-radius:4px">
+        <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&amp;h=400&amp;fit=crop" style="width:100%;height:100%;object-fit:cover;object-position:center" alt="">
+      </div>
+      <div class="grid-cell" style="overflow:hidden;border-radius:4px">
+        <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&amp;h=400&amp;fit=crop" style="width:100%;height:100%;object-fit:cover;object-position:center" alt="">
+      </div>
+  </div>
+</section>
+
+<section class="manifesto-section" id="section-1" style="background:#0f1c2e;padding:120px 40px 120px;text-align:center;position:relative;overflow:hidden">
+  <div class="animate-on-scroll" style="max-width:900px;margin:0 auto;position:relative;z-index:1">
+    <div style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:24px">Our Impact</div>
+    <div style="font-family:'Newsreader', Georgia, serif;font-size:48px;line-height:1.3;letter-spacing:-0.02em;color:#e8e8e8">
+      <style>#section-1 em{color:#3b82f6;font-style:italic}</style>
+      $2.8B raised. 42,000 jobs created. Kitchen-table ideas turned into <em>million-dollar companies.</em>
+    </div>
+    
+  </div>
+</section>
+
+<section id="section-2" style="background:#0f1c2e;padding:80px 40px;position:relative;overflow:hidden">
+  <div style="max-width:1100px;margin:0 auto;position:relative;z-index:1">
+    
+    <div class="animate-on-scroll" style="text-align:center;margin-bottom:48px">
+      <h2 style="font-size:clamp(28px,4vw,42px);font-weight:400;color:#fff;font-family:'DM Serif Display', Georgia, serif;margin-bottom:12px">Brand Toolkit</h2>
+      <p style="font-size:15px;color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif">Everything you need, chapter by chapter.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+      
+      <div class="chapter-card animate-on-scroll" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:32px">
+        <div style="font-size:28px;color:#3b82f6;margin-bottom:16px;line-height:1">◎</div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#fff;margin-bottom:8px">Logos</div>
+        <div style="font-size:13px;line-height:1.6;color:rgba(255,255,255,0.55);font-family:'DM Sans', system-ui, sans-serif">Primary, secondary, and submarks for all channels.</div>
+        <div style="margin-top:12px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Identity</div>
+      </div>
+      <div class="chapter-card animate-on-scroll" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:32px">
+        <div style="font-size:28px;color:#3b82f6;margin-bottom:16px;line-height:1">◐</div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#fff;margin-bottom:8px">Color System</div>
+        <div style="font-size:13px;line-height:1.6;color:rgba(255,255,255,0.55);font-family:'DM Sans', system-ui, sans-serif">Navy, sky, warm neutrals — the full SBDC palette.</div>
+        <div style="margin-top:12px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Visual</div>
+      </div>
+      <div class="chapter-card animate-on-scroll" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:32px">
+        <div style="font-size:28px;color:#3b82f6;margin-bottom:16px;line-height:1">Aa</div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#fff;margin-bottom:8px">Typography</div>
+        <div style="font-size:13px;line-height:1.6;color:rgba(255,255,255,0.55);font-family:'DM Sans', system-ui, sans-serif">GT America Extended headings + DM Sans body.</div>
+        <div style="margin-top:12px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Visual</div>
+      </div>
+      <div class="chapter-card animate-on-scroll" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:32px">
+        <div style="font-size:28px;color:#3b82f6;margin-bottom:16px;line-height:1">✓</div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#fff;margin-bottom:8px">Compliance</div>
+        <div style="font-size:13px;line-height:1.6;color:rgba(255,255,255,0.55);font-family:'DM Sans', system-ui, sans-serif">Logo clear space, minimum sizes, do's &amp; don'ts.</div>
+        <div style="margin-top:12px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Rules</div>
+      </div>
+      <div class="chapter-card animate-on-scroll" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:32px">
+        <div style="font-size:28px;color:#3b82f6;margin-bottom:16px;line-height:1">❝</div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#fff;margin-bottom:8px">Voice &amp; Tone</div>
+        <div style="font-size:13px;line-height:1.6;color:rgba(255,255,255,0.55);font-family:'DM Sans', system-ui, sans-serif">How we sound: bold, human, optimistic.</div>
+        <div style="margin-top:12px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Content</div>
+      </div>
+      <div class="chapter-card animate-on-scroll" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:32px">
+        <div style="font-size:28px;color:#3b82f6;margin-bottom:16px;line-height:1">⊞</div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#fff;margin-bottom:8px">Templates</div>
+        <div style="font-size:13px;line-height:1.6;color:rgba(255,255,255,0.55);font-family:'DM Sans', system-ui, sans-serif">Slide decks, social frames, email signatures.</div>
+        <div style="margin-top:12px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Assets</div>
+      </div>
+      <div class="chapter-card animate-on-scroll" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:32px">
+        <div style="font-size:28px;color:#3b82f6;margin-bottom:16px;line-height:1">★</div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#fff;margin-bottom:8px">Success Stories</div>
+        <div style="font-size:13px;line-height:1.6;color:rgba(255,255,255,0.55);font-family:'DM Sans', system-ui, sans-serif">Client narrative templates &amp; formats.</div>
+        <div style="margin-top:12px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Content</div>
+      </div>
+      <div class="chapter-card animate-on-scroll" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:32px">
+        <div style="font-size:28px;color:#3b82f6;margin-bottom:16px;line-height:1">◈</div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#fff;margin-bottom:8px">Campaigns</div>
+        <div style="font-size:13px;line-height:1.6;color:rgba(255,255,255,0.55);font-family:'DM Sans', system-ui, sans-serif">Seasonal &amp; evergreen campaign guidelines.</div>
+        <div style="margin-top:12px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Strategy</div>
+      </div>
+      <div class="chapter-card animate-on-scroll" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:32px">
+        <div style="font-size:28px;color:#3b82f6;margin-bottom:16px;line-height:1">⊡</div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#fff;margin-bottom:8px">Guidelines</div>
+        <div style="font-size:13px;line-height:1.6;color:rgba(255,255,255,0.55);font-family:'DM Sans', system-ui, sans-serif">Photography, illustration, and icon standards.</div>
+        <div style="margin-top:12px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3)">Visual</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Footer -->
+<footer class="site-footer" style="background:#080c14">
+  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+    <div>
+      <div style="font-size:14px;font-weight:700;letter-spacing:0.1em;color:rgba(255,255,255,0.6)">BRAND.SBDC</div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.3)">© 2026 NorCal SBDC · Northern CA Network</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="mailto:marketing@norcalsbdc.org">Contact</a>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:24px">
+    <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer" style="font-size:10px;color:rgba(255,255,255,0.2)">Created with Perplexity Computer</a>
+  </div>
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// Splash animation
+(function() {
+  const logo = document.getElementById('splashLogo');
+  const label = document.getElementById('splashLabel');
+  const splash = document.getElementById('splash');
+  const tl = gsap.timeline();
+  tl.fromTo(logo, { opacity: 0, scale: 0.9 }, { opacity: 0.9, scale: 1, duration: 0.4, ease: 'power2.out' })
+    .fromTo(label, { opacity: 0 }, { opacity: 1, duration: 0.3 }, '-=0.1')
+    .to({}, { duration: 1.2 })
+    .to(splash, { opacity: 0, duration: 0.4, onComplete: () => { splash.style.display = 'none'; } });
+})();
+
+// Nav scroll effect
+window.addEventListener('scroll', () => {
+  document.getElementById('siteNav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Hamburger menu
+document.getElementById('hamburgerBtn').addEventListener('click', () => {
+  document.getElementById('menuOverlay').classList.add('open');
+});
+document.getElementById('closeMenu').addEventListener('click', () => {
+  document.getElementById('menuOverlay').classList.remove('open');
+});
+document.querySelectorAll('.overlay-link').forEach(link => {
+  link.addEventListener('click', () => document.getElementById('menuOverlay').classList.remove('open'));
+});
+
+// GSAP Hero Grids
+
+  // Hero Grid #0
+  (function() {
+    const heroEl = document.getElementById('section-0');
+    if (!heroEl) return;
+    const cells = heroEl.querySelectorAll('.grid-cell');
+    gsap.set(cells, { scale: 0.7, opacity: 0.3 });
+    ScrollTrigger.create({
+      trigger: heroEl,
+      start: 'top top',
+      end: '200%',
+      pin: true,
+      scrub: 1,
+      onUpdate: (self) => {
+        const p = self.progress;
+        cells.forEach((cell, i) => {
+          const delay = i * 0.03;
+          const cellP = Math.max(0, Math.min(1, (p - delay) / (1 - delay)));
+          gsap.set(cell, {
+            scale: 0.7 + cellP * 0.30,
+            opacity: 0.3 + cellP * 0.7
+          });
+        });
+      }
+    });
+  })();
+
+// IntersectionObserver for animations
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
