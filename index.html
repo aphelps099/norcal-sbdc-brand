@@ -273,6 +273,7 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
 .hero {
   position: relative;
   width: 100%;
+  height: 100vh;
   background: var(--navy);
   margin-top: 56px;
 }
@@ -301,7 +302,7 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
 .hero-inner {
   position: relative;
   width: calc(100% - 96px);
-  aspect-ratio: 16 / 10;
+  height: calc(100vh - 56px - 96px);
   overflow: hidden;
   margin: 48px;
   border-radius: 20px;
@@ -391,7 +392,7 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
 @keyframes scrollPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
 @media (max-width: 768px) {
-  .hero-inner { aspect-ratio: 3/4; margin: 12px; width: calc(100% - 24px); border-radius: 12px; }
+  .hero-inner { height: calc(100vh - 56px - 24px); margin: 12px; width: calc(100% - 24px); border-radius: 12px; }
   .hero-heading { font-size: clamp(2.2rem, 10vw, 3.5rem); }
   .hero-scroll { display: none; }
 }
