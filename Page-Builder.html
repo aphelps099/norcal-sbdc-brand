@@ -770,11 +770,9 @@ function getDefaultState() {
           edgeDarken: 35,
           overlayColor: '#091422',
           // Animation
-          fullBleed: true,
-          bleedAmount: 60,
-          pinDuration: 150,
-          skewDeg: 0,
-          fadeIn: false,
+          pinDuration: 200,
+          skewDeg: 5,
+          fadeIn: true,
           cellScaleStart: 0.7,
           easing: 'power2.inOut',
           cellStagger: 0.03,
@@ -1230,8 +1228,6 @@ function renderHeroConfig(panel, sec) {
   } else if (heroTab === 'animation') {
     fields = [
       makeField('Pin Duration (%)', 'range', c.pinDuration, v => c.pinDuration = v, { min: 100, max: 400, step: 10, unit: '%' }),
-      makeField('Full Bleed', 'checkbox', c.fullBleed, v => c.fullBleed = v),
-      makeField('Bleed Amount (px)', 'range', c.bleedAmount, v => c.bleedAmount = v, { min: 0, max: 120, step: 5, unit: 'px' }),
       makeField('Easing', 'select', c.easing, v => c.easing = v, {
         options: [
           { value: 'none', label: 'None (linear)' },
@@ -1907,6 +1903,7 @@ function generateExport() {
   const manifestoSections = contentSections.filter(s => s.type === 'manifesto');
   const chapterSections = contentSections.filter(s => s.type === 'chapter');
 
+  // Match the proven Scroll Reveal Grid Builder output exactly
   let gsapHeroJS = heroSections.map((sec, i) => {
     const c = sec.config;
     const idx = contentSections.indexOf(sec);
@@ -1914,64 +1911,48 @@ function generateExport() {
     const hasSkew = (c.skewDeg || 0) > 0;
     const hasFade = !!c.fadeIn;
     const hasScale = (c.cellScaleStart || 1) < 1;
-    const isFullBleed = c.fullBleed !== false;
-    const bleedAmt = c.bleedAmount || 60;
-    const easing = c.easing || 'power2.inOut';
     const gapEnd = c.gap || 4;
     const gapBegin = c.gapStart || gapEnd;
     const hasGapAnim = gapBegin > gapEnd;
-    const cellStagger = c.cellStagger || 0.03;
-    const hasRotation = (c.gridRotateStart || 0) > 0;
-    const hasParallax = (c.parallaxStrength || 0) > 0;
-    const parallaxAmt = c.parallaxStrength || 0;
 
     let tlSteps = '';
 
-    // Step 1: Inset → full-bleed expand (or simple inset reveal)
-    if (isFullBleed && hasInset) {
+    // Inset reveal (matches SRG Builder)
+    if (hasInset) {
       tlSteps += `
-    // Full-bleed expand: inset → past viewport edges
-    tl.to(inner, { margin: 0, width: 'calc(100% + ${bleedAmt * 2}px)', marginLeft: '-${bleedAmt}px', borderRadius: '0px', duration: 0.5, ease: '${easing}' }, 0);`;
-    } else if (hasInset) {
-      tlSteps += `
-    // Inset reveal
-    tl.to(inner, { margin: 0, width: '100%', borderRadius: '${c.containerRadius || 0}px', duration: 0.4, ease: 'none' }, 0);`;
+    tl.to(inner, {
+      margin: 0,
+      width: '100%',
+      borderRadius: '${c.containerRadius || 0}px',
+      duration: 0.4,
+      ease: 'none',
+    }, 0);`;
     }
 
-    // Step 2: Gap close (large → small)
+    // Gap close (gapStart → gap)
     if (hasGapAnim) {
       tlSteps += `
-    // Gap close
-    tl.to(grid, { gap: '${gapEnd}px', duration: 0.5, ease: '${easing}' }, 0);`;
+    tl.to(grid, { gap: '${gapEnd}px', duration: 0.4, ease: 'none' }, 0);`;
     }
 
-    // Step 3: Fade + skew/rotation resolve
-    if (hasFade || hasSkew || hasRotation) {
-      let gridProps = '';
-      if (hasFade) gridProps += ' opacity: 1,';
-      if (hasSkew) gridProps += ' skewX: 0,';
-      if (hasRotation) gridProps += ' rotation: 0,';
+    // Grid skew + fade (matches SRG Builder)
+    if (hasFade || hasSkew) {
       tlSteps += `
-    // Grid fade / skew / rotation
-    tl.to(grid, {${gridProps} duration: 0.4, ease: '${easing}' }, 0.05);`;
+    tl.to(grid, {${hasFade ? '\n      opacity: 1,' : ''}${hasSkew ? '\n      skewX: 0,' : ''}
+      duration: 0.4,
+      ease: 'none',
+    }, 0.1);`;
     }
 
-    // Step 4: Cell scale (staggered)
+    // Cell scale (matches SRG Builder)
     if (hasScale) {
       tlSteps += `
-    // Cell scale (staggered)
     cells.forEach(function(cell, i) {
-      tl.to(cell, { scale: 1, duration: 0.3, ease: '${easing}' }, ${cellStagger} * i);
-    });`;
-    }
-
-    // Step 5: Parallax (optional)
-    if (hasParallax) {
-      tlSteps += `
-    // Parallax
-    cells.forEach(function(cell, i) {
-      var dir = (i % 2 === 0) ? ${parallaxAmt} : -${parallaxAmt};
-      tl.fromTo(cell, { y: dir }, { y: 0, duration: 0.5, ease: 'none' }, 0);
+      tl.to(cell, {
+        scale: 1,
+        duration: 0.3,
+        ease: 'none',
+      }, 0.15 + i * 0.03);
     });`;
     }
 
@@ -1983,16 +1964,16 @@ function generateExport() {
     var inner = hero.querySelector('.srg-inner');
     var grid = hero.querySelector('.srg-grid');
     var cells = hero.querySelectorAll('.srg-cell');
+
     var tl = gsap.timeline({
       scrollTrigger: {
         trigger: hero,
         pin: true,
-        start: 'top top',
         end: '+=${c.pinDuration || 200}%',
         scrub: 1,
-        anticipatePin: 1
       }
-    });${tlSteps}
+    });
+${tlSteps}
   })();`;
   }).join('\n');
 
@@ -2066,11 +2047,10 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #0f1c2e; color: 
 .chapter-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.15) !important; }
 
 /* Scroll Reveal Grid Hero */
-.srg-section { overflow: hidden; }
-.scroll-reveal-grid-hero { position: relative; width: 100%; overflow: visible; }
-.srg-inner { position: relative; }
-.srg-grid { display: grid; position: absolute; inset: 0; z-index: 1; transform-origin: center center; }
-.srg-cell { background-size: cover; background-position: center; background-color: rgba(255,255,255,0.04); will-change: transform; overflow: hidden; }
+.scroll-reveal-grid-hero { position: relative; width: 100%; overflow: hidden; }
+.srg-inner { position: relative; overflow: hidden; }
+.srg-grid { display: grid; position: absolute; inset: 0; z-index: 1; }
+.srg-cell { background-size: cover; background-position: center; background-color: rgba(255,255,255,0.04); }
 .srg-vignette { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 .srg-overlay { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; }
 .srg-eyebrow { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 14px; font-family: 'Inter', sans-serif; }
@@ -2172,6 +2152,7 @@ document.querySelectorAll('.overlay-link').forEach(link => {
 });
 
 // GSAP Hero Grids
+gsap.registerPlugin(ScrollTrigger);
 ${gsapHeroJS}
 
 // IntersectionObserver for animations
@@ -2242,18 +2223,13 @@ function generateHeroHTML(sec, idx) {
   if (gridRotateStart > 0) gridTransforms.push(`rotate(${gridRotateStart}deg)`);
   const gridTransformCSS = gridTransforms.length ? `transform:${gridTransforms.join(' ')};` : '';
 
-  // Use gapStart for initial gap (GSAP will animate to final gap)
   const initialGap = gapStart;
 
-  // Overflow behavior: full-bleed allows overflow past viewport
-  const innerOverflow = isFullBleed ? 'overflow:visible;' : 'overflow:hidden;';
-  const heroOverflow = isFullBleed ? 'overflow:visible' : 'overflow:hidden';
-
   return `
-<section id="section-${idx}" class="srg-section" style="background:${bgColor};overflow:hidden">
-  <div class="scroll-reveal-grid-hero" id="srgHero-${idx}" style="${heroOverflow}">
-    <div class="srg-inner" style="margin:${insetMargin}px;width:calc(100% - ${insetMargin * 2}px);aspect-ratio:${c.aspectRatio || '16/10'};border-radius:${insetRadius}px;background:${bgColor};${innerOverflow}">
-      <div class="srg-grid" style="grid-template-columns:${colTemplate};grid-template-rows:${rowTemplate};gap:${initialGap}px;${hasFade ? 'opacity:0.5;' : ''}${gridTransformCSS}">
+<section id="section-${idx}" style="background:${bgColor}">
+  <div class="scroll-reveal-grid-hero" id="srgHero-${idx}">
+    <div class="srg-inner" style="margin:${insetMargin}px;width:calc(100% - ${insetMargin * 2}px);aspect-ratio:${c.aspectRatio || '16/10'};border-radius:${insetRadius}px;background:${bgColor}">
+      <div class="srg-grid" style="grid-template-columns:${colTemplate};grid-template-rows:${rowTemplate};gap:${initialGap}px;${hasFade ? 'opacity:0;' : ''}${gridTransformCSS}">
 ${cellsHTML.trimEnd()}
       </div>${vignetteHTML}${textHTML}
     </div>
