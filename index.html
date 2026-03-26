@@ -85,7 +85,7 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
    NAV — Brand text left, hamburger right
    ═══════════════════════════════════════════ */
 .nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
   height: 56px;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 var(--pad);
@@ -520,14 +520,10 @@ iconify-icon { display: inline-flex; vertical-align: middle; }
 <!-- Fullscreen Menu -->
 <div class="menu-overlay" id="menuOverlay">
   <div class="menu-links">
-    <a href="#hero" class="menu-item" onclick="closeMenu()"><span class="menu-item-title">Home</span><span class="menu-item-num">01</span></a>
-    <a href="#mantra" class="menu-item" onclick="closeMenu()"><span class="menu-item-title">Our Voice</span><span class="menu-item-num">02</span></a>
-    <a href="#resources" class="menu-item" onclick="closeMenu()"><span class="menu-item-title">Brand Toolkit</span><span class="menu-item-num">03</span></a>
-    <a href="#support" class="menu-item" onclick="closeMenu()"><span class="menu-item-title">Support</span><span class="menu-item-num">04</span></a>
-  </div>
-  <div class="menu-footer-row">
-    <span class="menu-footer-text">Brand House · v2026.1</span>
-    <a href="mailto:marketing@norcalsbdc.org" class="menu-footer-link">marketing@norcalsbdc.org</a>
+    <a href="#hero" class="menu-item" onclick="closeMenu()"><span class="menu-item-title">Home</span></a>
+    <a href="#mantra" class="menu-item" onclick="closeMenu()"><span class="menu-item-title">Our Voice</span></a>
+    <a href="#resources" class="menu-item" onclick="closeMenu()"><span class="menu-item-title">Brand Toolkit</span></a>
+    <a href="#support" class="menu-item" onclick="closeMenu()"><span class="menu-item-title">Support</span></a>
   </div>
 </div>
 
