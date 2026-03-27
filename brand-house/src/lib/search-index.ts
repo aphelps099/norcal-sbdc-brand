@@ -21,7 +21,7 @@ export const searchData: SearchItem[] = [
   {
     title: "Typography",
     section: "Typography",
-    content: "GT Era Display, GT America, GT America Mono, Tiempos, font specimens, type hierarchy, headline rules, body text, labels",
+    content: "Tiempos, Proxima Nova, font specimens, type hierarchy, headline rules, body text, labels",
     href: "/typography",
   },
   {
@@ -35,5 +35,29 @@ export const searchData: SearchItem[] = [
     section: "Templates",
     content: "Email signature, social bio, elevator pitch, copy blocks, ready-to-use templates",
     href: "/templates",
+  },
+  {
+    title: "Content",
+    section: "Content",
+    content: "Social media guidelines, newsletter templates, content calendar, editorial standards, social posts",
+    href: "/content",
+  },
+  {
+    title: "Calendar",
+    section: "Calendar",
+    content: "Key dates, campaign themes, seasonal planning, editorial calendar, awareness months",
+    href: "/calendar",
+  },
+  {
+    title: "Success Stories",
+    section: "Stories",
+    content: "Client success stories, case studies, testimonials, impact narratives, business outcomes",
+    href: "/stories",
+  },
+  {
+    title: "Glossary",
+    section: "Glossary",
+    content: "Terms and definitions, brand terminology, SBDC acronyms, business advising vocabulary",
+    href: "/glossary",
   },
 ];

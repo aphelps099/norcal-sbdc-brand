@@ -16,11 +16,15 @@ export const fonts = {
 } as const;
 
 export const chapters = [
-  { title: "Logos", description: "Logo suite, clear space rules, and download assets.", href: "/logos" },
   { title: "Colors", description: "Brand palette, usage guidelines, and accessible pairings.", href: "/colors" },
   { title: "Typography", description: "Type system, specimens, and hierarchy rules.", href: "/typography" },
+  { title: "Logos", description: "Logo suite, clear space rules, and download assets.", href: "/logos" },
   { title: "Voice & Tone", description: "Personality, messaging framework, and copy templates.", href: "/voice" },
   { title: "Templates", description: "Email signatures, social frames, and presentation decks.", href: "/templates" },
+  { title: "Content", description: "Social media and newsletter guidelines.", href: "/content" },
+  { title: "Calendar", description: "Key dates and campaign themes.", href: "/calendar" },
+  { title: "Stories", description: "Client success stories.", href: "/stories" },
+  { title: "Glossary", description: "Terms and definitions.", href: "/glossary" },
 ] as const;
 
 export const stats = [
