@@ -37,33 +37,25 @@ export default function ColorsPage() {
         {/* Usage Guidelines */}
         <div className="max-w-[780px] mx-auto px-8 md:px-12">
           <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-8">
-            Usage Guidelines
+            Usage
           </h2>
           <div className="space-y-5 text-text-secondary text-base leading-relaxed font-sans font-500 max-w-xl">
             <p>
-              <strong className="font-800 text-navy">Navy (#0f1c2e)</strong> is our primary
-              brand color. Use for headlines, hero sections, and high-impact moments.
+              Use <strong className="font-800 text-navy">Midnight</strong> and{" "}
+              <strong className="font-800 text-navy">Slate</strong> for typography and dark
+              backgrounds. <strong className="font-800 text-navy">Cobalt</strong> is our
+              primary action color — links, buttons, CTAs.
             </p>
             <p>
-              <strong className="font-800 text-navy">Royal (#1D5AA7)</strong> is our
-              signature blue — used for links, active states, and primary accents.
+              <strong className="font-800 text-navy">Steel</strong> and{" "}
+              <strong className="font-800 text-navy">Fog</strong> provide depth in
+              charts, illustrations, and secondary UI.{" "}
+              <strong className="font-800 text-navy">Berry</strong> adds warmth for
+              editorial moments. <strong className="font-800 text-navy">Evergreen</strong>{" "}
+              signals success and growth.
             </p>
             <p>
-              <strong className="font-800 text-navy">Pool (#8FC5D9)</strong> adds editorial
-              flair. Use for emphasis text, pull quotes, and accent elements.
-            </p>
-            <p>
-              <strong className="font-800 text-navy">Strawberry (#F7024D)</strong> is
-              reserved exclusively for CTAs and critical alerts. Use sparingly.
-            </p>
-            <p>
-              <strong className="font-800 text-navy">Cream (#f5f4f0)</strong> is our primary
-              background. It provides warmth without the sterility of pure white.
-            </p>
-            <p>
-              <strong className="font-800 text-navy">Contrast ratios</strong> must meet
-              WCAG AA standards. Navy on cream passes at all sizes. Royal on white
-              passes for large text only.
+              All color pairings must meet WCAG AA contrast standards.
             </p>
           </div>
         </div>

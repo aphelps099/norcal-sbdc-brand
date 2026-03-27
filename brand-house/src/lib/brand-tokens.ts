@@ -1,12 +1,12 @@
 export const colors = {
-  navy: { hex: "#0f1c2e", name: "Navy", usage: "Primary brand, headlines" },
-  navyDeep: { hex: "#091422", name: "Navy Deep", usage: "Deepest backgrounds" },
-  royal: { hex: "#1D5AA7", name: "Royal", usage: "Primary blue, links, accents" },
-  pool: { hex: "#8FC5D9", name: "Pool", usage: "Light accent, emphasis" },
-  poolBright: { hex: "#a8d8e8", name: "Pool Bright", usage: "Hover states" },
-  cream: { hex: "#f5f4f0", name: "Cream", usage: "Primary background" },
-  strawberry: { hex: "#F7024D", name: "Strawberry", usage: "CTAs, alerts" },
-  white: { hex: "#ffffff", name: "White", usage: "Cards, clean sections" },
+  berry: { hex: "#A73B44", name: "Berry", usage: "Warm accent, editorial emphasis" },
+  midnight: { hex: "#13171C", name: "Midnight", usage: "Deepest backgrounds, type" },
+  fog: { hex: "#85A3C8", name: "Fog", usage: "Soft blue, secondary accent" },
+  cobalt: { hex: "#004290", name: "Cobalt", usage: "Primary blue, links, CTAs" },
+  silver: { hex: "#D9D9D9", name: "Silver", usage: "Borders, dividers, muted fills" },
+  slate: { hex: "#2B3035", name: "Slate", usage: "Dark UI, secondary text" },
+  steel: { hex: "#5684BA", name: "Steel", usage: "Mid-blue accent, charts" },
+  evergreen: { hex: "#00685E", name: "Evergreen", usage: "Green accent, success states" },
 } as const;
 
 export const fonts = {
