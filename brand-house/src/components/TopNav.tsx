@@ -26,6 +26,7 @@ export default function TopNav() {
   const [pastHero, setPastHero] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [closing, setClosing] = useState(false);
   const [query, setQuery] = useState("");
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchRef = useRef<HTMLInputElement>(null);
@@ -47,12 +48,17 @@ export default function TopNav() {
     if (menuOpen) {
       document.body.style.overflow = "hidden";
       if (closeTimer.current) clearTimeout(closeTimer.current);
+      setClosing(false);
       setMounted(true);
-      setTimeout(() => searchRef.current?.focus(), 400);
+      setTimeout(() => searchRef.current?.focus(), 500);
     } else {
       document.body.style.overflow = "";
       setQuery("");
-      closeTimer.current = setTimeout(() => setMounted(false), 750);
+      setClosing(true);
+      closeTimer.current = setTimeout(() => {
+        setMounted(false);
+        setClosing(false);
+      }, 750);
     }
     return () => {
       document.body.style.overflow = "";
@@ -139,10 +145,12 @@ export default function TopNav() {
           className="fixed inset-0 z-[45] overflow-hidden"
           style={{
             background: "#8FC5D9",
-            transform: menuOpen ? "translateX(0)" : "translateX(100%)",
-            transition: menuOpen
-              ? "transform 0.65s cubic-bezier(0.16,1,0.3,1)"
-              : "transform 0.5s cubic-bezier(0.4,0,0.2,1) 0.05s",
+            clipPath: menuOpen
+              ? "inset(0 0 0 0)"
+              : closing
+                ? "inset(0 0 0 100%)"
+                : "inset(0 100% 0 0)",
+            transition: "clip-path 0.7s cubic-bezier(0.25,0.1,0.25,1)",
           }}
         >
           {/* Giant "Explore" watermark */}
@@ -180,8 +188,10 @@ export default function TopNav() {
                       className="block no-underline group/nav"
                       style={{
                         opacity: menuOpen ? 1 : 0,
-                        transform: menuOpen ? "translateX(0)" : "translateX(-16px)",
-                        transition: `opacity 0.35s cubic-bezier(0.16,1,0.3,1) ${0.25 + i * 0.03}s, transform 0.35s cubic-bezier(0.34,1.56,0.64,1) ${0.25 + i * 0.03}s`,
+                        transform: menuOpen ? "translateY(0)" : "translateY(8px)",
+                        transition: menuOpen
+                          ? `opacity 0.5s ease ${0.3 + i * 0.04}s, transform 0.5s ease ${0.3 + i * 0.04}s`
+                          : `opacity 0.25s ease, transform 0.25s ease`,
                       }}
                     >
                       <span
@@ -206,8 +216,10 @@ export default function TopNav() {
                 className="flex-1 flex flex-col justify-center lg:pl-16 mt-10 lg:mt-0 w-full lg:w-auto"
                 style={{
                   opacity: menuOpen ? 1 : 0,
-                  transform: menuOpen ? "translateX(0)" : "translateX(-12px)",
-                  transition: "opacity 0.4s ease 0.35s, transform 0.4s cubic-bezier(0.34,1.56,0.64,1) 0.35s",
+                  transform: menuOpen ? "translateY(0)" : "translateY(8px)",
+                  transition: menuOpen
+                    ? "opacity 0.5s ease 0.45s, transform 0.5s ease 0.45s"
+                    : "opacity 0.2s ease, transform 0.2s ease",
                 }}
               >
                 <div className="max-w-[440px]">

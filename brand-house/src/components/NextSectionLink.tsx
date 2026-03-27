@@ -10,6 +10,7 @@ interface NextSectionLinkProps {
 export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
+  const [hasHovered, setHasHovered] = useState(false);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -33,15 +34,20 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
       <a
         href={href}
         className="block no-underline relative"
-        onMouseEnter={() => setHovered(true)}
+        onMouseEnter={() => { setHovered(true); setHasHovered(true); }}
         onMouseLeave={() => setHovered(false)}
       >
-        {/* Pool bg sweep — right to left */}
+        {/* Pool bg sweep — fills from left, collapses to right */}
         <div
-          className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+          className="absolute inset-0"
           style={{
             background: "#8FC5D9",
-            transform: hovered ? "translateX(0)" : "translateX(100%)",
+            clipPath: hovered
+              ? "inset(0 0 0 0)"
+              : hasHovered
+                ? "inset(0 0 0 100%)"
+                : "inset(0 100% 0 0)",
+            transition: "clip-path 0.7s cubic-bezier(0.25,0.1,0.25,1)",
           }}
         />
 
