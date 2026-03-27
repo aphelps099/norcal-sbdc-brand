@@ -6,6 +6,7 @@ import DisplayType from "@/components/DisplayType";
 import FeatureShowcase from "@/components/FeatureShowcase";
 import ManifestoStatement from "@/components/ManifestoStatement";
 import CapabilitiesGrid from "@/components/CapabilitiesGrid";
+import BrandGrid from "@/components/BrandGrid";
 import PhotoFooter from "@/components/PhotoFooter";
 import SiteFooter from "@/components/SiteFooter";
 
@@ -20,6 +21,7 @@ export default function HomePage() {
       <FeatureShowcase />
       <ManifestoStatement />
       <CapabilitiesGrid />
+      <BrandGrid />
       <PhotoFooter />
       <SiteFooter />
     </main>
