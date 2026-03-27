@@ -8,7 +8,7 @@ export default function InteriorNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="hidden lg:flex flex-col fixed left-8 top-1/2 -translate-y-1/2 z-50 gap-1">
+    <nav className="hidden lg:flex flex-col fixed left-8 top-1/2 -translate-y-1/2 z-40 gap-1">
       {chapters.map((ch) => {
         const active = pathname === ch.href;
         return (
