@@ -10,18 +10,18 @@ const fuse = new Fuse(searchData, {
 });
 
 const NAV_COL_1 = [
-  { label: "Colors",       href: "/colors",     color: "#1D5AA7", desc: "Palette & usage" },
-  { label: "Typography",   href: "/typography",  color: "#F7024D", desc: "Type system" },
-  { label: "Logos",         href: "/logos",       color: "#0f1c2e", desc: "Downloads & rules" },
-  { label: "Voice & Tone", href: "/voice",       color: "#c4543a", desc: "How we speak" },
-  { label: "Templates",    href: "/templates",   color: "#8FC5D9", desc: "Copy blocks" },
+  { label: "Colors",       href: "/colors",     color: "#1D5AA7" },
+  { label: "Typography",   href: "/typography",  color: "#F7024D" },
+  { label: "Logos",         href: "/logos",       color: "#0f1c2e" },
+  { label: "Voice & Tone", href: "/voice",       color: "#c4543a" },
+  { label: "Templates",    href: "/templates",   color: "#8FC5D9" },
 ];
 
 const NAV_COL_2 = [
-  { label: "Content",   href: "/content",   color: "#1D5AA7", desc: "Social & newsletter" },
-  { label: "Calendar",  href: "/calendar",  color: "#c4543a", desc: "Key dates & themes" },
-  { label: "Stories",   href: "/stories",   color: "#F7024D", desc: "Success stories" },
-  { label: "Glossary",  href: "/glossary",  color: "#8FC5D9", desc: "Terms & definitions" },
+  { label: "Content",   href: "/content",   color: "#1D5AA7" },
+  { label: "Calendar",  href: "/calendar",  color: "#c4543a" },
+  { label: "Stories",   href: "/stories",   color: "#F7024D" },
+  { label: "Glossary",  href: "/glossary",  color: "#8FC5D9" },
 ];
 
 const ALL_LINKS = [...NAV_COL_1, ...NAV_COL_2];
@@ -87,41 +87,27 @@ export default function TopNav() {
       onClick={() => setMenuOpen(false)}
       onMouseEnter={() => setHoveredIndex(globalIdx)}
       onMouseLeave={() => setHoveredIndex(null)}
-      className="block no-underline group/link"
+      className="block no-underline"
       style={{
         clipPath: menuOpen ? "inset(0 0 0% 0)" : "inset(0 0 100% 0)",
         transform: menuOpen ? "translateY(0)" : "translateY(16px)",
         transition: `clip-path 0.6s cubic-bezier(0.16,1,0.3,1) ${0.12 + i * 0.045}s, transform 0.6s cubic-bezier(0.16,1,0.3,1) ${0.12 + i * 0.045}s`,
       }}
     >
-      <span className="flex items-baseline gap-3">
-        <span
-          className="font-serif block transition-colors duration-300"
-          style={{
-            fontSize: "clamp(24px, 3.8vw, 48px)",
-            lineHeight: "1.35",
-            letterSpacing: "-0.02em",
-            color: hoveredIndex === globalIdx
-              ? link.color
-              : hoveredIndex !== null
-                ? "rgba(15,28,46,0.12)"
-                : "rgba(15,28,46,0.80)",
-          }}
-        >
-          {link.label}
-        </span>
-        <span
-          className="font-sans text-[11px] font-500 tracking-[0.01em] transition-all duration-300 hidden md:inline translate-y-[-1px]"
-          style={{
-            color: hoveredIndex === globalIdx
-              ? link.color
-              : hoveredIndex !== null
-                ? "rgba(15,28,46,0.06)"
-                : "rgba(15,28,46,0.25)",
-          }}
-        >
-          {link.desc}
-        </span>
+      <span
+        className="font-serif block transition-colors duration-300"
+        style={{
+          fontSize: "clamp(22px, 2.8vw, 36px)",
+          lineHeight: "1.45",
+          letterSpacing: "-0.02em",
+          color: hoveredIndex === globalIdx
+            ? link.color
+            : hoveredIndex !== null
+              ? "rgba(15,28,46,0.12)"
+              : "rgba(15,28,46,0.80)",
+        }}
+      >
+        {link.label}
       </span>
     </a>
   );
@@ -186,123 +172,107 @@ export default function TopNav() {
         </div>
       </nav>
 
-      {/* Full-screen menu overlay */}
+      {/* Full-screen menu overlay — Pool bg */}
       {mounted && (
         <div
-          className={`fixed inset-0 z-[45] bg-white transition-opacity duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          className={`fixed inset-0 z-[45] transition-opacity duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             menuOpen ? "opacity-100" : "opacity-0"
           }`}
+          style={{ background: "#8FC5D9" }}
         >
-          <div className="relative z-10 h-full flex flex-col lg:flex-row pt-24 pb-8 md:pb-10 px-8 sm:px-12 md:px-16 lg:px-24">
+          <div className="relative z-10 h-full flex flex-col pt-24 pb-8 md:pb-10 px-8 sm:px-12 md:px-16 lg:px-24">
 
-            {/* LEFT: Nav columns */}
-            <div className="flex-1 flex flex-col justify-center lg:pr-16">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-16">
-                {/* Column 1 — Brand System */}
-                <div>
-                  <p
-                    className="font-sans text-[10px] font-800 uppercase tracking-[0.18em] text-navy/20 mb-5"
-                    style={{
-                      opacity: menuOpen ? 1 : 0,
-                      transition: "opacity 0.4s ease 0.08s",
-                    }}
-                  >
-                    Brand System
-                  </p>
-                  <nav className="flex flex-col gap-0.5">
+            {/* 3-col layout: col1 links | col2 links | search */}
+            <div className="flex-1 flex flex-col lg:flex-row items-start lg:items-center">
+
+              {/* Links — left 2/3 */}
+              <div className="flex-1 flex flex-col sm:flex-row gap-8 sm:gap-0 lg:pr-12">
+                {/* Column 1 */}
+                <div className="flex-1">
+                  <nav className="flex flex-col">
                     {NAV_COL_1.map((link, i) => renderLink(link, i, i))}
                   </nav>
                 </div>
 
-                {/* Column 2 — Resources */}
-                <div className="mt-8 md:mt-0">
-                  <p
-                    className="font-sans text-[10px] font-800 uppercase tracking-[0.18em] text-navy/20 mb-5"
-                    style={{
-                      opacity: menuOpen ? 1 : 0,
-                      transition: "opacity 0.4s ease 0.08s",
-                    }}
-                  >
-                    Resources
-                  </p>
-                  <nav className="flex flex-col gap-0.5">
+                {/* Separator */}
+                <div className="hidden sm:block w-px bg-[#2a4a5e]/20 mx-8 lg:mx-10 self-stretch" />
+
+                {/* Column 2 */}
+                <div className="flex-1">
+                  <nav className="flex flex-col">
                     {NAV_COL_2.map((link, i) =>
                       renderLink(link, NAV_COL_1.length + i, i)
                     )}
                   </nav>
                 </div>
               </div>
-            </div>
 
-            {/* RIGHT: Search */}
-            <div
-              className="lg:w-[340px] xl:w-[400px] lg:border-l lg:border-navy/[0.06] lg:pl-16 flex flex-col justify-center order-first lg:order-last mb-10 lg:mb-0"
-              style={{
-                opacity: menuOpen ? 1 : 0,
-                transform: menuOpen ? "translateY(0)" : "translateY(12px)",
-                transition: "opacity 0.5s ease 0.1s, transform 0.5s cubic-bezier(0.16,1,0.3,1) 0.1s",
-              }}
-            >
-              <div className="flex items-center gap-3 border-b-2 border-navy/10 pb-3 focus-within:border-navy/30 transition-colors duration-300">
-                <svg
-                  width="18" height="18" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                  className="text-navy/25 flex-shrink-0"
-                >
-                  <circle cx="11" cy="11" r="7" />
-                  <path d="m20 20-3.5-3.5" />
-                </svg>
-                <input
-                  ref={searchRef}
-                  type="text"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search..."
-                  className="flex-1 bg-transparent font-serif text-navy text-lg outline-none placeholder:text-navy/20 tracking-[-0.02em]"
-                />
-                <span className="font-sans text-[10px] font-800 uppercase tracking-[0.1em] text-navy/15 hidden sm:block">
-                  {"\u2318"}K
-                </span>
-              </div>
+              {/* Separator */}
+              <div className="hidden lg:block w-px bg-[#2a4a5e]/20 mx-10 xl:mx-14 self-stretch" />
 
-              {/* Search results */}
-              {query && (
-                <div className="mt-4 space-y-0.5">
-                  {results.length === 0 ? (
-                    <p className="font-sans text-sm text-navy/30 font-500 py-2">
-                      No results for &ldquo;{query}&rdquo;
-                    </p>
-                  ) : (
-                    results.map((item) => (
-                      <a
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setMenuOpen(false)}
-                        className="flex items-baseline gap-3 py-2.5 px-1 no-underline group/result hover:bg-navy/[0.03] -mx-1 transition-colors duration-200"
-                      >
-                        <span className="font-sans text-[9px] font-800 uppercase tracking-[0.14em] text-navy/20 w-14 shrink-0">
-                          {item.section}
-                        </span>
-                        <span className="font-serif text-navy text-base group-hover/result:text-royal transition-colors duration-200">
-                          {item.title}
-                        </span>
-                      </a>
-                    ))
-                  )}
+              {/* Search — right 1/3 */}
+              <div
+                className="lg:w-[320px] xl:w-[360px] flex flex-col justify-center mt-10 lg:mt-0 w-full"
+                style={{
+                  opacity: menuOpen ? 1 : 0,
+                  transform: menuOpen ? "translateY(0)" : "translateY(12px)",
+                  transition: "opacity 0.5s ease 0.15s, transform 0.5s cubic-bezier(0.16,1,0.3,1) 0.15s",
+                }}
+              >
+                <div className="flex items-center gap-3 border-b-[3px] border-navy/25 pb-3 focus-within:border-navy/50 transition-colors duration-300">
+                  <svg
+                    width="22" height="22" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                    className="text-navy/40 flex-shrink-0"
+                  >
+                    <circle cx="11" cy="11" r="7" />
+                    <path d="m20 20-3.5-3.5" />
+                  </svg>
+                  <input
+                    ref={searchRef}
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search..."
+                    className="flex-1 bg-transparent font-serif text-navy text-xl md:text-2xl outline-none placeholder:text-navy/30 tracking-[-0.02em]"
+                  />
+                  <span className="font-sans text-[10px] font-800 uppercase tracking-[0.1em] text-navy/20 hidden sm:block">
+                    {"\u2318"}K
+                  </span>
                 </div>
-              )}
 
-              {/* Quick hint when not searching */}
-              {!query && (
-                <p className="mt-5 font-sans text-[11px] text-navy/15 font-500 leading-relaxed">
-                  Search colors, typography, logos, voice guidelines, templates, and more.
-                </p>
-              )}
+                {/* Search results */}
+                {query && (
+                  <div className="mt-4 space-y-0.5">
+                    {results.length === 0 ? (
+                      <p className="font-sans text-sm text-navy/30 font-500 py-2">
+                        No results for &ldquo;{query}&rdquo;
+                      </p>
+                    ) : (
+                      results.map((item) => (
+                        <a
+                          key={item.href}
+                          href={item.href}
+                          onClick={() => setMenuOpen(false)}
+                          className="flex items-baseline gap-3 py-2.5 no-underline group/result hover:bg-navy/[0.06] px-1 -mx-1 transition-colors duration-200"
+                        >
+                          <span className="font-sans text-[9px] font-800 uppercase tracking-[0.14em] text-navy/25 w-14 shrink-0">
+                            {item.section}
+                          </span>
+                          <span className="font-serif text-navy text-base group-hover/result:text-navy transition-colors duration-200">
+                            {item.title}
+                          </span>
+                        </a>
+                      ))
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Bottom bar */}
             <div
-              className="absolute bottom-8 md:bottom-10 left-8 sm:left-12 md:left-16 lg:left-24 right-8 sm:right-12 md:right-16 lg:right-24 flex items-end justify-between border-t border-navy/[0.06] pt-5"
+              className="flex items-end justify-between pt-5 border-t border-[#2a4a5e]/15"
               style={{
                 opacity: menuOpen ? 1 : 0,
                 transition: "opacity 0.4s ease 0.5s",
@@ -318,7 +288,7 @@ export default function TopNav() {
                 norcalsbdc.org
               </a>
               <span
-                className="font-sans text-navy/12 uppercase font-800"
+                className="font-sans text-navy/15 uppercase font-800"
                 style={{ fontSize: "0.55rem", letterSpacing: "0.1em" }}
               >
                 &copy; 2026
