@@ -41,7 +41,7 @@ export default function TypographyPage() {
           <div className="max-w-[960px] mx-auto px-8 md:px-12">
             <div className="space-y-4">
               <div className="p-7 rounded-lg border border-black/[0.04] bg-[#f7f7f5]">
-                <p className="font-sans text-[11px] font-900 uppercase tracking-[0.2em] text-navy/30 mb-3">
+                <p className="font-sans text-[11px] font-700 uppercase tracking-[0.2em] text-navy/30 mb-3">
                   Display / Hero
                 </p>
                 <p className="font-serif text-4xl md:text-5xl text-navy leading-[1.1]">
@@ -50,7 +50,7 @@ export default function TypographyPage() {
               </div>
 
               <div className="p-7 rounded-lg border border-black/[0.04] bg-[#f7f7f5]">
-                <p className="font-sans text-[11px] font-900 uppercase tracking-[0.2em] text-navy/30 mb-3">
+                <p className="font-sans text-[11px] font-700 uppercase tracking-[0.2em] text-navy/30 mb-3">
                   Headline / H1
                 </p>
                 <p className="font-serif text-2xl md:text-3xl text-navy">
@@ -59,7 +59,7 @@ export default function TypographyPage() {
               </div>
 
               <div className="p-7 rounded-lg border border-black/[0.04] bg-[#f7f7f5]">
-                <p className="font-sans text-[11px] font-900 uppercase tracking-[0.2em] text-navy/30 mb-3">
+                <p className="font-sans text-[11px] font-700 uppercase tracking-[0.2em] text-navy/30 mb-3">
                   Section Title / H2
                 </p>
                 <p className="font-serif text-xl text-navy">
@@ -68,7 +68,7 @@ export default function TypographyPage() {
               </div>
 
               <div className="p-7 rounded-lg border border-black/[0.04] bg-[#f7f7f5]">
-                <p className="font-sans text-[11px] font-900 uppercase tracking-[0.2em] text-navy/30 mb-3">
+                <p className="font-sans text-[11px] font-700 uppercase tracking-[0.2em] text-navy/30 mb-3">
                   Body Text
                 </p>
                 <p className="text-base text-text-secondary leading-[1.7] max-w-prose font-sans font-500">
@@ -79,7 +79,7 @@ export default function TypographyPage() {
               </div>
 
               <div className="p-7 rounded-lg border border-black/[0.04] bg-[#f7f7f5]">
-                <p className="font-sans text-[11px] font-900 uppercase tracking-[0.2em] text-navy/30 mb-3">
+                <p className="font-sans text-[11px] font-700 uppercase tracking-[0.2em] text-navy/30 mb-3">
                   Label / Uppercase Sans
                 </p>
                 <p className="font-sans text-xs font-800 tracking-[0.2em] uppercase text-navy/35">

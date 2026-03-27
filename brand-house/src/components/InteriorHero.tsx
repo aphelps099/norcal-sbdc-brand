@@ -43,7 +43,7 @@ export default function InteriorHero({ title, subtitle }: InteriorHeroProps) {
       <div className="max-w-[780px] mx-auto px-8 md:px-12 pt-32 pb-20 md:pt-40 md:pb-28">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-white/40 hover:text-white/70 transition-colors mb-12"
+          className="inline-flex items-center gap-2 font-sans text-[11px] font-700 uppercase tracking-[0.2em] text-white/40 hover:text-white/70 transition-colors mb-12"
         >
           <span className="inline-block w-4 h-[1.5px] bg-current" />
           Brand House

@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from "react";
 
 export default function HeroEditorial() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [underlineActive, setUnderlineActive] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
     async function init() {
@@ -40,13 +41,15 @@ export default function HeroEditorial() {
   }, []);
 
   function handleBrandClick() {
-    setUnderlineActive(true);
+    setClicked(true);
     const next = sectionRef.current?.nextElementSibling as HTMLElement | null;
     if (next) {
       next.scrollIntoView({ behavior: "smooth" });
     }
-    setTimeout(() => setUnderlineActive(false), 1200);
+    setTimeout(() => setClicked(false), 1200);
   }
+
+  const underlineColor = clicked ? "#8FC5D9" : hovered ? "#8FC5D9" : "white";
 
   return (
     <section ref={sectionRef} className="relative w-full bg-black overflow-hidden">
@@ -70,7 +73,9 @@ export default function HeroEditorial() {
         <div className="hero-inner relative z-10 h-full flex items-center justify-center px-8">
           <button
             onClick={handleBrandClick}
-            className="inline-block text-center cursor-pointer bg-transparent border-none outline-none group"
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+            className="inline-block text-center cursor-pointer bg-transparent border-none outline-none"
           >
             <h1
               className="hero-brand font-serif text-white leading-[0.92] tracking-[-0.05em]"
@@ -83,11 +88,12 @@ export default function HeroEditorial() {
               Brand
             </h1>
             <div
-              className="hero-underline h-[3px] mt-1 transition-colors duration-500"
+              className="hero-underline h-[3px] transition-colors duration-400"
               style={{
+                marginTop: "-2px",
                 transformOrigin: "left center",
                 transform: "scaleX(0)",
-                backgroundColor: underlineActive ? "#8FC5D9" : "white",
+                backgroundColor: underlineColor,
               }}
             />
           </button>

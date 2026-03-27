@@ -70,7 +70,7 @@ export default function GiantManifesto() {
     <section ref={sectionRef} className="bg-pool/20 relative overflow-hidden">
       <div className="max-w-[1000px] mx-auto px-8 sm:px-12 py-40 sm:py-56">
         <p
-          className="manifesto-eyebrow font-sans text-navy/40 uppercase font-800 mb-14 sm:mb-20"
+          className="manifesto-eyebrow font-sans text-navy/40 uppercase font-700 mb-14 sm:mb-20"
           style={{ fontSize: "0.8rem", letterSpacing: "0.2em" }}
         >
           Our Manifesto

@@ -25,11 +25,7 @@ export default function InteriorNav() {
               }`}
             />
             <span
-              className={`font-sans text-[11px] font-800 uppercase tracking-[0.15em] transition-all duration-300 ${
-                active
-                  ? "text-royal opacity-100"
-                  : "text-navy/30 opacity-0 group-hover:opacity-100 group-hover:text-navy/60"
-              }`}
+              className="font-sans text-[11px] font-700 uppercase tracking-[0.15em] text-navy/30 opacity-0 group-hover:opacity-100 group-hover:text-navy/60 transition-all duration-300"
             >
               {ch.title}
             </span>
