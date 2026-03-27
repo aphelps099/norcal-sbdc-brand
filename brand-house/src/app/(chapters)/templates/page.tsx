@@ -24,15 +24,11 @@ export default function TemplatesPage() {
         title="Templates"
         subtitle="Ready-to-use copy blocks for emails, presentations, and social channels."
       />
-      <div className="max-w-[780px] mx-auto px-8 md:px-12 py-16 md:py-24">
-        <div className="flex items-center gap-4 mb-10">
-          <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/30">01</span>
-          <div className="h-[1px] flex-1 bg-navy/8" />
-        </div>
-        <h2 className="font-serif text-3xl md:text-4xl text-navy tracking-[-0.02em] mb-10">
+      <div className="bg-white max-w-[780px] mx-auto px-8 md:px-12 py-16 md:py-24">
+        <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-10">
           Copy Blocks
         </h2>
-        <p className="font-sans text-sm text-text-secondary font-500 leading-relaxed mb-10 max-w-xl">
+        <p className="font-sans text-base text-text-secondary font-500 leading-relaxed mb-10 max-w-xl">
           Click the copy button to grab any block and paste directly into your
           communications.
         </p>
@@ -41,7 +37,7 @@ export default function TemplatesPage() {
           {templates.map((tpl) => (
             <div
               key={tpl.title}
-              className="p-8 rounded-xl border border-black/[0.04] bg-white"
+              className="p-8 rounded-xl border border-black/[0.04] bg-[#f7f7f5]"
             >
               <div className="flex items-center justify-between mb-5">
                 <h3 className="font-sans text-sm font-800 text-navy uppercase tracking-[0.1em]">
