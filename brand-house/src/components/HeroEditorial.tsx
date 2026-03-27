@@ -9,41 +9,44 @@ export default function HeroEditorial() {
   const [currentWord, setCurrentWord] = useState(0);
   const [animReady, setAnimReady] = useState(false);
 
-  // Orchestrate entrance + rotation
+  // Orchestrate entrance
   useEffect(() => {
-    let gsapRef: typeof import("gsap")["gsap"] | null = null;
     let timer: ReturnType<typeof setInterval> | undefined;
 
     async function init() {
       const { gsap } = await import("gsap");
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
       gsap.registerPlugin(ScrollTrigger);
-      gsapRef = gsap;
       if (!sectionRef.current) return;
 
       const ctx = gsap.context(() => {
         const tl = gsap.timeline({ delay: 2.2 });
 
-        // Logo mark fades in first
+        // Logo fades in
         tl.fromTo(".hero-mark", { opacity: 0 }, {
-          opacity: 1, duration: 1.2, ease: "power2.out",
+          opacity: 1, duration: 1, ease: "power2.out",
         });
 
-        // "Brand" scales up from nothing
-        tl.fromTo(".hero-brand", { opacity: 0, y: 20 }, {
+        // Logo fades out
+        tl.to(".hero-mark", {
+          opacity: 0, duration: 0.6, ease: "power2.in",
+        }, "+=0.6");
+
+        // "Brand" appears as logo leaves
+        tl.fromTo(".hero-brand", { opacity: 0, y: 16 }, {
           opacity: 1, y: 0, duration: 1, ease: "power3.out",
+        }, "-=0.3");
+
+        // Rule draws in
+        tl.fromTo(".hero-rule", { scaleX: 0 }, {
+          scaleX: 1, duration: 0.7, ease: "power2.inOut",
         }, "-=0.5");
 
         // Subline appears
         tl.fromTo(".hero-subline", { opacity: 0 }, {
-          opacity: 1, duration: 0.8, ease: "power2.out",
+          opacity: 1, duration: 0.7, ease: "power2.out",
           onComplete: () => setAnimReady(true),
-        }, "-=0.4");
-
-        // Rule line draws in
-        tl.fromTo(".hero-rule", { scaleX: 0 }, {
-          scaleX: 1, duration: 0.8, ease: "power2.inOut",
-        }, "-=0.6");
+        }, "-=0.3");
 
         // Scroll fade
         gsap.to(".hero-inner", {
@@ -71,7 +74,7 @@ export default function HeroEditorial() {
     if (!animReady) return;
 
     let gsapRef: typeof import("gsap")["gsap"] | null = null;
-    let timer: ReturnType<typeof setInterval>;
+    let timer: ReturnType<typeof setInterval> | undefined;
 
     async function startCycling() {
       const { gsap } = await import("gsap");
@@ -83,22 +86,22 @@ export default function HeroEditorial() {
 
         gsapRef.to(el, {
           opacity: 0,
-          y: -16,
-          duration: 0.35,
+          y: -14,
+          duration: 0.3,
           ease: "power2.in",
           onComplete: () => {
             setCurrentWord((prev) => (prev + 1) % WORDS.length);
             gsapRef!.fromTo(el,
-              { opacity: 0, y: 16 },
-              { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }
+              { opacity: 0, y: 14 },
+              { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }
             );
           },
         });
-      }, 2800);
+      }, 2600);
     }
 
     startCycling();
-    return () => clearInterval(timer);
+    return () => { if (timer) clearInterval(timer); };
   }, [animReady]);
 
   return (
@@ -123,15 +126,15 @@ export default function HeroEditorial() {
 
         {/* Content */}
         <div className="hero-inner relative z-10 h-full flex flex-col items-center justify-center px-8">
-          {/* Logo mark */}
+          {/* Logo — appears then disappears */}
           <img
             src="/logo-white.png"
             alt="NorCal SBDC"
-            className="hero-mark w-[180px] sm:w-[220px] mb-12 sm:mb-16"
+            className="hero-mark absolute w-[180px] sm:w-[220px]"
             style={{ opacity: 0 }}
           />
 
-          {/* "Brand" — the commanding word */}
+          {/* "Brand" — appears after logo fades */}
           <h1
             className="hero-brand font-serif text-white text-center leading-[0.92] tracking-[-0.05em]"
             style={{
@@ -149,14 +152,14 @@ export default function HeroEditorial() {
             style={{ transformOrigin: "center", transform: "scaleX(0)" }}
           />
 
-          {/* Cycling subline: People · Funded · Connected */}
+          {/* Cycling subline */}
           <div
             className="hero-subline flex items-center gap-4 sm:gap-5"
             style={{ opacity: 0 }}
           >
             <span
               className="hero-rotating-word font-sans text-white/70 uppercase text-center tracking-[0.2em] font-800"
-              style={{ fontSize: "clamp(11px, 1.2vw, 15px)", minWidth: "120px" }}
+              style={{ fontSize: "clamp(11px, 1.2vw, 15px)", minWidth: "130px" }}
             >
               {WORDS[currentWord]}
             </span>
