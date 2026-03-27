@@ -3,11 +3,11 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 
 const NAV_LINKS = [
-  { label: "Colors", href: "/colors" },
-  { label: "Typography", href: "/typography" },
-  { label: "Logos", href: "/logos" },
-  { label: "Voice & Tone", href: "/voice" },
-  { label: "Templates", href: "/templates" },
+  { label: "Colors",      href: "/colors",     color: "#8FC5D9" },  // Pool
+  { label: "Typography",  href: "/typography",  color: "#F7024D" },  // Strawberry
+  { label: "Logos",        href: "/logos",       color: "#1D5AA7" },  // Royal
+  { label: "Voice & Tone", href: "/voice",      color: "#c4543a" },  // Coral
+  { label: "Templates",   href: "/templates",   color: "#a8d8e8" },  // Pool-bright
 ];
 
 export default function TopNav() {
@@ -15,6 +15,7 @@ export default function TopNav() {
   const [pastHero, setPastHero] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -33,7 +34,7 @@ export default function TopNav() {
       setMounted(true);
     } else {
       document.body.style.overflow = "";
-      // Keep mounted for exit animation, then unmount
+      setHoveredIndex(null);
       closeTimer.current = setTimeout(() => setMounted(false), 750);
     }
     return () => {
@@ -72,35 +73,6 @@ export default function TopNav() {
           transform: translateY(-4px) rotate(-45deg);
           width: 18px;
         }
-
-        /* ── Menu link hover line ── */
-        .menu-link {
-          position: relative;
-        }
-        .menu-link::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 1px;
-          background: rgba(143,197,217,0.3);
-          transform: scaleX(0);
-          transform-origin: left;
-          transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
-        }
-        .menu-link:hover::after {
-          transform: scaleX(1);
-        }
-
-        /* ── Statement italic entrance ── */
-        @keyframes statement-in {
-          from { opacity: 0; transform: translateY(8px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .menu-statement {
-          animation: statement-in 0.4s cubic-bezier(0.16,1,0.3,1) 0.5s both;
-        }
       `}</style>
 
       <nav
@@ -124,38 +96,22 @@ export default function TopNav() {
             Brand.SBDC
           </a>
 
-          <div className="flex items-center gap-7">
-            {/* Search */}
-            <button
-              onClick={openSearch}
-              className={`transition-all duration-500 hover:scale-110 ${
-                menuOpen ? "text-white/50 hover:text-white" : isDark ? "text-white/40 hover:text-white" : "text-text-tertiary hover:text-navy"
-              }`}
-              aria-label="Search"
-            >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="11" cy="11" r="7" />
-                <path d="m20 20-3.5-3.5" />
-              </svg>
-            </button>
-
-            {/* Hamburger — asymmetric bars */}
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className={`burger-wrap flex flex-col items-end justify-center gap-[6.5px] w-[24px] h-[24px] transition-colors duration-500 ${
-                menuOpen ? "text-white/80 hover:text-white" : isDark ? "text-white/40 hover:text-white" : "text-text-tertiary hover:text-navy"
-              }`}
-              data-open={menuOpen}
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
-            >
-              <span className="burger-bar burger-top" />
-              <span className="burger-bar burger-bottom" />
-            </button>
-          </div>
+          {/* Hamburger only — search moved into menu */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className={`burger-wrap flex flex-col items-end justify-center gap-[6.5px] w-[24px] h-[24px] transition-colors duration-500 ${
+              menuOpen ? "text-white/80 hover:text-white" : isDark ? "text-white/40 hover:text-white" : "text-text-tertiary hover:text-navy"
+            }`}
+            data-open={menuOpen}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+          >
+            <span className="burger-bar burger-top" />
+            <span className="burger-bar burger-bottom" />
+          </button>
         </div>
       </nav>
 
-      {/* Full-screen menu overlay — only in DOM when open or animating out */}
+      {/* Full-screen menu overlay */}
       {mounted && (
         <div
           className={`fixed inset-0 z-[45] transition-opacity duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
@@ -163,7 +119,7 @@ export default function TopNav() {
           }`}
           style={{ background: "linear-gradient(180deg, #060e18 0%, #091422 50%, #0c1a2e 100%)" }}
         >
-          {/* Gradient accent overlay */}
+          {/* Gradient accent */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -171,7 +127,7 @@ export default function TopNav() {
               zIndex: 1,
             }}
           />
-          {/* Film grain overlay */}
+          {/* Film grain */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -183,70 +139,81 @@ export default function TopNav() {
             }}
           />
 
-          <div className="relative z-10 h-full flex flex-col justify-center px-8 sm:px-16 md:px-24">
-            {/* Left-aligned nav links */}
-            <div className="max-w-[600px]">
-              <nav className="flex flex-col gap-0">
-                {NAV_LINKS.map((link, i) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMenuOpen(false)}
-                    className="menu-link group block py-3 md:py-4 no-underline border-b border-white/[0.04] first:border-t"
+          <div className="relative z-10 h-full flex flex-col justify-center px-8 sm:px-12 md:px-16 lg:px-24">
+            {/* Nav links — massive Tiempos serif */}
+            <nav className="flex flex-col">
+              {NAV_LINKS.map((link, i) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  onMouseEnter={() => setHoveredIndex(i)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  className="block no-underline"
+                  style={{
+                    clipPath: menuOpen
+                      ? "inset(0 0 0% 0)"
+                      : "inset(0 0 100% 0)",
+                    transform: menuOpen ? "translateY(0)" : "translateY(30px)",
+                    transition: `clip-path 0.7s cubic-bezier(0.16,1,0.3,1) ${0.08 + i * 0.06}s, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${0.08 + i * 0.06}s`,
+                  }}
+                >
+                  <span
+                    className="font-serif block transition-colors duration-350"
                     style={{
-                      opacity: menuOpen ? 1 : 0,
-                      transform: menuOpen ? "translateY(0)" : "translateY(16px)",
-                      transition: `opacity 0.4s ease ${0.06 + i * 0.04}s, transform 0.5s cubic-bezier(0.16,1,0.3,1) ${0.06 + i * 0.04}s`,
+                      fontSize: "clamp(48px, 11vw, 140px)",
+                      lineHeight: "0.92",
+                      letterSpacing: "-0.03em",
+                      color: hoveredIndex === i
+                        ? link.color
+                        : hoveredIndex !== null
+                          ? "rgba(255,255,255,0.15)"
+                          : "rgba(255,255,255,0.50)",
                     }}
                   >
-                    <span className="flex items-baseline justify-between">
-                      <span
-                        className="font-sans text-white/80 font-800 uppercase tracking-[0.06em] group-hover:text-white group-hover:tracking-[0.1em] transition-all duration-500"
-                        style={{ fontSize: "clamp(14px, 2vw, 18px)" }}
-                      >
-                        {link.label}
-                      </span>
-                      <svg
-                        width="16" height="16" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
-                        className="text-white/0 group-hover:text-pool/60 transition-all duration-500 group-hover:translate-x-1"
-                      >
-                        <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
-                      </svg>
-                    </span>
-                  </a>
-                ))}
-              </nav>
+                    {link.label}
+                  </span>
+                </a>
+              ))}
+            </nav>
 
-              {/* Statement — Tiempos italic */}
-              {menuOpen && (
-                <p
-                  className="menu-statement font-serif italic text-pool/30 mt-10 leading-relaxed"
-                  style={{ fontSize: "clamp(18px, 2.5vw, 26px)" }}
-                >
-                  Your business deserves someone<br />
-                  who <span className="text-pool/50">gets it.</span>
-                </p>
-              )}
-            </div>
-
-            {/* Bottom bar */}
+            {/* Bottom bar — search + links */}
             <div
-              className="absolute bottom-10 left-8 sm:left-16 md:left-24 right-8 sm:right-16 md:right-24 flex items-end justify-between"
+              className="absolute bottom-8 md:bottom-10 left-8 sm:left-12 md:left-16 lg:left-24 right-8 sm:right-12 md:right-16 lg:right-24 flex items-end justify-between"
               style={{
                 opacity: menuOpen ? 1 : 0,
-                transition: "opacity 0.4s ease 0.4s",
+                transition: "opacity 0.5s ease 0.5s",
               }}
             >
+              {/* Search trigger */}
+              <button
+                onClick={openSearch}
+                className="font-sans text-white/20 hover:text-white/50 transition-colors duration-300 font-800 uppercase flex items-center gap-2.5"
+                style={{ fontSize: "0.62rem", letterSpacing: "0.12em" }}
+              >
+                <svg
+                  width="12" height="12" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                >
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="m20 20-3.5-3.5" />
+                </svg>
+                Search
+                <span className="text-white/10 ml-0.5">{"\u2318"}K</span>
+              </button>
+
+              {/* External link */}
               <a
                 href="https://norcalsbdc.org"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-sans text-white/12 hover:text-white/30 transition-colors duration-300 no-underline font-800 uppercase"
+                className="font-sans text-white/12 hover:text-white/30 transition-colors duration-300 no-underline font-800 uppercase hidden sm:block"
                 style={{ fontSize: "0.6rem", letterSpacing: "0.12em" }}
               >
                 norcalsbdc.org
               </a>
+
+              {/* Copyright */}
               <span
                 className="font-sans text-white/8 uppercase font-800"
                 style={{ fontSize: "0.55rem", letterSpacing: "0.1em" }}
