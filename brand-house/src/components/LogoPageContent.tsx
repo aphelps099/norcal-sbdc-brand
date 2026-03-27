@@ -157,20 +157,25 @@ function LogoCard({ logo }: { logo: LogoAsset }) {
   );
 }
 
-/* ─── Section anchor navigation (in-page) ─── */
+/* ─── Section anchor navigation (pills) ─── */
 function SectionNav() {
   return (
-    <nav className="flex flex-wrap gap-x-5 gap-y-2">
-      {SECTIONS.map((s) => (
-        <a
-          key={s.id}
-          href={`#${s.id}`}
-          className="font-sans text-[11px] font-800 uppercase tracking-[0.15em] text-navy/30 hover:text-royal transition-colors duration-200"
-        >
-          {s.label}
-        </a>
-      ))}
-    </nav>
+    <div>
+      <p className="font-sans text-sm text-text-secondary font-500 mb-5">
+        Find what logo you need.
+      </p>
+      <nav className="flex flex-wrap gap-2.5">
+        {SECTIONS.map((s) => (
+          <a
+            key={s.id}
+            href={`#${s.id}`}
+            className="inline-block px-4 py-2 rounded-full border-2 border-navy/12 font-sans text-[11px] font-800 uppercase tracking-[0.12em] text-navy/40 hover:bg-navy hover:border-navy hover:text-white transition-all duration-300"
+          >
+            {s.label}
+          </a>
+        ))}
+      </nav>
+    </div>
   );
 }
 
