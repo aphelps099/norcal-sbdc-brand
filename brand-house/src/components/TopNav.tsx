@@ -23,47 +23,44 @@ export default function TopNav() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
         scrolled
           ? pastHero
-            ? "bg-white/90 backdrop-blur-xl shadow-[0_1px_0_rgba(0,0,0,0.04)]"
-            : "bg-black/40 backdrop-blur-xl"
+            ? "bg-white/90 backdrop-blur-2xl shadow-[0_1px_0_rgba(0,0,0,0.04)]"
+            : "bg-black/30 backdrop-blur-2xl"
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-10 py-5 flex items-center justify-between">
-        {/* Brand mark */}
+      <div className="max-w-[1400px] mx-auto px-8 sm:px-12 py-5 flex items-center justify-between">
         <a
           href="/"
-          className={`font-sans text-[0.68rem] font-800 tracking-[0.14em] uppercase transition-colors duration-300 no-underline ${
-            isDark ? "text-white/80 hover:text-white" : "text-navy hover:text-navy"
+          className={`font-sans text-[0.7rem] font-800 tracking-[0.12em] uppercase transition-colors duration-500 no-underline ${
+            isDark ? "text-white/70 hover:text-white" : "text-navy hover:text-navy"
           }`}
         >
           Brand.SBDC
         </a>
 
-        {/* Right side — search + menu */}
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-6">
           <button
             onClick={openSearch}
-            className={`transition-colors duration-300 ${
-              isDark ? "text-white/50 hover:text-white" : "text-text-tertiary hover:text-navy"
+            className={`transition-colors duration-500 ${
+              isDark ? "text-white/40 hover:text-white" : "text-text-tertiary hover:text-navy"
             }`}
             aria-label="Search"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="8" />
               <path d="m21 21-4.35-4.35" />
             </svg>
           </button>
-
           <button
-            className={`transition-colors duration-300 ${
-              isDark ? "text-white/50 hover:text-white" : "text-text-tertiary hover:text-navy"
+            className={`transition-colors duration-500 ${
+              isDark ? "text-white/40 hover:text-white" : "text-text-tertiary hover:text-navy"
             }`}
             aria-label="Menu"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M4 8h16" />
               <path d="M4 16h16" />
             </svg>

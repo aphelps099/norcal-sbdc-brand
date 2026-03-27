@@ -23,21 +23,27 @@ export default function SplashIntro() {
           onComplete: () => setDismissed(true),
         });
 
-        tl.to(".intro-logo", {
-          opacity: 1, y: 0, duration: 0.9, ease: "power3.out",
-        }, 0.5);
+        // Logo fades in
+        tl.to(".splash-logo", {
+          opacity: 1,
+          scale: 1,
+          duration: 1,
+          ease: "power2.out",
+        }, 0.2);
 
-        tl.to(".intro-rule", {
-          opacity: 1, scaleX: 1, duration: 0.6, ease: "power2.out",
-        }, 0.8);
-
-        tl.to(".intro-sub", {
-          opacity: 1, y: 0, duration: 0.6, ease: "power3.out",
-        }, 1.0);
+        // Brief hold, then fade everything out
+        tl.to(".splash-logo", {
+          opacity: 0,
+          scale: 1.04,
+          duration: 0.5,
+          ease: "power2.in",
+        }, 1.6);
 
         tl.to(overlayRef.current, {
-          opacity: 0, duration: 0.6, ease: "power2.in", delay: 0.9,
-        });
+          opacity: 0,
+          duration: 0.5,
+          ease: "power2.in",
+        }, 1.8);
       }, overlayRef.current);
     }
 
@@ -50,26 +56,14 @@ export default function SplashIntro() {
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-cream"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-navy-deep"
     >
-      <div
-        className="intro-logo font-serif text-lg tracking-[0.02em] text-navy"
-        style={{ opacity: 0, transform: "translateY(16px)" }}
-      >
-        NorCal SBDC
-      </div>
-
-      <div
-        className="intro-rule w-12 h-px bg-navy/15 my-5"
-        style={{ opacity: 0, transform: "scaleX(0)" }}
+      <img
+        src="/logo-white.png"
+        alt="NorCal SBDC"
+        className="splash-logo w-[220px] sm:w-[280px]"
+        style={{ opacity: 0, transform: "scale(0.96)" }}
       />
-
-      <div
-        className="intro-sub font-mono text-[0.6rem] tracking-[0.25em] uppercase text-text-secondary"
-        style={{ opacity: 0, transform: "translateY(10px)" }}
-      >
-        Brand House
-      </div>
     </div>
   );
 }

@@ -33,26 +33,24 @@ export default function CapabilitiesGrid() {
       if (!sectionRef.current) return;
 
       ctx = gsap.context(() => {
-        // Header
         gsap.fromTo(
           ".cap-header",
-          { opacity: 0, y: 30 },
+          { opacity: 0, y: 28 },
           {
             opacity: 1, y: 0, duration: 1, ease: "power3.out",
-            scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
+            scrollTrigger: { trigger: sectionRef.current, start: "top 72%" },
           }
         );
 
-        // Columns stagger
         const cols = sectionRef.current!.querySelectorAll<HTMLElement>(".cap-col");
         cols.forEach((col, i) => {
           gsap.fromTo(
             col,
             { opacity: 0, y: 40 },
             {
-              opacity: 1, y: 0, duration: 0.9, ease: "power3.out",
-              delay: i * 0.15,
-              scrollTrigger: { trigger: sectionRef.current, start: "top 60%" },
+              opacity: 1, y: 0, duration: 1, ease: "power3.out",
+              delay: i * 0.12,
+              scrollTrigger: { trigger: sectionRef.current, start: "top 62%" },
             }
           );
         });
@@ -65,40 +63,39 @@ export default function CapabilitiesGrid() {
 
   return (
     <section ref={sectionRef} className="bg-white">
-      <div className="max-w-6xl mx-auto px-6 py-24 sm:py-32">
+      <div className="max-w-[1200px] mx-auto px-8 sm:px-12 py-28 sm:py-36">
         {/* Header */}
-        <div className="cap-header text-center mb-16 sm:mb-24">
+        <div className="cap-header text-center mb-20 sm:mb-28">
           <p
-            className="font-mono text-text-tertiary uppercase"
-            style={{ fontSize: "0.6rem", letterSpacing: "0.25em" }}
+            className="font-sans text-text-tertiary uppercase font-600"
+            style={{ fontSize: "0.6rem", letterSpacing: "0.22em" }}
           >
             Capabilities
           </p>
           <h2
-            className="font-serif text-navy mt-4 leading-[1.15] tracking-[-0.02em]"
-            style={{ fontSize: "clamp(24px, 3.5vw, 44px)" }}
+            className="font-serif text-navy mt-5 leading-[1.12] tracking-[-0.025em]"
+            style={{ fontSize: "clamp(26px, 3.8vw, 48px)" }}
           >
-            Elevate your brand with our
-            <br />
+            Elevate your brand with our<br />
             tailored solutions.
           </h2>
         </div>
 
-        {/* 3-column grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 lg:gap-16">
+        {/* 3 columns */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-14 md:gap-10 lg:gap-20">
           {capabilities.map((cap, i) => (
             <div key={i} className="cap-col">
-              <h3 className="font-sans text-[0.85rem] font-800 text-navy tracking-[-0.01em]">
+              <h3 className="font-sans text-[0.88rem] font-800 text-navy tracking-[-0.01em]">
                 {cap.title}
               </h3>
-              <p className="font-sans text-[0.78rem] text-text-secondary leading-[1.6] mt-3">
+              <p className="font-sans text-[0.8rem] text-text-secondary leading-[1.65] mt-3">
                 {cap.description}
               </p>
-              <ul className="mt-5 space-y-2.5">
+              <ul className="mt-6 space-y-3">
                 {cap.items.map((item, j) => (
                   <li
                     key={j}
-                    className="font-sans text-[0.72rem] text-navy pb-2.5 border-b border-black/[0.06]"
+                    className="font-sans text-[0.74rem] text-navy/80 pb-3 border-b border-black/[0.05]"
                   >
                     {item}
                   </li>
