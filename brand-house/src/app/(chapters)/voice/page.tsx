@@ -32,27 +32,30 @@ export default function VoicePage() {
       />
       <div className="bg-white py-16 md:py-24">
         {/* Brand Personality */}
-        <div className="mb-20">
+        <div className="mb-24">
           <div className="max-w-[780px] mx-auto px-8 md:px-12">
-            <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-5">
+            <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-6">
               Brand Personality
             </h2>
-            <p className="font-sans text-base text-text-secondary font-500 leading-relaxed max-w-xl mb-10">
-              We are <strong className="font-800 text-navy">confident</strong> but never arrogant.{" "}
-              <strong className="font-800 text-navy">Expert</strong> but never condescending.{" "}
-              <strong className="font-800 text-navy">Warm</strong> but never unprofessional. We speak
-              like the advisor you&rsquo;d actually want to have coffee with.
+            <p className="font-sans text-lg md:text-xl text-text-secondary font-500 leading-[1.7] max-w-[640px] mb-14">
+              We are <strong className="font-800 text-navy">confident</strong> but never
+              arrogant. <strong className="font-800 text-navy">Expert</strong> but never
+              condescending. <strong className="font-800 text-navy">Warm</strong> but never
+              unprofessional. We speak like the advisor you&rsquo;d actually want to have
+              coffee with.
             </p>
           </div>
           <div className="max-w-[960px] mx-auto px-8 md:px-12">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-              {voiceAttributes.map((attr) => (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
+              {voiceAttributes.map((attr, i) => (
                 <div
                   key={attr.trait}
-                  className="p-5 rounded-lg border border-black/[0.04] bg-[#f7f7f5]"
+                  className={`py-6 px-6 ${i < voiceAttributes.length - 1 ? "border-r border-black/[0.08]" : ""}`}
                 >
-                  <h3 className="font-serif text-lg text-navy mb-1.5">{attr.trait}</h3>
-                  <p className="font-sans text-[13px] text-text-secondary font-500 leading-relaxed">
+                  <h3 className="font-serif text-xl md:text-2xl text-navy mb-2 tracking-[-0.01em]">
+                    {attr.trait}
+                  </h3>
+                  <p className="font-sans text-sm text-text-secondary font-500 leading-relaxed">
                     {attr.description}
                   </p>
                 </div>
@@ -62,14 +65,14 @@ export default function VoicePage() {
         </div>
 
         {/* Messaging Framework */}
-        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-20">
+        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-24">
           <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-10">
             Messaging Framework
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
             <div>
-              <span className="font-sans text-[12px] font-700 uppercase tracking-[0.2em] text-royal mb-3 block">
+              <span className="font-sans text-[12px] font-800 uppercase tracking-[0.2em] text-royal mb-3 block">
                 Tagline
               </span>
               <p className="font-serif text-2xl text-navy">
@@ -77,7 +80,7 @@ export default function VoicePage() {
               </p>
             </div>
             <div>
-              <span className="font-sans text-[12px] font-700 uppercase tracking-[0.2em] text-royal mb-3 block">
+              <span className="font-sans text-[12px] font-800 uppercase tracking-[0.2em] text-royal mb-3 block">
                 Campaign Pillars
               </span>
               <div className="space-y-2.5">
@@ -94,7 +97,7 @@ export default function VoicePage() {
             </div>
           </div>
 
-          <span className="font-sans text-[12px] font-700 uppercase tracking-[0.2em] text-navy/30 mb-5 block">
+          <span className="font-sans text-[12px] font-800 uppercase tracking-[0.2em] text-navy/30 mb-5 block">
             Headline Patterns
           </span>
           <div className="space-y-3">
@@ -113,31 +116,47 @@ export default function VoicePage() {
           </h2>
         </div>
         <div className="max-w-[960px] mx-auto px-8 md:px-12">
-          <div className="rounded-lg border border-black/[0.04] bg-[#f7f7f5] overflow-hidden text-[13px]">
-            <div className="grid grid-cols-[1fr_1fr_2fr] gap-0">
-              <div className="font-sans text-[11px] font-700 uppercase tracking-[0.15em] text-navy/35 p-4 border-b border-black/[0.04]">
+          <div className="border border-black/[0.08] overflow-hidden">
+            {/* Table header */}
+            <div className="grid grid-cols-[140px_1fr_2fr] md:grid-cols-[160px_1fr_2fr] bg-navy">
+              <div className="font-sans text-[10px] font-800 uppercase tracking-[0.18em] text-white/50 px-5 py-3.5">
                 Context
               </div>
-              <div className="font-sans text-[11px] font-700 uppercase tracking-[0.15em] text-navy/35 p-4 border-b border-black/[0.04]">
+              <div className="font-sans text-[10px] font-800 uppercase tracking-[0.18em] text-white/50 px-5 py-3.5 border-l border-white/[0.08]">
                 Tone
               </div>
-              <div className="font-sans text-[11px] font-700 uppercase tracking-[0.15em] text-navy/35 p-4 border-b border-black/[0.04]">
+              <div className="font-sans text-[10px] font-800 uppercase tracking-[0.18em] text-white/50 px-5 py-3.5 border-l border-white/[0.08]">
                 Example
               </div>
-              {toneTable.map((row, i) => (
-                <div key={i} className="contents">
-                  <div className={`font-sans font-800 text-navy p-4 ${i < toneTable.length - 1 ? "border-b border-black/[0.04]" : ""}`}>
-                    {row.context}
-                  </div>
-                  <div className={`font-sans font-500 text-text-secondary p-4 ${i < toneTable.length - 1 ? "border-b border-black/[0.04]" : ""}`}>
-                    {row.tone}
-                  </div>
-                  <div className={`font-serif text-navy/60 italic p-4 ${i < toneTable.length - 1 ? "border-b border-black/[0.04]" : ""}`}>
-                    &ldquo;{row.example}&rdquo;
-                  </div>
-                </div>
-              ))}
             </div>
+            {/* Table rows */}
+            {toneTable.map((row, i) => (
+              <div
+                key={i}
+                className={`grid grid-cols-[140px_1fr_2fr] md:grid-cols-[160px_1fr_2fr] items-center ${
+                  i < toneTable.length - 1 ? "border-b border-black/[0.06]" : ""
+                }`}
+              >
+                {/* Context — pill */}
+                <div className="px-5 py-4">
+                  <span className="inline-block px-3 py-1.5 border border-navy/[0.12] font-sans text-[11px] font-800 uppercase tracking-[0.08em] text-navy/60">
+                    {row.context}
+                  </span>
+                </div>
+                {/* Tone */}
+                <div className="px-5 py-4 border-l border-black/[0.06]">
+                  <span className="font-sans text-[15px] font-500 text-text-secondary">
+                    {row.tone}
+                  </span>
+                </div>
+                {/* Example — large, confident, NOT italic */}
+                <div className="px-5 py-4 border-l border-black/[0.06]">
+                  <p className="font-serif text-lg md:text-xl text-navy leading-snug tracking-[-0.01em]">
+                    &ldquo;{row.example}&rdquo;
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
