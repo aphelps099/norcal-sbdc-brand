@@ -29,121 +29,125 @@ export default function VoicePage() {
         title="Voice & Tone"
         subtitle="Our voice is the personality behind every word — confident, human, and always rooted in expertise."
       />
-      <div className="max-w-[1200px] mx-auto px-8 md:px-16 py-16 md:py-24">
+      <div className="py-16 md:py-24">
         {/* Brand Personality */}
         <div className="mb-20">
-          <div className="flex items-center gap-4 mb-10">
-            <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/30">01</span>
-            <div className="h-[1px] flex-1 bg-navy/8" />
+          <div className="max-w-[780px] mx-auto px-8 md:px-12">
+            <div className="flex items-center gap-4 mb-10">
+              <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/25">01</span>
+              <div className="h-[1px] flex-1 bg-navy/8" />
+            </div>
+            <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-5">
+              Brand Personality
+            </h2>
+            <p className="font-sans text-[13px] text-text-secondary font-500 leading-relaxed max-w-xl mb-10">
+              We are <strong className="font-800 text-navy">confident</strong> but never arrogant.{" "}
+              <strong className="font-800 text-navy">Expert</strong> but never condescending.{" "}
+              <strong className="font-800 text-navy">Warm</strong> but never unprofessional. We speak
+              like the advisor you&rsquo;d actually want to have coffee with.
+            </p>
           </div>
-          <h2 className="font-serif text-3xl md:text-4xl text-navy tracking-[-0.02em] mb-6">
-            Brand Personality
-          </h2>
-          <p className="font-sans text-base text-text-secondary font-500 leading-relaxed max-w-2xl mb-10">
-            We are <strong className="font-800 text-navy">confident</strong> but never arrogant.{" "}
-            <strong className="font-800 text-navy">Expert</strong> but never condescending.{" "}
-            <strong className="font-800 text-navy">Warm</strong> but never unprofessional. We speak
-            like the advisor you&rsquo;d actually want to have coffee with — someone who&rsquo;s been
-            there, done that, and genuinely wants to help.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {voiceAttributes.map((attr) => (
-              <div
-                key={attr.trait}
-                className="p-6 rounded-xl border border-black/[0.04] bg-white"
-              >
-                <h3 className="font-serif text-xl text-navy mb-2">{attr.trait}</h3>
-                <p className="font-sans text-sm text-text-secondary font-500 leading-relaxed">
-                  {attr.description}
-                </p>
-              </div>
-            ))}
+          {/* Cards break wider */}
+          <div className="max-w-[960px] mx-auto px-8 md:px-12">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              {voiceAttributes.map((attr) => (
+                <div
+                  key={attr.trait}
+                  className="p-5 rounded-lg border border-black/[0.04] bg-white"
+                >
+                  <h3 className="font-serif text-lg text-navy mb-1.5">{attr.trait}</h3>
+                  <p className="font-sans text-[12px] text-text-secondary font-500 leading-relaxed">
+                    {attr.description}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Messaging Framework */}
-        <div className="mb-20">
+        {/* Messaging Framework — stays tight */}
+        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-20">
           <div className="flex items-center gap-4 mb-10">
-            <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/30">02</span>
+            <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/25">02</span>
             <div className="h-[1px] flex-1 bg-navy/8" />
           </div>
-          <h2 className="font-serif text-3xl md:text-4xl text-navy tracking-[-0.02em] mb-10">
+          <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-10">
             Messaging Framework
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
             <div>
-              <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-royal mb-4 block">
+              <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-royal mb-3 block">
                 Tagline
               </span>
-              <p className="font-serif text-3xl text-navy">
+              <p className="font-serif text-2xl text-navy">
                 Your Business, <em className="text-royal italic">Better.</em>
               </p>
             </div>
             <div>
-              <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-royal mb-4 block">
+              <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-royal mb-3 block">
                 Campaign Pillars
               </span>
-              <div className="space-y-3">
-                <p className="font-sans text-sm font-500 text-text-secondary">
+              <div className="space-y-2.5">
+                <p className="font-sans text-[13px] font-500 text-text-secondary">
                   <strong className="font-800 text-navy">Your Business, Connected</strong> — Network, resources, community
                 </p>
-                <p className="font-sans text-sm font-500 text-text-secondary">
+                <p className="font-sans text-[13px] font-500 text-text-secondary">
                   <strong className="font-800 text-navy">Your Business, People</strong> — Advisors, mentors, real humans
                 </p>
-                <p className="font-sans text-sm font-500 text-text-secondary">
+                <p className="font-sans text-[13px] font-500 text-text-secondary">
                   <strong className="font-800 text-navy">Your Business, Funded</strong> — Capital access, loans, grants
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Headline patterns */}
-          <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/30 mb-6 block">
+          <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/25 mb-5 block">
             Headline Patterns
           </span>
-          <div className="space-y-4 max-w-2xl">
+          <div className="space-y-3">
             {headlineExamples.map((h, i) => (
-              <p key={i} className="font-serif text-xl md:text-2xl text-navy leading-snug">
+              <p key={i} className="font-serif text-lg md:text-xl text-navy leading-snug">
                 &ldquo;{h.text} <em className="text-royal italic">{h.emphasis}</em>&rdquo;
               </p>
             ))}
           </div>
         </div>
 
-        {/* Tone by Context */}
-        <div>
+        {/* Tone by Context — table breaks wider */}
+        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-6">
           <div className="flex items-center gap-4 mb-10">
-            <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/30">03</span>
+            <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/25">03</span>
             <div className="h-[1px] flex-1 bg-navy/8" />
           </div>
-          <h2 className="font-serif text-3xl md:text-4xl text-navy tracking-[-0.02em] mb-10">
+          <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-8">
             Tone by Context
           </h2>
-          <div className="rounded-xl border border-black/[0.04] bg-white overflow-hidden">
-            <div className="grid grid-cols-[1fr_1fr_2fr] gap-0 text-sm">
-              {/* Header row */}
-              <div className="font-sans text-[11px] font-800 uppercase tracking-[0.15em] text-navy/40 p-5 border-b border-black/[0.04]">
+        </div>
+        <div className="max-w-[960px] mx-auto px-8 md:px-12">
+          <div className="rounded-lg border border-black/[0.04] bg-white overflow-hidden text-[13px]">
+            <div className="grid grid-cols-[1fr_1fr_2fr] gap-0">
+              <div className="font-sans text-[10px] font-800 uppercase tracking-[0.15em] text-navy/35 p-4 border-b border-black/[0.04]">
                 Context
               </div>
-              <div className="font-sans text-[11px] font-800 uppercase tracking-[0.15em] text-navy/40 p-5 border-b border-black/[0.04]">
+              <div className="font-sans text-[10px] font-800 uppercase tracking-[0.15em] text-navy/35 p-4 border-b border-black/[0.04]">
                 Tone
               </div>
-              <div className="font-sans text-[11px] font-800 uppercase tracking-[0.15em] text-navy/40 p-5 border-b border-black/[0.04]">
+              <div className="font-sans text-[10px] font-800 uppercase tracking-[0.15em] text-navy/35 p-4 border-b border-black/[0.04]">
                 Example
               </div>
               {toneTable.map((row, i) => (
-                <>
-                  <div key={`ctx-${i}`} className={`font-sans font-800 text-navy p-5 ${i < toneTable.length - 1 ? "border-b border-black/[0.04]" : ""}`}>
+                <div key={i} className="contents">
+                  <div className={`font-sans font-800 text-navy p-4 ${i < toneTable.length - 1 ? "border-b border-black/[0.04]" : ""}`}>
                     {row.context}
                   </div>
-                  <div key={`tone-${i}`} className={`font-sans font-500 text-text-secondary p-5 ${i < toneTable.length - 1 ? "border-b border-black/[0.04]" : ""}`}>
+                  <div className={`font-sans font-500 text-text-secondary p-4 ${i < toneTable.length - 1 ? "border-b border-black/[0.04]" : ""}`}>
                     {row.tone}
                   </div>
-                  <div key={`ex-${i}`} className={`font-serif text-navy/70 italic p-5 ${i < toneTable.length - 1 ? "border-b border-black/[0.04]" : ""}`}>
+                  <div className={`font-serif text-navy/60 italic p-4 ${i < toneTable.length - 1 ? "border-b border-black/[0.04]" : ""}`}>
                     &ldquo;{row.example}&rdquo;
                   </div>
-                </>
+                </div>
               ))}
             </div>
           </div>

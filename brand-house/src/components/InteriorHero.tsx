@@ -40,7 +40,7 @@ export default function InteriorHero({ title, subtitle }: InteriorHeroProps) {
 
   return (
     <section ref={sectionRef} className="relative bg-navy overflow-hidden">
-      <div className="max-w-[1200px] mx-auto px-8 md:px-16 pt-32 pb-20 md:pt-40 md:pb-28">
+      <div className="max-w-[780px] mx-auto px-8 md:px-12 pt-32 pb-20 md:pt-40 md:pb-28">
         <Link
           href="/"
           className="inline-flex items-center gap-2 font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-white/40 hover:text-white/70 transition-colors mb-12"

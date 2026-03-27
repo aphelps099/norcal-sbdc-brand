@@ -24,7 +24,7 @@ export default function TemplatesPage() {
         title="Templates"
         subtitle="Ready-to-use copy blocks for emails, presentations, and social channels."
       />
-      <div className="max-w-[1200px] mx-auto px-8 md:px-16 py-16 md:py-24">
+      <div className="max-w-[780px] mx-auto px-8 md:px-12 py-16 md:py-24">
         <div className="flex items-center gap-4 mb-10">
           <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/30">01</span>
           <div className="h-[1px] flex-1 bg-navy/8" />
