@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /* ─── Section anchor nav data ─── */
 const SECTIONS = [
@@ -21,24 +21,33 @@ interface LogoAsset {
   bgDark?: boolean;
 }
 
+/* ─── Carousel colors ─── */
+const CAROUSEL_COLORS = [
+  "linear-gradient(135deg, #1A2537 0%, #0f1c2e 100%)",   // Navy
+  "linear-gradient(135deg, #1D5AA7 0%, #5684BA 100%)",   // Royal → Blue
+  "linear-gradient(135deg, #00685E 0%, #1D5AA7 100%)",   // Teal → Royal
+  "linear-gradient(135deg, #AB3C3C 0%, #c4543a 100%)",   // Red → Coral
+  "linear-gradient(135deg, #5684BA 0%, #8FC5D9 100%)",   // Blue → Pool
+];
+
 /* ─── Network logos ─── */
 const NETWORK_LOGOS: LogoAsset[] = [
   {
     name: "Full Color",
     description: "Primary network logo for light backgrounds",
-    preview: "/images/logos/ncn-full-color.png",
+    preview: "/logos/NCN_ColorBand_Logo-300x214.webp",
     variants: [
-      { label: "Web (PNG)", filename: "/downloads/logos/NCN-FullColor-Web.png" },
+      { label: "Web (PNG)", filename: "/logos/NCN_ColorBand_Logo-300x214.webp" },
       { label: "Print (EPS)", filename: "/downloads/logos/NCN-FullColor-Print.eps" },
     ],
   },
   {
     name: "Reverse (White)",
     description: "For dark backgrounds — navy, navy-deep, photography",
-    preview: "/images/logos/ncn-reverse.png",
+    preview: "/logos/NCN_Band_Logo_White.png",
     bgDark: true,
     variants: [
-      { label: "Web (PNG)", filename: "/downloads/logos/NCN-Reverse-Web.png" },
+      { label: "Web (PNG)", filename: "/logos/NCN_Band_Logo_White.png" },
       { label: "Print (EPS)", filename: "/downloads/logos/NCN-Reverse-Print.eps" },
     ],
   },
@@ -109,30 +118,49 @@ function SectionHeading({ id, title }: { id: string; title: string }) {
   );
 }
 
+/* ─── Logo carousel component ─── */
+function LogoCarousel() {
+  const [colorIndex, setColorIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setColorIndex((prev) => (prev + 1) % CAROUSEL_COLORS.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div
+      className="relative overflow-hidden border border-black/[0.05] flex items-center justify-center p-10 md:p-12 min-h-[240px] transition-all duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)]"
+      style={{ background: CAROUSEL_COLORS[colorIndex] }}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/logos/NCN_Band_Logo_White.png"
+        alt="NorCal SBDC Network Logo"
+        className="w-full max-w-[260px] h-auto relative z-10"
+      />
+    </div>
+  );
+}
+
 /* ─── Logo download card component ─── */
 function LogoCard({ logo }: { logo: LogoAsset }) {
   return (
     <div className="group">
       <div
-        className={`rounded-lg border overflow-hidden mb-3 flex items-center justify-center p-8 min-h-[160px] transition-shadow duration-300 group-hover:shadow-md ${
+        className={`border overflow-hidden mb-3 flex items-center justify-center p-8 min-h-[160px] transition-shadow duration-300 group-hover:shadow-md ${
           logo.bgDark
             ? "bg-navy border-navy/20"
             : "bg-white border-black/[0.06]"
         }`}
       >
-        <div
-          className={`w-full max-w-[160px] h-[64px] flex items-center justify-center rounded ${
-            logo.bgDark ? "bg-white/10" : "bg-[#f0f0ed]"
-          }`}
-        >
-          <span
-            className={`font-sans text-[10px] font-800 uppercase tracking-[0.1em] ${
-              logo.bgDark ? "text-white/40" : "text-navy/20"
-            }`}
-          >
-            {logo.name}
-          </span>
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={logo.preview}
+          alt={logo.name}
+          className="w-full max-w-[200px] h-auto"
+        />
       </div>
       <h3 className="font-sans text-[13px] font-800 text-navy mb-0.5">{logo.name}</h3>
       <p className="font-sans text-[13px] text-text-secondary font-500 mb-2.5">
@@ -144,7 +172,7 @@ function LogoCard({ logo }: { logo: LogoAsset }) {
             key={v.label}
             href={v.filename}
             download
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-navy/[0.04] hover:bg-royal/10 hover:text-royal text-navy/50 text-[10px] font-sans font-800 uppercase tracking-[0.08em] transition-all duration-200"
+            className="inline-flex items-center gap-1 px-2.5 py-1 bg-navy/[0.04] hover:bg-royal/10 hover:text-royal text-navy/50 text-[10px] font-sans font-800 uppercase tracking-[0.08em] transition-all duration-200"
           >
             <svg width="10" height="10" viewBox="0 0 12 12" fill="none" className="opacity-50">
               <path d="M6 1v8M3 6.5l3 3 3-3M2 11h8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -215,16 +243,8 @@ export default function LogoPageContent() {
       <section className="logo-section py-16 md:py-24">
         <div className={COL_WIDE}>
           <div className="grid grid-cols-1 md:grid-cols-[5fr_7fr] gap-10 md:gap-14 items-start">
-            {/* Left — logo preview */}
-            <div className="flex items-center justify-center bg-[#f7f7f5] rounded-xl border border-black/[0.05] p-10 md:p-12 min-h-[240px]">
-              <div className="w-full max-w-[220px] flex flex-col items-center gap-3">
-                <div className="w-full h-[100px] bg-white rounded flex items-center justify-center">
-                  <span className="font-sans text-[10px] font-800 uppercase tracking-[0.1em] text-navy/20">
-                    Network Logo
-                  </span>
-                </div>
-              </div>
-            </div>
+            {/* Left — logo carousel */}
+            <LogoCarousel />
 
             {/* Right — our logo text */}
             <div>
