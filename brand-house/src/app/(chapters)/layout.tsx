@@ -11,7 +11,7 @@ export default function ChaptersLayout({
     <>
       <TopNav />
       <InteriorNav />
-      <div className="min-h-screen bg-cream">
+      <div className="min-h-screen bg-white">
         {children}
       </div>
       <SiteFooter />

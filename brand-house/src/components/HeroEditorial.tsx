@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function HeroEditorial() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [underlineActive, setUnderlineActive] = useState(false);
 
   useEffect(() => {
     async function init() {
@@ -13,17 +14,14 @@ export default function HeroEditorial() {
       if (!sectionRef.current) return;
 
       gsap.context(() => {
-        // "Brand" appears 0.7s after video is visible (splash takes ~2.3s)
         gsap.fromTo(".hero-brand", { opacity: 0 }, {
           opacity: 1, duration: 0.12, ease: "none", delay: 3,
         });
 
-        // Underline draws in
         gsap.fromTo(".hero-underline", { scaleX: 0 }, {
           scaleX: 1, duration: 0.6, ease: "power2.out", delay: 3.15,
         });
 
-        // Scroll fade
         gsap.to(".hero-inner", {
           opacity: 0,
           y: -80,
@@ -41,10 +39,18 @@ export default function HeroEditorial() {
     init();
   }, []);
 
+  function handleBrandClick() {
+    setUnderlineActive(true);
+    const next = sectionRef.current?.nextElementSibling as HTMLElement | null;
+    if (next) {
+      next.scrollIntoView({ behavior: "smooth" });
+    }
+    setTimeout(() => setUnderlineActive(false), 1200);
+  }
+
   return (
     <section ref={sectionRef} className="relative w-full bg-black overflow-hidden">
       <div className="relative h-screen min-h-[700px]">
-        {/* Video background */}
         <div className="absolute inset-0">
           <video
             autoPlay
@@ -61,9 +67,11 @@ export default function HeroEditorial() {
           <div className="absolute inset-0 bg-black/60" />
         </div>
 
-        {/* Content */}
         <div className="hero-inner relative z-10 h-full flex items-center justify-center px-8">
-          <div className="inline-block text-center">
+          <button
+            onClick={handleBrandClick}
+            className="inline-block text-center cursor-pointer bg-transparent border-none outline-none group"
+          >
             <h1
               className="hero-brand font-serif text-white leading-[0.92] tracking-[-0.05em]"
               style={{
@@ -75,10 +83,14 @@ export default function HeroEditorial() {
               Brand
             </h1>
             <div
-              className="hero-underline h-[3px] bg-white mt-2 sm:mt-3"
-              style={{ transformOrigin: "left center", transform: "scaleX(0)" }}
+              className="hero-underline h-[3px] mt-1 transition-colors duration-500"
+              style={{
+                transformOrigin: "left center",
+                transform: "scaleX(0)",
+                backgroundColor: underlineActive ? "#8FC5D9" : "white",
+              }}
             />
-          </div>
+          </button>
         </div>
       </div>
     </section>

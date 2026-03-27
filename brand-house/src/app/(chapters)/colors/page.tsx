@@ -11,19 +11,14 @@ export default function ColorsPage() {
         title="Colors"
         subtitle="Our palette is built for contrast, accessibility, and editorial impact."
       />
-      <div className="py-16 md:py-24">
+      <div className="bg-white py-16 md:py-24">
         {/* Brand Palette */}
         <div className="mb-20">
           <div className="max-w-[780px] mx-auto px-8 md:px-12">
-            <div className="flex items-center gap-4 mb-10">
-              <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/25">01</span>
-              <div className="h-[1px] flex-1 bg-navy/8" />
-            </div>
             <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-10">
               Brand Palette
             </h2>
           </div>
-          {/* Swatches break wider */}
           <div className="max-w-[960px] mx-auto px-8 md:px-12">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
               {colorEntries.map((color) => (
@@ -38,16 +33,12 @@ export default function ColorsPage() {
           </div>
         </div>
 
-        {/* Usage Guidelines — stays tight */}
+        {/* Usage Guidelines */}
         <div className="max-w-[780px] mx-auto px-8 md:px-12">
-          <div className="flex items-center gap-4 mb-10">
-            <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/25">02</span>
-            <div className="h-[1px] flex-1 bg-navy/8" />
-          </div>
           <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-8">
             Usage Guidelines
           </h2>
-          <div className="space-y-5 text-text-secondary text-[13px] leading-relaxed font-sans font-500 max-w-xl">
+          <div className="space-y-5 text-text-secondary text-base leading-relaxed font-sans font-500 max-w-xl">
             <p>
               <strong className="font-800 text-navy">Navy (#0f1c2e)</strong> is our primary
               brand color. Use for headlines, hero sections, and high-impact moments.

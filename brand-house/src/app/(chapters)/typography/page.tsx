@@ -11,14 +11,10 @@ export default function TypographyPage() {
         title="Typography"
         subtitle="Our type system pairs Tiempos with Proxima Nova for editorial authority and clean readability."
       />
-      <div className="py-16 md:py-24">
+      <div className="bg-white py-16 md:py-24">
         {/* Type Specimens */}
         <div className="mb-20">
           <div className="max-w-[780px] mx-auto px-8 md:px-12">
-            <div className="flex items-center gap-4 mb-10">
-              <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/25">01</span>
-              <div className="h-[1px] flex-1 bg-navy/8" />
-            </div>
             <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-10">
               Type Specimens
             </h2>
@@ -35,21 +31,17 @@ export default function TypographyPage() {
           </div>
         </div>
 
-        {/* Hierarchy — cards break wider */}
+        {/* Hierarchy */}
         <div className="mb-20">
           <div className="max-w-[780px] mx-auto px-8 md:px-12">
-            <div className="flex items-center gap-4 mb-10">
-              <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/25">02</span>
-              <div className="h-[1px] flex-1 bg-navy/8" />
-            </div>
             <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-10">
               Hierarchy
             </h2>
           </div>
           <div className="max-w-[960px] mx-auto px-8 md:px-12">
             <div className="space-y-4">
-              <div className="p-7 rounded-lg border border-black/[0.04] bg-white">
-                <p className="font-sans text-[10px] font-800 uppercase tracking-[0.2em] text-navy/25 mb-3">
+              <div className="p-7 rounded-lg border border-black/[0.04] bg-[#f7f7f5]">
+                <p className="font-sans text-[11px] font-900 uppercase tracking-[0.2em] text-navy/30 mb-3">
                   Display / Hero
                 </p>
                 <p className="font-serif text-4xl md:text-5xl text-navy leading-[1.1]">
@@ -57,8 +49,8 @@ export default function TypographyPage() {
                 </p>
               </div>
 
-              <div className="p-7 rounded-lg border border-black/[0.04] bg-white">
-                <p className="font-sans text-[10px] font-800 uppercase tracking-[0.2em] text-navy/25 mb-3">
+              <div className="p-7 rounded-lg border border-black/[0.04] bg-[#f7f7f5]">
+                <p className="font-sans text-[11px] font-900 uppercase tracking-[0.2em] text-navy/30 mb-3">
                   Headline / H1
                 </p>
                 <p className="font-serif text-2xl md:text-3xl text-navy">
@@ -66,8 +58,8 @@ export default function TypographyPage() {
                 </p>
               </div>
 
-              <div className="p-7 rounded-lg border border-black/[0.04] bg-white">
-                <p className="font-sans text-[10px] font-800 uppercase tracking-[0.2em] text-navy/25 mb-3">
+              <div className="p-7 rounded-lg border border-black/[0.04] bg-[#f7f7f5]">
+                <p className="font-sans text-[11px] font-900 uppercase tracking-[0.2em] text-navy/30 mb-3">
                   Section Title / H2
                 </p>
                 <p className="font-serif text-xl text-navy">
@@ -75,19 +67,19 @@ export default function TypographyPage() {
                 </p>
               </div>
 
-              <div className="p-7 rounded-lg border border-black/[0.04] bg-white">
-                <p className="font-sans text-[10px] font-800 uppercase tracking-[0.2em] text-navy/25 mb-3">
+              <div className="p-7 rounded-lg border border-black/[0.04] bg-[#f7f7f5]">
+                <p className="font-sans text-[11px] font-900 uppercase tracking-[0.2em] text-navy/30 mb-3">
                   Body Text
                 </p>
-                <p className="text-[13px] text-text-secondary leading-[1.7] max-w-prose font-sans font-500">
+                <p className="text-base text-text-secondary leading-[1.7] max-w-prose font-sans font-500">
                   Since 1980, SBDC advisors have helped Northern California businesses
                   raise $2.8B in capital, create 42,000+ jobs, and turn kitchen-table
                   ideas into million-dollar companies.
                 </p>
               </div>
 
-              <div className="p-7 rounded-lg border border-black/[0.04] bg-white">
-                <p className="font-sans text-[10px] font-800 uppercase tracking-[0.2em] text-navy/25 mb-3">
+              <div className="p-7 rounded-lg border border-black/[0.04] bg-[#f7f7f5]">
+                <p className="font-sans text-[11px] font-900 uppercase tracking-[0.2em] text-navy/30 mb-3">
                   Label / Uppercase Sans
                 </p>
                 <p className="font-sans text-xs font-800 tracking-[0.2em] uppercase text-navy/35">
@@ -98,16 +90,12 @@ export default function TypographyPage() {
           </div>
         </div>
 
-        {/* Rules — stays tight */}
+        {/* Rules */}
         <div className="max-w-[780px] mx-auto px-8 md:px-12">
-          <div className="flex items-center gap-4 mb-10">
-            <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/25">03</span>
-            <div className="h-[1px] flex-1 bg-navy/8" />
-          </div>
           <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-8">
             Rules
           </h2>
-          <div className="space-y-4 text-text-secondary text-[13px] leading-relaxed font-sans font-500 max-w-xl">
+          <div className="space-y-4 text-text-secondary text-base leading-relaxed font-sans font-500 max-w-xl">
             <p>
               <strong className="font-800 text-navy">Headlines</strong> always use Tiempos.
               Italic emphasis words use Royal (#1D5AA7) color.
