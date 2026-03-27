@@ -1,5 +1,6 @@
 import InteriorHero from "@/components/InteriorHero";
 import ColorSwatch from "@/components/ColorSwatch";
+import NextSectionLink from "@/components/NextSectionLink";
 import { colors } from "@/lib/brand-tokens";
 
 export default function ColorsPage() {
@@ -67,6 +68,7 @@ export default function ColorsPage() {
           </div>
         </div>
       </div>
+      <NextSectionLink title="Typography" href="/typography" />
     </>
   );
 }

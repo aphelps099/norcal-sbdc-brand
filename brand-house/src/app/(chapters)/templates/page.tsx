@@ -1,5 +1,6 @@
 import InteriorHero from "@/components/InteriorHero";
 import CopyButton from "@/components/CopyButton";
+import NextSectionLink from "@/components/NextSectionLink";
 
 const emailSignature = `[Name] | [Title]
 NorCal Small Business Development Center
@@ -52,6 +53,7 @@ export default function TemplatesPage() {
           ))}
         </div>
       </div>
+      <NextSectionLink title="Colors" href="/colors" />
     </>
   );
 }

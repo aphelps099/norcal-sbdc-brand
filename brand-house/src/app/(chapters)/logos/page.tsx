@@ -1,5 +1,6 @@
 import InteriorHero from "@/components/InteriorHero";
 import LogoPageContent from "@/components/LogoPageContent";
+import NextSectionLink from "@/components/NextSectionLink";
 
 export default function LogosPage() {
   return (
@@ -9,6 +10,7 @@ export default function LogosPage() {
         subtitle="The California SBDC logo represents us at the very highest level. It acts as a signature, an identifier, and a stamp of quality."
       />
       <LogoPageContent />
+      <NextSectionLink title="Voice & Tone" href="/voice" />
     </>
   );
 }
