@@ -3,7 +3,17 @@
 /* ═══════════════════════════════════════════
    FONTS — Tiempos (serif) + Proxima Nova (sans)
    ═══════════════════════════════════════════ */
+/* Tiempos Text */
 @font-face { font-family: 'Tiempos'; src: url('/fonts/TiemposText-Regular.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Tiempos'; src: url('/fonts/TiemposText-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Tiempos'; src: url('/fonts/TiemposText-MediumItalic.otf') format('opentype'); font-weight: 500; font-style: italic; font-display: swap; }
+
+/* Tiempos Headline */
+@font-face { font-family: 'Tiempos Headline'; src: url('/fonts/TiemposHeadline-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Tiempos Headline'; src: url('/fonts/TiemposHeadline-Black.otf') format('opentype'); font-weight: 900; font-style: normal; font-display: swap; }
+
+/* Tiempos Fine */
+@font-face { font-family: 'Tiempos Fine'; src: url('/fonts/TiemposFine-Light.otf') format('opentype'); font-weight: 300; font-style: normal; font-display: swap; }
 
 @font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-MediumIt.otf') format('opentype'); font-weight: 500; font-style: italic; font-display: swap; }
@@ -37,6 +47,8 @@
 
   --sans: 'Proxima Nova', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
   --serif: 'Tiempos', Georgia, 'Times New Roman', serif;
+  --serif-headline: 'Tiempos Headline', 'Tiempos', Georgia, serif;
+  --serif-fine: 'Tiempos Fine', 'Tiempos', Georgia, serif;
   --mono: 'GT America Mono', 'SF Mono', 'Fira Code', monospace;
 
   --pad: clamp(24px, 5vw, 64px);
@@ -66,6 +78,8 @@
 
   --font-sans: 'Proxima Nova', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
   --font-serif: 'Tiempos', Georgia, 'Times New Roman', serif;
+  --font-serif-headline: 'Tiempos Headline', 'Tiempos', Georgia, serif;
+  --font-serif-fine: 'Tiempos Fine', 'Tiempos', Georgia, serif;
   --font-mono: 'GT America Mono', 'SF Mono', 'Fira Code', monospace;
 }
 

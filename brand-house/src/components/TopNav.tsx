@@ -9,22 +9,17 @@ const fuse = new Fuse(searchData, {
   threshold: 0.4,
 });
 
-const NAV_COL_1 = [
+const NAV_LINKS = [
   { label: "Colors",       href: "/colors",     color: "#1D5AA7" },
   { label: "Typography",   href: "/typography",  color: "#F7024D" },
   { label: "Logos",         href: "/logos",       color: "#0f1c2e" },
   { label: "Voice & Tone", href: "/voice",       color: "#c4543a" },
-  { label: "Templates",    href: "/templates",   color: "#8FC5D9" },
+  { label: "Templates",    href: "/templates",   color: "#1D5AA7" },
+  { label: "Content",      href: "/content",     color: "#8FC5D9" },
+  { label: "Calendar",     href: "/calendar",    color: "#c4543a" },
+  { label: "Stories",      href: "/stories",     color: "#F7024D" },
+  { label: "Glossary",     href: "/glossary",    color: "#8FC5D9" },
 ];
-
-const NAV_COL_2 = [
-  { label: "Content",   href: "/content",   color: "#1D5AA7" },
-  { label: "Calendar",  href: "/calendar",  color: "#c4543a" },
-  { label: "Stories",   href: "/stories",   color: "#F7024D" },
-  { label: "Glossary",  href: "/glossary",  color: "#8FC5D9" },
-];
-
-const ALL_LINKS = [...NAV_COL_1, ...NAV_COL_2];
 
 export default function TopNav() {
   const [scrolled, setScrolled] = useState(false);
@@ -79,38 +74,6 @@ export default function TopNav() {
   }, []);
 
   const isDark = !pastHero && !menuOpen;
-
-  const renderLink = (link: typeof ALL_LINKS[0], globalIdx: number, i: number) => (
-    <a
-      key={link.href}
-      href={link.href}
-      onClick={() => setMenuOpen(false)}
-      onMouseEnter={() => setHoveredIndex(globalIdx)}
-      onMouseLeave={() => setHoveredIndex(null)}
-      className="block no-underline"
-      style={{
-        clipPath: menuOpen ? "inset(0 0 0% 0)" : "inset(0 0 100% 0)",
-        transform: menuOpen ? "translateY(0)" : "translateY(16px)",
-        transition: `clip-path 0.6s cubic-bezier(0.16,1,0.3,1) ${0.12 + i * 0.045}s, transform 0.6s cubic-bezier(0.16,1,0.3,1) ${0.12 + i * 0.045}s`,
-      }}
-    >
-      <span
-        className="font-serif block transition-colors duration-300"
-        style={{
-          fontSize: "clamp(22px, 2.8vw, 36px)",
-          lineHeight: "1.45",
-          letterSpacing: "-0.02em",
-          color: hoveredIndex === globalIdx
-            ? link.color
-            : hoveredIndex !== null
-              ? "rgba(15,28,46,0.12)"
-              : "rgba(15,28,46,0.80)",
-        }}
-      >
-        {link.label}
-      </span>
-    </a>
-  );
 
   return (
     <>
@@ -172,107 +135,146 @@ export default function TopNav() {
         </div>
       </nav>
 
-      {/* Full-screen menu overlay — Pool bg */}
+      {/* Full-screen menu overlay */}
       {mounted && (
         <div
-          className={`fixed inset-0 z-[45] transition-opacity duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          className={`fixed inset-0 z-[45] overflow-hidden transition-opacity duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             menuOpen ? "opacity-100" : "opacity-0"
           }`}
           style={{ background: "#8FC5D9" }}
         >
+          {/* Giant "Explore" watermark */}
+          <div
+            className="absolute bottom-[-6vw] left-[-2vw] pointer-events-none select-none"
+            style={{
+              fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
+              fontWeight: 300,
+              fontStyle: "italic",
+              fontSize: "clamp(160px, 22vw, 320px)",
+              lineHeight: 1,
+              letterSpacing: "-0.04em",
+              color: "rgba(15,28,46,0.045)",
+              opacity: menuOpen ? 1 : 0,
+              transform: menuOpen ? "translateY(0)" : "translateY(40px)",
+              transition: "opacity 0.8s ease 0.2s, transform 1s cubic-bezier(0.16,1,0.3,1) 0.2s",
+            }}
+          >
+            Explore
+          </div>
+
           <div className="relative z-10 h-full flex flex-col pt-24 pb-8 md:pb-10 px-8 sm:px-12 md:px-16 lg:px-24">
 
-            {/* 3-col layout: col1 links | col2 links | search */}
+            {/* Main content — split: links left, search right */}
             <div className="flex-1 flex flex-col lg:flex-row items-start lg:items-center">
 
-              {/* Links — left 2/3 */}
-              <div className="flex-1 flex flex-col sm:flex-row gap-8 sm:gap-0 lg:pr-12">
-                {/* Column 1 */}
-                <div className="flex-1">
-                  <nav className="flex flex-col">
-                    {NAV_COL_1.map((link, i) => renderLink(link, i, i))}
-                  </nav>
-                </div>
-
-                {/* Separator */}
-                <div className="hidden sm:block w-px bg-[#2a4a5e]/20 mx-8 lg:mx-10 self-stretch" />
-
-                {/* Column 2 */}
-                <div className="flex-1">
-                  <nav className="flex flex-col">
-                    {NAV_COL_2.map((link, i) =>
-                      renderLink(link, NAV_COL_1.length + i, i)
-                    )}
-                  </nav>
-                </div>
+              {/* Left half — all nav links in single column */}
+              <div className="flex-1 flex flex-col justify-center lg:pr-12">
+                <nav className="flex flex-col">
+                  {NAV_LINKS.map((link, i) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      onMouseEnter={() => setHoveredIndex(i)}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                      className="block no-underline"
+                      style={{
+                        clipPath: menuOpen ? "inset(0 0 0% 0)" : "inset(0 0 100% 0)",
+                        transform: menuOpen ? "translateY(0)" : "translateY(14px)",
+                        transition: `clip-path 0.55s cubic-bezier(0.16,1,0.3,1) ${0.08 + i * 0.035}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${0.08 + i * 0.035}s`,
+                      }}
+                    >
+                      <span
+                        className="block transition-colors duration-300"
+                        style={{
+                          fontFamily: "'Tiempos Headline', 'Tiempos', Georgia, serif",
+                          fontWeight: 500,
+                          fontSize: "clamp(20px, 2.6vw, 34px)",
+                          lineHeight: "1.5",
+                          letterSpacing: "-0.015em",
+                          color: hoveredIndex === i
+                            ? link.color
+                            : hoveredIndex !== null
+                              ? "rgba(15,28,46,0.12)"
+                              : "rgba(15,28,46,0.75)",
+                        }}
+                      >
+                        {link.label}
+                      </span>
+                    </a>
+                  ))}
+                </nav>
               </div>
 
               {/* Separator */}
-              <div className="hidden lg:block w-px bg-[#2a4a5e]/20 mx-10 xl:mx-14 self-stretch" />
+              <div className="hidden lg:block w-px bg-[#2a4a5e]/15 self-stretch my-8" />
 
-              {/* Search — right 1/3 */}
+              {/* Right half — search */}
               <div
-                className="lg:w-[320px] xl:w-[360px] flex flex-col justify-center mt-10 lg:mt-0 w-full"
+                className="flex-1 flex flex-col justify-center lg:pl-16 mt-10 lg:mt-0 w-full lg:w-auto"
                 style={{
                   opacity: menuOpen ? 1 : 0,
                   transform: menuOpen ? "translateY(0)" : "translateY(12px)",
                   transition: "opacity 0.5s ease 0.15s, transform 0.5s cubic-bezier(0.16,1,0.3,1) 0.15s",
                 }}
               >
-                <div className="flex items-center gap-3 border-b-[3px] border-navy/25 pb-3 focus-within:border-navy/50 transition-colors duration-300">
-                  <svg
-                    width="22" height="22" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-                    className="text-navy/40 flex-shrink-0"
-                  >
-                    <circle cx="11" cy="11" r="7" />
-                    <path d="m20 20-3.5-3.5" />
-                  </svg>
-                  <input
-                    ref={searchRef}
-                    type="text"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search..."
-                    className="flex-1 bg-transparent font-serif text-navy text-xl md:text-2xl outline-none placeholder:text-navy/30 tracking-[-0.02em]"
-                  />
-                  <span className="font-sans text-[10px] font-800 uppercase tracking-[0.1em] text-navy/20 hidden sm:block">
-                    {"\u2318"}K
-                  </span>
-                </div>
-
-                {/* Search results */}
-                {query && (
-                  <div className="mt-4 space-y-0.5">
-                    {results.length === 0 ? (
-                      <p className="font-sans text-sm text-navy/30 font-500 py-2">
-                        No results for &ldquo;{query}&rdquo;
-                      </p>
-                    ) : (
-                      results.map((item) => (
-                        <a
-                          key={item.href}
-                          href={item.href}
-                          onClick={() => setMenuOpen(false)}
-                          className="flex items-baseline gap-3 py-2.5 no-underline group/result hover:bg-navy/[0.06] px-1 -mx-1 transition-colors duration-200"
-                        >
-                          <span className="font-sans text-[9px] font-800 uppercase tracking-[0.14em] text-navy/25 w-14 shrink-0">
-                            {item.section}
-                          </span>
-                          <span className="font-serif text-navy text-base group-hover/result:text-navy transition-colors duration-200">
-                            {item.title}
-                          </span>
-                        </a>
-                      ))
-                    )}
+                <div className="max-w-[440px]">
+                  <div className="flex items-center gap-3 border-b-[3px] border-navy/25 pb-3 focus-within:border-navy/50 transition-colors duration-300">
+                    <svg
+                      width="22" height="22" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                      className="text-navy/40 flex-shrink-0"
+                    >
+                      <circle cx="11" cy="11" r="7" />
+                      <path d="m20 20-3.5-3.5" />
+                    </svg>
+                    <input
+                      ref={searchRef}
+                      type="text"
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      placeholder="Search..."
+                      className="flex-1 bg-transparent text-navy text-xl md:text-2xl outline-none placeholder:text-navy/30 tracking-[-0.02em]"
+                      style={{ fontFamily: "'Tiempos', Georgia, serif" }}
+                    />
+                    <span className="font-sans text-[10px] font-800 uppercase tracking-[0.1em] text-navy/20 hidden sm:block">
+                      {"\u2318"}K
+                    </span>
                   </div>
-                )}
+
+                  {/* Search results */}
+                  {query && (
+                    <div className="mt-4 space-y-0.5">
+                      {results.length === 0 ? (
+                        <p className="font-sans text-sm text-navy/30 font-500 py-2">
+                          No results for &ldquo;{query}&rdquo;
+                        </p>
+                      ) : (
+                        results.map((item) => (
+                          <a
+                            key={item.href}
+                            href={item.href}
+                            onClick={() => setMenuOpen(false)}
+                            className="flex items-baseline gap-3 py-2.5 no-underline group/result hover:bg-navy/[0.06] px-2 -mx-2 transition-colors duration-200"
+                          >
+                            <span className="font-sans text-[9px] font-800 uppercase tracking-[0.14em] text-navy/25 w-14 shrink-0">
+                              {item.section}
+                            </span>
+                            <span className="font-serif text-navy text-base group-hover/result:text-navy transition-colors duration-200">
+                              {item.title}
+                            </span>
+                          </a>
+                        ))
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
             {/* Bottom bar */}
             <div
-              className="flex items-end justify-between pt-5 border-t border-[#2a4a5e]/15"
+              className="flex items-end justify-between pt-5 border-t border-[#2a4a5e]/12"
               style={{
                 opacity: menuOpen ? 1 : 0,
                 transition: "opacity 0.4s ease 0.5s",
