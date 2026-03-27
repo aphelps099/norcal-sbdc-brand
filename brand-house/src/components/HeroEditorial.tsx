@@ -1,25 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-
-const WORDS = ["People", "Funded", "Connected"];
+import { useEffect, useRef } from "react";
 
 export default function HeroEditorial() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [currentWord, setCurrentWord] = useState(0);
-  const [animReady, setAnimReady] = useState(false);
 
-  // Orchestrate entrance
   useEffect(() => {
-    let timer: ReturnType<typeof setInterval> | undefined;
-
     async function init() {
       const { gsap } = await import("gsap");
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
       gsap.registerPlugin(ScrollTrigger);
       if (!sectionRef.current) return;
 
-      const ctx = gsap.context(() => {
+      gsap.context(() => {
         const tl = gsap.timeline({ delay: 2.2 });
 
         // Logo fades in
@@ -27,26 +20,19 @@ export default function HeroEditorial() {
           opacity: 1, duration: 1, ease: "power2.out",
         });
 
-        // Logo fades out
+        // Logo fades out + set display none so it's gone
         tl.to(".hero-mark", {
-          opacity: 0, duration: 0.6, ease: "power2.in",
-        }, "+=0.6");
+          opacity: 0, duration: 0.5, ease: "power2.in",
+          onComplete: () => {
+            const el = document.querySelector<HTMLElement>(".hero-mark");
+            if (el) el.style.display = "none";
+          },
+        }, "+=0.5");
 
-        // "Brand" appears as logo leaves
-        tl.fromTo(".hero-brand", { opacity: 0, y: 16 }, {
-          opacity: 1, y: 0, duration: 1, ease: "power3.out",
-        }, "-=0.3");
-
-        // Rule draws in
-        tl.fromTo(".hero-rule", { scaleX: 0 }, {
-          scaleX: 1, duration: 0.7, ease: "power2.inOut",
-        }, "-=0.5");
-
-        // Subline appears
-        tl.fromTo(".hero-subline", { opacity: 0 }, {
-          opacity: 1, duration: 0.7, ease: "power2.out",
-          onComplete: () => setAnimReady(true),
-        }, "-=0.3");
+        // "Brand" snaps in
+        tl.fromTo(".hero-brand", { opacity: 0 }, {
+          opacity: 1, duration: 0.15, ease: "none",
+        });
 
         // Scroll fade
         gsap.to(".hero-inner", {
@@ -61,48 +47,10 @@ export default function HeroEditorial() {
           },
         });
       }, sectionRef.current);
-
-      return () => ctx.revert();
     }
 
     init();
-    return () => clearInterval(timer);
   }, []);
-
-  // Word cycling — only after entrance completes
-  useEffect(() => {
-    if (!animReady) return;
-
-    let gsapRef: typeof import("gsap")["gsap"] | null = null;
-    let timer: ReturnType<typeof setInterval> | undefined;
-
-    async function startCycling() {
-      const { gsap } = await import("gsap");
-      gsapRef = gsap;
-
-      timer = setInterval(() => {
-        const el = document.querySelector(".hero-rotating-word");
-        if (!el || !gsapRef) return;
-
-        gsapRef.to(el, {
-          opacity: 0,
-          y: -14,
-          duration: 0.3,
-          ease: "power2.in",
-          onComplete: () => {
-            setCurrentWord((prev) => (prev + 1) % WORDS.length);
-            gsapRef!.fromTo(el,
-              { opacity: 0, y: 14 },
-              { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }
-            );
-          },
-        });
-      }, 2600);
-    }
-
-    startCycling();
-    return () => { if (timer) clearInterval(timer); };
-  }, [animReady]);
 
   return (
     <section ref={sectionRef} className="relative w-full bg-black overflow-hidden">
@@ -125,8 +73,8 @@ export default function HeroEditorial() {
         </div>
 
         {/* Content */}
-        <div className="hero-inner relative z-10 h-full flex flex-col items-center justify-center px-8">
-          {/* Logo — appears then disappears */}
+        <div className="hero-inner relative z-10 h-full flex items-center justify-center px-8">
+          {/* Logo — fades in then gone */}
           <img
             src="/logo-white.png"
             alt="NorCal SBDC"
@@ -134,7 +82,7 @@ export default function HeroEditorial() {
             style={{ opacity: 0 }}
           />
 
-          {/* "Brand" — appears after logo fades */}
+          {/* "Brand" — snaps in after logo disappears */}
           <h1
             className="hero-brand font-serif text-white text-center leading-[0.92] tracking-[-0.05em]"
             style={{
@@ -145,25 +93,6 @@ export default function HeroEditorial() {
           >
             Brand
           </h1>
-
-          {/* Rule */}
-          <div
-            className="hero-rule w-16 h-px bg-white/20 mt-8 sm:mt-10 mb-8 sm:mb-10"
-            style={{ transformOrigin: "center", transform: "scaleX(0)" }}
-          />
-
-          {/* Cycling subline */}
-          <div
-            className="hero-subline flex items-center gap-4 sm:gap-5"
-            style={{ opacity: 0 }}
-          >
-            <span
-              className="hero-rotating-word font-sans text-white/70 uppercase text-center tracking-[0.2em] font-800"
-              style={{ fontSize: "clamp(11px, 1.2vw, 15px)", minWidth: "130px" }}
-            >
-              {WORDS[currentWord]}
-            </span>
-          </div>
         </div>
       </div>
     </section>
