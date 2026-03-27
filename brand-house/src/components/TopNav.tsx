@@ -69,6 +69,12 @@ export default function TopNav() {
           position: relative;
         }
         .menu-overlay::before {
+          content: none;
+        }
+        .menu-overlay::after {
+          content: none;
+        }
+        .menu-overlay[data-open="true"]::before {
           content: '';
           position: absolute;
           inset: 0;
@@ -76,7 +82,7 @@ export default function TopNav() {
           pointer-events: none;
           z-index: 1;
         }
-        .menu-overlay::after {
+        .menu-overlay[data-open="true"]::after {
           content: '';
           position: absolute;
           inset: 0;
@@ -177,7 +183,8 @@ export default function TopNav() {
             ? "opacity-100 visible pointer-events-auto"
             : "opacity-0 invisible pointer-events-none"
         }`}
-        style={{ background: "linear-gradient(180deg, #060e18 0%, #091422 50%, #0c1a2e 100%)" }}
+        data-open={menuOpen}
+        style={{ background: menuOpen ? "linear-gradient(180deg, #060e18 0%, #091422 50%, #0c1a2e 100%)" : "none" }}
       >
         <div className="relative z-10 h-full flex flex-col justify-center px-8 sm:px-16 md:px-24">
           {/* Left-aligned nav links */}
