@@ -246,29 +246,12 @@ export default function LogoPageContent() {
             {/* Left — logo carousel */}
             <LogoCarousel />
 
-            {/* Right — our logo text */}
-            <div>
-              <span className="font-sans text-[12px] font-700 uppercase tracking-[0.2em] text-royal mb-5 block">
-                Our Logo
-              </span>
-              <p className="font-serif text-lg md:text-xl text-navy leading-relaxed mb-5">
-                The California SBDC logo represents us at the very highest level
-                and is vitally important to our brand. It acts as a signature, an
-                identifier and a stamp of quality.
+            {/* Right — logo intro text */}
+            <div className="flex flex-col justify-center">
+              <p className="font-sans text-base md:text-lg text-navy/65 font-500 leading-relaxed">
+                Our logo is the most recognizable element of our brand. Always use
+                official logo files — never recreate or typeset.
               </p>
-              <p className="font-sans text-base text-text-secondary font-500 leading-relaxed mb-6">
-                It is, and should always be, the most consistent component in our
-                communications. In order to maintain this consistency, a few simple
-                guidelines should be followed.
-              </p>
-              <div className="flex items-start gap-3 p-4 rounded-lg bg-pool/10 border border-pool/20">
-                <span className="text-pool text-lg leading-none mt-0.5">✱</span>
-                <p className="font-sans text-sm text-navy/60 font-500 leading-relaxed">
-                  SBDC logos should <strong className="font-800 text-navy">never</strong> be
-                  recreated or typeset. Only official logo files should be used in
-                  communications.
-                </p>
-              </div>
             </div>
           </div>
         </div>

@@ -21,6 +21,56 @@ const NAV_LINKS = [
   { label: "Glossary",     href: "/glossary" },
 ];
 
+function NavLink({
+  link,
+  i,
+  menuOpen,
+  onNavigate,
+}: {
+  link: (typeof NAV_LINKS)[number];
+  i: number;
+  menuOpen: boolean;
+  onNavigate: () => void;
+}) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <a
+      href={link.href}
+      onClick={onNavigate}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="block no-underline relative overflow-hidden"
+      style={{
+        clipPath: menuOpen ? "inset(0 0 0% 0)" : "inset(0 0 100% 0)",
+        transform: menuOpen ? "translateY(0)" : "translateY(14px)",
+        transition: `clip-path 0.55s cubic-bezier(0.16,1,0.3,1) ${0.08 + i * 0.035}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${0.08 + i * 0.035}s`,
+      }}
+    >
+      {/* Pool bg sweep */}
+      <div
+        className="absolute inset-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+        style={{
+          background: "rgba(15,28,46,0.07)",
+          transform: hovered ? "translateY(0)" : "translateY(100%)",
+        }}
+      />
+      <span
+        className="block relative z-10 py-1.5 px-3 transition-colors duration-300"
+        style={{
+          fontFamily: "'Tiempos Headline', 'Tiempos', Georgia, serif",
+          fontWeight: 500,
+          fontSize: "clamp(20px, 2.6vw, 34px)",
+          lineHeight: "1.5",
+          letterSpacing: "-0.015em",
+          color: hovered ? "#0f1c2e" : "rgba(15,28,46,0.55)",
+        }}
+      >
+        {link.label}
+      </span>
+    </a>
+  );
+}
+
 export default function TopNav() {
   const [scrolled, setScrolled] = useState(false);
   const [pastHero, setPastHero] = useState(false);
@@ -167,32 +217,15 @@ export default function TopNav() {
 
               {/* Left half — all nav links in single column */}
               <div className="flex-1 flex flex-col justify-center lg:pr-16">
-                <nav className="flex flex-col">
+                <nav className="flex flex-col -mx-3">
                   {NAV_LINKS.map((link, i) => (
-                    <a
+                    <NavLink
                       key={link.href}
-                      href={link.href}
-                      onClick={() => setMenuOpen(false)}
-                      className="block no-underline group/nav"
-                      style={{
-                        clipPath: menuOpen ? "inset(0 0 0% 0)" : "inset(0 0 100% 0)",
-                        transform: menuOpen ? "translateY(0)" : "translateY(14px)",
-                        transition: `clip-path 0.55s cubic-bezier(0.16,1,0.3,1) ${0.08 + i * 0.035}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${0.08 + i * 0.035}s`,
-                      }}
-                    >
-                      <span
-                        className="block transition-all duration-300 text-navy/70 group-hover/nav:text-navy group-hover/nav:underline underline-offset-4 decoration-navy/30"
-                        style={{
-                          fontFamily: "'Tiempos Headline', 'Tiempos', Georgia, serif",
-                          fontWeight: 500,
-                          fontSize: "clamp(20px, 2.6vw, 34px)",
-                          lineHeight: "1.5",
-                          letterSpacing: "-0.015em",
-                        }}
-                      >
-                        {link.label}
-                      </span>
-                    </a>
+                      link={link}
+                      i={i}
+                      menuOpen={menuOpen}
+                      onNavigate={() => setMenuOpen(false)}
+                    />
                   ))}
                 </nav>
               </div>
