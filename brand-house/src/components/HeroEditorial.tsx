@@ -13,25 +13,9 @@ export default function HeroEditorial() {
       if (!sectionRef.current) return;
 
       gsap.context(() => {
-        const tl = gsap.timeline({ delay: 2.2 });
-
-        // Logo fades in
-        tl.fromTo(".hero-mark", { opacity: 0 }, {
-          opacity: 1, duration: 1, ease: "power2.out",
-        });
-
-        // Logo fades out + set display none so it's gone
-        tl.to(".hero-mark", {
-          opacity: 0, duration: 0.5, ease: "power2.in",
-          onComplete: () => {
-            const el = document.querySelector<HTMLElement>(".hero-mark");
-            if (el) el.style.display = "none";
-          },
-        }, "+=0.5");
-
-        // "Brand" snaps in
-        tl.fromTo(".hero-brand", { opacity: 0 }, {
-          opacity: 1, duration: 0.15, ease: "none",
+        // "Brand" snaps in after splash dismisses (~2.3s)
+        gsap.fromTo(".hero-brand", { opacity: 0 }, {
+          opacity: 1, duration: 0.15, ease: "none", delay: 2.3,
         });
 
         // Scroll fade
@@ -72,17 +56,8 @@ export default function HeroEditorial() {
           <div className="absolute inset-0 bg-black/60" />
         </div>
 
-        {/* Content */}
+        {/* Content — just "Brand" */}
         <div className="hero-inner relative z-10 h-full flex items-center justify-center px-8">
-          {/* Logo — fades in then gone */}
-          <img
-            src="/logo-white.png"
-            alt="NorCal SBDC"
-            className="hero-mark absolute w-[180px] sm:w-[220px]"
-            style={{ opacity: 0 }}
-          />
-
-          {/* "Brand" — snaps in after logo disappears */}
           <h1
             className="hero-brand font-serif text-white text-center leading-[0.92] tracking-[-0.05em]"
             style={{
