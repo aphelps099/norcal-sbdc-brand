@@ -22,10 +22,10 @@ export default function TypographyPage() {
               {/* Tiempos */}
               <div className="border border-black/[0.06] p-8 md:p-10">
                 <p className="font-sans text-[10px] font-800 uppercase tracking-[0.18em] text-navy/25 mb-8">
-                  Serif
+                  Tiempos
                 </p>
 
-                {/* Headline Black */}
+                {/* Headline Black — hero display */}
                 <p
                   className="text-navy leading-[1.05] tracking-[-0.03em] mb-6"
                   style={{
@@ -37,76 +37,51 @@ export default function TypographyPage() {
                   Your Business, Better.
                 </p>
 
-                {/* Text Medium Italic */}
+                {/* Headline Medium — section heading */}
                 <p
-                  className="text-navy/50 text-xl md:text-2xl leading-relaxed mb-6"
+                  className="text-navy/60 text-xl md:text-2xl leading-snug tracking-[-0.01em] mb-6"
+                  style={{
+                    fontFamily: "'Tiempos Headline', 'Tiempos', Georgia, serif",
+                    fontWeight: 500,
+                  }}
+                >
+                  Meet Your Business People
+                </p>
+
+                {/* Text Regular — body serif */}
+                <p
+                  className="text-navy/40 text-base leading-[1.7]"
                   style={{
                     fontFamily: "'Tiempos', Georgia, serif",
-                    fontWeight: 500,
-                    fontStyle: "italic",
+                    fontWeight: 400,
                   }}
                 >
-                  Someone who gets it.
+                  Since 1980, SBDC advisors have helped Northern California businesses raise $2.8B in capital and turn kitchen-table ideas into million-dollar companies.
                 </p>
-
-                {/* Fine Light */}
-                <p
-                  className="text-navy/35 text-lg leading-relaxed mb-10"
-                  style={{
-                    fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
-                    fontWeight: 300,
-                  }}
-                >
-                  Elegant when it needs to be, sharp when it matters.
-                </p>
-
-                <div className="border-t border-black/[0.06] pt-5 space-y-1.5">
-                  <p className="font-sans text-sm font-800 text-navy">
-                    Tiempos
-                  </p>
-                  <p className="font-sans text-[12px] font-500 text-navy/40 leading-relaxed">
-                    Text Regular &middot; Text Medium &middot; Text Medium Italic
-                  </p>
-                  <p className="font-sans text-[12px] font-500 text-navy/40 leading-relaxed">
-                    Headline Medium &middot; Headline Black
-                  </p>
-                  <p className="font-sans text-[12px] font-500 text-navy/40 leading-relaxed">
-                    Fine Light
-                  </p>
-                </div>
               </div>
 
               {/* Proxima Nova */}
               <div className="border border-black/[0.06] p-8 md:p-10">
                 <p className="font-sans text-[10px] font-800 uppercase tracking-[0.18em] text-navy/25 mb-8">
-                  Sans-Serif
+                  Proxima Nova
                 </p>
 
-                {/* Black 900 — display */}
+                {/* Black 900 — impact stat */}
                 <p className="font-sans font-900 text-navy tracking-[-0.02em] leading-[1.1] mb-6"
                   style={{ fontSize: "clamp(32px, 3.5vw, 44px)" }}
                 >
                   42,000+ JOBS CREATED
                 </p>
 
-                {/* Extrabold 800 — labels */}
+                {/* Extrabold 800 — label */}
                 <p className="font-sans font-800 text-[13px] uppercase tracking-[0.16em] text-royal mb-6">
                   Since 1980 — Northern California
                 </p>
 
                 {/* Medium 500 — body */}
-                <p className="font-sans font-500 text-base text-text-secondary leading-[1.7] mb-10">
+                <p className="font-sans font-500 text-base text-text-secondary leading-[1.7]">
                   SBDC advisors have helped Northern California businesses raise $2.8B in capital and turn kitchen-table ideas into million-dollar companies.
                 </p>
-
-                <div className="border-t border-black/[0.06] pt-5 space-y-1.5">
-                  <p className="font-sans text-sm font-800 text-navy">
-                    Proxima Nova
-                  </p>
-                  <p className="font-sans text-[12px] font-500 text-navy/40 leading-relaxed">
-                    Medium 500 &middot; Extrabold 800 &middot; Black 900
-                  </p>
-                </div>
               </div>
             </div>
           </div>

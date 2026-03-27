@@ -29,89 +29,81 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative bg-white">
-      <div className="max-w-[960px] mx-auto px-8 md:px-12">
-        <div className="border-t border-black/[0.06]" />
-      </div>
-
+    <div ref={containerRef} className="relative overflow-hidden">
       <a
         href={href}
-        className="group block max-w-[960px] mx-auto px-8 md:px-12 py-20 md:py-28 no-underline"
+        className="block no-underline relative"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        {/* Eyebrow */}
-        <p
-          className="font-sans text-[11px] font-800 uppercase tracking-[0.18em] mb-5 transition-all duration-700 ease-out"
-          style={{
-            color: hovered ? "#1D5AA7" : "rgba(15,28,46,0.25)",
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(12px)",
-            transitionDelay: visible ? "0.1s" : "0s",
-          }}
-        >
-          Next
-        </p>
-
-        {/* Title with color fill animation */}
+        {/* Pool bg sweep */}
         <div
-          className="relative overflow-hidden"
+          className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
           style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(20px)",
-            transition: "opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s",
+            background: "#8FC5D9",
+            transform: hovered ? "translateY(0)" : "translateY(100%)",
           }}
-        >
-          <h2
-            className="font-serif tracking-[-0.03em] leading-[1.05] transition-colors duration-700 ease-out"
+        />
+
+        <div className="relative z-10 max-w-[960px] mx-auto px-8 md:px-12 py-20 md:py-28">
+          {/* Eyebrow */}
+          <p
+            className="font-sans text-[11px] font-800 uppercase tracking-[0.18em] mb-5 transition-colors duration-500"
             style={{
-              fontSize: "clamp(36px, 6vw, 72px)",
-              color: hovered ? "#1D5AA7" : "#0f1c2e",
+              color: hovered ? "rgba(15,28,46,0.5)" : "rgba(15,28,46,0.25)",
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(12px)",
+              transition: "color 0.5s, opacity 0.6s ease-out 0.1s, transform 0.6s ease-out 0.1s",
             }}
           >
-            {title}
-          </h2>
+            Next
+          </p>
 
-          {/* Animated underline */}
+          {/* Title */}
           <div
-            className="mt-3 h-[2px] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
             style={{
-              width: hovered ? "80px" : "40px",
-              background: hovered
-                ? "linear-gradient(90deg, #1D5AA7, #8FC5D9)"
-                : "rgba(15,28,46,0.1)",
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(20px)",
+              transition: "opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s",
             }}
-          />
-        </div>
+          >
+            <h2
+              className="font-serif tracking-[-0.03em] leading-[1.05] transition-colors duration-500"
+              style={{
+                fontSize: "clamp(36px, 6vw, 72px)",
+                color: hovered ? "#0f1c2e" : "rgba(15,28,46,0.75)",
+              }}
+            >
+              {title}
+            </h2>
+          </div>
 
-        {/* Arrow */}
-        <div
-          className="mt-8 transition-all duration-700 ease-out"
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible
-              ? hovered
-                ? "translateX(8px)"
-                : "translateX(0)"
-              : "translateY(12px)",
-            transitionDelay: visible ? "0.3s" : "0s",
-          }}
-        >
+          {/* Oversized arrow — bg accent element */}
           <svg
-            width="32"
-            height="32"
+            width="64"
+            height="64"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="1.5"
+            strokeWidth="1"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="transition-colors duration-700"
-            style={{ color: hovered ? "#1D5AA7" : "rgba(15,28,46,0.2)" }}
+            className="absolute right-8 md:right-12 top-1/2 -translate-y-1/2 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+            style={{
+              color: hovered ? "rgba(15,28,46,0.15)" : "rgba(15,28,46,0.05)",
+              transform: `translateY(-50%) ${hovered ? "translateX(8px) scale(1.1)" : "translateX(0) scale(1)"}`,
+            }}
           >
             <path d="M5 12h14" />
             <path d="m12 5 7 7-7 7" />
           </svg>
+        </div>
+
+        {/* Top border */}
+        <div className="absolute top-0 left-0 right-0">
+          <div className="max-w-[960px] mx-auto px-8 md:px-12">
+            <div className="border-t border-black/[0.06]" />
+          </div>
         </div>
       </a>
     </div>
