@@ -1,13 +1,20 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
+import Fuse from "fuse.js";
+import { searchData, type SearchItem } from "@/lib/search-index";
+
+const fuse = new Fuse(searchData, {
+  keys: ["title", "section", "content"],
+  threshold: 0.4,
+});
 
 const NAV_LINKS = [
-  { label: "Colors",      href: "/colors",     color: "#8FC5D9" },  // Pool
-  { label: "Typography",  href: "/typography",  color: "#F7024D" },  // Strawberry
-  { label: "Logos",        href: "/logos",       color: "#1D5AA7" },  // Royal
-  { label: "Voice & Tone", href: "/voice",      color: "#c4543a" },  // Coral
-  { label: "Templates",   href: "/templates",   color: "#a8d8e8" },  // Pool-bright
+  { label: "Colors",       href: "/colors",     color: "#1D5AA7" },  // Royal
+  { label: "Typography",   href: "/typography",  color: "#F7024D" },  // Strawberry
+  { label: "Logos",         href: "/logos",       color: "#0f1c2e" },  // Navy
+  { label: "Voice & Tone", href: "/voice",       color: "#c4543a" },  // Coral
+  { label: "Templates",    href: "/templates",   color: "#8FC5D9" },  // Pool
 ];
 
 export default function TopNav() {
@@ -16,7 +23,13 @@ export default function TopNav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [query, setQuery] = useState("");
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  const results: SearchItem[] = query
+    ? fuse.search(query).map((r) => r.item)
+    : [];
 
   useEffect(() => {
     const onScroll = () => {
@@ -32,9 +45,11 @@ export default function TopNav() {
       document.body.style.overflow = "hidden";
       if (closeTimer.current) clearTimeout(closeTimer.current);
       setMounted(true);
+      setTimeout(() => searchRef.current?.focus(), 400);
     } else {
       document.body.style.overflow = "";
       setHoveredIndex(null);
+      setQuery("");
       closeTimer.current = setTimeout(() => setMounted(false), 750);
     }
     return () => {
@@ -43,9 +58,16 @@ export default function TopNav() {
     };
   }, [menuOpen]);
 
-  const openSearch = useCallback(() => {
-    setMenuOpen(false);
-    setTimeout(() => window.dispatchEvent(new CustomEvent("open-search")), 50);
+  // Cmd+K opens menu and focuses search
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setMenuOpen(true);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, []);
 
   const isDark = !pastHero && !menuOpen;
@@ -90,17 +112,16 @@ export default function TopNav() {
           <a
             href="/"
             className={`font-sans text-[0.72rem] font-800 tracking-[0.12em] uppercase transition-colors duration-500 no-underline ${
-              menuOpen ? "text-white" : isDark ? "text-white/70 hover:text-white" : "text-navy hover:text-navy"
+              menuOpen ? "text-navy" : isDark ? "text-white/70 hover:text-white" : "text-navy hover:text-navy"
             }`}
           >
             Brand.SBDC
           </a>
 
-          {/* Hamburger only — search moved into menu */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className={`burger-wrap flex flex-col items-end justify-center gap-[6.5px] w-[24px] h-[24px] transition-colors duration-500 ${
-              menuOpen ? "text-white/80 hover:text-white" : isDark ? "text-white/40 hover:text-white" : "text-text-tertiary hover:text-navy"
+              menuOpen ? "text-navy/60 hover:text-navy" : isDark ? "text-white/40 hover:text-white" : "text-text-tertiary hover:text-navy"
             }`}
             data-open={menuOpen}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -111,37 +132,76 @@ export default function TopNav() {
         </div>
       </nav>
 
-      {/* Full-screen menu overlay */}
+      {/* Full-screen menu overlay — white */}
       {mounted && (
         <div
-          className={`fixed inset-0 z-[45] transition-opacity duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          className={`fixed inset-0 z-[45] bg-white transition-opacity duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             menuOpen ? "opacity-100" : "opacity-0"
           }`}
-          style={{ background: "linear-gradient(180deg, #060e18 0%, #091422 50%, #0c1a2e 100%)" }}
         >
-          {/* Gradient accent */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: "linear-gradient(165deg, rgba(29,90,167,0.08) 0%, transparent 40%, rgba(143,197,217,0.04) 100%)",
-              zIndex: 1,
-            }}
-          />
-          {/* Film grain */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              opacity: 0.06,
-              zIndex: 2,
-              backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E\")",
-              backgroundSize: "200px 200px",
-              mixBlendMode: "overlay" as const,
-            }}
-          />
+          <div className="relative z-10 h-full flex flex-col pt-24 pb-8 md:pb-10 px-8 sm:px-12 md:px-16 lg:px-24">
 
-          <div className="relative z-10 h-full flex flex-col justify-center px-8 sm:px-12 md:px-16 lg:px-24">
-            {/* Nav links — massive Tiempos serif */}
-            <nav className="flex flex-col">
+            {/* Search — real input, prominent */}
+            <div
+              className="max-w-[680px] mb-10 md:mb-14"
+              style={{
+                opacity: menuOpen ? 1 : 0,
+                transform: menuOpen ? "translateY(0)" : "translateY(12px)",
+                transition: "opacity 0.5s ease 0.1s, transform 0.5s cubic-bezier(0.16,1,0.3,1) 0.1s",
+              }}
+            >
+              <div className="flex items-center gap-4 border-b-2 border-navy/10 pb-3 group focus-within:border-navy/30 transition-colors duration-300">
+                <svg
+                  width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                  className="text-navy/20 flex-shrink-0"
+                >
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="m20 20-3.5-3.5" />
+                </svg>
+                <input
+                  ref={searchRef}
+                  type="text"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search brand guidelines..."
+                  className="flex-1 bg-transparent font-serif text-navy text-xl md:text-2xl outline-none placeholder:text-navy/20 tracking-[-0.02em]"
+                />
+                <span className="font-sans text-[10px] font-800 uppercase tracking-[0.1em] text-navy/15 hidden sm:block">
+                  {"\u2318"}K
+                </span>
+              </div>
+
+              {/* Search results — inline */}
+              {query && (
+                <div className="mt-4 space-y-1">
+                  {results.length === 0 ? (
+                    <p className="font-sans text-sm text-navy/30 font-500 py-2">
+                      No results for &ldquo;{query}&rdquo;
+                    </p>
+                  ) : (
+                    results.map((item) => (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setMenuOpen(false)}
+                        className="flex items-center gap-4 py-2.5 px-1 no-underline group/result hover:bg-navy/[0.03] -mx-1 rounded transition-colors duration-200"
+                      >
+                        <span className="font-sans text-[10px] font-800 uppercase tracking-[0.14em] text-navy/25 w-16 shrink-0">
+                          {item.section}
+                        </span>
+                        <span className="font-serif text-navy text-lg group-hover/result:text-royal transition-colors duration-200">
+                          {item.title}
+                        </span>
+                      </a>
+                    ))
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Nav links — Tiempos serif, bold scale */}
+            <nav className="flex flex-col flex-1 justify-center -my-1">
               {NAV_LINKS.map((link, i) => (
                 <a
                   key={link.href}
@@ -149,26 +209,26 @@ export default function TopNav() {
                   onClick={() => setMenuOpen(false)}
                   onMouseEnter={() => setHoveredIndex(i)}
                   onMouseLeave={() => setHoveredIndex(null)}
-                  className="block no-underline"
+                  className="block no-underline py-1"
                   style={{
                     clipPath: menuOpen
                       ? "inset(0 0 0% 0)"
                       : "inset(0 0 100% 0)",
-                    transform: menuOpen ? "translateY(0)" : "translateY(30px)",
-                    transition: `clip-path 0.7s cubic-bezier(0.16,1,0.3,1) ${0.08 + i * 0.06}s, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${0.08 + i * 0.06}s`,
+                    transform: menuOpen ? "translateY(0)" : "translateY(20px)",
+                    transition: `clip-path 0.6s cubic-bezier(0.16,1,0.3,1) ${0.15 + i * 0.05}s, transform 0.6s cubic-bezier(0.16,1,0.3,1) ${0.15 + i * 0.05}s`,
                   }}
                 >
                   <span
-                    className="font-serif block transition-colors duration-350"
+                    className="font-serif block transition-colors duration-300"
                     style={{
-                      fontSize: "clamp(48px, 11vw, 140px)",
-                      lineHeight: "0.92",
-                      letterSpacing: "-0.03em",
+                      fontSize: "clamp(32px, 6vw, 72px)",
+                      lineHeight: "1.05",
+                      letterSpacing: "-0.025em",
                       color: hoveredIndex === i
                         ? link.color
                         : hoveredIndex !== null
-                          ? "rgba(255,255,255,0.15)"
-                          : "rgba(255,255,255,0.50)",
+                          ? "rgba(15,28,46,0.12)"
+                          : "rgba(15,28,46,0.75)",
                     }}
                   >
                     {link.label}
@@ -177,45 +237,25 @@ export default function TopNav() {
               ))}
             </nav>
 
-            {/* Bottom bar — search + links */}
+            {/* Bottom bar */}
             <div
-              className="absolute bottom-8 md:bottom-10 left-8 sm:left-12 md:left-16 lg:left-24 right-8 sm:right-12 md:right-16 lg:right-24 flex items-end justify-between"
+              className="flex items-end justify-between pt-6 border-t border-navy/[0.06]"
               style={{
                 opacity: menuOpen ? 1 : 0,
-                transition: "opacity 0.5s ease 0.5s",
+                transition: "opacity 0.4s ease 0.5s",
               }}
             >
-              {/* Search trigger */}
-              <button
-                onClick={openSearch}
-                className="font-sans text-white/20 hover:text-white/50 transition-colors duration-300 font-800 uppercase flex items-center gap-2.5"
-                style={{ fontSize: "0.62rem", letterSpacing: "0.12em" }}
-              >
-                <svg
-                  width="12" height="12" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-                >
-                  <circle cx="11" cy="11" r="7" />
-                  <path d="m20 20-3.5-3.5" />
-                </svg>
-                Search
-                <span className="text-white/10 ml-0.5">{"\u2318"}K</span>
-              </button>
-
-              {/* External link */}
               <a
                 href="https://norcalsbdc.org"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-sans text-white/12 hover:text-white/30 transition-colors duration-300 no-underline font-800 uppercase hidden sm:block"
+                className="font-sans text-navy/20 hover:text-navy/50 transition-colors duration-300 no-underline font-800 uppercase"
                 style={{ fontSize: "0.6rem", letterSpacing: "0.12em" }}
               >
                 norcalsbdc.org
               </a>
-
-              {/* Copyright */}
               <span
-                className="font-sans text-white/8 uppercase font-800"
+                className="font-sans text-navy/12 uppercase font-800"
                 style={{ fontSize: "0.55rem", letterSpacing: "0.1em" }}
               >
                 &copy; 2026
