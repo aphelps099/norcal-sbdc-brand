@@ -2,86 +2,53 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const WORDS = ["People", "Funded", "Connected", "Better"];
+const WORDS = ["People", "Funded", "Connected"];
 
 export default function HeroEditorial() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const wordRef = useRef<HTMLSpanElement>(null);
   const [currentWord, setCurrentWord] = useState(0);
+  const [animReady, setAnimReady] = useState(false);
 
-  // Word rotation
+  // Orchestrate entrance + rotation
   useEffect(() => {
-    let gsapModule: typeof import("gsap")["gsap"] | null = null;
-    let timer: ReturnType<typeof setInterval>;
+    let gsapRef: typeof import("gsap")["gsap"] | null = null;
+    let timer: ReturnType<typeof setInterval> | undefined;
 
     async function init() {
-      const mod = await import("gsap");
-      gsapModule = mod.gsap;
-
-      // Initial entrance
-      if (wordRef.current) {
-        gsapModule.fromTo(
-          wordRef.current,
-          { opacity: 0, y: 50, rotateX: -50 },
-          { opacity: 1, y: 0, rotateX: 0, duration: 0.9, ease: "power3.out", delay: 2.4 }
-        );
-      }
-
-      timer = setInterval(() => {
-        if (!wordRef.current || !gsapModule) return;
-
-        const gsap = gsapModule;
-        const el = wordRef.current;
-
-        gsap.to(el, {
-          opacity: 0,
-          y: -40,
-          rotateX: 50,
-          duration: 0.45,
-          ease: "power2.in",
-          onComplete: () => {
-            setCurrentWord((prev) => {
-              const next = prev + 1;
-              if (next >= WORDS.length) {
-                clearInterval(timer);
-                return WORDS.length - 1;
-              }
-              return next;
-            });
-            gsap.fromTo(
-              el,
-              { opacity: 0, y: 50, rotateX: -50 },
-              { opacity: 1, y: 0, rotateX: 0, duration: 0.7, ease: "power3.out" }
-            );
-          },
-        });
-      }, 2400);
-    }
-
-    init();
-    return () => clearInterval(timer);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Scroll fade
-  useEffect(() => {
-    let ctx: ReturnType<typeof import("gsap")["gsap"]["context"]> | undefined;
-
-    async function initScroll() {
       const { gsap } = await import("gsap");
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
       gsap.registerPlugin(ScrollTrigger);
+      gsapRef = gsap;
       if (!sectionRef.current) return;
 
-      ctx = gsap.context(() => {
-        gsap.fromTo(
-          ".hero-static",
-          { opacity: 0, y: 50 },
-          { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", delay: 2 }
-        );
+      const ctx = gsap.context(() => {
+        const tl = gsap.timeline({ delay: 2.2 });
 
-        gsap.to(".hero-content", {
+        // Logo mark fades in first
+        tl.fromTo(".hero-mark", { opacity: 0 }, {
+          opacity: 1, duration: 1.2, ease: "power2.out",
+        });
+
+        // "Brand" scales up from nothing
+        tl.fromTo(".hero-brand", { opacity: 0, y: 20 }, {
+          opacity: 1, y: 0, duration: 1, ease: "power3.out",
+        }, "-=0.5");
+
+        // Subline appears
+        tl.fromTo(".hero-subline", { opacity: 0 }, {
+          opacity: 1, duration: 0.8, ease: "power2.out",
+          onComplete: () => setAnimReady(true),
+        }, "-=0.4");
+
+        // Rule line draws in
+        tl.fromTo(".hero-rule", { scaleX: 0 }, {
+          scaleX: 1, duration: 0.8, ease: "power2.inOut",
+        }, "-=0.6");
+
+        // Scroll fade
+        gsap.to(".hero-inner", {
           opacity: 0,
-          y: -100,
+          y: -80,
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -91,11 +58,48 @@ export default function HeroEditorial() {
           },
         });
       }, sectionRef.current);
+
+      return () => ctx.revert();
     }
 
-    initScroll();
-    return () => { ctx?.revert(); };
+    init();
+    return () => clearInterval(timer);
   }, []);
+
+  // Word cycling — only after entrance completes
+  useEffect(() => {
+    if (!animReady) return;
+
+    let gsapRef: typeof import("gsap")["gsap"] | null = null;
+    let timer: ReturnType<typeof setInterval>;
+
+    async function startCycling() {
+      const { gsap } = await import("gsap");
+      gsapRef = gsap;
+
+      timer = setInterval(() => {
+        const el = document.querySelector(".hero-rotating-word");
+        if (!el || !gsapRef) return;
+
+        gsapRef.to(el, {
+          opacity: 0,
+          y: -16,
+          duration: 0.35,
+          ease: "power2.in",
+          onComplete: () => {
+            setCurrentWord((prev) => (prev + 1) % WORDS.length);
+            gsapRef!.fromTo(el,
+              { opacity: 0, y: 16 },
+              { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }
+            );
+          },
+        });
+      }, 2800);
+    }
+
+    startCycling();
+    return () => clearInterval(timer);
+  }, [animReady]);
 
   return (
     <section ref={sectionRef} className="relative w-full bg-black overflow-hidden">
@@ -114,44 +118,48 @@ export default function HeroEditorial() {
               type="video/mp4"
             />
           </video>
-          <div className="absolute inset-0 bg-black/55" />
+          <div className="absolute inset-0 bg-black/60" />
         </div>
 
         {/* Content */}
-        <div className="hero-content relative z-10 h-full flex flex-col items-center justify-center px-6">
-          <div className="text-center" style={{ perspective: "800px" }}>
-            <h1
-              className="hero-static font-serif text-white leading-[1.02] tracking-[-0.04em]"
-              style={{
-                fontSize: "clamp(44px, 8.5vw, 130px)",
-                fontWeight: 400,
-                opacity: 0,
-              }}
-            >
-              Your Business
-            </h1>
+        <div className="hero-inner relative z-10 h-full flex flex-col items-center justify-center px-8">
+          {/* Logo mark */}
+          <img
+            src="/logo-white.png"
+            alt="NorCal SBDC"
+            className="hero-mark w-[180px] sm:w-[220px] mb-12 sm:mb-16"
+            style={{ opacity: 0 }}
+          />
 
-            <div
-              className="overflow-hidden"
-              style={{
-                height: "clamp(54px, 10vw, 150px)",
-                marginTop: "clamp(2px, 0.3vw, 6px)",
-              }}
+          {/* "Brand" — the commanding word */}
+          <h1
+            className="hero-brand font-serif text-white text-center leading-[0.92] tracking-[-0.05em]"
+            style={{
+              fontSize: "clamp(64px, 12vw, 180px)",
+              fontWeight: 400,
+              opacity: 0,
+            }}
+          >
+            Brand
+          </h1>
+
+          {/* Rule */}
+          <div
+            className="hero-rule w-16 h-px bg-white/20 mt-8 sm:mt-10 mb-8 sm:mb-10"
+            style={{ transformOrigin: "center", transform: "scaleX(0)" }}
+          />
+
+          {/* Cycling subline: People · Funded · Connected */}
+          <div
+            className="hero-subline flex items-center gap-4 sm:gap-5"
+            style={{ opacity: 0 }}
+          >
+            <span
+              className="hero-rotating-word font-sans text-white/70 uppercase text-center tracking-[0.2em] font-800"
+              style={{ fontSize: "clamp(11px, 1.2vw, 15px)", minWidth: "120px" }}
             >
-              <span
-                ref={wordRef}
-                className="font-serif text-white/90 inline-block tracking-[-0.04em]"
-                style={{
-                  fontSize: "clamp(44px, 8.5vw, 130px)",
-                  fontWeight: 400,
-                  fontStyle: "italic",
-                  opacity: 0,
-                  transformOrigin: "center bottom",
-                }}
-              >
-                {WORDS[currentWord]}
-              </span>
-            </div>
+              {WORDS[currentWord]}
+            </span>
           </div>
         </div>
       </div>

@@ -45,10 +45,10 @@ export default function PhotoMosaic() {
       ctx = gsap.context(() => {
         gsap.fromTo(
           ".mosaic-label",
-          { opacity: 0, y: 24 },
+          { opacity: 0, y: 20 },
           {
             opacity: 1, y: 0, duration: 0.9, ease: "power3.out",
-            scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
+            scrollTrigger: { trigger: sectionRef.current, start: "top 82%" },
           }
         );
 
@@ -56,13 +56,13 @@ export default function PhotoMosaic() {
         tiles.forEach((tile, i) => {
           gsap.fromTo(
             tile,
-            { opacity: 0, y: 50, scale: 0.97 },
+            { opacity: 0, y: 40, scale: 0.98 },
             {
               opacity: 1, y: 0, scale: 1,
               duration: 1,
               ease: "power3.out",
-              delay: i * 0.1,
-              scrollTrigger: { trigger: tile, start: "top 88%" },
+              delay: i * 0.08,
+              scrollTrigger: { trigger: tile, start: "top 90%" },
             }
           );
         });
@@ -75,17 +75,17 @@ export default function PhotoMosaic() {
 
   return (
     <section ref={sectionRef} className="bg-white">
-      <div className="max-w-[1400px] mx-auto px-8 sm:px-12 pt-32 pb-16">
+      <div className="max-w-[1400px] mx-auto px-8 sm:px-12 pt-32 sm:pt-40 pb-14 sm:pb-20">
         <div className="mosaic-label">
           <p
-            className="font-sans text-text-tertiary uppercase font-600"
-            style={{ fontSize: "0.62rem", letterSpacing: "0.18em" }}
+            className="font-sans text-text-tertiary uppercase font-800"
+            style={{ fontSize: "0.7rem", letterSpacing: "0.2em" }}
           >
             Visual Identity
           </p>
           <h2
-            className="font-serif text-navy mt-4 leading-[1.08] tracking-[-0.025em]"
-            style={{ fontSize: "clamp(30px, 4.2vw, 56px)" }}
+            className="font-serif text-navy mt-5 leading-[1.08] tracking-[-0.03em]"
+            style={{ fontSize: "clamp(32px, 4.5vw, 58px)" }}
           >
             Photography that<br />tells our story.
           </h2>
@@ -94,10 +94,10 @@ export default function PhotoMosaic() {
 
       <div className="px-3 sm:px-5 pb-3 sm:pb-5">
         <div
-          className="grid gap-1.5 sm:gap-2.5"
+          className="grid gap-1.5 sm:gap-2"
           style={{
             gridTemplateColumns: "repeat(3, 1fr)",
-            gridAutoRows: "clamp(180px, 24vw, 340px)",
+            gridAutoRows: "clamp(200px, 25vw, 360px)",
           }}
         >
           {images.map((img, i) => (
@@ -109,7 +109,7 @@ export default function PhotoMosaic() {
                 src={img.src}
                 alt=""
                 loading="lazy"
-                className="w-full h-full object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.04]"
+                className="w-full h-full object-cover transition-transform duration-[1.4s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.03]"
                 style={{ objectPosition: img.pos }}
               />
             </div>
