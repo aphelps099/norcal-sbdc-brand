@@ -1,4 +1,5 @@
 import InteriorHero from "@/components/InteriorHero";
+import NextSectionLink from "@/components/NextSectionLink";
 
 const voiceAttributes = [
   { trait: "Direct", description: "Lead with the point. No corporate filler." },
@@ -140,6 +141,7 @@ export default function VoicePage() {
           </div>
         </div>
       </div>
+      <NextSectionLink title="Templates" href="/templates" />
     </>
   );
 }

@@ -1,5 +1,6 @@
 import InteriorHero from "@/components/InteriorHero";
 import FontSpecimen from "@/components/FontSpecimen";
+import NextSectionLink from "@/components/NextSectionLink";
 import { fonts } from "@/lib/brand-tokens";
 
 export default function TypographyPage() {
@@ -115,6 +116,7 @@ export default function TypographyPage() {
           </div>
         </div>
       </div>
+      <NextSectionLink title="Logos" href="/logos" />
     </>
   );
 }
