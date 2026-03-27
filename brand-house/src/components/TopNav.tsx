@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 
 const NAV_LINKS = [
   { label: "Colors", href: "/colors" },
@@ -14,6 +14,8 @@ export default function TopNav() {
   const [scrolled, setScrolled] = useState(false);
   const [pastHero, setPastHero] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -27,10 +29,17 @@ export default function TopNav() {
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = "hidden";
+      if (closeTimer.current) clearTimeout(closeTimer.current);
+      setMounted(true);
     } else {
       document.body.style.overflow = "";
+      // Keep mounted for exit animation, then unmount
+      closeTimer.current = setTimeout(() => setMounted(false), 750);
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+      if (closeTimer.current) clearTimeout(closeTimer.current);
+    };
   }, [menuOpen]);
 
   const openSearch = useCallback(() => {
@@ -62,36 +71,6 @@ export default function TopNav() {
         .burger-wrap[data-open="true"] .burger-bottom {
           transform: translateY(-4px) rotate(-45deg);
           width: 18px;
-        }
-
-        /* ── Menu overlay grain ── */
-        .menu-overlay {
-          position: relative;
-        }
-        .menu-overlay::before {
-          content: none;
-        }
-        .menu-overlay::after {
-          content: none;
-        }
-        .menu-overlay[data-open="true"]::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(165deg, rgba(29,90,167,0.08) 0%, transparent 40%, rgba(143,197,217,0.04) 100%);
-          pointer-events: none;
-          z-index: 1;
-        }
-        .menu-overlay[data-open="true"]::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          opacity: 0.06;
-          pointer-events: none;
-          z-index: 2;
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
-          background-size: 200px 200px;
-          mix-blend-mode: overlay;
         }
 
         /* ── Menu link hover line ── */
@@ -176,89 +155,108 @@ export default function TopNav() {
         </div>
       </nav>
 
-      {/* Full-screen menu overlay */}
-      <div
-        className={`menu-overlay fixed inset-0 z-[45] transition-[opacity,visibility] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          menuOpen
-            ? "opacity-100 visible pointer-events-auto"
-            : "opacity-0 invisible pointer-events-none"
-        }`}
-        data-open={menuOpen}
-        style={{ background: menuOpen ? "linear-gradient(180deg, #060e18 0%, #091422 50%, #0c1a2e 100%)" : "none" }}
-      >
-        <div className="relative z-10 h-full flex flex-col justify-center px-8 sm:px-16 md:px-24">
-          {/* Left-aligned nav links */}
-          <div className="max-w-[600px]">
-            <nav className="flex flex-col gap-0">
-              {NAV_LINKS.map((link, i) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="menu-link group block py-3 md:py-4 no-underline border-b border-white/[0.04] first:border-t"
-                  style={{
-                    opacity: menuOpen ? 1 : 0,
-                    transform: menuOpen ? "translateY(0)" : "translateY(16px)",
-                    transition: `opacity 0.4s ease ${0.06 + i * 0.04}s, transform 0.5s cubic-bezier(0.16,1,0.3,1) ${0.06 + i * 0.04}s`,
-                  }}
-                >
-                  <span className="flex items-baseline justify-between">
-                    <span
-                      className="font-sans text-white/80 font-800 uppercase tracking-[0.06em] group-hover:text-white group-hover:tracking-[0.1em] transition-all duration-500"
-                      style={{ fontSize: "clamp(14px, 2vw, 18px)" }}
-                    >
-                      {link.label}
-                    </span>
-                    <svg
-                      width="16" height="16" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
-                      className="text-white/0 group-hover:text-pool/60 transition-all duration-500 group-hover:translate-x-1"
-                    >
-                      <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
-                    </svg>
-                  </span>
-                </a>
-              ))}
-            </nav>
-
-            {/* Statement — Tiempos italic */}
-            {menuOpen && (
-              <p
-                className="menu-statement font-serif italic text-pool/30 mt-10 leading-relaxed"
-                style={{ fontSize: "clamp(18px, 2.5vw, 26px)" }}
-              >
-                Your business deserves someone<br />
-                who <span className="text-pool/50">gets it.</span>
-              </p>
-            )}
-          </div>
-
-          {/* Bottom bar */}
+      {/* Full-screen menu overlay — only in DOM when open or animating out */}
+      {mounted && (
+        <div
+          className={`fixed inset-0 z-[45] transition-opacity duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            menuOpen ? "opacity-100" : "opacity-0"
+          }`}
+          style={{ background: "linear-gradient(180deg, #060e18 0%, #091422 50%, #0c1a2e 100%)" }}
+        >
+          {/* Gradient accent overlay */}
           <div
-            className="absolute bottom-10 left-8 sm:left-16 md:left-24 right-8 sm:right-16 md:right-24 flex items-end justify-between"
+            className="absolute inset-0 pointer-events-none"
             style={{
-              opacity: menuOpen ? 1 : 0,
-              transition: "opacity 0.4s ease 0.4s",
+              background: "linear-gradient(165deg, rgba(29,90,167,0.08) 0%, transparent 40%, rgba(143,197,217,0.04) 100%)",
+              zIndex: 1,
             }}
-          >
-            <a
-              href="https://norcalsbdc.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-sans text-white/12 hover:text-white/30 transition-colors duration-300 no-underline font-800 uppercase"
-              style={{ fontSize: "0.6rem", letterSpacing: "0.12em" }}
+          />
+          {/* Film grain overlay */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              opacity: 0.06,
+              zIndex: 2,
+              backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E\")",
+              backgroundSize: "200px 200px",
+              mixBlendMode: "overlay" as const,
+            }}
+          />
+
+          <div className="relative z-10 h-full flex flex-col justify-center px-8 sm:px-16 md:px-24">
+            {/* Left-aligned nav links */}
+            <div className="max-w-[600px]">
+              <nav className="flex flex-col gap-0">
+                {NAV_LINKS.map((link, i) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="menu-link group block py-3 md:py-4 no-underline border-b border-white/[0.04] first:border-t"
+                    style={{
+                      opacity: menuOpen ? 1 : 0,
+                      transform: menuOpen ? "translateY(0)" : "translateY(16px)",
+                      transition: `opacity 0.4s ease ${0.06 + i * 0.04}s, transform 0.5s cubic-bezier(0.16,1,0.3,1) ${0.06 + i * 0.04}s`,
+                    }}
+                  >
+                    <span className="flex items-baseline justify-between">
+                      <span
+                        className="font-sans text-white/80 font-800 uppercase tracking-[0.06em] group-hover:text-white group-hover:tracking-[0.1em] transition-all duration-500"
+                        style={{ fontSize: "clamp(14px, 2vw, 18px)" }}
+                      >
+                        {link.label}
+                      </span>
+                      <svg
+                        width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+                        className="text-white/0 group-hover:text-pool/60 transition-all duration-500 group-hover:translate-x-1"
+                      >
+                        <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+                      </svg>
+                    </span>
+                  </a>
+                ))}
+              </nav>
+
+              {/* Statement — Tiempos italic */}
+              {menuOpen && (
+                <p
+                  className="menu-statement font-serif italic text-pool/30 mt-10 leading-relaxed"
+                  style={{ fontSize: "clamp(18px, 2.5vw, 26px)" }}
+                >
+                  Your business deserves someone<br />
+                  who <span className="text-pool/50">gets it.</span>
+                </p>
+              )}
+            </div>
+
+            {/* Bottom bar */}
+            <div
+              className="absolute bottom-10 left-8 sm:left-16 md:left-24 right-8 sm:right-16 md:right-24 flex items-end justify-between"
+              style={{
+                opacity: menuOpen ? 1 : 0,
+                transition: "opacity 0.4s ease 0.4s",
+              }}
             >
-              norcalsbdc.org
-            </a>
-            <span
-              className="font-sans text-white/8 uppercase font-800"
-              style={{ fontSize: "0.55rem", letterSpacing: "0.1em" }}
-            >
-              &copy; 2026
-            </span>
+              <a
+                href="https://norcalsbdc.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-sans text-white/12 hover:text-white/30 transition-colors duration-300 no-underline font-800 uppercase"
+                style={{ fontSize: "0.6rem", letterSpacing: "0.12em" }}
+              >
+                norcalsbdc.org
+              </a>
+              <span
+                className="font-sans text-white/8 uppercase font-800"
+                style={{ fontSize: "0.55rem", letterSpacing: "0.1em" }}
+              >
+                &copy; 2026
+              </span>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 }
