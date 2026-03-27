@@ -10,15 +10,15 @@ const fuse = new Fuse(searchData, {
 });
 
 const NAV_LINKS = [
-  { label: "Colors",       href: "/colors",     color: "#1D5AA7" },
-  { label: "Typography",   href: "/typography",  color: "#F7024D" },
-  { label: "Logos",         href: "/logos",       color: "#0f1c2e" },
-  { label: "Voice & Tone", href: "/voice",       color: "#c4543a" },
-  { label: "Templates",    href: "/templates",   color: "#1D5AA7" },
-  { label: "Content",      href: "/content",     color: "#8FC5D9" },
-  { label: "Calendar",     href: "/calendar",    color: "#c4543a" },
-  { label: "Stories",      href: "/stories",     color: "#F7024D" },
-  { label: "Glossary",     href: "/glossary",    color: "#8FC5D9" },
+  { label: "Colors",       href: "/colors" },
+  { label: "Typography",   href: "/typography" },
+  { label: "Logos",         href: "/logos" },
+  { label: "Voice & Tone", href: "/voice" },
+  { label: "Templates",    href: "/templates" },
+  { label: "Content",      href: "/content" },
+  { label: "Calendar",     href: "/calendar" },
+  { label: "Stories",      href: "/stories" },
+  { label: "Glossary",     href: "/glossary" },
 ];
 
 export default function TopNav() {
@@ -26,7 +26,6 @@ export default function TopNav() {
   const [pastHero, setPastHero] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [query, setQuery] = useState("");
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchRef = useRef<HTMLInputElement>(null);
@@ -52,7 +51,6 @@ export default function TopNav() {
       setTimeout(() => searchRef.current?.focus(), 400);
     } else {
       document.body.style.overflow = "";
-      setHoveredIndex(null);
       setQuery("");
       closeTimer.current = setTimeout(() => setMounted(false), 750);
     }
@@ -168,16 +166,14 @@ export default function TopNav() {
             <div className="flex-1 flex flex-col lg:flex-row items-start lg:items-center">
 
               {/* Left half — all nav links in single column */}
-              <div className="flex-1 flex flex-col justify-center lg:pr-12">
+              <div className="flex-1 flex flex-col justify-center lg:pr-16">
                 <nav className="flex flex-col">
                   {NAV_LINKS.map((link, i) => (
                     <a
                       key={link.href}
                       href={link.href}
                       onClick={() => setMenuOpen(false)}
-                      onMouseEnter={() => setHoveredIndex(i)}
-                      onMouseLeave={() => setHoveredIndex(null)}
-                      className="block no-underline"
+                      className="block no-underline group/nav"
                       style={{
                         clipPath: menuOpen ? "inset(0 0 0% 0)" : "inset(0 0 100% 0)",
                         transform: menuOpen ? "translateY(0)" : "translateY(14px)",
@@ -185,18 +181,13 @@ export default function TopNav() {
                       }}
                     >
                       <span
-                        className="block transition-colors duration-300"
+                        className="block transition-all duration-300 text-navy/70 group-hover/nav:text-navy group-hover/nav:underline underline-offset-4 decoration-navy/30"
                         style={{
                           fontFamily: "'Tiempos Headline', 'Tiempos', Georgia, serif",
                           fontWeight: 500,
                           fontSize: "clamp(20px, 2.6vw, 34px)",
                           lineHeight: "1.5",
                           letterSpacing: "-0.015em",
-                          color: hoveredIndex === i
-                            ? link.color
-                            : hoveredIndex !== null
-                              ? "rgba(15,28,46,0.12)"
-                              : "rgba(15,28,46,0.75)",
                         }}
                       >
                         {link.label}
@@ -205,9 +196,6 @@ export default function TopNav() {
                   ))}
                 </nav>
               </div>
-
-              {/* Separator */}
-              <div className="hidden lg:block w-px bg-[#2a4a5e]/15 self-stretch my-8" />
 
               {/* Right half — search */}
               <div
@@ -272,30 +260,6 @@ export default function TopNav() {
               </div>
             </div>
 
-            {/* Bottom bar */}
-            <div
-              className="flex items-end justify-between pt-5 border-t border-[#2a4a5e]/12"
-              style={{
-                opacity: menuOpen ? 1 : 0,
-                transition: "opacity 0.4s ease 0.5s",
-              }}
-            >
-              <a
-                href="https://norcalsbdc.org"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-sans text-navy/20 hover:text-navy/50 transition-colors duration-300 no-underline font-800 uppercase"
-                style={{ fontSize: "0.6rem", letterSpacing: "0.12em" }}
-              >
-                norcalsbdc.org
-              </a>
-              <span
-                className="font-sans text-navy/15 uppercase font-800"
-                style={{ fontSize: "0.55rem", letterSpacing: "0.1em" }}
-              >
-                &copy; 2026
-              </span>
-            </div>
           </div>
         </div>
       )}
