@@ -223,7 +223,7 @@ export default function LogoPageContent() {
 
             {/* Right — our logo text */}
             <div>
-              <span className="font-sans text-[12px] font-900 uppercase tracking-[0.2em] text-royal mb-5 block">
+              <span className="font-sans text-[12px] font-700 uppercase tracking-[0.2em] text-royal mb-5 block">
                 Our Logo
               </span>
               <p className="font-serif text-lg md:text-xl text-navy leading-relaxed mb-5">

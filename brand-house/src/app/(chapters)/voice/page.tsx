@@ -68,7 +68,7 @@ export default function VoicePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
             <div>
-              <span className="font-sans text-[12px] font-900 uppercase tracking-[0.2em] text-royal mb-3 block">
+              <span className="font-sans text-[12px] font-700 uppercase tracking-[0.2em] text-royal mb-3 block">
                 Tagline
               </span>
               <p className="font-serif text-2xl text-navy">
@@ -76,7 +76,7 @@ export default function VoicePage() {
               </p>
             </div>
             <div>
-              <span className="font-sans text-[12px] font-900 uppercase tracking-[0.2em] text-royal mb-3 block">
+              <span className="font-sans text-[12px] font-700 uppercase tracking-[0.2em] text-royal mb-3 block">
                 Campaign Pillars
               </span>
               <div className="space-y-2.5">
@@ -93,7 +93,7 @@ export default function VoicePage() {
             </div>
           </div>
 
-          <span className="font-sans text-[12px] font-900 uppercase tracking-[0.2em] text-navy/30 mb-5 block">
+          <span className="font-sans text-[12px] font-700 uppercase tracking-[0.2em] text-navy/30 mb-5 block">
             Headline Patterns
           </span>
           <div className="space-y-3">
@@ -114,13 +114,13 @@ export default function VoicePage() {
         <div className="max-w-[960px] mx-auto px-8 md:px-12">
           <div className="rounded-lg border border-black/[0.04] bg-[#f7f7f5] overflow-hidden text-[13px]">
             <div className="grid grid-cols-[1fr_1fr_2fr] gap-0">
-              <div className="font-sans text-[11px] font-900 uppercase tracking-[0.15em] text-navy/35 p-4 border-b border-black/[0.04]">
+              <div className="font-sans text-[11px] font-700 uppercase tracking-[0.15em] text-navy/35 p-4 border-b border-black/[0.04]">
                 Context
               </div>
-              <div className="font-sans text-[11px] font-900 uppercase tracking-[0.15em] text-navy/35 p-4 border-b border-black/[0.04]">
+              <div className="font-sans text-[11px] font-700 uppercase tracking-[0.15em] text-navy/35 p-4 border-b border-black/[0.04]">
                 Tone
               </div>
-              <div className="font-sans text-[11px] font-900 uppercase tracking-[0.15em] text-navy/35 p-4 border-b border-black/[0.04]">
+              <div className="font-sans text-[11px] font-700 uppercase tracking-[0.15em] text-navy/35 p-4 border-b border-black/[0.04]">
                 Example
               </div>
               {toneTable.map((row, i) => (
