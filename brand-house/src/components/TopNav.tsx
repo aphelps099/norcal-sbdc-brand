@@ -172,10 +172,10 @@ export default function TopNav() {
 
       {/* Full-screen menu overlay */}
       <div
-        className={`menu-overlay fixed inset-0 z-[45] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`menu-overlay fixed inset-0 z-[45] transition-[opacity,visibility] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           menuOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+            ? "opacity-100 visible pointer-events-auto"
+            : "opacity-0 invisible pointer-events-none"
         }`}
         style={{ background: "linear-gradient(180deg, #060e18 0%, #091422 50%, #0c1a2e 100%)" }}
       >
