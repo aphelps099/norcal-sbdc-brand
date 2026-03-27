@@ -34,12 +34,12 @@ export default function PhotoFooter() {
         tiles.forEach((tile, i) => {
           gsap.fromTo(
             tile,
-            { opacity: 0, y: 30 },
+            { opacity: 0, y: 24 },
             {
               opacity: 1, y: 0,
-              duration: 0.8, ease: "power3.out",
-              delay: i * 0.1,
-              scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
+              duration: 0.9, ease: "power3.out",
+              delay: i * 0.08,
+              scrollTrigger: { trigger: sectionRef.current, start: "top 85%" },
             }
           );
         });
@@ -51,8 +51,8 @@ export default function PhotoFooter() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-white px-4 sm:px-6 pb-4 sm:pb-6">
-      <div className="grid grid-cols-3 gap-2 sm:gap-3">
+    <section ref={sectionRef} className="bg-white px-3 sm:px-5 pb-3 sm:pb-5">
+      <div className="grid grid-cols-3 gap-1.5 sm:gap-2.5">
         {footerImages.map((img, i) => (
           <div
             key={i}
@@ -63,11 +63,10 @@ export default function PhotoFooter() {
               src={img.src}
               alt=""
               loading="lazy"
-              className="w-full h-full object-cover transition-transform duration-700 ease-out hover:scale-105"
+              className="w-full h-full object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.04]"
               style={{ objectPosition: img.pos }}
             />
-            {/* Subtle dark overlay on bottom third */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
           </div>
         ))}
       </div>
