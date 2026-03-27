@@ -13,9 +13,14 @@ export default function HeroEditorial() {
       if (!sectionRef.current) return;
 
       gsap.context(() => {
-        // "Brand" snaps in after splash dismisses (~2.3s)
+        // "Brand" appears 0.7s after video is visible (splash takes ~2.3s)
         gsap.fromTo(".hero-brand", { opacity: 0 }, {
-          opacity: 1, duration: 0.15, ease: "none", delay: 2.3,
+          opacity: 1, duration: 0.12, ease: "none", delay: 3,
+        });
+
+        // Underline draws in
+        gsap.fromTo(".hero-underline", { scaleX: 0 }, {
+          scaleX: 1, duration: 0.6, ease: "power2.out", delay: 3.15,
         });
 
         // Scroll fade
@@ -56,18 +61,24 @@ export default function HeroEditorial() {
           <div className="absolute inset-0 bg-black/60" />
         </div>
 
-        {/* Content — just "Brand" */}
+        {/* Content */}
         <div className="hero-inner relative z-10 h-full flex items-center justify-center px-8">
-          <h1
-            className="hero-brand font-serif text-white text-center leading-[0.92] tracking-[-0.05em]"
-            style={{
-              fontSize: "clamp(64px, 12vw, 180px)",
-              fontWeight: 400,
-              opacity: 0,
-            }}
-          >
-            Brand
-          </h1>
+          <div className="inline-block text-center">
+            <h1
+              className="hero-brand font-serif text-white leading-[0.92] tracking-[-0.05em]"
+              style={{
+                fontSize: "clamp(64px, 12vw, 180px)",
+                fontWeight: 400,
+                opacity: 0,
+              }}
+            >
+              Brand
+            </h1>
+            <div
+              className="hero-underline h-[3px] bg-white mt-2 sm:mt-3"
+              style={{ transformOrigin: "left center", transform: "scaleX(0)" }}
+            />
+          </div>
         </div>
       </div>
     </section>

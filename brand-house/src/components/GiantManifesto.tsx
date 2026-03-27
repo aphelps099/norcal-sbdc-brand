@@ -15,7 +15,6 @@ export default function GiantManifesto() {
       if (!sectionRef.current) return;
 
       ctx = gsap.context(() => {
-        // Eyebrow
         gsap.fromTo(
           ".manifesto-eyebrow",
           { opacity: 0, y: 12 },
@@ -25,12 +24,11 @@ export default function GiantManifesto() {
           }
         );
 
-        // Each word reveals on scroll
         const words = sectionRef.current!.querySelectorAll<HTMLElement>(".m-word");
         words.forEach((word) => {
           gsap.fromTo(
             word,
-            { opacity: 0.06 },
+            { opacity: 0.08 },
             {
               opacity: 1,
               ease: "power2.out",
@@ -50,37 +48,52 @@ export default function GiantManifesto() {
     return () => { ctx?.revert(); };
   }, []);
 
-  const text =
-    "Don\u2019t settle for generic advice. Your business deserves someone who gets it \u2014 an advisor who has been where you are, who understands the terrain, who knows what it takes to turn ambition into revenue.";
+  const segments = [
+    { text: "Our clients don\u2019t settle for generic advice. That\u2019s why they ", highlight: false },
+    { text: "trust", highlight: true },
+    { text: " SBDC. They get an advisor who ", highlight: false },
+    { text: "understands", highlight: true },
+    { text: " them, knows their market, their struggle, their ", highlight: false },
+    { text: "ambitions", highlight: true },
+    { text: " \u2014 and who knows what it takes to turn ambition into success.", highlight: false },
+  ];
 
-  const words = text.split(" ");
-  const highlights = ["deserves", "ambition", "revenue."];
+  // Build word array with highlight flags
+  const words: { text: string; highlight: boolean }[] = [];
+  segments.forEach((seg) => {
+    seg.text.split(" ").filter(Boolean).forEach((w) => {
+      words.push({ text: w, highlight: seg.highlight });
+    });
+  });
 
   return (
-    <section ref={sectionRef} className="bg-navy-deep relative overflow-hidden">
+    <section ref={sectionRef} className="bg-pool/20 relative overflow-hidden">
       <div className="max-w-[1000px] mx-auto px-8 sm:px-12 py-40 sm:py-56">
         <p
-          className="manifesto-eyebrow font-sans text-white/25 uppercase font-800 mb-14 sm:mb-20"
-          style={{ fontSize: "0.7rem", letterSpacing: "0.25em" }}
+          className="manifesto-eyebrow font-sans text-navy/40 uppercase font-800 mb-14 sm:mb-20"
+          style={{ fontSize: "0.8rem", letterSpacing: "0.2em" }}
         >
           Our Manifesto
         </p>
 
-        <h2 className="leading-[1.22] tracking-[-0.025em]" style={{ fontSize: "clamp(26px, 4vw, 50px)" }}>
-          {words.map((word, i) => {
-            const isHighlight = highlights.includes(word.toLowerCase());
-            return (
-              <span key={i}>
-                <span
-                  className={`m-word font-serif inline-block ${isHighlight ? "text-pool" : "text-white/95"}`}
-                  style={{ opacity: 0.06 }}
-                >
-                  {word}
-                </span>
-                {" "}
+        <h2 className="leading-[1.25] tracking-[-0.02em]" style={{ fontSize: "clamp(26px, 3.8vw, 48px)" }}>
+          {words.map((word, i) => (
+            <span key={i}>
+              <span
+                className={`m-word font-serif inline-block ${word.highlight ? "text-royal" : "text-navy"}`}
+                style={{
+                  opacity: 0.08,
+                  textDecoration: word.highlight ? "underline" : "none",
+                  textDecorationColor: "var(--royal)",
+                  textUnderlineOffset: "6px",
+                  textDecorationThickness: "2px",
+                }}
+              >
+                {word.text}
               </span>
-            );
-          })}
+              {" "}
+            </span>
+          ))}
         </h2>
       </div>
     </section>

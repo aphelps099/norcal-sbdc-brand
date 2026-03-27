@@ -44,11 +44,20 @@ export default function PhotoMosaic() {
 
       ctx = gsap.context(() => {
         gsap.fromTo(
-          ".mosaic-label",
-          { opacity: 0, y: 20 },
+          ".mosaic-heading",
+          { opacity: 0, y: 24 },
           {
-            opacity: 1, y: 0, duration: 0.9, ease: "power3.out",
-            scrollTrigger: { trigger: sectionRef.current, start: "top 82%" },
+            opacity: 1, y: 0, duration: 1, ease: "power3.out",
+            scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
+          }
+        );
+
+        gsap.fromTo(
+          ".mosaic-pillars",
+          { opacity: 0, y: 16 },
+          {
+            opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: 0.15,
+            scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
           }
         );
 
@@ -76,20 +85,18 @@ export default function PhotoMosaic() {
   return (
     <section ref={sectionRef} className="bg-white">
       <div className="max-w-[1400px] mx-auto px-8 sm:px-12 pt-32 sm:pt-40 pb-14 sm:pb-20">
-        <div className="mosaic-label">
-          <p
-            className="font-sans text-text-tertiary uppercase font-800"
-            style={{ fontSize: "0.7rem", letterSpacing: "0.2em" }}
-          >
-            Visual Identity
-          </p>
-          <h2
-            className="font-serif text-navy mt-5 leading-[1.08] tracking-[-0.03em]"
-            style={{ fontSize: "clamp(32px, 4.5vw, 58px)" }}
-          >
-            Photography that<br />tells our story.
-          </h2>
-        </div>
+        <h2
+          className="mosaic-heading font-serif text-navy leading-[1.08] tracking-[-0.03em]"
+          style={{ fontSize: "clamp(34px, 5vw, 64px)" }}
+        >
+          Your Business Better.
+        </h2>
+        <p
+          className="mosaic-pillars font-sans text-text-secondary font-800 mt-4 tracking-[-0.01em]"
+          style={{ fontSize: "clamp(15px, 1.6vw, 22px)" }}
+        >
+          People. Connection. Capital. Growth.
+        </p>
       </div>
 
       <div className="px-3 sm:px-5 pb-3 sm:pb-5">
