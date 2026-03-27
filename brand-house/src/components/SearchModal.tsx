@@ -40,10 +40,14 @@ export default function SearchModal() {
 
   useEffect(() => {
     if (open) {
-      inputRef.current?.focus();
+      document.body.style.overflow = "hidden";
+      setTimeout(() => inputRef.current?.focus(), 100);
       setQuery("");
       setActiveIndex(0);
+    } else {
+      document.body.style.overflow = "";
     }
+    return () => { document.body.style.overflow = ""; };
   }, [open]);
 
   useEffect(() => {
@@ -67,121 +71,93 @@ export default function SearchModal() {
     }
   }, [results, activeIndex, navigate]);
 
-  if (!open) return null;
-
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-start justify-center"
+      className={`fixed inset-0 z-[100] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+      }`}
       onClick={() => setOpen(false)}
-      style={{ paddingTop: "16vh" }}
+      style={{ background: "var(--navy-deep)" }}
     >
-      {/* Backdrop */}
+      {/* Full-page search layout */}
       <div
-        className="absolute inset-0"
-        style={{
-          background: "rgba(15,28,46,0.85)",
-          backdropFilter: "blur(20px) saturate(1.5)",
-          WebkitBackdropFilter: "blur(20px) saturate(1.5)",
-        }}
-      />
-
-      {/* Modal */}
-      <div
-        className="relative w-full max-w-xl mx-5 bg-white overflow-hidden"
+        className="h-full flex flex-col items-center justify-center px-8"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={handleKeyDown}
-        style={{
-          borderRadius: "16px",
-          boxShadow: "0 40px 100px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.08)",
-          animation: "searchIn 0.3s cubic-bezier(0.16,1,0.3,1)",
-        }}
       >
-        {/* Input */}
-        <div className="flex items-center gap-4 px-6 py-5">
-          <svg
-            width="18" height="18" fill="none" stroke="currentColor"
-            strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-            className="text-royal flex-shrink-0"
-            viewBox="0 0 24 24"
-          >
-            <circle cx="11" cy="11" r="8" />
-            <path d="m21 21-4.3-4.3" />
-          </svg>
-          <input
-            ref={inputRef}
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search the brand guide..."
-            className="flex-1 bg-transparent text-navy font-serif outline-none placeholder:text-text-tertiary/50 tracking-[-0.02em]"
-            style={{ fontSize: "1.15rem" }}
-          />
-          <kbd
-            className="font-sans text-[0.5rem] font-600 text-text-tertiary/60 uppercase tracking-[0.06em] border border-black/[0.06] px-2 py-1"
-            style={{ borderRadius: "6px" }}
-          >
-            esc
-          </kbd>
-        </div>
+        {/* Close hint — top right */}
+        <button
+          onClick={() => setOpen(false)}
+          className="absolute top-5 right-8 sm:right-12 z-10 font-sans text-white/20 hover:text-white/50 transition-colors duration-300 font-800 uppercase"
+          style={{ fontSize: "0.65rem", letterSpacing: "0.1em" }}
+        >
+          Close
+        </button>
 
-        <div className="h-px bg-black/[0.04]" />
+        {/* Search input — large, centered */}
+        <div className="w-full max-w-[700px]">
+          <div className="flex items-center gap-5 border-b border-white/10 pb-4">
+            <svg
+              width="22" height="22" fill="none" stroke="currentColor"
+              strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+              className="text-white/25 flex-shrink-0"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" />
+            </svg>
+            <input
+              ref={inputRef}
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search"
+              className="flex-1 bg-transparent text-white font-serif outline-none placeholder:text-white/20 tracking-[-0.03em]"
+              style={{ fontSize: "clamp(28px, 4vw, 48px)" }}
+            />
+          </div>
 
-        {/* Results */}
-        <div className="max-h-[360px] overflow-y-auto py-2">
-          {results.length === 0 ? (
-            <div className="px-6 py-14 text-center">
-              <p className="font-serif text-text-tertiary/60 text-lg">No results</p>
-              <p className="font-sans text-text-tertiary/40 text-[0.75rem] mt-2">Try a different search term</p>
-            </div>
-          ) : (
-            results.map((item, i) => (
-              <button
-                key={item.href}
-                onClick={() => navigate(item.href)}
-                className={`w-full text-left px-6 py-4 flex items-center gap-5 transition-colors duration-150 ${
-                  i === activeIndex ? "bg-cream" : "hover:bg-cream/60"
-                }`}
-              >
-                <span
-                  className="font-sans text-text-tertiary/50 uppercase font-600 w-20 shrink-0"
-                  style={{ fontSize: "0.55rem", letterSpacing: "0.14em" }}
+          {/* Results */}
+          <div className="mt-8 max-h-[40vh] overflow-y-auto">
+            {query && results.length === 0 ? (
+              <p className="font-serif text-white/20 text-lg">No results found.</p>
+            ) : (
+              results.map((item, i) => (
+                <button
+                  key={item.href}
+                  onClick={() => navigate(item.href)}
+                  className={`w-full text-left py-4 flex items-center gap-6 transition-all duration-200 group ${
+                    i === activeIndex ? "opacity-100" : "opacity-40 hover:opacity-70"
+                  }`}
+                  style={{
+                    opacity: open ? undefined : 0,
+                    transform: open ? "translateY(0)" : "translateY(12px)",
+                    transition: `opacity 0.4s ease ${0.1 + i * 0.04}s, transform 0.5s cubic-bezier(0.16,1,0.3,1) ${0.1 + i * 0.04}s`,
+                  }}
                 >
-                  {item.section}
-                </span>
-                <div className="flex-1 min-w-0">
-                  <span className="font-sans text-[0.88rem] text-navy font-600 tracking-[-0.01em]">
+                  <span
+                    className="font-sans text-white/40 uppercase font-800 w-20 shrink-0"
+                    style={{ fontSize: "0.62rem", letterSpacing: "0.14em" }}
+                  >
+                    {item.section}
+                  </span>
+                  <span
+                    className="font-serif text-white tracking-[-0.02em] group-hover:translate-x-1 transition-transform duration-300"
+                    style={{ fontSize: "clamp(18px, 2.5vw, 28px)" }}
+                  >
                     {item.title}
                   </span>
-                </div>
-                {i === activeIndex && (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-royal/40 flex-shrink-0">
-                    <polyline points="9 18 15 12 9 6" />
-                  </svg>
-                )}
-              </button>
-            ))
-          )}
-        </div>
-
-        {/* Footer hints */}
-        <div className="px-6 py-3 border-t border-black/[0.04] flex items-center gap-5">
-          <span className="flex items-center gap-1.5">
-            <kbd className="font-sans text-[0.45rem] font-600 text-text-tertiary/40 bg-cream px-1.5 py-0.5" style={{ borderRadius: "4px" }}>&uarr;&darr;</kbd>
-            <span className="font-sans text-[0.5rem] text-text-tertiary/40">navigate</span>
-          </span>
-          <span className="flex items-center gap-1.5">
-            <kbd className="font-sans text-[0.45rem] font-600 text-text-tertiary/40 bg-cream px-1.5 py-0.5" style={{ borderRadius: "4px" }}>&crarr;</kbd>
-            <span className="font-sans text-[0.5rem] text-text-tertiary/40">open</span>
-          </span>
+                  {i === activeIndex && (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/30 ml-auto flex-shrink-0">
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  )}
+                </button>
+              ))
+            )}
+          </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes searchIn {
-          from { opacity: 0; transform: scale(0.96) translateY(-8px); }
-          to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-      `}</style>
     </div>
   );
 }
