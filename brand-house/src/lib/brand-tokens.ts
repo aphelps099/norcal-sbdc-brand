@@ -11,8 +11,9 @@ export const colors = {
 
 export const fonts = {
   sans: { family: "Proxima Nova", weights: ["500", "800", "900"], usage: "Body text, UI, navigation" },
-  serif: { family: "Tiempos", weights: ["400"], usage: "Headlines, editorial emphasis" },
-  mono: { family: "GT America Mono", weights: ["400", "700"], usage: "Labels, stats, code" },
+  serif: { family: "Tiempos", weights: ["400", "500", "500i"], usage: "Headlines, editorial emphasis" },
+  serifHeadline: { family: "Tiempos Headline", weights: ["500", "900"], usage: "Display headlines, hero text" },
+  serifFine: { family: "Tiempos Fine", weights: ["300"], usage: "Elegant, light display text" },
 } as const;
 
 export const chapters = [
