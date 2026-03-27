@@ -21,56 +21,6 @@ const NAV_LINKS = [
   { label: "Glossary",     href: "/glossary" },
 ];
 
-function NavLink({
-  link,
-  i,
-  menuOpen,
-  onNavigate,
-}: {
-  link: (typeof NAV_LINKS)[number];
-  i: number;
-  menuOpen: boolean;
-  onNavigate: () => void;
-}) {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <a
-      href={link.href}
-      onClick={onNavigate}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="block no-underline relative overflow-hidden"
-      style={{
-        clipPath: menuOpen ? "inset(0 0 0% 0)" : "inset(0 0 100% 0)",
-        transform: menuOpen ? "translateY(0)" : "translateY(14px)",
-        transition: `clip-path 0.55s cubic-bezier(0.16,1,0.3,1) ${0.08 + i * 0.035}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${0.08 + i * 0.035}s`,
-      }}
-    >
-      {/* Pool bg sweep */}
-      <div
-        className="absolute inset-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-        style={{
-          background: "rgba(15,28,46,0.07)",
-          transform: hovered ? "translateY(0)" : "translateY(100%)",
-        }}
-      />
-      <span
-        className="block relative z-10 py-1.5 px-3 transition-colors duration-300"
-        style={{
-          fontFamily: "'Tiempos Headline', 'Tiempos', Georgia, serif",
-          fontWeight: 500,
-          fontSize: "clamp(20px, 2.6vw, 34px)",
-          lineHeight: "1.5",
-          letterSpacing: "-0.015em",
-          color: hovered ? "#0f1c2e" : "rgba(15,28,46,0.55)",
-        }}
-      >
-        {link.label}
-      </span>
-    </a>
-  );
-}
-
 export default function TopNav() {
   const [scrolled, setScrolled] = useState(false);
   const [pastHero, setPastHero] = useState(false);
@@ -186,10 +136,14 @@ export default function TopNav() {
       {/* Full-screen menu overlay */}
       {mounted && (
         <div
-          className={`fixed inset-0 z-[45] overflow-hidden transition-opacity duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            menuOpen ? "opacity-100" : "opacity-0"
-          }`}
-          style={{ background: "#8FC5D9" }}
+          className="fixed inset-0 z-[45] overflow-hidden"
+          style={{
+            background: "#8FC5D9",
+            transform: menuOpen ? "translateX(0)" : "translateX(100%)",
+            transition: menuOpen
+              ? "transform 0.65s cubic-bezier(0.16,1,0.3,1)"
+              : "transform 0.5s cubic-bezier(0.4,0,0.2,1) 0.05s",
+          }}
         >
           {/* Giant "Explore" watermark */}
           <div
@@ -204,7 +158,7 @@ export default function TopNav() {
               color: "rgba(15,28,46,0.045)",
               opacity: menuOpen ? 1 : 0,
               transform: menuOpen ? "translateY(0)" : "translateY(40px)",
-              transition: "opacity 0.8s ease 0.2s, transform 1s cubic-bezier(0.16,1,0.3,1) 0.2s",
+              transition: "opacity 0.8s ease 0.3s, transform 1s cubic-bezier(0.16,1,0.3,1) 0.3s",
             }}
           >
             Explore
@@ -217,15 +171,32 @@ export default function TopNav() {
 
               {/* Left half — all nav links in single column */}
               <div className="flex-1 flex flex-col justify-center lg:pr-16">
-                <nav className="flex flex-col -mx-3">
+                <nav className="flex flex-col">
                   {NAV_LINKS.map((link, i) => (
-                    <NavLink
+                    <a
                       key={link.href}
-                      link={link}
-                      i={i}
-                      menuOpen={menuOpen}
-                      onNavigate={() => setMenuOpen(false)}
-                    />
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="block no-underline group/nav"
+                      style={{
+                        opacity: menuOpen ? 1 : 0,
+                        transform: menuOpen ? "translateX(0)" : "translateX(-16px)",
+                        transition: `opacity 0.35s cubic-bezier(0.16,1,0.3,1) ${0.25 + i * 0.03}s, transform 0.35s cubic-bezier(0.34,1.56,0.64,1) ${0.25 + i * 0.03}s`,
+                      }}
+                    >
+                      <span
+                        className="block py-1 transition-all duration-200 text-navy/55 group-hover/nav:text-navy group-hover/nav:underline underline-offset-4 decoration-navy/25"
+                        style={{
+                          fontFamily: "'Tiempos Headline', 'Tiempos', Georgia, serif",
+                          fontWeight: 500,
+                          fontSize: "clamp(20px, 2.6vw, 34px)",
+                          lineHeight: "1.5",
+                          letterSpacing: "-0.015em",
+                        }}
+                      >
+                        {link.label}
+                      </span>
+                    </a>
                   ))}
                 </nav>
               </div>
@@ -235,8 +206,8 @@ export default function TopNav() {
                 className="flex-1 flex flex-col justify-center lg:pl-16 mt-10 lg:mt-0 w-full lg:w-auto"
                 style={{
                   opacity: menuOpen ? 1 : 0,
-                  transform: menuOpen ? "translateY(0)" : "translateY(12px)",
-                  transition: "opacity 0.5s ease 0.15s, transform 0.5s cubic-bezier(0.16,1,0.3,1) 0.15s",
+                  transform: menuOpen ? "translateX(0)" : "translateX(-12px)",
+                  transition: "opacity 0.4s ease 0.35s, transform 0.4s cubic-bezier(0.34,1.56,0.64,1) 0.35s",
                 }}
               >
                 <div className="max-w-[440px]">

@@ -25,7 +25,6 @@ interface LogoAsset {
 const CAROUSEL_COLORS = [
   "linear-gradient(135deg, #1A2537 0%, #0f1c2e 100%)",   // Navy
   "linear-gradient(135deg, #1D5AA7 0%, #5684BA 100%)",   // Royal → Blue
-  "linear-gradient(135deg, #00685E 0%, #1D5AA7 100%)",   // Teal → Royal
   "linear-gradient(135deg, #AB3C3C 0%, #c4543a 100%)",   // Red → Coral
   "linear-gradient(135deg, #5684BA 0%, #8FC5D9 100%)",   // Blue → Pool
 ];

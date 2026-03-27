@@ -36,12 +36,12 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        {/* Pool bg sweep */}
+        {/* Pool bg sweep — right to left */}
         <div
           className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
           style={{
             background: "#8FC5D9",
-            transform: hovered ? "translateY(0)" : "translateY(100%)",
+            transform: hovered ? "translateX(0)" : "translateX(100%)",
           }}
         />
 
