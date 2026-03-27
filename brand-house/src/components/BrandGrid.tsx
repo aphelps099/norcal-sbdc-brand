@@ -56,12 +56,20 @@ export default function BrandGrid() {
   return (
     <section ref={sectionRef} className="bg-cream" id="chapters">
       <div className="max-w-[1200px] mx-auto px-8 sm:px-12 py-28 sm:py-40">
-        <h2
-          className="brand-grid-header font-serif text-navy leading-[1.08] tracking-[-0.03em] mb-14 sm:mb-20"
-          style={{ fontSize: "clamp(32px, 4.5vw, 54px)" }}
-        >
-          Brand Components
-        </h2>
+        <div className="brand-grid-header mb-14 sm:mb-20">
+          <h2
+            className="font-serif text-navy leading-[1.08] tracking-[-0.03em]"
+            style={{ fontSize: "clamp(32px, 4.5vw, 54px)" }}
+          >
+            Brand Components
+          </h2>
+          <p
+            className="font-sans text-text-secondary font-800 mt-4 tracking-[-0.01em]"
+            style={{ fontSize: "clamp(14px, 1.4vw, 19px)" }}
+          >
+            Everything you need to activate the brand.
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-black/[0.04]">
           {brandItems.map((item, i) => (
