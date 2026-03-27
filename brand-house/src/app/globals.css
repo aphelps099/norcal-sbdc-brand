@@ -10,7 +10,6 @@
 @font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-Extrabold.otf') format('opentype'); font-weight: 800; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-Black.otf') format('opentype'); font-weight: 900; font-style: normal; font-display: swap; }
 
-/* Keep mono for code/labels */
 @font-face { font-family: 'GT America Mono'; src: url('/fonts/GT-America-Mono-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
 @font-face { font-family: 'GT America Mono'; src: url('/fonts/GT-America-Mono-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
 
@@ -32,8 +31,8 @@
   --coral: #c4543a;
   --coral-light: #d4654b;
   --text: #1a1a1a;
-  --text-secondary: #555555;
-  --text-tertiary: #999999;
+  --text-secondary: #4a4a4a;
+  --text-tertiary: #888888;
   --rule: rgba(0,0,0,0.08);
 
   --sans: 'Proxima Nova', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
@@ -62,8 +61,8 @@
   --color-coral: #c4543a;
   --color-coral-light: #d4654b;
   --color-text-primary: #1a1a1a;
-  --color-text-secondary: #555555;
-  --color-text-tertiary: #999999;
+  --color-text-secondary: #4a4a4a;
+  --color-text-tertiary: #888888;
 
   --font-sans: 'Proxima Nova', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
   --font-serif: 'Tiempos', Georgia, 'Times New Roman', serif;
@@ -83,14 +82,29 @@ body {
   overflow-x: hidden;
   line-height: 1.6;
   font-weight: 500;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.005em;
 }
 
 /* ═══════════════════════════════════════════
-   TYPOGRAPHY UTILITIES
+   PAPER TEXTURE — layered grain for tactile feel
    ═══════════════════════════════════════════ */
-.serif { font-family: var(--serif); }
-.mono { font-family: var(--mono); }
+.paper-texture {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+.paper-texture .grain-fine {
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+}
+.paper-texture .grain-coarse {
+  position: absolute;
+  inset: 0;
+  opacity: 0.018;
+}
 
 /* ═══════════════════════════════════════════
    LINK EFFECTS — underline reveal on hover
@@ -117,24 +131,12 @@ body {
 }
 
 /* ═══════════════════════════════════════════
-   FILM GRAIN OVERLAY
-   ═══════════════════════════════════════════ */
-.film-grain {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.025;
-  mix-blend-mode: multiply;
-}
-
-/* ═══════════════════════════════════════════
    SCROLLBAR — minimal
    ═══════════════════════════════════════════ */
-::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.25); }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.22); }
 
 /* ═══════════════════════════════════════════
    SELECTION
@@ -178,12 +180,12 @@ body {
 }
 
 /* ═══════════════════════════════════════════
-   BUILDER MODE — override body styles
+   BUILDER MODE
    ═══════════════════════════════════════════ */
 body:has(.builder-shell) {
   background: #f8f8f6;
 }
-body:has(.builder-shell) .film-grain {
+body:has(.builder-shell) .paper-texture {
   display: none;
 }
 

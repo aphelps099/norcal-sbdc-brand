@@ -18,18 +18,31 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {children}
         <SearchModal />
-        {/* Film grain — subtle texture */}
-        <svg className="film-grain" aria-hidden="true">
-          <filter id="grain">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.7"
-              numOctaves="3"
-              stitchTiles="stitch"
-            />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#grain)" />
-        </svg>
+        {/* Paper texture — two-layer grain for tactile quality */}
+        <div className="paper-texture" aria-hidden="true">
+          <svg className="grain-fine" width="100%" height="100%">
+            <filter id="grain-fine">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.75"
+                numOctaves="4"
+                stitchTiles="stitch"
+              />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#grain-fine)" />
+          </svg>
+          <svg className="grain-coarse" width="100%" height="100%">
+            <filter id="grain-coarse">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.25"
+                numOctaves="2"
+                stitchTiles="stitch"
+              />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#grain-coarse)" />
+          </svg>
+        </div>
       </body>
     </html>
   );

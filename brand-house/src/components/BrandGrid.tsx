@@ -3,36 +3,12 @@
 import { useEffect, useRef } from "react";
 
 const brandItems = [
-  {
-    title: "Colors",
-    description: "Palette, tints, and usage.",
-    href: "/colors",
-  },
-  {
-    title: "Typography",
-    description: "Tiempos, Proxima Nova, scale.",
-    href: "/typography",
-  },
-  {
-    title: "Logos",
-    description: "Suite, lockups, clear space.",
-    href: "/logos",
-  },
-  {
-    title: "Voice & Tone",
-    description: "How we write and speak.",
-    href: "/voice",
-  },
-  {
-    title: "Photography",
-    description: "Style, treatments, composition.",
-    href: "#",
-  },
-  {
-    title: "Templates",
-    description: "Layouts, copy blocks, docs.",
-    href: "/templates",
-  },
+  { title: "Colors", description: "Palette, tints, and usage.", href: "/colors" },
+  { title: "Typography", description: "Tiempos, Proxima Nova, scale.", href: "/typography" },
+  { title: "Logos", description: "Suite, lockups, clear space.", href: "/logos" },
+  { title: "Voice & Tone", description: "How we write and speak.", href: "/voice" },
+  { title: "Photography", description: "Style, treatments, composition.", href: "#" },
+  { title: "Templates", description: "Layouts, copy blocks, docs.", href: "/templates" },
 ];
 
 export default function BrandGrid() {
@@ -50,10 +26,10 @@ export default function BrandGrid() {
       ctx = gsap.context(() => {
         gsap.fromTo(
           ".brand-grid-header",
-          { opacity: 0, y: 24 },
+          { opacity: 0, y: 20 },
           {
             opacity: 1, y: 0, duration: 1, ease: "power3.out",
-            scrollTrigger: { trigger: sectionRef.current, start: "top 78%" },
+            scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
           }
         );
 
@@ -61,12 +37,12 @@ export default function BrandGrid() {
         cards.forEach((card, i) => {
           gsap.fromTo(
             card,
-            { opacity: 0, y: 36 },
+            { opacity: 0, y: 32 },
             {
               opacity: 1, y: 0,
-              duration: 0.85, ease: "power3.out",
-              delay: i * 0.06,
-              scrollTrigger: { trigger: sectionRef.current, start: "top 68%" },
+              duration: 0.9, ease: "power3.out",
+              delay: i * 0.05,
+              scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
             }
           );
         });
@@ -79,15 +55,13 @@ export default function BrandGrid() {
 
   return (
     <section ref={sectionRef} className="bg-cream" id="chapters">
-      <div className="max-w-[1200px] mx-auto px-8 sm:px-12 py-28 sm:py-36">
-        <div className="brand-grid-header mb-14 sm:mb-18">
-          <h2
-            className="font-serif text-navy leading-[1.08] tracking-[-0.025em]"
-            style={{ fontSize: "clamp(30px, 4.2vw, 52px)" }}
-          >
-            Brand Components
-          </h2>
-        </div>
+      <div className="max-w-[1200px] mx-auto px-8 sm:px-12 py-28 sm:py-40">
+        <h2
+          className="brand-grid-header font-serif text-navy leading-[1.08] tracking-[-0.03em] mb-14 sm:mb-20"
+          style={{ fontSize: "clamp(32px, 4.5vw, 54px)" }}
+        >
+          Brand Components
+        </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-black/[0.04]">
           {brandItems.map((item, i) => (
@@ -98,19 +72,19 @@ export default function BrandGrid() {
             >
               <h3
                 className="font-serif text-navy tracking-[-0.02em] leading-[1.1] group-hover:text-royal transition-colors duration-500"
-                style={{ fontSize: "1.3rem" }}
+                style={{ fontSize: "1.4rem" }}
               >
                 {item.title}
               </h3>
-              <p className="font-sans text-[0.76rem] text-text-secondary leading-[1.6] mt-2.5">
+              <p className="font-sans text-[0.82rem] text-text-secondary leading-[1.55] mt-3 font-500">
                 {item.description}
               </p>
-              <div className="mt-6 overflow-hidden">
+              <div className="mt-7">
                 <svg
-                  width="18" height="18" viewBox="0 0 24 24"
+                  width="20" height="20" viewBox="0 0 24 24"
                   fill="none" stroke="currentColor" strokeWidth="1.5"
                   strokeLinecap="round" strokeLinejoin="round"
-                  className="text-text-tertiary/30 group-hover:text-royal transition-all duration-500 group-hover:translate-x-1"
+                  className="text-black/10 group-hover:text-royal transition-all duration-500 group-hover:translate-x-1.5"
                 >
                   <path d="M5 12h14" />
                   <path d="m12 5 7 7-7 7" />
