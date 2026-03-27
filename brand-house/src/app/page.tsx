@@ -1,13 +1,9 @@
 import SplashIntro from "@/components/SplashIntro";
 import TopNav from "@/components/TopNav";
 import HeroEditorial from "@/components/HeroEditorial";
+import GiantManifesto from "@/components/GiantManifesto";
 import PhotoMosaic from "@/components/PhotoMosaic";
-import DisplayType from "@/components/DisplayType";
-import FeatureShowcase from "@/components/FeatureShowcase";
-import ManifestoStatement from "@/components/ManifestoStatement";
-import CapabilitiesGrid from "@/components/CapabilitiesGrid";
 import BrandGrid from "@/components/BrandGrid";
-import PhotoFooter from "@/components/PhotoFooter";
 import SiteFooter from "@/components/SiteFooter";
 
 export default function HomePage() {
@@ -16,13 +12,9 @@ export default function HomePage() {
       <SplashIntro />
       <TopNav />
       <HeroEditorial />
+      <GiantManifesto />
       <PhotoMosaic />
-      <DisplayType />
-      <FeatureShowcase />
-      <ManifestoStatement />
-      <CapabilitiesGrid />
       <BrandGrid />
-      <PhotoFooter />
       <SiteFooter />
     </main>
   );
