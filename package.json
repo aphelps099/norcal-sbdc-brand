@@ -1,0 +1,11 @@
+{
+  "name": "norcal-sbdc-brand",
+  "private": true,
+  "scripts": {
+    "build": "cd brand-house && npm install && npm run build",
+    "start": "cd brand-house && npm run start"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
