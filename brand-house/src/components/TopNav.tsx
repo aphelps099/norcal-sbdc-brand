@@ -9,16 +9,32 @@ const fuse = new Fuse(searchData, {
   threshold: 0.4,
 });
 
-const NAV_LINKS = [
-  { label: "Colors",       href: "/colors" },
-  { label: "Typography",   href: "/typography" },
-  { label: "Logos",         href: "/logos" },
-  { label: "Voice & Tone", href: "/voice" },
-  { label: "Templates",    href: "/templates" },
-  { label: "Content",      href: "/content" },
-  { label: "Calendar",     href: "/calendar" },
-  { label: "Stories",      href: "/stories" },
-  { label: "Glossary",     href: "/glossary" },
+const NAV_SECTIONS = [
+  {
+    group: "Identity",
+    links: [
+      { label: "Colors", href: "/colors", num: "01" },
+      { label: "Typography", href: "/typography", num: "02" },
+      { label: "Logos", href: "/logos", num: "03" },
+      { label: "Photography", href: "/photography", num: "04" },
+    ],
+  },
+  {
+    group: "Voice",
+    links: [
+      { label: "Voice & Tone", href: "/voice", num: "05" },
+      { label: "Content", href: "/content", num: "06" },
+      { label: "Templates", href: "/templates", num: "07" },
+    ],
+  },
+  {
+    group: "Program",
+    links: [
+      { label: "Calendar", href: "/calendar", num: "08" },
+      { label: "Stories", href: "/stories", num: "09" },
+      { label: "Glossary", href: "/glossary", num: "10" },
+    ],
+  },
 ];
 
 export default function TopNav() {
@@ -50,7 +66,7 @@ export default function TopNav() {
       if (closeTimer.current) clearTimeout(closeTimer.current);
       setClosing(false);
       setMounted(true);
-      setTimeout(() => searchRef.current?.focus(), 500);
+      setTimeout(() => searchRef.current?.focus(), 600);
     } else {
       document.body.style.overflow = "";
       setQuery("");
@@ -58,7 +74,7 @@ export default function TopNav() {
       closeTimer.current = setTimeout(() => {
         setMounted(false);
         setClosing(false);
-      }, 750);
+      }, 850);
     }
     return () => {
       document.body.style.overflow = "";
@@ -72,10 +88,13 @@ export default function TopNav() {
         e.preventDefault();
         setMenuOpen(true);
       }
+      if (e.key === "Escape" && menuOpen) {
+        setMenuOpen(false);
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [menuOpen]);
 
   const isDark = !pastHero && !menuOpen;
 
@@ -86,24 +105,31 @@ export default function TopNav() {
           display: block;
           height: 1.5px;
           background: currentColor;
-          transition: transform 0.45s cubic-bezier(0.16,1,0.3,1),
-                      width 0.45s cubic-bezier(0.16,1,0.3,1),
-                      opacity 0.3s ease;
+          transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+            width 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.3s ease;
           transform-origin: center center;
         }
-        .burger-top { width: 20px; }
-        .burger-bottom { width: 15px; }
-        .burger-wrap:hover .burger-bottom { width: 20px; }
+        .burger-top {
+          width: 22px;
+        }
+        .burger-bottom {
+          width: 14px;
+        }
+        .burger-wrap:hover .burger-bottom {
+          width: 22px;
+        }
         .burger-wrap[data-open="true"] .burger-top {
-          transform: translateY(4px) rotate(45deg);
+          transform: translateY(4.5px) rotate(45deg);
           width: 18px;
         }
         .burger-wrap[data-open="true"] .burger-bottom {
-          transform: translateY(-4px) rotate(-45deg);
+          transform: translateY(-4.5px) rotate(-45deg);
           width: 18px;
         }
       `}</style>
 
+      {/* Fixed nav bar */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
           menuOpen
@@ -118,8 +144,12 @@ export default function TopNav() {
         <div className="max-w-[1400px] mx-auto px-8 sm:px-12 py-5 flex items-center justify-between relative z-[60]">
           <a
             href="/"
-            className={`font-sans text-[0.72rem] font-800 tracking-[0.12em] uppercase transition-colors duration-500 no-underline ${
-              menuOpen ? "text-navy" : isDark ? "text-white/70 hover:text-white" : "text-navy hover:text-navy"
+            className={`font-sans text-[0.72rem] font-800 tracking-[0.14em] uppercase transition-colors duration-500 no-underline ${
+              menuOpen
+                ? "text-cream/70 hover:text-cream"
+                : isDark
+                  ? "text-white/70 hover:text-white"
+                  : "text-navy hover:text-navy"
             }`}
           >
             Brand.SBDC
@@ -127,8 +157,12 @@ export default function TopNav() {
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className={`burger-wrap flex flex-col items-end justify-center gap-[6.5px] w-[24px] h-[24px] transition-colors duration-500 ${
-              menuOpen ? "text-navy/60 hover:text-navy" : isDark ? "text-white/40 hover:text-white" : "text-text-tertiary hover:text-navy"
+            className={`burger-wrap flex flex-col items-end justify-center gap-[7px] w-[24px] h-[24px] transition-colors duration-500 ${
+              menuOpen
+                ? "text-cream/40 hover:text-cream"
+                : isDark
+                  ? "text-white/40 hover:text-white"
+                  : "text-text-tertiary hover:text-navy"
             }`}
             data-open={menuOpen}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -139,95 +173,116 @@ export default function TopNav() {
         </div>
       </nav>
 
-      {/* Full-screen menu overlay */}
+      {/* Full-screen menu overlay — dark, editorial, Collins-level */}
       {mounted && (
         <div
-          className="fixed inset-0 z-[45] overflow-hidden"
+          className="fixed inset-0 z-[45] overflow-auto"
           style={{
-            background: "#8FC5D9",
+            background: "#0f1c2e",
             clipPath: menuOpen
               ? "inset(0 0 0 0)"
               : closing
-                ? "inset(0 0 0 100%)"
-                : "inset(0 100% 0 0)",
-            transition: "clip-path 0.7s cubic-bezier(0.25,0.1,0.25,1)",
+                ? "inset(0 0 100% 0)"
+                : "inset(100% 0 0 0)",
+            transition:
+              "clip-path 0.8s cubic-bezier(0.22, 1, 0.36, 1)",
           }}
         >
-          {/* Giant "Explore" watermark */}
-          <div
-            className="absolute bottom-[-6vw] left-[-2vw] pointer-events-none select-none"
-            style={{
-              fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
-              fontWeight: 300,
-              fontStyle: "italic",
-              fontSize: "clamp(160px, 22vw, 320px)",
-              lineHeight: 1,
-              letterSpacing: "-0.04em",
-              color: "rgba(15,28,46,0.045)",
-              opacity: menuOpen ? 1 : 0,
-              transform: menuOpen ? "translateY(0)" : "translateY(40px)",
-              transition: "opacity 0.8s ease 0.3s, transform 1s cubic-bezier(0.16,1,0.3,1) 0.3s",
-            }}
-          >
-            Explore
-          </div>
-
-          <div className="relative z-10 h-full flex flex-col pt-24 pb-8 md:pb-10 px-8 sm:px-12 md:px-16 lg:px-24">
-
-            {/* Main content — split: links left, search right */}
-            <div className="flex-1 flex flex-col lg:flex-row items-start lg:items-center">
-
-              {/* Left half — all nav links in single column */}
-              <div className="flex-1 flex flex-col justify-center lg:pr-16">
-                <nav className="flex flex-col">
-                  {NAV_LINKS.map((link, i) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setMenuOpen(false)}
-                      className="block no-underline group/nav"
+          {/* Content container */}
+          <div className="relative z-10 min-h-full flex flex-col pt-28 pb-12 md:pb-16 px-8 sm:px-12 md:px-16 lg:px-24">
+            {/* Main — nav groups + search */}
+            <div className="flex-1 flex flex-col lg:flex-row gap-16 lg:gap-8 max-w-[1400px] mx-auto w-full">
+              {/* Left — grouped nav links */}
+              <div className="flex-[2] flex flex-col lg:flex-row gap-12 lg:gap-0">
+                {NAV_SECTIONS.map((section, sIdx) => (
+                  <div key={section.group} className="flex-1">
+                    {/* Group label */}
+                    <p
+                      className="font-sans text-[10px] font-800 uppercase tracking-[0.25em] text-cream/20 mb-6 md:mb-8"
                       style={{
                         opacity: menuOpen ? 1 : 0,
-                        transform: menuOpen ? "translateY(0)" : "translateY(8px)",
+                        transform: menuOpen
+                          ? "translateY(0)"
+                          : "translateY(6px)",
                         transition: menuOpen
-                          ? `opacity 0.5s ease ${0.3 + i * 0.04}s, transform 0.5s ease ${0.3 + i * 0.04}s`
-                          : `opacity 0.25s ease, transform 0.25s ease`,
+                          ? `opacity 0.5s ease ${0.3 + sIdx * 0.08}s, transform 0.5s ease ${0.3 + sIdx * 0.08}s`
+                          : "opacity 0.2s ease, transform 0.2s ease",
                       }}
                     >
-                      <span
-                        className="block py-1 transition-all duration-200 text-navy/55 group-hover/nav:text-navy group-hover/nav:underline underline-offset-4 decoration-navy/25"
-                        style={{
-                          fontFamily: "'Tiempos Headline', 'Tiempos', Georgia, serif",
-                          fontWeight: 500,
-                          fontSize: "clamp(20px, 2.6vw, 34px)",
-                          lineHeight: "1.5",
-                          letterSpacing: "-0.015em",
-                        }}
-                      >
-                        {link.label}
-                      </span>
-                    </a>
-                  ))}
-                </nav>
+                      {section.group}
+                    </p>
+
+                    {/* Links */}
+                    <nav className="flex flex-col gap-0">
+                      {section.links.map((link, i) => {
+                        const delay = 0.35 + sIdx * 0.08 + i * 0.04;
+                        return (
+                          <a
+                            key={link.href}
+                            href={link.href}
+                            onClick={() => setMenuOpen(false)}
+                            className="block no-underline group/link py-2"
+                            style={{
+                              opacity: menuOpen ? 1 : 0,
+                              transform: menuOpen
+                                ? "translateY(0)"
+                                : "translateY(8px)",
+                              transition: menuOpen
+                                ? `opacity 0.5s ease ${delay}s, transform 0.5s ease ${delay}s`
+                                : "opacity 0.15s ease, transform 0.15s ease",
+                            }}
+                          >
+                            <div className="flex items-baseline gap-4">
+                              <span className="font-mono text-[10px] text-cream/15 tabular-nums shrink-0 w-5">
+                                {link.num}
+                              </span>
+                              <span
+                                className="transition-all duration-300 text-cream/50 group-hover/link:text-cream"
+                                style={{
+                                  fontFamily:
+                                    "'Tiempos Headline', 'Tiempos', Georgia, serif",
+                                  fontWeight: 500,
+                                  fontSize: "clamp(22px, 2.4vw, 32px)",
+                                  lineHeight: "1.4",
+                                  letterSpacing: "-0.02em",
+                                }}
+                              >
+                                {link.label}
+                              </span>
+                            </div>
+                          </a>
+                        );
+                      })}
+                    </nav>
+                  </div>
+                ))}
               </div>
 
-              {/* Right half — search */}
-              <div
-                className="flex-1 flex flex-col justify-center lg:pl-16 mt-10 lg:mt-0 w-full lg:w-auto"
-                style={{
-                  opacity: menuOpen ? 1 : 0,
-                  transform: menuOpen ? "translateY(0)" : "translateY(8px)",
-                  transition: menuOpen
-                    ? "opacity 0.5s ease 0.45s, transform 0.5s ease 0.45s"
-                    : "opacity 0.2s ease, transform 0.2s ease",
-                }}
-              >
-                <div className="max-w-[440px]">
-                  <div className="flex items-center gap-3 border-b-[3px] border-navy/25 pb-3 focus-within:border-navy/50 transition-colors duration-300">
+              {/* Right — search + quick info */}
+              <div className="flex-1 flex flex-col justify-between lg:pl-12 lg:border-l lg:border-cream/[0.06]">
+                {/* Search */}
+                <div
+                  style={{
+                    opacity: menuOpen ? 1 : 0,
+                    transform: menuOpen
+                      ? "translateY(0)"
+                      : "translateY(8px)",
+                    transition: menuOpen
+                      ? "opacity 0.5s ease 0.55s, transform 0.5s ease 0.55s"
+                      : "opacity 0.15s ease, transform 0.15s ease",
+                  }}
+                >
+                  <div className="flex items-center gap-3 border-b border-cream/[0.1] pb-4 focus-within:border-cream/25 transition-colors duration-300">
                     <svg
-                      width="22" height="22" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-                      className="text-navy/40 flex-shrink-0"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-cream/20 flex-shrink-0"
                     >
                       <circle cx="11" cy="11" r="7" />
                       <path d="m20 20-3.5-3.5" />
@@ -237,20 +292,19 @@ export default function TopNav() {
                       type="text"
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
-                      placeholder="Search..."
-                      className="flex-1 bg-transparent text-navy text-xl md:text-2xl outline-none placeholder:text-navy/30 tracking-[-0.02em]"
-                      style={{ fontFamily: "'Tiempos', Georgia, serif" }}
+                      placeholder="Search brand house..."
+                      className="flex-1 bg-transparent text-cream text-base md:text-lg outline-none placeholder:text-cream/20 tracking-[-0.01em] font-sans font-500"
                     />
-                    <span className="font-sans text-[10px] font-800 uppercase tracking-[0.1em] text-navy/20 hidden sm:block">
+                    <span className="font-mono text-[9px] text-cream/15 hidden sm:block">
                       {"\u2318"}K
                     </span>
                   </div>
 
                   {/* Search results */}
                   {query && (
-                    <div className="mt-4 space-y-0.5">
+                    <div className="mt-3 space-y-0">
                       {results.length === 0 ? (
-                        <p className="font-sans text-sm text-navy/30 font-500 py-2">
+                        <p className="font-sans text-sm text-cream/20 font-500 py-3">
                           No results for &ldquo;{query}&rdquo;
                         </p>
                       ) : (
@@ -259,12 +313,12 @@ export default function TopNav() {
                             key={item.href}
                             href={item.href}
                             onClick={() => setMenuOpen(false)}
-                            className="flex items-baseline gap-3 py-2.5 no-underline group/result hover:bg-navy/[0.06] px-2 -mx-2 transition-colors duration-200"
+                            className="flex items-baseline gap-3 py-3 no-underline group/result hover:bg-cream/[0.04] px-3 -mx-3 transition-colors duration-200 rounded-sm"
                           >
-                            <span className="font-sans text-[9px] font-800 uppercase tracking-[0.14em] text-navy/25 w-14 shrink-0">
+                            <span className="font-sans text-[9px] font-800 uppercase tracking-[0.14em] text-cream/15 w-16 shrink-0">
                               {item.section}
                             </span>
-                            <span className="font-serif text-navy text-base group-hover/result:text-navy transition-colors duration-200">
+                            <span className="font-serif text-cream/50 text-sm group-hover/result:text-cream transition-colors duration-200">
                               {item.title}
                             </span>
                           </a>
@@ -273,9 +327,84 @@ export default function TopNav() {
                     </div>
                   )}
                 </div>
+
+                {/* Bottom info — quick stats + external link */}
+                <div
+                  className="mt-12 lg:mt-0"
+                  style={{
+                    opacity: menuOpen ? 1 : 0,
+                    transform: menuOpen
+                      ? "translateY(0)"
+                      : "translateY(8px)",
+                    transition: menuOpen
+                      ? "opacity 0.5s ease 0.65s, transform 0.5s ease 0.65s"
+                      : "opacity 0.15s ease, transform 0.15s ease",
+                  }}
+                >
+                  {/* Stat */}
+                  <div className="mb-8">
+                    <p className="font-serif text-cream/10 tracking-[-0.03em] leading-none" style={{ fontSize: "clamp(48px, 5vw, 72px)" }}>
+                      40+
+                    </p>
+                    <p className="font-sans text-[10px] font-800 uppercase tracking-[0.2em] text-cream/15 mt-2">
+                      Years of impact
+                    </p>
+                  </div>
+
+                  {/* External link */}
+                  <a
+                    href="https://norcalsbdc.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 font-sans text-[10px] font-800 uppercase tracking-[0.2em] text-cream/20 hover:text-cream/50 transition-colors duration-300 no-underline"
+                  >
+                    norcalsbdc.org
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M7 17L17 7" />
+                      <path d="M7 7h10v10" />
+                    </svg>
+                  </a>
+                </div>
               </div>
             </div>
 
+            {/* Footer — tagline */}
+            <div
+              className="mt-16 md:mt-20 max-w-[1400px] mx-auto w-full"
+              style={{
+                opacity: menuOpen ? 1 : 0,
+                transition: menuOpen
+                  ? "opacity 0.6s ease 0.7s"
+                  : "opacity 0.15s ease",
+              }}
+            >
+              <div className="border-t border-cream/[0.06] pt-6 flex items-center justify-between">
+                <p
+                  className="text-cream/[0.07] tracking-[-0.04em] leading-none select-none"
+                  style={{
+                    fontFamily:
+                      "'Tiempos Fine', 'Tiempos', Georgia, serif",
+                    fontWeight: 300,
+                    fontStyle: "italic",
+                    fontSize: "clamp(24px, 3vw, 40px)",
+                  }}
+                >
+                  Your Business Better
+                </p>
+                <p className="font-sans text-[9px] font-800 uppercase tracking-[0.2em] text-cream/10">
+                  &copy; 2026 NorCal SBDC
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       )}
