@@ -9,32 +9,17 @@ const fuse = new Fuse(searchData, {
   threshold: 0.4,
 });
 
-const NAV_SECTIONS = [
-  {
-    group: "Identity",
-    links: [
-      { label: "Colors", href: "/colors", num: "01" },
-      { label: "Typography", href: "/typography", num: "02" },
-      { label: "Logos", href: "/logos", num: "03" },
-      { label: "Photography", href: "/photography", num: "04" },
-    ],
-  },
-  {
-    group: "Voice",
-    links: [
-      { label: "Voice & Tone", href: "/voice", num: "05" },
-      { label: "Content", href: "/content", num: "06" },
-      { label: "Templates", href: "/templates", num: "07" },
-    ],
-  },
-  {
-    group: "Program",
-    links: [
-      { label: "Calendar", href: "/calendar", num: "08" },
-      { label: "Stories", href: "/stories", num: "09" },
-      { label: "Glossary", href: "/glossary", num: "10" },
-    ],
-  },
+const NAV_LINKS = [
+  { label: "Colors", href: "/colors" },
+  { label: "Typography", href: "/typography" },
+  { label: "Logos", href: "/logos" },
+  { label: "Voice & Tone", href: "/voice" },
+  { label: "Photography", href: "/photography" },
+  { label: "Templates", href: "/templates" },
+  { label: "Content", href: "/content" },
+  { label: "Calendar", href: "/calendar" },
+  { label: "Stories", href: "/stories" },
+  { label: "Glossary", href: "/glossary" },
 ];
 
 export default function TopNav() {
@@ -66,7 +51,7 @@ export default function TopNav() {
       if (closeTimer.current) clearTimeout(closeTimer.current);
       setClosing(false);
       setMounted(true);
-      setTimeout(() => searchRef.current?.focus(), 600);
+      setTimeout(() => searchRef.current?.focus(), 500);
     } else {
       document.body.style.overflow = "";
       setQuery("");
@@ -74,7 +59,7 @@ export default function TopNav() {
       closeTimer.current = setTimeout(() => {
         setMounted(false);
         setClosing(false);
-      }, 850);
+      }, 700);
     }
     return () => {
       document.body.style.overflow = "";
@@ -88,9 +73,7 @@ export default function TopNav() {
         e.preventDefault();
         setMenuOpen(true);
       }
-      if (e.key === "Escape" && menuOpen) {
-        setMenuOpen(false);
-      }
+      if (e.key === "Escape" && menuOpen) setMenuOpen(false);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -100,36 +83,7 @@ export default function TopNav() {
 
   return (
     <>
-      <style jsx>{`
-        .burger-bar {
-          display: block;
-          height: 1.5px;
-          background: currentColor;
-          transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-            width 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-            opacity 0.3s ease;
-          transform-origin: center center;
-        }
-        .burger-top {
-          width: 22px;
-        }
-        .burger-bottom {
-          width: 14px;
-        }
-        .burger-wrap:hover .burger-bottom {
-          width: 22px;
-        }
-        .burger-wrap[data-open="true"] .burger-top {
-          transform: translateY(4.5px) rotate(45deg);
-          width: 18px;
-        }
-        .burger-wrap[data-open="true"] .burger-bottom {
-          transform: translateY(-4.5px) rotate(-45deg);
-          width: 18px;
-        }
-      `}</style>
-
-      {/* Fixed nav bar */}
+      {/* Fixed bar */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
           menuOpen
@@ -146,7 +100,7 @@ export default function TopNav() {
             href="/"
             className={`font-sans text-[0.72rem] font-800 tracking-[0.14em] uppercase transition-colors duration-500 no-underline ${
               menuOpen
-                ? "text-cream/70 hover:text-cream"
+                ? "text-white/50 hover:text-white"
                 : isDark
                   ? "text-white/70 hover:text-white"
                   : "text-navy hover:text-navy"
@@ -157,254 +111,135 @@ export default function TopNav() {
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className={`burger-wrap flex flex-col items-end justify-center gap-[7px] w-[24px] h-[24px] transition-colors duration-500 ${
+            className={`flex items-center gap-2 transition-colors duration-500 ${
               menuOpen
-                ? "text-cream/40 hover:text-cream"
+                ? "text-white/30 hover:text-white"
                 : isDark
                   ? "text-white/40 hover:text-white"
                   : "text-text-tertiary hover:text-navy"
             }`}
-            data-open={menuOpen}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
           >
-            <span className="burger-bar burger-top" />
-            <span className="burger-bar burger-bottom" />
+            <span className="font-sans text-[10px] font-800 uppercase tracking-[0.18em]">
+              {menuOpen ? "Close" : "Menu"}
+            </span>
           </button>
         </div>
       </nav>
 
-      {/* Full-screen menu overlay — dark, editorial, Collins-level */}
+      {/* Full-screen overlay */}
       {mounted && (
         <div
           className="fixed inset-0 z-[45] overflow-auto"
           style={{
             background: "#0f1c2e",
-            clipPath: menuOpen
-              ? "inset(0 0 0 0)"
-              : closing
-                ? "inset(0 0 100% 0)"
-                : "inset(100% 0 0 0)",
-            transition:
-              "clip-path 0.8s cubic-bezier(0.22, 1, 0.36, 1)",
+            opacity: menuOpen ? 1 : closing ? 0 : 0,
+            transition: "opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
+            pointerEvents: menuOpen ? "auto" : "none",
           }}
         >
-          {/* Content container */}
-          <div className="relative z-10 min-h-full flex flex-col pt-28 pb-12 md:pb-16 px-8 sm:px-12 md:px-16 lg:px-24">
-            {/* Main — nav groups + search */}
-            <div className="flex-1 flex flex-col lg:flex-row gap-16 lg:gap-8 max-w-[1400px] mx-auto w-full">
-              {/* Left — grouped nav links */}
-              <div className="flex-[2] flex flex-col lg:flex-row gap-12 lg:gap-0">
-                {NAV_SECTIONS.map((section, sIdx) => (
-                  <div key={section.group} className="flex-1">
-                    {/* Group label */}
-                    <p
-                      className="font-sans text-[10px] font-800 uppercase tracking-[0.25em] text-cream/20 mb-6 md:mb-8"
-                      style={{
-                        opacity: menuOpen ? 1 : 0,
-                        transform: menuOpen
-                          ? "translateY(0)"
-                          : "translateY(6px)",
-                        transition: menuOpen
-                          ? `opacity 0.5s ease ${0.3 + sIdx * 0.08}s, transform 0.5s ease ${0.3 + sIdx * 0.08}s`
-                          : "opacity 0.2s ease, transform 0.2s ease",
-                      }}
-                    >
-                      {section.group}
-                    </p>
-
-                    {/* Links */}
-                    <nav className="flex flex-col gap-0">
-                      {section.links.map((link, i) => {
-                        const delay = 0.35 + sIdx * 0.08 + i * 0.04;
-                        return (
-                          <a
-                            key={link.href}
-                            href={link.href}
-                            onClick={() => setMenuOpen(false)}
-                            className="block no-underline group/link py-2"
-                            style={{
-                              opacity: menuOpen ? 1 : 0,
-                              transform: menuOpen
-                                ? "translateY(0)"
-                                : "translateY(8px)",
-                              transition: menuOpen
-                                ? `opacity 0.5s ease ${delay}s, transform 0.5s ease ${delay}s`
-                                : "opacity 0.15s ease, transform 0.15s ease",
-                            }}
-                          >
-                            <div className="flex items-baseline gap-4">
-                              <span className="font-mono text-[10px] text-cream/15 tabular-nums shrink-0 w-5">
-                                {link.num}
-                              </span>
-                              <span
-                                className="transition-all duration-300 text-cream/50 group-hover/link:text-cream"
-                                style={{
-                                  fontFamily:
-                                    "'Tiempos Headline', 'Tiempos', Georgia, serif",
-                                  fontWeight: 500,
-                                  fontSize: "clamp(22px, 2.4vw, 32px)",
-                                  lineHeight: "1.4",
-                                  letterSpacing: "-0.02em",
-                                }}
-                              >
-                                {link.label}
-                              </span>
-                            </div>
-                          </a>
-                        );
-                      })}
-                    </nav>
-                  </div>
-                ))}
-              </div>
-
-              {/* Right — search + quick info */}
-              <div className="flex-1 flex flex-col justify-between lg:pl-12 lg:border-l lg:border-cream/[0.06]">
-                {/* Search */}
-                <div
-                  style={{
-                    opacity: menuOpen ? 1 : 0,
-                    transform: menuOpen
-                      ? "translateY(0)"
-                      : "translateY(8px)",
-                    transition: menuOpen
-                      ? "opacity 0.5s ease 0.55s, transform 0.5s ease 0.55s"
-                      : "opacity 0.15s ease, transform 0.15s ease",
-                  }}
-                >
-                  <div className="flex items-center gap-3 border-b border-cream/[0.1] pb-4 focus-within:border-cream/25 transition-colors duration-300">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-cream/20 flex-shrink-0"
-                    >
-                      <circle cx="11" cy="11" r="7" />
-                      <path d="m20 20-3.5-3.5" />
-                    </svg>
-                    <input
-                      ref={searchRef}
-                      type="text"
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                      placeholder="Search brand house..."
-                      className="flex-1 bg-transparent text-cream text-base md:text-lg outline-none placeholder:text-cream/20 tracking-[-0.01em] font-sans font-500"
-                    />
-                    <span className="font-mono text-[9px] text-cream/15 hidden sm:block">
-                      {"\u2318"}K
-                    </span>
-                  </div>
-
-                  {/* Search results */}
-                  {query && (
-                    <div className="mt-3 space-y-0">
-                      {results.length === 0 ? (
-                        <p className="font-sans text-sm text-cream/20 font-500 py-3">
-                          No results for &ldquo;{query}&rdquo;
-                        </p>
-                      ) : (
-                        results.map((item) => (
-                          <a
-                            key={item.href}
-                            href={item.href}
-                            onClick={() => setMenuOpen(false)}
-                            className="flex items-baseline gap-3 py-3 no-underline group/result hover:bg-cream/[0.04] px-3 -mx-3 transition-colors duration-200 rounded-sm"
-                          >
-                            <span className="font-sans text-[9px] font-800 uppercase tracking-[0.14em] text-cream/15 w-16 shrink-0">
-                              {item.section}
-                            </span>
-                            <span className="font-serif text-cream/50 text-sm group-hover/result:text-cream transition-colors duration-200">
-                              {item.title}
-                            </span>
-                          </a>
-                        ))
-                      )}
-                    </div>
-                  )}
-                </div>
-
-                {/* Bottom info — quick stats + external link */}
-                <div
-                  className="mt-12 lg:mt-0"
-                  style={{
-                    opacity: menuOpen ? 1 : 0,
-                    transform: menuOpen
-                      ? "translateY(0)"
-                      : "translateY(8px)",
-                    transition: menuOpen
-                      ? "opacity 0.5s ease 0.65s, transform 0.5s ease 0.65s"
-                      : "opacity 0.15s ease, transform 0.15s ease",
-                  }}
-                >
-                  {/* Stat */}
-                  <div className="mb-8">
-                    <p className="font-serif text-cream/10 tracking-[-0.03em] leading-none" style={{ fontSize: "clamp(48px, 5vw, 72px)" }}>
-                      40+
-                    </p>
-                    <p className="font-sans text-[10px] font-800 uppercase tracking-[0.2em] text-cream/15 mt-2">
-                      Years of impact
-                    </p>
-                  </div>
-
-                  {/* External link */}
-                  <a
-                    href="https://norcalsbdc.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 font-sans text-[10px] font-800 uppercase tracking-[0.2em] text-cream/20 hover:text-cream/50 transition-colors duration-300 no-underline"
-                  >
-                    norcalsbdc.org
-                    <svg
-                      width="10"
-                      height="10"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M7 17L17 7" />
-                      <path d="M7 7h10v10" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Footer — tagline */}
+          <div className="min-h-full flex flex-col justify-center px-8 sm:px-12 md:px-20 lg:px-32 py-28">
+            {/* Search — top, minimal */}
             <div
-              className="mt-16 md:mt-20 max-w-[1400px] mx-auto w-full"
+              className="mb-12 md:mb-16 max-w-md"
               style={{
                 opacity: menuOpen ? 1 : 0,
+                transform: menuOpen ? "translateY(0)" : "translateY(6px)",
                 transition: menuOpen
-                  ? "opacity 0.6s ease 0.7s"
+                  ? "opacity 0.4s ease 0.25s, transform 0.4s ease 0.25s"
                   : "opacity 0.15s ease",
               }}
             >
-              <div className="border-t border-cream/[0.06] pt-6 flex items-center justify-between">
-                <p
-                  className="text-cream/[0.07] tracking-[-0.04em] leading-none select-none"
+              <div className="flex items-center gap-3 border-b border-white/[0.08] pb-3 focus-within:border-white/20 transition-colors duration-300">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-white/15 shrink-0"
+                >
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="m20 20-3.5-3.5" />
+                </svg>
+                <input
+                  ref={searchRef}
+                  type="text"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search..."
+                  className="flex-1 bg-transparent text-white text-sm outline-none placeholder:text-white/15 tracking-[-0.01em] font-sans font-500"
+                />
+                <span className="font-mono text-[9px] text-white/10 hidden sm:block">
+                  {"\u2318"}K
+                </span>
+              </div>
+
+              {query && (
+                <div className="mt-2 space-y-0">
+                  {results.length === 0 ? (
+                    <p className="font-sans text-xs text-white/15 py-2">
+                      No results
+                    </p>
+                  ) : (
+                    results.map((item) => (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setMenuOpen(false)}
+                        className="block py-2 font-sans text-sm text-white/30 hover:text-white transition-colors duration-200 no-underline"
+                      >
+                        {item.title}
+                      </a>
+                    ))
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Links — single column, large, clean sans-serif */}
+            <nav className="flex flex-col">
+              {NAV_LINKS.map((link, i) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="block no-underline group/link border-b border-white/[0.04] first:border-t first:border-white/[0.04]"
                   style={{
-                    fontFamily:
-                      "'Tiempos Fine', 'Tiempos', Georgia, serif",
-                    fontWeight: 300,
-                    fontStyle: "italic",
-                    fontSize: "clamp(24px, 3vw, 40px)",
+                    opacity: menuOpen ? 1 : 0,
+                    transform: menuOpen ? "translateY(0)" : "translateY(8px)",
+                    transition: menuOpen
+                      ? `opacity 0.4s ease ${0.15 + i * 0.03}s, transform 0.4s ease ${0.15 + i * 0.03}s`
+                      : "opacity 0.1s ease",
                   }}
                 >
-                  Your Business Better
-                </p>
-                <p className="font-sans text-[9px] font-800 uppercase tracking-[0.2em] text-cream/10">
-                  &copy; 2026 NorCal SBDC
-                </p>
-              </div>
-            </div>
+                  <div className="py-3 md:py-4 flex items-center justify-between">
+                    <span
+                      className="font-sans font-700 text-white/30 group-hover/link:text-white transition-colors duration-300 tracking-[-0.02em]"
+                      style={{ fontSize: "clamp(24px, 3.5vw, 44px)" }}
+                    >
+                      {link.label}
+                    </span>
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-white/0 group-hover/link:text-white/20 transition-all duration-300 group-hover/link:translate-x-1"
+                    >
+                      <path d="m9 18 6-6-6-6" />
+                    </svg>
+                  </div>
+                </a>
+              ))}
+            </nav>
           </div>
         </div>
       )}
