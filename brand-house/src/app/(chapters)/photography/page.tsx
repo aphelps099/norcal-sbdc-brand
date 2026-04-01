@@ -24,16 +24,19 @@ const dontList = [
 const overlaySpecs = [
   {
     name: "Dark editorial",
+    bg: "linear-gradient(180deg, rgba(15,28,46,0.3) 0%, rgba(15,28,46,0.7) 100%)",
     css: "background: linear-gradient(180deg, rgba(15,28,46,0.3) 0%, rgba(15,28,46,0.7) 100%)",
     use: "Hero images, event coverage, full-bleed backgrounds",
   },
   {
     name: "Brand gradient",
+    bg: "linear-gradient(135deg, rgba(29,90,167,0.6) 0%, rgba(15,28,46,0.8) 100%)",
     css: "background: linear-gradient(135deg, rgba(29,90,167,0.6) 0%, rgba(15,28,46,0.8) 100%)",
     use: "Social media covers, presentation slides",
   },
   {
     name: "Light wash",
+    bg: "rgba(245,244,240,0.85)",
     css: "background: rgba(245,244,240,0.85)",
     use: "Text-heavy layouts where photo is ambient background",
   },
@@ -195,7 +198,7 @@ export default function PhotographyPage() {
                   className="h-32 relative"
                   style={{ background: "#2B3035" }}
                 >
-                  <div className="absolute inset-0" style={{ cssText: spec.css }} />
+                  <div className="absolute inset-0" style={{ background: spec.bg }} />
                   <div className="absolute inset-0 flex items-end p-4">
                     <span className="font-sans text-[11px] font-800 text-white/80 uppercase tracking-[0.1em]">
                       Preview
