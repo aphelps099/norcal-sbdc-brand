@@ -7,7 +7,7 @@ const brandItems = [
   { title: "Typography", description: "Tiempos, Proxima Nova, scale.", href: "/typography" },
   { title: "Logos", description: "Suite, lockups, clear space.", href: "/logos" },
   { title: "Voice & Tone", description: "How we write and speak.", href: "/voice" },
-  { title: "Photography", description: "Style, treatments, composition.", href: "#" },
+  { title: "Photography", description: "Style, treatments, composition.", href: "/photography" },
   { title: "Templates", description: "Layouts, copy blocks, docs.", href: "/templates" },
 ];
 

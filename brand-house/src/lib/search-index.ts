@@ -60,4 +60,10 @@ export const searchData: SearchItem[] = [
     content: "Terms and definitions, brand terminology, SBDC acronyms, business advising vocabulary",
     href: "/glossary",
   },
+  {
+    title: "Photography",
+    section: "Photography",
+    content: "Photo style, real people, natural light, composition rules, Do and Don't, image overlays, brand photography guidelines",
+    href: "/photography",
+  },
 ];

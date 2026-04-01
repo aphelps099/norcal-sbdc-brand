@@ -53,7 +53,7 @@ export default function TemplatesPage() {
           ))}
         </div>
       </div>
-      <NextSectionLink title="Colors" href="/colors" />
+      <NextSectionLink title="Content" href="/content" />
     </>
   );
 }

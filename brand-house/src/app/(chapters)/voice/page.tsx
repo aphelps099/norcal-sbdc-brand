@@ -160,7 +160,7 @@ export default function VoicePage() {
           </div>
         </div>
       </div>
-      <NextSectionLink title="Templates" href="/templates" />
+      <NextSectionLink title="Photography" href="/photography" />
     </>
   );
 }
