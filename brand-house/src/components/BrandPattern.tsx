@@ -71,22 +71,27 @@ export function PatternSpecimen({ letter = "Aa", className = "" }: PatternProps 
   );
 }
 
-/** Vertical color bars — samples from the palette. */
+/** 5-point diagonal gradient with film grain overlay — for Colors section. */
 export function PatternPalette({ className = "" }: PatternProps) {
-  const bars = [
-    { color: "#A73B44", width: "14%" },
-    { color: "#13171C", width: "14%" },
-    { color: "#85A3C8", width: "14%" },
-    { color: "#004290", width: "14%" },
-    { color: "#8FC5D9", width: "14%" },
-    { color: "#00685E", width: "14%" },
-    { color: "#F7024D", width: "14%" },
-  ];
   return (
-    <svg className={className} width="100%" height="100%" viewBox="0 0 700 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      {bars.map((bar, i) => (
-        <rect key={i} x={`${i * 100}`} y="0" width="100" height="400" fill={bar.color} opacity="0.85" />
-      ))}
+    <svg className={className} width="100%" height="100%" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        {/* 5-point diagonal gradient: Navy → Royal → Pool → Berry → Evergreen */}
+        <linearGradient id="palette-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#0f1c2e" />
+          <stop offset="28%" stopColor="#1D5AA7" />
+          <stop offset="50%" stopColor="#8FC5D9" />
+          <stop offset="74%" stopColor="#A73B44" />
+          <stop offset="100%" stopColor="#00685E" />
+        </linearGradient>
+        {/* Fine film grain — subtle texture that preserves color saturation */}
+        <filter id="grain" x="0%" y="0%" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" result="noise" />
+          <feColorMatrix type="saturate" values="0" in="noise" result="mono" />
+          <feBlend in="SourceGraphic" in2="mono" mode="soft-light" />
+        </filter>
+      </defs>
+      <rect width="600" height="600" fill="url(#palette-grad)" filter="url(#grain)" />
     </svg>
   );
 }
