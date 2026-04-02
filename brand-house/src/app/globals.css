@@ -23,6 +23,15 @@
 @font-face { font-family: 'GT America Mono'; src: url('/fonts/GT-America-Mono-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
 @font-face { font-family: 'GT America Mono'; src: url('/fonts/GT-America-Mono-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
 
+/* GT America Extended — primary sans replacement */
+@font-face { font-family: 'GT America Extended'; src: url('/fonts/GT-America-Extended-Regular.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+
+/* GT America Condensed — labels, eyebrows, system UI */
+@font-face { font-family: 'GT America Condensed'; src: url('/fonts/GT-America-Condensed-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
+
+/* GT America Expanded — display weight */
+@font-face { font-family: 'GT America Expanded'; src: url('/fonts/GT-America-Expanded-Black.otf') format('opentype'); font-weight: 900; font-style: normal; font-display: swap; }
+
 /* ═══════════════════════════════════════════
    DESIGN TOKENS
    ═══════════════════════════════════════════ */
@@ -45,7 +54,8 @@
   --text-tertiary: #888888;
   --rule: rgba(0,0,0,0.08);
 
-  --sans: 'Proxima Nova', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+  --sans: 'GT America Extended', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+  --sans-condensed: 'GT America Condensed', 'GT America Extended', -apple-system, sans-serif;
   --serif: 'Tiempos', Georgia, 'Times New Roman', serif;
   --serif-headline: 'Tiempos Headline', 'Tiempos', Georgia, serif;
   --serif-fine: 'Tiempos Fine', 'Tiempos', Georgia, serif;
@@ -76,7 +86,8 @@
   --color-text-secondary: #4a4a4a;
   --color-text-tertiary: #888888;
 
-  --font-sans: 'Proxima Nova', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+  --font-sans: 'GT America Extended', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+  --font-sans-condensed: 'GT America Condensed', 'GT America Extended', -apple-system, sans-serif;
   --font-serif: 'Tiempos', Georgia, 'Times New Roman', serif;
   --font-serif-headline: 'Tiempos Headline', 'Tiempos', Georgia, serif;
   --font-serif-fine: 'Tiempos Fine', 'Tiempos', Georgia, serif;
@@ -95,8 +106,8 @@ body {
   color: var(--text);
   overflow-x: hidden;
   line-height: 1.6;
-  font-weight: 500;
-  letter-spacing: -0.005em;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
 /* ═══════════════════════════════════════════

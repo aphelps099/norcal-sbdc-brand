@@ -64,8 +64,8 @@ export default function BrandGrid() {
             Brand Components
           </h2>
           <p
-            className="font-sans text-text-secondary font-800 mt-4 tracking-[-0.01em]"
-            style={{ fontSize: "clamp(14px, 1.4vw, 19px)" }}
+            className="font-sans text-text-secondary font-400 mt-4 tracking-[-0.01em]"
+            style={{ fontSize: "clamp(14px, 1.4vw, 17px)" }}
           >
             Everything you need to activate the brand.
           </p>
@@ -84,7 +84,7 @@ export default function BrandGrid() {
               >
                 {item.title}
               </h3>
-              <p className="font-sans text-[0.82rem] text-text-secondary leading-[1.55] mt-3 font-500">
+              <p className="font-sans text-[0.8rem] text-text-secondary leading-[1.55] mt-3 font-400">
                 {item.description}
               </p>
               <div className="mt-7">

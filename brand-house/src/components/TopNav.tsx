@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import Fuse from "fuse.js";
 import { searchData, type SearchItem } from "@/lib/search-index";
-import SbdcWatermark from "./SbdcWatermark";
+// SbdcWatermark removed from overlay for cleaner nav
 
 const fuse = new Fuse(searchData, {
   keys: ["title", "section", "content"],
@@ -114,23 +114,24 @@ export default function TopNav() {
             ? "bg-transparent"
             : scrolled
               ? pastHero
-                ? "bg-white/90 backdrop-blur-2xl shadow-[0_1px_0_rgba(0,0,0,0.04)]"
+                ? "bg-white/90 backdrop-blur-2xl border-b border-black/[0.06]"
                 : "bg-black/30 backdrop-blur-2xl"
               : "bg-transparent"
         }`}
       >
-        <div className="max-w-[1400px] mx-auto px-8 sm:px-12 py-5 flex items-center justify-between relative z-[60]">
+        <div className="max-w-[1200px] mx-auto px-8 sm:px-12 py-4 flex items-center justify-between relative z-[60]">
           <a
             href="/"
-            className={`font-sans text-[0.72rem] font-800 tracking-[0.14em] uppercase transition-colors duration-500 no-underline ${
+            className={`text-[0.65rem] font-500 tracking-[0.18em] uppercase transition-colors duration-500 no-underline ${
               menuOpen
                 ? "text-white/50 hover:text-white"
                 : isDark
                   ? "text-white/70 hover:text-white"
                   : "text-navy hover:text-navy"
             }`}
+            style={{ fontFamily: "var(--sans-condensed)" }}
           >
-            Brand.SBDC
+            SBDC
           </a>
 
           <button
@@ -173,11 +174,8 @@ export default function TopNav() {
           >
             <defs>
               <linearGradient id="nav-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#0a1420" />
-                <stop offset="30%" stopColor="#0f1c2e" />
-                <stop offset="60%" stopColor="#132640" />
-                <stop offset="85%" stopColor="#0f1c2e" />
-                <stop offset="100%" stopColor="#0a1420" />
+                <stop offset="0%" stopColor="#091422" />
+                <stop offset="100%" stopColor="#0f1c2e" />
               </linearGradient>
               <filter id="nav-grain" x="0%" y="0%" width="100%" height="100%">
                 <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="3" stitchTiles="stitch" result="noise" />
@@ -187,12 +185,6 @@ export default function TopNav() {
             </defs>
             <rect width="100%" height="100%" fill="url(#nav-grad)" filter="url(#nav-grain)" />
           </svg>
-
-          {/* Star watermark */}
-          <SbdcWatermark
-            className="absolute -right-[5%] -bottom-[10%] w-[55vw] max-w-[650px] text-white pointer-events-none select-none"
-            opacity={0.03}
-          />
 
           <div className="relative z-10 h-full flex flex-col pt-24 pb-8 md:pb-10 px-8 sm:px-12 md:px-16 lg:px-24 overflow-y-auto">
             {/* 2-column nav layout */}
@@ -209,11 +201,12 @@ export default function TopNav() {
                   }}
                 >
                   <h3
-                    className="text-white/25 mb-4"
+                    className="text-white/20 mb-4 uppercase"
                     style={{
-                      fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
-                      fontWeight: 300,
-                      fontSize: "clamp(16px, 1.8vw, 22px)",
+                      fontFamily: "var(--sans-condensed)",
+                      fontWeight: 500,
+                      fontSize: "10px",
+                      letterSpacing: "0.15em",
                     }}
                   >
                     Brand House
@@ -235,13 +228,13 @@ export default function TopNav() {
                         }}
                       >
                         <span
-                          className="block py-[0.3em] transition-colors duration-200 text-white/40 group-hover/nav:text-white/80"
+                          className="block py-[0.35em] transition-colors duration-200 text-white/30 group-hover/nav:text-white/80"
                           style={{
-                            fontFamily: "'Tiempos', Georgia, serif",
+                            fontFamily: "var(--sans)",
                             fontWeight: 400,
-                            fontSize: "clamp(18px, 2.2vw, 28px)",
-                            lineHeight: "1.5",
-                            letterSpacing: "-0.015em",
+                            fontSize: "clamp(22px, 3vw, 38px)",
+                            lineHeight: "1.4",
+                            letterSpacing: "-0.02em",
                           }}
                         >
                           {link.label}
@@ -262,11 +255,12 @@ export default function TopNav() {
                   }}
                 >
                   <h3
-                    className="text-white/25 mb-4"
+                    className="text-white/20 mb-4 uppercase"
                     style={{
-                      fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
-                      fontWeight: 300,
-                      fontSize: "clamp(16px, 1.8vw, 22px)",
+                      fontFamily: "var(--sans-condensed)",
+                      fontWeight: 500,
+                      fontSize: "10px",
+                      letterSpacing: "0.15em",
                     }}
                   >
                     Resources
@@ -288,13 +282,13 @@ export default function TopNav() {
                         }}
                       >
                         <span
-                          className="block py-[0.3em] transition-colors duration-200 text-white/40 group-hover/nav:text-white/80"
+                          className="block py-[0.35em] transition-colors duration-200 text-white/30 group-hover/nav:text-white/80"
                           style={{
-                            fontFamily: "'Tiempos', Georgia, serif",
+                            fontFamily: "var(--sans)",
                             fontWeight: 400,
-                            fontSize: "clamp(18px, 2.2vw, 28px)",
-                            lineHeight: "1.5",
-                            letterSpacing: "-0.015em",
+                            fontSize: "clamp(22px, 3vw, 38px)",
+                            lineHeight: "1.4",
+                            letterSpacing: "-0.02em",
                           }}
                         >
                           {link.label}
@@ -337,12 +331,13 @@ export default function TopNav() {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search..."
-                    className="flex-1 bg-transparent text-white/70 text-lg outline-none placeholder:text-white/15 tracking-[-0.02em]"
+                    className="flex-1 bg-transparent text-white/70 text-base outline-none placeholder:text-white/15 tracking-[-0.01em]"
                     style={{
-                      fontFamily: "'Tiempos', Georgia, serif",
+                      fontFamily: "var(--sans)",
+                      fontWeight: 400,
                     }}
                   />
-                  <span className="font-sans text-[10px] font-800 uppercase tracking-[0.1em] text-white/10 hidden sm:block">
+                  <span className="text-[9px] font-500 uppercase tracking-[0.12em] text-white/10 hidden sm:block" style={{ fontFamily: "var(--sans-condensed)" }}>
                     {"\u2318"}K
                   </span>
                 </div>
@@ -351,7 +346,7 @@ export default function TopNav() {
                 {query && (
                   <div className="mt-4 space-y-0.5">
                     {results.length === 0 ? (
-                      <p className="font-sans text-sm text-white/20 font-500 py-2">
+                      <p className="font-sans text-sm text-white/20 font-400 py-2">
                         No results for &ldquo;{query}&rdquo;
                       </p>
                     ) : (
@@ -362,7 +357,7 @@ export default function TopNav() {
                           onClick={() => setMenuOpen(false)}
                           className="flex items-baseline gap-3 py-2.5 no-underline group/result hover:bg-white/[0.04] px-2 -mx-2 transition-colors duration-200 rounded-sm"
                         >
-                          <span className="font-sans text-[9px] font-800 uppercase tracking-[0.14em] text-white/15 w-14 shrink-0">
+                          <span className="text-[9px] font-500 uppercase tracking-[0.15em] text-white/15 w-14 shrink-0" style={{ fontFamily: "var(--sans-condensed)" }}>
                             {item.section}
                           </span>
                           <span className="font-serif text-white/50 text-base group-hover/result:text-white/80 transition-colors duration-200">

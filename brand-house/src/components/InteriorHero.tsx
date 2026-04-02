@@ -133,7 +133,8 @@ export default function InteriorHero({
       <div className="relative z-10 min-h-[50vh] md:min-h-[55vh] flex flex-col justify-end px-8 md:px-12 lg:px-16 pt-32 pb-12 md:pt-40 md:pb-16 max-w-[860px]">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 font-sans text-[11px] font-700 uppercase tracking-[0.2em] text-white/40 hover:text-white/70 transition-colors mb-10 md:mb-14"
+          className="inline-flex items-center gap-2 text-[10px] font-500 uppercase tracking-[0.18em] text-white/40 hover:text-white/70 transition-colors mb-10 md:mb-14"
+          style={{ fontFamily: "var(--sans-condensed)" }}
         >
           <span className="inline-block w-4 h-[1.5px] bg-current" />
           Brand House
@@ -156,7 +157,7 @@ export default function InteriorHero({
         />
         {subtitle && (
           <p
-            className="interior-hero-sub font-sans text-white/50 text-base md:text-lg font-500 mt-6 max-w-xl leading-relaxed"
+            className="interior-hero-sub font-sans text-white/50 text-base md:text-lg font-400 mt-6 max-w-xl leading-relaxed"
             style={{ opacity: 0 }}
           >
             {subtitle}
