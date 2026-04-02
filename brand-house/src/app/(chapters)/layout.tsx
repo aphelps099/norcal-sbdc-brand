@@ -9,7 +9,6 @@ export default function ChaptersLayout({
   return (
     <>
       <TopNav />
-      <InteriorNav />
       <div className="min-h-screen bg-white">
         {children}
       </div>
