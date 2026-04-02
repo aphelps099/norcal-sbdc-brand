@@ -1,4 +1,3 @@
-import InteriorNav from "@/components/InteriorNav";
 import TopNav from "@/components/TopNav";
 import SiteFooter from "@/components/SiteFooter";
 

@@ -86,8 +86,10 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
             }}
           >
             <h2
-              className="font-serif tracking-[-0.03em] leading-[1] transition-colors duration-600"
+              className="tracking-[-0.03em] leading-[1] transition-colors duration-600"
               style={{
+                fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
+                fontWeight: 300,
                 fontSize: "clamp(40px, 7vw, 88px)",
                 color: hovered ? "#f5f4f0" : "rgba(15,28,46,0.8)",
               }}

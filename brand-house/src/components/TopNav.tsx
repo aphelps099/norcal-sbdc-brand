@@ -210,8 +210,8 @@ export default function TopNav() {
                         className="block py-[0.35em] transition-all duration-200 text-navy/50 group-hover/nav:text-navy"
                         style={{
                           fontFamily:
-                            "'Tiempos Headline', 'Tiempos', Georgia, serif",
-                          fontWeight: 500,
+                            "'Tiempos', Georgia, serif",
+                          fontWeight: 400,
                           fontSize: "clamp(20px, 2.4vw, 32px)",
                           lineHeight: "1.5",
                           letterSpacing: "-0.015em",
