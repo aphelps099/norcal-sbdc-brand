@@ -70,50 +70,61 @@ export default function InteriorHero({
     <section ref={sectionRef} className="relative overflow-hidden">
       {/* Full-bleed gradient + grain background */}
       {gradient ? (
-        <svg
-          className="absolute inset-0 w-full h-full"
-          preserveAspectRatio="xMidYMid slice"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <defs>
-            <linearGradient
-              id={gradId}
-              x1={`${x1}%`}
-              y1={`${y1}%`}
-              x2={`${x2}%`}
-              y2={`${y2}%`}
-            >
-              <stop offset="0%" stopColor={gradient.stops[0]} />
-              <stop offset="25%" stopColor={gradient.stops[1]} />
-              <stop offset="50%" stopColor={gradient.stops[2]} />
-              <stop offset="75%" stopColor={gradient.stops[3]} />
-              <stop offset="100%" stopColor={gradient.stops[4]} />
-            </linearGradient>
-            <filter id={id.current} x="0%" y="0%" width="100%" height="100%">
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.65"
-                numOctaves="3"
-                stitchTiles="stitch"
-                result="noise"
-              />
-              <feColorMatrix
-                type="saturate"
-                values="0"
-                in="noise"
-                result="mono"
-              />
-              <feBlend in="SourceGraphic" in2="mono" mode="soft-light" />
-            </filter>
-          </defs>
-          <rect
-            width="100%"
-            height="100%"
-            fill={`url(#${gradId})`}
-            filter={`url(#${id.current})`}
+        <>
+          <svg
+            className="absolute inset-0 w-full h-full"
+            preserveAspectRatio="xMidYMid slice"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <defs>
+              <linearGradient
+                id={gradId}
+                x1={`${x1}%`}
+                y1={`${y1}%`}
+                x2={`${x2}%`}
+                y2={`${y2}%`}
+              >
+                <stop offset="0%" stopColor={gradient.stops[0]} />
+                <stop offset="25%" stopColor={gradient.stops[1]} />
+                <stop offset="50%" stopColor={gradient.stops[2]} />
+                <stop offset="75%" stopColor={gradient.stops[3]} />
+                <stop offset="100%" stopColor={gradient.stops[4]} />
+              </linearGradient>
+              <filter id={id.current} x="0%" y="0%" width="100%" height="100%">
+                <feTurbulence
+                  type="fractalNoise"
+                  baseFrequency="0.65"
+                  numOctaves="3"
+                  stitchTiles="stitch"
+                  result="noise"
+                />
+                <feColorMatrix
+                  type="saturate"
+                  values="0"
+                  in="noise"
+                  result="mono"
+                />
+                <feBlend in="SourceGraphic" in2="mono" mode="soft-light" />
+              </filter>
+            </defs>
+            <rect
+              width="100%"
+              height="100%"
+              fill={`url(#${gradId})`}
+              filter={`url(#${id.current})`}
+            />
+          </svg>
+          {/* Navy multiply overlay — tames grain, deepens color */}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundColor: "#0f1c2e",
+              mixBlendMode: "multiply",
+              opacity: 0.35,
+            }}
           />
-        </svg>
+        </>
       ) : (
         <div className="absolute inset-0 bg-navy" />
       )}

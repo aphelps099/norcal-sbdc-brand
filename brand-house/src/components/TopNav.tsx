@@ -186,6 +186,15 @@ export default function TopNav() {
             </defs>
             <rect width="100%" height="100%" fill="url(#nav-grad)" filter="url(#nav-grain)" />
           </svg>
+          {/* Navy multiply overlay — tames grain */}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundColor: "#0f1c2e",
+              mixBlendMode: "multiply",
+              opacity: 0.18,
+            }}
+          />
           {/* "Explore" watermark */}
           <div
             className="absolute bottom-[-6vw] left-[-2vw] pointer-events-none select-none"
