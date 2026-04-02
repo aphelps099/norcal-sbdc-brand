@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 const brandItems = [
   { title: "Colors", description: "Palette, tints, and usage.", href: "/colors" },
-  { title: "Typography", description: "Tiempos, Proxima Nova, scale.", href: "/typography" },
+  { title: "Typography", description: "PT Serif, Proxima Nova, scale.", href: "/typography" },
   { title: "Logos", description: "Suite, lockups, clear space.", href: "/logos" },
   { title: "Voice & Tone", description: "How we write and speak.", href: "/voice" },
   { title: "Photography", description: "Style, treatments, composition.", href: "/photography" },
@@ -55,16 +55,16 @@ export default function BrandGrid() {
 
   return (
     <section ref={sectionRef} className="bg-cream" id="chapters">
-      <div className="max-w-[1200px] mx-auto px-8 sm:px-12 py-28 sm:py-40">
-        <div className="brand-grid-header mb-14 sm:mb-20">
+      <div className="max-w-[1200px] mx-auto px-8 sm:px-12 py-20 sm:py-28">
+        <div className="brand-grid-header mb-10 sm:mb-14">
           <h2
-            className="font-serif text-navy leading-[1.08] tracking-[-0.03em]"
-            style={{ fontSize: "clamp(32px, 4.5vw, 54px)" }}
+            className="font-sans text-navy leading-[1.08] tracking-[-0.03em] font-500"
+            style={{ fontSize: "clamp(30px, 4vw, 48px)" }}
           >
             Brand Components
           </h2>
           <p
-            className="font-sans text-text-secondary font-400 mt-4 tracking-[-0.01em]"
+            className="font-serif text-text-secondary font-400 mt-3 tracking-[-0.01em]"
             style={{ fontSize: "clamp(14px, 1.4vw, 17px)" }}
           >
             Everything you need to activate the brand.
@@ -79,12 +79,12 @@ export default function BrandGrid() {
               className="brand-card group bg-cream p-8 sm:p-10 no-underline transition-colors duration-500 hover:bg-white"
             >
               <h3
-                className="font-serif text-navy tracking-[-0.02em] leading-[1.1] group-hover:text-royal transition-colors duration-500"
-                style={{ fontSize: "1.4rem" }}
+                className="font-sans text-navy tracking-[-0.02em] leading-[1.1] font-500 group-hover:text-royal transition-colors duration-500"
+                style={{ fontSize: "1.3rem" }}
               >
                 {item.title}
               </h3>
-              <p className="font-sans text-[0.8rem] text-text-secondary leading-[1.55] mt-3 font-400">
+              <p className="font-serif text-[0.8rem] text-text-secondary leading-[1.55] mt-3">
                 {item.description}
               </p>
               <div className="mt-7">

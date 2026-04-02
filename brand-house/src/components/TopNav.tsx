@@ -165,26 +165,13 @@ export default function TopNav() {
             transition: "clip-path 0.7s cubic-bezier(0.25, 0.1, 0.25, 1)",
           }}
         >
-          {/* Navy gradient + grain background */}
-          <svg
-            className="absolute inset-0 w-full h-full"
-            preserveAspectRatio="xMidYMid slice"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <defs>
-              <linearGradient id="nav-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#091422" />
-                <stop offset="100%" stopColor="#0f1c2e" />
-              </linearGradient>
-              <filter id="nav-grain" x="0%" y="0%" width="100%" height="100%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="3" stitchTiles="stitch" result="noise" />
-                <feColorMatrix type="saturate" values="0" in="noise" result="mono" />
-                <feBlend in="SourceGraphic" in2="mono" mode="soft-light" />
-              </filter>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#nav-grad)" filter="url(#nav-grain)" />
-          </svg>
+          {/* Clean dark gradient background — no grain/static */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: "linear-gradient(160deg, #091422 0%, #0d1926 35%, #0f1c2e 65%, #0a1520 100%)",
+            }}
+          />
 
           <div className="relative z-10 h-full flex flex-col pt-24 pb-8 md:pb-10 px-8 sm:px-12 md:px-16 lg:px-24 overflow-y-auto">
             {/* 2-column nav layout */}
@@ -228,13 +215,13 @@ export default function TopNav() {
                         }}
                       >
                         <span
-                          className="block py-[0.35em] transition-colors duration-200 text-white/30 group-hover/nav:text-white/80"
+                          className="block py-[0.3em] transition-colors duration-200 text-white/30 group-hover/nav:text-white/80"
                           style={{
                             fontFamily: "var(--sans)",
-                            fontWeight: 400,
-                            fontSize: "clamp(22px, 3vw, 38px)",
-                            lineHeight: "1.4",
-                            letterSpacing: "-0.02em",
+                            fontWeight: 500,
+                            fontSize: "clamp(20px, 2.8vw, 34px)",
+                            lineHeight: "1.35",
+                            letterSpacing: "-0.01em",
                           }}
                         >
                           {link.label}
@@ -282,13 +269,13 @@ export default function TopNav() {
                         }}
                       >
                         <span
-                          className="block py-[0.35em] transition-colors duration-200 text-white/30 group-hover/nav:text-white/80"
+                          className="block py-[0.3em] transition-colors duration-200 text-white/30 group-hover/nav:text-white/80"
                           style={{
                             fontFamily: "var(--sans)",
-                            fontWeight: 400,
-                            fontSize: "clamp(22px, 3vw, 38px)",
-                            lineHeight: "1.4",
-                            letterSpacing: "-0.02em",
+                            fontWeight: 500,
+                            fontSize: "clamp(20px, 2.8vw, 34px)",
+                            lineHeight: "1.35",
+                            letterSpacing: "-0.01em",
                           }}
                         >
                           {link.label}

@@ -24,7 +24,7 @@ export default function ChapterCard({
       <h3 className="font-serif text-xl md:text-2xl text-navy mt-4 mb-3 transition-colors duration-400 group-hover:text-royal">
         {title}
       </h3>
-      <p className="text-sm text-text-secondary leading-relaxed font-sans font-500">
+      <p className="text-sm text-text-secondary leading-relaxed font-serif">
         {description}
       </p>
       <span className="inline-block mt-5 font-mono text-[0.65rem] tracking-[0.1em] uppercase text-royal/60 group-hover:text-royal transition-colors duration-400">

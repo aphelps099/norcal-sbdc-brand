@@ -163,13 +163,13 @@ export default function CalendarPage() {
         subtitle="Campaign themes, key dates, and a coordinated messaging framework so all 16 centers move together."
       />
 
-      <div className="bg-white py-16 md:py-24">
+      <div className="bg-white py-12 md:py-16">
         {/* Intro */}
-        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-20">
-          <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-6">
+        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-14">
+          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] font-500 mb-6">
             Annual Campaign Framework
           </h2>
-          <p className="font-sans text-base md:text-lg text-text-secondary font-500 leading-[1.7] max-w-[640px]">
+          <p className="font-serif text-base md:text-lg text-text-secondary leading-[1.7] max-w-[640px]">
             Every quarter has a theme. Every theme drives coordinated messaging
             across all centers. When we speak together, we&rsquo;re louder. This
             calendar gives every center the what, when, and how — while leaving
@@ -178,7 +178,7 @@ export default function CalendarPage() {
         </div>
 
         {/* Quarterly Sections */}
-        <div className="max-w-[960px] mx-auto px-8 md:px-12 mb-24">
+        <div className="max-w-[960px] mx-auto px-8 md:px-12 mb-16">
           <div className="space-y-0">
             {quarters.map((q, qi) => (
               <div
@@ -195,10 +195,10 @@ export default function CalendarPage() {
                     {q.label}
                   </span>
                   <div>
-                    <h3 className="font-serif text-xl md:text-2xl text-navy tracking-[-0.01em]">
+                    <h3 className="font-sans text-xl md:text-2xl text-navy tracking-[-0.01em] font-500">
                       {q.theme}
                     </h3>
-                    <p className="font-sans text-sm text-text-tertiary font-500 mt-0.5">
+                    <p className="font-serif text-sm text-text-tertiary mt-0.5">
                       {q.months}
                     </p>
                   </div>
@@ -250,20 +250,20 @@ export default function CalendarPage() {
       </div>
 
       {/* Recurring Content — dark navy bg */}
-      <div className="bg-[#0f1c2e] py-20 md:py-28 relative overflow-hidden">
+      <div className="bg-[#0f1c2e] py-14 md:py-20 relative overflow-hidden">
         <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
         <div className="max-w-[780px] mx-auto px-8 md:px-12">
           <h2
             className="tracking-[-0.02em] text-white/90 mb-4"
             style={{
-              fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
-              fontWeight: 300,
+              fontFamily: "var(--sans)",
+              fontWeight: 500,
               fontSize: "clamp(28px, 3.5vw, 40px)",
             }}
           >
             Recurring Content Series
           </h2>
-          <p className="font-sans text-base text-white/50 font-500 leading-relaxed mb-10 max-w-xl">
+          <p className="font-serif text-base text-white/50 leading-relaxed mb-10 max-w-xl">
             In addition to campaign-specific content, these recurring series
             keep your channels active and on-brand between pushes.
           </p>
@@ -286,7 +286,7 @@ export default function CalendarPage() {
                     {item.frequency}
                   </span>
                 </div>
-                <p className="font-sans text-sm text-white/50 font-500 leading-relaxed">
+                <p className="font-serif text-sm text-white/50 leading-relaxed">
                   {item.desc}
                 </p>
               </div>

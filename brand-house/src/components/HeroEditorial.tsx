@@ -78,10 +78,11 @@ export default function HeroEditorial() {
             className="inline-block text-center cursor-pointer bg-transparent border-none outline-none"
           >
             <h1
-              className="hero-brand font-serif text-white leading-[0.92] tracking-[-0.04em]"
+              className="hero-brand text-white leading-[0.92] tracking-[-0.04em]"
               style={{
+                fontFamily: "var(--serif)",
                 fontSize: "clamp(64px, 12vw, 180px)",
-                fontWeight: 400,
+                fontWeight: 700,
                 opacity: 0,
               }}
             >

@@ -61,7 +61,7 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
           </div>
         </div>
 
-        <div className="relative z-10 max-w-[1100px] mx-auto px-8 md:px-12 py-20 md:py-28 lg:py-36">
+        <div className="relative z-10 max-w-[1100px] mx-auto px-8 md:px-12 py-14 md:py-20 lg:py-24">
           {/* Eyebrow */}
           <p
             className="font-sans text-[10px] font-800 uppercase tracking-[0.22em] mb-5 md:mb-6"
@@ -88,9 +88,9 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
             <h2
               className="tracking-[-0.03em] leading-[1] transition-colors duration-600"
               style={{
-                fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
-                fontWeight: 300,
-                fontSize: "clamp(40px, 7vw, 88px)",
+                fontFamily: "var(--sans)",
+                fontWeight: 500,
+                fontSize: "clamp(36px, 6vw, 76px)",
                 color: hovered ? "#f5f4f0" : "rgba(15,28,46,0.8)",
               }}
             >

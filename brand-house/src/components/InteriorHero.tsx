@@ -130,7 +130,7 @@ export default function InteriorHero({
       )}
 
       {/* Text content — centered left */}
-      <div className="relative z-10 min-h-[50vh] md:min-h-[55vh] flex flex-col justify-end px-8 md:px-12 lg:px-16 pt-32 pb-12 md:pt-40 md:pb-16 max-w-[860px]">
+      <div className="relative z-10 min-h-[42vh] md:min-h-[46vh] flex flex-col justify-end px-8 md:px-12 lg:px-16 pt-28 pb-10 md:pt-32 md:pb-14 max-w-[860px]">
         <Link
           href="/"
           className="inline-flex items-center gap-2 text-[10px] font-500 uppercase tracking-[0.18em] text-white/40 hover:text-white/70 transition-colors mb-10 md:mb-14"
@@ -142,9 +142,9 @@ export default function InteriorHero({
         <h1
           className="interior-hero-title tracking-[-0.03em] leading-[0.95]"
           style={{
-            fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
-            fontWeight: 300,
-            fontSize: "clamp(48px, 8vw, 96px)",
+            fontFamily: "var(--sans)",
+            fontWeight: 500,
+            fontSize: "clamp(44px, 7vw, 88px)",
             color: "#f5f4f0",
             opacity: 0,
           }}
@@ -157,8 +157,8 @@ export default function InteriorHero({
         />
         {subtitle && (
           <p
-            className="interior-hero-sub font-sans text-white/50 text-base md:text-lg font-400 mt-6 max-w-xl leading-relaxed"
-            style={{ opacity: 0 }}
+            className="interior-hero-sub text-white/50 text-base md:text-lg font-400 mt-5 max-w-xl leading-relaxed"
+            style={{ opacity: 0, fontFamily: "var(--serif)" }}
           >
             {subtitle}
           </p>

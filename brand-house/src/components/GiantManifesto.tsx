@@ -68,9 +68,9 @@ export default function GiantManifesto() {
 
   return (
     <section ref={sectionRef} className="bg-cream-warm relative overflow-hidden">
-      <div className="max-w-[1000px] mx-auto px-8 sm:px-12 py-40 sm:py-56">
+      <div className="max-w-[1000px] mx-auto px-8 sm:px-12 py-28 sm:py-36">
         <p
-          className="manifesto-eyebrow text-navy/40 uppercase font-500 mb-14 sm:mb-20"
+          className="manifesto-eyebrow text-navy/40 uppercase font-500 mb-10 sm:mb-14"
           style={{ fontFamily: "var(--sans-condensed)", fontSize: "0.7rem", letterSpacing: "0.18em" }}
         >
           Our Manifesto

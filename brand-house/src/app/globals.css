@@ -1,36 +1,24 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════
-   FONTS — Tiempos (serif) + Proxima Nova (sans)
+   FONTS — PT Serif (body) + Proxima Nova (headings/UI)
    ═══════════════════════════════════════════ */
-/* Tiempos Text */
-@font-face { font-family: 'Tiempos'; src: url('/fonts/TiemposText-Regular.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Tiempos'; src: url('/fonts/TiemposText-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Tiempos'; src: url('/fonts/TiemposText-MediumItalic.otf') format('opentype'); font-weight: 500; font-style: italic; font-display: swap; }
 
-/* Tiempos Headline */
-@font-face { font-family: 'Tiempos Headline'; src: url('/fonts/TiemposHeadline-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Tiempos Headline'; src: url('/fonts/TiemposHeadline-Black.otf') format('opentype'); font-weight: 900; font-style: normal; font-display: swap; }
+/* PT Serif — body text, quotes, editorial (via Google Fonts) */
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-/* Tiempos Fine */
-@font-face { font-family: 'Tiempos Fine'; src: url('/fonts/TiemposFine-Light.otf') format('opentype'); font-weight: 300; font-style: normal; font-display: swap; }
-
+/* Proxima Nova — headings, UI, labels (local files) */
 @font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-MediumIt.otf') format('opentype'); font-weight: 500; font-style: italic; font-display: swap; }
 @font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-Extrabold.otf') format('opentype'); font-weight: 800; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-Black.otf') format('opentype'); font-weight: 900; font-style: normal; font-display: swap; }
 
+/* GT America Mono — code, counters, labels */
 @font-face { font-family: 'GT America Mono'; src: url('/fonts/GT-America-Mono-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
 @font-face { font-family: 'GT America Mono'; src: url('/fonts/GT-America-Mono-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
 
-/* GT America Extended — primary sans replacement */
-@font-face { font-family: 'GT America Extended'; src: url('/fonts/GT-America-Extended-Regular.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
-
-/* GT America Condensed — labels, eyebrows, system UI */
+/* GT America Condensed — tiny labels, system UI */
 @font-face { font-family: 'GT America Condensed'; src: url('/fonts/GT-America-Condensed-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
-
-/* GT America Expanded — display weight */
-@font-face { font-family: 'GT America Expanded'; src: url('/fonts/GT-America-Expanded-Black.otf') format('opentype'); font-weight: 900; font-style: normal; font-display: swap; }
 
 /* ═══════════════════════════════════════════
    DESIGN TOKENS
@@ -54,11 +42,9 @@
   --text-tertiary: #888888;
   --rule: rgba(0,0,0,0.08);
 
-  --sans: 'GT America Extended', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
-  --sans-condensed: 'GT America Condensed', 'GT America Extended', -apple-system, sans-serif;
-  --serif: 'Tiempos', Georgia, 'Times New Roman', serif;
-  --serif-headline: 'Tiempos Headline', 'Tiempos', Georgia, serif;
-  --serif-fine: 'Tiempos Fine', 'Tiempos', Georgia, serif;
+  --sans: 'Proxima Nova', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+  --sans-condensed: 'GT America Condensed', 'Proxima Nova', -apple-system, sans-serif;
+  --serif: 'PT Serif', Georgia, 'Times New Roman', serif;
   --mono: 'GT America Mono', 'SF Mono', 'Fira Code', monospace;
 
   --pad: clamp(24px, 5vw, 64px);
@@ -86,11 +72,9 @@
   --color-text-secondary: #4a4a4a;
   --color-text-tertiary: #888888;
 
-  --font-sans: 'GT America Extended', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
-  --font-sans-condensed: 'GT America Condensed', 'GT America Extended', -apple-system, sans-serif;
-  --font-serif: 'Tiempos', Georgia, 'Times New Roman', serif;
-  --font-serif-headline: 'Tiempos Headline', 'Tiempos', Georgia, serif;
-  --font-serif-fine: 'Tiempos Fine', 'Tiempos', Georgia, serif;
+  --font-sans: 'Proxima Nova', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+  --font-sans-condensed: 'GT America Condensed', 'Proxima Nova', -apple-system, sans-serif;
+  --font-serif: 'PT Serif', Georgia, 'Times New Roman', serif;
   --font-mono: 'GT America Mono', 'SF Mono', 'Fira Code', monospace;
 }
 
@@ -101,13 +85,13 @@
 html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-behavior: smooth; }
 
 body {
-  font-family: var(--sans);
+  font-family: var(--serif);
   background: var(--cream);
   color: var(--text);
   overflow-x: hidden;
-  line-height: 1.6;
+  line-height: 1.7;
   font-weight: 400;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 /* ═══════════════════════════════════════════

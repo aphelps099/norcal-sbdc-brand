@@ -120,20 +120,20 @@ export default function ContentPage() {
       />
 
       {/* Social Media Principles — dark navy bg */}
-      <div className="bg-[#0f1c2e] py-16 md:py-24 relative overflow-hidden">
+      <div className="bg-[#0f1c2e] py-12 md:py-16 relative overflow-hidden">
         <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
         <div className="max-w-[780px] mx-auto px-8 md:px-12">
           <h2
             className="tracking-[-0.02em] text-white/90 mb-4"
             style={{
-              fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
-              fontWeight: 300,
+              fontFamily: "var(--sans)",
+              fontWeight: 500,
               fontSize: "clamp(28px, 3.5vw, 40px)",
             }}
           >
             Social Media Principles
           </h2>
-          <p className="font-sans text-base text-white/50 font-500 leading-relaxed mb-12 max-w-xl">
+          <p className="font-serif text-base text-white/50 leading-relaxed mb-12 max-w-xl">
             We build our social media presence on two basic principles:
             content that&rsquo;s relevant and compelling to our audiences, and
             being authentic. All of our posts reflect who we are as a network.
@@ -145,7 +145,7 @@ export default function ContentPage() {
                 <h3 className="font-sans text-sm font-800 text-white/90 uppercase tracking-[0.06em] mb-2">
                   {p.title}
                 </h3>
-                <p className="font-sans text-sm text-white/50 font-500 leading-relaxed">
+                <p className="font-serif text-sm text-white/50 leading-relaxed">
                   {p.desc}
                 </p>
               </div>
@@ -154,15 +154,15 @@ export default function ContentPage() {
         </div>
       </div>
 
-      <div className="bg-white py-16 md:py-24">
+      <div className="bg-white py-12 md:py-16">
 
         {/* Platform Guidance Table */}
         <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-6">
-          <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-8">
+          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] font-500 mb-8">
             Platform Guidance
           </h2>
         </div>
-        <div className="max-w-[960px] mx-auto px-8 md:px-12 mb-24">
+        <div className="max-w-[960px] mx-auto px-8 md:px-12 mb-16">
           <div className="border border-black/[0.08] overflow-x-auto">
             {/* Header */}
             <div className="grid grid-cols-[120px_1fr_1fr_1fr] min-w-[640px] bg-navy">
@@ -198,12 +198,12 @@ export default function ContentPage() {
                   </p>
                 </div>
                 <div className="px-5 py-4 border-l border-black/[0.06]">
-                  <span className="font-sans text-sm font-500 text-text-secondary">
+                  <span className="font-serif text-sm text-text-secondary">
                     {row.tone}
                   </span>
                 </div>
                 <div className="px-5 py-4 border-l border-black/[0.06]">
-                  <span className="font-sans text-sm font-500 text-text-secondary">
+                  <span className="font-serif text-sm text-text-secondary">
                     {row.focus}
                   </span>
                 </div>
@@ -218,11 +218,11 @@ export default function ContentPage() {
         </div>
 
         {/* Responding to Comments */}
-        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-24">
-          <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-6">
+        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-16">
+          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] font-500 mb-6">
             Responding to Comments
           </h2>
-          <p className="font-sans text-base text-text-secondary font-500 leading-relaxed mb-8 max-w-xl">
+          <p className="font-serif text-base text-text-secondary leading-relaxed mb-8 max-w-xl">
             It&rsquo;s best to respond publicly to negative comments, then move
             the discussion to a private space as quickly as possible.
           </p>
@@ -246,18 +246,18 @@ export default function ContentPage() {
               </span>
               <CopyButton text={commentPolicy} />
             </div>
-            <p className="font-sans text-sm text-text-secondary font-500 leading-relaxed whitespace-pre-wrap">
+            <p className="font-serif text-sm text-text-secondary leading-relaxed whitespace-pre-wrap">
               {commentPolicy}
             </p>
           </div>
         </div>
 
         {/* Email Best Practices */}
-        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-24">
-          <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-4">
+        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-16">
+          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] font-500 mb-4">
             Email Communications
           </h2>
-          <p className="font-sans text-base text-text-secondary font-500 leading-relaxed mb-10 max-w-xl">
+          <p className="font-serif text-base text-text-secondary leading-relaxed mb-10 max-w-xl">
             Our email communication is the most direct point of digital
             connection with our clients. Treat it as a privilege.
           </p>
@@ -268,7 +268,7 @@ export default function ContentPage() {
                 <h3 className="font-sans text-sm font-800 text-navy uppercase tracking-[0.06em] mb-2">
                   {item.title}
                 </h3>
-                <p className="font-sans text-sm text-text-secondary font-500 leading-relaxed max-w-xl">
+                <p className="font-serif text-sm text-text-secondary leading-relaxed max-w-xl">
                   {item.desc}
                 </p>
               </div>
@@ -283,7 +283,7 @@ export default function ContentPage() {
               </span>
               <CopyButton text={sbaDisclaimer} />
             </div>
-            <p className="font-sans text-sm text-text-secondary font-500 leading-relaxed whitespace-pre-wrap">
+            <p className="font-serif text-sm text-text-secondary leading-relaxed whitespace-pre-wrap">
               {sbaDisclaimer}
             </p>
           </div>
@@ -291,7 +291,7 @@ export default function ContentPage() {
 
         {/* Web Publishing */}
         <div className="max-w-[780px] mx-auto px-8 md:px-12">
-          <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-8">
+          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] font-500 mb-8">
             Web Publishing
           </h2>
 
@@ -316,7 +316,7 @@ export default function ContentPage() {
                     >
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    <span className="font-sans text-sm text-text-secondary font-500">
+                    <span className="font-serif text-sm text-text-secondary">
                       {rule.good}
                     </span>
                   </div>
@@ -335,7 +335,7 @@ export default function ContentPage() {
                       <line x1="18" y1="6" x2="6" y2="18" />
                       <line x1="6" y1="6" x2="18" y2="18" />
                     </svg>
-                    <span className="font-sans text-sm text-text-secondary font-500">
+                    <span className="font-serif text-sm text-text-secondary">
                       {rule.bad}
                     </span>
                   </div>

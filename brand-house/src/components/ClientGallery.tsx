@@ -116,14 +116,14 @@ export default function ClientGallery() {
           <h2
             className="text-white/80 tracking-[-0.02em] mb-4"
             style={{
-              fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
-              fontWeight: 300,
+              fontFamily: "var(--sans)",
+              fontWeight: 500,
               fontSize: "clamp(24px, 3.5vw, 42px)",
             }}
           >
             The service is the person
           </h2>
-          <p className="font-sans text-sm md:text-base text-white/30 font-500 leading-relaxed max-w-lg">
+          <p className="font-serif text-sm md:text-base text-white/30 leading-relaxed max-w-lg">
             In 300+ client success stories, nobody says &ldquo;the SBDC helped
             me.&rdquo; They say &ldquo;Maria helped me.&rdquo; These are some
             of the people behind the numbers.
@@ -167,8 +167,8 @@ export default function ClientGallery() {
               <h3
                 className="text-white/90 tracking-[-0.02em]"
                 style={{
-                  fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
-                  fontWeight: 300,
+                  fontFamily: "var(--sans)",
+                  fontWeight: 500,
                   fontSize: "clamp(28px, 4vw, 56px)",
                   lineHeight: 1.1,
                 }}
@@ -181,7 +181,7 @@ export default function ClientGallery() {
             <div className="absolute bottom-12 md:bottom-16 right-8 md:right-16 lg:right-20">
               <span
                 className="font-sans text-white/15 tabular-nums"
-                style={{ fontSize: "clamp(48px, 6vw, 80px)", fontWeight: 300 }}
+                style={{ fontSize: "clamp(48px, 6vw, 80px)", fontWeight: 500 }}
               >
                 {String(i + 1).padStart(2, "0")}
               </span>

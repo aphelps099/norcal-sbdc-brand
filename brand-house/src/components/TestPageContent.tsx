@@ -33,7 +33,7 @@ const serviceCards = [
 
 const brandResources = [
   { title: "Colors", description: "Palette, tints, and accessible pairings.", href: "/colors" },
-  { title: "Typography", description: "Tiempos + Proxima Nova type system.", href: "/typography" },
+  { title: "Typography", description: "PT Serif + Proxima Nova type system.", href: "/typography" },
   { title: "Logos", description: "Logo suite, lockups, clear space.", href: "/logos" },
   { title: "Voice & Tone", description: "How we write and speak.", href: "/voice" },
   { title: "Photography", description: "Style, treatments, composition.", href: "#" },
@@ -115,7 +115,7 @@ export default function TestPageContent() {
           </h1>
 
           <div className="test-reveal space-y-3 mb-10">
-            <p className="font-sans text-white/50 text-base font-500 leading-relaxed max-w-md">
+            <p className="font-serif text-white/50 text-base leading-relaxed max-w-md">
               In 2025, SBDC helped unlock $547M in capital.<br />
               It cost our clients nothing.
             </p>
@@ -150,7 +150,7 @@ export default function TestPageContent() {
           <div className="test-reveal grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-12 md:gap-20 items-center">
             {/* Left — text */}
             <div>
-              <p className="font-sans text-base text-text-secondary font-500 leading-relaxed mb-6">
+              <p className="font-serif text-base text-text-secondary leading-relaxed mb-6">
                 Since 1980, SBDC advisors have helped Northern California
                 businesses raise $2.8B in capital, create 42,000+ jobs, and
                 turn kitchen-table ideas into million-dollar companies.
@@ -198,7 +198,7 @@ export default function TestPageContent() {
                   <h3 className="font-serif text-white text-lg leading-snug mb-2">
                     {card.title}
                   </h3>
-                  <p className="font-sans text-white/40 text-sm font-500 leading-relaxed">
+                  <p className="font-serif text-white/40 text-sm leading-relaxed">
                     {card.body}
                   </p>
                 </div>
@@ -238,7 +238,7 @@ export default function TestPageContent() {
               >
                 Don&rsquo;t settle for<br />generic advice.
               </h2>
-              <p className="font-sans text-base text-text-secondary font-500 leading-relaxed mb-6">
+              <p className="font-serif text-base text-text-secondary leading-relaxed mb-6">
                 You get a dedicated advisor who knows your industry,
                 understands Northern California&rsquo;s market, and commits
                 to your long-term success.
@@ -255,7 +255,7 @@ export default function TestPageContent() {
                 <div className="flex items-start gap-3">
                   <div className="w-8 h-8 rounded-full bg-navy/10 flex-shrink-0" />
                   <div>
-                    <p className="font-sans text-[13px] text-text-secondary font-500 leading-relaxed italic">
+                    <p className="font-serif text-[13px] text-text-secondary leading-relaxed italic">
                       &ldquo;Business content is professional, powerful, short but compelling.
                       Real admiration. Every bit feels polished to perfection.&rdquo;
                     </p>
@@ -280,7 +280,7 @@ export default function TestPageContent() {
               >
                 Real Clients.<br />Real Results.
               </h2>
-              <p className="font-sans text-sm text-text-secondary font-500 mt-3">
+              <p className="font-serif text-sm text-text-secondary mt-3">
                 It can be scary waiting for<br />results. Our clients don&rsquo;t wait —<br />they trust your advisor.
               </p>
             </div>
@@ -378,7 +378,7 @@ export default function TestPageContent() {
               >
                 Get Unstuck
               </h2>
-              <p className="font-sans text-sm text-text-secondary font-500 leading-relaxed mb-8">
+              <p className="font-serif text-sm text-text-secondary leading-relaxed mb-8">
                 Whether your business is small, or you&rsquo;re still thinking about it,
                 NorCal SBDC can help you succeed with free, confidential advising
                 from someone who gets it.
@@ -405,7 +405,7 @@ export default function TestPageContent() {
               >
                 Updates to Your Inbox
               </h2>
-              <p className="font-sans text-sm text-text-secondary font-500 leading-relaxed mb-8">
+              <p className="font-serif text-sm text-text-secondary leading-relaxed mb-8">
                 TFG is a tech startup&rsquo;s dream come true. A program of
                 the Northern California SBDC, we&rsquo;re a top-rated tech business
                 accelerating team for select tech companies.
@@ -448,7 +448,7 @@ export default function TestPageContent() {
                   <h3 className="font-sans text-sm font-800 text-navy group-hover:text-royal transition-colors duration-300 mb-1">
                     {item.title}
                   </h3>
-                  <p className="font-sans text-[12px] text-text-tertiary font-500 leading-relaxed">
+                  <p className="font-serif text-[12px] text-text-tertiary leading-relaxed">
                     {item.description}
                   </p>
                 </Link>

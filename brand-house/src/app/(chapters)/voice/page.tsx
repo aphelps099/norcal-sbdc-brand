@@ -33,21 +33,21 @@ export default function VoicePage() {
         subtitle="Our voice is the personality behind every word — confident, human, and always rooted in expertise."
       />
       {/* Brand Personality — dark navy bg */}
-      <div className="bg-[#0f1c2e] py-16 md:py-24 relative overflow-hidden">
+      <div className="bg-[#0f1c2e] py-12 md:py-16 relative overflow-hidden">
         <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
-        <div className="mb-24">
+        <div className="mb-16">
           <div className="max-w-[780px] mx-auto px-8 md:px-12">
             <h2
               className="tracking-[-0.02em] text-white/90 mb-6"
               style={{
-                fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
-                fontWeight: 300,
-                fontSize: "clamp(28px, 3.5vw, 40px)",
+                fontFamily: "var(--sans)",
+                fontWeight: 500,
+                fontSize: "clamp(26px, 3.2vw, 36px)",
               }}
             >
               Brand Personality
             </h2>
-            <p className="font-sans text-lg md:text-xl text-white/50 font-500 leading-[1.7] max-w-[640px] mb-14">
+            <p className="font-serif text-lg md:text-xl text-white/50 leading-[1.7] max-w-[640px] mb-12">
               We are <strong className="font-800 text-white/80">confident</strong> but never
               arrogant. <strong className="font-800 text-white/80">Expert</strong> but never
               condescending. <strong className="font-800 text-white/80">Warm</strong> but never
@@ -65,13 +65,13 @@ export default function VoicePage() {
                   <h3
                     className="text-white/90 mb-2 tracking-[-0.01em]"
                     style={{
-                      fontFamily: "'Tiempos', Georgia, serif",
+                      fontFamily: "var(--serif)",
                       fontSize: "clamp(20px, 2vw, 24px)",
                     }}
                   >
                     {attr.trait}
                   </h3>
-                  <p className="font-sans text-sm text-white/50 font-500 leading-relaxed">
+                  <p className="font-serif text-sm text-white/50 leading-relaxed">
                     {attr.description}
                   </p>
                 </div>
@@ -81,11 +81,11 @@ export default function VoicePage() {
         </div>
       </div>
 
-      <div className="bg-white py-16 md:py-24">
+      <div className="bg-white py-12 md:py-16">
 
         {/* Messaging Framework */}
-        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-24">
-          <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-10">
+        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-16">
+          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] font-500 mb-10">
             Messaging Framework
           </h2>
 
@@ -94,7 +94,7 @@ export default function VoicePage() {
               <span className="font-sans text-[12px] font-800 uppercase tracking-[0.2em] text-royal mb-3 block">
                 Tagline
               </span>
-              <p className="font-serif text-2xl text-navy">
+              <p className="font-sans text-2xl text-navy font-500">
                 Your Business, <em className="text-royal italic">Better.</em>
               </p>
             </div>
@@ -103,13 +103,13 @@ export default function VoicePage() {
                 Campaign Pillars
               </span>
               <div className="space-y-2.5">
-                <p className="font-sans text-sm font-500 text-text-secondary">
+                <p className="font-serif text-sm text-text-secondary">
                   <strong className="font-800 text-navy">Your Business, Connected</strong> — Network, resources, community
                 </p>
-                <p className="font-sans text-sm font-500 text-text-secondary">
+                <p className="font-serif text-sm text-text-secondary">
                   <strong className="font-800 text-navy">Your Business, People</strong> — Advisors, mentors, real humans
                 </p>
-                <p className="font-sans text-sm font-500 text-text-secondary">
+                <p className="font-serif text-sm text-text-secondary">
                   <strong className="font-800 text-navy">Your Business, Funded</strong> — Capital access, loans, grants
                 </p>
               </div>
@@ -130,7 +130,7 @@ export default function VoicePage() {
 
         {/* Tone by Context */}
         <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-6">
-          <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-8">
+          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] font-500 mb-8">
             Tone by Context
           </h2>
         </div>
@@ -164,7 +164,7 @@ export default function VoicePage() {
                 </div>
                 {/* Tone */}
                 <div className="px-5 py-4 border-l border-black/[0.06]">
-                  <span className="font-sans text-[15px] font-500 text-text-secondary">
+                  <span className="font-serif text-[15px] text-text-secondary">
                     {row.tone}
                   </span>
                 </div>

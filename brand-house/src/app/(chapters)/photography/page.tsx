@@ -71,13 +71,13 @@ export default function PhotographyPage() {
         subtitle="People, not programs. Faces, not buildings. Every image should make the person visible — because the service is the person."
       />
 
-      <div className="bg-white py-16 md:py-24">
+      <div className="bg-white py-12 md:py-16">
         {/* Philosophy */}
-        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-24">
-          <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-6">
+        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-16">
+          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] font-500 mb-6">
             Seeing Is Believing
           </h2>
-          <div className="space-y-5 font-sans text-base md:text-lg text-text-secondary font-500 leading-[1.7] max-w-[640px]">
+          <div className="space-y-5 font-serif text-base md:text-lg text-text-secondary leading-[1.7] max-w-[640px]">
             <p>
               Research shows that we&rsquo;re attracted to people&rsquo;s faces
               and more likely to be motivated by seeing images of people in
@@ -99,7 +99,7 @@ export default function PhotographyPage() {
       </div>
 
       {/* Do / Don't — dark navy bg */}
-      <div className="bg-[#0f1c2e] py-16 md:py-24 relative overflow-hidden">
+      <div className="bg-[#0f1c2e] py-12 md:py-16 relative overflow-hidden">
         <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
         <div className="max-w-[960px] mx-auto px-8 md:px-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
@@ -124,7 +124,7 @@ export default function PhotographyPage() {
                     >
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    <span className="font-sans text-sm text-white/50 font-500 leading-relaxed">
+                    <span className="font-serif text-sm text-white/50 leading-relaxed">
                       {item}
                     </span>
                   </li>
@@ -154,7 +154,7 @@ export default function PhotographyPage() {
                       <line x1="18" y1="6" x2="6" y2="18" />
                       <line x1="6" y1="6" x2="18" y2="18" />
                     </svg>
-                    <span className="font-sans text-sm text-white/50 font-500 leading-relaxed">
+                    <span className="font-serif text-sm text-white/50 leading-relaxed">
                       {item}
                     </span>
                   </li>
@@ -165,11 +165,11 @@ export default function PhotographyPage() {
         </div>
       </div>
 
-      <div className="bg-white py-16 md:py-24">
+      <div className="bg-white py-12 md:py-16">
 
         {/* Composition */}
-        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-24">
-          <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-10">
+        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-16">
+          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] font-500 mb-10">
             Composition Guidelines
           </h2>
           <div className="space-y-8">
@@ -178,7 +178,7 @@ export default function PhotographyPage() {
                 <h3 className="font-sans text-sm font-800 text-navy uppercase tracking-[0.06em] mb-2">
                   {rule.title}
                 </h3>
-                <p className="font-sans text-sm text-text-secondary font-500 leading-relaxed max-w-xl">
+                <p className="font-serif text-sm text-text-secondary leading-relaxed max-w-xl">
                   {rule.desc}
                 </p>
               </div>
@@ -187,11 +187,11 @@ export default function PhotographyPage() {
         </div>
 
         {/* Overlay Treatments */}
-        <div className="max-w-[960px] mx-auto px-8 md:px-12 mb-24">
-          <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-4">
+        <div className="max-w-[960px] mx-auto px-8 md:px-12 mb-16">
+          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] font-500 mb-4">
             Overlay Treatments
           </h2>
-          <p className="font-sans text-base text-text-secondary font-500 leading-relaxed mb-10 max-w-xl">
+          <p className="font-serif text-base text-text-secondary leading-relaxed mb-10 max-w-xl">
             When placing text over photography, use one of these approved
             gradient overlays to maintain legibility and brand consistency.
           </p>
@@ -219,7 +219,7 @@ export default function PhotographyPage() {
                   <h4 className="font-sans text-sm font-800 text-navy mb-1.5">
                     {spec.name}
                   </h4>
-                  <p className="font-sans text-[12px] text-text-tertiary font-500 leading-relaxed mb-3">
+                  <p className="font-serif text-[12px] text-text-tertiary leading-relaxed mb-3">
                     {spec.use}
                   </p>
                   <code className="font-mono text-[11px] text-text-tertiary block leading-relaxed break-all">
@@ -232,8 +232,8 @@ export default function PhotographyPage() {
         </div>
 
         {/* Subjects */}
-        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-24">
-          <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-6">
+        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-16">
+          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] font-500 mb-6">
             What to Photograph
           </h2>
 
@@ -253,7 +253,7 @@ export default function PhotographyPage() {
                 ].map((item) => (
                   <li
                     key={item}
-                    className="font-sans text-sm text-text-secondary font-500 leading-relaxed flex gap-2"
+                    className="font-serif text-sm text-text-secondary leading-relaxed flex gap-2"
                   >
                     <span className="text-royal/40 mt-1">&#8226;</span>
                     {item}
@@ -274,7 +274,7 @@ export default function PhotographyPage() {
                 ].map((item) => (
                   <li
                     key={item}
-                    className="font-sans text-sm text-text-secondary font-500 leading-relaxed flex gap-2"
+                    className="font-serif text-sm text-text-secondary leading-relaxed flex gap-2"
                   >
                     <span className="text-navy/20 mt-1">&#8226;</span>
                     {item}
@@ -291,7 +291,7 @@ export default function PhotographyPage() {
             <h3 className="font-sans text-sm font-800 text-navy uppercase tracking-[0.1em] mb-3">
               Photo Library
             </h3>
-            <p className="font-sans text-sm text-text-secondary font-500 leading-relaxed mb-4">
+            <p className="font-serif text-sm text-text-secondary leading-relaxed mb-4">
               The NorCal SBDC maintains a shared photo library with client
               photos, event photography, and approved stock images.
             </p>

@@ -60,7 +60,7 @@ export function PatternSpecimen({ letter = "Aa", className = "" }: PatternProps 
         textAnchor="middle"
         dominantBaseline="central"
         fill="rgba(143,197,217,0.06)"
-        fontFamily="'Tiempos Fine', 'Tiempos', Georgia, serif"
+        fontFamily="var(--sans)"
         fontWeight="300"
         fontSize="280"
         letterSpacing="-0.04em"
@@ -107,7 +107,7 @@ export function PatternQuote({ className = "" }: PatternProps) {
         textAnchor="middle"
         dominantBaseline="central"
         fill="rgba(143,197,217,0.07)"
-        fontFamily="'Tiempos Fine', 'Tiempos', Georgia, serif"
+        fontFamily="var(--sans)"
         fontWeight="300"
         fontSize="400"
       >
@@ -173,7 +173,7 @@ export function PatternIndex({ className = "" }: PatternProps) {
           y={42 + i * 66}
           textAnchor="end"
           fill="rgba(143,197,217,0.04)"
-          fontFamily="'Tiempos Fine', 'Tiempos', Georgia, serif"
+          fontFamily="var(--sans)"
           fontWeight="300"
           fontSize="18"
         >

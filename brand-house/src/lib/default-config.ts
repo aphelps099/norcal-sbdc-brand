@@ -107,7 +107,7 @@ export const DEFAULT_PAGE_CONFIG: PageConfig = {
       config: {
         cards: [
           { icon: 'palette', title: 'Colors', description: 'Primary palette, tints, and usage guidelines', tag: 'Visual' },
-          { icon: 'type', title: 'Typography', description: 'Tiempos, Proxima Nova, and type scale', tag: 'Visual' },
+          { icon: 'type', title: 'Typography', description: 'PT Serif, Proxima Nova, and type scale', tag: 'Visual' },
           { icon: 'image', title: 'Photography', description: 'Style guidelines and image treatments', tag: 'Visual' },
           { icon: 'mic', title: 'Voice & Tone', description: 'How we write, speak, and communicate', tag: 'Verbal' },
           { icon: 'layout', title: 'Templates', description: 'Ready-to-use copy blocks and layouts', tag: 'Usage' },

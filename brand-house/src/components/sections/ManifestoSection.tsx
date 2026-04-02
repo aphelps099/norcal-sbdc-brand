@@ -143,7 +143,7 @@ export default function ManifestoSection({ config }: Props) {
   // Eyebrow style
   const eyebrowCSS = eyebrowStyle === 'mono-upper'
     ? { fontFamily: 'var(--mono, monospace)', fontWeight: 600, textTransform: 'uppercase' as const, letterSpacing: '0.18em' }
-    : { fontFamily: 'var(--sans, sans-serif)', fontWeight: 300, textTransform: 'none' as const, letterSpacing: '0.04em' };
+    : { fontFamily: 'var(--sans, sans-serif)', fontWeight: 500, textTransform: 'none' as const, letterSpacing: '0.04em' };
 
   const textAnimStyle: React.CSSProperties = {};
   if (animType === 'fade-up') {

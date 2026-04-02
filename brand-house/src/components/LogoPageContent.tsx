@@ -111,7 +111,7 @@ const COL_WIDE = "max-w-[960px] mx-auto px-8 md:px-12";
 function SectionHeading({ id, title }: { id: string; title: string }) {
   return (
     <div id={id} className="scroll-mt-24 mb-8">
-      <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em]">
+      <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] font-500">
         {title}
       </h2>
     </div>
@@ -163,7 +163,7 @@ function LogoCard({ logo }: { logo: LogoAsset }) {
         />
       </div>
       <h3 className="font-sans text-[13px] font-800 text-navy mb-0.5">{logo.name}</h3>
-      <p className="font-sans text-[13px] text-text-secondary font-500 mb-2.5">
+      <p className="font-serif text-[13px] text-text-secondary mb-2.5">
         {logo.description}
       </p>
       <div className="flex flex-wrap gap-1.5">
@@ -189,7 +189,7 @@ function LogoCard({ logo }: { logo: LogoAsset }) {
 function SectionNav() {
   return (
     <div>
-      <p className="font-sans text-sm text-text-secondary font-500 mb-5">
+      <p className="font-serif text-sm text-text-secondary mb-5">
         Find what logo you need.
       </p>
       <nav className="flex flex-wrap gap-2.5">
@@ -248,7 +248,7 @@ export default function LogoPageContent() {
 
             {/* Right — logo intro text */}
             <div className="flex flex-col justify-center">
-              <p className="font-sans text-base md:text-lg text-navy/65 font-500 leading-relaxed">
+              <p className="font-serif text-base md:text-lg text-navy/65 leading-relaxed">
                 Our logo is the most recognizable element of our brand. Always use
                 official logo files — never recreate or typeset.
               </p>
@@ -266,7 +266,7 @@ export default function LogoPageContent() {
       <section className="logo-section py-14">
         <div className={COL_NARROW}>
           <SectionHeading id="network" title="Network Logo" />
-          <p className="font-sans text-base text-text-secondary font-500 leading-relaxed mb-8 max-w-lg">
+          <p className="font-serif text-base text-text-secondary leading-relaxed mb-8 max-w-lg">
             The NorCal SBDC network logo is our primary mark. Use the full-color version
             on light backgrounds and the reverse version on dark backgrounds.
           </p>
@@ -284,7 +284,7 @@ export default function LogoPageContent() {
       <section className="logo-section py-14">
         <div className={COL_NARROW}>
           <SectionHeading id="programs" title="Program Logos" />
-          <p className="font-sans text-base text-text-secondary font-500 leading-relaxed mb-8 max-w-lg">
+          <p className="font-serif text-base text-text-secondary leading-relaxed mb-8 max-w-lg">
             Each program within the NorCal SBDC network has its own identity. These logos
             should appear on collateral specific to their intended audiences.
           </p>
@@ -302,7 +302,7 @@ export default function LogoPageContent() {
       <section className="logo-section py-14">
         <div className={COL_NARROW}>
           <SectionHeading id="stakeholders" title="Stakeholder Logos" />
-          <p className="font-sans text-base text-text-secondary font-500 leading-relaxed mb-8 max-w-lg">
+          <p className="font-serif text-base text-text-secondary leading-relaxed mb-8 max-w-lg">
             Partner and stakeholder logos that appear alongside NorCal SBDC branding.
             Always use official versions provided here.
           </p>
@@ -320,14 +320,14 @@ export default function LogoPageContent() {
       <section className="logo-section py-14">
         <div className={COL_NARROW}>
           <SectionHeading id="centers" title="Center Logos" />
-          <p className="font-sans text-base text-text-secondary font-500 leading-relaxed mb-3 max-w-lg">
+          <p className="font-serif text-base text-text-secondary leading-relaxed mb-3 max-w-lg">
             Each of our 16 regional centers has a customized logo. Click a center name
             below to download its logo package (includes full color and reverse variants
             in PNG and EPS formats).
           </p>
           <div className="flex items-start gap-3 p-4 rounded-lg bg-pool/10 border border-pool/20 mb-8 max-w-lg">
             <span className="text-pool text-base leading-none mt-0.5">✱</span>
-            <p className="font-sans text-sm text-navy/60 font-500 leading-relaxed">
+            <p className="font-serif text-sm text-navy/60 leading-relaxed">
               Center logos follow the same brand guidelines as the network logo.
               Do not modify, recreate, or typeset center logos.
             </p>
@@ -362,18 +362,18 @@ export default function LogoPageContent() {
           <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-10 items-start">
             <div>
               <h3 className="font-sans text-sm font-800 text-navy mb-3">ADA Compliance Logo</h3>
-              <p className="font-sans text-base text-text-secondary font-500 leading-relaxed mb-3">
+              <p className="font-serif text-base text-text-secondary leading-relaxed mb-3">
                 The ADA compliance seal must be displayed on all public-facing digital
                 properties including websites, email templates, and downloadable documents.
               </p>
-              <p className="font-sans text-base text-text-secondary font-500 leading-relaxed mb-5">
+              <p className="font-serif text-base text-text-secondary leading-relaxed mb-5">
                 Place the compliance logo in the footer area of websites, and on the last
                 page of printed materials. Do not resize below 60px width for digital or
                 0.5 inches for print.
               </p>
               <div className="flex items-start gap-3 p-4 rounded-lg bg-coral/8 border border-coral/15">
                 <span className="text-coral text-sm font-800 leading-none mt-0.5">!</span>
-                <p className="font-sans text-[13px] text-navy/55 font-500 leading-relaxed">
+                <p className="font-serif text-[13px] text-navy/55 leading-relaxed">
                   Federal funding recipients are required to display accessibility
                   compliance indicators. Failure to include this mark may affect
                   grant compliance status.
@@ -395,7 +395,7 @@ export default function LogoPageContent() {
       <section className="logo-section pt-14 pb-24">
         <div className={COL_NARROW}>
           <SectionHeading id="misuse" title="Misuse of Logo" />
-          <p className="font-sans text-base text-text-secondary font-500 leading-relaxed mb-8 max-w-lg">
+          <p className="font-serif text-base text-text-secondary leading-relaxed mb-8 max-w-lg">
             To protect the integrity of our brand, the following modifications are
             strictly prohibited. When in doubt, use the official files provided above.
           </p>
@@ -414,7 +414,7 @@ export default function LogoPageContent() {
                     <div className="absolute top-0 right-0 w-0 h-0 border-t-[20px] border-t-coral/12 border-l-[20px] border-l-transparent" />
                   </div>
                 </div>
-                <p className="font-sans text-[13px] text-text-secondary font-500 leading-snug">
+                <p className="font-serif text-[13px] text-text-secondary leading-snug">
                   {item.label}
                 </p>
               </div>

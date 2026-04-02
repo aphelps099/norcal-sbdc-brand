@@ -17,13 +17,13 @@ export default function ColorsPage() {
       />
 
       {/* Brand Palette — white bg */}
-      <div className="bg-white py-16 md:py-24">
+      <div className="bg-white py-12 md:py-16">
         <div className="max-w-[960px] mx-auto px-8 md:px-12">
           <h2
             className="tracking-[-0.02em] mb-10 text-navy"
             style={{
-              fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
-              fontWeight: 300,
+              fontFamily: "var(--sans)",
+              fontWeight: 500,
               fontSize: "clamp(28px, 3.5vw, 40px)",
             }}
           >
@@ -43,7 +43,7 @@ export default function ColorsPage() {
       </div>
 
       {/* Usage Guidelines — dark navy bg */}
-      <div className="bg-[#0f1c2e] py-16 md:py-24 relative overflow-hidden">
+      <div className="bg-[#0f1c2e] py-12 md:py-16 relative overflow-hidden">
         <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
         <div className="max-w-[960px] mx-auto px-8 md:px-12">
           <div className="flex flex-col md:flex-row gap-12 md:gap-16">
@@ -51,15 +51,15 @@ export default function ColorsPage() {
               <h2
                 className="tracking-[-0.02em] text-white/90"
                 style={{
-                  fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
-                  fontWeight: 300,
+                  fontFamily: "var(--sans)",
+                  fontWeight: 500,
                   fontSize: "clamp(28px, 3.5vw, 40px)",
                 }}
               >
                 Usage
               </h2>
             </div>
-            <div className="md:w-2/3 space-y-5 text-white/50 text-base md:text-[17px] leading-relaxed font-sans font-500">
+            <div className="md:w-2/3 space-y-5 text-white/50 text-base md:text-[17px] leading-relaxed font-serif">
               <p>
                 Use <strong className="font-800 text-white/80">Midnight</strong> and{" "}
                 <strong className="font-800 text-white/80">Slate</strong> for typography and dark

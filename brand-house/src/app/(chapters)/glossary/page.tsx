@@ -188,13 +188,13 @@ export default function GlossaryPage() {
         subtitle="Terms, acronyms, and definitions used across the NorCal SBDC network. Keep this reference handy — consistent language builds trust."
       />
 
-      <div className="bg-white py-16 md:py-24">
+      <div className="bg-white py-12 md:py-16">
         {/* Intro */}
-        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-20">
-          <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-6">
+        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-14">
+          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] font-500 mb-6">
             Speak the Same Language
           </h2>
-          <p className="font-sans text-lg md:text-xl text-text-secondary font-500 leading-[1.7] max-w-[640px]">
+          <p className="font-serif text-lg md:text-xl text-text-secondary leading-[1.7] max-w-[640px]">
             From SBA to Neoserra, from CIP to 504 &mdash; our work is full of
             acronyms. This reference ensures every center, advisor, and partner
             uses the same definitions. When we speak clearly, our clients
@@ -228,7 +228,7 @@ export default function GlossaryPage() {
                     <dt className="font-sans text-sm font-800 text-navy tracking-[-0.01em]">
                       {item.term}
                     </dt>
-                    <dd className="font-sans text-sm text-text-secondary font-500 leading-relaxed">
+                    <dd className="font-serif text-sm text-text-secondary leading-relaxed">
                       {item.definition}
                     </dd>
                   </div>
@@ -238,20 +238,20 @@ export default function GlossaryPage() {
           ))}
         </div>
       </div>
-      <div className="bg-[#0f1c2e] py-16 md:py-20 relative overflow-hidden">
+      <div className="bg-[#0f1c2e] py-12 md:py-16 relative overflow-hidden">
         <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
         <div className="max-w-[780px] mx-auto px-8 md:px-12">
           <h2
             className="tracking-[-0.02em] text-white/90 mb-6"
             style={{
-              fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
-              fontWeight: 300,
+              fontFamily: "var(--sans)",
+              fontWeight: 500,
               fontSize: "clamp(28px, 3.5vw, 40px)",
             }}
           >
             Quick Links
           </h2>
-          <p className="font-sans text-base text-white/50 font-500 leading-relaxed mb-10 max-w-xl">
+          <p className="font-serif text-base text-white/50 leading-relaxed mb-10 max-w-xl">
             Key resources and portals across the NorCal SBDC network.
           </p>
 

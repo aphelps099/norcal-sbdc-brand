@@ -27,20 +27,20 @@ export default function TemplatesPage() {
         title="Templates"
         subtitle="Ready-to-use copy blocks for emails, presentations, and social channels."
       />
-      <div className="bg-[#0f1c2e] py-16 md:py-24 relative overflow-hidden">
+      <div className="bg-[#0f1c2e] py-12 md:py-16 relative overflow-hidden">
         <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
         <div className="max-w-[780px] mx-auto px-8 md:px-12">
           <h2
             className="tracking-[-0.02em] text-white/90 mb-10"
             style={{
-              fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
-              fontWeight: 300,
+              fontFamily: "var(--sans)",
+              fontWeight: 500,
               fontSize: "clamp(28px, 3.5vw, 40px)",
             }}
           >
             Copy Blocks
           </h2>
-          <p className="font-sans text-base text-white/50 font-500 leading-relaxed mb-10 max-w-xl">
+          <p className="font-serif text-base text-white/50 leading-relaxed mb-10 max-w-xl">
             Click the copy button to grab any block and paste directly into your
             communications.
           </p>
@@ -57,7 +57,7 @@ export default function TemplatesPage() {
                   </h3>
                   <CopyButton text={tpl.content} />
                 </div>
-                <p className="font-sans text-sm text-white/50 font-500 leading-relaxed whitespace-pre-wrap">
+                <p className="font-serif text-sm text-white/50 leading-relaxed whitespace-pre-wrap">
                   {tpl.content}
                 </p>
               </div>
