@@ -1,3 +1,4 @@
+import { PatternRadial } from "@/components/BrandPattern";
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 
@@ -156,7 +157,7 @@ const recurringContent = [
 export default function CalendarPage() {
   return (
     <>
-      <InteriorHero
+      <InteriorHero pattern={<PatternRadial className="w-full h-full" />}
         title="Calendar"
         subtitle="Campaign themes, key dates, and a coordinated messaging framework so all 16 centers move together."
       />

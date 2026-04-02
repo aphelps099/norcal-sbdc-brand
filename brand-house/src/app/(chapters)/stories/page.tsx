@@ -1,3 +1,4 @@
+import { PatternQuote } from "@/components/BrandPattern";
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 
@@ -73,7 +74,7 @@ const stories = [
 export default function StoriesPage() {
   return (
     <>
-      <InteriorHero
+      <InteriorHero pattern={<PatternQuote className="w-full h-full" />}
         title="Stories"
         subtitle="In 300+ client success stories, nobody says 'the SBDC helped me.' They say 'Maria helped me' or 'David helped me.' The service is the person."
       />

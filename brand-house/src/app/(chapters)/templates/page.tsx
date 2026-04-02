@@ -1,3 +1,4 @@
+import { PatternGrid } from "@/components/BrandPattern";
 import InteriorHero from "@/components/InteriorHero";
 import CopyButton from "@/components/CopyButton";
 import NextSectionLink from "@/components/NextSectionLink";
@@ -21,7 +22,7 @@ const templates = [
 export default function TemplatesPage() {
   return (
     <>
-      <InteriorHero
+      <InteriorHero pattern={<PatternGrid className="w-full h-full" />}
         title="Templates"
         subtitle="Ready-to-use copy blocks for emails, presentations, and social channels."
       />

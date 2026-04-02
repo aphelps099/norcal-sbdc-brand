@@ -1,3 +1,4 @@
+import { PatternSocial } from "@/components/BrandPattern";
 import InteriorHero from "@/components/InteriorHero";
 import CopyButton from "@/components/CopyButton";
 import NextSectionLink from "@/components/NextSectionLink";
@@ -112,7 +113,7 @@ const webPublishingRules = [
 export default function ContentPage() {
   return (
     <>
-      <InteriorHero
+      <InteriorHero pattern={<PatternSocial className="w-full h-full" />}
         title="Content"
         subtitle="Guidelines for social media, newsletters, and web publishing — so every center shows up with one unified voice."
       />

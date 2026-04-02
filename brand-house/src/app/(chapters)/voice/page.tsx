@@ -1,3 +1,4 @@
+import { PatternQuote } from "@/components/BrandPattern";
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 
@@ -26,7 +27,7 @@ const toneTable = [
 export default function VoicePage() {
   return (
     <>
-      <InteriorHero
+      <InteriorHero pattern={<PatternQuote className="w-full h-full" />}
         title="Voice & Tone"
         subtitle="Our voice is the personality behind every word — confident, human, and always rooted in expertise."
       />

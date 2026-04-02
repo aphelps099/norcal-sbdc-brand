@@ -1,3 +1,4 @@
+import { PatternIndex } from "@/components/BrandPattern";
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 
@@ -181,7 +182,7 @@ const glossarySections = [
 export default function GlossaryPage() {
   return (
     <>
-      <InteriorHero
+      <InteriorHero pattern={<PatternIndex className="w-full h-full" />}
         title="Glossary"
         subtitle="Terms, acronyms, and definitions used across the NorCal SBDC network. Keep this reference handy — consistent language builds trust."
       />
@@ -237,7 +238,8 @@ export default function GlossaryPage() {
         </div>
 
         {/* Quick Links */}
-        <div className="max-w-[780px] mx-auto px-8 md:px-12 mt-24">
+        <div className="bg-[#f5f4f0] py-16 md:py-20 mt-16">
+        <div className="max-w-[780px] mx-auto px-8 md:px-12">
           <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-6">
             Quick Links
           </h2>
@@ -297,6 +299,7 @@ export default function GlossaryPage() {
               </a>
             ))}
           </div>
+        </div>
         </div>
       </div>
 

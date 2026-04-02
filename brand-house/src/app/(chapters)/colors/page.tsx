@@ -1,3 +1,4 @@
+import { PatternPalette } from "@/components/BrandPattern";
 import InteriorHero from "@/components/InteriorHero";
 import ColorSwatch from "@/components/ColorSwatch";
 import NextSectionLink from "@/components/NextSectionLink";
@@ -9,57 +10,76 @@ export default function ColorsPage() {
   return (
     <>
       <InteriorHero
+        pattern={<PatternPalette className="w-full h-full" />}
         title="Colors"
         subtitle="Our palette is built for contrast, accessibility, and editorial impact."
       />
-      <div className="bg-white py-16 md:py-24">
-        {/* Brand Palette */}
-        <div className="mb-20">
-          <div className="max-w-[780px] mx-auto px-8 md:px-12">
-            <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-10">
-              Brand Palette
-            </h2>
-          </div>
-          <div className="max-w-[960px] mx-auto px-8 md:px-12">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-              {colorEntries.map((color) => (
-                <ColorSwatch
-                  key={color.hex}
-                  name={color.name}
-                  hex={color.hex}
-                  usage={color.usage}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
 
-        {/* Usage Guidelines */}
-        <div className="max-w-[780px] mx-auto px-8 md:px-12">
-          <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-8">
-            Usage
+      {/* Brand Palette — white bg */}
+      <div className="bg-white py-16 md:py-24">
+        <div className="max-w-[960px] mx-auto px-8 md:px-12">
+          <h2
+            className="tracking-[-0.02em] mb-10 text-navy"
+            style={{
+              fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
+              fontWeight: 300,
+              fontSize: "clamp(28px, 3.5vw, 40px)",
+            }}
+          >
+            Brand Palette
           </h2>
-          <div className="space-y-5 text-text-secondary text-base leading-relaxed font-sans font-500 max-w-xl">
-            <p>
-              Use <strong className="font-800 text-navy">Midnight</strong> and{" "}
-              <strong className="font-800 text-navy">Slate</strong> for typography and dark
-              backgrounds. <strong className="font-800 text-navy">Cobalt</strong> is our
-              primary action color — links, buttons, CTAs.
-            </p>
-            <p>
-              <strong className="font-800 text-navy">Steel</strong> and{" "}
-              <strong className="font-800 text-navy">Fog</strong> provide depth in
-              charts, illustrations, and secondary UI.{" "}
-              <strong className="font-800 text-navy">Berry</strong> adds warmth for
-              editorial moments. <strong className="font-800 text-navy">Evergreen</strong>{" "}
-              signals success and growth.
-            </p>
-            <p>
-              All color pairings must meet WCAG AA contrast standards.
-            </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+            {colorEntries.map((color) => (
+              <ColorSwatch
+                key={color.hex}
+                name={color.name}
+                hex={color.hex}
+                usage={color.usage}
+              />
+            ))}
           </div>
         </div>
       </div>
+
+      {/* Usage Guidelines — cream bg */}
+      <div className="bg-[#f5f4f0] py-16 md:py-24">
+        <div className="max-w-[960px] mx-auto px-8 md:px-12">
+          <div className="flex flex-col md:flex-row gap-12 md:gap-16">
+            <div className="md:w-1/3">
+              <h2
+                className="tracking-[-0.02em] text-navy"
+                style={{
+                  fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
+                  fontWeight: 300,
+                  fontSize: "clamp(28px, 3.5vw, 40px)",
+                }}
+              >
+                Usage
+              </h2>
+            </div>
+            <div className="md:w-2/3 space-y-5 text-text-secondary text-base md:text-[17px] leading-relaxed font-sans font-500">
+              <p>
+                Use <strong className="font-800 text-navy">Midnight</strong> and{" "}
+                <strong className="font-800 text-navy">Slate</strong> for typography and dark
+                backgrounds. <strong className="font-800 text-navy">Cobalt</strong> is our
+                primary action color — links, buttons, CTAs.
+              </p>
+              <p>
+                <strong className="font-800 text-navy">Steel</strong> and{" "}
+                <strong className="font-800 text-navy">Fog</strong> provide depth in
+                charts, illustrations, and secondary UI.{" "}
+                <strong className="font-800 text-navy">Berry</strong> adds warmth for
+                editorial moments. <strong className="font-800 text-navy">Evergreen</strong>{" "}
+                signals success and growth.
+              </p>
+              <p>
+                All color pairings must meet WCAG AA contrast standards.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <NextSectionLink title="Typography" href="/typography" />
     </>
   );

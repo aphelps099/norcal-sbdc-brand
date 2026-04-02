@@ -1,3 +1,4 @@
+import { PatternLens } from "@/components/BrandPattern";
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 
@@ -64,7 +65,7 @@ const compositionRules = [
 export default function PhotographyPage() {
   return (
     <>
-      <InteriorHero
+      <InteriorHero pattern={<PatternLens className="w-full h-full" />}
         title="Photography"
         subtitle="People, not programs. Faces, not buildings. Every image should make the person visible — because the service is the person."
       />

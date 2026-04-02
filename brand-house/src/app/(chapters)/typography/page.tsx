@@ -1,10 +1,11 @@
+import { PatternSpecimen } from "@/components/BrandPattern";
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 
 export default function TypographyPage() {
   return (
     <>
-      <InteriorHero
+      <InteriorHero pattern={<PatternSpecimen className="w-full h-full" />}
         title="Typography"
         subtitle="Our type system pairs Tiempos with Proxima Nova for editorial authority and clean readability."
       />
