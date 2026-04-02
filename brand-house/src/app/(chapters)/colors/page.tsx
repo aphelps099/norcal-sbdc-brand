@@ -1,6 +1,7 @@
 import InteriorHero from "@/components/InteriorHero";
 import ColorSwatch from "@/components/ColorSwatch";
 import NextSectionLink from "@/components/NextSectionLink";
+import SbdcWatermark from "@/components/SbdcWatermark";
 import { colors } from "@/lib/brand-tokens";
 import { gradientColors } from "@/lib/page-gradients";
 
@@ -41,13 +42,14 @@ export default function ColorsPage() {
         </div>
       </div>
 
-      {/* Usage Guidelines — cream bg */}
-      <div className="bg-[#f5f4f0] py-16 md:py-24">
+      {/* Usage Guidelines — dark navy bg */}
+      <div className="bg-[#0f1c2e] py-16 md:py-24 relative overflow-hidden">
+        <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
         <div className="max-w-[960px] mx-auto px-8 md:px-12">
           <div className="flex flex-col md:flex-row gap-12 md:gap-16">
             <div className="md:w-1/3">
               <h2
-                className="tracking-[-0.02em] text-navy"
+                className="tracking-[-0.02em] text-white/90"
                 style={{
                   fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
                   fontWeight: 300,
@@ -57,19 +59,19 @@ export default function ColorsPage() {
                 Usage
               </h2>
             </div>
-            <div className="md:w-2/3 space-y-5 text-text-secondary text-base md:text-[17px] leading-relaxed font-sans font-500">
+            <div className="md:w-2/3 space-y-5 text-white/50 text-base md:text-[17px] leading-relaxed font-sans font-500">
               <p>
-                Use <strong className="font-800 text-navy">Midnight</strong> and{" "}
-                <strong className="font-800 text-navy">Slate</strong> for typography and dark
-                backgrounds. <strong className="font-800 text-navy">Cobalt</strong> is our
+                Use <strong className="font-800 text-white/80">Midnight</strong> and{" "}
+                <strong className="font-800 text-white/80">Slate</strong> for typography and dark
+                backgrounds. <strong className="font-800 text-white/80">Cobalt</strong> is our
                 primary action color — links, buttons, CTAs.
               </p>
               <p>
-                <strong className="font-800 text-navy">Steel</strong> and{" "}
-                <strong className="font-800 text-navy">Fog</strong> provide depth in
+                <strong className="font-800 text-white/80">Steel</strong> and{" "}
+                <strong className="font-800 text-white/80">Fog</strong> provide depth in
                 charts, illustrations, and secondary UI.{" "}
-                <strong className="font-800 text-navy">Berry</strong> adds warmth for
-                editorial moments. <strong className="font-800 text-navy">Evergreen</strong>{" "}
+                <strong className="font-800 text-white/80">Berry</strong> adds warmth for
+                editorial moments. <strong className="font-800 text-white/80">Evergreen</strong>{" "}
                 signals success and growth.
               </p>
               <p>

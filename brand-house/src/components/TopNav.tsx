@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import Fuse from "fuse.js";
 import { searchData, type SearchItem } from "@/lib/search-index";
+import SbdcWatermark from "./SbdcWatermark";
 
 const fuse = new Fuse(searchData, {
   keys: ["title", "section", "content"],
@@ -123,7 +124,7 @@ export default function TopNav() {
             href="/"
             className={`font-sans text-[0.72rem] font-800 tracking-[0.14em] uppercase transition-colors duration-500 no-underline ${
               menuOpen
-                ? "text-navy/60 hover:text-navy"
+                ? "text-white/50 hover:text-white"
                 : isDark
                   ? "text-white/70 hover:text-white"
                   : "text-navy hover:text-navy"
@@ -136,7 +137,7 @@ export default function TopNav() {
             onClick={() => setMenuOpen(!menuOpen)}
             className={`burger-wrap flex flex-col items-end justify-center gap-[7px] w-[24px] h-[24px] transition-colors duration-500 ${
               menuOpen
-                ? "text-navy/30 hover:text-navy"
+                ? "text-white/30 hover:text-white"
                 : isDark
                   ? "text-white/40 hover:text-white"
                   : "text-text-tertiary hover:text-navy"
@@ -150,7 +151,7 @@ export default function TopNav() {
         </div>
       </nav>
 
-      {/* Full-screen menu overlay — monochromatic Pool gradient + grain */}
+      {/* Full-screen menu overlay — dark navy, institutional */}
       {mounted && (
         <div
           className="fixed inset-0 z-[45] overflow-hidden"
@@ -163,7 +164,7 @@ export default function TopNav() {
             transition: "clip-path 0.7s cubic-bezier(0.25, 0.1, 0.25, 1)",
           }}
         >
-          {/* Gradient + grain background */}
+          {/* Navy gradient + grain background */}
           <svg
             className="absolute inset-0 w-full h-full"
             preserveAspectRatio="xMidYMid slice"
@@ -172,159 +173,206 @@ export default function TopNav() {
           >
             <defs>
               <linearGradient id="nav-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#5B9BB5" />
-                <stop offset="30%" stopColor="#8FC5D9" />
-                <stop offset="55%" stopColor="#A8D5E4" />
-                <stop offset="80%" stopColor="#8FC5D9" />
-                <stop offset="100%" stopColor="#6DAFC6" />
+                <stop offset="0%" stopColor="#0a1420" />
+                <stop offset="30%" stopColor="#0f1c2e" />
+                <stop offset="60%" stopColor="#132640" />
+                <stop offset="85%" stopColor="#0f1c2e" />
+                <stop offset="100%" stopColor="#0a1420" />
               </linearGradient>
               <filter id="nav-grain" x="0%" y="0%" width="100%" height="100%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch" result="noise" />
+                <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="3" stitchTiles="stitch" result="noise" />
                 <feColorMatrix type="saturate" values="0" in="noise" result="mono" />
                 <feBlend in="SourceGraphic" in2="mono" mode="soft-light" />
               </filter>
             </defs>
             <rect width="100%" height="100%" fill="url(#nav-grad)" filter="url(#nav-grain)" />
           </svg>
-          {/* Navy multiply overlay — tames grain */}
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundColor: "#0f1c2e",
-              mixBlendMode: "multiply",
-              opacity: 0.18,
-            }}
-          />
-          {/* "Explore" watermark */}
-          <div
-            className="absolute bottom-[-6vw] left-[-2vw] pointer-events-none select-none"
-            style={{
-              fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
-              fontWeight: 300,
-              fontStyle: "italic",
-              fontSize: "clamp(160px, 22vw, 320px)",
-              lineHeight: 1,
-              letterSpacing: "-0.04em",
-              color: "rgba(15,28,46,0.04)",
-              opacity: menuOpen ? 1 : 0,
-              transform: menuOpen ? "translateY(0)" : "translateY(40px)",
-              transition:
-                "opacity 0.8s ease 0.3s, transform 1s cubic-bezier(0.16,1,0.3,1) 0.3s",
-            }}
-          >
-            Explore
-          </div>
 
-          <div className="relative z-10 h-full flex flex-col pt-24 pb-8 md:pb-10 px-8 sm:px-12 md:px-16 lg:px-24">
-            {/* Main content — links left, search right */}
-            <div className="flex-1 flex flex-col lg:flex-row items-start lg:items-center">
-              {/* Left — nav links */}
-              <div className="flex-1 flex flex-col justify-center lg:pr-16">
-                <nav className="flex flex-col">
-                  {NAV_LINKS.map((link, i) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setMenuOpen(false)}
-                      className="block no-underline group/nav"
-                      style={{
-                        opacity: menuOpen ? 1 : 0,
-                        transform: menuOpen
-                          ? "translateY(0)"
-                          : "translateY(8px)",
-                        transition: menuOpen
-                          ? `opacity 0.5s ease ${0.3 + i * 0.035}s, transform 0.5s ease ${0.3 + i * 0.035}s`
-                          : "opacity 0.25s ease, transform 0.25s ease",
-                      }}
-                    >
-                      <span
-                        className="block py-[0.35em] transition-all duration-200 text-navy/50 group-hover/nav:text-navy"
+          {/* Star watermark */}
+          <SbdcWatermark
+            className="absolute -right-[5%] -bottom-[10%] w-[55vw] max-w-[650px] text-white pointer-events-none select-none"
+            opacity={0.03}
+          />
+
+          <div className="relative z-10 h-full flex flex-col pt-24 pb-8 md:pb-10 px-8 sm:px-12 md:px-16 lg:px-24 overflow-y-auto">
+            {/* 2-column nav layout */}
+            <div className="flex-1 flex flex-col justify-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 lg:gap-x-24 gap-y-10 max-w-[900px]">
+                {/* Left column — Brand House */}
+                <div
+                  style={{
+                    opacity: menuOpen ? 1 : 0,
+                    transform: menuOpen ? "translateY(0)" : "translateY(12px)",
+                    transition: menuOpen
+                      ? "opacity 0.5s ease 0.25s, transform 0.5s ease 0.25s"
+                      : "opacity 0.2s ease, transform 0.2s ease",
+                  }}
+                >
+                  <h3
+                    className="text-white/25 mb-4"
+                    style={{
+                      fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
+                      fontWeight: 300,
+                      fontSize: "clamp(16px, 1.8vw, 22px)",
+                    }}
+                  >
+                    Brand House
+                  </h3>
+                  <div className="h-[1px] bg-white/[0.08] mb-5" />
+                  <nav className="flex flex-col">
+                    {NAV_LINKS.slice(0, 5).map((link, i) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setMenuOpen(false)}
+                        className="block no-underline group/nav"
                         style={{
-                          fontFamily:
-                            "'Tiempos', Georgia, serif",
-                          fontWeight: 400,
-                          fontSize: "clamp(20px, 2.4vw, 32px)",
-                          lineHeight: "1.5",
-                          letterSpacing: "-0.015em",
+                          opacity: menuOpen ? 1 : 0,
+                          transform: menuOpen ? "translateY(0)" : "translateY(6px)",
+                          transition: menuOpen
+                            ? `opacity 0.4s ease ${0.35 + i * 0.04}s, transform 0.4s ease ${0.35 + i * 0.04}s`
+                            : "opacity 0.2s ease, transform 0.2s ease",
                         }}
                       >
-                        {link.label}
-                      </span>
-                    </a>
-                  ))}
-                </nav>
+                        <span
+                          className="block py-[0.3em] transition-colors duration-200 text-white/40 group-hover/nav:text-white/80"
+                          style={{
+                            fontFamily: "'Tiempos', Georgia, serif",
+                            fontWeight: 400,
+                            fontSize: "clamp(18px, 2.2vw, 28px)",
+                            lineHeight: "1.5",
+                            letterSpacing: "-0.015em",
+                          }}
+                        >
+                          {link.label}
+                        </span>
+                      </a>
+                    ))}
+                  </nav>
+                </div>
+
+                {/* Right column — Resources */}
+                <div
+                  style={{
+                    opacity: menuOpen ? 1 : 0,
+                    transform: menuOpen ? "translateY(0)" : "translateY(12px)",
+                    transition: menuOpen
+                      ? "opacity 0.5s ease 0.35s, transform 0.5s ease 0.35s"
+                      : "opacity 0.2s ease, transform 0.2s ease",
+                  }}
+                >
+                  <h3
+                    className="text-white/25 mb-4"
+                    style={{
+                      fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
+                      fontWeight: 300,
+                      fontSize: "clamp(16px, 1.8vw, 22px)",
+                    }}
+                  >
+                    Resources
+                  </h3>
+                  <div className="h-[1px] bg-white/[0.08] mb-5" />
+                  <nav className="flex flex-col">
+                    {NAV_LINKS.slice(5).map((link, i) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setMenuOpen(false)}
+                        className="block no-underline group/nav"
+                        style={{
+                          opacity: menuOpen ? 1 : 0,
+                          transform: menuOpen ? "translateY(0)" : "translateY(6px)",
+                          transition: menuOpen
+                            ? `opacity 0.4s ease ${0.45 + i * 0.04}s, transform 0.4s ease ${0.45 + i * 0.04}s`
+                            : "opacity 0.2s ease, transform 0.2s ease",
+                        }}
+                      >
+                        <span
+                          className="block py-[0.3em] transition-colors duration-200 text-white/40 group-hover/nav:text-white/80"
+                          style={{
+                            fontFamily: "'Tiempos', Georgia, serif",
+                            fontWeight: 400,
+                            fontSize: "clamp(18px, 2.2vw, 28px)",
+                            lineHeight: "1.5",
+                            letterSpacing: "-0.015em",
+                          }}
+                        >
+                          {link.label}
+                        </span>
+                      </a>
+                    ))}
+                  </nav>
+                </div>
               </div>
 
-              {/* Right — search */}
+              {/* Search bar below columns */}
               <div
-                className="flex-1 flex flex-col justify-center lg:pl-16 mt-10 lg:mt-0 w-full lg:w-auto"
+                className="mt-12 max-w-[440px]"
                 style={{
                   opacity: menuOpen ? 1 : 0,
                   transform: menuOpen ? "translateY(0)" : "translateY(8px)",
                   transition: menuOpen
-                    ? "opacity 0.5s ease 0.5s, transform 0.5s ease 0.5s"
+                    ? "opacity 0.5s ease 0.6s, transform 0.5s ease 0.6s"
                     : "opacity 0.2s ease, transform 0.2s ease",
                 }}
               >
-                <div className="max-w-[440px]">
-                  <div className="flex items-center gap-3 border-b-[3px] border-navy/20 pb-3 focus-within:border-navy/45 transition-colors duration-300">
-                    <svg
-                      width="22"
-                      height="22"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-navy/35 shrink-0"
-                    >
-                      <circle cx="11" cy="11" r="7" />
-                      <path d="m20 20-3.5-3.5" />
-                    </svg>
-                    <input
-                      ref={searchRef}
-                      type="text"
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                      placeholder="Search..."
-                      className="flex-1 bg-transparent text-navy text-xl md:text-2xl outline-none placeholder:text-navy/25 tracking-[-0.02em]"
-                      style={{
-                        fontFamily: "'Tiempos', Georgia, serif",
-                      }}
-                    />
-                    <span className="font-sans text-[10px] font-800 uppercase tracking-[0.1em] text-navy/15 hidden sm:block">
-                      {"\u2318"}K
-                    </span>
-                  </div>
-
-                  {/* Search results */}
-                  {query && (
-                    <div className="mt-4 space-y-0.5">
-                      {results.length === 0 ? (
-                        <p className="font-sans text-sm text-navy/25 font-500 py-2">
-                          No results for &ldquo;{query}&rdquo;
-                        </p>
-                      ) : (
-                        results.map((item) => (
-                          <a
-                            key={item.href}
-                            href={item.href}
-                            onClick={() => setMenuOpen(false)}
-                            className="flex items-baseline gap-3 py-2.5 no-underline group/result hover:bg-navy/[0.06] px-2 -mx-2 transition-colors duration-200 rounded-sm"
-                          >
-                            <span className="font-sans text-[9px] font-800 uppercase tracking-[0.14em] text-navy/20 w-14 shrink-0">
-                              {item.section}
-                            </span>
-                            <span className="font-serif text-navy/70 text-base group-hover/result:text-navy transition-colors duration-200">
-                              {item.title}
-                            </span>
-                          </a>
-                        ))
-                      )}
-                    </div>
-                  )}
+                <div className="flex items-center gap-3 border-b border-white/[0.1] pb-3 focus-within:border-white/25 transition-colors duration-300">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-white/20 shrink-0"
+                  >
+                    <circle cx="11" cy="11" r="7" />
+                    <path d="m20 20-3.5-3.5" />
+                  </svg>
+                  <input
+                    ref={searchRef}
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search..."
+                    className="flex-1 bg-transparent text-white/70 text-lg outline-none placeholder:text-white/15 tracking-[-0.02em]"
+                    style={{
+                      fontFamily: "'Tiempos', Georgia, serif",
+                    }}
+                  />
+                  <span className="font-sans text-[10px] font-800 uppercase tracking-[0.1em] text-white/10 hidden sm:block">
+                    {"\u2318"}K
+                  </span>
                 </div>
+
+                {/* Search results */}
+                {query && (
+                  <div className="mt-4 space-y-0.5">
+                    {results.length === 0 ? (
+                      <p className="font-sans text-sm text-white/20 font-500 py-2">
+                        No results for &ldquo;{query}&rdquo;
+                      </p>
+                    ) : (
+                      results.map((item) => (
+                        <a
+                          key={item.href}
+                          href={item.href}
+                          onClick={() => setMenuOpen(false)}
+                          className="flex items-baseline gap-3 py-2.5 no-underline group/result hover:bg-white/[0.04] px-2 -mx-2 transition-colors duration-200 rounded-sm"
+                        >
+                          <span className="font-sans text-[9px] font-800 uppercase tracking-[0.14em] text-white/15 w-14 shrink-0">
+                            {item.section}
+                          </span>
+                          <span className="font-serif text-white/50 text-base group-hover/result:text-white/80 transition-colors duration-200">
+                            {item.title}
+                          </span>
+                        </a>
+                      ))
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>

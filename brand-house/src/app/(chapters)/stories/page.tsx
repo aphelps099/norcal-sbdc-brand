@@ -1,6 +1,7 @@
 import { gradientStories } from "@/lib/page-gradients";
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
+import SbdcWatermark from "@/components/SbdcWatermark";
 
 const stories = [
   {
@@ -92,9 +93,13 @@ export default function StoriesPage() {
           </p>
         </div>
 
-        {/* Impact Stats Bar */}
-        <div className="max-w-[960px] mx-auto px-8 md:px-12 mb-24">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-black/[0.06]">
+      </div>
+
+      {/* Impact Stats Bar — dark navy bg */}
+      <div className="bg-[#0f1c2e] py-16 md:py-20 relative overflow-hidden">
+        <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
+        <div className="max-w-[960px] mx-auto px-8 md:px-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-white/[0.06]">
             {[
               { value: "$547M", label: "Capital raised last year" },
               { value: "42,000+", label: "Jobs created" },
@@ -104,19 +109,28 @@ export default function StoriesPage() {
               <div
                 key={stat.label}
                 className={`py-8 px-6 text-center ${
-                  i < 3 ? "border-r border-black/[0.06]" : ""
+                  i < 3 ? "border-r border-white/[0.06]" : ""
                 }`}
               >
-                <p className="font-serif text-3xl md:text-4xl text-navy tracking-[-0.03em] mb-1">
+                <p
+                  className="text-white/90 tracking-[-0.03em] mb-1"
+                  style={{
+                    fontFamily: "'Tiempos', Georgia, serif",
+                    fontSize: "clamp(28px, 3.5vw, 40px)",
+                  }}
+                >
                   {stat.value}
                 </p>
-                <p className="font-sans text-[11px] font-800 uppercase tracking-[0.12em] text-text-tertiary">
+                <p className="font-sans text-[11px] font-800 uppercase tracking-[0.12em] text-white/30">
                   {stat.label}
                 </p>
               </div>
             ))}
           </div>
         </div>
+      </div>
+
+      <div className="bg-white py-16 md:py-24">
 
         {/* Story Cards */}
         <div className="max-w-[960px] mx-auto px-8 md:px-12">

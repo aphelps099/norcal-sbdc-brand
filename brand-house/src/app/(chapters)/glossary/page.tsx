@@ -1,6 +1,7 @@
 import { gradientGlossary } from "@/lib/page-gradients";
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
+import SbdcWatermark from "@/components/SbdcWatermark";
 
 const glossarySections = [
   {
@@ -236,14 +237,21 @@ export default function GlossaryPage() {
             </div>
           ))}
         </div>
-
-        {/* Quick Links */}
-        <div className="bg-[#f5f4f0] py-16 md:py-20 mt-16">
+      </div>
+      <div className="bg-[#0f1c2e] py-16 md:py-20 relative overflow-hidden">
+        <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
         <div className="max-w-[780px] mx-auto px-8 md:px-12">
-          <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-6">
+          <h2
+            className="tracking-[-0.02em] text-white/90 mb-6"
+            style={{
+              fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
+              fontWeight: 300,
+              fontSize: "clamp(28px, 3.5vw, 40px)",
+            }}
+          >
             Quick Links
           </h2>
-          <p className="font-sans text-base text-text-secondary font-500 leading-relaxed mb-10 max-w-xl">
+          <p className="font-sans text-base text-white/50 font-500 leading-relaxed mb-10 max-w-xl">
             Key resources and portals across the NorCal SBDC network.
           </p>
 
@@ -276,10 +284,10 @@ export default function GlossaryPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`flex items-center justify-between py-4 group no-underline ${
-                  i < 4 ? "border-b border-black/[0.06]" : ""
+                  i < 4 ? "border-b border-white/[0.06]" : ""
                 }`}
               >
-                <span className="font-sans text-sm font-500 text-navy group-hover:text-royal transition-colors duration-300">
+                <span className="font-sans text-sm font-500 text-white/70 group-hover:text-[#8FC5D9] transition-colors duration-300">
                   {link.label}
                 </span>
                 <svg
@@ -291,7 +299,7 @@ export default function GlossaryPage() {
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="text-black/15 group-hover:text-royal transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  className="text-white/20 group-hover:text-[#8FC5D9] transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 >
                   <path d="M7 17L17 7" />
                   <path d="M7 7h10v10" />
@@ -299,7 +307,6 @@ export default function GlossaryPage() {
               </a>
             ))}
           </div>
-        </div>
         </div>
       </div>
 

@@ -1,6 +1,7 @@
 import { gradientVoice } from "@/lib/page-gradients";
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
+import SbdcWatermark from "@/components/SbdcWatermark";
 
 const voiceAttributes = [
   { trait: "Direct", description: "Lead with the point. No corporate filler." },
@@ -31,17 +32,25 @@ export default function VoicePage() {
         title="Voice & Tone"
         subtitle="Our voice is the personality behind every word — confident, human, and always rooted in expertise."
       />
-      <div className="bg-white py-16 md:py-24">
-        {/* Brand Personality */}
+      {/* Brand Personality — dark navy bg */}
+      <div className="bg-[#0f1c2e] py-16 md:py-24 relative overflow-hidden">
+        <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
         <div className="mb-24">
           <div className="max-w-[780px] mx-auto px-8 md:px-12">
-            <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-6">
+            <h2
+              className="tracking-[-0.02em] text-white/90 mb-6"
+              style={{
+                fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
+                fontWeight: 300,
+                fontSize: "clamp(28px, 3.5vw, 40px)",
+              }}
+            >
               Brand Personality
             </h2>
-            <p className="font-sans text-lg md:text-xl text-text-secondary font-500 leading-[1.7] max-w-[640px] mb-14">
-              We are <strong className="font-800 text-navy">confident</strong> but never
-              arrogant. <strong className="font-800 text-navy">Expert</strong> but never
-              condescending. <strong className="font-800 text-navy">Warm</strong> but never
+            <p className="font-sans text-lg md:text-xl text-white/50 font-500 leading-[1.7] max-w-[640px] mb-14">
+              We are <strong className="font-800 text-white/80">confident</strong> but never
+              arrogant. <strong className="font-800 text-white/80">Expert</strong> but never
+              condescending. <strong className="font-800 text-white/80">Warm</strong> but never
               unprofessional. We speak like the advisor you&rsquo;d actually want to have
               coffee with.
             </p>
@@ -51,12 +60,18 @@ export default function VoicePage() {
               {voiceAttributes.map((attr, i) => (
                 <div
                   key={attr.trait}
-                  className={`py-6 px-6 ${i < voiceAttributes.length - 1 ? "border-r border-black/[0.08]" : ""}`}
+                  className={`py-6 px-6 ${i < voiceAttributes.length - 1 ? "border-r border-white/[0.06]" : ""}`}
                 >
-                  <h3 className="font-serif text-xl md:text-2xl text-navy mb-2 tracking-[-0.01em]">
+                  <h3
+                    className="text-white/90 mb-2 tracking-[-0.01em]"
+                    style={{
+                      fontFamily: "'Tiempos', Georgia, serif",
+                      fontSize: "clamp(20px, 2vw, 24px)",
+                    }}
+                  >
                     {attr.trait}
                   </h3>
-                  <p className="font-sans text-sm text-text-secondary font-500 leading-relaxed">
+                  <p className="font-sans text-sm text-white/50 font-500 leading-relaxed">
                     {attr.description}
                   </p>
                 </div>
@@ -64,6 +79,9 @@ export default function VoicePage() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="bg-white py-16 md:py-24">
 
         {/* Messaging Framework */}
         <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-24">

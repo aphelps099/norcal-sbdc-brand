@@ -1,6 +1,7 @@
 import { gradientTypography } from "@/lib/page-gradients";
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
+import SbdcWatermark from "@/components/SbdcWatermark";
 
 export default function TypographyPage() {
   return (
@@ -153,31 +154,43 @@ export default function TypographyPage() {
           </div>
         </div>
 
-        {/* Rules */}
+      </div>
+
+      {/* Rules — dark navy bg */}
+      <div className="bg-[#0f1c2e] py-20 md:py-28 relative overflow-hidden">
+        <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
         <div className="max-w-[780px] mx-auto px-8 md:px-12">
-          <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-8">
+          <h2
+            className="tracking-[-0.02em] text-white/90 mb-8"
+            style={{
+              fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
+              fontWeight: 300,
+              fontSize: "clamp(28px, 3.5vw, 40px)",
+            }}
+          >
             Rules
           </h2>
-          <div className="space-y-4 text-text-secondary text-base leading-relaxed font-sans font-500 max-w-xl">
+          <div className="space-y-4 text-white/50 text-base leading-relaxed font-sans font-500 max-w-xl">
             <p>
-              <strong className="font-800 text-navy">Headlines</strong> always use Tiempos.
+              <strong className="font-800 text-white/80">Headlines</strong> always use Tiempos.
               Italic emphasis words use Royal (#1D5AA7) color.
             </p>
             <p>
-              <strong className="font-800 text-navy">Body text</strong> uses Proxima Nova
+              <strong className="font-800 text-white/80">Body text</strong> uses Proxima Nova
               at 500 weight. Line height is 1.6–1.7 for readability.
             </p>
             <p>
-              <strong className="font-800 text-navy">Labels</strong> use Proxima Nova at
+              <strong className="font-800 text-white/80">Labels</strong> use Proxima Nova at
               800 weight, all-caps, with 0.15–0.2em letter-spacing.
             </p>
             <p>
-              <strong className="font-800 text-navy">Never</strong> mix more than two
+              <strong className="font-800 text-white/80">Never</strong> mix more than two
               typefaces in a single composition. Serif + sans is the standard pairing.
             </p>
           </div>
         </div>
       </div>
+
       <NextSectionLink title="Logos" href="/logos" />
     </>
   );

@@ -2,6 +2,7 @@ import { gradientTemplates } from "@/lib/page-gradients";
 import InteriorHero from "@/components/InteriorHero";
 import CopyButton from "@/components/CopyButton";
 import NextSectionLink from "@/components/NextSectionLink";
+import SbdcWatermark from "@/components/SbdcWatermark";
 
 const emailSignature = `[Name] | [Title]
 NorCal Small Business Development Center
@@ -26,32 +27,42 @@ export default function TemplatesPage() {
         title="Templates"
         subtitle="Ready-to-use copy blocks for emails, presentations, and social channels."
       />
-      <div className="bg-white max-w-[780px] mx-auto px-8 md:px-12 py-16 md:py-24">
-        <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-10">
-          Copy Blocks
-        </h2>
-        <p className="font-sans text-base text-text-secondary font-500 leading-relaxed mb-10 max-w-xl">
-          Click the copy button to grab any block and paste directly into your
-          communications.
-        </p>
+      <div className="bg-[#0f1c2e] py-16 md:py-24 relative overflow-hidden">
+        <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
+        <div className="max-w-[780px] mx-auto px-8 md:px-12">
+          <h2
+            className="tracking-[-0.02em] text-white/90 mb-10"
+            style={{
+              fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
+              fontWeight: 300,
+              fontSize: "clamp(28px, 3.5vw, 40px)",
+            }}
+          >
+            Copy Blocks
+          </h2>
+          <p className="font-sans text-base text-white/50 font-500 leading-relaxed mb-10 max-w-xl">
+            Click the copy button to grab any block and paste directly into your
+            communications.
+          </p>
 
-        <div className="space-y-5 max-w-2xl">
-          {templates.map((tpl) => (
-            <div
-              key={tpl.title}
-              className="p-8 rounded-xl border border-black/[0.04] bg-[#f7f7f5]"
-            >
-              <div className="flex items-center justify-between mb-5">
-                <h3 className="font-sans text-sm font-800 text-navy uppercase tracking-[0.1em]">
-                  {tpl.title}
-                </h3>
-                <CopyButton text={tpl.content} />
+          <div className="space-y-5 max-w-2xl">
+            {templates.map((tpl) => (
+              <div
+                key={tpl.title}
+                className="p-8 rounded-xl border border-white/[0.06] bg-white/[0.04]"
+              >
+                <div className="flex items-center justify-between mb-5">
+                  <h3 className="font-sans text-sm font-800 text-white/90 uppercase tracking-[0.1em]">
+                    {tpl.title}
+                  </h3>
+                  <CopyButton text={tpl.content} />
+                </div>
+                <p className="font-sans text-sm text-white/50 font-500 leading-relaxed whitespace-pre-wrap">
+                  {tpl.content}
+                </p>
               </div>
-              <p className="font-sans text-sm text-text-secondary font-500 leading-relaxed whitespace-pre-wrap">
-                {tpl.content}
-              </p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
       <NextSectionLink title="Content" href="/content" />

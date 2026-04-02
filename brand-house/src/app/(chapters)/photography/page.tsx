@@ -1,6 +1,7 @@
 import { gradientPhotography } from "@/lib/page-gradients";
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
+import SbdcWatermark from "@/components/SbdcWatermark";
 
 const doList = [
   "Show real people in real work environments — not posed, not stock.",
@@ -95,12 +96,16 @@ export default function PhotographyPage() {
           </div>
         </div>
 
-        {/* Do / Don't */}
-        <div className="max-w-[960px] mx-auto px-8 md:px-12 mb-24">
+      </div>
+
+      {/* Do / Don't — dark navy bg */}
+      <div className="bg-[#0f1c2e] py-16 md:py-24 relative overflow-hidden">
+        <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
+        <div className="max-w-[960px] mx-auto px-8 md:px-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
             {/* Do */}
-            <div className="p-8 md:p-10 border border-black/[0.06] border-b-0 md:border-b md:border-r-0">
-              <span className="inline-block px-3 py-1.5 bg-[#00685E]/10 font-sans text-[10px] font-800 uppercase tracking-[0.14em] text-[#00685E] mb-6">
+            <div className="p-8 md:p-10 border border-white/[0.06] border-b-0 md:border-b md:border-r-0">
+              <span className="inline-block px-3 py-1.5 bg-[#00685E]/20 font-sans text-[10px] font-800 uppercase tracking-[0.14em] text-[#4DB8AD] mb-6">
                 Do
               </span>
               <ul className="space-y-4">
@@ -111,7 +116,7 @@ export default function PhotographyPage() {
                       height="16"
                       viewBox="0 0 24 24"
                       fill="none"
-                      stroke="#00685E"
+                      stroke="#4DB8AD"
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -119,7 +124,7 @@ export default function PhotographyPage() {
                     >
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    <span className="font-sans text-sm text-text-secondary font-500 leading-relaxed">
+                    <span className="font-sans text-sm text-white/50 font-500 leading-relaxed">
                       {item}
                     </span>
                   </li>
@@ -128,8 +133,8 @@ export default function PhotographyPage() {
             </div>
 
             {/* Don't */}
-            <div className="p-8 md:p-10 border border-black/[0.06]">
-              <span className="inline-block px-3 py-1.5 bg-[#A73B44]/10 font-sans text-[10px] font-800 uppercase tracking-[0.14em] text-[#A73B44] mb-6">
+            <div className="p-8 md:p-10 border border-white/[0.06]">
+              <span className="inline-block px-3 py-1.5 bg-[#A73B44]/20 font-sans text-[10px] font-800 uppercase tracking-[0.14em] text-[#D98088] mb-6">
                 Don&rsquo;t
               </span>
               <ul className="space-y-4">
@@ -140,7 +145,7 @@ export default function PhotographyPage() {
                       height="16"
                       viewBox="0 0 24 24"
                       fill="none"
-                      stroke="#A73B44"
+                      stroke="#D98088"
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -149,7 +154,7 @@ export default function PhotographyPage() {
                       <line x1="18" y1="6" x2="6" y2="18" />
                       <line x1="6" y1="6" x2="18" y2="18" />
                     </svg>
-                    <span className="font-sans text-sm text-text-secondary font-500 leading-relaxed">
+                    <span className="font-sans text-sm text-white/50 font-500 leading-relaxed">
                       {item}
                     </span>
                   </li>
@@ -158,6 +163,9 @@ export default function PhotographyPage() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="bg-white py-16 md:py-24">
 
         {/* Composition */}
         <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-24">

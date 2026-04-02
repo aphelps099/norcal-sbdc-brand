@@ -2,6 +2,7 @@ import { gradientContent } from "@/lib/page-gradients";
 import InteriorHero from "@/components/InteriorHero";
 import CopyButton from "@/components/CopyButton";
 import NextSectionLink from "@/components/NextSectionLink";
+import SbdcWatermark from "@/components/SbdcWatermark";
 
 const socialPrinciples = [
   {
@@ -118,13 +119,21 @@ export default function ContentPage() {
         subtitle="Guidelines for social media, newsletters, and web publishing — so every center shows up with one unified voice."
       />
 
-      <div className="bg-white py-16 md:py-24">
-        {/* Social Media Principles */}
-        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-24">
-          <h2 className="font-serif text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-4">
+      {/* Social Media Principles — dark navy bg */}
+      <div className="bg-[#0f1c2e] py-16 md:py-24 relative overflow-hidden">
+        <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
+        <div className="max-w-[780px] mx-auto px-8 md:px-12">
+          <h2
+            className="tracking-[-0.02em] text-white/90 mb-4"
+            style={{
+              fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
+              fontWeight: 300,
+              fontSize: "clamp(28px, 3.5vw, 40px)",
+            }}
+          >
             Social Media Principles
           </h2>
-          <p className="font-sans text-base text-text-secondary font-500 leading-relaxed mb-12 max-w-xl">
+          <p className="font-sans text-base text-white/50 font-500 leading-relaxed mb-12 max-w-xl">
             We build our social media presence on two basic principles:
             content that&rsquo;s relevant and compelling to our audiences, and
             being authentic. All of our posts reflect who we are as a network.
@@ -133,16 +142,19 @@ export default function ContentPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
             {socialPrinciples.map((p) => (
               <div key={p.title}>
-                <h3 className="font-sans text-sm font-800 text-navy uppercase tracking-[0.06em] mb-2">
+                <h3 className="font-sans text-sm font-800 text-white/90 uppercase tracking-[0.06em] mb-2">
                   {p.title}
                 </h3>
-                <p className="font-sans text-sm text-text-secondary font-500 leading-relaxed">
+                <p className="font-sans text-sm text-white/50 font-500 leading-relaxed">
                   {p.desc}
                 </p>
               </div>
             ))}
           </div>
         </div>
+      </div>
+
+      <div className="bg-white py-16 md:py-24">
 
         {/* Platform Guidance Table */}
         <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-6">
