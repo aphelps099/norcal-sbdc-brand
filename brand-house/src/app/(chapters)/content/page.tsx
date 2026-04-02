@@ -1,4 +1,4 @@
-import { PatternSocial } from "@/components/BrandPattern";
+import { gradientContent } from "@/lib/page-gradients";
 import InteriorHero from "@/components/InteriorHero";
 import CopyButton from "@/components/CopyButton";
 import NextSectionLink from "@/components/NextSectionLink";
@@ -113,7 +113,7 @@ const webPublishingRules = [
 export default function ContentPage() {
   return (
     <>
-      <InteriorHero pattern={<PatternSocial className="w-full h-full" />}
+      <InteriorHero gradient={gradientContent}
         title="Content"
         subtitle="Guidelines for social media, newsletters, and web publishing — so every center shows up with one unified voice."
       />

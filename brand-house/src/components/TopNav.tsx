@@ -150,12 +150,11 @@ export default function TopNav() {
         </div>
       </nav>
 
-      {/* Full-screen menu overlay — Pool blue, editorial */}
+      {/* Full-screen menu overlay — monochromatic Pool gradient + grain */}
       {mounted && (
         <div
           className="fixed inset-0 z-[45] overflow-hidden"
           style={{
-            background: "#8FC5D9",
             clipPath: menuOpen
               ? "inset(0 0 0 0)"
               : closing
@@ -164,6 +163,29 @@ export default function TopNav() {
             transition: "clip-path 0.7s cubic-bezier(0.25, 0.1, 0.25, 1)",
           }}
         >
+          {/* Gradient + grain background */}
+          <svg
+            className="absolute inset-0 w-full h-full"
+            preserveAspectRatio="xMidYMid slice"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <defs>
+              <linearGradient id="nav-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#5B9BB5" />
+                <stop offset="30%" stopColor="#8FC5D9" />
+                <stop offset="55%" stopColor="#A8D5E4" />
+                <stop offset="80%" stopColor="#8FC5D9" />
+                <stop offset="100%" stopColor="#6DAFC6" />
+              </linearGradient>
+              <filter id="nav-grain" x="0%" y="0%" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch" result="noise" />
+                <feColorMatrix type="saturate" values="0" in="noise" result="mono" />
+                <feBlend in="SourceGraphic" in2="mono" mode="soft-light" />
+              </filter>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#nav-grad)" filter="url(#nav-grain)" />
+          </svg>
           {/* "Explore" watermark */}
           <div
             className="absolute bottom-[-6vw] left-[-2vw] pointer-events-none select-none"

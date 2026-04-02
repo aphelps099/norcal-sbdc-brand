@@ -1,17 +1,33 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
+
+/** Each page gets a unique 5-stop diagonal gradient from the brand palette. */
+export interface GradientDef {
+  /** Gradient angle in degrees (default 135 = top-left to bottom-right). */
+  angle?: number;
+  /** Five hex color stops. */
+  stops: [string, string, string, string, string];
+}
 
 interface InteriorHeroProps {
   title: string;
   subtitle?: string;
-  /** SVG pattern component rendered in the right panel */
-  pattern?: ReactNode;
+  /** Per-page gradient definition. Falls back to navy if omitted. */
+  gradient?: GradientDef;
 }
 
-export default function InteriorHero({ title, subtitle, pattern }: InteriorHeroProps) {
+/** Unique SVG filter ID per mount to avoid collisions when multiple heros render. */
+let filterId = 0;
+
+export default function InteriorHero({
+  title,
+  subtitle,
+  gradient,
+}: InteriorHeroProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const id = useRef(`grain-${++filterId}`);
 
   useEffect(() => {
     async function init() {
@@ -35,66 +51,105 @@ export default function InteriorHero({ title, subtitle, pattern }: InteriorHeroP
             { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", delay: 0.6 }
           );
         }
-        if (pattern) {
-          gsap.fromTo(
-            ".interior-hero-pattern",
-            { opacity: 0 },
-            { opacity: 1, duration: 1, ease: "power2.out", delay: 0.3 }
-          );
-        }
       }, sectionRef.current);
     }
     init();
-  }, [subtitle, pattern]);
+  }, [subtitle]);
+
+  const angle = gradient?.angle ?? 135;
+  const gradId = `grad-${id.current}`;
+
+  // Convert angle to x1,y1 → x2,y2 for SVG linearGradient
+  const rad = ((angle - 90) * Math.PI) / 180;
+  const x2 = Math.round(50 + Math.cos(rad) * 50);
+  const y2 = Math.round(50 + Math.sin(rad) * 50);
+  const x1 = 100 - x2;
+  const y1 = 100 - y2;
 
   return (
-    <section ref={sectionRef} className="relative bg-navy overflow-hidden">
-      <div className="flex min-h-[50vh] md:min-h-[55vh]">
-        {/* Left panel — text content (60%) */}
-        <div className="relative z-10 flex-[3] flex flex-col justify-end px-8 md:px-12 lg:px-16 pt-32 pb-12 md:pt-40 md:pb-16 max-w-[780px]">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 font-sans text-[11px] font-700 uppercase tracking-[0.2em] text-white/40 hover:text-white/70 transition-colors mb-10 md:mb-14"
-          >
-            <span className="inline-block w-4 h-[1.5px] bg-current" />
-            Brand House
-          </Link>
-          <h1
-            className="interior-hero-title tracking-[-0.03em] leading-[0.95]"
-            style={{
-              fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
-              fontWeight: 300,
-              fontSize: "clamp(48px, 8vw, 96px)",
-              color: "#f5f4f0",
-              opacity: 0,
-            }}
-          >
-            {title}
-          </h1>
-          <div
-            className="interior-hero-line h-[2px] bg-white/20 mt-6 max-w-[120px]"
-            style={{ transformOrigin: "left center", transform: "scaleX(0)" }}
-          />
-          {subtitle && (
-            <p
-              className="interior-hero-sub font-sans text-white/50 text-base md:text-lg font-500 mt-6 max-w-xl leading-relaxed"
-              style={{ opacity: 0 }}
+    <section ref={sectionRef} className="relative overflow-hidden">
+      {/* Full-bleed gradient + grain background */}
+      {gradient ? (
+        <svg
+          className="absolute inset-0 w-full h-full"
+          preserveAspectRatio="xMidYMid slice"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <defs>
+            <linearGradient
+              id={gradId}
+              x1={`${x1}%`}
+              y1={`${y1}%`}
+              x2={`${x2}%`}
+              y2={`${y2}%`}
             >
-              {subtitle}
-            </p>
-          )}
-        </div>
+              <stop offset="0%" stopColor={gradient.stops[0]} />
+              <stop offset="25%" stopColor={gradient.stops[1]} />
+              <stop offset="50%" stopColor={gradient.stops[2]} />
+              <stop offset="75%" stopColor={gradient.stops[3]} />
+              <stop offset="100%" stopColor={gradient.stops[4]} />
+            </linearGradient>
+            <filter id={id.current} x="0%" y="0%" width="100%" height="100%">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.65"
+                numOctaves="3"
+                stitchTiles="stitch"
+                result="noise"
+              />
+              <feColorMatrix
+                type="saturate"
+                values="0"
+                in="noise"
+                result="mono"
+              />
+              <feBlend in="SourceGraphic" in2="mono" mode="soft-light" />
+            </filter>
+          </defs>
+          <rect
+            width="100%"
+            height="100%"
+            fill={`url(#${gradId})`}
+            filter={`url(#${id.current})`}
+          />
+        </svg>
+      ) : (
+        <div className="absolute inset-0 bg-navy" />
+      )}
 
-        {/* Right panel — pattern (40%) */}
-        {pattern && (
-          <div
-            className="interior-hero-pattern hidden md:block flex-[2] relative"
+      {/* Text content — centered left */}
+      <div className="relative z-10 min-h-[50vh] md:min-h-[55vh] flex flex-col justify-end px-8 md:px-12 lg:px-16 pt-32 pb-12 md:pt-40 md:pb-16 max-w-[860px]">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 font-sans text-[11px] font-700 uppercase tracking-[0.2em] text-white/40 hover:text-white/70 transition-colors mb-10 md:mb-14"
+        >
+          <span className="inline-block w-4 h-[1.5px] bg-current" />
+          Brand House
+        </Link>
+        <h1
+          className="interior-hero-title tracking-[-0.03em] leading-[0.95]"
+          style={{
+            fontFamily: "'Tiempos Fine', 'Tiempos', Georgia, serif",
+            fontWeight: 300,
+            fontSize: "clamp(48px, 8vw, 96px)",
+            color: "#f5f4f0",
+            opacity: 0,
+          }}
+        >
+          {title}
+        </h1>
+        <div
+          className="interior-hero-line h-[2px] bg-white/20 mt-6 max-w-[120px]"
+          style={{ transformOrigin: "left center", transform: "scaleX(0)" }}
+        />
+        {subtitle && (
+          <p
+            className="interior-hero-sub font-sans text-white/50 text-base md:text-lg font-500 mt-6 max-w-xl leading-relaxed"
             style={{ opacity: 0 }}
           >
-            <div className="absolute inset-0">
-              {pattern}
-            </div>
-          </div>
+            {subtitle}
+          </p>
         )}
       </div>
     </section>

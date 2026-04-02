@@ -1,4 +1,4 @@
-import { PatternIndex } from "@/components/BrandPattern";
+import { gradientGlossary } from "@/lib/page-gradients";
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 
@@ -182,7 +182,7 @@ const glossarySections = [
 export default function GlossaryPage() {
   return (
     <>
-      <InteriorHero pattern={<PatternIndex className="w-full h-full" />}
+      <InteriorHero gradient={gradientGlossary}
         title="Glossary"
         subtitle="Terms, acronyms, and definitions used across the NorCal SBDC network. Keep this reference handy — consistent language builds trust."
       />

@@ -1,8 +1,8 @@
-import { PatternPalette } from "@/components/BrandPattern";
 import InteriorHero from "@/components/InteriorHero";
 import ColorSwatch from "@/components/ColorSwatch";
 import NextSectionLink from "@/components/NextSectionLink";
 import { colors } from "@/lib/brand-tokens";
+import { gradientColors } from "@/lib/page-gradients";
 
 export default function ColorsPage() {
   const colorEntries = Object.values(colors);
@@ -10,7 +10,7 @@ export default function ColorsPage() {
   return (
     <>
       <InteriorHero
-        pattern={<PatternPalette className="w-full h-full" />}
+        gradient={gradientColors}
         title="Colors"
         subtitle="Our palette is built for contrast, accessibility, and editorial impact."
       />

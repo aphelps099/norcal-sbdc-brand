@@ -1,4 +1,4 @@
-import { PatternLens } from "@/components/BrandPattern";
+import { gradientPhotography } from "@/lib/page-gradients";
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 
@@ -65,7 +65,7 @@ const compositionRules = [
 export default function PhotographyPage() {
   return (
     <>
-      <InteriorHero pattern={<PatternLens className="w-full h-full" />}
+      <InteriorHero gradient={gradientPhotography}
         title="Photography"
         subtitle="People, not programs. Faces, not buildings. Every image should make the person visible — because the service is the person."
       />

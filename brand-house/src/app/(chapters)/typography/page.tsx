@@ -1,11 +1,11 @@
-import { PatternSpecimen } from "@/components/BrandPattern";
+import { gradientTypography } from "@/lib/page-gradients";
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 
 export default function TypographyPage() {
   return (
     <>
-      <InteriorHero pattern={<PatternSpecimen className="w-full h-full" />}
+      <InteriorHero gradient={gradientTypography}
         title="Typography"
         subtitle="Our type system pairs Tiempos with Proxima Nova for editorial authority and clean readability."
       />

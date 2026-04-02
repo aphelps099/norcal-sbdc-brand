@@ -1,4 +1,4 @@
-import { PatternQuote } from "@/components/BrandPattern";
+import { gradientVoice } from "@/lib/page-gradients";
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 
@@ -27,7 +27,7 @@ const toneTable = [
 export default function VoicePage() {
   return (
     <>
-      <InteriorHero pattern={<PatternQuote className="w-full h-full" />}
+      <InteriorHero gradient={gradientVoice}
         title="Voice & Tone"
         subtitle="Our voice is the personality behind every word — confident, human, and always rooted in expertise."
       />
