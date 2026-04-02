@@ -2,7 +2,6 @@ import { gradientPhotography } from "@/lib/page-gradients";
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
-import ClientGallery from "@/components/ClientGallery";
 
 const doList = [
   "Show real people in real work environments — not posed, not stock.",
@@ -98,9 +97,6 @@ export default function PhotographyPage() {
         </div>
 
       </div>
-
-      {/* Client photo gallery — parallax slides */}
-      <ClientGallery />
 
       {/* Do / Don't — dark navy bg */}
       <div className="bg-[#0f1c2e] py-16 md:py-24 relative overflow-hidden">

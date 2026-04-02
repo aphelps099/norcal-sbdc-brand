@@ -2,6 +2,7 @@ import { gradientStories } from "@/lib/page-gradients";
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
+import ClientGallery from "@/components/ClientGallery";
 
 const stories = [
   {
@@ -94,6 +95,9 @@ export default function StoriesPage() {
         </div>
 
       </div>
+
+      {/* Client photo gallery — parallax slides */}
+      <ClientGallery />
 
       {/* Impact Stats Bar — dark navy bg */}
       <div className="bg-[#0f1c2e] py-16 md:py-20 relative overflow-hidden">
