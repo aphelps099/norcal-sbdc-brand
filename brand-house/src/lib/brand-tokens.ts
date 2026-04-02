@@ -10,10 +10,9 @@ export const colors = {
 } as const;
 
 export const fonts = {
-  sans: { family: "Proxima Nova", weights: ["500", "800", "900"], usage: "Body text, UI, navigation" },
-  serif: { family: "PT Serif", weights: ["400", "400i", "700", "700i"], usage: "Body text, quotes, editorial" },
-  serifDisplay: { family: "Proxima Nova", weights: ["400", "500"], usage: "Display headlines, hero text" },
-  sansLight: { family: "Proxima Nova", weights: ["500"], usage: "Light display text, headings" },
+  sans: { family: "Sofia Pro", weights: ["500"], usage: "Headings, body text, navigation, display" },
+  label: { family: "Sweet Sans Pro", weights: ["400"], usage: "Labels, eyebrows, tags, micro-copy" },
+  mono: { family: "Andale Mono", weights: ["400"], usage: "Code, counters, technical details" },
 } as const;
 
 export const chapters = [

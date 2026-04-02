@@ -142,7 +142,7 @@ export default function ChapterGrid({ config }: Props) {
                 fontWeight: headerStyle === 'mono-upper' ? 600 : 700,
                 letterSpacing: headerStyle === 'mono-upper' ? '0.18em' : '-0.02em',
                 textTransform: headerStyle === 'mono-upper' ? 'uppercase' : 'none',
-                fontFamily: headerStyle === 'mono-upper' ? 'var(--mono, monospace)' : 'var(--serif, Georgia, serif)',
+                fontFamily: headerStyle === 'mono-upper' ? 'var(--mono, monospace)' : 'var(--sans, system-ui, sans-serif)',
                 color: headerTitleColor,
                 marginBottom: "10px",
                 lineHeight: 1.15,

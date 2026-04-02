@@ -110,7 +110,7 @@ export default function ClientGallery() {
       {/* Section intro */}
       <div className="bg-[#0f1c2e] py-16 md:py-20 px-8 md:px-12">
         <div className="max-w-[780px] mx-auto">
-          <span className="font-sans text-[10px] font-800 uppercase tracking-[0.2em] text-white/20 block mb-4">
+          <span className="font-label text-[10px] uppercase tracking-[0.2em] text-white/20 block mb-4">
             Client Spotlight
           </span>
           <h2
@@ -123,7 +123,7 @@ export default function ClientGallery() {
           >
             The service is the person
           </h2>
-          <p className="font-serif text-sm md:text-base text-white/30 leading-relaxed max-w-lg">
+          <p className="font-sans text-sm md:text-base text-white/30 leading-relaxed max-w-lg">
             In 300+ client success stories, nobody says &ldquo;the SBDC helped
             me.&rdquo; They say &ldquo;Maria helped me.&rdquo; These are some
             of the people behind the numbers.
@@ -155,7 +155,7 @@ export default function ClientGallery() {
           {/* Text content — bottom left */}
           <div className="gallery-text absolute inset-0 flex flex-col justify-end px-8 md:px-16 lg:px-20 pb-12 md:pb-16 z-10">
             <div className="max-w-[600px]">
-              <span className="font-sans text-[10px] font-800 uppercase tracking-[0.2em] text-white/30 block mb-3">
+              <span className="font-label text-[10px] uppercase tracking-[0.2em] text-white/30 block mb-3">
                 {client.industry}
                 {client.location && (
                   <>

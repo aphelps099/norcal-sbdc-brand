@@ -40,7 +40,7 @@ export default function FlatCards({ chapters }: Props) {
             {String(i + 1).padStart(2, "0")}
           </span>
           <h3 style={{
-            fontFamily: "var(--serif)",
+            fontFamily: "var(--sans)",
             fontSize: "1.25rem",
             color: "var(--navy)",
             marginTop: "16px",
@@ -61,7 +61,7 @@ export default function FlatCards({ chapters }: Props) {
           <span style={{
             display: "inline-block",
             marginTop: "20px",
-            fontFamily: "var(--sans-condensed)",
+            fontFamily: "var(--sans-label)",
             fontSize: "0.6rem",
             letterSpacing: "0.15em",
             textTransform: "uppercase",

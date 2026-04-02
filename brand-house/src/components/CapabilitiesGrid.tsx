@@ -73,7 +73,7 @@ export default function CapabilitiesGrid() {
             Capabilities
           </p>
           <h2
-            className="font-serif text-navy mt-5 leading-[1.12] tracking-[-0.025em]"
+            className="font-sans text-navy mt-5 leading-[1.12] tracking-[-0.025em]"
             style={{ fontSize: "clamp(26px, 3.8vw, 48px)" }}
           >
             Elevate your brand with our<br />
@@ -85,7 +85,7 @@ export default function CapabilitiesGrid() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-14 md:gap-10 lg:gap-20">
           {capabilities.map((cap, i) => (
             <div key={i} className="cap-col">
-              <h3 className="font-sans text-[0.88rem] font-800 text-navy tracking-[-0.01em]">
+              <h3 className="font-sans text-[0.88rem] text-navy tracking-[-0.01em]">
                 {cap.title}
               </h3>
               <p className="font-sans text-[0.8rem] text-text-secondary leading-[1.65] mt-3">

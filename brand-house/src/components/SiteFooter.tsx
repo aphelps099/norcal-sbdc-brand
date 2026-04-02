@@ -49,7 +49,7 @@ export default function SiteFooter() {
               <h3
                 className="text-white/25 mb-5 uppercase"
                 style={{
-                  fontFamily: "var(--sans-condensed)",
+                  fontFamily: "var(--sans-label)",
                   fontWeight: 500,
                   fontSize: "10px",
                   letterSpacing: "0.15em",
@@ -79,7 +79,7 @@ export default function SiteFooter() {
               <h3
                 className="text-white/25 mb-5 uppercase"
                 style={{
-                  fontFamily: "var(--sans-condensed)",
+                  fontFamily: "var(--sans-label)",
                   fontWeight: 500,
                   fontSize: "10px",
                   letterSpacing: "0.15em",
@@ -102,8 +102,8 @@ export default function SiteFooter() {
         {/* Sub-footer */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <span
-            className="text-white/15 uppercase font-500"
-            style={{ fontFamily: "var(--sans-condensed)", fontSize: "0.58rem", letterSpacing: "0.15em" }}
+            className="text-white/15 uppercase"
+            style={{ fontFamily: "var(--sans-label)", fontSize: "0.58rem", letterSpacing: "0.15em" }}
           >
             &copy; 2026 NorCal SBDC &middot; All Rights Reserved
           </span>
@@ -112,8 +112,8 @@ export default function SiteFooter() {
               href="https://norcalsbdc.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/15 hover:text-white/30 transition-colors duration-500 font-500 uppercase no-underline"
-              style={{ fontFamily: "var(--sans-condensed)", fontSize: "0.58rem", letterSpacing: "0.12em" }}
+              className="text-white/15 hover:text-white/30 transition-colors duration-500 uppercase no-underline"
+              style={{ fontFamily: "var(--sans-label)", fontSize: "0.58rem", letterSpacing: "0.12em" }}
             >
               norcalsbdc.org
             </a>
@@ -121,8 +121,8 @@ export default function SiteFooter() {
               href="https://www.californiasbdc.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/15 hover:text-white/30 transition-colors duration-500 font-500 uppercase no-underline"
-              style={{ fontFamily: "var(--sans-condensed)", fontSize: "0.58rem", letterSpacing: "0.12em" }}
+              className="text-white/15 hover:text-white/30 transition-colors duration-500 uppercase no-underline"
+              style={{ fontFamily: "var(--sans-label)", fontSize: "0.58rem", letterSpacing: "0.12em" }}
             >
               californiasbdc.org
             </a>

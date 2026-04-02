@@ -75,14 +75,14 @@ export default function ManifestoBlock({
       <div className="max-w-[960px] mx-auto text-center">
         {/* Label */}
         <div
-          className="manifesto-label font-mono text-[0.6rem] font-500 uppercase tracking-[0.3em] text-white/30 mb-16"
+          className="manifesto-label font-mono text-[0.6rem] uppercase tracking-[0.3em] text-white/30 mb-16"
           style={{ opacity: 0, transform: "translateY(16px)", transition: "all 0.6s var(--ease-out)" }}
         >
           {label}
         </div>
 
         {/* Statement */}
-        <p className="font-serif leading-[1.5] text-white/90"
+        <p className="font-sans leading-[1.5] text-white/90"
           style={{ fontSize: "clamp(1.4rem, 3.2vw, 2.4rem)" }}
         >
           {wordsArr.map((word, i) => {
@@ -132,7 +132,7 @@ export default function ManifestoBlock({
               {i > 0 && (
                 <span className="w-[3px] h-[3px] rounded-full bg-white/15" />
               )}
-              <span className="font-sans text-[0.6rem] font-500 uppercase tracking-[0.15em] text-white/35">
+              <span className="font-sans text-[0.6rem] uppercase tracking-[0.15em] text-white/35">
                 {pillar}
               </span>
             </span>

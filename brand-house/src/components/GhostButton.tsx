@@ -10,7 +10,7 @@ interface GhostButtonProps {
 
 /**
  * Outlined ghost CTA — CA SBDC style.
- * 1px border, uppercase Proxima Nova 800, tracked, fill on hover.
+ * 1px border, uppercase Sweet Sans Pro, tracked, fill on hover.
  */
 export default function GhostButton({
   label,
@@ -19,7 +19,7 @@ export default function GhostButton({
   className = "",
 }: GhostButtonProps) {
   const base =
-    "inline-block font-sans font-800 uppercase tracking-[0.14em] transition-all duration-300 px-7 py-3";
+    "inline-block font-label uppercase tracking-[0.14em] transition-all duration-300 px-8 py-3.5";
   const size = "text-[11px]";
 
   const colors =

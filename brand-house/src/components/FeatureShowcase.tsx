@@ -67,7 +67,7 @@ export default function FeatureShowcase() {
                 key={i}
                 className={`${i > 0 ? "mt-10 pt-10 border-t border-black/[0.06]" : ""}`}
               >
-                <h3 className="font-sans text-[0.92rem] font-800 text-navy tracking-[-0.01em]">
+                <h3 className="font-sans text-[0.92rem] text-navy tracking-[-0.01em]">
                   {f.title}
                 </h3>
                 <p className="font-sans text-[0.82rem] text-text-secondary leading-[1.65] mt-2">
@@ -95,7 +95,7 @@ export default function FeatureShowcase() {
                 >
                   Brand Consistency
                 </p>
-                <p className="font-sans text-[1.1rem] font-800 text-navy mt-1.5 tracking-[-0.02em]">
+                <p className="font-sans text-[1.1rem] text-navy mt-1.5 tracking-[-0.02em]">
                   94% alignment
                 </p>
                 <p className="font-sans text-[0.68rem] text-text-secondary mt-0.5 leading-[1.5]">

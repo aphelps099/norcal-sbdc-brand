@@ -23,7 +23,7 @@ export default function Sidebar() {
             <Link
               key={ch.href}
               href={ch.href}
-              className={`px-3 py-2.5 rounded-lg text-sm font-sans font-500 transition-all duration-200 ${
+              className={`px-3 py-2.5 rounded-lg text-sm font-sans transition-all duration-200 ${
                 active
                   ? "bg-royal/[0.06] text-royal"
                   : "text-text-secondary hover:text-navy hover:bg-black/[0.02]"

@@ -40,7 +40,7 @@ export default function TemplatesPage() {
           >
             Copy Blocks
           </h2>
-          <p className="font-serif text-base text-white/50 leading-relaxed mb-10 max-w-xl">
+          <p className="font-sans text-base text-white/50 leading-relaxed mb-10 max-w-xl">
             Click the copy button to grab any block and paste directly into your
             communications.
           </p>
@@ -52,12 +52,12 @@ export default function TemplatesPage() {
                 className="p-8 rounded-xl border border-white/[0.06] bg-white/[0.04]"
               >
                 <div className="flex items-center justify-between mb-5">
-                  <h3 className="font-sans text-sm font-800 text-white/90 uppercase tracking-[0.1em]">
+                  <h3 className="font-label text-sm text-white/90 uppercase tracking-[0.1em]">
                     {tpl.title}
                   </h3>
                   <CopyButton text={tpl.content} />
                 </div>
-                <p className="font-serif text-sm text-white/50 leading-relaxed whitespace-pre-wrap">
+                <p className="font-sans text-sm text-white/50 leading-relaxed whitespace-pre-wrap">
                   {tpl.content}
                 </p>
               </div>

@@ -122,14 +122,14 @@ export default function TopNav() {
         <div className="max-w-[1200px] mx-auto px-8 sm:px-12 py-4 flex items-center justify-between relative z-[60]">
           <a
             href="/"
-            className={`text-[0.65rem] font-500 tracking-[0.18em] uppercase transition-colors duration-500 no-underline ${
+            className={`text-[0.65rem] tracking-[0.18em] uppercase transition-colors duration-500 no-underline ${
               menuOpen
                 ? "text-white/50 hover:text-white"
                 : isDark
                   ? "text-white/70 hover:text-white"
                   : "text-navy hover:text-navy"
             }`}
-            style={{ fontFamily: "var(--sans-condensed)" }}
+            style={{ fontFamily: "var(--sans-label)" }}
           >
             SBDC
           </a>
@@ -190,7 +190,7 @@ export default function TopNav() {
                   <h3
                     className="text-white/20 mb-4 uppercase"
                     style={{
-                      fontFamily: "var(--sans-condensed)",
+                      fontFamily: "var(--sans-label)",
                       fontWeight: 500,
                       fontSize: "10px",
                       letterSpacing: "0.15em",
@@ -244,7 +244,7 @@ export default function TopNav() {
                   <h3
                     className="text-white/20 mb-4 uppercase"
                     style={{
-                      fontFamily: "var(--sans-condensed)",
+                      fontFamily: "var(--sans-label)",
                       fontWeight: 500,
                       fontSize: "10px",
                       letterSpacing: "0.15em",
@@ -324,7 +324,7 @@ export default function TopNav() {
                       fontWeight: 400,
                     }}
                   />
-                  <span className="text-[9px] font-500 uppercase tracking-[0.12em] text-white/10 hidden sm:block" style={{ fontFamily: "var(--sans-condensed)" }}>
+                  <span className="text-[9px] uppercase tracking-[0.12em] text-white/10 hidden sm:block" style={{ fontFamily: "var(--sans-label)" }}>
                     {"\u2318"}K
                   </span>
                 </div>
@@ -344,10 +344,10 @@ export default function TopNav() {
                           onClick={() => setMenuOpen(false)}
                           className="flex items-baseline gap-3 py-2.5 no-underline group/result hover:bg-white/[0.04] px-2 -mx-2 transition-colors duration-200 rounded-sm"
                         >
-                          <span className="text-[9px] font-500 uppercase tracking-[0.15em] text-white/15 w-14 shrink-0" style={{ fontFamily: "var(--sans-condensed)" }}>
+                          <span className="text-[9px] uppercase tracking-[0.15em] text-white/15 w-14 shrink-0" style={{ fontFamily: "var(--sans-label)" }}>
                             {item.section}
                           </span>
-                          <span className="font-serif text-white/50 text-base group-hover/result:text-white/80 transition-colors duration-200">
+                          <span className="font-sans text-white/50 text-base group-hover/result:text-white/80 transition-colors duration-200">
                             {item.title}
                           </span>
                         </a>

@@ -33,7 +33,7 @@ const serviceCards = [
 
 const brandResources = [
   { title: "Colors", description: "Palette, tints, and accessible pairings.", href: "/colors" },
-  { title: "Typography", description: "PT Serif + Proxima Nova type system.", href: "/typography" },
+  { title: "Typography", description: "Sofia Pro + Sweet Sans Pro + Andale Mono type system.", href: "/typography" },
   { title: "Logos", description: "Logo suite, lockups, clear space.", href: "/logos" },
   { title: "Voice & Tone", description: "How we write and speak.", href: "/voice" },
   { title: "Photography", description: "Style, treatments, composition.", href: "#" },
@@ -100,14 +100,14 @@ export default function TestPageContent() {
         <div className="relative z-10 max-w-[780px] mx-auto px-8 md:px-12 py-32 md:py-40">
           <nav className="flex items-center gap-8 mb-16">
             {["Grow", "Impact", "People", "NorCal", "En / Es"].map((item) => (
-              <span key={item} className="font-sans text-[11px] font-800 uppercase tracking-[0.15em] text-white/30">
+              <span key={item} className="font-label text-[11px] uppercase tracking-[0.15em] text-white/30">
                 {item}
               </span>
             ))}
           </nav>
 
           <h1
-            className="test-reveal font-serif text-white leading-[1.06] tracking-[-0.03em] mb-8"
+            className="test-reveal font-sans text-white leading-[1.06] tracking-[-0.03em] mb-8"
             style={{ fontSize: "clamp(36px, 5vw, 60px)" }}
           >
             What&rsquo;s free advice worth?<br />
@@ -115,11 +115,11 @@ export default function TestPageContent() {
           </h1>
 
           <div className="test-reveal space-y-3 mb-10">
-            <p className="font-serif text-white/50 text-base leading-relaxed max-w-md">
+            <p className="font-sans text-white/50 text-base leading-relaxed max-w-md">
               In 2025, SBDC helped unlock $547M in capital.<br />
               It cost our clients nothing.
             </p>
-            <p className="font-sans text-white/70 text-sm font-800">
+            <p className="font-sans text-white/70 text-sm font-label">
               100% confidential. 100% free.
             </p>
           </div>
@@ -127,7 +127,7 @@ export default function TestPageContent() {
           <div className="test-reveal">
             <a
               href="#"
-              className="inline-block px-8 py-3.5 bg-strawberry text-white font-sans text-sm font-800 uppercase tracking-[0.1em] rounded-sm hover:bg-strawberry/90 transition-colors duration-300"
+              className="inline-block px-8 py-3.5 bg-strawberry text-white font-label text-sm uppercase tracking-[0.1em] rounded-sm hover:bg-strawberry/90 transition-colors duration-300"
             >
               Get Started
             </a>
@@ -141,7 +141,7 @@ export default function TestPageContent() {
       <section className="bg-white">
         <div className="max-w-[1100px] mx-auto px-8 md:px-12 py-28 md:py-40">
           <h2
-            className="test-reveal font-serif text-navy text-center leading-[1.1] tracking-[-0.03em] mb-16"
+            className="test-reveal font-sans text-navy text-center leading-[1.1] tracking-[-0.03em] mb-16"
             style={{ fontSize: "clamp(30px, 4.5vw, 52px)" }}
           >
             Meet Your Business People.
@@ -150,7 +150,7 @@ export default function TestPageContent() {
           <div className="test-reveal grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-12 md:gap-20 items-center">
             {/* Left — text */}
             <div>
-              <p className="font-serif text-base text-text-secondary leading-relaxed mb-6">
+              <p className="font-sans text-base text-text-secondary leading-relaxed mb-6">
                 Since 1980, SBDC advisors have helped Northern California
                 businesses raise $2.8B in capital, create 42,000+ jobs, and
                 turn kitchen-table ideas into million-dollar companies.
@@ -165,7 +165,7 @@ export default function TestPageContent() {
 
             {/* Right — photo placeholder */}
             <div className="bg-[#f0f0ed] rounded-lg aspect-[4/3] flex items-center justify-center">
-              <span className="font-sans text-[11px] font-800 uppercase tracking-[0.15em] text-navy/15">
+              <span className="font-label text-[11px] uppercase tracking-[0.15em] text-navy/15">
                 Trusted Face
               </span>
             </div>
@@ -179,7 +179,7 @@ export default function TestPageContent() {
       <section className="bg-white border-t border-navy/6">
         <div className="max-w-[1100px] mx-auto px-8 md:px-12 py-24 md:py-32">
           <h2
-            className="test-reveal font-serif text-navy text-center leading-[1.1] tracking-[-0.03em] mb-14"
+            className="test-reveal font-sans text-navy text-center leading-[1.1] tracking-[-0.03em] mb-14"
             style={{ fontSize: "clamp(26px, 3.5vw, 42px)" }}
           >
             Your Business — <em className="italic">Connected.</em>
@@ -192,19 +192,19 @@ export default function TestPageContent() {
                 className="group bg-navy rounded-lg p-7 md:p-8 flex flex-col justify-between min-h-[240px] hover:bg-navy-deep transition-colors duration-300"
               >
                 <div>
-                  <span className="font-sans text-[10px] font-800 uppercase tracking-[0.15em] text-pool/60 mb-3 block">
+                  <span className="font-label text-[10px] uppercase tracking-[0.15em] text-pool/60 mb-3 block">
                     {card.eyebrow}
                   </span>
-                  <h3 className="font-serif text-white text-lg leading-snug mb-2">
+                  <h3 className="font-sans text-white text-lg leading-snug mb-2">
                     {card.title}
                   </h3>
-                  <p className="font-serif text-white/40 text-sm leading-relaxed">
+                  <p className="font-sans text-white/40 text-sm leading-relaxed">
                     {card.body}
                   </p>
                 </div>
                 <a
                   href={card.href}
-                  className="inline-flex items-center gap-2 mt-6 font-sans text-[11px] font-800 uppercase tracking-[0.12em] text-strawberry hover:text-strawberry/80 transition-colors"
+                  className="inline-flex items-center gap-2 mt-6 font-label text-[11px] uppercase tracking-[0.12em] text-strawberry hover:text-strawberry/80 transition-colors"
                 >
                   {card.cta}
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -225,7 +225,7 @@ export default function TestPageContent() {
           <div className="test-reveal grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
             {/* Left — video placeholder */}
             <div className="bg-[#e8e4df] rounded-lg aspect-[4/3] flex items-center justify-center">
-              <span className="font-sans text-[11px] font-800 uppercase tracking-[0.15em] text-navy/15">
+              <span className="font-label text-[11px] uppercase tracking-[0.15em] text-navy/15">
                 Brand Video
               </span>
             </div>
@@ -233,19 +233,19 @@ export default function TestPageContent() {
             {/* Right — text */}
             <div>
               <h2
-                className="font-serif text-navy leading-[1.1] tracking-[-0.02em] mb-5"
+                className="font-sans text-navy leading-[1.1] tracking-[-0.02em] mb-5"
                 style={{ fontSize: "clamp(28px, 3.5vw, 40px)" }}
               >
                 Don&rsquo;t settle for<br />generic advice.
               </h2>
-              <p className="font-serif text-base text-text-secondary leading-relaxed mb-6">
+              <p className="font-sans text-base text-text-secondary leading-relaxed mb-6">
                 You get a dedicated advisor who knows your industry,
                 understands Northern California&rsquo;s market, and commits
                 to your long-term success.
               </p>
               <a
                 href="#"
-                className="inline-flex items-center gap-2 px-6 py-3 border border-navy rounded-sm font-sans text-[11px] font-800 uppercase tracking-[0.12em] text-navy hover:bg-navy hover:text-white transition-all duration-300"
+                className="inline-flex items-center gap-2 px-6 py-3 border border-navy rounded-sm font-label text-[11px] uppercase tracking-[0.12em] text-navy hover:bg-navy hover:text-white transition-all duration-300"
               >
                 Read Stories
               </a>
@@ -255,7 +255,7 @@ export default function TestPageContent() {
                 <div className="flex items-start gap-3">
                   <div className="w-8 h-8 rounded-full bg-navy/10 flex-shrink-0" />
                   <div>
-                    <p className="font-serif text-[13px] text-text-secondary leading-relaxed italic">
+                    <p className="font-sans text-[13px] text-text-secondary leading-relaxed italic">
                       &ldquo;Business content is professional, powerful, short but compelling.
                       Real admiration. Every bit feels polished to perfection.&rdquo;
                     </p>
@@ -275,12 +275,12 @@ export default function TestPageContent() {
           <div className="test-reveal flex items-end justify-between mb-12">
             <div>
               <h2
-                className="font-serif text-navy leading-[1.08] tracking-[-0.02em]"
+                className="font-sans text-navy leading-[1.08] tracking-[-0.02em]"
                 style={{ fontSize: "clamp(28px, 3.5vw, 42px)" }}
               >
                 Real Clients.<br />Real Results.
               </h2>
-              <p className="font-serif text-sm text-text-secondary mt-3">
+              <p className="font-sans text-sm text-text-secondary mt-3">
                 It can be scary waiting for<br />results. Our clients don&rsquo;t wait —<br />they trust your advisor.
               </p>
             </div>
@@ -299,7 +299,7 @@ export default function TestPageContent() {
                   i === 3 ? "border-2 border-royal/30 bg-white" : "bg-[#f0f0ed]"
                 }`}
               >
-                <span className="font-sans text-[11px] font-800 uppercase tracking-[0.15em] text-navy/15">
+                <span className="font-label text-[11px] uppercase tracking-[0.15em] text-navy/15">
                   {label}
                 </span>
               </div>
@@ -314,13 +314,13 @@ export default function TestPageContent() {
       <section className="bg-navy">
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 py-24 md:py-32">
           <h2
-            className="test-reveal font-serif text-white text-center leading-[1.08] tracking-[-0.03em] mb-4"
+            className="test-reveal font-sans text-white text-center leading-[1.08] tracking-[-0.03em] mb-4"
             style={{ fontSize: "clamp(32px, 4.5vw, 56px)" }}
           >
             Clients
           </h2>
           <div className="test-reveal flex justify-center gap-4 mb-14">
-            <span className="font-sans text-[11px] font-800 uppercase tracking-[0.15em] text-white/30 hover:text-white/60 cursor-pointer transition-colors">
+            <span className="font-label text-[11px] uppercase tracking-[0.15em] text-white/30 hover:text-white/60 cursor-pointer transition-colors">
               Filter →
             </span>
           </div>
@@ -341,14 +341,14 @@ export default function TestPageContent() {
 
                 {/* Category tag */}
                 <div className="absolute top-4 left-4">
-                  <span className="inline-block px-2.5 py-1 bg-white/10 backdrop-blur-sm rounded font-sans text-[9px] font-800 uppercase tracking-[0.12em] text-white/70">
+                  <span className="inline-block px-2.5 py-1 bg-white/10 backdrop-blur-sm rounded font-sans text-[9px] font-label uppercase tracking-[0.12em] text-white/70">
                     {client.category}
                   </span>
                 </div>
 
                 {/* Name + arrow */}
                 <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
-                  <h3 className="font-serif text-white text-2xl tracking-[-0.02em]">
+                  <h3 className="font-sans text-white text-2xl tracking-[-0.02em]">
                     {client.name}
                   </h3>
                   <span className="font-sans text-white/50 text-sm group-hover:text-white transition-colors">
@@ -369,23 +369,23 @@ export default function TestPageContent() {
           <div className="test-reveal grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
             {/* Left — Get Unstuck */}
             <div>
-              <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-royal/50 mb-4 block">
+              <span className="font-label text-[11px] uppercase tracking-[0.2em] text-royal/50 mb-4 block">
                 Become A Client
               </span>
               <h2
-                className="font-serif text-navy leading-[1.1] tracking-[-0.02em] mb-5"
+                className="font-sans text-navy leading-[1.1] tracking-[-0.02em] mb-5"
                 style={{ fontSize: "clamp(28px, 3vw, 40px)" }}
               >
                 Get Unstuck
               </h2>
-              <p className="font-serif text-sm text-text-secondary leading-relaxed mb-8">
+              <p className="font-sans text-sm text-text-secondary leading-relaxed mb-8">
                 Whether your business is small, or you&rsquo;re still thinking about it,
                 NorCal SBDC can help you succeed with free, confidential advising
                 from someone who gets it.
               </p>
               <a
                 href="#"
-                className="inline-flex items-center gap-3 px-6 py-3.5 bg-navy text-white rounded-sm font-sans text-[11px] font-800 uppercase tracking-[0.12em] hover:bg-royal transition-colors duration-300"
+                className="inline-flex items-center gap-3 px-6 py-3.5 bg-navy text-white rounded-sm font-label text-[11px] uppercase tracking-[0.12em] hover:bg-royal transition-colors duration-300"
               >
                 <span className="w-5 h-5 rounded-full border border-white/30 flex items-center justify-center">
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
@@ -396,16 +396,16 @@ export default function TestPageContent() {
 
             {/* Right — Newsletter */}
             <div>
-              <span className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-royal/50 mb-4 block">
+              <span className="font-label text-[11px] uppercase tracking-[0.2em] text-royal/50 mb-4 block">
                 Stay Connected
               </span>
               <h2
-                className="font-serif text-navy leading-[1.1] tracking-[-0.02em] mb-5"
+                className="font-sans text-navy leading-[1.1] tracking-[-0.02em] mb-5"
                 style={{ fontSize: "clamp(28px, 3vw, 40px)" }}
               >
                 Updates to Your Inbox
               </h2>
-              <p className="font-serif text-sm text-text-secondary leading-relaxed mb-8">
+              <p className="font-sans text-sm text-text-secondary leading-relaxed mb-8">
                 TFG is a tech startup&rsquo;s dream come true. A program of
                 the Northern California SBDC, we&rsquo;re a top-rated tech business
                 accelerating team for select tech companies.
@@ -414,9 +414,9 @@ export default function TestPageContent() {
                 <input
                   type="email"
                   placeholder="Enter your email address"
-                  className="flex-1 px-4 py-3 border border-navy/15 rounded-sm font-sans text-sm font-500 text-navy placeholder:text-navy/30 outline-none focus:border-royal transition-colors"
+                  className="flex-1 px-4 py-3 border border-navy/15 rounded-sm font-sans text-sm text-navy placeholder:text-navy/30 outline-none focus:border-royal transition-colors"
                 />
-                <button className="px-5 py-3 bg-strawberry text-white font-sans text-[11px] font-800 uppercase tracking-[0.1em] rounded-sm hover:bg-strawberry/90 transition-colors">
+                <button className="px-5 py-3 bg-strawberry text-white font-label text-[11px] uppercase tracking-[0.1em] rounded-sm hover:bg-strawberry/90 transition-colors">
                   →
                 </button>
               </div>
@@ -431,7 +431,7 @@ export default function TestPageContent() {
       <section className="bg-[#f7f7f5]">
         <div className="max-w-[780px] mx-auto px-8 md:px-12 py-24 md:py-32">
           <h2
-            className="test-reveal font-serif text-navy text-center leading-[1.08] tracking-[-0.03em] mb-14"
+            className="test-reveal font-sans text-navy text-center leading-[1.08] tracking-[-0.03em] mb-14"
             style={{ fontSize: "clamp(26px, 3.5vw, 38px)" }}
           >
             Brand Resources
@@ -445,10 +445,10 @@ export default function TestPageContent() {
                   href={item.href}
                   className="group border-r border-b border-navy/8 p-5 md:p-6 hover:bg-white transition-colors duration-300"
                 >
-                  <h3 className="font-sans text-sm font-800 text-navy group-hover:text-royal transition-colors duration-300 mb-1">
+                  <h3 className="font-label text-sm text-navy group-hover:text-royal transition-colors duration-300 mb-1">
                     {item.title}
                   </h3>
-                  <p className="font-serif text-[12px] text-text-tertiary leading-relaxed">
+                  <p className="font-sans text-[12px] text-text-tertiary leading-relaxed">
                     {item.description}
                   </p>
                 </Link>
@@ -478,20 +478,20 @@ export default function TestPageContent() {
                   <a
                     key={link.label}
                     href={link.href}
-                    className="font-sans text-[13px] font-800 text-white/30 hover:text-white/70 uppercase tracking-[0.08em] transition-colors duration-300 py-0.5"
+                    className="font-label text-[13px] text-white/30 hover:text-white/70 uppercase tracking-[0.08em] transition-colors duration-300 py-0.5"
                   >
                     {link.label}
                   </a>
                 ))}
               </div>
-              <p className="font-sans text-[10px] font-500 text-white/15 uppercase tracking-[0.1em]">
+              <p className="font-sans text-[10px] text-white/15 uppercase tracking-[0.1em]">
                 &copy; 2012 — 2026 NorCal SBDC
               </p>
             </div>
 
             {/* Right — tagline + legal */}
             <div className="md:text-right">
-              <p className="font-serif text-pool/60 text-xl md:text-2xl leading-snug tracking-[-0.01em] mb-10">
+              <p className="font-sans text-pool/60 text-xl md:text-2xl leading-snug tracking-[-0.01em] mb-10">
                 Empowering startups,<br />
                 Shaping the Future
               </p>
@@ -500,7 +500,7 @@ export default function TestPageContent() {
                   <a
                     key={item}
                     href="#"
-                    className="font-sans text-[10px] font-500 text-white/15 hover:text-white/30 uppercase tracking-[0.1em] transition-colors"
+                    className="font-sans text-[10px] text-white/15 hover:text-white/30 uppercase tracking-[0.1em] transition-colors"
                   >
                     {item}
                   </a>

@@ -45,7 +45,7 @@ export default function StatsRow({ stats, heading }: StatsRowProps) {
             className="stat-item text-center opacity-0 translate-y-5 transition-all duration-700 ease-out"
             style={{ transitionDelay: `${i * 120}ms` }}
           >
-            <div className="font-serif text-navy leading-none tracking-[-0.02em]"
+            <div className="font-sans text-navy leading-none tracking-[-0.02em]"
               style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)" }}
             >
               {stat.value}

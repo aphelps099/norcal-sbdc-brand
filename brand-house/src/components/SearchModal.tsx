@@ -88,7 +88,7 @@ export default function SearchModal() {
         {/* Close hint — top right */}
         <button
           onClick={() => setOpen(false)}
-          className="absolute top-5 right-8 sm:right-12 z-10 font-sans text-white/20 hover:text-white/50 transition-colors duration-300 font-800 uppercase"
+          className="absolute top-5 right-8 sm:right-12 z-10 font-sans text-white/20 hover:text-white/50 transition-colors duration-300 font-label uppercase"
           style={{ fontSize: "0.65rem", letterSpacing: "0.1em" }}
         >
           Close
@@ -112,7 +112,7 @@ export default function SearchModal() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search"
-              className="flex-1 bg-transparent text-white font-serif outline-none placeholder:text-white/20 tracking-[-0.03em]"
+              className="flex-1 bg-transparent text-white font-sans outline-none placeholder:text-white/20 tracking-[-0.03em]"
               style={{ fontSize: "clamp(28px, 4vw, 48px)" }}
             />
           </div>
@@ -120,7 +120,7 @@ export default function SearchModal() {
           {/* Results */}
           <div className="mt-8 max-h-[40vh] overflow-y-auto">
             {query && results.length === 0 ? (
-              <p className="font-serif text-white/20 text-lg">No results found.</p>
+              <p className="font-sans text-white/20 text-lg">No results found.</p>
             ) : (
               results.map((item, i) => (
                 <button
@@ -136,13 +136,13 @@ export default function SearchModal() {
                   }}
                 >
                   <span
-                    className="font-sans text-white/40 uppercase font-800 w-20 shrink-0"
+                    className="font-sans text-white/40 uppercase font-label w-20 shrink-0"
                     style={{ fontSize: "0.62rem", letterSpacing: "0.14em" }}
                   >
                     {item.section}
                   </span>
                   <span
-                    className="font-serif text-white tracking-[-0.02em] group-hover:translate-x-1 transition-transform duration-300"
+                    className="font-sans text-white tracking-[-0.02em] group-hover:translate-x-1 transition-transform duration-300"
                     style={{ fontSize: "clamp(18px, 2.5vw, 28px)" }}
                   >
                     {item.title}

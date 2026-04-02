@@ -191,10 +191,10 @@ export default function GlossaryPage() {
       <div className="bg-white py-12 md:py-16">
         {/* Intro */}
         <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-14">
-          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] font-500 mb-6">
+          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-6">
             Speak the Same Language
           </h2>
-          <p className="font-serif text-lg md:text-xl text-text-secondary leading-[1.7] max-w-[640px]">
+          <p className="font-sans text-lg md:text-xl text-text-secondary leading-[1.7] max-w-[640px]">
             From SBA to Neoserra, from CIP to 504 &mdash; our work is full of
             acronyms. This reference ensures every center, advisor, and partner
             uses the same definitions. When we speak clearly, our clients
@@ -208,7 +208,7 @@ export default function GlossaryPage() {
             <div key={section.category} className={sectionIdx > 0 ? "mt-16" : ""}>
               {/* Category Header */}
               <div className="flex items-center gap-4 mb-8">
-                <h2 className="font-sans text-[11px] font-800 uppercase tracking-[0.15em] text-navy/40 shrink-0">
+                <h2 className="font-label text-[11px] uppercase tracking-[0.15em] text-navy/40 shrink-0">
                   {section.category}
                 </h2>
                 <div className="flex-1 h-px bg-black/[0.06]" />
@@ -225,10 +225,10 @@ export default function GlossaryPage() {
                         : ""
                     }`}
                   >
-                    <dt className="font-sans text-sm font-800 text-navy tracking-[-0.01em]">
+                    <dt className="font-label text-sm text-navy tracking-[-0.01em]">
                       {item.term}
                     </dt>
-                    <dd className="font-serif text-sm text-text-secondary leading-relaxed">
+                    <dd className="font-sans text-sm text-text-secondary leading-relaxed">
                       {item.definition}
                     </dd>
                   </div>
@@ -251,7 +251,7 @@ export default function GlossaryPage() {
           >
             Quick Links
           </h2>
-          <p className="font-serif text-base text-white/50 leading-relaxed mb-10 max-w-xl">
+          <p className="font-sans text-base text-white/50 leading-relaxed mb-10 max-w-xl">
             Key resources and portals across the NorCal SBDC network.
           </p>
 
@@ -287,7 +287,7 @@ export default function GlossaryPage() {
                   i < 4 ? "border-b border-white/[0.06]" : ""
                 }`}
               >
-                <span className="font-sans text-sm font-500 text-white/70 group-hover:text-[#8FC5D9] transition-colors duration-300">
+                <span className="font-sans text-sm text-white/70 group-hover:text-[#8FC5D9] transition-colors duration-300">
                   {link.label}
                 </span>
                 <svg

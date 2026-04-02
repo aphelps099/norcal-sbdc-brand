@@ -1,23 +1,18 @@
-/* PT Serif — body text, quotes, editorial (via Google Fonts) */
-@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════
-   FONTS — PT Serif (body) + Proxima Nova (headings/UI)
+   FONTS — Sofia Pro (display/body) + Sweet Sans Pro (labels) + Andale Mono
    ═══════════════════════════════════════════ */
 
-/* Proxima Nova — headings, UI, labels (local files) */
-@font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-MediumIt.otf') format('opentype'); font-weight: 500; font-style: italic; font-display: swap; }
-@font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-Extrabold.otf') format('opentype'); font-weight: 800; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-Black.otf') format('opentype'); font-weight: 900; font-style: normal; font-display: swap; }
+/* Sofia Pro Medium — headings, body, navigation, display */
+@font-face { font-family: 'Sofia Pro'; src: url('/fonts/SofiaPro-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Sofia Pro'; src: url('/fonts/SofiaPro-MediumItalic.otf') format('opentype'); font-weight: 500; font-style: italic; font-display: swap; }
 
-/* GT America Mono — code, counters, labels */
-@font-face { font-family: 'GT America Mono'; src: url('/fonts/GT-America-Mono-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'GT America Mono'; src: url('/fonts/GT-America-Mono-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
+/* Sweet Sans Pro Regular — labels, eyebrows, tags, UI micro-copy */
+@font-face { font-family: 'Sweet Sans Pro'; src: url('/fonts/SweetSansPro-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
 
-/* GT America Condensed — tiny labels, system UI */
-@font-face { font-family: 'GT America Condensed'; src: url('/fonts/GT-America-Condensed-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
+/* Andale Mono — code, counters, technical details */
+@font-face { font-family: 'Andale Mono'; src: url('/fonts/AndaleMono.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
 
 /* ═══════════════════════════════════════════
    DESIGN TOKENS
@@ -41,10 +36,10 @@
   --text-tertiary: #888888;
   --rule: rgba(0,0,0,0.08);
 
-  --sans: 'Proxima Nova', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
-  --sans-condensed: 'GT America Condensed', 'Proxima Nova', -apple-system, sans-serif;
-  --serif: 'PT Serif', Georgia, 'Times New Roman', serif;
-  --mono: 'GT America Mono', 'SF Mono', 'Fira Code', monospace;
+  --sans: 'Sofia Pro', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+  --sans-label: 'Sweet Sans Pro', 'Sofia Pro', -apple-system, sans-serif;
+  --serif: 'Sofia Pro', -apple-system, 'Helvetica Neue', sans-serif;
+  --mono: 'Andale Mono', 'SF Mono', 'Fira Code', monospace;
 
   --pad: clamp(24px, 5vw, 64px);
   --max: 1120px;
@@ -71,10 +66,10 @@
   --color-text-secondary: #4a4a4a;
   --color-text-tertiary: #888888;
 
-  --font-sans: 'Proxima Nova', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
-  --font-sans-condensed: 'GT America Condensed', 'Proxima Nova', -apple-system, sans-serif;
-  --font-serif: 'PT Serif', Georgia, 'Times New Roman', serif;
-  --font-mono: 'GT America Mono', 'SF Mono', 'Fira Code', monospace;
+  --font-sans: 'Sofia Pro', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+  --font-label: 'Sweet Sans Pro', 'Sofia Pro', -apple-system, sans-serif;
+  --font-serif: 'Sofia Pro', -apple-system, 'Helvetica Neue', sans-serif;
+  --font-mono: 'Andale Mono', 'SF Mono', 'Fira Code', monospace;
 }
 
 /* ═══════════════════════════════════════════
@@ -84,13 +79,13 @@
 html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-behavior: smooth; }
 
 body {
-  font-family: var(--serif);
+  font-family: var(--sans);
   background: var(--cream);
   color: var(--text);
   overflow-x: hidden;
-  line-height: 1.7;
-  font-weight: 400;
-  letter-spacing: 0;
+  line-height: 1.6;
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }
 
 /* ═══════════════════════════════════════════
@@ -185,6 +180,53 @@ body {
 .fade-up.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════
+   VISUAL ENERGY — overlaps, offsets, accents
+   ═══════════════════════════════════════════ */
+
+/* Floating accent bar — horizontal color pop */
+.accent-bar {
+  display: block;
+  width: 48px;
+  height: 4px;
+  background: var(--royal);
+  border-radius: 0;
+}
+.accent-bar--coral { background: var(--coral); }
+.accent-bar--pool { background: var(--pool); }
+
+/* Overlap offset — pull element up into previous section */
+.overlap-up { margin-top: -48px; position: relative; z-index: 2; }
+.overlap-up-lg { margin-top: -80px; position: relative; z-index: 2; }
+
+/* Stagger grid numbering */
+.numbered-grid { counter-reset: gridItem; }
+.numbered-grid > * { counter-increment: gridItem; }
+.numbered-grid > *::before {
+  content: counter(gridItem, decimal-leading-zero);
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: rgba(0,0,0,0.12);
+  margin-bottom: 16px;
+  letter-spacing: 0.06em;
+}
+
+/* Diagonal slice background */
+.diagonal-slice {
+  position: relative;
+}
+.diagonal-slice::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: inherit;
+  clip-path: polygon(0 40%, 100% 0, 100% 100%, 0 100%);
 }
 
 /* ═══════════════════════════════════════════

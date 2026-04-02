@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 const brandItems = [
   { title: "Colors", description: "Palette, tints, and usage.", href: "/colors" },
-  { title: "Typography", description: "PT Serif, Proxima Nova, scale.", href: "/typography" },
+  { title: "Typography", description: "Sofia Pro, Sweet Sans Pro, Andale Mono.", href: "/typography" },
   { title: "Logos", description: "Suite, lockups, clear space.", href: "/logos" },
   { title: "Voice & Tone", description: "How we write and speak.", href: "/voice" },
   { title: "Photography", description: "Style, treatments, composition.", href: "/photography" },
@@ -41,7 +41,7 @@ export default function BrandGrid() {
             {
               opacity: 1, y: 0,
               duration: 0.9, ease: "power3.out",
-              delay: i * 0.05,
+              delay: i * 0.06,
               scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
             }
           );
@@ -56,43 +56,49 @@ export default function BrandGrid() {
   return (
     <section ref={sectionRef} className="bg-cream" id="chapters">
       <div className="max-w-[1200px] mx-auto px-8 sm:px-12 py-20 sm:py-28">
-        <div className="brand-grid-header mb-10 sm:mb-14">
-          <h2
-            className="font-sans text-navy leading-[1.08] tracking-[-0.03em] font-500"
-            style={{ fontSize: "clamp(30px, 4vw, 48px)" }}
-          >
-            Brand Components
-          </h2>
+        {/* Header with accent bar */}
+        <div className="brand-grid-header mb-10 sm:mb-14 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+          <div>
+            <span className="accent-bar accent-bar--coral mb-5" />
+            <h2
+              className="font-sans text-navy leading-[1.08] tracking-[-0.03em]"
+              style={{ fontSize: "clamp(30px, 4vw, 48px)" }}
+            >
+              Brand Components
+            </h2>
+          </div>
           <p
-            className="font-serif text-text-secondary font-400 mt-3 tracking-[-0.01em]"
-            style={{ fontSize: "clamp(14px, 1.4vw, 17px)" }}
+            className="text-text-tertiary uppercase hidden sm:block"
+            style={{ fontFamily: "var(--sans-label)", fontSize: "0.6rem", letterSpacing: "0.16em" }}
           >
-            Everything you need to activate the brand.
+            6 Chapters
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-black/[0.04]">
+        {/* Numbered grid */}
+        <div className="numbered-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-black/[0.04]">
           {brandItems.map((item, i) => (
             <a
               key={i}
               href={item.href}
-              className="brand-card group bg-cream p-8 sm:p-10 no-underline transition-colors duration-500 hover:bg-white"
+              className="brand-card group bg-cream p-8 sm:p-10 no-underline transition-all duration-500 hover:bg-white"
             >
               <h3
-                className="font-sans text-navy tracking-[-0.02em] leading-[1.1] font-500 group-hover:text-royal transition-colors duration-500"
+                className="font-sans text-navy tracking-[-0.02em] leading-[1.1] group-hover:text-royal transition-colors duration-500"
                 style={{ fontSize: "1.3rem" }}
               >
                 {item.title}
               </h3>
-              <p className="font-serif text-[0.8rem] text-text-secondary leading-[1.55] mt-3">
+              <p className="font-sans text-[0.8rem] text-text-secondary leading-[1.55] mt-3">
                 {item.description}
               </p>
-              <div className="mt-7">
+              <div className="mt-7 flex items-center gap-3">
+                <div className="w-6 h-[1.5px] bg-black/[0.06] group-hover:bg-royal group-hover:w-10 transition-all duration-500" />
                 <svg
-                  width="20" height="20" viewBox="0 0 24 24"
+                  width="16" height="16" viewBox="0 0 24 24"
                   fill="none" stroke="currentColor" strokeWidth="1.5"
                   strokeLinecap="round" strokeLinejoin="round"
-                  className="text-black/10 group-hover:text-royal transition-all duration-500 group-hover:translate-x-1.5"
+                  className="text-black/10 group-hover:text-royal transition-all duration-500 group-hover:translate-x-1"
                 >
                   <path d="M5 12h14" />
                   <path d="m12 5 7 7-7 7" />

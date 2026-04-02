@@ -196,7 +196,7 @@ export default function ScrollRevealGrid({ config }: Props) {
             <div
               className="srg-heading"
               style={{
-                fontFamily: "var(--serif, 'DM Serif Display', Georgia, serif)",
+                fontFamily: "var(--sans, 'Sofia Pro', system-ui, sans-serif)",
                 fontSize: `clamp(28px, 5vw, ${headingSize}px)`,
                 color: textColor,
                 textShadow: "0 2px 20px rgba(0,0,0,0.5)",

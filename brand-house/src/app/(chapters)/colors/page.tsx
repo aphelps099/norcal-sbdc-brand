@@ -59,19 +59,19 @@ export default function ColorsPage() {
                 Usage
               </h2>
             </div>
-            <div className="md:w-2/3 space-y-5 text-white/50 text-base md:text-[17px] leading-relaxed font-serif">
+            <div className="md:w-2/3 space-y-5 text-white/50 text-base md:text-[17px] leading-relaxed font-sans">
               <p>
-                Use <strong className="font-800 text-white/80">Midnight</strong> and{" "}
-                <strong className="font-800 text-white/80">Slate</strong> for typography and dark
-                backgrounds. <strong className="font-800 text-white/80">Cobalt</strong> is our
+                Use <strong className="text-white/80">Midnight</strong> and{" "}
+                <strong className="text-white/80">Slate</strong> for typography and dark
+                backgrounds. <strong className="text-white/80">Cobalt</strong> is our
                 primary action color — links, buttons, CTAs.
               </p>
               <p>
-                <strong className="font-800 text-white/80">Steel</strong> and{" "}
-                <strong className="font-800 text-white/80">Fog</strong> provide depth in
+                <strong className="text-white/80">Steel</strong> and{" "}
+                <strong className="text-white/80">Fog</strong> provide depth in
                 charts, illustrations, and secondary UI.{" "}
-                <strong className="font-800 text-white/80">Berry</strong> adds warmth for
-                editorial moments. <strong className="font-800 text-white/80">Evergreen</strong>{" "}
+                <strong className="text-white/80">Berry</strong> adds warmth for
+                editorial moments. <strong className="text-white/80">Evergreen</strong>{" "}
                 signals success and growth.
               </p>
               <p>

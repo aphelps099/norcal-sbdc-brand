@@ -23,7 +23,7 @@ export default function FontSpecimen({
       <p className="font-mono text-[0.6rem] text-text-tertiary">
         Weights: {weights.join(", ")}
       </p>
-      <p className="text-xs text-text-tertiary mt-2 font-sans font-500">{usage}</p>
+      <p className="text-xs text-text-tertiary mt-2 font-sans">{usage}</p>
     </div>
   );
 }

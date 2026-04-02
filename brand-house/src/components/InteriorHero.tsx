@@ -40,6 +40,11 @@ export default function InteriorHero({
           { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.1 }
         );
         gsap.fromTo(
+          ".interior-hero-accent",
+          { scaleX: 0 },
+          { scaleX: 1, duration: 0.5, ease: "power2.out", delay: 0.4 }
+        );
+        gsap.fromTo(
           ".interior-hero-line",
           { scaleX: 0 },
           { scaleX: 1, duration: 0.6, ease: "power2.out", delay: 0.5 }
@@ -129,22 +134,29 @@ export default function InteriorHero({
         <div className="absolute inset-0 bg-navy" />
       )}
 
-      {/* Text content — centered left */}
+      {/* Vertical accent stripe — right edge */}
+      <div
+        className="interior-hero-accent absolute right-0 top-0 w-1 h-full bg-pool/30 hidden md:block"
+        style={{ transformOrigin: "top center", transform: "scaleX(0)" }}
+        aria-hidden="true"
+      />
+
+      {/* Text content — asymmetric left-align */}
       <div className="relative z-10 min-h-[42vh] md:min-h-[46vh] flex flex-col justify-end px-8 md:px-12 lg:px-16 pt-28 pb-10 md:pt-32 md:pb-14 max-w-[860px]">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-[10px] font-500 uppercase tracking-[0.18em] text-white/40 hover:text-white/70 transition-colors mb-10 md:mb-14"
-          style={{ fontFamily: "var(--sans-condensed)" }}
+          className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-white/40 hover:text-white/70 transition-colors mb-10 md:mb-14"
+          style={{ fontFamily: "var(--sans-label)" }}
         >
           <span className="inline-block w-4 h-[1.5px] bg-current" />
           Brand House
         </Link>
         <h1
-          className="interior-hero-title tracking-[-0.03em] leading-[0.95]"
+          className="interior-hero-title tracking-[-0.04em] leading-[0.92]"
           style={{
             fontFamily: "var(--sans)",
             fontWeight: 500,
-            fontSize: "clamp(44px, 7vw, 88px)",
+            fontSize: "clamp(48px, 8vw, 96px)",
             color: "#f5f4f0",
             opacity: 0,
           }}
@@ -152,13 +164,13 @@ export default function InteriorHero({
           {title}
         </h1>
         <div
-          className="interior-hero-line h-[2px] bg-white/20 mt-6 max-w-[120px]"
+          className="interior-hero-line h-[3px] bg-white/20 mt-6 max-w-[120px]"
           style={{ transformOrigin: "left center", transform: "scaleX(0)" }}
         />
         {subtitle && (
           <p
             className="interior-hero-sub text-white/50 text-base md:text-lg font-400 mt-5 max-w-xl leading-relaxed"
-            style={{ opacity: 0, fontFamily: "var(--serif)" }}
+            style={{ opacity: 0, fontFamily: "var(--sans)" }}
           >
             {subtitle}
           </p>

@@ -97,10 +97,10 @@ export default function StoriesPage() {
       <div className="bg-white py-12 md:py-16">
         {/* Intro */}
         <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-14">
-          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] font-500 mb-6">
+          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-6">
             Your Business People
           </h2>
-          <p className="font-serif text-lg md:text-xl text-text-secondary leading-[1.7] max-w-[640px]">
+          <p className="font-sans text-lg md:text-xl text-text-secondary leading-[1.7] max-w-[640px]">
             Every number in our impact report has a name behind it. These are
             real businesses, built by real people, supported by advisors who show
             up like it&rsquo;s personal &mdash; because it is.
@@ -153,7 +153,7 @@ export default function StoriesPage() {
                 >
                   {stat.value}
                 </p>
-                <p className="font-sans text-[11px] font-800 uppercase tracking-[0.12em] text-white/30">
+                <p className="font-label text-[11px] uppercase tracking-[0.12em] text-white/30">
                   {stat.label}
                 </p>
               </div>
@@ -166,7 +166,7 @@ export default function StoriesPage() {
 
         {/* Story Cards */}
         <div className="max-w-[960px] mx-auto px-8 md:px-12">
-          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] font-500 mb-12">
+          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-12">
             Client Spotlights
           </h2>
           <div className="space-y-0">
@@ -182,43 +182,43 @@ export default function StoriesPage() {
                 {/* Header row */}
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
                   <div>
-                    <h3 className="font-sans text-xl md:text-2xl text-navy tracking-[-0.01em] font-500">
+                    <h3 className="font-sans text-xl md:text-2xl text-navy tracking-[-0.01em]">
                       {story.business}
                     </h3>
-                    <p className="font-serif text-sm text-text-secondary mt-1">
+                    <p className="font-sans text-sm text-text-secondary mt-1">
                       {story.name}
                     </p>
                   </div>
                   <div className="flex gap-2 flex-wrap">
-                    <span className="inline-block px-3 py-1.5 border border-navy/[0.1] font-sans text-[10px] font-800 uppercase tracking-[0.1em] text-navy/50">
+                    <span className="inline-block px-3 py-1.5 border border-navy/[0.1] font-label text-[10px] uppercase tracking-[0.1em] text-navy/50">
                       {story.center}
                     </span>
-                    <span className="inline-block px-3 py-1.5 border border-royal/[0.15] font-sans text-[10px] font-800 uppercase tracking-[0.1em] text-royal/60">
+                    <span className="inline-block px-3 py-1.5 border border-royal/[0.15] font-label text-[10px] uppercase tracking-[0.1em] text-royal/60">
                       {story.service}
                     </span>
                   </div>
                 </div>
 
                 {/* Quote */}
-                <blockquote className="font-serif text-lg md:text-xl text-navy leading-snug tracking-[-0.01em] mb-8 max-w-2xl">
+                <blockquote className="font-sans text-lg md:text-xl text-navy leading-snug tracking-[-0.01em] mb-8 max-w-2xl">
                   &ldquo;{story.quote}&rdquo;
                 </blockquote>
 
                 {/* Challenge → Outcome */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <span className="font-sans text-[11px] font-800 uppercase tracking-[0.15em] text-navy/30 block mb-2">
+                    <span className="font-label text-[11px] uppercase tracking-[0.15em] text-navy/30 block mb-2">
                       Challenge
                     </span>
-                    <p className="font-serif text-sm text-text-secondary leading-relaxed">
+                    <p className="font-sans text-sm text-text-secondary leading-relaxed">
                       {story.challenge}
                     </p>
                   </div>
                   <div>
-                    <span className="font-sans text-[11px] font-800 uppercase tracking-[0.15em] text-royal/50 block mb-2">
+                    <span className="font-label text-[11px] uppercase tracking-[0.15em] text-royal/50 block mb-2">
                       Outcome
                     </span>
-                    <p className="font-serif text-sm text-text-secondary leading-relaxed">
+                    <p className="font-sans text-sm text-text-secondary leading-relaxed">
                       {story.outcome}
                     </p>
                   </div>
@@ -230,10 +230,10 @@ export default function StoriesPage() {
 
         {/* Story Template */}
         <div className="max-w-[780px] mx-auto px-8 md:px-12 mt-24">
-          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] font-500 mb-6">
+          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-6">
             Writing a Success Story
           </h2>
-          <p className="font-serif text-base text-text-secondary leading-relaxed mb-10 max-w-xl">
+          <p className="font-sans text-base text-text-secondary leading-relaxed mb-10 max-w-xl">
             When documenting client outcomes, use this structure to keep stories
             consistent, human, and impactful across all centers.
           </p>
@@ -266,10 +266,10 @@ export default function StoriesPage() {
                   {item.step}
                 </span>
                 <div>
-                  <h4 className="font-sans text-sm font-800 text-navy uppercase tracking-[0.06em] mb-1.5">
+                  <h4 className="font-label text-sm text-navy uppercase tracking-[0.06em] mb-1.5">
                     {item.title}
                   </h4>
-                  <p className="font-serif text-sm text-text-secondary leading-relaxed">
+                  <p className="font-sans text-sm text-text-secondary leading-relaxed">
                     {item.desc}
                   </p>
                 </div>

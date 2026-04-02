@@ -64,7 +64,7 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
         <div className="relative z-10 max-w-[1100px] mx-auto px-8 md:px-12 py-14 md:py-20 lg:py-24">
           {/* Eyebrow */}
           <p
-            className="font-sans text-[10px] font-800 uppercase tracking-[0.22em] mb-5 md:mb-6"
+            className="font-label text-[10px] uppercase tracking-[0.22em] mb-5 md:mb-6"
             style={{
               color: hovered ? "rgba(143,197,217,0.4)" : "rgba(15,28,46,0.2)",
               opacity: visible ? 1 : 0,

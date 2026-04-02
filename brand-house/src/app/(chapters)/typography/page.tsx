@@ -8,7 +8,7 @@ export default function TypographyPage() {
     <>
       <InteriorHero gradient={gradientTypography}
         title="Typography"
-        subtitle="Our type system pairs PT Serif with Proxima Nova for editorial authority and clean readability."
+        subtitle="Three typefaces — Sofia Pro for authority, Sweet Sans Pro for precision, Andale Mono for data."
       />
       <div className="bg-white py-12 md:py-16">
         {/* Our Typefaces */}
@@ -19,42 +19,43 @@ export default function TypographyPage() {
             </h2>
           </div>
           <div className="max-w-[960px] mx-auto px-8 md:px-12">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
 
-              {/* PT Serif */}
-              <div className="border border-black/[0.06] p-7 md:p-9">
-                <p className="font-sans text-[10px] font-800 uppercase tracking-[0.18em] text-navy/25 mb-7">
-                  PT Serif
+              {/* Sofia Pro Medium */}
+              <div className="border border-black/[0.06] p-7 md:p-9 md:col-span-2">
+                <p className="font-label text-[10px] uppercase tracking-[0.18em] text-navy/25 mb-7">
+                  Sofia Pro Medium
                 </p>
 
-                {/* Regular 400 — body */}
+                {/* Display — hero */}
+                <p
+                  className="text-navy tracking-[-0.03em] leading-[1.05] mb-5"
+                  style={{
+                    fontFamily: "var(--sans)",
+                    fontWeight: 500,
+                    fontSize: "clamp(36px, 4vw, 52px)",
+                  }}
+                >
+                  Your Business, Better.
+                </p>
+
+                {/* Body copy */}
                 <p
                   className="text-navy/80 text-lg leading-[1.7] mb-5"
                   style={{
-                    fontFamily: "var(--serif)",
-                    fontWeight: 400,
+                    fontFamily: "var(--sans)",
+                    fontWeight: 500,
                   }}
                 >
                   Since 1980, SBDC advisors have helped Northern California businesses raise $2.8B in capital and turn kitchen-table ideas into million-dollar companies.
                 </p>
 
-                {/* Bold 700 — emphasis */}
-                <p
-                  className="text-navy text-lg leading-[1.5] mb-5"
-                  style={{
-                    fontFamily: "var(--serif)",
-                    fontWeight: 700,
-                  }}
-                >
-                  Real clients. Real results. Real impact.
-                </p>
-
-                {/* Italic — editorial */}
+                {/* Italic — editorial accent */}
                 <p
                   className="text-navy/50 text-base leading-[1.7] italic"
                   style={{
-                    fontFamily: "var(--serif)",
-                    fontWeight: 400,
+                    fontFamily: "var(--sans)",
+                    fontWeight: 500,
                     fontStyle: "italic",
                   }}
                 >
@@ -62,28 +63,39 @@ export default function TypographyPage() {
                 </p>
               </div>
 
-              {/* Proxima Nova */}
-              <div className="border border-black/[0.06] p-7 md:p-9">
-                <p className="font-sans text-[10px] font-800 uppercase tracking-[0.18em] text-navy/25 mb-7">
-                  Proxima Nova
-                </p>
+              {/* Sweet Sans Pro + Andale Mono — stacked right column */}
+              <div className="flex flex-col gap-5">
+                {/* Sweet Sans Pro */}
+                <div className="border border-black/[0.06] p-7 md:p-9 flex-1">
+                  <p className="font-label text-[10px] uppercase tracking-[0.18em] text-navy/25 mb-7">
+                    Sweet Sans Pro
+                  </p>
+                  <p
+                    className="text-xs uppercase tracking-[0.18em] text-royal mb-4"
+                    style={{ fontFamily: "var(--sans-label)" }}
+                  >
+                    Since 1980 — Northern California
+                  </p>
+                  <p
+                    className="text-[10px] uppercase tracking-[0.14em] text-navy/40"
+                    style={{ fontFamily: "var(--sans-label)" }}
+                  >
+                    Labels &middot; Eyebrows &middot; Tags
+                  </p>
+                </div>
 
-                {/* Regular/Light — hero display */}
-                <p className="font-sans text-navy tracking-[-0.03em] leading-[1.05] mb-5"
-                  style={{ fontSize: "clamp(36px, 4vw, 52px)", fontWeight: 500 }}
-                >
-                  Your Business, Better.
-                </p>
-
-                {/* Extrabold 800 — label */}
-                <p className="font-sans font-800 text-[13px] uppercase tracking-[0.16em] text-royal mb-5">
-                  Since 1980 — Northern California
-                </p>
-
-                {/* Medium 500 — UI text */}
-                <p className="font-sans font-500 text-sm text-text-secondary leading-[1.6]">
-                  Used for headings, navigation, labels, buttons, and all interface elements.
-                </p>
+                {/* Andale Mono */}
+                <div className="border border-black/[0.06] p-7 md:p-9 flex-1">
+                  <p className="font-label text-[10px] uppercase tracking-[0.18em] text-navy/25 mb-7">
+                    Andale Mono
+                  </p>
+                  <p className="font-mono text-sm text-navy/70 mb-3">
+                    $2.8B raised
+                  </p>
+                  <p className="font-mono text-xs text-navy/40">
+                    42,000+ jobs &middot; 44 years
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -99,20 +111,20 @@ export default function TypographyPage() {
           <div className="max-w-[960px] mx-auto px-8 md:px-12">
             <div className="space-y-3">
               <div className="p-6 border border-black/[0.06] bg-[#f7f7f5]">
-                <p className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/30 mb-3">
-                  Display / Hero — Proxima Nova 500
+                <p className="font-label text-[11px] uppercase tracking-[0.2em] text-navy/30 mb-3">
+                  Display / Hero — Sofia Pro Medium
                 </p>
                 <p
                   className="text-4xl md:text-5xl text-navy leading-[1.05] tracking-[-0.03em]"
                   style={{ fontFamily: "var(--sans)", fontWeight: 500 }}
                 >
-                  Your Business, <em className="text-royal italic" style={{ fontFamily: "var(--serif)", fontWeight: 400, fontStyle: "italic" }}>Better.</em>
+                  Your Business, <em className="text-royal italic" style={{ fontFamily: "var(--sans)", fontWeight: 500, fontStyle: "italic" }}>Better.</em>
                 </p>
               </div>
 
               <div className="p-6 border border-black/[0.06] bg-[#f7f7f5]">
-                <p className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/30 mb-3">
-                  H1 – H4 — Proxima Nova 500
+                <p className="font-label text-[11px] uppercase tracking-[0.2em] text-navy/30 mb-3">
+                  H1 – H4 — Sofia Pro Medium
                 </p>
                 <p
                   className="text-2xl md:text-3xl text-navy tracking-[-0.01em]"
@@ -123,19 +135,19 @@ export default function TypographyPage() {
               </div>
 
               <div className="p-6 border border-black/[0.06] bg-[#f7f7f5]">
-                <p className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/30 mb-3">
-                  H5 – H6 / Label — Proxima Nova 800
+                <p className="font-label text-[11px] uppercase tracking-[0.2em] text-navy/30 mb-3">
+                  Label / Eyebrow — Sweet Sans Pro Regular
                 </p>
-                <p className="font-sans text-sm font-800 tracking-[0.12em] uppercase text-navy/60">
+                <p className="text-sm tracking-[0.14em] uppercase text-navy/60" style={{ fontFamily: "var(--sans-label)" }}>
                   Capital Access &middot; Business Planning &middot; Crisis Recovery
                 </p>
               </div>
 
               <div className="p-6 border border-black/[0.06] bg-[#f7f7f5]">
-                <p className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/30 mb-3">
-                  Body Text — PT Serif 400
+                <p className="font-label text-[11px] uppercase tracking-[0.2em] text-navy/30 mb-3">
+                  Body Text — Sofia Pro Medium
                 </p>
-                <p className="text-base text-text-secondary leading-[1.7] max-w-prose font-serif">
+                <p className="text-base text-text-secondary leading-[1.7] max-w-prose font-sans">
                   Since 1980, SBDC advisors have helped Northern California businesses
                   raise $2.8B in capital, create 42,000+ jobs, and turn kitchen-table
                   ideas into million-dollar companies.
@@ -143,10 +155,19 @@ export default function TypographyPage() {
               </div>
 
               <div className="p-6 border border-black/[0.06] bg-[#f7f7f5]">
-                <p className="font-sans text-[11px] font-800 uppercase tracking-[0.2em] text-navy/30 mb-3">
-                  Tiny Label — Proxima Nova 800
+                <p className="font-label text-[11px] uppercase tracking-[0.2em] text-navy/30 mb-3">
+                  Data / Technical — Andale Mono
                 </p>
-                <p className="font-sans text-xs font-800 tracking-[0.2em] uppercase text-navy/35">
+                <p className="font-mono text-sm text-navy/50 tracking-wide">
+                  $2.8B raised &middot; 42,000+ jobs &middot; est. 1980
+                </p>
+              </div>
+
+              <div className="p-6 border border-black/[0.06] bg-[#f7f7f5]">
+                <p className="font-label text-[11px] uppercase tracking-[0.2em] text-navy/30 mb-3">
+                  Tiny Label — Sweet Sans Pro Regular
+                </p>
+                <p className="text-xs tracking-[0.2em] uppercase text-navy/35" style={{ fontFamily: "var(--sans-label)" }}>
                   Since 1980 — Northern California
                 </p>
               </div>
@@ -170,22 +191,24 @@ export default function TypographyPage() {
           >
             Rules
           </h2>
-          <div className="space-y-3 text-white/50 text-base leading-relaxed font-serif max-w-xl">
+          <div className="space-y-3 text-white/50 text-base leading-relaxed font-sans max-w-xl">
             <p>
-              <strong className="font-sans font-800 text-white/80">Headings H1–H4</strong> use Proxima Nova at 500 weight.
-              Italic emphasis uses PT Serif with Royal (#1D5AA7) color.
+              <strong className="font-sans text-white/80">Sofia Pro Medium</strong> is
+              the primary typeface — headings, body, navigation, and display text. Weight 500
+              with tight letter-spacing (-0.01em) for a clean, confident presence.
             </p>
             <p>
-              <strong className="font-sans font-800 text-white/80">Body text</strong> uses PT Serif
-              at 400 weight. Line height is 1.6–1.7 for readability.
+              <strong className="font-sans text-white/80">Sweet Sans Pro Regular</strong> handles
+              labels, eyebrows, tags, and UI micro-copy. Always uppercase
+              with generous tracking (0.14–0.2em).
             </p>
             <p>
-              <strong className="font-sans font-800 text-white/80">Labels &amp; H5–H6</strong> use Proxima Nova at
-              800 weight, all-caps, with 0.15–0.2em letter-spacing.
+              <strong className="font-sans text-white/80">Andale Mono</strong> is reserved for
+              data points, counters, and technical details — anywhere precision matters.
             </p>
             <p>
-              <strong className="font-sans font-800 text-white/80">Never</strong> mix more than two
-              typefaces in a single composition. Serif + sans is the standard pairing.
+              <strong className="font-sans text-white/80">Never</strong> mix more than
+              two typefaces in a single composition. Sofia Pro + one accent face is the standard pairing.
             </p>
           </div>
         </div>

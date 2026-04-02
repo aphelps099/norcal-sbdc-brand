@@ -111,7 +111,7 @@ const COL_WIDE = "max-w-[960px] mx-auto px-8 md:px-12";
 function SectionHeading({ id, title }: { id: string; title: string }) {
   return (
     <div id={id} className="scroll-mt-24 mb-8">
-      <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] font-500">
+      <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em]">
         {title}
       </h2>
     </div>
@@ -162,8 +162,8 @@ function LogoCard({ logo }: { logo: LogoAsset }) {
           className="w-full max-w-[200px] h-auto"
         />
       </div>
-      <h3 className="font-sans text-[13px] font-800 text-navy mb-0.5">{logo.name}</h3>
-      <p className="font-serif text-[13px] text-text-secondary mb-2.5">
+      <h3 className="font-label text-[13px] text-navy mb-0.5">{logo.name}</h3>
+      <p className="font-sans text-[13px] text-text-secondary mb-2.5">
         {logo.description}
       </p>
       <div className="flex flex-wrap gap-1.5">
@@ -172,7 +172,7 @@ function LogoCard({ logo }: { logo: LogoAsset }) {
             key={v.label}
             href={v.filename}
             download
-            className="inline-flex items-center gap-1 px-2.5 py-1 bg-navy/[0.04] hover:bg-royal/10 hover:text-royal text-navy/50 text-[10px] font-sans font-800 uppercase tracking-[0.08em] transition-all duration-200"
+            className="inline-flex items-center gap-1 px-2.5 py-1 bg-navy/[0.04] hover:bg-royal/10 hover:text-royal text-navy/50 text-[10px] font-sans font-label uppercase tracking-[0.08em] transition-all duration-200"
           >
             <svg width="10" height="10" viewBox="0 0 12 12" fill="none" className="opacity-50">
               <path d="M6 1v8M3 6.5l3 3 3-3M2 11h8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -189,7 +189,7 @@ function LogoCard({ logo }: { logo: LogoAsset }) {
 function SectionNav() {
   return (
     <div>
-      <p className="font-serif text-sm text-text-secondary mb-5">
+      <p className="font-sans text-sm text-text-secondary mb-5">
         Find what logo you need.
       </p>
       <nav className="flex flex-wrap gap-2.5">
@@ -197,7 +197,7 @@ function SectionNav() {
           <a
             key={s.id}
             href={`#${s.id}`}
-            className="inline-block px-4 py-2 rounded-full border-2 border-navy/12 font-sans text-[11px] font-800 uppercase tracking-[0.12em] text-navy/40 hover:bg-navy hover:border-navy hover:text-white transition-all duration-300"
+            className="inline-block px-4 py-2 rounded-full border-2 border-navy/12 font-label text-[11px] uppercase tracking-[0.12em] text-navy/40 hover:bg-navy hover:border-navy hover:text-white transition-all duration-300"
           >
             {s.label}
           </a>
@@ -248,7 +248,7 @@ export default function LogoPageContent() {
 
             {/* Right — logo intro text */}
             <div className="flex flex-col justify-center">
-              <p className="font-serif text-base md:text-lg text-navy/65 leading-relaxed">
+              <p className="font-sans text-base md:text-lg text-navy/65 leading-relaxed">
                 Our logo is the most recognizable element of our brand. Always use
                 official logo files — never recreate or typeset.
               </p>
@@ -266,7 +266,7 @@ export default function LogoPageContent() {
       <section className="logo-section py-14">
         <div className={COL_NARROW}>
           <SectionHeading id="network" title="Network Logo" />
-          <p className="font-serif text-base text-text-secondary leading-relaxed mb-8 max-w-lg">
+          <p className="font-sans text-base text-text-secondary leading-relaxed mb-8 max-w-lg">
             The NorCal SBDC network logo is our primary mark. Use the full-color version
             on light backgrounds and the reverse version on dark backgrounds.
           </p>
@@ -284,7 +284,7 @@ export default function LogoPageContent() {
       <section className="logo-section py-14">
         <div className={COL_NARROW}>
           <SectionHeading id="programs" title="Program Logos" />
-          <p className="font-serif text-base text-text-secondary leading-relaxed mb-8 max-w-lg">
+          <p className="font-sans text-base text-text-secondary leading-relaxed mb-8 max-w-lg">
             Each program within the NorCal SBDC network has its own identity. These logos
             should appear on collateral specific to their intended audiences.
           </p>
@@ -302,7 +302,7 @@ export default function LogoPageContent() {
       <section className="logo-section py-14">
         <div className={COL_NARROW}>
           <SectionHeading id="stakeholders" title="Stakeholder Logos" />
-          <p className="font-serif text-base text-text-secondary leading-relaxed mb-8 max-w-lg">
+          <p className="font-sans text-base text-text-secondary leading-relaxed mb-8 max-w-lg">
             Partner and stakeholder logos that appear alongside NorCal SBDC branding.
             Always use official versions provided here.
           </p>
@@ -320,14 +320,14 @@ export default function LogoPageContent() {
       <section className="logo-section py-14">
         <div className={COL_NARROW}>
           <SectionHeading id="centers" title="Center Logos" />
-          <p className="font-serif text-base text-text-secondary leading-relaxed mb-3 max-w-lg">
+          <p className="font-sans text-base text-text-secondary leading-relaxed mb-3 max-w-lg">
             Each of our 16 regional centers has a customized logo. Click a center name
             below to download its logo package (includes full color and reverse variants
             in PNG and EPS formats).
           </p>
           <div className="flex items-start gap-3 p-4 rounded-lg bg-pool/10 border border-pool/20 mb-8 max-w-lg">
             <span className="text-pool text-base leading-none mt-0.5">✱</span>
-            <p className="font-serif text-sm text-navy/60 leading-relaxed">
+            <p className="font-sans text-sm text-navy/60 leading-relaxed">
               Center logos follow the same brand guidelines as the network logo.
               Do not modify, recreate, or typeset center logos.
             </p>
@@ -345,7 +345,7 @@ export default function LogoPageContent() {
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-navy/20 group-hover:text-royal transition-colors flex-shrink-0">
                     <path d="M6 1v8M3 6.5l3 3 3-3M2 11h8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                  <span className="font-sans text-sm font-500 text-navy/60 group-hover:text-royal transition-colors duration-200">
+                  <span className="font-sans text-sm text-navy/60 group-hover:text-royal transition-colors duration-200">
                     {center}
                   </span>
                 </a>
@@ -361,19 +361,19 @@ export default function LogoPageContent() {
           <SectionHeading id="compliance" title="Compliance" />
           <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-10 items-start">
             <div>
-              <h3 className="font-sans text-sm font-800 text-navy mb-3">ADA Compliance Logo</h3>
-              <p className="font-serif text-base text-text-secondary leading-relaxed mb-3">
+              <h3 className="font-label text-sm text-navy mb-3">ADA Compliance Logo</h3>
+              <p className="font-sans text-base text-text-secondary leading-relaxed mb-3">
                 The ADA compliance seal must be displayed on all public-facing digital
                 properties including websites, email templates, and downloadable documents.
               </p>
-              <p className="font-serif text-base text-text-secondary leading-relaxed mb-5">
+              <p className="font-sans text-base text-text-secondary leading-relaxed mb-5">
                 Place the compliance logo in the footer area of websites, and on the last
                 page of printed materials. Do not resize below 60px width for digital or
                 0.5 inches for print.
               </p>
               <div className="flex items-start gap-3 p-4 rounded-lg bg-coral/8 border border-coral/15">
-                <span className="text-coral text-sm font-800 leading-none mt-0.5">!</span>
-                <p className="font-serif text-[13px] text-navy/55 leading-relaxed">
+                <span className="text-coral text-sm font-label leading-none mt-0.5">!</span>
+                <p className="font-sans text-[13px] text-navy/55 leading-relaxed">
                   Federal funding recipients are required to display accessibility
                   compliance indicators. Failure to include this mark may affect
                   grant compliance status.
@@ -382,7 +382,7 @@ export default function LogoPageContent() {
             </div>
             <div className="flex items-center justify-center bg-[#f7f7f5] rounded-lg border border-black/[0.05] p-10 min-h-[160px]">
               <div className="w-[100px] h-[100px] bg-white rounded flex items-center justify-center">
-                <span className="font-sans text-[9px] font-800 uppercase tracking-[0.1em] text-navy/18 text-center leading-tight">
+                <span className="font-sans text-[9px] font-label uppercase tracking-[0.1em] text-navy/18 text-center leading-tight">
                   ADA<br />Compliance
                 </span>
               </div>
@@ -395,7 +395,7 @@ export default function LogoPageContent() {
       <section className="logo-section pt-14 pb-24">
         <div className={COL_NARROW}>
           <SectionHeading id="misuse" title="Misuse of Logo" />
-          <p className="font-serif text-base text-text-secondary leading-relaxed mb-8 max-w-lg">
+          <p className="font-sans text-base text-text-secondary leading-relaxed mb-8 max-w-lg">
             To protect the integrity of our brand, the following modifications are
             strictly prohibited. When in doubt, use the official files provided above.
           </p>
@@ -414,7 +414,7 @@ export default function LogoPageContent() {
                     <div className="absolute top-0 right-0 w-0 h-0 border-t-[20px] border-t-coral/12 border-l-[20px] border-l-transparent" />
                   </div>
                 </div>
-                <p className="font-serif text-[13px] text-text-secondary leading-snug">
+                <p className="font-sans text-[13px] text-text-secondary leading-snug">
                   {item.label}
                 </p>
               </div>

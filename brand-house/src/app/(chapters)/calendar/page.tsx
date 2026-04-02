@@ -166,10 +166,10 @@ export default function CalendarPage() {
       <div className="bg-white py-12 md:py-16">
         {/* Intro */}
         <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-14">
-          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] font-500 mb-6">
+          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-6">
             Annual Campaign Framework
           </h2>
-          <p className="font-serif text-base md:text-lg text-text-secondary leading-[1.7] max-w-[640px]">
+          <p className="font-sans text-base md:text-lg text-text-secondary leading-[1.7] max-w-[640px]">
             Every quarter has a theme. Every theme drives coordinated messaging
             across all centers. When we speak together, we&rsquo;re louder. This
             calendar gives every center the what, when, and how — while leaving
@@ -195,10 +195,10 @@ export default function CalendarPage() {
                     {q.label}
                   </span>
                   <div>
-                    <h3 className="font-sans text-xl md:text-2xl text-navy tracking-[-0.01em] font-500">
+                    <h3 className="font-sans text-xl md:text-2xl text-navy tracking-[-0.01em]">
                       {q.theme}
                     </h3>
-                    <p className="font-serif text-sm text-text-tertiary mt-0.5">
+                    <p className="font-sans text-sm text-text-tertiary mt-0.5">
                       {q.months}
                     </p>
                   </div>
@@ -212,18 +212,18 @@ export default function CalendarPage() {
                       className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-3 md:gap-6"
                     >
                       <div>
-                        <h4 className="font-sans text-sm font-800 text-navy">
+                        <h4 className="font-label text-sm text-navy">
                           {c.name}
                         </h4>
-                        <p className="font-sans text-[11px] text-text-tertiary font-500 mt-0.5">
+                        <p className="font-sans text-[11px] text-text-tertiary mt-0.5">
                           {c.timing}
                         </p>
                       </div>
                       <div>
-                        <p className="font-serif text-sm md:text-base text-navy/80 leading-relaxed italic mb-1.5">
+                        <p className="font-sans text-sm md:text-base text-navy/80 leading-relaxed italic mb-1.5">
                           &ldquo;{c.message}&rdquo;
                         </p>
-                        <p className="font-sans text-[11px] text-text-tertiary font-500">
+                        <p className="font-sans text-[11px] text-text-tertiary">
                           Channels: {c.channels}
                         </p>
                       </div>
@@ -236,7 +236,7 @@ export default function CalendarPage() {
                   {q.awareness.map((a) => (
                     <span
                       key={a}
-                      className="inline-block px-3 py-1.5 border border-navy/[0.08] font-sans text-[10px] font-800 uppercase tracking-[0.06em] text-navy/40"
+                      className="inline-block px-3 py-1.5 border border-navy/[0.08] font-label text-[10px] uppercase tracking-[0.06em] text-navy/40"
                     >
                       {a}
                     </span>
@@ -263,7 +263,7 @@ export default function CalendarPage() {
           >
             Recurring Content Series
           </h2>
-          <p className="font-serif text-base text-white/50 leading-relaxed mb-10 max-w-xl">
+          <p className="font-sans text-base text-white/50 leading-relaxed mb-10 max-w-xl">
             In addition to campaign-specific content, these recurring series
             keep your channels active and on-brand between pushes.
           </p>
@@ -279,14 +279,14 @@ export default function CalendarPage() {
                 }`}
               >
                 <div className="md:w-48 shrink-0">
-                  <h4 className="font-sans text-sm font-800 text-white/90">
+                  <h4 className="font-label text-sm text-white/90">
                     {item.title}
                   </h4>
-                  <span className="font-sans text-[11px] text-[#8FC5D9] font-800 uppercase tracking-[0.1em]">
+                  <span className="font-sans text-[11px] text-[#8FC5D9] font-label uppercase tracking-[0.1em]">
                     {item.frequency}
                   </span>
                 </div>
-                <p className="font-serif text-sm text-white/50 leading-relaxed">
+                <p className="font-sans text-sm text-white/50 leading-relaxed">
                   {item.desc}
                 </p>
               </div>

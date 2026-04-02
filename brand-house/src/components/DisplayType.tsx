@@ -51,7 +51,7 @@ export default function DisplayType() {
     <section ref={sectionRef} className="bg-white overflow-hidden">
       <div className="py-28 sm:py-44">
         <h2
-          className="display-text font-serif text-navy leading-[0.85] tracking-[-0.045em] whitespace-nowrap px-8"
+          className="display-text font-sans text-navy leading-[0.85] tracking-[-0.045em] whitespace-nowrap px-8"
           style={{ fontSize: "clamp(72px, 15vw, 240px)", fontWeight: 400 }}
         >
           MySBDC

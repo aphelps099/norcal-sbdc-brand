@@ -49,7 +49,7 @@ function Panel({ config }: { config: PanelConfig }) {
         {config.eyebrow}
       </p>
       <h3 style={{
-        fontFamily: "var(--serif)",
+        fontFamily: "var(--sans)",
         fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)",
         lineHeight: 1.1,
         letterSpacing: "-0.02em",

@@ -80,9 +80,9 @@ export default function HeroEditorial() {
             <h1
               className="hero-brand text-white leading-[0.92] tracking-[-0.04em]"
               style={{
-                fontFamily: "var(--serif)",
-                fontSize: "clamp(64px, 12vw, 180px)",
-                fontWeight: 700,
+                fontFamily: "var(--sans)",
+                fontSize: "clamp(72px, 14vw, 200px)",
+                fontWeight: 500,
                 opacity: 0,
               }}
             >

@@ -43,7 +43,7 @@ export default function ManifestoStatement() {
       <div className="max-w-[1200px] mx-auto px-8 sm:px-12 py-28 sm:py-44">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
           <h2
-            className="statement-text font-serif text-navy leading-[1.08] tracking-[-0.03em] max-w-2xl"
+            className="statement-text font-sans text-navy leading-[1.08] tracking-[-0.03em] max-w-2xl"
             style={{ fontSize: "clamp(34px, 4.8vw, 62px)" }}
           >
             Believe, achieve, and defy<br />

@@ -39,7 +39,7 @@ export default function HeroHeadline({
       className="bg-cream py-28 md:py-40 px-6"
     >
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="hero-h font-serif text-navy leading-[1.08] tracking-[-0.02em]"
+        <h2 className="hero-h font-sans text-navy leading-[1.08] tracking-[-0.02em]"
           style={{ fontSize: "clamp(2rem, 5.5vw, 4.5rem)" }}
         >
           <span className="hero-h-line opacity-0 translate-y-6 inline-block transition-all duration-[900ms] ease-out">

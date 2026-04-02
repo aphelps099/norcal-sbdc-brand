@@ -178,7 +178,7 @@ export default function ScrollRevealGrid({
           <div className="absolute inset-0 z-3 flex flex-col items-center justify-center pointer-events-none">
             {heading && (
               <h1
-                className="font-sans text-white text-center leading-[1.05] font-500"
+                className="font-sans text-white text-center leading-[1.05]"
                 style={{
                   fontSize: "clamp(30px, 5vw, 72px)",
                   textShadow: "0 2px 40px rgba(0,0,0,0.5)",

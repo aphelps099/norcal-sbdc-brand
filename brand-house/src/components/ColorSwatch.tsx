@@ -34,7 +34,7 @@ export default function ColorSwatch({ name, hex, usage }: ColorSwatchProps) {
       >
         {/* Name — top left */}
         <span
-          className="absolute top-3 left-3 font-sans text-[11px] font-800 uppercase tracking-[0.1em]"
+          className="absolute top-3 left-3 font-label text-[11px] uppercase tracking-[0.1em]"
           style={{ color: isLight ? "rgba(0,0,0,0.45)" : "rgba(255,255,255,0.55)" }}
         >
           {name}
@@ -42,7 +42,7 @@ export default function ColorSwatch({ name, hex, usage }: ColorSwatchProps) {
 
         {/* Hex — bottom left */}
         <span
-          className="absolute bottom-3 left-3 font-sans text-[11px] font-500 tracking-[0.02em]"
+          className="absolute bottom-3 left-3 font-sans text-[11px] tracking-[0.02em]"
           style={{ color: isLight ? "rgba(0,0,0,0.35)" : "rgba(255,255,255,0.4)" }}
         >
           {hex}
