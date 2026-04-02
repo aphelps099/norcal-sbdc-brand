@@ -54,18 +54,19 @@ export default function FlatCards({ chapters }: Props) {
             fontSize: "0.85rem",
             color: "var(--text-secondary)",
             lineHeight: 1.5,
-            fontWeight: 500,
+            fontWeight: 400,
           }}>
             {ch.description}
           </p>
           <span style={{
             display: "inline-block",
             marginTop: "20px",
-            fontFamily: "var(--mono)",
+            fontFamily: "var(--sans-condensed)",
             fontSize: "0.6rem",
-            letterSpacing: "0.1em",
+            letterSpacing: "0.15em",
             textTransform: "uppercase",
             color: "var(--royal)",
+            fontWeight: 500,
           }}>
             Explore &rarr;
           </span>

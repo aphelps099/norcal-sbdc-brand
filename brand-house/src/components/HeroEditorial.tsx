@@ -49,7 +49,7 @@ export default function HeroEditorial() {
     setTimeout(() => setClicked(false), 1200);
   }
 
-  const underlineColor = clicked ? "#8FC5D9" : hovered ? "#8FC5D9" : "white";
+  const underlineColor = clicked ? "#1D5AA7" : hovered ? "#1D5AA7" : "white";
 
   return (
     <section ref={sectionRef} className="relative w-full bg-black overflow-hidden">
@@ -78,7 +78,7 @@ export default function HeroEditorial() {
             className="inline-block text-center cursor-pointer bg-transparent border-none outline-none"
           >
             <h1
-              className="hero-brand font-serif text-white leading-[0.92] tracking-[-0.05em]"
+              className="hero-brand font-serif text-white leading-[0.92] tracking-[-0.04em]"
               style={{
                 fontSize: "clamp(64px, 12vw, 180px)",
                 fontWeight: 400,
