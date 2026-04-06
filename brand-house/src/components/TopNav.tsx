@@ -37,7 +37,7 @@ function AnimatedStar({ active }: { active: boolean }) {
       <g id="star" stroke="none" strokeWidth="1" fillRule="evenodd">
         <path
           d="M1011.48501,11.2353369 L1169.72409,653.038218 L2091.60532,738.475943 L1226.23134,1130.98717 L1458.06865,1976.22037 L1218.31263,1579.03879 L1078.64652,1068.49933 L1637.1469,813.428761 L1067.25191,759.657045 L969.048512,364.4811 L788.430601,706.886932 L338.267364,625.263122 L26.9639197,467.282973 L10.0982009,446.966622 L717.102633,575.532031 L1011.48501,11.2353369 Z"
-          stroke="rgba(255,255,255,0.25)"
+          stroke="#FFFFFF"
           strokeWidth="8"
           fill="none"
           className={`star-path ${active ? "star-path--active" : ""}`}
@@ -144,7 +144,7 @@ export default function TopNav() {
           top: 15%;
           width: 65%;
           height: auto;
-          opacity: 0.12;
+          opacity: 0.2;
           pointer-events: none;
         }
 
@@ -158,7 +158,7 @@ export default function TopNav() {
         .star-path--active {
           animation: star-dash 3s linear forwards;
           animation-delay: 0.3s;
-          fill: rgba(255, 255, 255, 0.06);
+          fill: #fff;
           transition: fill 1s 3.4s;
         }
       `}</style>
