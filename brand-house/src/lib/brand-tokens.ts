@@ -29,10 +29,9 @@ export const chapters = [
 ] as const;
 
 export const stats = [
-  { value: "$2.8B", label: "Capital raised" },
-  { value: "42,000+", label: "Jobs created" },
-  { value: "64,000+", label: "Clients served" },
-  { value: "40+", label: "Years of impact" },
+  { value: "42K+", label: "Clients served" },
+  { value: "11", label: "Centers across Northern California" },
+  { value: "40+", label: "Years strong" },
 ] as const;
 
 export const pillNavItems = [

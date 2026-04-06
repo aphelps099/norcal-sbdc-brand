@@ -31,10 +31,9 @@ const images = [
 ];
 
 const pillars = [
-  { label: "People", stat: "42K+" },
-  { label: "Connection", stat: "11" },
-  { label: "Capital", stat: "$2.8B" },
-  { label: "Growth", stat: "44yr" },
+  { label: "Clients Served", stat: "42K+" },
+  { label: "Centers", stat: "11" },
+  { label: "Years Strong", stat: "40+" },
 ];
 
 export default function PhotoMosaic() {
@@ -117,6 +116,12 @@ export default function PhotoMosaic() {
               Your Business<br />
               <span className="text-royal">Better.</span>
             </h2>
+            <p
+              className="mosaic-heading text-navy/40 uppercase mt-4"
+              style={{ fontFamily: "var(--sans-label)", fontSize: "0.65rem", letterSpacing: "0.16em" }}
+            >
+              People. Funding. Connection.
+            </p>
           </div>
 
           {/* Pillar stats — horizontal bar */}

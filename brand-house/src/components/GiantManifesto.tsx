@@ -51,15 +51,7 @@ export default function GiantManifesto() {
           );
         });
 
-        // Floating stat card animation
-        gsap.fromTo(
-          ".manifesto-stat",
-          { opacity: 0, y: 40, scale: 0.95 },
-          {
-            opacity: 1, y: 0, scale: 1, duration: 1, ease: "power3.out",
-            scrollTrigger: { trigger: ".manifesto-stat", start: "top 90%" },
-          }
-        );
+
       }, sectionRef.current);
     }
 
@@ -68,13 +60,13 @@ export default function GiantManifesto() {
   }, []);
 
   const segments = [
-    { text: "Our clients don\u2019t settle for generic advice. That\u2019s why they ", highlight: false },
-    { text: "trust", highlight: true },
-    { text: " SBDC. They get an advisor who ", highlight: false },
-    { text: "understands", highlight: true },
-    { text: " them, knows their market, their struggle, their ", highlight: false },
-    { text: "ambitions", highlight: true },
-    { text: " \u2014 and who knows what it takes to turn ambition into success.", highlight: false },
+    { text: "You don\u2019t need a pamphlet. You need someone who\u2019ll ", highlight: false },
+    { text: "listen,", highlight: true },
+    { text: " sit across the table, learn your numbers and your neighborhood \u2014 then help you ", highlight: false },
+    { text: "build", highlight: true },
+    { text: " something that lasts. That\u2019s what we do. One business, one ", highlight: false },
+    { text: "relationship", highlight: true },
+    { text: " at a time.", highlight: false },
   ];
 
   // Build word array with highlight flags
@@ -129,26 +121,7 @@ export default function GiantManifesto() {
         </h2>
       </div>
 
-      {/* Floating stat card — overlaps into next section */}
-      <div className="relative max-w-[1000px] mx-auto px-8 sm:px-12">
-        <div
-          className="manifesto-stat inline-flex items-baseline gap-4 bg-navy text-white px-8 py-5 sm:px-10 sm:py-6 relative z-10 -mb-10 sm:-mb-14"
-          style={{ opacity: 0 }}
-        >
-          <span
-            className="font-mono text-pool leading-none"
-            style={{ fontSize: "clamp(32px, 4vw, 48px)" }}
-          >
-            $2.8B
-          </span>
-          <span
-            className="text-white/40 uppercase"
-            style={{ fontFamily: "var(--sans-label)", fontSize: "0.6rem", letterSpacing: "0.16em" }}
-          >
-            Capital Raised
-          </span>
-        </div>
-      </div>
+
     </section>
   );
 }
