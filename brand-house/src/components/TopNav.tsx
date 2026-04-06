@@ -116,25 +116,60 @@ export default function TopNav() {
           - On .star-active: stroke draws over 3s, fill fades to white after 3.2s
       */}
       <style jsx global>{`
-        @keyframes star-dash {
-          to { stroke-dashoffset: 0; }
+        @keyframes star-draw {
+          0%   { stroke-dashoffset: 10000; }
+          100% { stroke-dashoffset: 0; }
+        }
+        @keyframes star-scale {
+          0%   { transform: scale(0.96); opacity: 0; }
+          30%  { opacity: 1; }
+          100% { transform: scale(1); opacity: 1; }
+        }
+
+        .sbdc-star-wrap {
+          transform: scale(0.96);
+          opacity: 0;
+        }
+        .sbdc-star-wrap.star-active {
+          animation: star-scale 2s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
         }
 
         .sbdc-star-svg {
           opacity: .2;
         }
 
+        /* Ghost: faint full star visible immediately */
+        .sbdc-star-ghost {
+          fill: rgba(255, 255, 255, 0.06);
+          stroke: rgba(255, 255, 255, 0.15);
+          stroke-width: 4;
+        }
+
+        /* Animated stroke that draws over the ghost */
         .sbdc-star-path {
           fill: rgba(255, 255, 255, 0);
           stroke-dasharray: 10000;
           stroke-dashoffset: 10000;
-          transition: fill 0s 0.2s;
+          transition: fill 0s 0.1s;
+        }
+        .sbdc-star-path.star-active {
+          animation: star-draw 2s cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards;
+          transition: fill 1.2s ease 2.2s;
+          fill: #fff;
         }
 
-        .sbdc-star-path.star-active {
-          animation: star-dash 3s linear 0.2s forwards;
-          transition: fill 1s 3.2s;
-          fill: #fff;
+        /* Soft glow behind the stroke */
+        .sbdc-star-glow {
+          fill: none;
+          stroke: rgba(255, 255, 255, 0);
+          stroke-width: 20;
+          stroke-dasharray: 10000;
+          stroke-dashoffset: 10000;
+          filter: url(#star-blur);
+        }
+        .sbdc-star-glow.star-active {
+          stroke: rgba(255, 255, 255, 0.5);
+          animation: star-draw 2s cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards;
         }
       `}</style>
 
@@ -257,7 +292,7 @@ export default function TopNav() {
               - Path: stroke draws over 3s, fill fades in at 3.2s
           */}
           <div
-            className="absolute overflow-hidden pointer-events-none hidden lg:block"
+            className={`absolute overflow-hidden pointer-events-none hidden lg:block sbdc-star-wrap${starActive ? " star-active" : ""}`}
             style={{
               right: "-10%",
               top: "20%",
@@ -282,7 +317,20 @@ export default function TopNav() {
               }}
               aria-hidden="true"
             >
-              <g id="star" stroke="none" strokeWidth="1" fillRule="evenodd">
+              <defs>
+                <filter id="star-blur">
+                  <feGaussianBlur stdDeviation="6" />
+                </filter>
+              </defs>
+              <g stroke="none" strokeWidth="1" fillRule="evenodd">
+                {/* Ghost: faint static outline always visible */}
+                <path className="sbdc-star-ghost" d={STAR_PATH} />
+                {/* Glow: blurred trail that follows the draw */}
+                <path
+                  className={`sbdc-star-glow${starActive ? " star-active" : ""}`}
+                  d={STAR_PATH}
+                />
+                {/* Main stroke draw + fill */}
                 <path
                   className={`sbdc-star-path${starActive ? " star-active" : ""}`}
                   d={STAR_PATH}
