@@ -120,32 +120,38 @@ export default function TopNav() {
           0%   { stroke-dashoffset: 10000; }
           100% { stroke-dashoffset: 0; }
         }
-        @keyframes star-scale {
-          0%   { transform: scale(0.96); opacity: 0; }
-          30%  { opacity: 1; }
-          100% { transform: scale(1); opacity: 1; }
+        @keyframes star-enter {
+          0%   {
+            transform: translate(8%, 6%) scale(0.88) rotate(3deg);
+            opacity: 0;
+          }
+          40%  { opacity: 1; }
+          100% {
+            transform: translate(0, 0) scale(1) rotate(0deg);
+            opacity: 1;
+          }
         }
 
         .sbdc-star-wrap {
-          transform: scale(0.96);
+          transform: translate(8%, 6%) scale(0.88) rotate(3deg);
           opacity: 0;
         }
         .sbdc-star-wrap.star-active {
-          animation: star-scale 2s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+          animation: star-enter 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
         }
 
         .sbdc-star-svg {
           opacity: .2;
         }
 
-        /* Ghost: faint full star visible immediately */
+        /* Ghost: faint full star visible immediately on enter */
         .sbdc-star-ghost {
-          fill: rgba(255, 255, 255, 0.06);
-          stroke: rgba(255, 255, 255, 0.15);
-          stroke-width: 4;
+          fill: rgba(255, 255, 255, 0.05);
+          stroke: rgba(255, 255, 255, 0.12);
+          stroke-width: 3;
         }
 
-        /* Animated stroke that draws over the ghost */
+        /* Main stroke — draws fast with dramatic ease */
         .sbdc-star-path {
           fill: rgba(255, 255, 255, 0);
           stroke-dasharray: 10000;
@@ -153,23 +159,23 @@ export default function TopNav() {
           transition: fill 0s 0.1s;
         }
         .sbdc-star-path.star-active {
-          animation: star-draw 2s cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards;
-          transition: fill 1.2s ease 2.2s;
+          animation: star-draw 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+          transition: fill 0.8s ease 1.5s;
           fill: #fff;
         }
 
-        /* Soft glow behind the stroke */
+        /* Soft glow trail */
         .sbdc-star-glow {
           fill: none;
           stroke: rgba(255, 255, 255, 0);
-          stroke-width: 20;
+          stroke-width: 18;
           stroke-dasharray: 10000;
           stroke-dashoffset: 10000;
           filter: url(#star-blur);
         }
         .sbdc-star-glow.star-active {
-          stroke: rgba(255, 255, 255, 0.5);
-          animation: star-draw 2s cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards;
+          stroke: rgba(255, 255, 255, 0.4);
+          animation: star-draw 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
         }
       `}</style>
 
