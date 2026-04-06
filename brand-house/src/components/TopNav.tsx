@@ -3,7 +3,6 @@
 import { useEffect, useState, useRef } from "react";
 import Fuse from "fuse.js";
 import { searchData, type SearchItem } from "@/lib/search-index";
-// SbdcWatermark removed from overlay for cleaner nav
 
 const fuse = new Fuse(searchData, {
   keys: ["title", "section", "content"],
@@ -22,6 +21,31 @@ const NAV_LINKS = [
   { label: "Stories", href: "/stories" },
   { label: "Glossary", href: "/glossary" },
 ];
+
+/* ── Inline star SVG (from CA SBDC brand asset) ── */
+function AnimatedStar({ active }: { active: boolean }) {
+  return (
+    <svg
+      width="2107"
+      height="2003"
+      viewBox="0 0 2107 2003"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="animated-star"
+      aria-hidden="true"
+    >
+      <g id="star" stroke="none" strokeWidth="1" fillRule="evenodd">
+        <path
+          d="M1011.48501,11.2353369 L1169.72409,653.038218 L2091.60532,738.475943 L1226.23134,1130.98717 L1458.06865,1976.22037 L1218.31263,1579.03879 L1078.64652,1068.49933 L1637.1469,813.428761 L1067.25191,759.657045 L969.048512,364.4811 L788.430601,706.886932 L338.267364,625.263122 L26.9639197,467.282973 L10.0982009,446.966622 L717.102633,575.532031 L1011.48501,11.2353369 Z"
+          stroke="rgba(255,255,255,0.25)"
+          strokeWidth="8"
+          fill="none"
+          className={`star-path ${active ? "star-path--active" : ""}`}
+        />
+      </g>
+    </svg>
+  );
+}
 
 export default function TopNav() {
   const [scrolled, setScrolled] = useState(false);
@@ -85,6 +109,7 @@ export default function TopNav() {
   return (
     <>
       <style jsx>{`
+        /* ── Burger bars ── */
         .burger-bar {
           display: block;
           height: 1.5px;
@@ -104,6 +129,37 @@ export default function TopNav() {
         .burger-wrap[data-open="true"] .burger-bottom {
           transform: translateY(-4.5px) rotate(-45deg);
           width: 18px;
+        }
+
+        /* ── Star drawing animation (ported from CA SBDC) ── */
+        @keyframes star-dash {
+          to {
+            stroke-dashoffset: 0;
+          }
+        }
+
+        .animated-star {
+          position: absolute;
+          right: -10%;
+          top: 15%;
+          width: 65%;
+          height: auto;
+          opacity: 0.12;
+          pointer-events: none;
+        }
+
+        .star-path {
+          fill: rgba(255, 255, 255, 0);
+          stroke-dasharray: 10000;
+          stroke-dashoffset: 10000;
+          transition: fill 0s 0.2s;
+        }
+
+        .star-path--active {
+          animation: star-dash 3s linear forwards;
+          animation-delay: 0.3s;
+          fill: rgba(255, 255, 255, 0.06);
+          transition: fill 1s 3.4s;
         }
       `}</style>
 
@@ -134,25 +190,40 @@ export default function TopNav() {
             SBDC
           </a>
 
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className={`burger-wrap flex flex-col items-end justify-center gap-[7px] w-[24px] h-[24px] transition-colors duration-500 ${
-              menuOpen
-                ? "text-white/30 hover:text-white"
-                : isDark
-                  ? "text-white/40 hover:text-white"
-                  : "text-text-tertiary hover:text-navy"
-            }`}
-            data-open={menuOpen}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-          >
-            <span className="burger-bar burger-top" />
-            <span className="burger-bar burger-bottom" />
-          </button>
+          <div className="flex items-center gap-6">
+            {/* MENU label */}
+            <span
+              className={`hidden sm:block text-[0.6rem] tracking-[0.2em] uppercase transition-colors duration-500 select-none ${
+                menuOpen
+                  ? "text-white/30"
+                  : isDark
+                    ? "text-white/30"
+                    : "text-text-tertiary"
+              }`}
+              style={{ fontFamily: "var(--sans-label)" }}
+            >
+              {menuOpen ? "CLOSE" : "MENU"}
+            </span>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className={`burger-wrap flex flex-col items-end justify-center gap-[7px] w-[24px] h-[24px] transition-colors duration-500 ${
+                menuOpen
+                  ? "text-white/30 hover:text-white"
+                  : isDark
+                    ? "text-white/40 hover:text-white"
+                    : "text-text-tertiary hover:text-navy"
+              }`}
+              data-open={menuOpen}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+            >
+              <span className="burger-bar burger-top" />
+              <span className="burger-bar burger-bottom" />
+            </button>
+          </div>
         </div>
       </nav>
 
-      {/* Full-screen menu overlay — dark navy, institutional */}
+      {/* Full-screen menu overlay */}
       {mounted && (
         <div
           className="fixed inset-0 z-[45] overflow-hidden"
@@ -165,7 +236,7 @@ export default function TopNav() {
             transition: "clip-path 0.7s cubic-bezier(0.25, 0.1, 0.25, 1)",
           }}
         >
-          {/* Clean dark gradient background — no grain/static */}
+          {/* Dark gradient background */}
           <div
             className="absolute inset-0"
             style={{
@@ -173,8 +244,13 @@ export default function TopNav() {
             }}
           />
 
+          {/* ── Animated star watermark ── */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <AnimatedStar active={menuOpen} />
+          </div>
+
           <div className="relative z-10 h-full flex flex-col pt-24 pb-8 md:pb-10 px-8 sm:px-12 md:px-16 lg:px-24 overflow-y-auto">
-            {/* 2-column nav layout */}
+            {/* Nav columns */}
             <div className="flex-1 flex flex-col justify-center">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 lg:gap-x-24 gap-y-10 max-w-[900px]">
                 {/* Left column — Brand House */}
@@ -196,7 +272,7 @@ export default function TopNav() {
                       letterSpacing: "0.15em",
                     }}
                   >
-                    Brand House
+                    Explore
                   </h3>
                   <div className="h-[1px] bg-white/[0.08] mb-5" />
                   <nav className="flex flex-col">
