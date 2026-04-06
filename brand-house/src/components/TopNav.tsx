@@ -366,9 +366,9 @@ export default function TopNav() {
               </div>
             </div>
 
-            {/* ── CTA band (modeled after CA SBDC "Find My SBDC" section) ── */}
+            {/* ── Search & CTA band ── */}
             <div
-              className="shrink-0 border-t border-white/[0.1]"
+              className="shrink-0"
               style={{
                 opacity: menuOpen ? 1 : 0,
                 transform: menuOpen ? "translateY(0)" : "translateY(12px)",
@@ -377,97 +377,127 @@ export default function TopNav() {
                   : "opacity 0.2s ease, transform 0.2s ease",
               }}
             >
-              <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 py-8 flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-10">
-                {/* Logo mark */}
-                <div className="shrink-0">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/logos/NCN_Band_Logo_White.png"
-                    alt="NorCal SBDC"
-                    className="h-14 w-auto opacity-60"
-                  />
-                </div>
-
-                {/* Description */}
-                <p
-                  className="text-white/50 flex-1 max-w-lg"
+              {/* Search result cards — appear ABOVE the search bar */}
+              <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16">
+                <div
+                  className="flex flex-wrap gap-3 pb-6 transition-all duration-300"
                   style={{
-                    fontFamily: "var(--sans)",
-                    fontSize: "0.9rem",
-                    lineHeight: "1.6",
-                    fontWeight: 400,
+                    minHeight: query && results.length > 0 ? "auto" : 0,
+                    opacity: query && results.length > 0 ? 1 : 0,
+                    transform: query && results.length > 0 ? "translateY(0)" : "translateY(8px)",
                   }}
                 >
-                  Find your local SBDC and get confidential business advising. 11 centers across Northern California — resources and support right in your neighborhood.
-                </p>
-
-                {/* Search input styled as CTA */}
-                <div className="flex items-center gap-4 shrink-0">
-                  <div className="relative">
-                    <input
-                      ref={searchRef}
-                      type="text"
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                      placeholder="Search brand house..."
-                      className="bg-transparent text-white/80 text-sm outline-none placeholder:text-white/30 tracking-[0.02em] border border-white/25 px-5 py-3 w-[220px] sm:w-[260px] focus:border-white/50 transition-colors duration-300"
-                      style={{ fontFamily: "var(--sans)", fontWeight: 400 }}
-                    />
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-white/30 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"
+                  {results.slice(0, 4).map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="group/card flex items-center gap-3 bg-white/[0.04] border border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.15] transition-all duration-200 rounded px-4 py-3 no-underline"
                     >
-                      <circle cx="11" cy="11" r="7" />
-                      <path d="m20 20-3.5-3.5" />
-                    </svg>
-                  </div>
-                  <span
-                    className="text-[9px] uppercase tracking-[0.12em] text-white/15 hidden md:block"
-                    style={{ fontFamily: "var(--sans-label)" }}
-                  >
-                    {"\u2318"}K
-                  </span>
+                      <span
+                        className="text-[8px] uppercase tracking-[0.15em] text-white/20 shrink-0"
+                        style={{ fontFamily: "var(--sans-label)" }}
+                      >
+                        {item.section}
+                      </span>
+                      <span
+                        className="text-white/50 group-hover/card:text-white/90 transition-colors duration-200 whitespace-nowrap"
+                        style={{ fontFamily: "var(--sans)", fontSize: "0.85rem", fontWeight: 500 }}
+                      >
+                        {item.title}
+                      </span>
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="text-white/10 group-hover/card:text-white/30 transition-colors duration-200 shrink-0"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                      </svg>
+                    </a>
+                  ))}
+                  {query && results.length === 0 && (
+                    <span className="text-white/20 text-sm" style={{ fontFamily: "var(--sans)" }}>
+                      No results for &ldquo;{query}&rdquo;
+                    </span>
+                  )}
                 </div>
               </div>
 
-              {/* Search results dropdown */}
-              {query && (
-                <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 pb-6">
-                  <div className="border-t border-white/[0.06] pt-4 max-w-md">
-                    {results.length === 0 ? (
-                      <p className="font-sans text-sm text-white/20 py-2">
-                        No results for &ldquo;{query}&rdquo;
-                      </p>
-                    ) : (
-                      results.map((item) => (
-                        <a
-                          key={item.href}
-                          href={item.href}
-                          onClick={() => setMenuOpen(false)}
-                          className="flex items-baseline gap-3 py-2 no-underline group/result hover:bg-white/[0.04] px-2 -mx-2 transition-colors duration-200 rounded-sm"
-                        >
-                          <span
-                            className="text-[9px] uppercase tracking-[0.15em] text-white/15 w-14 shrink-0"
-                            style={{ fontFamily: "var(--sans-label)" }}
-                          >
-                            {item.section}
-                          </span>
-                          <span className="font-sans text-white/50 text-sm group-hover/result:text-white/80 transition-colors duration-200">
-                            {item.title}
-                          </span>
-                        </a>
-                      ))
-                    )}
+              {/* Bottom band */}
+              <div className="border-t border-white/[0.1]">
+                <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 py-7 flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-12">
+                  {/* Logo */}
+                  <div className="shrink-0">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/logos/NCN_Band_Logo_White.png"
+                      alt="NorCal SBDC"
+                      className="h-12 w-auto opacity-50"
+                    />
+                  </div>
+
+                  {/* Description */}
+                  <p
+                    className="text-white/40 flex-1 max-w-md"
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontSize: "0.85rem",
+                      lineHeight: "1.55",
+                      fontWeight: 400,
+                    }}
+                  >
+                    Find what you need — colors, logos, templates, voice guidelines, and more. Everything to keep the NorCal SBDC brand sharp and consistent.
+                  </p>
+
+                  {/* Material Design search input */}
+                  <div className="shrink-0 relative w-[280px] sm:w-[320px]">
+                    <div className="flex items-center gap-3">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="text-white/25 shrink-0"
+                      >
+                        <circle cx="11" cy="11" r="7" />
+                        <path d="m20 20-3.5-3.5" />
+                      </svg>
+                      <input
+                        ref={searchRef}
+                        type="text"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        placeholder="Search brand house..."
+                        className="flex-1 bg-transparent text-white/80 outline-none placeholder:text-white/25 peer"
+                        style={{
+                          fontFamily: "var(--sans)",
+                          fontSize: "0.95rem",
+                          fontWeight: 400,
+                          letterSpacing: "0.01em",
+                          paddingBottom: "8px",
+                        }}
+                      />
+                    </div>
+                    {/* Material underline — bold, animated color on focus */}
+                    <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/15 transition-colors duration-300" />
+                    <div
+                      className="absolute bottom-0 left-0 right-0 h-[2px] origin-left scale-x-0 peer-focus:scale-x-100 transition-transform duration-300"
+                      style={{ backgroundColor: "#5684BA" }}
+                    />
                   </div>
                 </div>
-              )}
+              </div>
             </div>
           </div>
         </div>
