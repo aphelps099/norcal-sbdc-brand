@@ -67,11 +67,7 @@ const images = [
   },
 ];
 
-const pillars = [
-  { label: "Clients Served", stat: "42K+" },
-  { label: "Centers", stat: "11" },
-  { label: "Years Strong", stat: "40+" },
-];
+
 
 export default function PhotoMosaic() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -95,15 +91,6 @@ export default function PhotoMosaic() {
           }
         );
 
-        gsap.fromTo(
-          ".mosaic-pillars",
-          { opacity: 0, y: 16 },
-          {
-            opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: 0.15,
-            scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
-          }
-        );
-
         const tiles = sectionRef.current!.querySelectorAll<HTMLElement>(".mosaic-tile");
         tiles.forEach((tile, i) => {
           gsap.fromTo(
@@ -119,19 +106,7 @@ export default function PhotoMosaic() {
           );
         });
 
-        // Pillar stats stagger
-        const stats = sectionRef.current!.querySelectorAll<HTMLElement>(".pillar-stat");
-        stats.forEach((stat, i) => {
-          gsap.fromTo(
-            stat,
-            { opacity: 0, y: 20 },
-            {
-              opacity: 1, y: 0, duration: 0.7, ease: "power3.out",
-              delay: 0.3 + i * 0.1,
-              scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
-            }
-          );
-        });
+
       }, sectionRef.current);
     }
 
@@ -143,41 +118,7 @@ export default function PhotoMosaic() {
     <section ref={sectionRef} className="bg-white relative">
       {/* Content area with extra bottom padding for overlap */}
       <div className="max-w-[1400px] mx-auto px-8 sm:px-12 pt-32 sm:pt-40 pb-0">
-        {/* Heading + pillars row */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 lg:gap-16">
-          <div className="flex-1">
-            <RotatingHeadline />
-            <p
-              className="mosaic-heading text-navy/40 uppercase mt-4"
-              style={{ fontFamily: "var(--sans-label)", fontSize: "0.65rem", letterSpacing: "0.16em" }}
-            >
-              People. Funding. Connection.
-            </p>
-          </div>
-
-          {/* Pillar stats — horizontal bar */}
-          <div className="mosaic-pillars flex gap-6 sm:gap-10 pb-2 lg:pb-3">
-            {pillars.map((p, i) => (
-              <div key={i} className="pillar-stat flex flex-col items-start" style={{ opacity: 0 }}>
-                <span
-                  className="font-mono text-navy leading-none tracking-tight"
-                  style={{ fontSize: "clamp(20px, 2.5vw, 32px)" }}
-                >
-                  {p.stat}
-                </span>
-                <span
-                  className="text-navy/30 uppercase mt-1"
-                  style={{ fontFamily: "var(--sans-label)", fontSize: "0.55rem", letterSpacing: "0.14em" }}
-                >
-                  {p.label}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Accent bar under heading — bleeds into mosaic */}
-        <div className="h-[3px] bg-coral w-16 mt-8 mb-0" />
+        <RotatingHeadline />
       </div>
 
       {/* Photo grid — tighter to heading for overlap energy */}
