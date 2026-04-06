@@ -9,6 +9,7 @@ const fuse = new Fuse(searchData, {
   threshold: 0.4,
 });
 
+/* 4-column nav — mirrors CA SBDC Explore / About / Impact / Connect */
 const NAV_COLS = [
   {
     heading: "Explore",
@@ -16,8 +17,14 @@ const NAV_COLS = [
       { label: "Colors", href: "/colors" },
       { label: "Typography", href: "/typography" },
       { label: "Logos", href: "/logos" },
+    ],
+  },
+  {
+    heading: "Identity",
+    links: [
       { label: "Voice & Tone", href: "/voice" },
       { label: "Photography", href: "/photography" },
+      { label: "Stories", href: "/stories" },
     ],
   },
   {
@@ -26,7 +33,11 @@ const NAV_COLS = [
       { label: "Templates", href: "/templates" },
       { label: "Content", href: "/content" },
       { label: "Calendar", href: "/calendar" },
-      { label: "Stories", href: "/stories" },
+    ],
+  },
+  {
+    heading: "Reference",
+    links: [
       { label: "Glossary", href: "/glossary" },
     ],
   },
@@ -70,8 +81,6 @@ export default function TopNav() {
       setClosing(false);
       setMounted(true);
       setStarKey((k) => k + 1);
-      /* Small RAF delay so the SVG mounts first in inactive state,
-         then we flip the class to trigger CSS transitions properly */
       starTimer.current = setTimeout(() => setStarActive(true), 50);
       setTimeout(() => searchRef.current?.focus(), 500);
     } else {
@@ -107,14 +116,6 @@ export default function TopNav() {
 
   return (
     <>
-      {/*
-        ── Global styles for the star animation ──
-        Must be global so they reach the SVG element inside the overlay.
-        This mirrors the exact CA SBDC SCSS:
-          - SVG at opacity .2
-          - Path starts with transparent fill + hidden stroke (dashoffset)
-          - On .star-active: stroke draws over 3s, fill fades to white after 3.2s
-      */}
       <style jsx global>{`
         @keyframes star-draw {
           0%   { stroke-dashoffset: 10000; }
@@ -144,14 +145,14 @@ export default function TopNav() {
           opacity: .2;
         }
 
-        /* Ghost: faint full star visible immediately on enter */
+        /* Ghost: faint static outline */
         .sbdc-star-ghost {
-          fill: rgba(255, 255, 255, 0.05);
-          stroke: rgba(255, 255, 255, 0.12);
-          stroke-width: 3;
+          fill: rgba(255, 255, 255, 0.04);
+          stroke: rgba(255, 255, 255, 0.1);
+          stroke-width: 2;
         }
 
-        /* Main stroke — draws fast with dramatic ease */
+        /* Main stroke — fast draw, no glow */
         .sbdc-star-path {
           fill: rgba(255, 255, 255, 0);
           stroke-dasharray: 10000;
@@ -160,22 +161,8 @@ export default function TopNav() {
         }
         .sbdc-star-path.star-active {
           animation: star-draw 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
-          transition: fill 0.8s ease 1.5s;
+          transition: fill 0.6s ease 1.2s;
           fill: #fff;
-        }
-
-        /* Soft glow trail */
-        .sbdc-star-glow {
-          fill: none;
-          stroke: rgba(255, 255, 255, 0);
-          stroke-width: 18;
-          stroke-dasharray: 10000;
-          stroke-dashoffset: 10000;
-          filter: url(#star-blur);
-        }
-        .sbdc-star-glow.star-active {
-          stroke: rgba(255, 255, 255, 0.4);
-          animation: star-draw 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
         }
       `}</style>
 
@@ -274,13 +261,8 @@ export default function TopNav() {
             transition: "clip-path 0.7s cubic-bezier(0.25, 0.1, 0.25, 1)",
           }}
         >
-          {/* BG: dark navy base */}
-          <div
-            className="absolute inset-0"
-            style={{ backgroundColor: "#0b1623" }}
-          />
-
-          {/* BG photo overlay */}
+          {/* BG */}
+          <div className="absolute inset-0" style={{ backgroundColor: "#0b1623" }} />
           <div className="absolute inset-0 overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -290,20 +272,10 @@ export default function TopNav() {
             />
           </div>
 
-          {/* ── Animated star watermark ──
-              Matches CA SBDC exactly:
-              - Container: right:-10%, top:20%, width:60%, only on lg+
-              - Aspect ratio: 95.064072% padding
-              - SVG: opacity .2
-              - Path: stroke draws over 3s, fill fades in at 3.2s
-          */}
+          {/* ── Star watermark (no glow, clean strokes) ── */}
           <div
             className={`absolute overflow-hidden pointer-events-none hidden lg:block sbdc-star-wrap${starActive ? " star-active" : ""}`}
-            style={{
-              right: "-10%",
-              top: "20%",
-              width: "60%",
-            }}
+            style={{ right: "-10%", top: "20%", width: "60%" }}
           >
             <div style={{ paddingTop: "95.064072%" }} />
             <svg
@@ -314,29 +286,11 @@ export default function TopNav() {
               viewBox="0 0 2107 2003"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              style={{
-                position: "absolute",
-                left: 0,
-                top: 0,
-                width: "100%",
-                height: "100%",
-              }}
+              style={{ position: "absolute", left: 0, top: 0, width: "100%", height: "100%" }}
               aria-hidden="true"
             >
-              <defs>
-                <filter id="star-blur">
-                  <feGaussianBlur stdDeviation="6" />
-                </filter>
-              </defs>
               <g stroke="none" strokeWidth="1" fillRule="evenodd">
-                {/* Ghost: faint static outline always visible */}
                 <path className="sbdc-star-ghost" d={STAR_PATH} />
-                {/* Glow: blurred trail that follows the draw */}
-                <path
-                  className={`sbdc-star-glow${starActive ? " star-active" : ""}`}
-                  d={STAR_PATH}
-                />
-                {/* Main stroke draw + fill */}
                 <path
                   className={`sbdc-star-path${starActive ? " star-active" : ""}`}
                   d={STAR_PATH}
@@ -351,9 +305,10 @@ export default function TopNav() {
           <div className="relative z-10 h-full flex flex-col overflow-y-auto">
             <div className="shrink-0 h-16" />
 
+            {/* 4-column nav grid */}
             <div className="flex-1 flex flex-col justify-center px-6 sm:px-10 lg:px-16">
               <div className="max-w-[1400px] mx-auto w-full">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10 max-w-[700px]">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 lg:gap-x-12 gap-y-10">
                   {NAV_COLS.map((col, colIdx) => (
                     <div
                       key={col.heading}
@@ -376,7 +331,6 @@ export default function TopNav() {
                       >
                         {col.heading}
                       </h3>
-
                       <nav className="flex flex-col gap-2 mt-3">
                         {col.links.map((link, i) => (
                           <a
@@ -409,83 +363,112 @@ export default function TopNav() {
                     </div>
                   ))}
                 </div>
+              </div>
+            </div>
 
-                {/* Search */}
-                <div
-                  className="mt-14 max-w-[400px]"
+            {/* ── CTA band (modeled after CA SBDC "Find My SBDC" section) ── */}
+            <div
+              className="shrink-0 border-t border-white/[0.1]"
+              style={{
+                opacity: menuOpen ? 1 : 0,
+                transform: menuOpen ? "translateY(0)" : "translateY(12px)",
+                transition: menuOpen
+                  ? "opacity 0.5s ease 0.55s, transform 0.5s ease 0.55s"
+                  : "opacity 0.2s ease, transform 0.2s ease",
+              }}
+            >
+              <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 py-8 flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-10">
+                {/* Logo mark */}
+                <div className="shrink-0">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/logos/NCN_Band_Logo_White.png"
+                    alt="NorCal SBDC"
+                    className="h-14 w-auto opacity-60"
+                  />
+                </div>
+
+                {/* Description */}
+                <p
+                  className="text-white/50 flex-1 max-w-lg"
                   style={{
-                    opacity: menuOpen ? 1 : 0,
-                    transform: menuOpen ? "translateY(0)" : "translateY(8px)",
-                    transition: menuOpen
-                      ? "opacity 0.5s ease 0.6s, transform 0.5s ease 0.6s"
-                      : "opacity 0.2s ease, transform 0.2s ease",
+                    fontFamily: "var(--sans)",
+                    fontSize: "0.9rem",
+                    lineHeight: "1.6",
+                    fontWeight: 400,
                   }}
                 >
-                  <div className="flex items-center gap-3 border-b border-white/[0.15] pb-3 focus-within:border-white/30 transition-colors duration-300">
+                  Find your local SBDC and get confidential business advising. 11 centers across Northern California — resources and support right in your neighborhood.
+                </p>
+
+                {/* Search input styled as CTA */}
+                <div className="flex items-center gap-4 shrink-0">
+                  <div className="relative">
+                    <input
+                      ref={searchRef}
+                      type="text"
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      placeholder="Search brand house..."
+                      className="bg-transparent text-white/80 text-sm outline-none placeholder:text-white/30 tracking-[0.02em] border border-white/25 px-5 py-3 w-[220px] sm:w-[260px] focus:border-white/50 transition-colors duration-300"
+                      style={{ fontFamily: "var(--sans)", fontWeight: 400 }}
+                    />
                     <svg
-                      width="18"
-                      height="18"
+                      width="16"
+                      height="16"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="text-white/25 shrink-0"
+                      className="text-white/30 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"
                     >
                       <circle cx="11" cy="11" r="7" />
                       <path d="m20 20-3.5-3.5" />
                     </svg>
-                    <input
-                      ref={searchRef}
-                      type="text"
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                      placeholder="Search..."
-                      className="flex-1 bg-transparent text-white/70 text-sm outline-none placeholder:text-white/20 tracking-[0.02em]"
-                      style={{ fontFamily: "var(--sans)", fontWeight: 400 }}
-                    />
-                    <span
-                      className="text-[9px] uppercase tracking-[0.12em] text-white/10 hidden sm:block"
-                      style={{ fontFamily: "var(--sans-label)" }}
-                    >
-                      {"\u2318"}K
-                    </span>
                   </div>
-
-                  {query && (
-                    <div className="mt-4 space-y-0.5">
-                      {results.length === 0 ? (
-                        <p className="font-sans text-sm text-white/20 py-2">
-                          No results for &ldquo;{query}&rdquo;
-                        </p>
-                      ) : (
-                        results.map((item) => (
-                          <a
-                            key={item.href}
-                            href={item.href}
-                            onClick={() => setMenuOpen(false)}
-                            className="flex items-baseline gap-3 py-2 no-underline group/result hover:bg-white/[0.04] px-2 -mx-2 transition-colors duration-200 rounded-sm"
-                          >
-                            <span
-                              className="text-[9px] uppercase tracking-[0.15em] text-white/15 w-14 shrink-0"
-                              style={{ fontFamily: "var(--sans-label)" }}
-                            >
-                              {item.section}
-                            </span>
-                            <span className="font-sans text-white/50 text-sm group-hover/result:text-white/80 transition-colors duration-200">
-                              {item.title}
-                            </span>
-                          </a>
-                        ))
-                      )}
-                    </div>
-                  )}
+                  <span
+                    className="text-[9px] uppercase tracking-[0.12em] text-white/15 hidden md:block"
+                    style={{ fontFamily: "var(--sans-label)" }}
+                  >
+                    {"\u2318"}K
+                  </span>
                 </div>
               </div>
-            </div>
 
-            <div className="shrink-0 h-10" />
+              {/* Search results dropdown */}
+              {query && (
+                <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 pb-6">
+                  <div className="border-t border-white/[0.06] pt-4 max-w-md">
+                    {results.length === 0 ? (
+                      <p className="font-sans text-sm text-white/20 py-2">
+                        No results for &ldquo;{query}&rdquo;
+                      </p>
+                    ) : (
+                      results.map((item) => (
+                        <a
+                          key={item.href}
+                          href={item.href}
+                          onClick={() => setMenuOpen(false)}
+                          className="flex items-baseline gap-3 py-2 no-underline group/result hover:bg-white/[0.04] px-2 -mx-2 transition-colors duration-200 rounded-sm"
+                        >
+                          <span
+                            className="text-[9px] uppercase tracking-[0.15em] text-white/15 w-14 shrink-0"
+                            style={{ fontFamily: "var(--sans-label)" }}
+                          >
+                            {item.section}
+                          </span>
+                          <span className="font-sans text-white/50 text-sm group-hover/result:text-white/80 transition-colors duration-200">
+                            {item.title}
+                          </span>
+                        </a>
+                      ))
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
