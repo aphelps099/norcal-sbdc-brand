@@ -1,6 +1,43 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+const ROTATE_WORDS = ["Better.", "People.", "Funded.", "Connected."];
+
+function RotatingHeadline() {
+  const [index, setIndex] = useState(0);
+  const [animating, setAnimating] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAnimating(true);
+      setTimeout(() => {
+        setIndex((i) => (i + 1) % ROTATE_WORDS.length);
+        setAnimating(false);
+      }, 400);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <h2
+      className="mosaic-heading font-sans text-navy leading-[0.95] tracking-[-0.04em]"
+      style={{ fontSize: "clamp(40px, 6vw, 80px)" }}
+    >
+      Your Business<br />
+      <span
+        className="text-royal inline-block transition-all duration-400 ease-out"
+        style={{
+          opacity: animating ? 0 : 1,
+          transform: animating ? "translateY(12px)" : "translateY(0)",
+          transition: "opacity 0.4s ease, transform 0.4s ease",
+        }}
+      >
+        {ROTATE_WORDS[index]}
+      </span>
+    </h2>
+  );
+}
 
 const images = [
   {
@@ -109,13 +146,7 @@ export default function PhotoMosaic() {
         {/* Heading + pillars row */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 lg:gap-16">
           <div className="flex-1">
-            <h2
-              className="mosaic-heading font-sans text-navy leading-[0.95] tracking-[-0.04em]"
-              style={{ fontSize: "clamp(40px, 6vw, 80px)" }}
-            >
-              Your Business<br />
-              <span className="text-royal">Better.</span>
-            </h2>
+            <RotatingHeadline />
             <p
               className="mosaic-heading text-navy/40 uppercase mt-4"
               style={{ fontFamily: "var(--sans-label)", fontSize: "0.65rem", letterSpacing: "0.16em" }}
