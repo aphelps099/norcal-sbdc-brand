@@ -32,9 +32,7 @@ const NAV_COLS = [
   },
 ];
 
-const ALL_LINKS = NAV_COLS.flatMap((c) => c.links);
-
-/* star SVG path from CA SBDC brand asset */
+/* Star SVG path from CA SBDC brand asset */
 const STAR_PATH =
   "M1011.48501,11.2353369 L1169.72409,653.038218 L2091.60532,738.475943 L1226.23134,1130.98717 L1458.06865,1976.22037 L1218.31263,1579.03879 L1078.64652,1068.49933 L1637.1469,813.428761 L1067.25191,759.657045 L969.048512,364.4811 L788.430601,706.886932 L338.267364,625.263122 L26.9639197,467.282973 L10.0982009,446.966622 L717.102633,575.532031 L1011.48501,11.2353369 Z";
 
@@ -44,17 +42,17 @@ export default function TopNav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [closing, setClosing] = useState(false);
+  const [starActive, setStarActive] = useState(false);
   const [query, setQuery] = useState("");
-  /* key increments each open so the SVG re-mounts → restarts animation */
   const [starKey, setStarKey] = useState(0);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const starTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchRef = useRef<HTMLInputElement>(null);
 
   const results: SearchItem[] = query
     ? fuse.search(query).map((r) => r.item)
     : [];
 
-  /* scroll listener */
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
@@ -64,18 +62,22 @@ export default function TopNav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* open / close */
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = "hidden";
       if (closeTimer.current) clearTimeout(closeTimer.current);
+      if (starTimer.current) clearTimeout(starTimer.current);
       setClosing(false);
       setMounted(true);
       setStarKey((k) => k + 1);
+      /* Small RAF delay so the SVG mounts first in inactive state,
+         then we flip the class to trigger CSS transitions properly */
+      starTimer.current = setTimeout(() => setStarActive(true), 50);
       setTimeout(() => searchRef.current?.focus(), 500);
     } else {
       document.body.style.overflow = "";
       setQuery("");
+      setStarActive(false);
       setClosing(true);
       closeTimer.current = setTimeout(() => {
         setMounted(false);
@@ -85,10 +87,10 @@ export default function TopNav() {
     return () => {
       document.body.style.overflow = "";
       if (closeTimer.current) clearTimeout(closeTimer.current);
+      if (starTimer.current) clearTimeout(starTimer.current);
     };
   }, [menuOpen]);
 
-  /* keyboard */
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
@@ -105,10 +107,34 @@ export default function TopNav() {
 
   return (
     <>
-      {/* ── Global keyframes (must escape scoped-jsx) ── */}
+      {/*
+        ── Global styles for the star animation ──
+        Must be global so they reach the SVG element inside the overlay.
+        This mirrors the exact CA SBDC SCSS:
+          - SVG at opacity .2
+          - Path starts with transparent fill + hidden stroke (dashoffset)
+          - On .star-active: stroke draws over 3s, fill fades to white after 3.2s
+      */}
       <style jsx global>{`
         @keyframes star-dash {
           to { stroke-dashoffset: 0; }
+        }
+
+        .sbdc-star-svg {
+          opacity: .2;
+        }
+
+        .sbdc-star-path {
+          fill: rgba(255, 255, 255, 0);
+          stroke-dasharray: 10000;
+          stroke-dashoffset: 10000;
+          transition: fill 0s 0.2s;
+        }
+
+        .sbdc-star-path.star-active {
+          animation: star-dash 3s linear 0.2s forwards;
+          transition: fill 1s 3.2s;
+          fill: #fff;
         }
       `}</style>
 
@@ -207,24 +233,29 @@ export default function TopNav() {
             transition: "clip-path 0.7s cubic-bezier(0.25, 0.1, 0.25, 1)",
           }}
         >
-          {/* ── BG layer: dark navy base ── */}
+          {/* BG: dark navy base */}
           <div
             className="absolute inset-0"
             style={{ backgroundColor: "#0b1623" }}
           />
 
-          {/* ── BG photo (from CA SBDC) ── */}
+          {/* BG photo overlay */}
           <div className="absolute inset-0 overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/photos/bg-star.jpg"
               alt=""
               className="absolute inset-0 w-full h-full object-cover object-center"
-              style={{ opacity: 0.7 }}
             />
           </div>
 
-          {/* ── Animated star watermark ── */}
+          {/* ── Animated star watermark ──
+              Matches CA SBDC exactly:
+              - Container: right:-10%, top:20%, width:60%, only on lg+
+              - Aspect ratio: 95.064072% padding
+              - SVG: opacity .2
+              - Path: stroke draws over 3s, fill fades in at 3.2s
+          */}
           <div
             className="absolute overflow-hidden pointer-events-none hidden lg:block"
             style={{
@@ -233,10 +264,10 @@ export default function TopNav() {
               width: "60%",
             }}
           >
-            {/* aspect-ratio shim (95.064072% matches the CA SBDC original) */}
             <div style={{ paddingTop: "95.064072%" }} />
             <svg
               key={starKey}
+              className="sbdc-star-svg"
               width="2107"
               height="2003"
               viewBox="0 0 2107 2003"
@@ -248,31 +279,15 @@ export default function TopNav() {
                 top: 0,
                 width: "100%",
                 height: "100%",
-                opacity: 0.2,
               }}
               aria-hidden="true"
             >
               <g id="star" stroke="none" strokeWidth="1" fillRule="evenodd">
                 <path
+                  className={`sbdc-star-path${starActive ? " star-active" : ""}`}
                   d={STAR_PATH}
                   stroke="#FFFFFF"
                   strokeWidth="8"
-                  style={
-                    menuOpen
-                      ? {
-                          fill: "#fff",
-                          strokeDasharray: 10000,
-                          strokeDashoffset: 10000,
-                          animation: "star-dash 3s linear 0.2s forwards",
-                          transition: "fill 1s 3.2s",
-                        }
-                      : {
-                          fill: "rgba(255,255,255,0)",
-                          strokeDasharray: 10000,
-                          strokeDashoffset: 10000,
-                          transition: "fill 0s 0.2s",
-                        }
-                  }
                 />
               </g>
             </svg>
@@ -280,10 +295,8 @@ export default function TopNav() {
 
           {/* ── Menu content ── */}
           <div className="relative z-10 h-full flex flex-col overflow-y-auto">
-            {/* Spacer for fixed header */}
             <div className="shrink-0 h-16" />
 
-            {/* Nav columns — match CA SBDC 4-col grid proportions */}
             <div className="flex-1 flex flex-col justify-center px-6 sm:px-10 lg:px-16">
               <div className="max-w-[1400px] mx-auto w-full">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10 max-w-[700px]">
@@ -298,7 +311,6 @@ export default function TopNav() {
                           : "opacity 0.2s ease, transform 0.2s ease",
                       }}
                     >
-                      {/* Section heading with underline — matches CA SBDC */}
                       <h3
                         className="text-white pb-3 mb-3 border-b-2 border-white"
                         style={{
@@ -311,7 +323,6 @@ export default function TopNav() {
                         {col.heading}
                       </h3>
 
-                      {/* Sub-links */}
                       <nav className="flex flex-col gap-2 mt-3">
                         {col.links.map((link, i) => (
                           <a
@@ -345,7 +356,7 @@ export default function TopNav() {
                   ))}
                 </div>
 
-                {/* Search bar */}
+                {/* Search */}
                 <div
                   className="mt-14 max-w-[400px]"
                   style={{
@@ -378,10 +389,7 @@ export default function TopNav() {
                       onChange={(e) => setQuery(e.target.value)}
                       placeholder="Search..."
                       className="flex-1 bg-transparent text-white/70 text-sm outline-none placeholder:text-white/20 tracking-[0.02em]"
-                      style={{
-                        fontFamily: "var(--sans)",
-                        fontWeight: 400,
-                      }}
+                      style={{ fontFamily: "var(--sans)", fontWeight: 400 }}
                     />
                     <span
                       className="text-[9px] uppercase tracking-[0.12em] text-white/10 hidden sm:block"
@@ -423,7 +431,6 @@ export default function TopNav() {
               </div>
             </div>
 
-            {/* Bottom spacer */}
             <div className="shrink-0 h-10" />
           </div>
         </div>
