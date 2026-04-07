@@ -132,12 +132,12 @@ export default function ColorsPage() {
               </p>
             </div>
 
-            {/* Gradient 2 — Navy → Berry → Evergreen (warm editorial) */}
+            {/* Gradient 2 — Navy → Steel → Fog (depth, editorial) */}
             <div>
               <div
                 className="relative overflow-hidden aspect-[21/9] flex items-center justify-center"
                 style={{
-                  background: "linear-gradient(150deg, #111C2E 0%, #A73B44 45%, #00685E 100%)",
+                  background: "linear-gradient(150deg, #111C2E 0%, #5684BA 50%, #85A3C8 100%)",
                 }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -149,7 +149,7 @@ export default function ColorsPage() {
                 />
               </div>
               <p className="mt-3 text-navy/40 text-[13px] leading-relaxed font-sans italic">
-                Navy → Berry → Evergreen at 150° — warm editorial sweep for stories, events, and campaign content.
+                Navy → Steel → Fog at 150° — editorial depth for stories, events, and campaign content.
               </p>
             </div>
 
