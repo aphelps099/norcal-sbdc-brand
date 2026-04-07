@@ -41,6 +41,7 @@ export const chapters = [
   { title: "Calendar", description: "Key dates and campaign themes.", href: "/calendar" },
   { title: "Stories", description: "Client success stories.", href: "/stories" },
   { title: "Glossary", description: "Terms and definitions.", href: "/glossary" },
+  { title: "Generate", description: "AI-powered on-brand content generation.", href: "/generate" },
 ] as const;
 
 export const stats = [

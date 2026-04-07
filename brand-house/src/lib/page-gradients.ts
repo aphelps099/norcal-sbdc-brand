@@ -78,3 +78,9 @@ export const gradientGlossary: GradientDef = {
   angle: 125,
   stops: ["#13171C", "#2B3035", "#004290", "#1D5AA7", "#85A3C8"],
 };
+
+/** Generate — creative energy: navy → royal → evergreen → pool → fog */
+export const gradientGenerate: GradientDef = {
+  angle: 140,
+  stops: ["#0f1c2e", "#1D5AA7", "#00685E", "#8FC5D9", "#85A3C8"],
+};

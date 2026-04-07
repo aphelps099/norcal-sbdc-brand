@@ -66,4 +66,10 @@ export const searchData: SearchItem[] = [
     content: "Photo style, real people, natural light, composition rules, Do and Don't, image overlays, brand photography guidelines",
     href: "/photography",
   },
+  {
+    title: "Content Generator",
+    section: "Generate",
+    content: "AI content generator, success stories, social posts, email snippets, workshop flyers, lender outreach, newsletter, client spotlight, brand-compliant copy, Claude AI",
+    href: "/generate",
+  },
 ];
