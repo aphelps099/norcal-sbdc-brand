@@ -91,26 +91,24 @@ export default function ContentGenerator() {
     <div>
       {/* ── Format Selection ── */}
       {phase === "select" && (
-        <div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {CONTENT_FORMATS.map((format) => (
-              <button
-                key={format.id}
-                onClick={() => handleSelectFormat(format)}
-                className="text-left p-5 border border-black/[0.06] hover:border-royal/30 hover:bg-royal/[0.02] transition-colors duration-200"
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {CONTENT_FORMATS.map((format) => (
+            <button
+              key={format.id}
+              onClick={() => handleSelectFormat(format)}
+              className="text-left p-5 border border-navy/12 rounded-xl hover:border-royal/40 hover:bg-royal/[0.04] hover:shadow-sm transition-all duration-200"
+            >
+              <p
+                className="text-navy text-[15px] mb-1"
+                style={{ fontFamily: "var(--sans)", fontWeight: 500 }}
               >
-                <p
-                  className="text-navy text-[15px] mb-1"
-                  style={{ fontFamily: "var(--sans)", fontWeight: 500 }}
-                >
-                  {format.label}
-                </p>
-                <p className="text-navy/40 text-[13px] font-sans leading-relaxed">
-                  {format.description}
-                </p>
-              </button>
-            ))}
-          </div>
+                {format.label}
+              </p>
+              <p className="text-navy/55 text-[13px] font-sans leading-relaxed">
+                {format.description}
+              </p>
+            </button>
+          ))}
         </div>
       )}
 
@@ -119,22 +117,22 @@ export default function ContentGenerator() {
         <div>
           <button
             onClick={handleBack}
-            className="font-label text-[10px] uppercase tracking-[0.14em] text-navy/30 hover:text-navy/60 transition-colors mb-6 block"
+            className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/50 hover:text-royal transition-colors mb-6 block"
           >
             ← Back to formats
           </button>
 
           <p
-            className="text-navy text-[20px] tracking-[-0.02em] mb-8"
+            className="text-navy text-[22px] tracking-[-0.02em] mb-8"
             style={{ fontFamily: "var(--sans)", fontWeight: 500 }}
           >
             {selectedFormat.label}
           </p>
 
-          <div className="space-y-5 max-w-lg">
+          <div className="space-y-6 max-w-lg">
             {selectedFormat.questions.map((q) => (
               <div key={q.id}>
-                <label className="font-label text-[10px] uppercase tracking-[0.14em] text-navy/40 block mb-2">
+                <label className="font-label text-[12px] uppercase tracking-[0.1em] text-navy/70 block mb-2">
                   {q.label}
                   {q.required && <span className="text-[#A73B44] ml-1">*</span>}
                 </label>
@@ -144,10 +142,10 @@ export default function ContentGenerator() {
                       <button
                         key={opt}
                         onClick={() => setAnswers((a) => ({ ...a, [q.id]: opt }))}
-                        className={`px-4 py-2 text-[13px] font-sans border transition-colors ${
+                        className={`px-4 py-2.5 text-[13px] font-sans border rounded-lg transition-all ${
                           answers[q.id] === opt
-                            ? "border-royal bg-royal/[0.06] text-royal"
-                            : "border-black/[0.08] text-navy/60 hover:border-navy/20"
+                            ? "border-royal bg-royal/10 text-royal shadow-sm"
+                            : "border-navy/15 text-navy/70 hover:border-royal/40 hover:text-navy"
                         }`}
                       >
                         {opt}
@@ -160,7 +158,7 @@ export default function ContentGenerator() {
                     onChange={(e) => setAnswers((a) => ({ ...a, [q.id]: e.target.value }))}
                     placeholder={q.placeholder}
                     rows={3}
-                    className="w-full px-4 py-3 border border-black/[0.08] text-navy text-[14px] font-sans placeholder:text-navy/25 focus:outline-none focus:border-royal/40 transition-colors resize-none"
+                    className="w-full px-4 py-3.5 border border-navy/20 rounded-lg text-navy text-[14px] font-sans placeholder:text-navy/40 focus:outline-none focus:border-royal focus:ring-2 focus:ring-royal/15 transition-all resize-none"
                   />
                 ) : (
                   <input
@@ -168,7 +166,7 @@ export default function ContentGenerator() {
                     value={answers[q.id] || ""}
                     onChange={(e) => setAnswers((a) => ({ ...a, [q.id]: e.target.value }))}
                     placeholder={q.placeholder}
-                    className="w-full px-4 py-3 border border-black/[0.08] text-navy text-[14px] font-sans placeholder:text-navy/25 focus:outline-none focus:border-royal/40 transition-colors"
+                    className="w-full px-4 py-3.5 border border-navy/20 rounded-lg text-navy text-[14px] font-sans placeholder:text-navy/40 focus:outline-none focus:border-royal focus:ring-2 focus:ring-royal/15 transition-all"
                   />
                 )}
               </div>
@@ -176,12 +174,12 @@ export default function ContentGenerator() {
           </div>
 
           {error && (
-            <p className="mt-4 text-[#A73B44] text-[13px] font-sans">{error}</p>
+            <p className="mt-4 text-[#A73B44] text-[14px] font-sans">{error}</p>
           )}
 
           <button
             onClick={handleGenerate}
-            className="mt-8 px-8 py-3 bg-[#004290] text-white text-[14px] font-sans tracking-[0.01em] hover:bg-[#003574] transition-colors"
+            className="mt-8 px-8 py-3.5 bg-[#004290] text-white text-[14px] font-sans tracking-[0.01em] rounded-lg hover:bg-[#003574] hover:shadow-md transition-all"
             style={{ fontWeight: 500 }}
           >
             Generate
@@ -194,18 +192,18 @@ export default function ContentGenerator() {
         <div>
           <button
             onClick={handleBack}
-            className="font-label text-[10px] uppercase tracking-[0.14em] text-navy/30 hover:text-navy/60 transition-colors mb-6 block"
+            className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/50 hover:text-royal transition-colors mb-6 block"
           >
             ← New format
           </button>
 
           <div
             ref={outputRef}
-            className="relative border border-black/[0.04] bg-[#f7f7f5] min-h-[240px] flex flex-col"
+            className="relative border border-navy/10 rounded-xl bg-[#f7f7f5] min-h-[240px] flex flex-col overflow-hidden"
           >
             {/* Header bar */}
-            <div className="px-6 md:px-8 pt-5 pb-3 border-b border-black/[0.04]">
-              <p className="font-label text-[10px] uppercase tracking-[0.14em] text-navy/25">
+            <div className="px-6 md:px-8 pt-5 pb-3 border-b border-navy/8">
+              <p className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/45">
                 {selectedFormat.label}
               </p>
             </div>
@@ -214,14 +212,14 @@ export default function ContentGenerator() {
             <div className="px-6 md:px-8 py-6 flex-1">
               {output ? (
                 <div
-                  className="text-navy/80 text-[15px] leading-[1.8] font-sans whitespace-pre-wrap"
+                  className="text-navy/85 text-[15px] leading-[1.8] font-sans whitespace-pre-wrap"
                   style={{ fontWeight: 500 }}
                 >
                   {output}
                 </div>
               ) : (
-                <div className="flex items-center gap-2 text-navy/25">
-                  <span className="inline-block w-1.5 h-1.5 bg-navy/25 rounded-full animate-pulse" />
+                <div className="flex items-center gap-2.5 text-navy/40">
+                  <span className="inline-block w-2 h-2 bg-royal/40 rounded-full animate-pulse" />
                   <span className="text-[13px] font-sans">Generating...</span>
                 </div>
               )}
@@ -229,16 +227,16 @@ export default function ContentGenerator() {
 
             {/* Action bar — bottom right, inside the frame */}
             {phase === "done" && (
-              <div className="px-6 md:px-8 py-3 border-t border-black/[0.04] flex items-center justify-end gap-2">
+              <div className="px-6 md:px-8 py-3 border-t border-navy/8 flex items-center justify-end gap-2">
                 <button
                   onClick={handleGenerate}
-                  className="px-4 py-2 text-navy/40 text-[12px] font-label uppercase tracking-[0.1em] hover:text-navy/70 transition-colors"
+                  className="px-4 py-2 text-navy/55 text-[12px] font-label uppercase tracking-[0.1em] rounded-lg hover:text-navy/80 hover:bg-navy/[0.04] transition-all"
                 >
                   Regenerate
                 </button>
                 <button
                   onClick={handleCopy}
-                  className="px-4 py-2 bg-[#004290] text-white text-[12px] font-label uppercase tracking-[0.1em] hover:bg-[#003574] transition-colors"
+                  className="px-5 py-2 bg-[#004290] text-white text-[12px] font-label uppercase tracking-[0.1em] rounded-lg hover:bg-[#003574] transition-colors"
                 >
                   {copied ? "Copied" : "Copy"}
                 </button>
