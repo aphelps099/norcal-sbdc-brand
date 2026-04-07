@@ -2,6 +2,42 @@ import Anthropic from "@anthropic-ai/sdk";
 import { CONTENT_FORMATS } from "@/lib/content-formats";
 import { buildSystemPrompt } from "@/lib/system-prompt";
 
+/**
+ * Fetch a URL and extract readable text content.
+ * Returns empty string on failure — never blocks generation.
+ */
+async function fetchPageContent(url: string): Promise<string> {
+  try {
+    const res = await fetch(url, {
+      headers: { "User-Agent": "NorCalSBDC-BrandHouse/1.0" },
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) return "";
+    const html = await res.text();
+
+    // Strip scripts, styles, and HTML tags to get readable text
+    const text = html
+      .replace(/<script[\s\S]*?<\/script>/gi, "")
+      .replace(/<style[\s\S]*?<\/style>/gi, "")
+      .replace(/<nav[\s\S]*?<\/nav>/gi, "")
+      .replace(/<footer[\s\S]*?<\/footer>/gi, "")
+      .replace(/<header[\s\S]*?<\/header>/gi, "")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&nbsp;/g, " ")
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&#?\w+;/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    // Limit to ~3000 chars to avoid blowing up the context
+    return text.slice(0, 3000);
+  } catch {
+    return "";
+  }
+}
+
 export async function POST(request: Request) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
@@ -21,6 +57,13 @@ export async function POST(request: Request) {
     return new Response("Unknown content format", { status: 400 });
   }
 
+  // If a link/URL was provided, fetch the page content
+  let pageContent = "";
+  const linkUrl = answers.link?.trim();
+  if (linkUrl && (linkUrl.startsWith("http://") || linkUrl.startsWith("https://"))) {
+    pageContent = await fetchPageContent(linkUrl);
+  }
+
   const systemPrompt = buildSystemPrompt(format, platform);
 
   const formatDef = CONTENT_FORMATS.find((f) => f.id === format)!;
@@ -32,6 +75,10 @@ export async function POST(request: Request) {
       return `${label}: ${value}`;
     })
     .join("\n");
+
+  const pageContext = pageContent
+    ? `\n\n--- REFERENCE WEBPAGE CONTENT (extracted from the provided URL) ---\n${pageContent}\n--- END WEBPAGE CONTENT ---\n\nUse the webpage content above to extract relevant details (event title, date, time, location, description, speakers, registration info, etc.) and incorporate them into your output. The URL itself should be used as the link/CTA destination.`
+    : "";
 
   const anthropic = new Anthropic({ apiKey });
   const encoder = new TextEncoder();
@@ -46,7 +93,7 @@ export async function POST(request: Request) {
           messages: [
             {
               role: "user",
-              content: `Generate a ${formatDef.label} with the following details:\n\n${userMessage}`,
+              content: `Generate a ${formatDef.label} with the following details:\n\n${userMessage}${pageContext}`,
             },
           ],
         });
