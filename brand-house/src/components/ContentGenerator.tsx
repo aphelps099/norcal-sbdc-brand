@@ -11,6 +11,7 @@ export default function ContentGenerator() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
   const outputRef = useRef<HTMLDivElement>(null);
 
   const handleSelectFormat = (format: ContentFormat) => {
@@ -82,6 +83,8 @@ export default function ContentGenerator() {
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(output);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -196,47 +199,52 @@ export default function ContentGenerator() {
             ← New format
           </button>
 
-          <p className="font-label text-[10px] uppercase tracking-[0.14em] text-navy/30 mb-4">
-            {selectedFormat.label}
-          </p>
-
           <div
             ref={outputRef}
-            className="p-6 md:p-8 bg-[#f7f7f5] border border-black/[0.04] min-h-[200px]"
+            className="relative border border-black/[0.04] bg-[#f7f7f5] min-h-[240px] flex flex-col"
           >
-            {output ? (
-              <div
-                className="text-navy/80 text-[15px] leading-[1.8] font-sans whitespace-pre-wrap"
-                style={{ fontWeight: 500 }}
-              >
-                {output}
-              </div>
-            ) : (
-              <div className="flex items-center gap-2 text-navy/25">
-                <span className="inline-block w-1.5 h-1.5 bg-navy/25 rounded-full animate-pulse" />
-                <span className="text-[13px] font-sans">Generating...</span>
+            {/* Header bar */}
+            <div className="px-6 md:px-8 pt-5 pb-3 border-b border-black/[0.04]">
+              <p className="font-label text-[10px] uppercase tracking-[0.14em] text-navy/25">
+                {selectedFormat.label}
+              </p>
+            </div>
+
+            {/* Content area */}
+            <div className="px-6 md:px-8 py-6 flex-1">
+              {output ? (
+                <div
+                  className="text-navy/80 text-[15px] leading-[1.8] font-sans whitespace-pre-wrap"
+                  style={{ fontWeight: 500 }}
+                >
+                  {output}
+                </div>
+              ) : (
+                <div className="flex items-center gap-2 text-navy/25">
+                  <span className="inline-block w-1.5 h-1.5 bg-navy/25 rounded-full animate-pulse" />
+                  <span className="text-[13px] font-sans">Generating...</span>
+                </div>
+              )}
+            </div>
+
+            {/* Action bar — bottom right, inside the frame */}
+            {phase === "done" && (
+              <div className="px-6 md:px-8 py-3 border-t border-black/[0.04] flex items-center justify-end gap-2">
+                <button
+                  onClick={handleGenerate}
+                  className="px-4 py-2 text-navy/40 text-[12px] font-label uppercase tracking-[0.1em] hover:text-navy/70 transition-colors"
+                >
+                  Regenerate
+                </button>
+                <button
+                  onClick={handleCopy}
+                  className="px-4 py-2 bg-[#004290] text-white text-[12px] font-label uppercase tracking-[0.1em] hover:bg-[#003574] transition-colors"
+                >
+                  {copied ? "Copied" : "Copy"}
+                </button>
               </div>
             )}
           </div>
-
-          {phase === "done" && (
-            <div className="mt-4 flex gap-3">
-              <button
-                onClick={handleCopy}
-                className="px-5 py-2.5 border border-black/[0.08] text-navy/60 text-[13px] font-sans hover:border-navy/20 hover:text-navy transition-colors"
-                style={{ fontWeight: 500 }}
-              >
-                Copy to clipboard
-              </button>
-              <button
-                onClick={handleGenerate}
-                className="px-5 py-2.5 border border-black/[0.08] text-navy/60 text-[13px] font-sans hover:border-navy/20 hover:text-navy transition-colors"
-                style={{ fontWeight: 500 }}
-              >
-                Regenerate
-              </button>
-            </div>
-          )}
         </div>
       )}
     </div>
