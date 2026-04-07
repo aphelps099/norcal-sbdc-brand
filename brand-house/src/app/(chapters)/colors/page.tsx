@@ -1,6 +1,7 @@
 import InteriorHero from "@/components/InteriorHero";
 import ColorSwatch from "@/components/ColorSwatch";
 import NextSectionLink from "@/components/NextSectionLink";
+import SbdcWatermark from "@/components/SbdcWatermark";
 import { colors, colorGroups, colorUsageCards } from "@/lib/brand-tokens";
 import { gradientColors } from "@/lib/page-gradients";
 
@@ -14,7 +15,7 @@ export default function ColorsPage() {
       />
 
       {/* Recommended Refined Palette — white bg */}
-      <div className="bg-white py-12 md:py-16">
+      <div className="bg-white py-16 md:py-24">
         <div className="max-w-[960px] mx-auto px-8 md:px-12">
           <h2
             className="tracking-[-0.02em] mb-2 text-navy"
@@ -26,18 +27,18 @@ export default function ColorsPage() {
           >
             Recommended Refined Palette
           </h2>
-          <p className="text-navy/50 text-base md:text-[17px] leading-relaxed font-sans mb-12">
+          <p className="text-navy/50 text-base md:text-[17px] leading-relaxed font-sans mb-14">
             Organized by role so each color has a clear purpose in the brand system.
           </p>
 
           {colorGroups.map((group) => (
-            <div key={group.label} className="mb-10 last:mb-0">
+            <div key={group.label} className="mb-16 last:mb-0">
               <h3
                 className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/40 mb-4"
               >
                 {group.label}
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {group.keys.map((key) => {
                   const color = colors[key];
                   return (
@@ -56,14 +57,14 @@ export default function ColorsPage() {
       </div>
 
       {/* Suggested Usage — white bg */}
-      <div className="bg-white pb-12 md:pb-16">
+      <div className="bg-white pb-16 md:pb-24">
         <div className="max-w-[960px] mx-auto px-8 md:px-12">
           <h3
             className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/40 mb-6"
           >
             Suggested Usage
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {colorUsageCards.map((card) => {
               const color = colors[card.key];
               const isLight =
@@ -71,7 +72,7 @@ export default function ColorsPage() {
               return (
                 <div
                   key={card.key}
-                  className="border border-black/[0.06] rounded-md overflow-hidden"
+                  className="border border-black/[0.06] overflow-hidden"
                 >
                   <div
                     className="px-5 py-5"
@@ -112,7 +113,7 @@ export default function ColorsPage() {
 
             {/* Card 1 — Light mode content block */}
             <div>
-              <div className="relative rounded-md border border-black/[0.06] overflow-hidden">
+              <div className="relative border border-black/[0.06] overflow-hidden">
                 <div className="px-8 md:px-12 pt-10 pb-20" style={{ backgroundColor: "#F2F4F7" }}>
                   <p
                     className="text-[10px] uppercase tracking-[0.18em] mb-5"
@@ -169,7 +170,7 @@ export default function ColorsPage() {
 
             {/* Card 2 — Dark mode content block */}
             <div>
-              <div className="relative rounded-md border border-white/[0.06] overflow-hidden">
+              <div className="relative border border-white/[0.06] overflow-hidden">
                 <div className="px-8 md:px-12 pt-10 pb-20" style={{ backgroundColor: "#111C2E" }}>
                   <p
                     className="text-[10px] uppercase tracking-[0.18em] mb-5"
@@ -229,7 +230,7 @@ export default function ColorsPage() {
 
             {/* Card 3 — Newsletter header */}
             <div>
-              <div className="relative rounded-md border border-black/[0.06] overflow-hidden">
+              <div className="relative border border-black/[0.06] overflow-hidden">
                 <div
                   className="px-8 md:px-10 pt-8 pb-6 flex items-center justify-between"
                   style={{ backgroundColor: "#111C2E" }}
@@ -291,6 +292,72 @@ export default function ColorsPage() {
               </p>
             </div>
 
+          </div>
+        </div>
+      </div>
+
+      {/* Accessibility — WCAG contrast ratios */}
+      <div className="bg-[#0f1c2e] py-14 md:py-20 relative overflow-hidden">
+        <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
+        <div className="max-w-[960px] mx-auto px-8 md:px-12">
+          <h2
+            className="tracking-[-0.02em] text-white/90 mb-3"
+            style={{
+              fontFamily: "var(--sans)",
+              fontWeight: 500,
+              fontSize: "clamp(28px, 3.5vw, 40px)",
+            }}
+          >
+            Accessibility
+          </h2>
+          <p className="text-white/40 text-base leading-relaxed font-sans mb-12 max-w-xl">
+            WCAG 2.1 contrast ratios for key brand color pairings. All primary text combinations meet AA or higher.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {[
+              { fg: "Navy", bg: "White", fgHex: "#111C2E", bgHex: "#FFFFFF", ratio: "17.08", grade: "AAA" },
+              { fg: "Navy", bg: "Cloud", fgHex: "#111C2E", bgHex: "#F2F4F7", ratio: "15.50", grade: "AAA" },
+              { fg: "Cobalt", bg: "White", fgHex: "#004290", bgHex: "#FFFFFF", ratio: "9.62", grade: "AAA" },
+              { fg: "Berry", bg: "White", fgHex: "#A73B44", bgHex: "#FFFFFF", ratio: "6.26", grade: "AA" },
+              { fg: "Evergreen", bg: "White", fgHex: "#00685E", bgHex: "#FFFFFF", ratio: "6.68", grade: "AA" },
+              { fg: "White", bg: "Navy", fgHex: "#FFFFFF", bgHex: "#111C2E", ratio: "17.08", grade: "AAA" },
+              { fg: "White", bg: "Cobalt", fgHex: "#FFFFFF", bgHex: "#004290", ratio: "9.62", grade: "AAA" },
+              { fg: "White", bg: "Evergreen", fgHex: "#FFFFFF", bgHex: "#00685E", ratio: "6.68", grade: "AA" },
+              { fg: "Cloud", bg: "Navy", fgHex: "#F2F4F7", bgHex: "#111C2E", ratio: "15.50", grade: "AAA" },
+              { fg: "Fog", bg: "White", fgHex: "#85A3C8", bgHex: "#FFFFFF", ratio: "2.60", grade: "Fail" },
+            ].map((pair) => (
+              <div key={`${pair.fg}-${pair.bg}`}>
+                <div
+                  className="px-5 py-4 flex items-center justify-between"
+                  style={{ backgroundColor: pair.bgHex }}
+                >
+                  <span
+                    className="font-sans text-[15px] tracking-[-0.01em]"
+                    style={{ color: pair.fgHex, fontWeight: 500 }}
+                  >
+                    Aa
+                  </span>
+                  <span
+                    className="font-label text-[10px] uppercase tracking-[0.1em]"
+                    style={{ color: pair.fgHex, opacity: 0.5 }}
+                  >
+                    {pair.ratio}:1 {pair.grade}
+                  </span>
+                </div>
+                <p className="px-1 pt-2 text-white/30 text-[11px] font-label uppercase tracking-[0.1em]">
+                  {pair.fg} on {pair.bg}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 pt-8 border-t border-white/[0.06]">
+            <p className="text-white/40 text-[13px] leading-relaxed font-sans max-w-lg">
+              <strong className="text-white/70 font-sans">Note:</strong> Fog (#85A3C8)
+              does not meet WCAG contrast requirements for text on white backgrounds.
+              Use Fog only for decorative fills, large background areas, or non-text elements.
+            </p>
           </div>
         </div>
       </div>
