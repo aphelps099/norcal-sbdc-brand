@@ -1,18 +1,15 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════
-   FONTS — Sofia Pro (display/body) + Sweet Sans Pro (labels) + Andale Mono
+   FONTS — Sofia Pro (display/body) + GT America Extended (labels)
    ═══════════════════════════════════════════ */
 
 /* Sofia Pro Medium — headings, body, navigation, display */
 @font-face { font-family: 'Sofia Pro'; src: url('/fonts/SofiaPro-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Sofia Pro'; src: url('/fonts/SofiaPro-MediumItalic.otf') format('opentype'); font-weight: 500; font-style: italic; font-display: swap; }
 
-/* Sweet Sans Pro Regular — labels, eyebrows, tags, UI micro-copy */
-@font-face { font-family: 'Sweet Sans Pro'; src: url('/fonts/SweetSansPro-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
-
-/* Andale Mono — code, counters, technical details */
-@font-face { font-family: 'Andale Mono'; src: url('/fonts/AndaleMono.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+/* GT America Extended — labels, eyebrows, tags, UI micro-copy */
+@font-face { font-family: 'GT America Extended'; src: url('/fonts/GT-America-Extended-Regular.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
 
 /* ═══════════════════════════════════════════
    DESIGN TOKENS
@@ -37,9 +34,9 @@
   --rule: rgba(0,0,0,0.08);
 
   --sans: 'Sofia Pro', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
-  --sans-label: 'Sweet Sans Pro', 'Sofia Pro', -apple-system, sans-serif;
+  --sans-label: 'GT America Extended', 'Sofia Pro', -apple-system, sans-serif;
   --serif: 'Sofia Pro', -apple-system, 'Helvetica Neue', sans-serif;
-  --mono: 'Andale Mono', 'SF Mono', 'Fira Code', monospace;
+  --mono: 'SF Mono', 'Fira Code', monospace;
 
   --pad: clamp(24px, 5vw, 64px);
   --max: 1120px;
@@ -67,9 +64,9 @@
   --color-text-tertiary: #888888;
 
   --font-sans: 'Sofia Pro', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
-  --font-label: 'Sweet Sans Pro', 'Sofia Pro', -apple-system, sans-serif;
+  --font-label: 'GT America Extended', 'Sofia Pro', -apple-system, sans-serif;
   --font-serif: 'Sofia Pro', -apple-system, 'Helvetica Neue', sans-serif;
-  --font-mono: 'Andale Mono', 'SF Mono', 'Fira Code', monospace;
+  --font-mono: 'SF Mono', 'Fira Code', monospace;
 }
 
 /* ═══════════════════════════════════════════

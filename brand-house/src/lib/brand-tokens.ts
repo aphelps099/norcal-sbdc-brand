@@ -27,8 +27,7 @@ export const colorUsageCards = [
 
 export const fonts = {
   sans: { family: "Sofia Pro", weights: ["500"], usage: "Headings, body text, navigation, display" },
-  label: { family: "Sweet Sans Pro", weights: ["400"], usage: "Labels, eyebrows, tags, micro-copy" },
-  mono: { family: "Andale Mono", weights: ["400"], usage: "Code, counters, technical details" },
+  label: { family: "GT America Extended", weights: ["400"], usage: "Labels, eyebrows, tags, micro-copy" },
 } as const;
 
 export const chapters = [
