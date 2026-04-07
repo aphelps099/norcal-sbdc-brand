@@ -2,12 +2,10 @@ import InteriorHero from "@/components/InteriorHero";
 import ColorSwatch from "@/components/ColorSwatch";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
-import { colors } from "@/lib/brand-tokens";
+import { colors, colorGroups, colorUsageCards } from "@/lib/brand-tokens";
 import { gradientColors } from "@/lib/page-gradients";
 
 export default function ColorsPage() {
-  const colorEntries = Object.values(colors);
-
   return (
     <>
       <InteriorHero
@@ -16,68 +14,87 @@ export default function ColorsPage() {
         subtitle="Our palette is built for contrast, accessibility, and editorial impact."
       />
 
-      {/* Brand Palette — white bg */}
+      {/* Recommended Refined Palette — white bg */}
       <div className="bg-white py-12 md:py-16">
         <div className="max-w-[960px] mx-auto px-8 md:px-12">
           <h2
-            className="tracking-[-0.02em] mb-10 text-navy"
+            className="tracking-[-0.02em] mb-2 text-navy"
             style={{
               fontFamily: "var(--sans)",
               fontWeight: 500,
               fontSize: "clamp(28px, 3.5vw, 40px)",
             }}
           >
-            Brand Palette
+            Recommended Refined Palette
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-            {colorEntries.map((color) => (
-              <ColorSwatch
-                key={color.hex}
-                name={color.name}
-                hex={color.hex}
-                usage={color.usage}
-              />
-            ))}
-          </div>
+          <p className="text-navy/50 text-base md:text-[17px] leading-relaxed font-sans mb-12">
+            Organized by role so each color has a clear purpose in the brand system.
+          </p>
+
+          {colorGroups.map((group) => (
+            <div key={group.label} className="mb-10 last:mb-0">
+              <h3
+                className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/40 mb-4"
+              >
+                {group.label}
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                {group.keys.map((key) => {
+                  const color = colors[key];
+                  return (
+                    <ColorSwatch
+                      key={color.hex}
+                      name={color.name}
+                      hex={color.hex}
+                      usage={color.usage}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Usage Guidelines — dark navy bg */}
-      <div className="bg-[#0f1c2e] py-12 md:py-16 relative overflow-hidden">
-        <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
+      {/* Suggested Usage — white bg */}
+      <div className="bg-white pb-12 md:pb-16">
         <div className="max-w-[960px] mx-auto px-8 md:px-12">
-          <div className="flex flex-col md:flex-row gap-12 md:gap-16">
-            <div className="md:w-1/3">
-              <h2
-                className="tracking-[-0.02em] text-white/90"
-                style={{
-                  fontFamily: "var(--sans)",
-                  fontWeight: 500,
-                  fontSize: "clamp(28px, 3.5vw, 40px)",
-                }}
-              >
-                Usage
-              </h2>
-            </div>
-            <div className="md:w-2/3 space-y-5 text-white/50 text-base md:text-[17px] leading-relaxed font-sans">
-              <p>
-                Use <strong className="text-white/80">Midnight</strong> and{" "}
-                <strong className="text-white/80">Slate</strong> for typography and dark
-                backgrounds. <strong className="text-white/80">Cobalt</strong> is our
-                primary action color — links, buttons, CTAs.
-              </p>
-              <p>
-                <strong className="text-white/80">Steel</strong> and{" "}
-                <strong className="text-white/80">Fog</strong> provide depth in
-                charts, illustrations, and secondary UI.{" "}
-                <strong className="text-white/80">Berry</strong> adds warmth for
-                editorial moments. <strong className="text-white/80">Evergreen</strong>{" "}
-                signals success and growth.
-              </p>
-              <p>
-                All color pairings must meet WCAG AA contrast standards.
-              </p>
-            </div>
+          <h3
+            className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/40 mb-6"
+          >
+            Suggested Usage
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {colorUsageCards.map((card) => {
+              const color = colors[card.key];
+              const isLight =
+                parseInt(color.hex.replace("#", ""), 16) > 0xaaaaaa;
+              return (
+                <div
+                  key={card.key}
+                  className="border border-black/[0.06] rounded-md overflow-hidden"
+                >
+                  <div
+                    className="px-5 py-5"
+                    style={{ backgroundColor: color.hex }}
+                  >
+                    <span
+                      className="font-sans text-[18px] font-medium"
+                      style={{
+                        color: isLight ? "rgba(0,0,0,0.7)" : "rgba(255,255,255,0.9)",
+                      }}
+                    >
+                      {color.name}
+                    </span>
+                  </div>
+                  <div className="px-5 py-4 bg-white">
+                    <p className="text-navy/60 text-[14px] leading-relaxed font-sans">
+                      {card.text}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

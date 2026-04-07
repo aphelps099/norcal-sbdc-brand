@@ -1,13 +1,29 @@
 export const colors = {
-  berry: { hex: "#A73B44", name: "Berry", usage: "Warm accent, editorial emphasis" },
-  midnight: { hex: "#13171C", name: "Midnight", usage: "Deepest backgrounds, type" },
-  fog: { hex: "#85A3C8", name: "Fog", usage: "Soft blue, secondary accent" },
-  cobalt: { hex: "#004290", name: "Cobalt", usage: "Primary blue, links, CTAs" },
-  silver: { hex: "#D9D9D9", name: "Silver", usage: "Borders, dividers, muted fills" },
-  slate: { hex: "#2B3035", name: "Slate", usage: "Dark UI, secondary text" },
-  steel: { hex: "#5684BA", name: "Steel", usage: "Mid-blue accent, charts" },
-  evergreen: { hex: "#00685E", name: "Evergreen", usage: "Green accent, success states" },
+  sbdcNavy: { hex: "#111C2E", name: "SBDC Navy", usage: "Headlines, primary text, headers, footers, hero backgrounds" },
+  slate: { hex: "#2D3340", name: "Slate", usage: "Dark UI, secondary text" },
+  cobalt: { hex: "#004290", name: "Cobalt", usage: "CTAs, buttons, links, interactive elements, data visualization primary" },
+  berry: { hex: "#A73B44", name: "Berry", usage: "Alerts, emphasis, accent details, secondary CTAs, pull quotes" },
+  evergreen: { hex: "#00685E", name: "Evergreen", usage: "Success states, growth themes, secondary accent, charts and graphs" },
+  steel: { hex: "#5684BA", name: "Steel", usage: "Secondary links, icon color, supporting data viz, borders" },
+  fog: { hex: "#85A3C8", name: "Fog", usage: "Soft blue backgrounds, secondary UI, supporting fills" },
+  silver: { hex: "#D9D9D9", name: "Silver", usage: "Dividers, borders, disabled states, subtle backgrounds" },
+  cloud: { hex: "#F2F4F7", name: "Cloud", usage: "Light backgrounds, cards, content areas" },
 } as const;
+
+export const colorGroups = [
+  { label: "Primary & Dark Tones", keys: ["sbdcNavy", "slate", "cobalt"] as const },
+  { label: "Accent Colors", keys: ["berry", "evergreen", "steel"] as const },
+  { label: "Neutrals & Backgrounds", keys: ["fog", "silver", "cloud"] as const },
+] as const;
+
+export const colorUsageCards = [
+  { key: "sbdcNavy" as const, text: "Headlines, primary text, headers, footers, hero backgrounds. This is your anchor." },
+  { key: "cobalt" as const, text: "CTAs, buttons, links, interactive elements, data visualization primary." },
+  { key: "berry" as const, text: "Alerts, emphasis, accent details, secondary CTAs, pull quotes." },
+  { key: "evergreen" as const, text: "Success states, growth themes, secondary accent, charts and graphs." },
+  { key: "steel" as const, text: "Secondary links, icon color, supporting data viz, borders." },
+  { key: "silver" as const, text: "Dividers, borders, disabled states, subtle backgrounds." },
+] as const;
 
 export const fonts = {
   sans: { family: "Sofia Pro", weights: ["500"], usage: "Headings, body text, navigation, display" },
