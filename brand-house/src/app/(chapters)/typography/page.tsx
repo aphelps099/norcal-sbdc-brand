@@ -8,7 +8,7 @@ export default function TypographyPage() {
     <>
       <InteriorHero gradient={gradientTypography}
         title="Typography"
-        subtitle="Three typefaces — Sofia Pro for authority, Sweet Sans Pro for precision, Andale Mono for data."
+        subtitle="Two typefaces — Sofia Pro for authority, GT America Extended for precision."
       />
       <div className="bg-white py-12 md:py-16">
         {/* Our Typefaces */}
@@ -63,39 +63,23 @@ export default function TypographyPage() {
                 </p>
               </div>
 
-              {/* Sweet Sans Pro + Andale Mono — stacked right column */}
-              <div className="flex flex-col gap-5">
-                {/* Sweet Sans Pro */}
-                <div className="border border-black/[0.06] p-7 md:p-9 flex-1">
-                  <p className="font-label text-[10px] uppercase tracking-[0.18em] text-navy/25 mb-7">
-                    Sweet Sans Pro
-                  </p>
-                  <p
-                    className="text-xs uppercase tracking-[0.18em] text-royal mb-4"
-                    style={{ fontFamily: "var(--sans-label)" }}
-                  >
-                    Since 1980 — Northern California
-                  </p>
-                  <p
-                    className="text-[10px] uppercase tracking-[0.14em] text-navy/40"
-                    style={{ fontFamily: "var(--sans-label)" }}
-                  >
-                    Labels &middot; Eyebrows &middot; Tags
-                  </p>
-                </div>
-
-                {/* Andale Mono */}
-                <div className="border border-black/[0.06] p-7 md:p-9 flex-1">
-                  <p className="font-label text-[10px] uppercase tracking-[0.18em] text-navy/25 mb-7">
-                    Andale Mono
-                  </p>
-                  <p className="font-mono text-sm text-navy/70 mb-3">
-                    $2.8B raised
-                  </p>
-                  <p className="font-mono text-xs text-navy/40">
-                    42,000+ jobs &middot; 44 years
-                  </p>
-                </div>
+              {/* GT America Extended — right column */}
+              <div className="border border-black/[0.06] p-7 md:p-9">
+                <p className="font-label text-[10px] uppercase tracking-[0.18em] text-navy/25 mb-7">
+                  GT America Extended
+                </p>
+                <p
+                  className="text-xs uppercase tracking-[0.18em] text-royal mb-4"
+                  style={{ fontFamily: "var(--sans-label)" }}
+                >
+                  Since 1980 — Northern California
+                </p>
+                <p
+                  className="text-[10px] uppercase tracking-[0.14em] text-navy/40"
+                  style={{ fontFamily: "var(--sans-label)" }}
+                >
+                  Labels &middot; Eyebrows &middot; Tags
+                </p>
               </div>
             </div>
           </div>
@@ -136,7 +120,7 @@ export default function TypographyPage() {
 
               <div className="p-6 border border-black/[0.06] bg-[#f7f7f5]">
                 <p className="font-label text-[11px] uppercase tracking-[0.2em] text-navy/30 mb-3">
-                  Label / Eyebrow — Sweet Sans Pro Regular
+                  Label / Eyebrow — GT America Extended
                 </p>
                 <p className="text-sm tracking-[0.14em] uppercase text-navy/60" style={{ fontFamily: "var(--sans-label)" }}>
                   Capital Access &middot; Business Planning &middot; Crisis Recovery
@@ -156,16 +140,7 @@ export default function TypographyPage() {
 
               <div className="p-6 border border-black/[0.06] bg-[#f7f7f5]">
                 <p className="font-label text-[11px] uppercase tracking-[0.2em] text-navy/30 mb-3">
-                  Data / Technical — Andale Mono
-                </p>
-                <p className="font-mono text-sm text-navy/50 tracking-wide">
-                  $2.8B raised &middot; 42,000+ jobs &middot; est. 1980
-                </p>
-              </div>
-
-              <div className="p-6 border border-black/[0.06] bg-[#f7f7f5]">
-                <p className="font-label text-[11px] uppercase tracking-[0.2em] text-navy/30 mb-3">
-                  Tiny Label — Sweet Sans Pro Regular
+                  Tiny Label — GT America Extended
                 </p>
                 <p className="text-xs tracking-[0.2em] uppercase text-navy/35" style={{ fontFamily: "var(--sans-label)" }}>
                   Since 1980 — Northern California
@@ -198,17 +173,13 @@ export default function TypographyPage() {
               with tight letter-spacing (-0.01em) for a clean, confident presence.
             </p>
             <p>
-              <strong className="font-sans text-white/80">Sweet Sans Pro Regular</strong> handles
+              <strong className="font-sans text-white/80">GT America Extended</strong> handles
               labels, eyebrows, tags, and UI micro-copy. Always uppercase
               with generous tracking (0.14–0.2em).
             </p>
             <p>
-              <strong className="font-sans text-white/80">Andale Mono</strong> is reserved for
-              data points, counters, and technical details — anywhere precision matters.
-            </p>
-            <p>
               <strong className="font-sans text-white/80">Never</strong> mix more than
-              two typefaces in a single composition. Sofia Pro + one accent face is the standard pairing.
+              two typefaces in a single composition. Sofia Pro + GT America Extended is the standard pairing.
             </p>
           </div>
         </div>
