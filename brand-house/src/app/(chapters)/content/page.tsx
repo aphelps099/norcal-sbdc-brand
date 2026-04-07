@@ -119,6 +119,36 @@ export default function ContentPage() {
         subtitle="Guidelines for social media, newsletters, and web publishing — so every center shows up with one unified voice."
       />
 
+      {/* Content Generator CTA */}
+      <div className="bg-white py-10 md:py-14">
+        <div className="max-w-[780px] mx-auto px-8 md:px-12">
+          <a
+            href="/generate"
+            className="block p-6 md:p-8 border border-black/[0.06] hover:border-royal/30 hover:bg-royal/[0.01] transition-colors group"
+          >
+            <div className="flex items-center justify-between gap-6">
+              <div>
+                <p className="font-label text-[10px] uppercase tracking-[0.14em] text-navy/30 mb-2">
+                  AI-Powered Tool
+                </p>
+                <p
+                  className="text-navy text-[18px] md:text-[20px] tracking-[-0.02em] mb-1"
+                  style={{ fontFamily: "var(--sans)", fontWeight: 500 }}
+                >
+                  Content Generator
+                </p>
+                <p className="text-navy/45 text-[14px] font-sans leading-relaxed">
+                  Create on-brand success stories, social posts, email snippets, and more — powered by Claude.
+                </p>
+              </div>
+              <span className="text-navy/20 group-hover:text-royal transition-colors text-2xl shrink-0">
+                →
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
+
       {/* Social Media Principles — dark navy bg */}
       <div className="bg-[#0f1c2e] py-12 md:py-16 relative overflow-hidden">
         <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
