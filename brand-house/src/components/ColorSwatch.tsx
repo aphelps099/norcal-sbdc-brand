@@ -29,7 +29,7 @@ export default function ColorSwatch({ name, hex, usage }: ColorSwatchProps) {
       className="group text-left w-full"
     >
       <div
-        className="relative w-full aspect-video border border-black/[0.04] overflow-hidden"
+        className="relative w-full aspect-[4/3] overflow-hidden"
         style={{ backgroundColor: hex }}
       >
         {/* Name — top left */}
