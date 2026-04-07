@@ -99,64 +99,16 @@ export default function ColorsPage() {
         </div>
       </div>
 
-      {/* Gradient Compositions */}
+      {/* Gradients — inline with palette grid */}
       <div className="bg-white pb-16 md:pb-24">
         <div className="max-w-[960px] mx-auto px-8 md:px-12">
-          <h3 className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/40 mb-2">
-            Gradient Compositions
+          <h3 className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/40 mb-4">
+            Gradients
           </h3>
-          <p className="text-navy/50 text-base md:text-[17px] leading-relaxed font-sans mb-12">
-            Brand gradients for hero sections, headers, and backgrounds.
-          </p>
-
-          <div className="max-w-[820px] mx-auto space-y-10">
-
-            {/* Gradient 1 — Navy → Cobalt → Fog (institutional) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <div
-                className="relative overflow-hidden aspect-[21/9] flex items-center justify-center"
-                style={{
-                  background: "linear-gradient(135deg, #111C2E 0%, #004290 50%, #85A3C8 100%)",
-                }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/logos/NCN_Band_Logo_White.png"
-                  alt="NorCal SBDC"
-                  className="h-10 md:h-14 w-auto"
-                  style={{ opacity: 0.85 }}
-                />
-              </div>
-              <p className="mt-3 text-navy/40 text-[13px] leading-relaxed font-sans italic">
-                Navy → Cobalt → Fog at 135° — primary institutional gradient for hero sections and page headers.
-              </p>
-            </div>
-
-            {/* Gradient 2 — Navy → Steel → Fog (depth, editorial) */}
-            <div>
-              <div
-                className="relative overflow-hidden aspect-[21/9] flex items-center justify-center"
-                style={{
-                  background: "linear-gradient(150deg, #111C2E 0%, #5684BA 50%, #85A3C8 100%)",
-                }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/logos/NCN_Band_Logo_White.png"
-                  alt="NorCal SBDC"
-                  className="h-10 md:h-14 w-auto"
-                  style={{ opacity: 0.85 }}
-                />
-              </div>
-              <p className="mt-3 text-navy/40 text-[13px] leading-relaxed font-sans italic">
-                Navy → Steel → Fog at 150° — editorial depth for stories, events, and campaign content.
-              </p>
-            </div>
-
-            {/* Gradient 3 — Slate → Cobalt → Steel (cool professional) */}
-            <div>
-              <div
-                className="relative overflow-hidden aspect-[21/9] flex items-center justify-center"
+                className="relative overflow-hidden aspect-[4/3] flex items-center justify-center"
                 style={{
                   background: "linear-gradient(120deg, #2D3340 0%, #004290 40%, #5684BA 100%)",
                 }}
@@ -165,19 +117,17 @@ export default function ColorsPage() {
                 <img
                   src="/logos/NCN_Band_Logo_White.png"
                   alt="NorCal SBDC"
-                  className="h-10 md:h-14 w-auto"
+                  className="h-8 md:h-10 w-auto"
                   style={{ opacity: 0.85 }}
                 />
               </div>
-              <p className="mt-3 text-navy/40 text-[13px] leading-relaxed font-sans italic">
-                Slate → Cobalt → Steel at 120° — cool professional tone for reports, data, and formal communications.
+              <p className="mt-2.5 text-navy/35 text-[12px] leading-relaxed font-sans">
+                Slate → Cobalt → Steel — reports, data, formal communications.
               </p>
             </div>
-
-            {/* Gradient 4 — Navy → Fog → Cloud (subtle, light) */}
             <div>
               <div
-                className="relative overflow-hidden aspect-[21/9] flex items-center justify-center"
+                className="relative overflow-hidden aspect-[4/3] flex items-center justify-center"
                 style={{
                   background: "linear-gradient(160deg, #111C2E 0%, #85A3C8 50%, #F2F4F7 100%)",
                 }}
@@ -186,15 +136,14 @@ export default function ColorsPage() {
                 <img
                   src="/logos/NCN_Band_Logo_White.png"
                   alt="NorCal SBDC"
-                  className="h-10 md:h-14 w-auto"
+                  className="h-8 md:h-10 w-auto"
                   style={{ opacity: 0.8 }}
                 />
               </div>
-              <p className="mt-3 text-navy/40 text-[13px] leading-relaxed font-sans italic">
-                Navy → Fog → Cloud at 160° — atmospheric fade for softer applications, social headers, and email banners.
+              <p className="mt-2.5 text-navy/35 text-[12px] leading-relaxed font-sans">
+                Navy → Fog → Cloud — social headers, email banners, softer applications.
               </p>
             </div>
-
           </div>
         </div>
       </div>
