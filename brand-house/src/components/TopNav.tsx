@@ -211,24 +211,12 @@ export default function TopNav() {
                   ? "text-white/70 hover:text-white"
                   : "text-navy hover:text-navy"
             }`}
-            style={{ fontFamily: "var(--sans-label)" }}
+            style={{ fontFamily: "var(--sans)", fontWeight: 500 }}
           >
-            SBDC
+            Brand
           </a>
 
           <div className="flex items-center gap-5">
-            <span
-              className={`hidden sm:block text-[0.65rem] tracking-[0.15em] uppercase font-bold transition-colors duration-500 select-none ${
-                menuOpen
-                  ? "text-white/50 hover:text-white"
-                  : isDark
-                    ? "text-white/30"
-                    : "text-text-tertiary"
-              }`}
-              style={{ fontFamily: "var(--sans-label)" }}
-            >
-              {menuOpen ? "CLOSE" : "MENU"}
-            </span>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className={`burger-wrap flex flex-col items-end justify-center gap-[7px] w-[24px] h-[24px] transition-colors duration-500 ${
