@@ -65,29 +65,29 @@ function buildTwoColumnHtml(f: {
   const contactRows: string[] = [];
   if (f.phone.trim()) {
     contactRows.push(
-      `<tr><td style="font-size:13px;color:#3d4f5f;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;padding-bottom:0;">M: ${f.phone.trim()}</td></tr>`
+      `<tr><td style="font-size:13px;color:#3d4f5f;font-family:'Proxima Nova','Helvetica Neue',Helvetica,Arial,sans-serif;padding-bottom:0;">M: ${f.phone.trim()}</td></tr>`
     );
   }
   if (f.email.trim()) {
     contactRows.push(
-      `<tr><td style="padding-bottom:0;"><a href="mailto:${f.email.trim()}" style="color:#004290;font-size:13px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;text-decoration:none;">${f.email.trim()}</a></td></tr>`
+      `<tr><td style="padding-bottom:0;"><a href="mailto:${f.email.trim()}" style="color:#004290;font-size:13px;font-family:'Proxima Nova','Helvetica Neue',Helvetica,Arial,sans-serif;text-decoration:none;">${f.email.trim()}</a></td></tr>`
     );
   }
 
-  return `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#1b2a3d;">
+  return `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Proxima Nova','Helvetica Neue',Helvetica,Arial,sans-serif;color:#1b2a3d;">
   <tr>
     <td style="vertical-align:top;padding-right:14px;border-right:2px solid #004290;">
       <img src="${LOGO_URL}" alt="America's SBDC California — Northern CA Network" width="100" style="display:block;width:100px;height:auto;" />
     </td>
     <td style="vertical-align:top;padding-left:14px;">
       <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
-        <tr><td style="font-size:15px;font-weight:700;color:#1b2a3d;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:0.02em;line-height:1.2;">${f.name.trim().toUpperCase()}</td></tr>
-        <tr><td style="font-size:13px;color:#3d4f5f;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;padding-bottom:4px;">${displayTitle}</td></tr>
+        <tr><td style="font-size:15px;font-weight:700;color:#1b2a3d;font-family:'Proxima Nova','Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:0.02em;line-height:1.2;">${f.name.trim().toUpperCase()}</td></tr>
+        <tr><td style="font-size:13px;color:#3d4f5f;font-family:'Proxima Nova','Helvetica Neue',Helvetica,Arial,sans-serif;padding-bottom:4px;">${displayTitle}</td></tr>
         <tr><td style="font-size:12px;color:#1b2a3d;line-height:1;padding-bottom:4px;">—</td></tr>
-        <tr><td style="font-size:10px;font-weight:600;color:#1b2a3d;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:0.08em;line-height:1.3;">${line1}</td></tr>
-        <tr><td style="font-size:10px;font-weight:400;color:#3d4f5f;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:0.08em;padding-bottom:4px;">${line2}</td></tr>
+        <tr><td style="font-size:10px;font-weight:600;color:#1b2a3d;font-family:'Proxima Nova','Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:0.08em;line-height:1.3;">${line1}</td></tr>
+        <tr><td style="font-size:10px;font-weight:400;color:#3d4f5f;font-family:'Proxima Nova','Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:0.08em;padding-bottom:4px;">${line2}</td></tr>
 ${contactRows.join("\n")}
-        <tr><td><a href="https://norcalsbdc.org" style="color:#004290;font-size:13px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;text-decoration:none;font-weight:500;">norcalsbdc.org</a></td></tr>
+        <tr><td><a href="https://norcalsbdc.org" style="color:#004290;font-size:13px;font-family:'Proxima Nova','Helvetica Neue',Helvetica,Arial,sans-serif;text-decoration:none;font-weight:500;">norcalsbdc.org</a></td></tr>
       </table>
     </td>
   </tr>
@@ -155,7 +155,7 @@ function buildCompactHtml(f: {
     `<a href="https://norcalsbdc.org" style="color:#1e3a5f;text-decoration:none;">norcalsbdc.org</a>`
   );
 
-  return `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;color:#444;">
+  return `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Proxima Nova','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;color:#444;">
   <tr>
     <td>
       <span style="font-weight:700;color:#222;">${toTitleCase(f.name.trim())}</span>
