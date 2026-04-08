@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import { STAR_PATH } from "@/lib/brand-tokens";
 
 /** Each page gets a unique 5-stop diagonal gradient from the brand palette. */
 export interface GradientDef {
@@ -154,6 +155,23 @@ export default function InteriorHero({
       ) : (
         <div className="absolute inset-0 bg-navy" />
       )}
+
+      {/* SBDC star — decorative accent, upper-right */}
+      <svg
+        className="absolute -right-[8%] -top-[10%] w-[45vw] max-w-[500px] text-white pointer-events-none select-none hidden md:block"
+        viewBox="0 0 2100 2000"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          d={STAR_PATH}
+          stroke="currentColor"
+          strokeWidth="3"
+          fill="none"
+          opacity={0.06}
+        />
+      </svg>
 
       {/* Vertical accent stripe — right edge */}
       <div
