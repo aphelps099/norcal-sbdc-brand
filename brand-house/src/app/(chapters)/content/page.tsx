@@ -2,32 +2,37 @@
 import InteriorHero from "@/components/InteriorHero";
 import CopyButton from "@/components/CopyButton";
 import NextSectionLink from "@/components/NextSectionLink";
-import SbdcWatermark from "@/components/SbdcWatermark";
 
 const socialPrinciples = [
   {
     title: "Be Authentic",
-    desc: "SBDC promotes authentic transparency. Do not blog anonymously or use pseudonyms when posting on behalf of SBDC. Your name builds trust.",
+    desc: "Don't blog anonymously or use pseudonyms. Your name builds trust. SBDC promotes authentic transparency.",
+    icon: "verified",
   },
   {
     title: "Know Your Audience",
-    desc: "Who are you trying to reach? Tailor messages that add value and increase engagement. A startup founder needs different content than a city councilmember.",
+    desc: "A startup founder needs different content than a city councilmember. Tailor messages that add value.",
+    icon: "groups",
   },
   {
-    title: "Be Consistent, But Make It Count",
-    desc: "The best way to grow your audience is by regularly updating with interesting, relevant information. Quality over volume — every post should earn attention.",
+    title: "Be Consistent",
+    desc: "Grow your audience with regular, relevant updates. Quality over volume — every post should earn attention.",
+    icon: "trending_up",
   },
   {
     title: "Think Before You Post",
-    desc: "Consider content carefully. Anything you publish exists permanently, even if you delete it. Would this make sense on the front page of the local paper?",
+    desc: "Anything you publish exists permanently. Would this make sense on the front page of the local paper?",
+    icon: "psychology",
   },
   {
     title: "Encourage Conversation",
-    desc: "Leave the 'social' in social media. Don't block comments just because they're negative. Negative comments are sometimes an opportunity for meaningful discussion.",
+    desc: "Leave the 'social' in social media. Negative comments are sometimes an opportunity for meaningful discussion.",
+    icon: "forum",
   },
   {
     title: "Protect Privacy",
-    desc: "Never disclose personal, confidential, or proprietary information about clients, advisors, or partners. Client information is subject to the SBA's Client Information Policy.",
+    desc: "Never disclose personal, confidential, or proprietary information about clients, advisors, or partners.",
+    icon: "shield",
   },
 ];
 
@@ -35,41 +40,41 @@ const platformGuidance = [
   {
     platform: "LinkedIn",
     tone: "Professional, data-driven",
-    frequency: "2–3 posts per week",
-    focus: "Impact stats, advisor spotlights, industry insights, success stories, event recaps",
-    charLimit: "~1,300 characters for optimal engagement",
+    frequency: "2-3x / week",
+    focus: "Impact stats, advisor spotlights, success stories, event recaps.",
+    charLimit: "~1,300 chars",
   },
   {
     platform: "Facebook",
     tone: "Warm, community-focused",
-    frequency: "3–5 posts per week",
-    focus: "Event promotion, client spotlights, behind-the-scenes, local business highlights",
-    charLimit: "~80 characters for best click-through in link posts",
+    frequency: "3-5x / week",
+    focus: "Event promotion, client spotlights, behind-the-scenes, local highlights.",
+    charLimit: "~80 chars for links",
   },
   {
     platform: "Instagram",
     tone: "Visual, aspirational",
-    frequency: "3–4 posts per week",
-    focus: "Client photos, event moments, quote cards, reels with advisor tips",
-    charLimit: "~125 characters before 'more' truncation",
+    frequency: "3-4x / week",
+    focus: "Client photos, event moments, quote cards, reels with advisor tips.",
+    charLimit: "~125 chars before truncation",
   },
   {
     platform: "X / Twitter",
     tone: "Punchy, topical",
-    frequency: "Daily acceptable",
-    focus: "Quick stats, event live-tweeting, links to resources, industry news",
-    charLimit: "280 characters max",
+    frequency: "Daily",
+    focus: "Quick stats, event live-tweeting, resource links, industry news.",
+    charLimit: "280 chars max",
   },
 ];
 
 const emailBestPractices = [
   {
     title: "Treat Access as a Privilege",
-    desc: "Clients subscribed to your list — they gave you their attention willingly. Deliver a high-quality experience they can count on.",
+    desc: "Clients gave you their attention willingly. Deliver a high-quality experience they can count on.",
   },
   {
     title: "Subject Lines Matter Most",
-    desc: "Your subject line determines whether the email gets opened. Be specific and create urgency. 'Free Workshop: Access to Capital — Feb 15' beats 'February Newsletter.'",
+    desc: "Be specific and create urgency. 'Free Workshop: Access to Capital — Feb 15' beats 'February Newsletter.'",
   },
   {
     title: "One Clear Call to Action",
@@ -77,11 +82,11 @@ const emailBestPractices = [
   },
   {
     title: "Mobile-First Design",
-    desc: "Over 60% of emails are opened on mobile. Use single-column layouts, large tap targets, and keep body copy concise.",
+    desc: "Over 60% of emails are opened on mobile. Use single-column layouts, large tap targets, and concise copy.",
   },
   {
     title: "Include Required Disclaimers",
-    desc: "Every client and partner-facing mass email must include the SBA and ADA disclaimer in the footer. No exceptions.",
+    desc: "Every client and partner-facing mass email must include the SBA and ADA disclaimer. No exceptions.",
   },
 ];
 
@@ -119,186 +124,202 @@ export default function ContentPage() {
         subtitle="Guidelines for social media, newsletters, and web publishing — so every center shows up with one unified voice."
       />
 
-      {/* Content Generator CTA */}
-      <div className="bg-white py-10 md:py-14">
-        <div className="max-w-[780px] mx-auto px-8 md:px-12">
+      {/* ── Content Generator Banner ── */}
+      <div className="bg-[#0f1c2e]">
+        <div className="max-w-[1100px] mx-auto px-8 md:px-12">
           <a
             href="/generate"
-            className="block p-6 md:p-8 border border-black/[0.06] hover:border-royal/30 hover:bg-royal/[0.01] transition-colors group"
+            className="group flex items-center justify-between gap-8 py-5 border-b border-white/[0.06] no-underline"
           >
-            <div className="flex items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <span
+                className="material-symbols-outlined text-royal/60 group-hover:text-royal transition-colors"
+                style={{ fontSize: "24px", fontVariationSettings: "'FILL' 1, 'wght' 400" }}
+              >
+                auto_awesome
+              </span>
               <div>
-                <p className="font-label text-[10px] uppercase tracking-[0.14em] text-navy/30 mb-2">
-                  AI-Powered Tool
-                </p>
-                <p
-                  className="text-navy text-[18px] md:text-[20px] tracking-[-0.02em] mb-1"
-                  style={{ fontFamily: "var(--sans)", fontWeight: 500 }}
-                >
+                <p className="font-sans text-white/90 text-[15px] group-hover:text-white transition-colors" style={{ fontWeight: 500 }}>
                   Content Generator
                 </p>
-                <p className="text-navy/45 text-[14px] font-sans leading-relaxed">
-                  Create on-brand success stories, social posts, email snippets, and more — powered by Claude.
+                <p className="font-mono text-[11px] text-white/30">
+                  Create on-brand content with AI — success stories, social posts, emails, and more.
                 </p>
               </div>
-              <span className="text-navy/20 group-hover:text-royal transition-colors text-2xl shrink-0">
-                →
-              </span>
             </div>
+            <span
+              className="material-symbols-outlined text-white/20 group-hover:text-white/50 group-hover:translate-x-1 transition-all shrink-0"
+              style={{ fontSize: "20px" }}
+            >
+              arrow_forward
+            </span>
           </a>
         </div>
       </div>
 
-      {/* Social Media Principles — dark navy bg */}
-      <div className="bg-[#0f1c2e] py-12 md:py-16 relative overflow-hidden">
-        <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
-        <div className="max-w-[780px] mx-auto px-8 md:px-12">
+      {/* ── Social Media Principles ── */}
+      <div className="bg-white py-16 md:py-24">
+        <div className="max-w-[1100px] mx-auto px-8 md:px-12">
+          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-navy/30 mb-3">
+            Social Media
+          </p>
           <h2
-            className="tracking-[-0.02em] text-white/90 mb-4"
-            style={{
-              fontFamily: "var(--sans)",
-              fontWeight: 500,
-              fontSize: "clamp(28px, 3.5vw, 40px)",
-            }}
+            className="font-sans text-navy tracking-[-0.02em] mb-4"
+            style={{ fontSize: "clamp(28px, 3.5vw, 40px)", fontWeight: 500 }}
           >
-            Social Media Principles
+            Principles
           </h2>
-          <p className="font-sans text-base text-white/50 leading-relaxed mb-12 max-w-xl">
-            We build our social media presence on two basic principles:
-            content that&rsquo;s relevant and compelling to our audiences, and
-            being authentic. All of our posts reflect who we are as a network.
+          <p className="font-sans text-base text-navy/50 leading-relaxed mb-14 max-w-2xl">
+            We build our social media presence on two basics: content that&rsquo;s relevant
+            and compelling to our audiences, and being authentic. Every post reflects who we are.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {socialPrinciples.map((p) => (
-              <div key={p.title}>
-                <h3 className="font-label text-sm text-white/90 uppercase tracking-[0.06em] mb-2">
-                  {p.title}
-                </h3>
-                <p className="font-sans text-sm text-white/50 leading-relaxed">
-                  {p.desc}
-                </p>
+              <div key={p.title} className="relative p-6 rounded-xl bg-cream overflow-hidden">
+                <span
+                  className="material-symbols-outlined absolute -right-3 -bottom-3 text-navy/[0.04] pointer-events-none select-none"
+                  style={{ fontSize: "120px", fontVariationSettings: "'FILL' 1, 'wght' 200" }}
+                  aria-hidden="true"
+                >
+                  {p.icon}
+                </span>
+                <div className="relative z-10">
+                  <h3 className="font-sans text-navy text-[15px] mb-2" style={{ fontWeight: 500 }}>
+                    {p.title}
+                  </h3>
+                  <p className="font-sans text-[13px] text-navy/50 leading-relaxed">
+                    {p.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <div className="bg-white py-12 md:py-16">
-
-        {/* Platform Guidance Table */}
-        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-6">
-          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-8">
+      {/* ── Platform Guidance ── */}
+      <div className="bg-cream py-16 md:py-24">
+        <div className="max-w-[1100px] mx-auto px-8 md:px-12">
+          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-navy/30 mb-3">
+            Platforms
+          </p>
+          <h2
+            className="font-sans text-navy tracking-[-0.02em] mb-14"
+            style={{ fontSize: "clamp(28px, 3.5vw, 40px)", fontWeight: 500 }}
+          >
             Platform Guidance
           </h2>
-        </div>
-        <div className="max-w-[960px] mx-auto px-8 md:px-12 mb-16">
-          <div className="border border-black/[0.08] overflow-x-auto">
-            {/* Header */}
-            <div className="grid grid-cols-[120px_1fr_1fr_1fr] min-w-[640px] bg-navy">
-              {["Platform", "Tone & Frequency", "Content Focus", "Character Limit"].map(
-                (h, i) => (
-                  <div
-                    key={h}
-                    className={`font-label text-[10px] uppercase tracking-[0.18em] text-white/50 px-5 py-3.5 ${
-                      i > 0 ? "border-l border-white/[0.08]" : ""
-                    }`}
-                  >
-                    {h}
-                  </div>
-                )
-              )}
-            </div>
-            {/* Rows */}
+
+          <div className="space-y-0">
             {platformGuidance.map((row, i) => (
               <div
                 key={row.platform}
-                className={`grid grid-cols-[120px_1fr_1fr_1fr] min-w-[640px] items-start ${
-                  i < platformGuidance.length - 1
-                    ? "border-b border-black/[0.06]"
-                    : ""
+                className={`grid grid-cols-1 md:grid-cols-[140px_1fr] gap-4 md:gap-8 py-8 ${
+                  i < platformGuidance.length - 1 ? "border-b border-navy/8" : ""
                 }`}
               >
-                <div className="px-5 py-4">
-                  <span className="font-label text-sm text-navy">
+                <div>
+                  <p className="font-sans text-navy text-[17px]" style={{ fontWeight: 500 }}>
                     {row.platform}
-                  </span>
-                  <p className="font-sans text-[11px] text-text-tertiary mt-0.5">
-                    {row.frequency}
                   </p>
+                  <p className="font-mono text-[11px] text-navy/30 mt-0.5">{row.frequency}</p>
                 </div>
-                <div className="px-5 py-4 border-l border-black/[0.06]">
-                  <span className="font-sans text-sm text-text-secondary">
-                    {row.tone}
-                  </span>
-                </div>
-                <div className="px-5 py-4 border-l border-black/[0.06]">
-                  <span className="font-sans text-sm text-text-secondary">
-                    {row.focus}
-                  </span>
-                </div>
-                <div className="px-5 py-4 border-l border-black/[0.06]">
-                  <code className="font-mono text-[11px] text-text-tertiary">
-                    {row.charLimit}
-                  </code>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-navy/30 mb-1">Tone</p>
+                    <p className="font-sans text-[14px] text-navy/70">{row.tone}</p>
+                  </div>
+                  <div>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-navy/30 mb-1">Focus</p>
+                    <p className="font-sans text-[14px] text-navy/70">{row.focus}</p>
+                  </div>
+                  <div>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-navy/30 mb-1">Limit</p>
+                    <p className="font-mono text-[13px] text-navy/50">{row.charLimit}</p>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
+      </div>
 
-        {/* Responding to Comments */}
-        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-16">
-          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-6">
-            Responding to Comments
-          </h2>
-          <p className="font-sans text-base text-text-secondary leading-relaxed mb-8 max-w-xl">
-            It&rsquo;s best to respond publicly to negative comments, then move
-            the discussion to a private space as quickly as possible.
-          </p>
-          <div className="p-8 bg-[#f7f7f5] border border-black/[0.04] rounded-xl mb-6">
-            <div className="flex items-center justify-between mb-4">
-              <span className="font-label text-[11px] uppercase tracking-[0.1em] text-navy">
-                Template Response
-              </span>
-            </div>
-            <p className="font-sans text-base text-navy italic leading-relaxed">
-              &ldquo;We are so sorry you&rsquo;ve had a negative experience. Please
-              private message us with your email address so we can help you
-              resolve the issue.&rdquo;
-            </p>
-          </div>
+      {/* ── Responding to Comments ── */}
+      <div className="bg-white py-16 md:py-24">
+        <div className="max-w-[1100px] mx-auto px-8 md:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-16">
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-navy/30 mb-3">
+                Community
+              </p>
+              <h2
+                className="font-sans text-navy tracking-[-0.02em] mb-4"
+                style={{ fontSize: "clamp(24px, 3vw, 32px)", fontWeight: 500 }}
+              >
+                Responding to Comments
+              </h2>
+              <p className="font-sans text-base text-navy/50 leading-relaxed mb-8">
+                Respond publicly to negative comments, then move the
+                discussion to a private space as quickly as possible.
+              </p>
 
-          <div className="p-8 bg-[#f7f7f5] border border-black/[0.04] rounded-xl">
-            <div className="flex items-center justify-between mb-4">
-              <span className="font-label text-[11px] uppercase tracking-[0.1em] text-navy">
-                Facebook Comments Policy
-              </span>
-              <CopyButton text={commentPolicy} />
+              <div className="p-6 rounded-xl bg-cream border-l-[3px] border-royal">
+                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-navy/30 mb-3">
+                  Template Response
+                </p>
+                <p className="font-sans text-[15px] text-navy/70 italic leading-relaxed">
+                  &ldquo;We are so sorry you&rsquo;ve had a negative experience. Please
+                  private message us with your email address so we can help you
+                  resolve the issue.&rdquo;
+                </p>
+              </div>
             </div>
-            <p className="font-sans text-sm text-text-secondary leading-relaxed whitespace-pre-wrap">
-              {commentPolicy}
-            </p>
+
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-navy/30">
+                  Facebook Comments Policy
+                </p>
+                <CopyButton text={commentPolicy} />
+              </div>
+              <div className="p-6 rounded-xl bg-[#f7f7f5] max-h-[320px] overflow-y-auto">
+                <p className="font-sans text-[13px] text-navy/50 leading-relaxed whitespace-pre-wrap">
+                  {commentPolicy}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Email Best Practices */}
-        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-16">
-          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-4">
+      {/* ── Email Communications ── */}
+      <div className="bg-[#0f1c2e] py-16 md:py-24">
+        <div className="max-w-[1100px] mx-auto px-8 md:px-12">
+          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-white/25 mb-3">
+            Email
+          </p>
+          <h2
+            className="font-sans text-white/90 tracking-[-0.02em] mb-4"
+            style={{ fontSize: "clamp(28px, 3.5vw, 40px)", fontWeight: 500 }}
+          >
             Email Communications
           </h2>
-          <p className="font-sans text-base text-text-secondary leading-relaxed mb-10 max-w-xl">
-            Our email communication is the most direct point of digital
-            connection with our clients. Treat it as a privilege.
+          <p className="font-sans text-base text-white/40 leading-relaxed mb-14 max-w-2xl">
+            Our email is the most direct point of digital connection with our clients.
+            Treat it as a privilege.
           </p>
 
-          <div className="space-y-6 mb-12">
-            {emailBestPractices.map((item) => (
-              <div key={item.title}>
-                <h3 className="font-label text-sm text-navy uppercase tracking-[0.06em] mb-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.04] rounded-xl overflow-hidden mb-14">
+            {emailBestPractices.map((item, i) => (
+              <div key={item.title} className={`p-6 bg-[#0f1c2e] ${i === emailBestPractices.length - 1 && emailBestPractices.length % 3 !== 0 ? "lg:col-span-1" : ""}`}>
+                <p className="font-mono text-[10px] text-white/25 mb-3">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <h3 className="font-sans text-white/80 text-[15px] mb-2" style={{ fontWeight: 500 }}>
                   {item.title}
                 </h3>
-                <p className="font-sans text-sm text-text-secondary leading-relaxed max-w-xl">
+                <p className="font-sans text-[13px] text-white/40 leading-relaxed">
                   {item.desc}
                 </p>
               </div>
@@ -306,68 +327,47 @@ export default function ContentPage() {
           </div>
 
           {/* Required Disclaimer */}
-          <div className="p-8 bg-[#f7f7f5] border border-black/[0.04] rounded-xl">
-            <div className="flex items-center justify-between mb-4">
-              <span className="font-label text-[11px] uppercase tracking-[0.1em] text-navy">
-                Required SBA &amp; ADA Disclaimer
-              </span>
-              <CopyButton text={sbaDisclaimer} />
-            </div>
-            <p className="font-sans text-sm text-text-secondary leading-relaxed whitespace-pre-wrap">
+          <div className="flex items-center justify-between mb-4">
+            <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-white/30">
+              Required SBA &amp; ADA Disclaimer
+            </p>
+            <CopyButton text={sbaDisclaimer} />
+          </div>
+          <div className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+            <p className="font-sans text-[13px] text-white/40 leading-relaxed whitespace-pre-wrap">
               {sbaDisclaimer}
             </p>
           </div>
         </div>
+      </div>
 
-        {/* Web Publishing */}
-        <div className="max-w-[780px] mx-auto px-8 md:px-12">
-          <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-8">
+      {/* ── Web Publishing ── */}
+      <div className="bg-white py-16 md:py-24">
+        <div className="max-w-[1100px] mx-auto px-8 md:px-12">
+          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-navy/30 mb-3">
+            Web
+          </p>
+          <h2
+            className="font-sans text-navy tracking-[-0.02em] mb-14"
+            style={{ fontSize: "clamp(28px, 3.5vw, 40px)", fontWeight: 500 }}
+          >
             Web Publishing
           </h2>
 
-          <div className="space-y-8">
+          <div className="space-y-10">
             {webPublishingRules.map((rule) => (
-              <div key={rule.title}>
-                <h3 className="font-label text-sm text-navy uppercase tracking-[0.06em] mb-3">
+              <div key={rule.title} className="border-b border-navy/8 pb-10">
+                <h3 className="font-sans text-navy text-[17px] mb-5" style={{ fontWeight: 500 }}>
                   {rule.title}
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex gap-2 items-start">
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="#00685E"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="mt-0.5 shrink-0"
-                    >
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span className="font-sans text-sm text-text-secondary">
-                      {rule.good}
-                    </span>
+                  <div className="flex gap-3 items-start p-4 rounded-lg bg-[#00685E]/[0.04]">
+                    <span className="material-symbols-outlined text-[#00685E] shrink-0" style={{ fontSize: "18px" }}>check</span>
+                    <span className="font-sans text-[14px] text-navy/70">{rule.good}</span>
                   </div>
-                  <div className="flex gap-2 items-start">
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="#A73B44"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="mt-0.5 shrink-0"
-                    >
-                      <line x1="18" y1="6" x2="6" y2="18" />
-                      <line x1="6" y1="6" x2="18" y2="18" />
-                    </svg>
-                    <span className="font-sans text-sm text-text-secondary">
-                      {rule.bad}
-                    </span>
+                  <div className="flex gap-3 items-start p-4 rounded-lg bg-[#A73B44]/[0.04]">
+                    <span className="material-symbols-outlined text-[#A73B44] shrink-0" style={{ fontSize: "18px" }}>close</span>
+                    <span className="font-sans text-[14px] text-navy/70">{rule.bad}</span>
                   </div>
                 </div>
               </div>
@@ -375,6 +375,7 @@ export default function ContentPage() {
           </div>
         </div>
       </div>
+
       <NextSectionLink title="Calendar" href="/calendar" />
     </>
   );
