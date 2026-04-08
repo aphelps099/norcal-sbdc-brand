@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import Fuse from "fuse.js";
 import { searchData, type SearchItem } from "@/lib/search-index";
+import { STAR_PATH } from "@/lib/brand-tokens";
 
 const fuse = new Fuse(searchData, {
   keys: ["title", "section", "content"],
@@ -44,9 +45,7 @@ const NAV_COLS = [
   },
 ];
 
-/* Star SVG path from CA SBDC brand asset */
-const STAR_PATH =
-  "M1011.48501,11.2353369 L1169.72409,653.038218 L2091.60532,738.475943 L1226.23134,1130.98717 L1458.06865,1976.22037 L1218.31263,1579.03879 L1078.64652,1068.49933 L1637.1469,813.428761 L1067.25191,759.657045 L969.048512,364.4811 L788.430601,706.886932 L338.267364,625.263122 L26.9639197,467.282973 L10.0982009,446.966622 L717.102633,575.532031 L1011.48501,11.2353369 Z";
+/* Star SVG path imported from brand-tokens */
 
 export default function TopNav() {
   const [scrolled, setScrolled] = useState(false);
