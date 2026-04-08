@@ -8,7 +8,17 @@ export default function HeroEditorial() {
   const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     async function init() {
+      if (prefersReducedMotion) {
+        const brand = sectionRef.current?.querySelector<HTMLElement>(".hero-brand");
+        const underline = sectionRef.current?.querySelector<HTMLElement>(".hero-underline");
+        if (brand) brand.style.opacity = "1";
+        if (underline) underline.style.transform = "scaleX(1)";
+        return;
+      }
+
       const { gsap } = await import("gsap");
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
       gsap.registerPlugin(ScrollTrigger);

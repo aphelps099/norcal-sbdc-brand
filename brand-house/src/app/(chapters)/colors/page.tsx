@@ -55,8 +55,8 @@ export default function ColorsPage() {
         </div>
       </div>
 
-      {/* Suggested Usage — white bg */}
-      <div className="bg-white pb-16 md:pb-24">
+      {/* Suggested Usage — cream bg */}
+      <div className="pb-16 md:pb-24 py-16 md:py-24" style={{ backgroundColor: "#f5f4f0" }}>
         <div className="max-w-[960px] mx-auto px-8 md:px-12">
           <h3
             className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/40 mb-6"
@@ -128,7 +128,7 @@ export default function ColorsPage() {
               <div
                 className="relative overflow-hidden aspect-[4/3] flex items-center justify-center"
                 style={{
-                  background: "linear-gradient(160deg, #111C2E 0%, #85A3C8 50%, #F2F4F7 100%)",
+                  background: "linear-gradient(160deg, #0f1c2e 0%, #85A3C8 50%, #F2F4F7 100%)",
                 }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -147,8 +147,8 @@ export default function ColorsPage() {
         </div>
       </div>
 
-      {/* Colors in Use — demo previews */}
-      <div className="bg-white pb-16 md:pb-24">
+      {/* Colors in Use — cream bg */}
+      <div className="pb-16 md:pb-24 py-16 md:py-24" style={{ backgroundColor: "#f5f4f0" }}>
         <div className="max-w-[960px] mx-auto px-8 md:px-12">
           <h3 className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/40 mb-2">
             Colors in Use
@@ -175,7 +175,7 @@ export default function ColorsPage() {
                       fontFamily: "var(--sans)",
                       fontWeight: 500,
                       fontSize: "clamp(24px, 3vw, 34px)",
-                      color: "#111C2E",
+                      color: "#0f1c2e",
                     }}
                   >
                     Your Business, Better.
@@ -219,7 +219,7 @@ export default function ColorsPage() {
             {/* Card 2 — Dark mode content block */}
             <div>
               <div className="relative border border-white/[0.06] overflow-hidden">
-                <div className="px-8 md:px-12 pt-10 pb-20" style={{ backgroundColor: "#111C2E" }}>
+                <div className="px-8 md:px-12 pt-10 pb-20" style={{ backgroundColor: "#0f1c2e" }}>
                   <p
                     className="text-[10px] uppercase tracking-[0.18em] mb-5"
                     style={{ fontFamily: "var(--sans-label)", color: "rgba(133,163,200,0.5)" }}
@@ -267,7 +267,7 @@ export default function ColorsPage() {
                 <div
                   className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
                   style={{
-                    background: "linear-gradient(to bottom, rgba(17,28,46,0), #111C2E)",
+                    background: "linear-gradient(to bottom, rgba(17,28,46,0), #0f1c2e)",
                   }}
                 />
               </div>
@@ -281,7 +281,7 @@ export default function ColorsPage() {
               <div className="relative border border-black/[0.06] overflow-hidden">
                 <div
                   className="px-8 md:px-10 pt-8 pb-6 flex items-center justify-between"
-                  style={{ backgroundColor: "#111C2E" }}
+                  style={{ backgroundColor: "#0f1c2e" }}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -314,7 +314,7 @@ export default function ColorsPage() {
                       fontFamily: "var(--sans)",
                       fontWeight: 500,
                       fontSize: "clamp(20px, 2.5vw, 28px)",
-                      color: "#111C2E",
+                      color: "#0f1c2e",
                     }}
                   >
                     Spring Funding Roundup: New SBA Loan Programs for 2026
@@ -364,15 +364,15 @@ export default function ColorsPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {[
-              { fg: "Navy", bg: "White", fgHex: "#111C2E", bgHex: "#FFFFFF", ratio: "17.08", grade: "AAA" },
-              { fg: "Navy", bg: "Cloud", fgHex: "#111C2E", bgHex: "#F2F4F7", ratio: "15.50", grade: "AAA" },
+              { fg: "Navy", bg: "White", fgHex: "#0f1c2e", bgHex: "#FFFFFF", ratio: "17.08", grade: "AAA" },
+              { fg: "Navy", bg: "Cloud", fgHex: "#0f1c2e", bgHex: "#F2F4F7", ratio: "15.50", grade: "AAA" },
               { fg: "Cobalt", bg: "White", fgHex: "#004290", bgHex: "#FFFFFF", ratio: "9.62", grade: "AAA" },
               { fg: "Berry", bg: "White", fgHex: "#A73B44", bgHex: "#FFFFFF", ratio: "6.26", grade: "AA" },
               { fg: "Evergreen", bg: "White", fgHex: "#00685E", bgHex: "#FFFFFF", ratio: "6.68", grade: "AA" },
-              { fg: "White", bg: "Navy", fgHex: "#FFFFFF", bgHex: "#111C2E", ratio: "17.08", grade: "AAA" },
+              { fg: "White", bg: "Navy", fgHex: "#FFFFFF", bgHex: "#0f1c2e", ratio: "17.08", grade: "AAA" },
               { fg: "White", bg: "Cobalt", fgHex: "#FFFFFF", bgHex: "#004290", ratio: "9.62", grade: "AAA" },
               { fg: "White", bg: "Evergreen", fgHex: "#FFFFFF", bgHex: "#00685E", ratio: "6.68", grade: "AA" },
-              { fg: "Cloud", bg: "Navy", fgHex: "#F2F4F7", bgHex: "#111C2E", ratio: "15.50", grade: "AAA" },
+              { fg: "Cloud", bg: "Navy", fgHex: "#F2F4F7", bgHex: "#0f1c2e", ratio: "15.50", grade: "AAA" },
               { fg: "Fog", bg: "White", fgHex: "#85A3C8", bgHex: "#FFFFFF", ratio: "2.60", grade: "Fail" },
             ].map((pair) => (
               <div key={`${pair.fg}-${pair.bg}`}>

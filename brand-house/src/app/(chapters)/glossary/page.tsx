@@ -194,18 +194,38 @@ export default function GlossaryPage() {
           <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-6">
             Speak the Same Language
           </h2>
-          <p className="font-sans text-lg md:text-xl text-text-secondary leading-[1.7] max-w-[640px]">
+          <p className="font-sans text-lg md:text-xl text-text-secondary leading-[1.7] max-w-[640px] mb-10">
             From SBA to Neoserra, from CIP to 504 &mdash; our work is full of
             acronyms. This reference ensures every center, advisor, and partner
             uses the same definitions. When we speak clearly, our clients
             understand us better.
           </p>
-        </div>
 
-        {/* Glossary Sections */}
+          {/* Jump links */}
+          <div className="flex flex-wrap gap-2">
+            {glossarySections.map((section) => (
+              <a
+                key={section.category}
+                href={`#${section.category.toLowerCase().replace(/\s+/g, "-")}`}
+                className="inline-block px-3 py-1.5 border border-navy/[0.08] font-label text-[10px] uppercase tracking-[0.1em] text-navy/40 hover:text-navy/70 hover:border-navy/20 transition-colors no-underline"
+              >
+                {section.category}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Glossary Sections — cream bg */}
+      <div className="py-12 md:py-16" style={{ backgroundColor: "#f5f4f0" }}>
         <div className="max-w-[960px] mx-auto px-8 md:px-12">
           {glossarySections.map((section, sectionIdx) => (
-            <div key={section.category} className={sectionIdx > 0 ? "mt-16" : ""}>
+            <div
+              key={section.category}
+              id={section.category.toLowerCase().replace(/\s+/g, "-")}
+              className={sectionIdx > 0 ? "mt-16" : ""}
+              style={{ scrollMarginTop: "80px" }}
+            >
               {/* Category Header */}
               <div className="flex items-center gap-4 mb-8">
                 <h2 className="font-label text-[11px] uppercase tracking-[0.15em] text-navy/40 shrink-0">

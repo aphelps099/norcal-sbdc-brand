@@ -126,7 +126,7 @@ export default function ContentPage() {
 
       {/* ── Content Generator Banner ── */}
       <div className="bg-[#0f1c2e]">
-        <div className="max-w-[1100px] mx-auto px-8 md:px-12">
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12">
           <a
             href="/generate"
             className="group flex items-center justify-between gap-8 py-5 border-b border-white/[0.06] no-underline"
@@ -159,7 +159,7 @@ export default function ContentPage() {
 
       {/* ── Social Media Principles ── */}
       <div className="bg-white py-16 md:py-24">
-        <div className="max-w-[1100px] mx-auto px-8 md:px-12">
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12">
           <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-navy/30 mb-3">
             Social Media
           </p>
@@ -200,7 +200,7 @@ export default function ContentPage() {
 
       {/* ── Platform Guidance ── */}
       <div className="bg-cream py-16 md:py-24">
-        <div className="max-w-[1100px] mx-auto px-8 md:px-12">
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12">
           <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-navy/30 mb-3">
             Platforms
           </p>
@@ -247,7 +247,7 @@ export default function ContentPage() {
 
       {/* ── Responding to Comments ── */}
       <div className="bg-white py-16 md:py-24">
-        <div className="max-w-[1100px] mx-auto px-8 md:px-12">
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-16">
             <div>
               <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-navy/30 mb-3">
@@ -295,7 +295,7 @@ export default function ContentPage() {
 
       {/* ── Email Communications ── */}
       <div className="bg-[#0f1c2e] py-16 md:py-24">
-        <div className="max-w-[1100px] mx-auto px-8 md:px-12">
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12">
           <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-white/25 mb-3">
             Email
           </p>
@@ -343,7 +343,7 @@ export default function ContentPage() {
 
       {/* ── Web Publishing ── */}
       <div className="bg-white py-16 md:py-24">
-        <div className="max-w-[1100px] mx-auto px-8 md:px-12">
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12">
           <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-navy/30 mb-3">
             Web
           </p>
