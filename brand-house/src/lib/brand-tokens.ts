@@ -13,7 +13,7 @@ export const colors = {
 } as const;
 
 export const colorGroups = [
-  { label: "Primary & Dark Tones", keys: ["sbdcNavy", "slate", "cobalt", "royal"] as const },
+  { label: "Primary & Dark Tones", keys: ["sbdcNavy", "slate", "cobalt"] as const },
   { label: "Accent Colors", keys: ["berry", "evergreen", "steel"] as const },
   { label: "Neutrals & Backgrounds", keys: ["fog", "silver", "cloud", "cream"] as const },
 ] as const;

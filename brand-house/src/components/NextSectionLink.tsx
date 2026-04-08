@@ -11,22 +11,51 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
   const [hasHovered, setHasHovered] = useState(false);
-  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          obs.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
+
+    let ctx: ReturnType<typeof import("gsap")["gsap"]["context"]> | undefined;
+
+    async function init() {
+      const { gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
+      if (!containerRef.current) return;
+
+      ctx = gsap.context(() => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 88%",
+          },
+        });
+
+        tl.fromTo(
+          ".next-eyebrow",
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }
+        );
+
+        tl.fromTo(
+          ".next-title",
+          { opacity: 0, y: 28 },
+          { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" },
+          "-=0.35"
+        );
+
+        tl.fromTo(
+          ".next-arrow",
+          { opacity: 0, x: -12 },
+          { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" },
+          "-=0.55"
+        );
+      }, containerRef);
+    }
+
+    init();
+    return () => ctx?.revert();
   }, []);
 
   return (
@@ -64,27 +93,17 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
         <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 py-14 md:py-20 lg:py-24">
           {/* Eyebrow */}
           <p
-            className="font-label text-[10px] uppercase tracking-[0.22em] mb-5 md:mb-6"
+            className="next-eyebrow font-label text-[10px] uppercase tracking-[0.22em] mb-5 md:mb-6"
             style={{
               color: hovered ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.25)",
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(12px)",
-              transition:
-                "color 0.6s, opacity 0.7s ease-out 0.1s, transform 0.7s ease-out 0.1s",
+              transition: "color 0.6s",
             }}
           >
             Next
           </p>
 
           {/* Section title */}
-          <div
-            style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(20px)",
-              transition:
-                "opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s",
-            }}
-          >
+          <div className="next-title">
             <h2
               className="tracking-[-0.03em] leading-[1] transition-colors duration-600"
               style={{
@@ -106,7 +125,7 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
             strokeWidth="0.4"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="absolute right-4 md:right-8 top-1/2 transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+            className="next-arrow absolute right-4 md:right-8 top-1/2 transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
             style={{
               width: "clamp(120px, 18vw, 260px)",
               height: "clamp(120px, 18vw, 260px)",
