@@ -16,18 +16,10 @@ const FOOTER_COLS = [
     links: [
       { label: "Templates", href: "/templates" },
       { label: "Content", href: "/content" },
-      { label: "Calendar", href: "/calendar" },
+      { label: "Generate", href: "/generate" },
       { label: "Stories", href: "/stories" },
       { label: "Glossary", href: "/glossary" },
-      { label: "Generate", href: "/generate" },
-    ],
-  },
-  {
-    heading: "Network",
-    links: [
-      { label: "NorCal SBDC", href: "https://norcalsbdc.org" },
-      { label: "California SBDC", href: "https://www.californiasbdc.org" },
-      { label: "SBA.gov", href: "https://www.sba.gov" },
+      { label: "Calendar", href: "/calendar" },
     ],
   },
 ];
@@ -44,7 +36,7 @@ export default function SiteFooter() {
       {/* Main footer */}
       <div className="relative z-10 max-w-[1200px] mx-auto px-8 sm:px-12 pt-16 md:pt-20 pb-10">
         {/* Column grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8 mb-14">
+        <div className="grid grid-cols-2 md:grid-cols-2 max-w-[480px] gap-10 md:gap-16 mb-14">
           {FOOTER_COLS.map((col) => (
             <div key={col.heading}>
               <h3
@@ -65,7 +57,6 @@ export default function SiteFooter() {
                     key={link.href}
                     href={link.href}
                     className="font-sans text-[12px] font-400 text-white/45 hover:text-white/70 transition-colors duration-300 no-underline"
-                    {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   >
                     {link.label}
                   </a>
@@ -73,28 +64,6 @@ export default function SiteFooter() {
               </nav>
             </div>
           ))}
-
-          {/* Fourth column — brand mark */}
-          <div className="flex flex-col justify-between">
-            <div>
-              <h3
-                className="text-white/25 mb-5 uppercase"
-                style={{
-                  fontFamily: "var(--sans-label)",
-                  fontWeight: 500,
-                  fontSize: "10px",
-                  letterSpacing: "0.15em",
-                }}
-              >
-                Connect
-              </h3>
-              <div className="h-[1px] bg-white/[0.06] mb-5" />
-              <p className="font-sans text-[12px] font-400 text-white/25 leading-relaxed max-w-[240px]">
-                Funded in part through a cooperative agreement with the
-                U.S. Small Business Administration.
-              </p>
-            </div>
-          </div>
         </div>
 
         {/* Divider */}
@@ -103,8 +72,8 @@ export default function SiteFooter() {
         {/* Sub-footer */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <span
-            className="text-white/25 uppercase"
-            style={{ fontFamily: "var(--sans-label)", fontSize: "0.58rem", letterSpacing: "0.15em" }}
+            className="font-sans text-white/25 uppercase"
+            style={{ fontSize: "0.58rem", letterSpacing: "0.15em" }}
           >
             &copy; 2026 NorCal SBDC &middot; All Rights Reserved
           </span>
@@ -113,8 +82,8 @@ export default function SiteFooter() {
               href="https://norcalsbdc.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/25 hover:text-white/45 transition-colors duration-500 uppercase no-underline"
-              style={{ fontFamily: "var(--sans-label)", fontSize: "0.58rem", letterSpacing: "0.12em" }}
+              className="font-sans text-white/25 hover:text-white/45 transition-colors duration-500 uppercase no-underline"
+              style={{ fontSize: "0.58rem", letterSpacing: "0.12em" }}
             >
               norcalsbdc.org
             </a>
@@ -122,8 +91,8 @@ export default function SiteFooter() {
               href="https://www.californiasbdc.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/25 hover:text-white/45 transition-colors duration-500 uppercase no-underline"
-              style={{ fontFamily: "var(--sans-label)", fontSize: "0.58rem", letterSpacing: "0.12em" }}
+              className="font-sans text-white/25 hover:text-white/45 transition-colors duration-500 uppercase no-underline"
+              style={{ fontSize: "0.58rem", letterSpacing: "0.12em" }}
             >
               californiasbdc.org
             </a>
