@@ -1,34 +1,32 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { CONTENT_FORMATS, type ContentFormat } from "@/lib/content-formats";
 
-type Phase = "select" | "answer" | "generating" | "done";
-
 export default function ContentGenerator() {
-  const [phase, setPhase] = useState<Phase>("select");
   const [selectedFormat, setSelectedFormat] = useState<ContentFormat | null>(null);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
+  const [generating, setGenerating] = useState(false);
+  const formRef = useRef<HTMLDivElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to form section when a tab is selected
+  useEffect(() => {
+    if (selectedFormat && formRef.current) {
+      formRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [selectedFormat]);
 
   const handleSelectFormat = (format: ContentFormat) => {
     setSelectedFormat(format);
     setAnswers({});
     setOutput("");
     setError("");
-    setPhase("answer");
-  };
-
-  const handleBack = () => {
-    setPhase("select");
-    setSelectedFormat(null);
-    setAnswers({});
-    setOutput("");
-    setError("");
+    setGenerating(false);
   };
 
   const handleGenerate = async () => {
@@ -45,7 +43,7 @@ export default function ContentGenerator() {
 
     setError("");
     setOutput("");
-    setPhase("generating");
+    setGenerating(true);
 
     try {
       const response = await fetch("/api/generate", {
@@ -60,7 +58,7 @@ export default function ContentGenerator() {
 
       if (!response.ok || !response.body) {
         setOutput("[Error: Could not reach the content generator. Please try again.]");
-        setPhase("done");
+        setGenerating(false);
         return;
       }
 
@@ -75,10 +73,10 @@ export default function ContentGenerator() {
         setOutput(text);
       }
 
-      setPhase("done");
+      setGenerating(false);
     } catch {
       setOutput("[Error generating content. Please try again.]");
-      setPhase("done");
+      setGenerating(false);
     }
   };
 
@@ -88,198 +86,186 @@ export default function ContentGenerator() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  /* ── Format Selection (full width) ── */
-  if (phase === "select") {
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+  return (
+    <div>
+      {/* ── Format Tabs (always visible) ── */}
+      <div className="flex flex-wrap gap-2 mb-12">
         {CONTENT_FORMATS.map((format) => (
           <button
             key={format.id}
             onClick={() => handleSelectFormat(format)}
-            className="text-left p-5 border border-navy/12 rounded-xl hover:border-royal/40 hover:bg-royal/[0.04] hover:shadow-sm transition-all duration-200"
+            className={`px-4 py-2.5 text-[13px] font-sans border rounded-lg transition-all duration-200 ${
+              selectedFormat?.id === format.id
+                ? "border-royal bg-royal/10 text-royal shadow-sm"
+                : "border-navy/12 text-navy/60 hover:border-royal/40 hover:text-navy"
+            }`}
+            style={{ fontWeight: selectedFormat?.id === format.id ? 500 : 400 }}
           >
-            <p
-              className="text-navy text-[15px] mb-1"
-              style={{ fontFamily: "var(--sans)", fontWeight: 500 }}
-            >
-              {format.label}
-            </p>
-            <p className="text-navy/55 text-[13px] font-sans leading-relaxed">
-              {format.description}
-            </p>
+            {format.label}
           </button>
         ))}
       </div>
-    );
-  }
 
-  /* ── Two-column: Form (5/12) | Output (7/12) ── */
-  const showOutput = phase === "generating" || phase === "done";
-
-  return (
-    <div>
-      <button
-        onClick={handleBack}
-        className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/50 hover:text-royal transition-colors mb-6 block"
-      >
-        ← Back to formats
-      </button>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
-        {/* ── Left: Form ── */}
-        <div className="lg:col-span-5">
-          <p
-            className="text-navy text-[22px] tracking-[-0.02em] mb-8"
-            style={{ fontFamily: "var(--sans)", fontWeight: 500 }}
-          >
-            {selectedFormat!.label}
-          </p>
-
-          <div className="space-y-6">
-            {selectedFormat!.questions.map((q) => (
-              <div key={q.id}>
-                <label className="font-label text-[12px] uppercase tracking-[0.1em] text-navy/70 block mb-2">
-                  {q.label}
-                  {q.required && <span className="text-[#A73B44] ml-1">*</span>}
-                </label>
-                {q.type === "select" && q.options ? (
-                  <div className="flex flex-wrap gap-2">
-                    {q.options.map((opt) => (
-                      <button
-                        key={opt}
-                        onClick={() => setAnswers((a) => ({ ...a, [q.id]: opt }))}
-                        className={`px-4 py-2.5 text-[13px] font-sans border rounded-lg transition-all ${
-                          answers[q.id] === opt
-                            ? "border-royal bg-royal/10 text-royal shadow-sm"
-                            : "border-navy/15 text-navy/70 hover:border-royal/40 hover:text-navy"
-                        }`}
-                      >
-                        {opt}
-                      </button>
-                    ))}
-                  </div>
-                ) : q.type === "textarea" ? (
-                  <textarea
-                    value={answers[q.id] || ""}
-                    onChange={(e) => setAnswers((a) => ({ ...a, [q.id]: e.target.value }))}
-                    placeholder={q.placeholder}
-                    rows={3}
-                    className="w-full px-4 py-3.5 border border-navy/20 rounded-lg text-navy text-[14px] font-sans placeholder:text-navy/40 focus:outline-none focus:border-royal focus:ring-2 focus:ring-royal/15 transition-all resize-none"
-                  />
-                ) : (
-                  <input
-                    type="text"
-                    value={answers[q.id] || ""}
-                    onChange={(e) => setAnswers((a) => ({ ...a, [q.id]: e.target.value }))}
-                    placeholder={q.placeholder}
-                    className="w-full px-4 py-3.5 border border-navy/20 rounded-lg text-navy text-[14px] font-sans placeholder:text-navy/40 focus:outline-none focus:border-royal focus:ring-2 focus:ring-royal/15 transition-all"
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-
-          {error && (
-            <p className="mt-4 text-[#A73B44] text-[14px] font-sans">{error}</p>
-          )}
-
-          <button
-            onClick={handleGenerate}
-            disabled={phase === "generating"}
-            className="mt-8 px-8 py-3.5 bg-[#004290] text-white text-[14px] font-sans tracking-[0.01em] rounded-lg hover:bg-[#003574] hover:shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            style={{ fontWeight: 500 }}
-          >
-            {phase === "generating" ? "Generating..." : phase === "done" ? "Regenerate" : "Generate"}
-          </button>
-        </div>
-
-        {/* ── Right: Output ── */}
-        <div className="lg:col-span-7">
-          <div
-            ref={outputRef}
-            className="relative border border-navy/25 rounded-xl bg-[#f7f7f5] min-h-[400px] flex flex-col overflow-hidden sticky top-8"
-          >
-            {/* Header bar */}
-            <div className="px-6 md:px-8 pt-5 pb-3 border-b border-navy/15">
-              <p className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/45">
-                {selectedFormat!.label}
+      {/* ── Form + Output (two-column, shown when a format is selected) ── */}
+      {selectedFormat && (
+        <div ref={formRef} className="scroll-mt-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+            {/* ── Left: Form ── */}
+            <div className="lg:col-span-5">
+              <p
+                className="text-navy text-[22px] tracking-[-0.02em] mb-8"
+                style={{ fontFamily: "var(--sans)", fontWeight: 500 }}
+              >
+                {selectedFormat.label}
               </p>
+
+              <div className="space-y-6">
+                {selectedFormat.questions.map((q) => (
+                  <div key={q.id}>
+                    <label className="font-label text-[12px] uppercase tracking-[0.1em] text-navy/70 block mb-2">
+                      {q.label}
+                      {q.required && <span className="text-[#A73B44] ml-1">*</span>}
+                    </label>
+                    {q.type === "select" && q.options ? (
+                      <div className="flex flex-wrap gap-2">
+                        {q.options.map((opt) => (
+                          <button
+                            key={opt}
+                            onClick={() => setAnswers((a) => ({ ...a, [q.id]: opt }))}
+                            className={`px-4 py-2.5 text-[13px] font-sans border rounded-lg transition-all ${
+                              answers[q.id] === opt
+                                ? "border-royal bg-royal/10 text-royal shadow-sm"
+                                : "border-navy/15 text-navy/70 hover:border-royal/40 hover:text-navy"
+                            }`}
+                          >
+                            {opt}
+                          </button>
+                        ))}
+                      </div>
+                    ) : q.type === "textarea" ? (
+                      <textarea
+                        value={answers[q.id] || ""}
+                        onChange={(e) => setAnswers((a) => ({ ...a, [q.id]: e.target.value }))}
+                        placeholder={q.placeholder}
+                        rows={3}
+                        className="w-full px-4 py-3.5 border border-navy/20 rounded-lg text-navy text-[14px] font-sans placeholder:text-navy/40 focus:outline-none focus:border-royal focus:ring-2 focus:ring-royal/15 transition-all resize-none"
+                      />
+                    ) : (
+                      <input
+                        type="text"
+                        value={answers[q.id] || ""}
+                        onChange={(e) => setAnswers((a) => ({ ...a, [q.id]: e.target.value }))}
+                        placeholder={q.placeholder}
+                        className="w-full px-4 py-3.5 border border-navy/20 rounded-lg text-navy text-[14px] font-sans placeholder:text-navy/40 focus:outline-none focus:border-royal focus:ring-2 focus:ring-royal/15 transition-all"
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {error && (
+                <p className="mt-4 text-[#A73B44] text-[14px] font-sans">{error}</p>
+              )}
+
+              <button
+                onClick={handleGenerate}
+                disabled={generating}
+                className="mt-8 px-8 py-3.5 bg-[#004290] text-white text-[14px] font-sans tracking-[0.01em] rounded-lg hover:bg-[#003574] hover:shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ fontWeight: 500 }}
+              >
+                {generating ? "Generating..." : output ? "Regenerate" : "Generate"}
+              </button>
             </div>
 
-            {/* Content area */}
-            <div className="px-6 md:px-8 py-6 flex-1">
-              {output ? (
-                <div className="prose-brand text-navy/85 text-[15px] leading-[1.8] font-sans">
-                  <ReactMarkdown
-                    components={{
-                      strong: ({ children }) => (
-                        <strong className="font-semibold text-navy">{children}</strong>
-                      ),
-                      em: ({ children }) => (
-                        <em className="italic">{children}</em>
-                      ),
-                      p: ({ children }) => (
-                        <p className="mb-4 last:mb-0">{children}</p>
-                      ),
-                      ul: ({ children }) => (
-                        <ul className="list-disc pl-5 mb-4 space-y-1">{children}</ul>
-                      ),
-                      ol: ({ children }) => (
-                        <ol className="list-decimal pl-5 mb-4 space-y-1">{children}</ol>
-                      ),
-                      li: ({ children }) => (
-                        <li className="text-navy/85">{children}</li>
-                      ),
-                      h1: ({ children }) => (
-                        <p className="text-[20px] font-semibold text-navy mb-3" style={{ fontFamily: "var(--sans)" }}>{children}</p>
-                      ),
-                      h2: ({ children }) => (
-                        <p className="text-[18px] font-semibold text-navy mb-2" style={{ fontFamily: "var(--sans)" }}>{children}</p>
-                      ),
-                      h3: ({ children }) => (
-                        <p className="text-[16px] font-semibold text-navy mb-2" style={{ fontFamily: "var(--sans)" }}>{children}</p>
-                      ),
-                    }}
-                  >
-                    {output}
-                  </ReactMarkdown>
-                </div>
-              ) : showOutput ? (
-                <div className="flex items-center gap-2.5 text-navy/40">
-                  <span className="inline-block w-2 h-2 bg-royal/40 rounded-full animate-pulse" />
-                  <span className="text-[13px] font-sans">Generating...</span>
-                </div>
-              ) : (
-                <div className="flex items-center justify-center h-full min-h-[300px]">
-                  <p className="text-navy/25 text-[14px] font-sans text-center">
-                    Fill in the form and hit Generate<br />to see your content here.
+            {/* ── Right: Output ── */}
+            <div className="lg:col-span-7">
+              <div
+                ref={outputRef}
+                className="relative border border-navy/25 rounded-xl bg-[#f7f7f5] min-h-[400px] flex flex-col overflow-hidden sticky top-8"
+              >
+                {/* Header bar */}
+                <div className="px-6 md:px-8 pt-5 pb-3 border-b border-navy/15">
+                  <p className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/45">
+                    {selectedFormat.label}
                   </p>
                 </div>
-              )}
-            </div>
 
-            {/* Action bar — Sofia Pro font */}
-            {phase === "done" && (
-              <div className="px-6 md:px-8 py-3 border-t border-navy/15 flex items-center justify-end gap-2">
-                <button
-                  onClick={handleGenerate}
-                  className="px-4 py-2 text-navy/55 text-[13px] font-sans rounded-lg hover:text-navy/80 hover:bg-navy/[0.04] transition-all"
-                  style={{ fontWeight: 500 }}
-                >
-                  Regenerate
-                </button>
-                <button
-                  onClick={handleCopy}
-                  className="px-5 py-2.5 bg-[#004290] text-white text-[13px] font-sans rounded-lg hover:bg-[#003574] transition-colors"
-                  style={{ fontWeight: 500 }}
-                >
-                  {copied ? "Copied" : "Copy"}
-                </button>
+                {/* Content area */}
+                <div className="px-6 md:px-8 py-6 flex-1">
+                  {output ? (
+                    <div className="prose-brand text-navy/85 text-[15px] leading-[1.8] font-sans">
+                      <ReactMarkdown
+                        components={{
+                          strong: ({ children }) => (
+                            <strong className="font-semibold text-navy">{children}</strong>
+                          ),
+                          em: ({ children }) => (
+                            <em className="italic">{children}</em>
+                          ),
+                          p: ({ children }) => (
+                            <p className="mb-4 last:mb-0">{children}</p>
+                          ),
+                          ul: ({ children }) => (
+                            <ul className="list-disc pl-5 mb-4 space-y-1">{children}</ul>
+                          ),
+                          ol: ({ children }) => (
+                            <ol className="list-decimal pl-5 mb-4 space-y-1">{children}</ol>
+                          ),
+                          li: ({ children }) => (
+                            <li className="text-navy/85">{children}</li>
+                          ),
+                          h1: ({ children }) => (
+                            <p className="text-[20px] font-semibold text-navy mb-3" style={{ fontFamily: "var(--sans)" }}>{children}</p>
+                          ),
+                          h2: ({ children }) => (
+                            <p className="text-[18px] font-semibold text-navy mb-2" style={{ fontFamily: "var(--sans)" }}>{children}</p>
+                          ),
+                          h3: ({ children }) => (
+                            <p className="text-[16px] font-semibold text-navy mb-2" style={{ fontFamily: "var(--sans)" }}>{children}</p>
+                          ),
+                        }}
+                      >
+                        {output}
+                      </ReactMarkdown>
+                    </div>
+                  ) : generating ? (
+                    <div className="flex items-center gap-2.5 text-navy/40">
+                      <span className="inline-block w-2 h-2 bg-royal/40 rounded-full animate-pulse" />
+                      <span className="text-[13px] font-sans">Generating...</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center h-full min-h-[300px]">
+                      <p className="text-navy/25 text-[14px] font-sans text-center">
+                        Fill in the form and hit Generate<br />to see your content here.
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Action bar */}
+                {output && !generating && (
+                  <div className="px-6 md:px-8 py-3 border-t border-navy/15 flex items-center justify-end gap-2">
+                    <button
+                      onClick={handleGenerate}
+                      className="px-4 py-2 text-navy/55 text-[13px] font-sans rounded-lg hover:text-navy/80 hover:bg-navy/[0.04] transition-all"
+                      style={{ fontWeight: 500 }}
+                    >
+                      Regenerate
+                    </button>
+                    <button
+                      onClick={handleCopy}
+                      className="px-5 py-2.5 bg-[#004290] text-white text-[13px] font-sans rounded-lg hover:bg-[#003574] transition-colors"
+                      style={{ fontWeight: 500 }}
+                    >
+                      {copied ? "Copied" : "Copy"}
+                    </button>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
