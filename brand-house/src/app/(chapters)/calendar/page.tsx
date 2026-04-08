@@ -3,6 +3,65 @@ import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
 
+type CardBg = "navy" | "cobalt" | "berry" | "white";
+
+interface SocialCard {
+  bg: CardBg;
+  label: string;
+  stat?: string;
+  headline: string;
+  body?: string;
+  quote?: boolean;
+  attribution?: string;
+  cta?: string;
+}
+
+const BG_STYLES: Record<CardBg, { bg: string; text: string; muted: string; cta: string }> = {
+  navy:   { bg: "#0f1c2e", text: "rgba(255,255,255,0.92)", muted: "rgba(255,255,255,0.4)", cta: "#8FC5D9" },
+  cobalt: { bg: "#004290", text: "rgba(255,255,255,0.92)", muted: "rgba(255,255,255,0.45)", cta: "#8FC5D9" },
+  berry:  { bg: "#A73B44", text: "rgba(255,255,255,0.92)", muted: "rgba(255,255,255,0.5)",  cta: "rgba(255,255,255,0.7)" },
+  white:  { bg: "#ffffff", text: "#0f1c2e",                muted: "rgba(15,28,46,0.45)",     cta: "#004290" },
+};
+
+const socialRows: { label: string; cards: SocialCard[] }[] = [
+  {
+    label: "Value to Lenders",
+    cards: [
+      { bg: "navy", label: "ROI", stat: "$58", headline: "Return for every $1 invested in SBDC.", cta: "SBA verified →" },
+      { bg: "white", label: "For Lenders", headline: "We don\u2019t compete with you.", body: "We make your pipeline stronger.", cta: "Partner with us →" },
+      { bg: "cobalt", label: "Last Year", headline: "\u201CSBDC referrals close faster. The prep work is already done.\u201D", quote: true, attribution: "Community Bank Lender" },
+      { bg: "berry", label: "Last Year", stat: "$547M", headline: "Capital accessed by our clients.", cta: "Be part of it →" },
+    ],
+  },
+  {
+    label: "What We Do (For Lenders)",
+    cards: [
+      { bg: "navy", label: "Before They Reach You", headline: "We prepare them.", body: "\u2022 Clean financial statements\n\u2022 Realistic loan amounts\n\u2022 Complete documentation\n\u2022 Solid business plans", cta: "norcalsbdc.org/partners" },
+      { bg: "cobalt", label: "", headline: "Less back-and-forth. Faster closes. Better clients." },
+      { bg: "white", label: "For Lenders", headline: "Your underwriters will thank you.", body: "Complete packages. Realistic asks. Prepared borrowers.", cta: "Learn more →" },
+      { bg: "berry", label: "Free", stat: "Free", headline: "What we charge clients.", body: "They get expert prep. You get loan-ready referrals. Everyone wins.", cta: "Partner now →" },
+    ],
+  },
+  {
+    label: "CDFIs & Mission Lenders",
+    cards: [
+      { bg: "white", label: "For CDFIs", headline: "Same mission. Different tools.", body: "You lend. We advise. Together we build.", cta: "Let\u2019s partner →" },
+      { bg: "navy", label: "Network", stat: "18", headline: "Centers across Northern California.", cta: "Find your local center →" },
+      { bg: "cobalt", label: "", headline: "\u201CThey\u2019re an extension of our team. We couldn\u2019t serve this many small businesses without them.\u201D", quote: true, attribution: "CDFI Partner" },
+      { bg: "berry", label: "", headline: "We reach the businesses you want to fund." },
+    ],
+  },
+  {
+    label: "Economic Development Partners",
+    cards: [
+      { bg: "navy", label: "Coverage", stat: "36", headline: "Counties across Northern California.", cta: "See our network →" },
+      { bg: "white", label: "For Cities & Counties", headline: "Your constituents. Our advisors.", body: "Free small business support for your community.", cta: "Partner with us →" },
+      { bg: "cobalt", label: "No Pricing", headline: "At no cost to you.", body: "\u2022 One-on-one advising\n\u2022 Workshops & training\n\u2022 Loan packaging\n\u2022 Disaster recovery support", cta: "norcalsbdc.org" },
+      { bg: "berry", label: "Businesses", stat: "12.4K", headline: "Advised last year across the network.", cta: "Join us →" },
+    ],
+  },
+];
+
 const quarters = [
   {
     label: "Q1",
@@ -247,6 +306,106 @@ export default function CalendarPage() {
           </div>
         </div>
 
+      </div>
+
+      {/* ── Social Wall ── */}
+      <div className="py-14 md:py-20" style={{ backgroundColor: "#f5f4f0" }}>
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12">
+          <div className="max-w-[780px] mb-12">
+            <h2
+              className="font-sans text-navy tracking-[-0.02em] mb-4"
+              style={{ fontSize: "clamp(28px, 3.5vw, 40px)", fontWeight: 500 }}
+            >
+              Sample Social Content
+            </h2>
+            <p className="font-sans text-base text-text-secondary leading-relaxed max-w-xl">
+              Ready-to-adapt branded posts for partner outreach, impact storytelling, and network awareness.
+              Customize for your center and audience.
+            </p>
+          </div>
+
+          <div className="space-y-8">
+            {socialRows.map((row) => (
+              <div key={row.label}>
+                <p className="font-label text-[10px] uppercase tracking-[0.14em] text-navy/30 mb-3">
+                  {row.label}
+                </p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                  {row.cards.map((card, i) => {
+                    const s = BG_STYLES[card.bg];
+                    return (
+                      <div
+                        key={i}
+                        className="relative p-5 md:p-6 flex flex-col justify-between rounded-lg"
+                        style={{
+                          backgroundColor: s.bg,
+                          aspectRatio: "1 / 1",
+                          border: card.bg === "white" ? "1px solid rgba(0,0,0,0.06)" : "none",
+                        }}
+                      >
+                        {/* Label */}
+                        {card.label && (
+                          <p
+                            className="font-label text-[9px] uppercase tracking-[0.12em] mb-auto"
+                            style={{ color: s.muted }}
+                          >
+                            {card.label}
+                          </p>
+                        )}
+
+                        {/* Content */}
+                        <div className={card.label ? "mt-auto" : ""}>
+                          {card.stat && (
+                            <p
+                              className="font-sans leading-none mb-1"
+                              style={{ color: s.text, fontSize: "clamp(28px, 3.5vw, 44px)", fontWeight: 500 }}
+                            >
+                              {card.stat}
+                            </p>
+                          )}
+                          <p
+                            className="font-sans leading-snug"
+                            style={{
+                              color: s.text,
+                              fontSize: card.quote ? "clamp(13px, 1.4vw, 16px)" : "clamp(14px, 1.6vw, 18px)",
+                              fontWeight: card.quote ? 400 : 500,
+                              fontStyle: card.quote ? "italic" : "normal",
+                            }}
+                          >
+                            {card.headline}
+                          </p>
+                          {card.attribution && (
+                            <p className="font-sans text-[11px] mt-2" style={{ color: s.muted }}>
+                              — {card.attribution}
+                            </p>
+                          )}
+                          {card.body && (
+                            <p
+                              className="font-sans text-[12px] leading-relaxed mt-2 whitespace-pre-line"
+                              style={{ color: s.muted }}
+                            >
+                              {card.body}
+                            </p>
+                          )}
+                        </div>
+
+                        {/* CTA */}
+                        {card.cta && (
+                          <p
+                            className="font-sans text-[11px] mt-3"
+                            style={{ color: s.cta, fontWeight: 500 }}
+                          >
+                            {card.cta}
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Recurring Content — dark navy bg */}
