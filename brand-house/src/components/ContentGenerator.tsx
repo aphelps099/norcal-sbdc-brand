@@ -93,7 +93,7 @@ export default function ContentGenerator() {
         {/* Tab track line */}
         <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-navy/8" />
 
-        <div className="flex overflow-x-auto scrollbar-none -mb-[1px]">
+        <div className="flex overflow-x-auto no-scrollbar -mb-[1px]">
           {CONTENT_FORMATS.map((format) => {
             const isActive = selectedFormat?.id === format.id;
             return (
@@ -132,7 +132,7 @@ export default function ContentGenerator() {
 
       {/* ── Form + Output (two-column, shown when a format is selected) ── */}
       {selectedFormat && (
-        <div ref={formRef} className="scroll-mt-8">
+        <div ref={formRef} className="scroll-mt-32">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
             {/* ── Left: Form ── */}
             <div className="lg:col-span-5">
