@@ -368,50 +368,38 @@ export default function TopNav() {
               {/* Search result cards — appear ABOVE the search bar */}
               <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16">
                 <div
-                  className="flex flex-wrap gap-3 pb-6 transition-all duration-300"
+                  className="pb-8 transition-all duration-300"
                   style={{
                     minHeight: query && results.length > 0 ? "auto" : 0,
                     opacity: query && results.length > 0 ? 1 : 0,
                     transform: query && results.length > 0 ? "translateY(0)" : "translateY(8px)",
                   }}
                 >
-                  {results.slice(0, 4).map((item) => (
-                    <a
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setMenuOpen(false)}
-                      className="group/card flex items-center gap-3 bg-white/[0.04] border border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.15] transition-all duration-200 rounded px-4 py-3 no-underline"
-                    >
-                      <span
-                        className="text-[8px] uppercase tracking-[0.15em] text-white/20 shrink-0"
-                        style={{ fontFamily: "var(--sans-label)" }}
+                  <div className="flex flex-col gap-1">
+                    {results.slice(0, 6).map((item) => (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setMenuOpen(false)}
+                        className="group/card py-2 no-underline flex items-baseline gap-3"
                       >
-                        {item.section}
-                      </span>
-                      <span
-                        className="text-white/50 group-hover/card:text-white/90 transition-colors duration-200 whitespace-nowrap"
-                        style={{ fontFamily: "var(--sans)", fontSize: "0.85rem", fontWeight: 500 }}
-                      >
-                        {item.title}
-                      </span>
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="text-white/10 group-hover/card:text-white/30 transition-colors duration-200 shrink-0"
-                      >
-                        <path d="M5 12h14" />
-                        <path d="m12 5 7 7-7 7" />
-                      </svg>
-                    </a>
-                  ))}
+                        <span
+                          className="text-white/50 group-hover/card:text-white transition-colors duration-200"
+                          style={{ fontFamily: "var(--sans)", fontSize: "clamp(1.1rem, 2vw, 1.5rem)", fontWeight: 500 }}
+                        >
+                          {item.title}
+                        </span>
+                        <span
+                          className="text-white/15 group-hover/card:text-white/30 transition-colors duration-200"
+                          style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase" as const }}
+                        >
+                          {item.section}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
                   {query && results.length === 0 && (
-                    <span className="text-white/20 text-sm" style={{ fontFamily: "var(--sans)" }}>
+                    <span className="text-white/20" style={{ fontFamily: "var(--sans)", fontSize: "1.1rem" }}>
                       No results for &ldquo;{query}&rdquo;
                     </span>
                   )}
