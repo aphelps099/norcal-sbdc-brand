@@ -155,7 +155,7 @@ export default function ManifestoSection({ config }: Props) {
   }
 
   const fontFam = fontFamily === 'serif'
-    ? "var(--sans, 'Sofia Pro', system-ui, sans-serif)"
+    ? "var(--sans, 'Proxima Nova', system-ui, sans-serif)"
     : "var(--sans, system-ui, sans-serif)";
 
   return (

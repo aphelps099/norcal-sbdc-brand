@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 const brandItems = [
   { title: "Colors", description: "Palette, tints, and usage.", href: "/colors" },
-  { title: "Typography", description: "Sofia Pro, Sweet Sans Pro, Andale Mono.", href: "/typography" },
+  { title: "Typography", description: "Proxima Nova + Roboto Mono type system.", href: "/typography" },
   { title: "Logos", description: "Suite, lockups, clear space.", href: "/logos" },
   { title: "Voice & Tone", description: "How we write and speak.", href: "/voice" },
   { title: "Photography", description: "Style, treatments, composition.", href: "/photography" },

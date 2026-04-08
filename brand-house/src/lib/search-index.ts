@@ -21,7 +21,7 @@ export const searchData: SearchItem[] = [
   {
     title: "Typography",
     section: "Typography",
-    content: "Sofia Pro, Sweet Sans Pro, Andale Mono, font specimens, type hierarchy, headline rules, body text, labels",
+    content: "Proxima Nova, Roboto Mono, font specimens, type hierarchy, headline rules, body text, labels",
     href: "/typography",
   },
   {

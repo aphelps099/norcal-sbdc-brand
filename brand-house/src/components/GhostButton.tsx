@@ -10,7 +10,7 @@ interface GhostButtonProps {
 
 /**
  * Outlined ghost CTA — CA SBDC style.
- * 1px border, uppercase Sweet Sans Pro, tracked, fill on hover.
+ * 1px border, uppercase Roboto Mono, tracked, fill on hover.
  */
 export default function GhostButton({
   label,

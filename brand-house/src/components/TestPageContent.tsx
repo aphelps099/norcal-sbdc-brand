@@ -33,7 +33,7 @@ const serviceCards = [
 
 const brandResources = [
   { title: "Colors", description: "Palette, tints, and accessible pairings.", href: "/colors" },
-  { title: "Typography", description: "Sofia Pro + Sweet Sans Pro + Andale Mono type system.", href: "/typography" },
+  { title: "Typography", description: "Proxima Nova + Roboto Mono type system.", href: "/typography" },
   { title: "Logos", description: "Logo suite, lockups, clear space.", href: "/logos" },
   { title: "Voice & Tone", description: "How we write and speak.", href: "/voice" },
   { title: "Photography", description: "Style, treatments, composition.", href: "#" },
