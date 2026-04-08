@@ -212,7 +212,16 @@ export default function EmailSignatureGenerator({
   const [copied, setCopied] = useState(false);
 
   const isReady = name.trim() && title.trim();
+
+  // Live HTML uses real input; demo uses placeholder data
   const html = buildHtml(style, { name, title, center, phone, email });
+  const demoHtml = buildHtml(style, {
+    name: "Maria Santos",
+    title: "Senior Business Advisor",
+    center: "NorCal SBDC Network — Lead Center",
+    phone: "530.898.4598",
+    email: "msantos@norcalsbdc.org",
+  });
 
   const handleCopy = async () => {
     try {
@@ -232,22 +241,40 @@ export default function EmailSignatureGenerator({
 
   return (
     <div>
-      {/* ── Style Picker ── */}
-      <div className="flex flex-wrap gap-2 mb-8">
-        {STYLE_OPTIONS.map((s) => (
-          <button
-            key={s.id}
-            onClick={() => setStyle(s.id)}
-            className={`px-4 py-2.5 text-[12px] font-mono border rounded-lg transition-all ${
-              style === s.id
-                ? "border-royal bg-royal/15 text-white"
-                : "border-white/10 text-white/50 hover:border-white/25 hover:text-white/70"
-            }`}
-          >
-            <span className="font-medium">{s.label}</span>
-            <span className="hidden sm:inline text-white/30 ml-2">— {s.desc}</span>
-          </button>
-        ))}
+      {/* ── M3-style Tabs (dark theme) ── */}
+      <div className="relative mb-8">
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-white/[0.08]" />
+        <div className="flex -mb-[1px]">
+          {STYLE_OPTIONS.map((s) => {
+            const isActive = style === s.id;
+            return (
+              <button
+                key={s.id}
+                onClick={() => setStyle(s.id)}
+                className={`group relative px-5 py-3 font-mono text-[12px] whitespace-nowrap transition-colors duration-200 ${
+                  isActive
+                    ? "text-white"
+                    : "text-white/35 hover:text-white/60"
+                }`}
+                style={{ fontWeight: 500 }}
+              >
+                {s.label}
+                <span
+                  className={`absolute bottom-0 left-3 right-3 h-[3px] rounded-full transition-all duration-300 ease-out ${
+                    isActive
+                      ? "bg-royal scale-x-100"
+                      : "bg-transparent scale-x-0 group-hover:bg-white/15 group-hover:scale-x-100"
+                  }`}
+                />
+                <span
+                  className={`absolute inset-x-1 inset-y-0.5 rounded-lg transition-colors duration-200 -z-10 ${
+                    isActive ? "bg-white/[0.05]" : "group-hover:bg-white/[0.03]"
+                  }`}
+                />
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
@@ -351,14 +378,17 @@ export default function EmailSignatureGenerator({
               </div>
             </div>
 
-            {/* Live rendered signature */}
+            {/* Live rendered signature — shows demo data when empty */}
             <div className="p-6">
               {isReady ? (
                 <div dangerouslySetInnerHTML={{ __html: html }} />
               ) : (
-                <p className="text-navy/25 text-[14px] font-sans text-center py-8">
-                  Fill in your name and title to see the preview.
-                </p>
+                <div className="relative">
+                  <div className="opacity-40 pointer-events-none" dangerouslySetInnerHTML={{ __html: demoHtml }} />
+                  <p className="absolute inset-0 flex items-center justify-center text-navy/30 text-[13px] font-mono bg-white/60 backdrop-blur-[1px]">
+                    Enter your details to customize
+                  </p>
+                </div>
               )}
             </div>
           </div>
