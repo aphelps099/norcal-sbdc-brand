@@ -9,24 +9,18 @@ $2.8B raised. 42,000+ jobs created. Your business, better.`;
 
 const elevatorPitch = `NorCal SBDC provides free, expert business advising to entrepreneurs across Northern California. Since 1980, we've helped our clients raise $2.8 billion in capital, create over 42,000 jobs, and build businesses that matter.`;
 
-/* ── Oversized Material-style icon SVGs (used as cropped background accents) ── */
-const IconEmail = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
-    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-  </svg>
-);
-
-const IconPerson = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
-    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-  </svg>
-);
-
-const IconMic = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
-    <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z" />
-  </svg>
-);
+/* ── Oversized Material Symbol as a cropped bg accent ── */
+function GiantIcon({ name, className = "" }: { name: string; className?: string }) {
+  return (
+    <span
+      className={`material-symbols-outlined absolute pointer-events-none select-none text-white/[0.03] ${className}`}
+      style={{ fontSize: "280px", fontVariationSettings: "'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 48" }}
+      aria-hidden="true"
+    >
+      {name}
+    </span>
+  );
+}
 
 export default function TemplatesPage() {
   return (
@@ -56,10 +50,7 @@ export default function TemplatesPage() {
 
           {/* ── Email Signature — Interactive Generator ── */}
           <div className="relative py-10 overflow-hidden">
-            {/* Giant cropped icon */}
-            <div className="absolute -right-8 -top-6 w-[220px] h-[220px] text-white/[0.03] pointer-events-none select-none">
-              <IconEmail />
-            </div>
+            <GiantIcon name="mail" className="-right-10 -top-8" />
 
             <div className="flex items-center justify-between mb-8">
               <h3 className="font-label text-sm text-white/90 uppercase tracking-[0.1em]">
@@ -74,10 +65,7 @@ export default function TemplatesPage() {
 
           {/* ── Social Bio ── */}
           <div className="relative py-10 overflow-hidden">
-            {/* Giant cropped icon */}
-            <div className="absolute -right-6 -bottom-4 w-[200px] h-[200px] text-white/[0.03] pointer-events-none select-none">
-              <IconPerson />
-            </div>
+            <GiantIcon name="person" className="-right-8 -bottom-10" />
 
             <div className="flex items-center justify-between mb-5">
               <h3 className="font-label text-sm text-white/90 uppercase tracking-[0.1em]">
@@ -95,10 +83,7 @@ export default function TemplatesPage() {
 
           {/* ── Elevator Pitch ── */}
           <div className="relative py-10 overflow-hidden">
-            {/* Giant cropped icon */}
-            <div className="absolute -right-4 -bottom-6 w-[200px] h-[200px] text-white/[0.03] pointer-events-none select-none">
-              <IconMic />
-            </div>
+            <GiantIcon name="campaign" className="-right-6 -bottom-12" />
 
             <div className="flex items-center justify-between mb-5">
               <h3 className="font-label text-sm text-white/90 uppercase tracking-[0.1em]">
