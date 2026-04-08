@@ -56,12 +56,12 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
 
         {/* Top border */}
         <div className="absolute top-0 left-0 right-0 z-20">
-          <div className="max-w-[1100px] mx-auto px-8 md:px-12">
+          <div className="max-w-[1200px] mx-auto px-8 md:px-12">
             <div className="border-t border-black/[0.06]" />
           </div>
         </div>
 
-        <div className="relative z-10 max-w-[1100px] mx-auto px-8 md:px-12 py-14 md:py-20 lg:py-24">
+        <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 py-14 md:py-20 lg:py-24">
           {/* Eyebrow */}
           <p
             className="font-label text-[10px] uppercase tracking-[0.22em] mb-5 md:mb-6"

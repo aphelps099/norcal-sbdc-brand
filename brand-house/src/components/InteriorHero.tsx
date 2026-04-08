@@ -34,6 +34,22 @@ export default function InteriorHero({
 
   useEffect(() => {
     async function init() {
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (prefersReducedMotion) {
+        const el = sectionRef.current;
+        if (!el) return;
+        const title = el.querySelector<HTMLElement>(".interior-hero-title");
+        const accent = el.querySelector<HTMLElement>(".interior-hero-accent");
+        const line = el.querySelector<HTMLElement>(".interior-hero-line");
+        const sub = el.querySelector<HTMLElement>(".interior-hero-sub");
+        if (title) { title.style.opacity = "1"; title.style.transform = "translateY(0)"; }
+        if (accent) accent.style.transform = "scaleX(1)";
+        if (line) line.style.transform = "scaleX(1)";
+        if (sub) { sub.style.opacity = "1"; sub.style.transform = "translateY(0)"; }
+        return;
+      }
+
       const { gsap } = await import("gsap");
       if (!sectionRef.current) return;
       gsap.context(() => {

@@ -260,6 +260,31 @@ body:has(.builder-shell) .paper-texture {
 }
 
 /* ═══════════════════════════════════════════
+   FOCUS STATES — keyboard accessibility
+   ═══════════════════════════════════════════ */
+:focus-visible {
+  outline: 2px solid var(--royal);
+  outline-offset: 2px;
+}
+
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--royal);
+  outline-offset: 2px;
+}
+
+/* On dark backgrounds, use a lighter focus ring */
+[data-dark] :focus-visible,
+.bg-navy :focus-visible,
+.bg-navy-deep :focus-visible {
+  outline-color: var(--pool);
+}
+
+/* ═══════════════════════════════════════════
    REDUCED MOTION
    ═══════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {

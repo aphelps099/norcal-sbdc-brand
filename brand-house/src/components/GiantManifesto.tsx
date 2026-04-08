@@ -7,8 +7,20 @@ export default function GiantManifesto() {
 
   useEffect(() => {
     let ctx: ReturnType<typeof import("gsap")["gsap"]["context"]> | undefined;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     async function init() {
+      if (prefersReducedMotion) {
+        sectionRef.current?.querySelectorAll<HTMLElement>(".m-word").forEach((el) => {
+          el.style.opacity = "1";
+        });
+        const eyebrow = sectionRef.current?.querySelector<HTMLElement>(".manifesto-eyebrow");
+        const accent = sectionRef.current?.querySelector<HTMLElement>(".manifesto-accent");
+        if (eyebrow) { eyebrow.style.opacity = "1"; eyebrow.style.transform = "translateY(0)"; }
+        if (accent) accent.style.transform = "scaleX(1)";
+        return;
+      }
+
       const { gsap } = await import("gsap");
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
       gsap.registerPlugin(ScrollTrigger);
@@ -85,7 +97,7 @@ export default function GiantManifesto() {
         aria-hidden="true"
       />
 
-      <div className="max-w-[1000px] mx-auto px-8 sm:px-12 py-28 sm:py-36 relative">
+      <div className="max-w-[960px] mx-auto px-8 sm:px-12 py-28 sm:py-36 relative">
         {/* Eyebrow with accent bar */}
         <div className="flex items-center gap-4 mb-10 sm:mb-14">
           <span

@@ -39,6 +39,7 @@ const NAV_COLS = [
     heading: "Reference",
     links: [
       { label: "Glossary", href: "/glossary" },
+      { label: "Generate", href: "/generate" },
     ],
   },
 ];

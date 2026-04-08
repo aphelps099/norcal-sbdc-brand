@@ -81,10 +81,9 @@ export default function VoicePage() {
         </div>
       </div>
 
-      <div className="bg-white py-12 md:py-16">
-
-        {/* Messaging Framework */}
-        <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-16">
+      {/* Messaging Framework — cream bg */}
+      <div className="py-12 md:py-16" style={{ backgroundColor: "#f5f4f0" }}>
+        <div className="max-w-[780px] mx-auto px-8 md:px-12">
           <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-10">
             Messaging Framework
           </h2>
@@ -127,8 +126,10 @@ export default function VoicePage() {
             ))}
           </div>
         </div>
+      </div>
 
-        {/* Tone by Context */}
+      {/* Tone by Context — white bg */}
+      <div className="bg-white py-12 md:py-16">
         <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-6">
           <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-8">
             Tone by Context

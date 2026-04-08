@@ -19,6 +19,7 @@ const FOOTER_COLS = [
       { label: "Calendar", href: "/calendar" },
       { label: "Stories", href: "/stories" },
       { label: "Glossary", href: "/glossary" },
+      { label: "Generate", href: "/generate" },
     ],
   },
   {
@@ -63,7 +64,7 @@ export default function SiteFooter() {
                   <a
                     key={link.href}
                     href={link.href}
-                    className="font-sans text-[12px] font-400 text-white/30 hover:text-white/60 transition-colors duration-300 no-underline"
+                    className="font-sans text-[12px] font-400 text-white/45 hover:text-white/70 transition-colors duration-300 no-underline"
                     {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   >
                     {link.label}
@@ -102,7 +103,7 @@ export default function SiteFooter() {
         {/* Sub-footer */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <span
-            className="text-white/15 uppercase"
+            className="text-white/25 uppercase"
             style={{ fontFamily: "var(--sans-label)", fontSize: "0.58rem", letterSpacing: "0.15em" }}
           >
             &copy; 2026 NorCal SBDC &middot; All Rights Reserved
@@ -112,7 +113,7 @@ export default function SiteFooter() {
               href="https://norcalsbdc.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/15 hover:text-white/30 transition-colors duration-500 uppercase no-underline"
+              className="text-white/25 hover:text-white/45 transition-colors duration-500 uppercase no-underline"
               style={{ fontFamily: "var(--sans-label)", fontSize: "0.58rem", letterSpacing: "0.12em" }}
             >
               norcalsbdc.org
@@ -121,7 +122,7 @@ export default function SiteFooter() {
               href="https://www.californiasbdc.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/15 hover:text-white/30 transition-colors duration-500 uppercase no-underline"
+              className="text-white/25 hover:text-white/45 transition-colors duration-500 uppercase no-underline"
               style={{ fontFamily: "var(--sans-label)", fontSize: "0.58rem", letterSpacing: "0.12em" }}
             >
               californiasbdc.org
