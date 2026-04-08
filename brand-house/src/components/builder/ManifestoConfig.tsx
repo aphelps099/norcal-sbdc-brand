@@ -52,8 +52,8 @@ export default function ManifestoConfig({ config, onUpdate }: Props) {
       </FieldGroup>
       <FieldGroup label="Font family">
         <SelectInput value={config.fontFamily} onChange={v => set("fontFamily", v)} options={[
-          { value: "serif", label: "Serif (Sofia Pro)" },
-          { value: "sans", label: "Sans (Sofia Pro)" },
+          { value: "serif", label: "Serif (Proxima Nova)" },
+          { value: "sans", label: "Sans (Proxima Nova)" },
         ]} />
       </FieldGroup>
       <FieldGroup label="Font size">

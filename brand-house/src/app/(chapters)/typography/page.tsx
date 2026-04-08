@@ -8,14 +8,14 @@ export default function TypographyPage() {
     <>
       <InteriorHero gradient={gradientTypography}
         title="Typography"
-        subtitle="Two typefaces — Sofia Pro for authority, GT America Extended for precision."
+        subtitle="Two typefaces — Proxima Nova for authority, Roboto Mono for precision."
       />
 
       {/* ── Specimens ── */}
       <div className="bg-white py-16 md:py-24">
         <div className="max-w-[960px] mx-auto px-8 md:px-12">
 
-          {/* Sofia Pro */}
+          {/* Proxima Nova */}
           <p className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/40 mb-4">
             Primary Typeface
           </p>
@@ -27,7 +27,7 @@ export default function TypographyPage() {
               fontSize: "clamp(56px, 8vw, 96px)",
             }}
           >
-            Sofia Pro
+            Proxima Nova
           </p>
           <p className="text-navy/30 text-[13px] font-sans mt-3 mb-10">
             Medium 500 · Regular &amp; Italic
@@ -70,7 +70,7 @@ export default function TypographyPage() {
             Headings, body text, navigation, display
           </p>
 
-          {/* GT America Extended */}
+          {/* Roboto Mono */}
           <div className="mt-20 md:mt-28">
             <p className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/40 mb-4">
               Secondary Typeface
@@ -84,36 +84,47 @@ export default function TypographyPage() {
                 letterSpacing: "0.12em",
               }}
             >
-              GT America Extended
+              Roboto Mono
             </p>
             <p className="text-navy/30 text-[13px] font-sans mt-3 mb-10">
-              Regular 400 · Uppercase only
+              Regular 400 · Labels, helper text, footers
             </p>
 
             <p
-              className="text-navy/50 uppercase leading-[1.8] mb-3"
+              className="text-navy/50 leading-[1.8] mb-3"
               style={{
                 fontFamily: "var(--sans-label)",
                 fontWeight: 400,
                 fontSize: "clamp(13px, 1.8vw, 18px)",
-                letterSpacing: "0.16em",
+                letterSpacing: "0.08em",
               }}
             >
               A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
             </p>
             <p
-              className="text-navy/30 uppercase leading-[1.8] mb-8"
+              className="text-navy/50 leading-[1.8] mb-3"
               style={{
                 fontFamily: "var(--sans-label)",
                 fontWeight: 400,
                 fontSize: "clamp(13px, 1.8vw, 18px)",
-                letterSpacing: "0.16em",
+                letterSpacing: "0.08em",
+              }}
+            >
+              a b c d e f g h i j k l m n o p q r s t u v w x y z
+            </p>
+            <p
+              className="text-navy/30 leading-[1.8] mb-8"
+              style={{
+                fontFamily: "var(--sans-label)",
+                fontWeight: 400,
+                fontSize: "clamp(13px, 1.8vw, 18px)",
+                letterSpacing: "0.08em",
               }}
             >
               0 1 2 3 4 5 6 7 8 9
             </p>
             <p className="font-label text-[10px] uppercase tracking-[0.14em] text-navy/25">
-              Labels, eyebrows, tags, micro-copy · Always uppercase
+              Labels, eyebrows, helper text, footers, micro-copy
             </p>
           </div>
         </div>
@@ -129,7 +140,7 @@ export default function TypographyPage() {
           {/* Display */}
           <div className="border-t border-black/[0.06] pt-6 pb-10">
             <p className="font-label text-[10px] uppercase tracking-[0.18em] text-navy/25 mb-4">
-              Display — Sofia Pro 500 · 40–64px · -0.03em · 1.05
+              Display — Proxima Nova 500 · 40–64px · -0.03em · 1.05
             </p>
             <p
               className="text-navy leading-[1.05] tracking-[-0.03em]"
@@ -146,7 +157,7 @@ export default function TypographyPage() {
           {/* H1 */}
           <div className="border-t border-black/[0.06] pt-6 pb-10">
             <p className="font-label text-[10px] uppercase tracking-[0.18em] text-navy/25 mb-4">
-              H1 — Sofia Pro 500 · 28–44px · -0.02em · 1.1
+              H1 — Proxima Nova 500 · 28–44px · -0.02em · 1.1
             </p>
             <p
               className="text-navy leading-[1.1] tracking-[-0.02em]"
@@ -163,7 +174,7 @@ export default function TypographyPage() {
           {/* H2 */}
           <div className="border-t border-black/[0.06] pt-6 pb-10">
             <p className="font-label text-[10px] uppercase tracking-[0.18em] text-navy/25 mb-4">
-              H2 — Sofia Pro 500 · 22–32px · -0.02em · 1.15
+              H2 — Proxima Nova 500 · 22–32px · -0.02em · 1.15
             </p>
             <p
               className="text-navy leading-[1.15] tracking-[-0.02em]"
@@ -180,7 +191,7 @@ export default function TypographyPage() {
           {/* Body */}
           <div className="border-t border-black/[0.06] pt-6 pb-10">
             <p className="font-label text-[10px] uppercase tracking-[0.18em] text-navy/25 mb-4">
-              Body — Sofia Pro 500 · 16–17px · -0.01em · 1.7
+              Body — Proxima Nova 500 · 16–17px · -0.01em · 1.7
             </p>
             <p
               className="text-navy/80 leading-[1.7] tracking-[-0.01em] max-w-prose"
@@ -199,7 +210,7 @@ export default function TypographyPage() {
           {/* Label */}
           <div className="border-t border-black/[0.06] pt-6 pb-10">
             <p className="font-label text-[10px] uppercase tracking-[0.18em] text-navy/25 mb-4">
-              Label — GT America Extended 400 · 13px · 0.14em · 1.4
+              Label — Roboto Mono 400 · 13px · 0.14em · 1.4
             </p>
             <p
               className="text-navy/60 uppercase"
@@ -215,10 +226,29 @@ export default function TypographyPage() {
             </p>
           </div>
 
+          {/* Helper / Footer */}
+          <div className="border-t border-black/[0.06] pt-6 pb-10">
+            <p className="font-label text-[10px] uppercase tracking-[0.18em] text-navy/25 mb-4">
+              Helper Text — Roboto Mono 400 · 11px · 0.02em · 1.5
+            </p>
+            <p
+              className="text-navy/40"
+              style={{
+                fontFamily: "var(--sans-label)",
+                fontWeight: 400,
+                fontSize: "11px",
+                letterSpacing: "0.02em",
+                lineHeight: "1.5",
+              }}
+            >
+              Funded in part through a cooperative agreement with the US Small Business Administration.
+            </p>
+          </div>
+
           {/* Tiny Label */}
           <div className="border-t border-black/[0.06] pt-6 pb-10">
             <p className="font-label text-[10px] uppercase tracking-[0.18em] text-navy/25 mb-4">
-              Tiny Label — GT America Extended 400 · 10px · 0.18em · 1.4
+              Tiny Label — Roboto Mono 400 · 10px · 0.18em · 1.4
             </p>
             <p
               className="text-navy/40 uppercase"
@@ -252,18 +282,18 @@ export default function TypographyPage() {
           </h2>
           <div className="space-y-3 text-white/50 text-base leading-relaxed font-sans max-w-xl mb-14">
             <p>
-              <strong className="text-white/80">Sofia Pro Medium</strong> is
+              <strong className="text-white/80">Proxima Nova Medium</strong> is
               the primary typeface — headings, body, navigation, and display text. Weight 500
               with tight letter-spacing for a clean, confident presence.
             </p>
             <p>
-              <strong className="text-white/80">GT America Extended</strong> handles
-              labels, eyebrows, tags, and UI micro-copy. Always uppercase
-              with generous tracking (0.14–0.18em).
+              <strong className="text-white/80">Roboto Mono</strong> handles
+              labels, eyebrows, helper text, footers, and UI micro-copy. Use it for
+              anything that needs a precise, technical feel.
             </p>
             <p>
               <strong className="text-white/80">Never</strong> mix more than
-              two typefaces in a single composition. Sofia Pro + GT America Extended is the standard pairing.
+              two typefaces in a single composition. Proxima Nova + Roboto Mono is the standard pairing.
             </p>
           </div>
 
@@ -282,14 +312,14 @@ export default function TypographyPage() {
                   Business Growth Report
                 </p>
                 <p
-                  className="uppercase text-white/30"
-                  style={{ fontFamily: "var(--sans-label)", fontSize: "10px", letterSpacing: "0.16em" }}
+                  className="text-white/30"
+                  style={{ fontFamily: "var(--sans-label)", fontSize: "10px", letterSpacing: "0.12em" }}
                 >
                   Q4 2025 · Northern California
                 </p>
               </div>
               <p className="text-white/35 text-[13px] leading-relaxed font-sans">
-                Pair Sofia Pro headings with GT America Extended labels. Maintain consistent tracking and clear hierarchy.
+                Pair Proxima Nova headings with Roboto Mono labels. Maintain consistent tracking and clear hierarchy.
               </p>
             </div>
 
@@ -313,7 +343,7 @@ export default function TypographyPage() {
                 </p>
               </div>
               <p className="text-white/35 text-[13px] leading-relaxed font-sans">
-                Don&apos;t add tracking to headings, use Sofia Pro for labels, or mix more than two typefaces in one composition.
+                Don&apos;t add tracking to headings, use Proxima Nova for labels, or mix more than two typefaces in one composition.
               </p>
             </div>
           </div>
