@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import ReactMarkdown from "react-markdown";
 import { CONTENT_FORMATS, type ContentFormat } from "@/lib/content-formats";
 
 type Phase = "select" | "answer" | "generating" | "done";
@@ -87,50 +88,55 @@ export default function ContentGenerator() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  /* ── Format Selection (full width) ── */
+  if (phase === "select") {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {CONTENT_FORMATS.map((format) => (
+          <button
+            key={format.id}
+            onClick={() => handleSelectFormat(format)}
+            className="text-left p-5 border border-navy/12 rounded-xl hover:border-royal/40 hover:bg-royal/[0.04] hover:shadow-sm transition-all duration-200"
+          >
+            <p
+              className="text-navy text-[15px] mb-1"
+              style={{ fontFamily: "var(--sans)", fontWeight: 500 }}
+            >
+              {format.label}
+            </p>
+            <p className="text-navy/55 text-[13px] font-sans leading-relaxed">
+              {format.description}
+            </p>
+          </button>
+        ))}
+      </div>
+    );
+  }
+
+  /* ── Two-column: Form (5/12) | Output (7/12) ── */
+  const showOutput = phase === "generating" || phase === "done";
+
   return (
     <div>
-      {/* ── Format Selection ── */}
-      {phase === "select" && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {CONTENT_FORMATS.map((format) => (
-            <button
-              key={format.id}
-              onClick={() => handleSelectFormat(format)}
-              className="text-left p-5 border border-navy/12 rounded-xl hover:border-royal/40 hover:bg-royal/[0.04] hover:shadow-sm transition-all duration-200"
-            >
-              <p
-                className="text-navy text-[15px] mb-1"
-                style={{ fontFamily: "var(--sans)", fontWeight: 500 }}
-              >
-                {format.label}
-              </p>
-              <p className="text-navy/55 text-[13px] font-sans leading-relaxed">
-                {format.description}
-              </p>
-            </button>
-          ))}
-        </div>
-      )}
+      <button
+        onClick={handleBack}
+        className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/50 hover:text-royal transition-colors mb-6 block"
+      >
+        ← Back to formats
+      </button>
 
-      {/* ── Clarifying Questions ── */}
-      {phase === "answer" && selectedFormat && (
-        <div>
-          <button
-            onClick={handleBack}
-            className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/50 hover:text-royal transition-colors mb-6 block"
-          >
-            ← Back to formats
-          </button>
-
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+        {/* ── Left: Form ── */}
+        <div className="lg:col-span-5">
           <p
             className="text-navy text-[22px] tracking-[-0.02em] mb-8"
             style={{ fontFamily: "var(--sans)", fontWeight: 500 }}
           >
-            {selectedFormat.label}
+            {selectedFormat!.label}
           </p>
 
-          <div className="space-y-6 max-w-lg">
-            {selectedFormat.questions.map((q) => (
+          <div className="space-y-6">
+            {selectedFormat!.questions.map((q) => (
               <div key={q.id}>
                 <label className="font-label text-[12px] uppercase tracking-[0.1em] text-navy/70 block mb-2">
                   {q.label}
@@ -179,64 +185,93 @@ export default function ContentGenerator() {
 
           <button
             onClick={handleGenerate}
-            className="mt-8 px-8 py-3.5 bg-[#004290] text-white text-[14px] font-sans tracking-[0.01em] rounded-lg hover:bg-[#003574] hover:shadow-md transition-all"
+            disabled={phase === "generating"}
+            className="mt-8 px-8 py-3.5 bg-[#004290] text-white text-[14px] font-sans tracking-[0.01em] rounded-lg hover:bg-[#003574] hover:shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             style={{ fontWeight: 500 }}
           >
-            Generate
+            {phase === "generating" ? "Generating..." : phase === "done" ? "Regenerate" : "Generate"}
           </button>
         </div>
-      )}
 
-      {/* ── Streaming Output ── */}
-      {(phase === "generating" || phase === "done") && selectedFormat && (
-        <div>
-          <button
-            onClick={handleBack}
-            className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/50 hover:text-royal transition-colors mb-6 block"
-          >
-            ← New format
-          </button>
-
+        {/* ── Right: Output ── */}
+        <div className="lg:col-span-7">
           <div
             ref={outputRef}
-            className="relative border border-navy/10 rounded-xl bg-[#f7f7f5] min-h-[240px] flex flex-col overflow-hidden"
+            className="relative border border-navy/25 rounded-xl bg-[#f7f7f5] min-h-[400px] flex flex-col overflow-hidden sticky top-8"
           >
             {/* Header bar */}
-            <div className="px-6 md:px-8 pt-5 pb-3 border-b border-navy/8">
+            <div className="px-6 md:px-8 pt-5 pb-3 border-b border-navy/15">
               <p className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/45">
-                {selectedFormat.label}
+                {selectedFormat!.label}
               </p>
             </div>
 
             {/* Content area */}
             <div className="px-6 md:px-8 py-6 flex-1">
               {output ? (
-                <div
-                  className="text-navy/85 text-[15px] leading-[1.8] font-sans whitespace-pre-wrap"
-                  style={{ fontWeight: 500 }}
-                >
-                  {output}
+                <div className="prose-brand text-navy/85 text-[15px] leading-[1.8] font-sans">
+                  <ReactMarkdown
+                    components={{
+                      strong: ({ children }) => (
+                        <strong className="font-semibold text-navy">{children}</strong>
+                      ),
+                      em: ({ children }) => (
+                        <em className="italic">{children}</em>
+                      ),
+                      p: ({ children }) => (
+                        <p className="mb-4 last:mb-0">{children}</p>
+                      ),
+                      ul: ({ children }) => (
+                        <ul className="list-disc pl-5 mb-4 space-y-1">{children}</ul>
+                      ),
+                      ol: ({ children }) => (
+                        <ol className="list-decimal pl-5 mb-4 space-y-1">{children}</ol>
+                      ),
+                      li: ({ children }) => (
+                        <li className="text-navy/85">{children}</li>
+                      ),
+                      h1: ({ children }) => (
+                        <p className="text-[20px] font-semibold text-navy mb-3" style={{ fontFamily: "var(--sans)" }}>{children}</p>
+                      ),
+                      h2: ({ children }) => (
+                        <p className="text-[18px] font-semibold text-navy mb-2" style={{ fontFamily: "var(--sans)" }}>{children}</p>
+                      ),
+                      h3: ({ children }) => (
+                        <p className="text-[16px] font-semibold text-navy mb-2" style={{ fontFamily: "var(--sans)" }}>{children}</p>
+                      ),
+                    }}
+                  >
+                    {output}
+                  </ReactMarkdown>
                 </div>
-              ) : (
+              ) : showOutput ? (
                 <div className="flex items-center gap-2.5 text-navy/40">
                   <span className="inline-block w-2 h-2 bg-royal/40 rounded-full animate-pulse" />
                   <span className="text-[13px] font-sans">Generating...</span>
                 </div>
+              ) : (
+                <div className="flex items-center justify-center h-full min-h-[300px]">
+                  <p className="text-navy/25 text-[14px] font-sans text-center">
+                    Fill in the form and hit Generate<br />to see your content here.
+                  </p>
+                </div>
               )}
             </div>
 
-            {/* Action bar — bottom right, inside the frame */}
+            {/* Action bar — Sofia Pro font */}
             {phase === "done" && (
-              <div className="px-6 md:px-8 py-3 border-t border-navy/8 flex items-center justify-end gap-2">
+              <div className="px-6 md:px-8 py-3 border-t border-navy/15 flex items-center justify-end gap-2">
                 <button
                   onClick={handleGenerate}
-                  className="px-4 py-2 text-navy/55 text-[12px] font-label uppercase tracking-[0.1em] rounded-lg hover:text-navy/80 hover:bg-navy/[0.04] transition-all"
+                  className="px-4 py-2 text-navy/55 text-[13px] font-sans rounded-lg hover:text-navy/80 hover:bg-navy/[0.04] transition-all"
+                  style={{ fontWeight: 500 }}
                 >
                   Regenerate
                 </button>
                 <button
                   onClick={handleCopy}
-                  className="px-5 py-2 bg-[#004290] text-white text-[12px] font-label uppercase tracking-[0.1em] rounded-lg hover:bg-[#003574] transition-colors"
+                  className="px-5 py-2.5 bg-[#004290] text-white text-[13px] font-sans rounded-lg hover:bg-[#003574] transition-colors"
+                  style={{ fontWeight: 500 }}
                 >
                   {copied ? "Copied" : "Copy"}
                 </button>
@@ -244,7 +279,7 @@ export default function ContentGenerator() {
             )}
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
