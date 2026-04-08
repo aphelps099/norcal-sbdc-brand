@@ -2,7 +2,7 @@ import { gradientTemplates } from "@/lib/page-gradients";
 import InteriorHero from "@/components/InteriorHero";
 import CopyButton from "@/components/CopyButton";
 import NextSectionLink from "@/components/NextSectionLink";
-import EmailSignatureGenerator from "@/components/EmailSignatureGenerator";
+import EmailSignatureSection from "@/components/EmailSignatureSection";
 
 const socialBio = `Free, confidential business advising for Northern California.
 $2.8B raised. 42,000+ jobs created. Your business, better.`;
@@ -57,7 +57,7 @@ export default function TemplatesPage() {
                 Email Signature
               </h3>
             </div>
-            <EmailSignatureGenerator />
+            <EmailSignatureSection />
           </div>
 
           {/* ── Divider ── */}
