@@ -37,6 +37,24 @@ Campaign pillars:
 - "Don't settle for generic advice."
 - "Real clients. Real results."
 - Lead with a surprising stat or a direct statement. Avoid questions when a statement is stronger.
+
+## Hashtag Strategy
+Primary brand hashtags (use on every social post):
+- #NorCalSBDC — always include, this is our core brand tag
+
+Campaign pillar hashtags (choose based on content context):
+- #YourBusinessBetter — general brand, works with everything
+- #YourBusinessPeople — advisor spotlights, mentorship, client stories, team content
+- #YourBusinessFunded — capital access, loans, grants, funding announcements
+- #YourBusinessConnected — events, workshops, networking, community, partnerships
+
+Supporting hashtags (use 1-2 where relevant):
+- #SmallBusiness, #SBA, #Entrepreneurship, #SmallBusinessAdvice, #NorCal, #BusinessGrowth
+
+NEVER use:
+- Individual county or city hashtags (no #MarinCounty, #Sacramento, #Humboldt, etc.)
+- We are a REGIONAL network — hashtags should unify, not fragment
+- No center-specific hashtags — everything ladders up to #NorCalSBDC
 `;
 
 const GUARDRAILS = `
@@ -100,27 +118,28 @@ Write a single post optimized for the specified platform. Follow these platform 
 
 ### LinkedIn (max ~1,300 characters)
 - Tone: Professional, data-driven
-- Include 1-2 relevant hashtags
 - Lead with a hook or surprising stat
 - End with a call to action or question
+- Hashtags: #NorCalSBDC + one campaign pillar tag + 1 supporting tag
 
 ### Facebook (aim for ~80 characters for link posts, up to 500 for stories)
 - Tone: Warm, community-focused
 - More casual than LinkedIn
 - Emojis OK but sparingly (1-2 max)
 - Focus on events, client spotlights, behind-the-scenes
+- Hashtags: #NorCalSBDC + one campaign pillar tag
 
 ### Instagram (caption max ~125 characters for preview, up to 2,200 total)
 - Tone: Visual, aspirational
 - Write caption that works with a photo
-- Include 3-5 relevant hashtags at end
 - Suggest a visual direction in brackets: [Photo suggestion: ...]
+- Hashtags at end: #NorCalSBDC + campaign pillar tag + 2-3 supporting tags
 
 ### X / Twitter (max 280 characters)
 - Tone: Punchy, topical
 - Every character counts — be ruthlessly concise
 - Include a link if relevant
-- Hashtags only if they add value (1 max)
+- Hashtags: #NorCalSBDC only (1 max — space is precious)
 `,
 
   "workshop-flyer": `
