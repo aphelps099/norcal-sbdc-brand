@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 
 interface ColorsInUseCarouselProps {
   children: React.ReactNode;
@@ -18,23 +18,26 @@ export default function ColorsInUseCarousel({ children }: ColorsInUseCarouselPro
     setCanNext(el.scrollLeft < el.scrollWidth - el.clientWidth - 4);
   }, []);
 
+  useEffect(() => {
+    updateButtons();
+  }, [updateButtons]);
+
   const scroll = (dir: 1 | -1) => {
     const el = trackRef.current;
     if (!el) return;
-    el.scrollBy({ left: dir * 400, behavior: "smooth" });
+    el.scrollBy({ left: dir * 420, behavior: "smooth" });
   };
 
   return (
     <div className="relative">
-      {/* Track */}
+      {/* Track — bleeds off right edge */}
       <div
         ref={trackRef}
         onScroll={updateButtons}
-        className="flex gap-6 overflow-x-auto no-scrollbar"
+        className="flex gap-6 overflow-x-auto no-scrollbar pr-8 md:pr-12"
         style={{
           scrollSnapType: "x mandatory",
           WebkitOverflowScrolling: "touch",
-          paddingBottom: 4,
         }}
       >
         {children}
