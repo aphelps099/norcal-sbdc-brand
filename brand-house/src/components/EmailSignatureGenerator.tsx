@@ -384,8 +384,14 @@ export default function EmailSignatureGenerator({
                 <div dangerouslySetInnerHTML={{ __html: html }} />
               ) : (
                 <div className="relative">
-                  <div className="opacity-40 pointer-events-none" dangerouslySetInnerHTML={{ __html: demoHtml }} />
-                  <p className="absolute inset-0 flex items-center justify-center text-navy/30 text-[13px] font-mono bg-white/60 backdrop-blur-[1px]">
+                  <div className="opacity-70 pointer-events-none" dangerouslySetInnerHTML={{ __html: demoHtml }} />
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background: "linear-gradient(to bottom, rgba(255,255,255,0) 30%, rgba(255,255,255,0.85) 100%)",
+                    }}
+                  />
+                  <p className="absolute bottom-4 right-5 text-navy/30 text-[12px] font-sans" style={{ fontWeight: 500 }}>
                     Enter your details to customize
                   </p>
                 </div>
