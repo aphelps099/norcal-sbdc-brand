@@ -37,6 +37,13 @@ const STYLE_OPTIONS: { id: SigStyle; label: string; desc: string }[] = [
    Shared helpers
    ───────────────────────────────────────────────────────── */
 
+/** Title Case: "marketing and technology director" → "Marketing and Technology Director" */
+function toTitleCase(str: string): string {
+  return str
+    .toLowerCase()
+    .replace(/(?:^|\s)\S/g, (match) => match.toUpperCase());
+}
+
 function orgLines(center: string) {
   const isLead = center.includes("Lead Center");
   return {
@@ -46,38 +53,39 @@ function orgLines(center: string) {
 }
 
 /* ─────────────────────────────────────────────────────────
-   Style 1 — Two Column (default, tightened)
+   Style 1 — Two Column (default)
    ───────────────────────────────────────────────────────── */
 
 function buildTwoColumnHtml(f: {
   name: string; title: string; center: string; phone: string; email: string;
 }) {
   const { line1, line2 } = orgLines(f.center);
+  const displayTitle = toTitleCase(f.title.trim());
 
   const contactRows: string[] = [];
   if (f.phone.trim()) {
     contactRows.push(
-      `<tr><td style="font-size:13px;color:#3d4f5f;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;padding-bottom:1px;">M: ${f.phone.trim()}</td></tr>`
+      `<tr><td style="font-size:13px;color:#3d4f5f;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;padding-bottom:0;">M: ${f.phone.trim()}</td></tr>`
     );
   }
   if (f.email.trim()) {
     contactRows.push(
-      `<tr><td style="padding-bottom:1px;"><a href="mailto:${f.email.trim()}" style="color:#004290;font-size:13px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;text-decoration:none;">${f.email.trim()}</a></td></tr>`
+      `<tr><td style="padding-bottom:0;"><a href="mailto:${f.email.trim()}" style="color:#004290;font-size:13px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;text-decoration:none;">${f.email.trim()}</a></td></tr>`
     );
   }
 
   return `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#1b2a3d;">
   <tr>
-    <td style="vertical-align:top;padding-right:16px;border-right:2px solid #004290;">
+    <td style="vertical-align:top;padding-right:14px;border-right:2px solid #004290;">
       <img src="${LOGO_URL}" alt="America's SBDC California — Northern CA Network" width="100" style="display:block;width:100px;height:auto;" />
     </td>
-    <td style="vertical-align:top;padding-left:16px;">
+    <td style="vertical-align:top;padding-left:14px;">
       <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
-        <tr><td style="font-size:15px;font-weight:700;color:#1b2a3d;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:0.02em;padding-bottom:1px;">${f.name.trim().toUpperCase()}</td></tr>
-        <tr><td style="font-size:13px;color:#3d4f5f;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;padding-bottom:6px;">${f.title.trim()}</td></tr>
-        <tr><td style="font-size:13px;color:#1b2a3d;padding-bottom:6px;">—</td></tr>
-        <tr><td style="font-size:10px;font-weight:600;color:#1b2a3d;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:0.08em;text-transform:uppercase;padding-bottom:0;">${line1}</td></tr>
-        <tr><td style="font-size:10px;font-weight:400;color:#3d4f5f;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:0.08em;text-transform:uppercase;padding-bottom:6px;">${line2}</td></tr>
+        <tr><td style="font-size:15px;font-weight:700;color:#1b2a3d;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:0.02em;line-height:1.2;">${f.name.trim().toUpperCase()}</td></tr>
+        <tr><td style="font-size:13px;color:#3d4f5f;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;padding-bottom:4px;">${displayTitle}</td></tr>
+        <tr><td style="font-size:12px;color:#1b2a3d;line-height:1;padding-bottom:4px;">—</td></tr>
+        <tr><td style="font-size:10px;font-weight:600;color:#1b2a3d;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:0.08em;line-height:1.3;">${line1}</td></tr>
+        <tr><td style="font-size:10px;font-weight:400;color:#3d4f5f;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:0.08em;padding-bottom:4px;">${line2}</td></tr>
 ${contactRows.join("\n")}
         <tr><td><a href="https://norcalsbdc.org" style="color:#004290;font-size:13px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;text-decoration:none;font-weight:500;">norcalsbdc.org</a></td></tr>
       </table>
@@ -96,6 +104,7 @@ function buildMonoHtml(f: {
   const centerLabel = f.center.includes("Lead Center")
     ? "Northern California SBDC"
     : f.center;
+  const displayTitle = toTitleCase(f.title.trim());
 
   const contactLines: string[] = [];
   if (f.phone.trim()) contactLines.push(f.phone.trim());
@@ -109,15 +118,15 @@ function buildMonoHtml(f: {
   );
 
   return `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Roboto Mono','SF Mono','Courier New',monospace;font-size:12px;line-height:1.6;color:#333;">
-  <tr><td style="font-weight:600;font-size:13px;">${f.name.trim()}</td></tr>
-  <tr><td style="color:#888;">${f.title.trim()} · ${centerLabel}</td></tr>
+  <tr><td style="font-weight:600;font-size:13px;">${toTitleCase(f.name.trim())}</td></tr>
+  <tr><td style="color:#888;">${displayTitle} · ${centerLabel}</td></tr>
   <tr><td style="color:#666;padding-top:8px;">${contactLines.join("<br>")}</td></tr>
   <tr>
     <td style="padding-top:12px;">
       <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
         <tr>
-          <td style="vertical-align:middle;padding-right:12px;">
-            <img src="${LOGO_URL}" alt="NorCal SBDC" width="24" height="auto" style="display:block;width:24px;height:auto;" />
+          <td style="vertical-align:middle;padding-right:10px;">
+            <img src="${LOGO_URL}" alt="NorCal SBDC" width="40" style="display:block;width:40px;height:auto;" />
           </td>
           <td style="vertical-align:middle;font-family:'Roboto Mono','SF Mono','Courier New',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:#004290;">Your Business People.</td>
         </tr>
@@ -134,6 +143,7 @@ function buildMonoHtml(f: {
 function buildCompactHtml(f: {
   name: string; title: string; center: string; phone: string; email: string;
 }) {
+  const displayTitle = toTitleCase(f.title.trim());
   const contactParts: string[] = [];
   if (f.phone.trim()) contactParts.push(f.phone.trim());
   if (f.email.trim()) {
@@ -148,9 +158,9 @@ function buildCompactHtml(f: {
   return `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;color:#444;">
   <tr>
     <td>
-      <span style="font-weight:700;color:#222;">${f.name.trim()}</span>
+      <span style="font-weight:700;color:#222;">${toTitleCase(f.name.trim())}</span>
       <span style="color:#ccc;"> · </span>
-      <span style="color:#666;">${f.title.trim()}</span>
+      <span style="color:#666;">${displayTitle}</span>
     </td>
   </tr>
   <tr><td style="font-size:12px;color:#888;padding-top:3px;">${contactParts.join(" · ")}</td></tr>
@@ -158,8 +168,8 @@ function buildCompactHtml(f: {
     <td style="padding-top:10px;">
       <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
         <tr>
-          <td style="vertical-align:middle;padding-right:12px;">
-            <img src="${LOGO_URL}" alt="NorCal SBDC" width="20" height="auto" style="display:block;width:20px;height:auto;" />
+          <td style="vertical-align:middle;padding-right:10px;">
+            <img src="${LOGO_URL}" alt="NorCal SBDC" width="36" style="display:block;width:36px;height:auto;" />
           </td>
           <td style="vertical-align:middle;font-family:'Roboto Mono','SF Mono','Courier New',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#004290;">Your Business People.</td>
         </tr>
@@ -342,7 +352,7 @@ export default function EmailSignatureGenerator({
             </div>
 
             {/* Live rendered signature */}
-            <div className="p-8">
+            <div className="p-6">
               {isReady ? (
                 <div dangerouslySetInnerHTML={{ __html: html }} />
               ) : (
