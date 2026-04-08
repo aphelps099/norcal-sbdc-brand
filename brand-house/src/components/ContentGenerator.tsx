@@ -88,22 +88,46 @@ export default function ContentGenerator() {
 
   return (
     <div>
-      {/* ── Format Tabs (always visible) ── */}
-      <div className="flex flex-wrap gap-2 mb-12">
-        {CONTENT_FORMATS.map((format) => (
-          <button
-            key={format.id}
-            onClick={() => handleSelectFormat(format)}
-            className={`px-4 py-2.5 text-[13px] font-sans border rounded-lg transition-all duration-200 ${
-              selectedFormat?.id === format.id
-                ? "border-royal bg-royal/10 text-royal shadow-sm"
-                : "border-navy/12 text-navy/60 hover:border-royal/40 hover:text-navy"
-            }`}
-            style={{ fontWeight: selectedFormat?.id === format.id ? 500 : 400 }}
-          >
-            {format.label}
-          </button>
-        ))}
+      {/* ── M3-style Tabs ── */}
+      <div className="relative mb-12">
+        {/* Tab track line */}
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-navy/8" />
+
+        <div className="flex overflow-x-auto scrollbar-none -mb-[1px]">
+          {CONTENT_FORMATS.map((format) => {
+            const isActive = selectedFormat?.id === format.id;
+            return (
+              <button
+                key={format.id}
+                onClick={() => handleSelectFormat(format)}
+                className={`group relative px-5 py-3.5 text-[14px] font-sans whitespace-nowrap transition-colors duration-200 ${
+                  isActive
+                    ? "text-royal"
+                    : "text-navy/45 hover:text-navy/75 hover:bg-navy/[0.03]"
+                }`}
+                style={{ fontWeight: 500 }}
+              >
+                {format.label}
+
+                {/* Active indicator — 3px bottom bar */}
+                <span
+                  className={`absolute bottom-0 left-3 right-3 h-[3px] rounded-full transition-all duration-300 ease-out ${
+                    isActive
+                      ? "bg-royal scale-x-100"
+                      : "bg-transparent scale-x-0 group-hover:bg-navy/15 group-hover:scale-x-100"
+                  }`}
+                />
+
+                {/* Ripple-style hover bg */}
+                <span
+                  className={`absolute inset-x-1 inset-y-0.5 rounded-lg transition-colors duration-200 -z-10 ${
+                    isActive ? "bg-royal/[0.06]" : "group-hover:bg-navy/[0.03]"
+                  }`}
+                />
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* ── Form + Output (two-column, shown when a format is selected) ── */}
