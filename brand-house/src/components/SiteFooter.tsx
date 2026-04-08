@@ -1,29 +1,5 @@
 import SbdcWatermark from "./SbdcWatermark";
 
-const FOOTER_COLS = [
-  {
-    heading: "Brand House",
-    links: [
-      { label: "Colors", href: "/colors" },
-      { label: "Typography", href: "/typography" },
-      { label: "Logos", href: "/logos" },
-      { label: "Voice & Tone", href: "/voice" },
-      { label: "Photography", href: "/photography" },
-    ],
-  },
-  {
-    heading: "Resources",
-    links: [
-      { label: "Templates", href: "/templates" },
-      { label: "Content", href: "/content" },
-      { label: "Generate", href: "/generate" },
-      { label: "Stories", href: "/stories" },
-      { label: "Glossary", href: "/glossary" },
-      { label: "Calendar", href: "/calendar" },
-    ],
-  },
-];
-
 export default function SiteFooter() {
   return (
     <footer className="relative bg-navy-deep overflow-hidden">
@@ -33,43 +9,7 @@ export default function SiteFooter() {
         opacity={0.035}
       />
 
-      {/* Main footer */}
-      <div className="relative z-10 max-w-[1200px] mx-auto px-8 sm:px-12 pt-16 md:pt-20 pb-10">
-        {/* Column grid */}
-        <div className="grid grid-cols-2 md:grid-cols-2 max-w-[480px] gap-10 md:gap-16 mb-14">
-          {FOOTER_COLS.map((col) => (
-            <div key={col.heading}>
-              <h3
-                className="text-white/25 mb-5 uppercase"
-                style={{
-                  fontFamily: "var(--sans-label)",
-                  fontWeight: 500,
-                  fontSize: "10px",
-                  letterSpacing: "0.15em",
-                }}
-              >
-                {col.heading}
-              </h3>
-              <div className="h-[1px] bg-white/[0.06] mb-5" />
-              <nav className="flex flex-col gap-2.5">
-                {col.links.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    className="font-sans text-[12px] font-400 text-white/45 hover:text-white/70 transition-colors duration-300 no-underline"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </nav>
-            </div>
-          ))}
-        </div>
-
-        {/* Divider */}
-        <div className="h-[1px] bg-white/[0.06] mb-6" />
-
-        {/* Sub-footer */}
+      <div className="relative z-10 max-w-[1200px] mx-auto px-8 sm:px-12 py-10 md:py-12">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <span
             className="font-sans text-white/25 uppercase"
