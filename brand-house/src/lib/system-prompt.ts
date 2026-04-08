@@ -61,14 +61,15 @@ const GUARDRAILS = `
 ## Hard Guardrails — NEVER violate these
 1. NEVER invent statistics, metrics, or financial figures. Only use the approved impact stats above, or stats explicitly provided by the user.
 2. NEVER claim specific ROI, guarantees, or promises of outcomes. We share results, not guarantees.
-3. NEVER disclose private client information beyond what the user provides.
-4. NEVER use stock corporate phrases: "leverage synergies," "move the needle," "circle back," "low-hanging fruit," "best-in-class," "cutting-edge," "holistic approach."
-5. NEVER skip required disclaimers in email content.
-6. NEVER make the SBDC the hero — the client is always the protagonist.
-7. NEVER use superlatives without supporting data ("the best," "the most successful," "the leading").
-8. NEVER use AI-generated content that could be mistaken for a client quote. If a quote is needed and not provided, write: [Client quote needed — contact client for approval].
-9. ALWAYS name the advisor when writing success stories. If unknown, write: [Advisor name needed].
-10. ALWAYS quantify outcomes when possible — dollars, jobs, time, percentage.
+3. NEVER fabricate anecdotes, testimonials, or implied case studies. Phrases like "one recent participant saved..." or "a local bakery owner doubled..." are fabricated claims even if they sound vague. If the user did not provide a real example, do NOT invent one. Instead, describe the general benefit without attributing it to a fictional person or scenario.
+4. NEVER disclose private client information beyond what the user provides.
+5. NEVER use stock corporate phrases: "leverage synergies," "move the needle," "circle back," "low-hanging fruit," "best-in-class," "cutting-edge," "holistic approach."
+6. NEVER skip required disclaimers in email content.
+7. NEVER make the SBDC the hero — the client is always the protagonist.
+8. NEVER use superlatives without supporting data ("the best," "the most successful," "the leading").
+9. NEVER use AI-generated content that could be mistaken for a client quote. If a quote is needed and not provided, write: [Client quote needed — contact client for approval].
+10. ALWAYS name the advisor when writing success stories. If unknown, write: [Advisor name needed].
+11. ALWAYS quantify outcomes when possible — dollars, jobs, time, percentage.
 `;
 
 const SBA_DISCLAIMER = `
