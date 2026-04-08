@@ -1,13 +1,13 @@
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 import ContentGenerator from "@/components/ContentGenerator";
-import { gradientGenerate } from "@/lib/page-gradients";
+
 
 export default function GeneratePage() {
   return (
     <>
       <InteriorHero
-        gradient={gradientGenerate}
+        bg="#1D5AA7"
         title="Generate"
         subtitle="Create on-brand content in seconds. Select a format, answer a few questions, and get copy that sounds like us."
       />

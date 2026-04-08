@@ -1,4 +1,4 @@
-import { gradientCalendar } from "@/lib/page-gradients";
+
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
@@ -158,7 +158,7 @@ const recurringContent = [
 export default function CalendarPage() {
   return (
     <>
-      <InteriorHero gradient={gradientCalendar}
+      <InteriorHero bg="#A73B44"
         title="Calendar"
         subtitle="Campaign themes, key dates, and a coordinated messaging framework so all 16 centers move together."
       />

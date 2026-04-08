@@ -1,4 +1,4 @@
-import { gradientPhotography } from "@/lib/page-gradients";
+
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
@@ -66,7 +66,7 @@ const compositionRules = [
 export default function PhotographyPage() {
   return (
     <>
-      <InteriorHero gradient={gradientPhotography}
+      <InteriorHero bg="#2B3035"
         title="Photography"
         subtitle="People, not programs. Faces, not buildings. Every image should make the person visible — because the service is the person."
       />

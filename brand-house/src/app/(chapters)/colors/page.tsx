@@ -3,13 +3,12 @@ import ColorSwatch from "@/components/ColorSwatch";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
 import { colors, colorGroups, colorUsageCards } from "@/lib/brand-tokens";
-import { gradientColors } from "@/lib/page-gradients";
 
 export default function ColorsPage() {
   return (
     <>
       <InteriorHero
-        gradient={gradientColors}
+        bg="#0f1c2e"
         title="Colors"
         subtitle="Our palette is built for contrast, accessibility, and editorial impact."
       />
