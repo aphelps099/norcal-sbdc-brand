@@ -1,4 +1,4 @@
-import { gradientContent } from "@/lib/page-gradients";
+
 import InteriorHero from "@/components/InteriorHero";
 import CopyButton from "@/components/CopyButton";
 import NextSectionLink from "@/components/NextSectionLink";
@@ -114,7 +114,7 @@ const webPublishingRules = [
 export default function ContentPage() {
   return (
     <>
-      <InteriorHero gradient={gradientContent}
+      <InteriorHero bg="#00685E"
         title="Content"
         subtitle="Guidelines for social media, newsletters, and web publishing — so every center shows up with one unified voice."
       />

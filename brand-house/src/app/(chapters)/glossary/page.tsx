@@ -1,4 +1,4 @@
-import { gradientGlossary } from "@/lib/page-gradients";
+
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
@@ -183,7 +183,7 @@ const glossarySections = [
 export default function GlossaryPage() {
   return (
     <>
-      <InteriorHero gradient={gradientGlossary}
+      <InteriorHero bg="#004290"
         title="Glossary"
         subtitle="Terms, acronyms, and definitions used across the NorCal SBDC network. Keep this reference handy — consistent language builds trust."
       />

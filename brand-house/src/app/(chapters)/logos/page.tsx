@@ -1,4 +1,4 @@
-import { gradientLogos } from "@/lib/page-gradients";
+
 import InteriorHero from "@/components/InteriorHero";
 import LogoPageContent from "@/components/LogoPageContent";
 import NextSectionLink from "@/components/NextSectionLink";
@@ -6,7 +6,7 @@ import NextSectionLink from "@/components/NextSectionLink";
 export default function LogosPage() {
   return (
     <>
-      <InteriorHero gradient={gradientLogos}
+      <InteriorHero bg="#0f1c2e"
         title="Logos"
         subtitle="The California SBDC logo represents us at the very highest level. It acts as a signature, an identifier, and a stamp of quality."
       />

@@ -1,4 +1,4 @@
-import { gradientTemplates } from "@/lib/page-gradients";
+
 import InteriorHero from "@/components/InteriorHero";
 import CopyButton from "@/components/CopyButton";
 import NextSectionLink from "@/components/NextSectionLink";
@@ -26,7 +26,7 @@ export default function TemplatesPage() {
   return (
     <>
       <InteriorHero
-        gradient={gradientTemplates}
+        bg="#0f1c2e"
         title="Templates"
         subtitle="Ready-to-use copy blocks for emails, presentations, and social channels."
       />

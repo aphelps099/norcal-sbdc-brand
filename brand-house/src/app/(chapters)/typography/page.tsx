@@ -1,4 +1,4 @@
-import { gradientTypography } from "@/lib/page-gradients";
+
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
@@ -6,7 +6,7 @@ import SbdcWatermark from "@/components/SbdcWatermark";
 export default function TypographyPage() {
   return (
     <>
-      <InteriorHero gradient={gradientTypography}
+      <InteriorHero bg="#004290"
         title="Typography"
         subtitle="Two typefaces — Proxima Nova for authority, Roboto Mono for precision."
       />

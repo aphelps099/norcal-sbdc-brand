@@ -16,6 +16,8 @@ interface InteriorHeroProps {
   subtitle?: string;
   /** Per-page gradient definition. Falls back to navy if omitted. */
   gradient?: GradientDef;
+  /** Solid brand color background (takes precedence over gradient). */
+  bg?: string;
 }
 
 /** Unique SVG filter ID per mount to avoid collisions when multiple heros render. */
@@ -25,6 +27,7 @@ export default function InteriorHero({
   title,
   subtitle,
   gradient,
+  bg,
 }: InteriorHeroProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const id = useRef(`grain-${++filterId}`);
@@ -73,8 +76,10 @@ export default function InteriorHero({
 
   return (
     <section ref={sectionRef} className="relative overflow-hidden">
-      {/* Full-bleed gradient + grain background */}
-      {gradient ? (
+      {/* Full-bleed background */}
+      {bg ? (
+        <div className="absolute inset-0" style={{ backgroundColor: bg }} />
+      ) : gradient ? (
         <>
           <svg
             className="absolute inset-0 w-full h-full"
