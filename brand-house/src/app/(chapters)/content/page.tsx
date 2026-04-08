@@ -39,27 +39,31 @@ const socialPrinciples = [
 const platformGuidance = [
   {
     platform: "LinkedIn",
+    icon: "work",
     tone: "Professional, data-driven",
-    frequency: "2-3x / week",
+    frequency: "2–3× / week",
     focus: "Impact stats, advisor spotlights, success stories, event recaps.",
     charLimit: "~1,300 chars",
   },
   {
     platform: "Facebook",
+    icon: "diversity_3",
     tone: "Warm, community-focused",
-    frequency: "3-5x / week",
+    frequency: "3–5× / week",
     focus: "Event promotion, client spotlights, behind-the-scenes, local highlights.",
     charLimit: "~80 chars for links",
   },
   {
     platform: "Instagram",
+    icon: "photo_camera",
     tone: "Visual, aspirational",
-    frequency: "3-4x / week",
+    frequency: "3–4× / week",
     focus: "Client photos, event moments, quote cards, reels with advisor tips.",
     charLimit: "~125 chars before truncation",
   },
   {
     platform: "X / Twitter",
+    icon: "tag",
     tone: "Punchy, topical",
     frequency: "Daily",
     focus: "Quick stats, event live-tweeting, resource links, industry news.",
@@ -158,8 +162,17 @@ export default function ContentPage() {
       </div>
 
       {/* ── Social Media Principles ── */}
-      <div className="bg-white py-16 md:py-24">
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12">
+      <div className="bg-white py-16 md:py-24 relative overflow-hidden">
+        {/* Oversized accent icon */}
+        <span
+          className="material-symbols-outlined absolute -right-8 -top-6 text-navy/[0.025] pointer-events-none select-none"
+          style={{ fontSize: "min(50vw, 500px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
+          aria-hidden="true"
+        >
+          forum
+        </span>
+
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12 relative z-10">
           <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-navy/30 mb-3">
             Social Media
           </p>
@@ -174,23 +187,25 @@ export default function ContentPage() {
             and compelling to our audiences, and being authentic. Every post reflects who we are.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px border-2 border-steel/20 overflow-hidden">
             {socialPrinciples.map((p) => (
-              <div key={p.title} className="relative p-6 rounded-xl bg-cream overflow-hidden">
-                <span
-                  className="material-symbols-outlined absolute -right-3 -bottom-3 text-navy/[0.04] pointer-events-none select-none"
-                  style={{ fontSize: "120px", fontVariationSettings: "'FILL' 1, 'wght' 200" }}
-                  aria-hidden="true"
-                >
-                  {p.icon}
-                </span>
-                <div className="relative z-10">
-                  <h3 className="font-sans text-navy text-[15px] mb-2" style={{ fontWeight: 500 }}>
-                    {p.title}
-                  </h3>
-                  <p className="font-sans text-[13px] text-navy/50 leading-relaxed">
-                    {p.desc}
-                  </p>
+              <div key={p.title} className="p-5 bg-white">
+                <div className="flex items-start gap-3">
+                  <span
+                    className="material-symbols-outlined text-steel/50 shrink-0 mt-0.5"
+                    style={{ fontSize: "18px", fontVariationSettings: "'FILL' 1, 'wght' 400" }}
+                    aria-hidden="true"
+                  >
+                    {p.icon}
+                  </span>
+                  <div>
+                    <h3 className="font-sans text-navy text-[14px] mb-1" style={{ fontWeight: 500 }}>
+                      {p.title}
+                    </h3>
+                    <p className="font-sans text-[13px] text-navy/50 leading-relaxed">
+                      {p.desc}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -199,55 +214,76 @@ export default function ContentPage() {
       </div>
 
       {/* ── Platform Guidance ── */}
-      <div className="bg-cream py-16 md:py-24">
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12">
+      <div className="bg-cream py-16 md:py-24 relative overflow-hidden">
+        {/* Oversized accent icon */}
+        <span
+          className="material-symbols-outlined absolute -left-12 bottom-[-4%] text-navy/[0.025] pointer-events-none select-none"
+          style={{ fontSize: "min(55vw, 560px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
+          aria-hidden="true"
+        >
+          share
+        </span>
+
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12 relative z-10">
           <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-navy/30 mb-3">
             Platforms
           </p>
           <h2
-            className="font-sans text-navy tracking-[-0.02em] mb-14"
+            className="font-sans text-navy tracking-[-0.02em] mb-10"
             style={{ fontSize: "clamp(28px, 3.5vw, 40px)", fontWeight: 500 }}
           >
             Platform Guidance
           </h2>
 
-          <div className="space-y-0">
-            {platformGuidance.map((row, i) => (
-              <div
-                key={row.platform}
-                className={`grid grid-cols-1 md:grid-cols-[140px_1fr] gap-4 md:gap-8 py-8 ${
-                  i < platformGuidance.length - 1 ? "border-b border-navy/8" : ""
-                }`}
-              >
-                <div>
-                  <p className="font-sans text-navy text-[17px]" style={{ fontWeight: 500 }}>
-                    {row.platform}
-                  </p>
-                  <p className="font-mono text-[11px] text-navy/30 mt-0.5">{row.frequency}</p>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-navy/30 mb-1">Tone</p>
-                    <p className="font-sans text-[14px] text-navy/70">{row.tone}</p>
-                  </div>
-                  <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-navy/30 mb-1">Focus</p>
-                    <p className="font-sans text-[14px] text-navy/70">{row.focus}</p>
-                  </div>
-                  <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-navy/30 mb-1">Limit</p>
-                    <p className="font-mono text-[13px] text-navy/50">{row.charLimit}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
+          {/* Table-style header */}
+          <div className="hidden md:grid grid-cols-[48px_1fr_1fr_1fr_120px] gap-4 pb-3 border-b-2 border-navy/10 mb-0">
+            <div />
+            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-navy/30">Tone</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-navy/30">Focus</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-navy/30">Frequency</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-navy/30">Limit</p>
           </div>
+
+          {platformGuidance.map((row, i) => (
+            <div
+              key={row.platform}
+              className={`grid grid-cols-1 md:grid-cols-[48px_1fr_1fr_1fr_120px] gap-4 py-4 items-center ${
+                i < platformGuidance.length - 1 ? "border-b border-navy/6" : ""
+              }`}
+            >
+              <div className="flex items-center gap-3 md:block">
+                <span
+                  className="material-symbols-outlined text-navy/40"
+                  style={{ fontSize: "22px", fontVariationSettings: "'FILL' 1, 'wght' 400" }}
+                  title={row.platform}
+                >
+                  {row.icon}
+                </span>
+                <span className="font-sans text-navy text-[15px] md:hidden" style={{ fontWeight: 500 }}>
+                  {row.platform}
+                </span>
+              </div>
+              <p className="font-sans text-[14px] text-navy/70">{row.tone}</p>
+              <p className="font-sans text-[13px] text-navy/55 leading-snug">{row.focus}</p>
+              <p className="font-mono text-[12px] text-navy/40">{row.frequency}</p>
+              <p className="font-mono text-[12px] text-navy/40">{row.charLimit}</p>
+            </div>
+          ))}
         </div>
       </div>
 
       {/* ── Responding to Comments ── */}
-      <div className="bg-white py-16 md:py-24">
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12">
+      <div className="bg-white py-16 md:py-24 relative overflow-hidden">
+        {/* Oversized accent icon */}
+        <span
+          className="material-symbols-outlined absolute -right-6 top-[8%] text-navy/[0.025] pointer-events-none select-none"
+          style={{ fontSize: "min(40vw, 400px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
+          aria-hidden="true"
+        >
+          chat_bubble
+        </span>
+
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-16">
             <div>
               <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-navy/30 mb-3">
@@ -264,7 +300,7 @@ export default function ContentPage() {
                 discussion to a private space as quickly as possible.
               </p>
 
-              <div className="p-6 rounded-xl bg-cream border-l-[3px] border-royal">
+              <div className="border-l-2 border-steel pl-5">
                 <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-navy/30 mb-3">
                   Template Response
                 </p>
@@ -294,8 +330,17 @@ export default function ContentPage() {
       </div>
 
       {/* ── Email Communications ── */}
-      <div className="bg-[#0f1c2e] py-16 md:py-24">
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12">
+      <div className="bg-[#0f1c2e] py-16 md:py-24 relative overflow-hidden">
+        {/* Oversized accent icon */}
+        <span
+          className="material-symbols-outlined absolute -right-10 top-[5%] text-white/[0.025] pointer-events-none select-none"
+          style={{ fontSize: "min(50vw, 500px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
+          aria-hidden="true"
+        >
+          mail
+        </span>
+
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12 relative z-10">
           <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-white/25 mb-3">
             Email
           </p>
@@ -310,13 +355,13 @@ export default function ContentPage() {
             Treat it as a privilege.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.04] rounded-xl overflow-hidden mb-14">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px border-2 border-fog/20 overflow-hidden mb-14">
             {emailBestPractices.map((item, i) => (
-              <div key={item.title} className={`p-6 bg-[#0f1c2e] ${i === emailBestPractices.length - 1 && emailBestPractices.length % 3 !== 0 ? "lg:col-span-1" : ""}`}>
-                <p className="font-mono text-[10px] text-white/25 mb-3">
+              <div key={item.title} className="p-5 bg-[#0f1c2e]">
+                <p className="font-mono text-[10px] text-white/20 mb-2">
                   {String(i + 1).padStart(2, "0")}
                 </p>
-                <h3 className="font-sans text-white/80 text-[15px] mb-2" style={{ fontWeight: 500 }}>
+                <h3 className="font-sans text-white/80 text-[14px] mb-1.5" style={{ fontWeight: 500 }}>
                   {item.title}
                 </h3>
                 <p className="font-sans text-[13px] text-white/40 leading-relaxed">
@@ -326,49 +371,66 @@ export default function ContentPage() {
             ))}
           </div>
 
-          {/* Required Disclaimer */}
-          <div className="flex items-center justify-between mb-4">
-            <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-white/30">
-              Required SBA &amp; ADA Disclaimer
-            </p>
-            <CopyButton text={sbaDisclaimer} />
-          </div>
-          <div className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-            <p className="font-sans text-[13px] text-white/40 leading-relaxed whitespace-pre-wrap">
-              {sbaDisclaimer}
-            </p>
+          {/* Required Disclaimer — tighter, no boring container */}
+          <div className="max-w-3xl">
+            <div className="flex items-center justify-between mb-4">
+              <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-white/30">
+                Required SBA &amp; ADA Disclaimer
+              </p>
+              <CopyButton text={sbaDisclaimer} />
+            </div>
+            <div className="border-l-2 border-fog/30 pl-6">
+              <p className="font-sans text-[13px] text-white/35 leading-relaxed whitespace-pre-wrap">
+                {sbaDisclaimer}
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
       {/* ── Web Publishing ── */}
-      <div className="bg-white py-16 md:py-24">
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12">
+      <div className="bg-white py-16 md:py-24 relative overflow-hidden">
+        {/* Oversized accent icon */}
+        <span
+          className="material-symbols-outlined absolute -right-10 top-[-5%] text-navy/[0.025] pointer-events-none select-none"
+          style={{ fontSize: "min(55vw, 560px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
+          aria-hidden="true"
+        >
+          language
+        </span>
+
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12 relative z-10">
           <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-navy/30 mb-3">
             Web
           </p>
           <h2
-            className="font-sans text-navy tracking-[-0.02em] mb-14"
+            className="font-sans text-navy tracking-[-0.02em] mb-10"
             style={{ fontSize: "clamp(28px, 3.5vw, 40px)", fontWeight: 500 }}
           >
             Web Publishing
           </h2>
 
-          <div className="space-y-10">
-            {webPublishingRules.map((rule) => (
-              <div key={rule.title} className="border-b border-navy/8 pb-10">
-                <h3 className="font-sans text-navy text-[17px] mb-5" style={{ fontWeight: 500 }}>
-                  {rule.title}
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex gap-3 items-start p-4 rounded-lg bg-[#00685E]/[0.04]">
-                    <span className="material-symbols-outlined text-[#00685E] shrink-0" style={{ fontSize: "18px" }}>check</span>
-                    <span className="font-sans text-[14px] text-navy/70">{rule.good}</span>
-                  </div>
-                  <div className="flex gap-3 items-start p-4 rounded-lg bg-[#A73B44]/[0.04]">
-                    <span className="material-symbols-outlined text-[#A73B44] shrink-0" style={{ fontSize: "18px" }}>close</span>
-                    <span className="font-sans text-[14px] text-navy/70">{rule.bad}</span>
-                  </div>
+          {/* Table-style layout */}
+          <div className="border-2 border-steel/15 overflow-hidden">
+            {webPublishingRules.map((rule, i) => (
+              <div
+                key={rule.title}
+                className={`grid grid-cols-1 md:grid-cols-[220px_1fr_1fr] items-center ${
+                  i < webPublishingRules.length - 1 ? "border-b border-navy/6" : ""
+                }`}
+              >
+                <div className="px-5 py-4 md:border-r border-navy/6">
+                  <h3 className="font-sans text-navy text-[14px]" style={{ fontWeight: 500 }}>
+                    {rule.title}
+                  </h3>
+                </div>
+                <div className="flex gap-2 items-center px-5 py-4 md:border-r border-navy/6">
+                  <span className="material-symbols-outlined text-[#00685E] shrink-0" style={{ fontSize: "16px" }}>check</span>
+                  <span className="font-sans text-[13px] text-navy/65">{rule.good}</span>
+                </div>
+                <div className="flex gap-2 items-center px-5 py-4">
+                  <span className="material-symbols-outlined text-[#A73B44] shrink-0" style={{ fontSize: "16px" }}>close</span>
+                  <span className="font-sans text-[13px] text-navy/50">{rule.bad}</span>
                 </div>
               </div>
             ))}
