@@ -13,7 +13,7 @@ export default function GeneratePage() {
       />
 
       <div className="bg-white py-16 md:py-24">
-        <div className="max-w-[960px] mx-auto px-8 md:px-12">
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12">
           <h2
             className="tracking-[-0.02em] mb-2 text-navy"
             style={{
