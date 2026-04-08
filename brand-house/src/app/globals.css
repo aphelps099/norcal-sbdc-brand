@@ -78,6 +78,7 @@
   --color-strawberry: #F7024D;
   --color-coral: #c4543a;
   --color-coral-light: #d4654b;
+  --color-fog: #85A3C8;
   --color-text-primary: #1a1a1a;
   --color-text-secondary: #4a4a4a;
   --color-text-tertiary: #888888;
@@ -85,7 +86,7 @@
   --font-sans: 'Sofia Pro', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
   --font-label: 'GT America Extended', 'Sofia Pro', -apple-system, sans-serif;
   --font-serif: 'Sofia Pro', -apple-system, 'Helvetica Neue', sans-serif;
-  --font-mono: 'SF Mono', 'Fira Code', monospace;
+  --font-mono: 'Roboto Mono', 'SF Mono', 'Fira Code', monospace;
 }
 
 /* ═══════════════════════════════════════════
