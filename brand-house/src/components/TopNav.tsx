@@ -32,14 +32,14 @@ const NAV_COLS = [
     links: [
       { label: "Templates", href: "/templates" },
       { label: "Content", href: "/content" },
-      { label: "Calendar", href: "/calendar" },
+      { label: "Generate", href: "/generate" },
     ],
   },
   {
     heading: "Reference",
     links: [
       { label: "Glossary", href: "/glossary" },
-      { label: "Generate", href: "/generate" },
+      { label: "Calendar", href: "/calendar" },
     ],
   },
 ];
