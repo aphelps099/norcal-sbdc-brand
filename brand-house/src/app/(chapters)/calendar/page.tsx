@@ -25,39 +25,57 @@ const BG_STYLES: Record<CardBg, { bg: string; text: string; muted: string; cta: 
 
 const socialRows: { label: string; cards: SocialCard[] }[] = [
   {
-    label: "Value to Lenders",
+    label: "General Advising",
     cards: [
-      { bg: "navy", label: "ROI", stat: "$58", headline: "Return for every $1 invested in SBDC.", cta: "SBA verified →" },
-      { bg: "white", label: "For Lenders", headline: "We don\u2019t compete with you.", body: "We make your pipeline stronger.", cta: "Partner with us →" },
-      { bg: "cobalt", label: "Last Year", headline: "\u201CSBDC referrals close faster. The prep work is already done.\u201D", quote: true, attribution: "Community Bank Lender" },
+      { bg: "navy", label: "Advising", headline: "Slice through the fluff. Get a business advisor.", body: "Cut through the noise and get straight to the answers you need.", cta: "Connect with us →" },
+      { bg: "white", label: "Success", stat: "9/10", headline: "Clients see results with SBDC.", body: "Our approach works. Last year we proved it across thousands of businesses.", cta: "Get started →" },
+      { bg: "cobalt", label: "Capital", stat: "$4.78B", headline: "Accessed by California businesses in three years.", body: "All for free.", cta: "norcalsbdc.org →" },
+      { bg: "berry", label: "Your Edge", headline: "Business, Better.", body: "Expert advising to help you realize your business success — at a small-business-friendly price tag: $Free.", cta: "Get help today →" },
+    ],
+  },
+  {
+    label: "Access to Capital",
+    cards: [
+      { bg: "navy", label: "Got Capital?", headline: "Pick the right loan from 100+ lending partners.", body: "Our finance advisors guide the entire loan packaging process — and we don\u2019t charge you a dime.", cta: "Sign up now →" },
+      { bg: "cobalt", label: "Protect It", headline: "The bottom line: protect it.", body: "Over 40 years helping businesses generate capital investment and sales growth.", cta: "Contact us →" },
+      { bg: "white", label: "Expand", headline: "Get capital to expand.", body: "Navigate the financing landscape and find the right options for your business.", cta: "Learn more →" },
       { bg: "berry", label: "Last Year", stat: "$547M", headline: "Capital accessed by our clients.", cta: "Be part of it →" },
     ],
   },
   {
-    label: "What We Do (For Lenders)",
+    label: "Marketing & Growth",
     cards: [
-      { bg: "navy", label: "Before They Reach You", headline: "We prepare them.", body: "\u2022 Clean financial statements\n\u2022 Realistic loan amounts\n\u2022 Complete documentation\n\u2022 Solid business plans", cta: "norcalsbdc.org/partners" },
-      { bg: "cobalt", label: "", headline: "Less back-and-forth. Faster closes. Better clients." },
-      { bg: "white", label: "For Lenders", headline: "Your underwriters will thank you.", body: "Complete packages. Realistic asks. Prepared borrowers.", cta: "Learn more →" },
-      { bg: "berry", label: "Free", stat: "Free", headline: "What we charge clients.", body: "They get expert prep. You get loan-ready referrals. Everyone wins.", cta: "Partner now →" },
+      { bg: "white", label: "Marketing", headline: "Unlock your business potential: the key is marketing.", body: "Businesses with a defined strategy are 2.8x more likely to grow revenue year-over-year.", cta: "Connect with SBDC →" },
+      { bg: "navy", label: "Social", stat: "70%", headline: "Of small business owners say social media is their top marketing tool.", cta: "Level up →" },
+      { bg: "berry", label: "ROI", headline: "Maximize your marketing ROI.", body: "60% of owners feel their campaigns don\u2019t produce results. We change that.", cta: "Get concrete results →" },
+      { bg: "cobalt", label: "Growth", headline: "Maximize reach. Maximize revenue.", body: "From leveraging social media to optimizing your sales process \u2014 faster.", cta: "Get started →" },
     ],
   },
   {
-    label: "CDFIs & Mission Lenders",
+    label: "Partner & Lender Outreach",
     cards: [
-      { bg: "white", label: "For CDFIs", headline: "Same mission. Different tools.", body: "You lend. We advise. Together we build.", cta: "Let\u2019s partner →" },
-      { bg: "navy", label: "Network", stat: "18", headline: "Centers across Northern California.", cta: "Find your local center →" },
-      { bg: "cobalt", label: "", headline: "\u201CThey\u2019re an extension of our team. We couldn\u2019t serve this many small businesses without them.\u201D", quote: true, attribution: "CDFI Partner" },
-      { bg: "berry", label: "", headline: "We reach the businesses you want to fund." },
+      { bg: "navy", label: "ROI", stat: "$58", headline: "Return for every $1 invested in SBDC.", cta: "SBA verified →" },
+      { bg: "white", label: "For Lenders", headline: "We don\u2019t compete with you.", body: "We make your pipeline stronger.", cta: "Partner with us →" },
+      { bg: "cobalt", label: "", headline: "\u201CSBDC referrals close faster. The prep work is already done.\u201D", quote: true, attribution: "Community Bank Lender" },
+      { bg: "berry", label: "Network", stat: "18", headline: "Centers across Northern California.", cta: "Find yours →" },
     ],
   },
   {
-    label: "Economic Development Partners",
+    label: "Tech Futures Group",
     cards: [
-      { bg: "navy", label: "Coverage", stat: "36", headline: "Counties across Northern California.", cta: "See our network →" },
-      { bg: "white", label: "For Cities & Counties", headline: "Your constituents. Our advisors.", body: "Free small business support for your community.", cta: "Partner with us →" },
-      { bg: "cobalt", label: "No Pricing", headline: "At no cost to you.", body: "\u2022 One-on-one advising\n\u2022 Workshops & training\n\u2022 Loan packaging\n\u2022 Disaster recovery support", cta: "norcalsbdc.org" },
-      { bg: "berry", label: "Businesses", stat: "12.4K", headline: "Advised last year across the network.", cta: "Join us →" },
+      { bg: "cobalt", label: "TFG", headline: "Your full-stack tech advisory.", body: "From VC pitch to IP to financial modeling to SBIR/STTR grants. End-to-end support.", cta: "Learn more →" },
+      { bg: "navy", label: "Startups", headline: "Launching tech is hard. We know.", body: "From proof of concept to your first big pitch \u2014 we bring the support your startup needs.", cta: "Get started →" },
+      { bg: "berry", label: "Price Tag", stat: "$0", headline: "Zero cash. Zero equity.", body: "All the support, none of the cost." },
+      { bg: "white", label: "Silicon Valley", headline: "Secret superpowers for startups.", body: "We take the guesswork out of getting started with a technology startup.", cta: "Tech Futures Group →" },
+    ],
+  },
+  {
+    label: "Events & Training",
+    cards: [
+      { bg: "white", label: "Events", headline: "Up your business game.", body: "Our calendar is packed with opportunities to learn, network, and grow.", cta: "norcalsbdc.org/events →" },
+      { bg: "cobalt", label: "Live", headline: "Don\u2019t miss the next live stream from SBDC.", body: "Finance, marketing, branding, international trade \u2014 our experts share insights to help you reach your goals." },
+      { bg: "navy", label: "Training", headline: "Want to stay ahead? Stay in the know.", body: "From marketing to finance, our experts guide you through the latest industry trends.", cta: "See calendar →" },
+      { bg: "berry", label: "Newsletter", headline: "Grow your business with SBDC\u2019s newsletter.", body: "Expert advice, tips, and resources delivered straight to your inbox.", cta: "Subscribe →" },
     ],
   },
 ];
