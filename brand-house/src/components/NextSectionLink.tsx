@@ -30,7 +30,7 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative overflow-hidden">
+    <div ref={containerRef} className="relative overflow-hidden bg-[#0f1c2e]">
       <a
         href={href}
         className="block no-underline relative"
@@ -40,11 +40,11 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
         }}
         onMouseLeave={() => setHovered(false)}
       >
-        {/* Navy sweep — slides up from bottom on hover, slides down on leave */}
+        {/* Cobalt sweep — slides up from bottom on hover, slides down on leave */}
         <div
           className="absolute inset-0"
           style={{
-            background: "#0f1c2e",
+            background: "#004290",
             clipPath: hovered
               ? "inset(0 0 0 0)"
               : hasHovered
@@ -57,7 +57,7 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
         {/* Top border */}
         <div className="absolute top-0 left-0 right-0 z-20">
           <div className="max-w-[1200px] mx-auto px-8 md:px-12">
-            <div className="border-t border-black/[0.06]" />
+            <div className="border-t border-white/[0.06]" />
           </div>
         </div>
 
@@ -66,7 +66,7 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
           <p
             className="font-label text-[10px] uppercase tracking-[0.22em] mb-5 md:mb-6"
             style={{
-              color: hovered ? "rgba(143,197,217,0.4)" : "rgba(15,28,46,0.2)",
+              color: hovered ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.25)",
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(12px)",
               transition:
@@ -91,7 +91,7 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
                 fontFamily: "var(--sans)",
                 fontWeight: 500,
                 fontSize: "clamp(36px, 6vw, 76px)",
-                color: hovered ? "#f5f4f0" : "rgba(15,28,46,0.8)",
+                color: hovered ? "#f5f4f0" : "rgba(255,255,255,0.8)",
               }}
             >
               {title}
@@ -103,7 +103,7 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="0.7"
+            strokeWidth="0.4"
             strokeLinecap="round"
             strokeLinejoin="round"
             className="absolute right-4 md:right-8 top-1/2 transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
@@ -111,8 +111,8 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
               width: "clamp(120px, 18vw, 260px)",
               height: "clamp(120px, 18vw, 260px)",
               color: hovered
-                ? "rgba(143,197,217,0.08)"
-                : "rgba(15,28,46,0.03)",
+                ? "rgba(255,255,255,0.08)"
+                : "rgba(255,255,255,0.04)",
               transform: hovered
                 ? "translateY(-50%) translateX(6px)"
                 : "translateY(-50%)",
