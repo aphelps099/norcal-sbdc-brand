@@ -32,6 +32,33 @@ export default function VoicePage() {
         title="Voice & Tone"
         subtitle="Our voice is the personality behind every word — confident, human, and always rooted in expertise."
       />
+
+      {/* Stats summary row — inspired by norcalsbdc.org/brand/messaging.html */}
+      <div className="bg-[#0f1c2e] border-t border-white/[0.06]">
+        <div className="max-w-[960px] mx-auto px-8 md:px-12 py-10 md:py-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { value: "1", label: "Primary Tagline" },
+              { value: "3", label: "Campaign Pillars" },
+              { value: "4", label: "Voice Attributes" },
+              { value: "5", label: "Tone Contexts" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <p
+                  className="text-white/70 leading-none mb-2"
+                  style={{ fontFamily: "var(--sans)", fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 500 }}
+                >
+                  {stat.value}
+                </p>
+                <p className="font-label text-[10px] uppercase tracking-[0.14em] text-white/30">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Brand Personality — dark navy bg */}
       <div className="bg-[#0f1c2e] py-12 md:py-16 relative overflow-hidden">
         <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
