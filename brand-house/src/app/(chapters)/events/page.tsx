@@ -446,6 +446,53 @@ export default function EventsPage() {
       </div>
 
       {/* ═══════════════════════════════════════════
+           ACTIVATION STARTER KIT
+           ═══════════════════════════════════════════ */}
+      <div className="bg-white py-16 md:py-20 relative overflow-hidden">
+        <span
+          className="material-symbols-outlined absolute -right-10 top-[3%] text-navy/[0.025] pointer-events-none select-none"
+          style={{ fontSize: "min(50vw, 500px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
+          aria-hidden="true"
+        >
+          rocket_launch
+        </span>
+        <div className="max-w-[1080px] mx-auto px-8 md:px-12 relative z-10">
+          <div className="border-t border-navy/10 pt-6 mb-6">
+            <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Year-Round Activations</p>
+            <h2 className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>Activation Starter Kit</h2>
+          </div>
+          <p className="font-sans text-navy/50 text-[15px] leading-relaxed mb-10 max-w-xl">
+            Evergreen activation ideas that centers can deploy anytime. Each maps to a pillar. Pick 1&ndash;2 per quarter and execute well.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px border border-navy/[0.06] overflow-hidden">
+            {[
+              { icon: "person", name: "Advisor Spotlight Series", desc: "Photograph each advisor. Record a 60-second intro video. Publish one per week across social. Let entrepreneurs see the person behind the consultation.", tags: ["People", "Content", "Ongoing"] },
+              { icon: "account_balance", name: "Capital Access Workshop", desc: "90-minute session on SBA lending, loan packaging, and financial readiness. Invite a lender partner to co-present. End with 1-on-1 booking slots.", tags: ["Funded", "In-Person / Virtual", "Quarterly"] },
+              { icon: "hub", name: "Entrepreneur Mixer", desc: "Casual networking event at a local venue. Pair current clients with prospective ones. No presentations \u2014 just conversations and connections.", tags: ["Connected", "In-Person", "Quarterly"] },
+              { icon: "videocam", name: "Client Story Video", desc: "Record a 2\u20133 minute video with a client sharing their SBDC journey. Use the signature story template for structure. Authentic, unscripted, powerful.", tags: ["People", "Content", "Monthly"] },
+              { icon: "payments", name: "Lender Lunch & Learn", desc: "Invite 2\u20133 lending partners for a roundtable with clients. Demystify the lending process. Build relationships between entrepreneurs and lenders face to face.", tags: ["Funded", "Connected", "Bi-Annual"] },
+              { icon: "handshake", name: "Partner Co-Marketing", desc: "Cross-promote with a chamber, city, or economic development partner. Co-branded social post, newsletter swap, or joint workshop. Expand reach organically.", tags: ["Connected", "Digital", "Monthly"] },
+            ].map((idea) => (
+              <div key={idea.name} className="bg-white p-5">
+                <span
+                  className="material-symbols-outlined text-navy mb-2 block"
+                  style={{ fontSize: 24, fontVariationSettings: "'FILL' 1, 'wght' 400" }}
+                >{idea.icon}</span>
+                <h3 className="font-sans text-navy text-[15px] tracking-[-0.01em] mb-1" style={{ fontWeight: 500 }}>{idea.name}</h3>
+                <p className="font-sans text-navy/50 text-[13px] leading-relaxed mb-3">{idea.desc}</p>
+                <div className="flex gap-1.5 flex-wrap">
+                  {idea.tags.map((tag) => (
+                    <span key={tag} className="font-label text-[9px] px-2 py-0.5 bg-cream text-navy/40">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ═══════════════════════════════════════════
            SECTION 3: USAGE GUIDELINES
            ═══════════════════════════════════════════ */}
       <div className="bg-cream py-16 md:py-20">
