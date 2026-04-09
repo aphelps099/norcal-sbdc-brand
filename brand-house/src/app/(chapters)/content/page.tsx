@@ -213,6 +213,61 @@ export default function ContentPage() {
         </div>
       </div>
 
+      {/* ── Social Media Kit ── */}
+      <div className="bg-cream py-16 md:py-20 relative overflow-hidden">
+        <span
+          className="material-symbols-outlined absolute -left-8 top-[8%] text-navy/[0.025] pointer-events-none select-none"
+          style={{ fontSize: "min(50vw, 500px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
+          aria-hidden="true"
+        >
+          auto_awesome
+        </span>
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12 relative z-10">
+          <div className="border-t border-navy/10 pt-6 mb-12">
+            <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Ready-to-Post Content</p>
+            <h2 className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>Social Media Kit</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { bg: "bg-[#0f1c2e]", text: "text-white", icon: "person", headline: "Meet Your\nSBDC Advisor", sub: "The people behind your business growth.", pillar: "People", tag: "#YourBusinessBetter", plaque: "Advisor Spotlight", detail: "IG / LI \u00b7 People Pillar \u00b7 Weekly" },
+              { bg: "bg-[#A73B44]", text: "text-white", icon: "account_balance", headline: "$240M+", isStat: true, sub: "Capital accessed by NorCal small businesses", pillar: "Funded", tag: "#YourBusinessBetter", plaque: "Capital Impact", detail: "LI / FB \u00b7 Funded Pillar \u00b7 Monthly" },
+              { bg: "bg-cream border border-navy/[0.08]", text: "text-navy", icon: "format_quote", headline: null, quote: "\u201cMy advisor connected me with the right lender at the right time. That loan changed everything.\u201d", sub: "\u2014 NorCal SBDC Client", pillar: "Connected", tag: "#PeopleFundedConnected", plaque: "Client Testimonial", detail: "IG / FB \u00b7 Connected Pillar \u00b7 Bi-Weekly" },
+              { bg: "bg-gradient-to-br from-[#4a8da6] to-steel", text: "text-white", icon: "groups", headline: "1,900+", isStat: true, sub: "Jobs created with SBDC support", pillar: "People", tag: "#NorCalSBDC", plaque: "Jobs Created", detail: "LI / X \u00b7 People Pillar \u00b7 Quarterly" },
+              { bg: "bg-white border border-navy/[0.08]", text: "text-navy", icon: "lightbulb", headline: "Did You Know?", headlineColor: "text-[#A73B44]", sub: "NorCal SBDC advisors help you prepare loan packages, navigate SBA programs, and connect with the right lender \u2014 all at no fee.", pillar: "Funded", tag: "#SmallBusinessGrowth", plaque: "Capital Education", detail: "LI / FB \u00b7 Funded Pillar \u00b7 Monthly" },
+              { bg: "bg-[#004290]", text: "text-white", icon: "hub", headline: "People.\nFunded.\nConnected.", sub: "That\u2019s what we do.", pillar: "Brand", tag: "#YourBusinessBetter", plaque: "Brand Anthem", detail: "IG / LI / FB / X \u00b7 Evergreen" },
+            ].map((post) => (
+              <div key={post.plaque} className="flex flex-col">
+                <div className={`aspect-square ${post.bg} ${post.text} relative overflow-hidden flex flex-col items-center justify-center text-center p-6 shadow-md`}>
+                  <span
+                    className="material-symbols-outlined absolute top-[-15%] right-[-15%] opacity-[0.04] pointer-events-none"
+                    style={{ fontSize: 180, fontVariationSettings: "'FILL' 1, 'wght' 200" }}
+                    aria-hidden="true"
+                  >{post.icon}</span>
+                  <p className="absolute top-3.5 left-4 font-sans text-[11px] opacity-70 tracking-[0.02em] z-10" style={{ fontWeight: 500 }}>NorCal SBDC</p>
+                  {post.quote ? (
+                    <p className="font-sans text-lg italic leading-snug mb-2 relative z-10" style={{ fontWeight: 500 }}>{post.quote}</p>
+                  ) : post.isStat ? (
+                    <p className="font-sans leading-none mb-1 relative z-10" style={{ fontSize: "3rem", fontWeight: 500 }}>{post.headline}</p>
+                  ) : (
+                    <p className={`font-sans text-[1.75rem] leading-tight mb-2 relative z-10 whitespace-pre-line ${post.headlineColor || ""}`} style={{ fontWeight: 500 }}>{post.headline}</p>
+                  )}
+                  <p className={`text-[13px] opacity-80 leading-snug relative z-10 ${post.quote ? "text-navy/50" : ""}`}>{post.sub}</p>
+                  <div className="absolute bottom-3 left-4 right-4 flex justify-between font-label text-[9px] uppercase tracking-[0.06em] opacity-40 z-10">
+                    <span>{post.pillar}</span>
+                    <span>{post.tag}</span>
+                  </div>
+                </div>
+                <div className="mt-2">
+                  <p className="font-sans text-navy text-[13px]" style={{ fontWeight: 500 }}>{post.plaque}</p>
+                  <p className="font-label text-[10px] text-navy/30 uppercase tracking-[0.05em]">{post.detail}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* ── Platform Guidance ── */}
       <div className="bg-cream py-16 md:py-24 relative overflow-hidden">
         {/* Oversized accent icon */}
@@ -269,6 +324,74 @@ export default function ContentPage() {
               <p className="font-mono text-[12px] text-navy/40">{row.charLimit}</p>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* ── Content Cadence ── */}
+      <div className="bg-white py-16 md:py-20 relative overflow-hidden">
+        <span
+          className="material-symbols-outlined absolute -right-10 top-[2%] text-navy/[0.025] pointer-events-none select-none"
+          style={{ fontSize: "min(50vw, 500px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
+          aria-hidden="true"
+        >
+          calendar_month
+        </span>
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12 relative z-10">
+          <div className="border-t border-navy/10 pt-6 mb-12">
+            <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Year-Round Rhythm</p>
+            <h2 className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>Content Cadence</h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-px border border-navy/[0.06] overflow-hidden">
+            {[
+              {
+                freq: "Weekly",
+                title: "Social Posts",
+                items: [
+                  { tag: "People", tagColor: "bg-[#004290]/[0.08] text-[#004290]", text: "Advisor spotlight or team moment" },
+                  { tag: "Funded", tagColor: "bg-[#A73B44]/[0.08] text-[#A73B44]", text: "Capital stat, lending tip, or client win" },
+                  { tag: "Connected", tagColor: "bg-steel/15 text-steel", text: "Event promo, workshop recap, or partner shout-out" },
+                ],
+                note: "Rotate pillars weekly \u2014 never post the same pillar twice in a row",
+              },
+              {
+                freq: "Bi-Weekly",
+                title: "Newsletter",
+                items: [
+                  { tag: "People", tagColor: "bg-[#004290]/[0.08] text-[#004290]", text: "Lead story: client or advisor profile" },
+                  { tag: "Funded", tagColor: "bg-[#A73B44]/[0.08] text-[#A73B44]", text: "Quick tip: capital access or SBA update" },
+                  { tag: "Connected", tagColor: "bg-steel/15 text-steel", text: "Program spotlight + upcoming events" },
+                ],
+                note: "Each issue features one pillar lead, two supporting",
+              },
+              {
+                freq: "Quarterly",
+                title: "Anchor Content",
+                items: [
+                  { tag: "People", tagColor: "bg-[#004290]/[0.08] text-[#004290]", text: "Signature client success story (long-form)" },
+                  { tag: "Funded", tagColor: "bg-[#A73B44]/[0.08] text-[#A73B44]", text: "Capital impact report or lender partnership feature" },
+                  { tag: "Connected", tagColor: "bg-steel/15 text-steel", text: "Event recap video or regional economic snapshot" },
+                ],
+                note: "Anchor content feeds 4\u20136 weeks of derivative posts",
+              },
+            ].map((col) => (
+              <div key={col.freq} className="bg-white p-5">
+                <p className="font-label text-[10px] uppercase tracking-[0.08em] text-[#A73B44] mb-1.5">{col.freq}</p>
+                <h3 className="font-sans text-navy text-[17px] tracking-[-0.01em] mb-3" style={{ fontWeight: 500 }}>{col.title}</h3>
+                {col.items.map((item) => (
+                  <div key={item.text} className="py-2 border-b border-navy/[0.04] last:border-b-0 text-[13px] text-navy/55 leading-snug font-sans">
+                    <span className={`inline-block font-label text-[8px] uppercase tracking-[0.06em] px-1.5 py-0.5 mr-1.5 ${item.tagColor}`}>{item.tag}</span>
+                    {item.text}
+                  </div>
+                ))}
+                <p className="font-sans text-navy/30 text-[12px] italic mt-3">{col.note}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-5 p-4 bg-cream border border-navy/[0.06] font-sans text-[14px] text-navy/55 leading-relaxed">
+            <strong className="text-navy" style={{ fontWeight: 500 }}>Pillar Rotation Rule:</strong> Each month, one pillar leads. The other two support. January = People-led. February = Funded-led. March = Connected-led. Repeat.
+          </div>
         </div>
       </div>
 
@@ -384,6 +507,106 @@ export default function ContentPage() {
                 {sbaDisclaimer}
               </p>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Welcome Drip Sequence ── */}
+      <div className="py-16 md:py-20 relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
+        <span
+          className="material-symbols-outlined absolute -right-8 top-[5%] text-navy/[0.025] pointer-events-none select-none"
+          style={{ fontSize: "min(45vw, 460px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
+          aria-hidden="true"
+        >
+          mark_email_read
+        </span>
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12 relative z-10">
+          <div className="border-t border-navy/10 pt-6 mb-6">
+            <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">New Client Onboarding</p>
+            <h2 className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>Welcome Drip Sequence</h2>
+          </div>
+
+          <div className="p-4 bg-white border border-navy/[0.06] font-sans text-[14px] text-navy/55 leading-relaxed mb-10">
+            <strong className="text-navy" style={{ fontWeight: 500 }}>3-email drip, automated after first consultation.</strong> Each email introduces one pillar in sequence &mdash; People, then Funded, then Connected &mdash; so new clients understand the full scope. Suggested timing: Day 1, Day 7, Day 14.
+          </div>
+
+          <div className="space-y-8">
+            {[
+              {
+                label: "Drip 01 \u00b7 Day 1 \u00b7 People Pillar",
+                heading: "Welcome to\nNorCal SBDC",
+                preview: "You just gained a team \u2014 here\u2019s who\u2019s in your corner",
+                body: [
+                  "Hi [First Name],",
+                  "Thank you for meeting with us. That conversation you just had? It wasn\u2019t a one-time thing. You now have an advisor \u2014 a real person with real expertise \u2014 who\u2019s invested in your growth.",
+                  "Your advisor will follow up within [X] business days with a summary of your session and recommended next steps.",
+                ],
+                bullets: [
+                  "Every consultation is no-fee \u2014 today and always",
+                  "You can schedule follow-ups as often as you need",
+                  "Your advisor connects you to specialists when your needs go deeper",
+                ],
+                cta: "Schedule Your Next Session",
+                signoff: "Welcome to the team,",
+              },
+              {
+                label: "Drip 02 \u00b7 Day 7 \u00b7 Funded Pillar",
+                heading: "Your Business, Funded",
+                preview: "Capital access is part of the deal \u2014 here\u2019s how it works",
+                body: [
+                  "Hi [First Name],",
+                  "NorCal SBDC has helped entrepreneurs across 36 counties access over $240M in funding. Whether you need capital now or want to be ready when the time comes, your advisor can help.",
+                ],
+                bullets: [
+                  "Review your financials and identify funding readiness gaps",
+                  "Help you build a loan package lenders actually want to see",
+                  "Introduce you to the right lender from our 50+ partners",
+                  "Navigate SBA programs, grants, and alternative sources",
+                ],
+                cta: "Talk to Your Advisor About Capital",
+                signoff: "Invested in your growth,",
+              },
+              {
+                label: "Drip 03 \u00b7 Day 14 \u00b7 Connected Pillar",
+                heading: "Your Business, Connected",
+                preview: "You didn\u2019t just get an advisor \u2014 you got a network",
+                body: [
+                  "Hi [First Name],",
+                  "NorCal SBDC isn\u2019t just your advisor \u2014 it\u2019s a network of 14 centers, 63 advisors, and hundreds of partners across Northern California. And you\u2019re now part of it.",
+                ],
+                bullets: [
+                  "200+ workshops and training events every year \u2014 most at no fee",
+                  "Partnerships with chambers, cities, and economic development orgs",
+                  "Direct introductions to lenders, industry partners, and collaborators",
+                  "Fellow entrepreneurs who\u2019ve been where you are",
+                ],
+                cta: "Browse Upcoming Events",
+                signoff: "Better together,",
+              },
+            ].map((email) => (
+              <div key={email.label}>
+                <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">{email.label}</p>
+                <div className="bg-white shadow-lg overflow-hidden max-w-[600px]">
+                  <div className="bg-gradient-to-br from-[#0f1c2e] to-[#0f1c2e]/90 text-white p-6 text-center">
+                    <h3 className="font-sans text-2xl tracking-[-0.02em] mb-1 whitespace-pre-line" style={{ fontWeight: 500 }}>{email.heading}</h3>
+                    <p className="font-sans text-white/70 text-[13px] italic">{email.preview}</p>
+                  </div>
+                  <div className="p-6 font-sans text-[14px] text-navy/65 leading-relaxed">
+                    {email.body.map((p, i) => <p key={i} className="mb-3">{p}</p>)}
+                    <ul className="list-disc pl-5 mb-4 space-y-1.5">
+                      {email.bullets.map((b) => <li key={b}>{b}</li>)}
+                    </ul>
+                    <div className="mt-5 mb-4">
+                      <span className="inline-block bg-[#004290] text-white font-sans text-[13px] px-5 py-2.5 rounded-sm" style={{ fontWeight: 500 }}>{email.cta}</span>
+                    </div>
+                    <p className="mt-4 text-navy/50">{email.signoff}<br /><strong className="text-navy" style={{ fontWeight: 500 }}>NorCal SBDC</strong><br />Your Business, Better.</p>
+                  </div>
+                  <div className="bg-cream px-6 py-3 text-center font-sans text-[12px] text-navy/35 border-t border-navy/[0.04]">
+                    &copy; 2026 NorCal SBDC. All rights reserved.
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

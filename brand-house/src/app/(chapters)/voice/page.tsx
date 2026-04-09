@@ -207,6 +207,124 @@ export default function VoicePage() {
           </div>
         </div>
       </div>
+      {/* Campaign Strategy — cream bg */}
+      <div className="py-16 md:py-20 relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
+        <span
+          className="material-symbols-outlined absolute -right-8 top-[5%] text-navy/[0.025] pointer-events-none select-none"
+          style={{ fontSize: "min(50vw, 500px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
+          aria-hidden="true"
+        >
+          strategy
+        </span>
+        <div className="max-w-[1080px] mx-auto px-8 md:px-12 relative z-10">
+          <div className="border-t border-navy/10 pt-6 mb-12">
+            <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Campaign Framework</p>
+            <h2 className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>Strategy</h2>
+          </div>
+
+          {[
+            { num: "01", title: "Reposition", desc: "Shift public perception from government program to trusted business growth partner. Every touchpoint reinforces that NorCal SBDC is the team behind the team." },
+            { num: "02", title: "Unify", desc: "Give all 14 centers a shared vocabulary. People, Funded, Connected becomes the lens for every story, every post, every workshop invite." },
+            { num: "03", title: "Convert", desc: "Turn brand awareness into consultation bookings. Every piece of content ladders to one CTA: talk to an advisor." },
+          ].map((goal) => (
+            <div key={goal.num} className="grid grid-cols-[56px_1fr] gap-5 py-6 border-b border-navy/[0.06] last:border-b-0 items-start">
+              <p className="font-sans text-navy/15 leading-none" style={{ fontSize: "2.5rem", fontWeight: 500 }}>{goal.num}</p>
+              <div>
+                <h3 className="font-sans text-navy text-lg tracking-[-0.01em] mb-1" style={{ fontWeight: 500 }}>{goal.title}</h3>
+                <p className="font-sans text-navy/50 text-[14px] leading-relaxed">{goal.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* The Three Pillars — white bg */}
+      <div className="bg-white py-16 md:py-20 relative overflow-hidden">
+        <span
+          className="material-symbols-outlined absolute -left-10 bottom-[-5%] text-navy/[0.025] pointer-events-none select-none"
+          style={{ fontSize: "min(55vw, 560px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
+          aria-hidden="true"
+        >
+          hub
+        </span>
+        <div className="max-w-[1080px] mx-auto px-8 md:px-12 relative z-10">
+          <div className="border-t border-navy/10 pt-6 mb-12">
+            <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Brand Architecture</p>
+            <h2 className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>The Three Pillars</h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-px border border-navy/[0.06] overflow-hidden">
+            {[
+              {
+                icon: "person",
+                name: "People",
+                sub: "Your Business People",
+                desc: "The advisors, mentors, and specialists who show up for entrepreneurs every day. This pillar humanizes the network — it's not a program, it's people.",
+                proof: "63 advisors across 14 centers. Industry specialists in manufacturing, tech, food & beverage. Bilingual advisors serving diverse communities.",
+                color: "#004290",
+              },
+              {
+                icon: "account_balance",
+                name: "Funded",
+                sub: "Your Business Funded",
+                desc: "Capital access is the engine. Loan packaging, SBA lending guidance, grant readiness, and investor connections that turn plans into action.",
+                proof: "$240M+ in capital accessed. Partnerships with 50+ lenders. SBA loan packaging with a strong approval rate.",
+                color: "#A73B44",
+              },
+              {
+                icon: "hub",
+                name: "Connected",
+                sub: "Your Business Connected",
+                desc: "The network effect. Workshops, peer cohorts, lender introductions, and referral pathways that plug entrepreneurs into the ecosystem they need.",
+                proof: "200+ workshops annually. Partnerships with chambers, cities, and economic development orgs. Referral network spanning 36 counties.",
+                color: "#5684BA",
+              },
+            ].map((pillar) => (
+              <div key={pillar.name} className="bg-white p-6 flex flex-col">
+                <span
+                  className="material-symbols-outlined text-navy mb-3"
+                  style={{ fontSize: 28, fontVariationSettings: "'FILL' 1, 'wght' 400" }}
+                >{pillar.icon}</span>
+                <h3 className="font-sans text-navy text-xl tracking-[-0.01em] mb-0.5" style={{ fontWeight: 500 }}>{pillar.name}</h3>
+                <p className="font-label text-[10px] uppercase tracking-[0.08em] text-navy/30 mb-3">{pillar.sub}</p>
+                <p className="font-sans text-navy/50 text-[14px] leading-relaxed mb-4">{pillar.desc}</p>
+                <div className="mt-auto pt-4 border-t border-navy/[0.06]">
+                  <p className="font-label text-[9px] uppercase tracking-[0.08em] text-navy/30 mb-2">Proof Points</p>
+                  <p className="font-sans text-navy/45 text-[13px] leading-relaxed">{pillar.proof}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Key Messages — navy bg */}
+      <div className="bg-[#0f1c2e] py-16 md:py-20 relative overflow-hidden">
+        <SbdcWatermark className="absolute -right-[8%] top-[15%] w-[35vw] max-w-[420px] text-white pointer-events-none select-none" opacity={0.03} />
+        <div className="max-w-[1080px] mx-auto px-8 md:px-12 relative z-10">
+          <div className="border-t border-white/[0.1] pt-6 mb-12">
+            <p className="font-label text-[10px] uppercase tracking-[0.1em] text-white/30 mb-2">Messaging</p>
+            <h2 className="font-sans text-white/90 tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>Key Messages</h2>
+          </div>
+
+          <div className="space-y-5 mb-10">
+            {[
+              "\u201cBehind every thriving small business is the right people, the right capital, and the right connections. NorCal SBDC delivers all three \u2014 at no fee.\u201d",
+              "\u201cWe don\u2019t just advise. We sit across the table, roll up our sleeves, and help you build something that lasts.\u201d",
+              "\u201c8,500+ businesses. $240M+ in capital. 1,900+ jobs. That\u2019s the NorCal SBDC difference.\u201d",
+            ].map((msg, i) => (
+              <div key={i} className="border-l-2 border-[#A73B44] pl-5">
+                <p className="font-sans text-white/70 text-[15px] leading-relaxed">{msg}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="font-label text-[13px] tracking-[0.02em] text-[#5684BA]">
+            #YourBusinessBetter &nbsp; #NorCalSBDC &nbsp; #PeopleFundedConnected &nbsp; #SmallBusinessGrowth
+          </p>
+        </div>
+      </div>
+
       <NextSectionLink title="Photography" href="/photography" />
     </>
   );
