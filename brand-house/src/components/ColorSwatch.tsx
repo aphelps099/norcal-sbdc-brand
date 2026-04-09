@@ -23,35 +23,35 @@ export default function ColorSwatch({ name, hex, usage }: ColorSwatchProps) {
   ].includes(hex.toLowerCase())
     || parseInt(hex.replace("#", ""), 16) > 0xaaaaaa;
 
+  const textColor = isLight ? "rgba(0,0,0,0.45)" : "rgba(255,255,255,0.55)";
+  const subColor = isLight ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)";
+
   return (
     <button
       onClick={handleCopy}
-      className="group text-left w-full"
+      className="group text-left flex-1 min-w-0"
     >
       <div
-        className="relative w-full aspect-[4/3] overflow-hidden"
+        className="relative w-full h-[120px] md:h-[150px] overflow-hidden flex flex-col justify-end p-4"
         style={{ backgroundColor: hex }}
       >
-        {/* Name — top left */}
         <span
-          className="absolute top-3 left-3 font-label text-[11px] uppercase tracking-[0.1em]"
-          style={{ color: isLight ? "rgba(0,0,0,0.45)" : "rgba(255,255,255,0.55)" }}
+          className="font-sans text-[13px] mb-0.5"
+          style={{ color: textColor, fontWeight: 500 }}
         >
           {name}
         </span>
-
-        {/* Hex — bottom left */}
         <span
-          className="absolute bottom-3 left-3 font-sans text-[11px] tracking-[0.02em]"
-          style={{ color: isLight ? "rgba(0,0,0,0.35)" : "rgba(255,255,255,0.4)" }}
+          className="font-label text-[11px] tracking-[0.02em]"
+          style={{ color: subColor }}
         >
           {hex}
         </span>
 
         {/* Copy indicator — bottom right */}
         <span
-          className="absolute bottom-3 right-3 font-sans text-[10px] font-700 uppercase tracking-[0.08em] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          style={{ color: isLight ? "rgba(0,0,0,0.35)" : "rgba(255,255,255,0.4)" }}
+          className="absolute bottom-4 right-4 font-sans text-[10px] uppercase tracking-[0.08em] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{ color: subColor, fontWeight: 500 }}
         >
           {copied ? "Copied!" : "Copy"}
         </span>
