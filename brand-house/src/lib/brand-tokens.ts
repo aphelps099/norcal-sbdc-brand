@@ -39,6 +39,7 @@ export const chapters = [
   { title: "Voice & Tone", description: "Personality, messaging framework, and copy templates.", href: "/voice" },
   { title: "Photography", description: "Photo style, treatments, and composition rules.", href: "/photography" },
   { title: "Templates", description: "Email signatures, social frames, and presentation decks.", href: "/templates" },
+  { title: "Events", description: "Event graphic templates, live samples, and usage guidelines.", href: "/events" },
   { title: "Content", description: "Social media and newsletter guidelines.", href: "/content" },
   { title: "Calendar", description: "Key dates and campaign themes.", href: "/calendar" },
   { title: "Stories", description: "Client success stories.", href: "/stories" },
