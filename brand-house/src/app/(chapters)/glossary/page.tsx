@@ -218,7 +218,7 @@ export default function GlossaryPage() {
 
       {/* Glossary Sections — cream bg */}
       <div className="py-12 md:py-16" style={{ backgroundColor: "#f5f4f0" }}>
-        <div className="max-w-[960px] mx-auto px-8 md:px-12">
+        <div className="max-w-[780px] mx-auto px-12 md:px-16">
           {glossarySections.map((section, sectionIdx) => (
             <div
               key={section.category}
@@ -245,7 +245,7 @@ export default function GlossaryPage() {
                         : ""
                     }`}
                   >
-                    <dt className="font-label text-sm text-navy tracking-[-0.01em]">
+                    <dt className="font-label text-sm tracking-[-0.01em]" style={{ color: "#004290" }}>
                       {item.term}
                     </dt>
                     <dd className="font-sans text-sm text-text-secondary leading-relaxed">
