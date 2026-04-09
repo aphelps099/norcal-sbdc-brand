@@ -49,7 +49,7 @@ export default function ColorSwatchGrid({ children }: ColorSwatchGridProps) {
   }, []);
 
   return (
-    <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <div ref={gridRef} className="flex">
       {children}
     </div>
   );
