@@ -392,8 +392,8 @@ export default function StoriesPage() {
           </div>
 
           {/* Topic range note */}
-          <div className="mt-5 p-4 bg-white/[0.05] border border-white/10 font-sans text-white/45 text-[13px] leading-relaxed">
-            <strong className="text-white/70" style={{ fontWeight: 500 }}>Story range:</strong> Signature stories should span capital access, business expansion, and innovation. Occasionally spotlight rural and underserved communities to reflect the full reach of the network.
+          <div className="mt-5 p-4 bg-steel/80 max-w-[540px] font-sans text-[#0f1c2e] text-[13px] leading-relaxed">
+            <strong style={{ fontWeight: 500 }}>Story range:</strong> Signature stories should span capital access, business expansion, and innovation. Occasionally spotlight rural and underserved communities to reflect the full reach of the network.
           </div>
         </div>
       </div>
@@ -443,9 +443,9 @@ export default function StoriesPage() {
             </p>
             <div className="space-y-2.5">
               {[
-                { range: "20\u201325", label: "Signature Story", sublabel: "ready for prime time", color: "bg-[#004290]" },
-                { range: "12\u201319", label: "Growth Story", sublabel: "needs tightening before formal use", color: "bg-steel" },
-                { range: "0\u201311", label: "Community Spotlight", sublabel: "use for social media and community content", color: "bg-navy/40" },
+                { range: "20\u201325", label: "Signature Story", sublabel: "ready for prime time", color: "bg-[#004290] border border-[#004290]" },
+                { range: "12\u201319", label: "Growth Story", sublabel: "needs tightening before formal use", color: "bg-steel border border-steel" },
+                { range: "0\u201311", label: "Community Spotlight", sublabel: "use for social media and community content", color: "bg-navy/40 border border-navy/30" },
               ].map((s) => (
                 <div key={s.range} className="flex items-baseline gap-3">
                   <span className={`${s.color} text-white font-label text-[10px] px-2.5 py-1 text-center min-w-[72px]`}>{s.range}</span>
