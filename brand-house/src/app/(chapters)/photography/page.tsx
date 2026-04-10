@@ -1,5 +1,6 @@
 
 import InteriorHero from "@/components/InteriorHero";
+import MasonryGallery from "@/components/MasonryGallery";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
 
@@ -67,7 +68,7 @@ export default function PhotographyPage() {
   return (
     <>
       <InteriorHero bg="#2B3035"
-        title="Photography"
+        title="Photo & Video"
         subtitle="People, not programs. Faces, not buildings. Every image should make the person visible — because the service is the person."
       />
 
@@ -97,6 +98,8 @@ export default function PhotographyPage() {
         </div>
 
       </div>
+
+      <MasonryGallery />
 
       {/* Do / Don't — dark navy bg */}
       <div className="bg-[#0f1c2e] py-12 md:py-16 relative overflow-hidden">
