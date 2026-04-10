@@ -253,6 +253,151 @@ export default function StoriesPage() {
         </div>
       </div>
 
+      {/* ═══ HOW TO PROMOTE — DISTRIBUTION GUIDE ═══ */}
+      <div className="bg-[#004290] py-16 md:py-20 relative overflow-hidden">
+        <SbdcWatermark className="absolute -right-[6%] top-[8%] w-[35vw] max-w-[420px] text-white pointer-events-none select-none" opacity={0.04} />
+        <div className="max-w-[1080px] mx-auto px-8 md:px-12 relative z-10">
+          <div className="border-t border-white/15 pt-6 mb-10">
+            <p className="font-label text-[10px] uppercase tracking-[0.1em] text-white/35 mb-2">Distribution</p>
+            <h2 className="font-sans text-white/95 tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>How to Promote Each Tier</h2>
+            <p className="font-sans text-white/45 text-[15px] leading-relaxed mt-2 max-w-xl">Each story tier has a different distribution strategy. Signature stories are strategic assets. Growth stories fuel everyday content. Spotlights keep social feeds human.</p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-0.5">
+            {/* Signature */}
+            <div className="bg-white/[0.07] p-6 flex flex-col">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="material-symbols-outlined text-white/70" style={{ fontSize: 20, fontVariationSettings: "'FILL' 1" }}>star</span>
+                <h3 className="font-sans text-white text-[15px]" style={{ fontWeight: 500 }}>Signature Stories</h3>
+              </div>
+              <p className="font-sans text-white/50 text-[13px] leading-relaxed mb-5">~15 per year. The highest-impact narratives &mdash; capital, expansion, innovation, and underserved communities. These become strategic tools for fundraising, stakeholder engagement, PR, and special events.</p>
+
+              <p className="font-label text-[9px] uppercase tracking-[0.08em] text-white/30 mb-3">Channels</p>
+              <div className="space-y-2 mb-5">
+                {[
+                  { icon: "picture_as_pdf", label: "PDF one-pager", desc: "Designed asset for board packets & lender pitches" },
+                  { icon: "language", label: "Website feature page", desc: "Dedicated page on norcalsbdc.org with photography" },
+                  { icon: "campaign", label: "PR & media outreach", desc: "Press releases, local business journal pitches" },
+                  { icon: "podium", label: "Events & talking points", desc: "Conference presentations, legislative meetings" },
+                  { icon: "mail", label: "Stakeholder emails", desc: "Quarterly impact updates to funders & partners" },
+                ].map((ch) => (
+                  <div key={ch.label} className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-steel/70 shrink-0 mt-0.5" style={{ fontSize: 14, fontVariationSettings: "'FILL' 1" }}>{ch.icon}</span>
+                    <div>
+                      <p className="font-sans text-white/80 text-[12px]" style={{ fontWeight: 500 }}>{ch.label}</p>
+                      <p className="font-sans text-white/35 text-[11px]">{ch.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Mini mockup — PDF preview */}
+              <div className="mt-auto">
+                <p className="font-label text-[8px] uppercase tracking-[0.06em] text-white/25 mb-2">Preview</p>
+                <div className="bg-white rounded-sm overflow-hidden shadow-lg" style={{ maxWidth: 180 }}>
+                  <div className="bg-[#0f1c2e] px-3 py-2 flex items-center gap-2">
+                    <div className="w-10 h-1.5 bg-white/25 rounded-sm" />
+                  </div>
+                  <div className="p-3">
+                    <div className="w-16 h-1 bg-navy/10 rounded-sm mb-1.5" />
+                    <div className="font-sans text-[7px] text-navy/70 mb-1" style={{ fontWeight: 500 }}>$559K Capital</div>
+                    <div className="w-full h-0.5 bg-navy/[0.06] mb-1" />
+                    <div className="w-[80%] h-0.5 bg-navy/[0.04] mb-1" />
+                    <div className="w-[60%] h-0.5 bg-navy/[0.04]" />
+                  </div>
+                  <div className="bg-cream px-3 py-1.5">
+                    <div className="w-8 h-1 bg-navy/10 rounded-sm" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Growth */}
+            <div className="bg-white/[0.07] p-6 flex flex-col">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="material-symbols-outlined text-white/70" style={{ fontSize: 20, fontVariationSettings: "'FILL' 1" }}>trending_up</span>
+                <h3 className="font-sans text-white text-[15px]" style={{ fontWeight: 500 }}>Growth Stories</h3>
+              </div>
+              <p className="font-sans text-white/50 text-[13px] leading-relaxed mb-5">Ongoing library. Strong narratives with real results, but not &ldquo;trophy&rdquo; level. These fuel regular content &mdash; a portfolio of &ldquo;wow, look at this growth&rdquo; moments. No PDFs, no dedicated web pages.</p>
+
+              <p className="font-label text-[9px] uppercase tracking-[0.08em] text-white/30 mb-3">Channels</p>
+              <div className="space-y-2 mb-5">
+                {[
+                  { icon: "share", label: "Social media posts", desc: "LinkedIn, Facebook, Instagram \u2014 regular rotation" },
+                  { icon: "mail", label: "Newsletter snippets", desc: "Featured in bi-weekly emails as supporting stories" },
+                  { icon: "article", label: "Blog & partner updates", desc: "Short-form posts for website and partner channels" },
+                  { icon: "groups", label: "Internal library", desc: "Maintained in shared drive for center teams" },
+                ].map((ch) => (
+                  <div key={ch.label} className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-steel/70 shrink-0 mt-0.5" style={{ fontSize: 14, fontVariationSettings: "'FILL' 1" }}>{ch.icon}</span>
+                    <div>
+                      <p className="font-sans text-white/80 text-[12px]" style={{ fontWeight: 500 }}>{ch.label}</p>
+                      <p className="font-sans text-white/35 text-[11px]">{ch.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Mini mockup — social post */}
+              <div className="mt-auto">
+                <p className="font-label text-[8px] uppercase tracking-[0.06em] text-white/25 mb-2">Preview</p>
+                <div className="bg-[#0f1c2e] rounded-sm overflow-hidden shadow-lg aspect-square" style={{ maxWidth: 140 }}>
+                  <div className="h-full flex flex-col items-center justify-center p-3 text-center relative">
+                    <div className="font-sans text-white text-[10px] leading-tight mb-1" style={{ fontWeight: 500 }}>3&times; Revenue</div>
+                    <div className="font-sans text-white/40 text-[6px]">The Early Rise</div>
+                    <div className="absolute bottom-2 w-6 h-[2px] bg-white/15 rounded-sm" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Community Spotlights */}
+            <div className="bg-white/[0.07] p-6 flex flex-col">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="material-symbols-outlined text-white/70" style={{ fontSize: 20, fontVariationSettings: "'FILL' 1" }}>flash_on</span>
+                <h3 className="font-sans text-white text-[15px]" style={{ fontWeight: 500 }}>Community Spotlights</h3>
+              </div>
+              <p className="font-sans text-white/50 text-[13px] leading-relaxed mb-5">Mostly social media. Human-interest stories that keep feeds warm and relatable. Not metrics-driven &mdash; these are about connection, community, and the human side of entrepreneurship.</p>
+
+              <p className="font-label text-[9px] uppercase tracking-[0.08em] text-white/30 mb-3">Channels</p>
+              <div className="space-y-2 mb-5">
+                {[
+                  { icon: "photo_camera", label: "Instagram & Facebook", desc: "Quick visual posts, stories, reels" },
+                  { icon: "favorite", label: "Community engagement", desc: "Celebrates diverse founders and local impact" },
+                ].map((ch) => (
+                  <div key={ch.label} className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-steel/70 shrink-0 mt-0.5" style={{ fontSize: 14, fontVariationSettings: "'FILL' 1" }}>{ch.icon}</span>
+                    <div>
+                      <p className="font-sans text-white/80 text-[12px]" style={{ fontWeight: 500 }}>{ch.label}</p>
+                      <p className="font-sans text-white/35 text-[11px]">{ch.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Mini mockup — IG story */}
+              <div className="mt-auto">
+                <p className="font-label text-[8px] uppercase tracking-[0.06em] text-white/25 mb-2">Preview</p>
+                <div className="bg-cream rounded-sm overflow-hidden shadow-lg border border-black/[0.06]" style={{ maxWidth: 90, aspectRatio: "9/16" }}>
+                  <div className="h-full flex flex-col items-center justify-center p-2 text-center">
+                    <div className="w-6 h-6 rounded-full bg-navy/10 mb-1.5 flex items-center justify-center">
+                      <span className="material-symbols-outlined text-navy/20" style={{ fontSize: 10 }}>person</span>
+                    </div>
+                    <div className="font-sans text-navy/60 text-[5px] leading-tight" style={{ fontWeight: 500 }}>Angel Rodriguez</div>
+                    <div className="font-sans text-navy/30 text-[4px]">Cha-Cha Sweets</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Topic range note */}
+          <div className="mt-5 p-4 bg-white/[0.05] border border-white/10 font-sans text-white/45 text-[13px] leading-relaxed">
+            <strong className="text-white/70" style={{ fontWeight: 500 }}>Story range:</strong> Signature stories should span capital access, business expansion, and innovation. Occasionally spotlight rural and underserved communities to reflect the full reach of the network.
+          </div>
+        </div>
+      </div>
+
       {/* ═══ STORY SCORING RUBRIC ═══ */}
       <div className="bg-white py-16 md:py-20">
         <div className="max-w-[1080px] mx-auto px-8 md:px-12">
@@ -363,7 +508,10 @@ export default function StoriesPage() {
                   <span className="material-symbols-outlined" style={{ fontSize: 14 }}>check_circle</span> Do
                 </p>
                 {["Lead with the most impressive metric", "Keep the total story under 400 words", "Use \u201cno-fee\u201d never \u201cfree\u201d", "Name the specific NorCal SBDC center and advisor", "Include at least 3 quantified outcomes", "Get a direct, specific quote about business results", "Use Challenge \u2192 Solution \u2192 Results structure"].map((d) => (
-                  <p key={d} className="font-sans text-navy/55 text-[13px] leading-snug pl-4 mb-1.5 relative before:content-['+'] before:absolute before:left-0 before:text-[#16a34a] before:font-label before:text-[10px]">{d}</p>
+                  <p key={d} className="font-sans text-navy/55 text-[13px] leading-snug pl-4 mb-1.5 relative">
+                    <span className="absolute left-0 text-[#16a34a] font-label text-[10px]">+</span>
+                    {d}
+                  </p>
                 ))}
               </div>
               <div>
@@ -371,7 +519,10 @@ export default function StoriesPage() {
                   <span className="material-symbols-outlined" style={{ fontSize: 14 }}>cancel</span> Don&rsquo;t
                 </p>
                 {["Bury results at the bottom", "Write more than 3 sentences per section", "Focus on feelings without tangible outcomes", "Use generic quotes (\u201cgreat experience\u201d)", "Lead with the business backstory", "Forget photography \u2014 always capture a portrait", "Use \u201cSBDC\u201d without \u201cNorCal\u201d prefix"].map((d) => (
-                  <p key={d} className="font-sans text-navy/55 text-[13px] leading-snug pl-4 mb-1.5 relative before:content-['\u2013'] before:absolute before:left-0 before:text-[#A73B44] before:font-label before:text-[10px]">{d}</p>
+                  <p key={d} className="font-sans text-navy/55 text-[13px] leading-snug pl-4 mb-1.5 relative">
+                    <span className="absolute left-0 text-[#A73B44] font-label text-[10px]">&ndash;</span>
+                    {d}
+                  </p>
                 ))}
               </div>
             </div>
