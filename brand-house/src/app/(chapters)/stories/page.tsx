@@ -392,8 +392,8 @@ export default function StoriesPage() {
           </div>
 
           {/* Topic range note */}
-          <div className="mt-5 p-4 bg-white/[0.05] border border-white/10 font-sans text-white/45 text-[13px] leading-relaxed">
-            <strong className="text-white/70" style={{ fontWeight: 500 }}>Story range:</strong> Signature stories should span capital access, business expansion, and innovation. Occasionally spotlight rural and underserved communities to reflect the full reach of the network.
+          <div className="mt-5 p-4 bg-steel/80 max-w-[540px] font-sans text-[#0f1c2e] text-[13px] leading-relaxed">
+            <strong style={{ fontWeight: 500 }}>Story range:</strong> Signature stories should span capital access, business expansion, and innovation. Occasionally spotlight rural and underserved communities to reflect the full reach of the network.
           </div>
         </div>
       </div>
