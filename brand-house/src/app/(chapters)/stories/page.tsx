@@ -95,9 +95,9 @@ const growthStories = [
 ];
 
 const spotlights = [
-  { biz: "Cha-Cha Sweets", owner: "Angel Rodriguez", center: "Solano-Napa SBDC", desc: "18-year-old entrepreneur built a chamoy candy company from his bedroom to six-figure sales.", tags: ["Social Media", "Youth Entrepreneurship"], url: "https://www.norcalsbdc.org/shared/client-stories/cha-cha-sweets/" },
-  { biz: "Glory Grove Organics", owner: "Linda Allivato", center: "Silicon Valley SBDC", desc: "Eco-conscious consumer products startup in patent and prototype phase.", tags: ["Newsletter", "Early-Stage"], url: "https://www.norcalsbdc.org/shared/client-stories/glory-grove-organics/" },
-  { biz: "El Papalote Childcare Services", owner: "Carmen Jimenez Martinez", center: "San Francisco SBDC", desc: "Licensed in-home daycare in SF\u2019s Tenderloin, reached full capacity within months of launch.", tags: ["Social Media", "Community Impact"], url: "https://www.norcalsbdc.org/shared/client-stories/el-papalote-childcare-services/" },
+  { biz: "Cha-Cha Sweets", owner: "Angel Rodriguez", center: "Solano-Napa SBDC", desc: "18-year-old entrepreneur built a chamoy candy company from his bedroom to six-figure sales.", tags: ["Social Media", "Youth Entrepreneurship"], photo: "https://www.norcalsbdc.org/wp-content/uploads/sites/26/2025/11/Angel-Cha-Cha-Sweets-1-970x1200.jpeg", photoTint: "#1D5AA7", url: "https://www.norcalsbdc.org/shared/client-stories/cha-cha-sweets/" },
+  { biz: "Glory Grove Organics", owner: "Linda Allivato", center: "Silicon Valley SBDC", desc: "Eco-conscious consumer products startup in patent and prototype phase.", tags: ["Newsletter", "Early-Stage"], photo: null, photoTint: "#0f1c2e", url: "https://www.norcalsbdc.org/shared/client-stories/glory-grove-organics/" },
+  { biz: "El Papalote Childcare Services", owner: "Carmen Jimenez Martinez", center: "San Francisco SBDC", desc: "Licensed in-home daycare in SF\u2019s Tenderloin, reached full capacity within months of launch.", tags: ["Social Media", "Community Impact"], photo: "https://www.norcalsbdc.org/wp-content/uploads/sites/13/2025/08/Carmen_Jimenez.png", photoTint: "#c4543a", url: "https://www.norcalsbdc.org/shared/client-stories/el-papalote-childcare-services/" },
 ];
 
 export default function StoriesPage() {
@@ -109,9 +109,9 @@ export default function StoriesPage() {
       />
 
       {/* Stats band */}
-      <div className="bg-[#0f1c2e] pb-12 md:pb-16">
+      <div className="bg-[#0f1c2e] pb-14 md:pb-16">
         <div className="max-w-[1080px] mx-auto px-8 md:px-12">
-          <div className="flex gap-10 pt-6 border-t border-white/[0.08] flex-wrap">
+          <div className="flex gap-12 pt-6 border-t border-white/[0.08] flex-wrap">
             {[
               { num: "6", label: "Signature Stories" },
               { num: "4", label: "Growth Stories" },
@@ -119,8 +119,8 @@ export default function StoriesPage() {
               { num: "13", label: "Total Stories" },
             ].map((s) => (
               <div key={s.label}>
-                <p className="font-sans text-steel leading-none mb-1" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 500 }}>{s.num}</p>
-                <p className="font-label text-[10px] uppercase tracking-[0.04em] text-white/30">{s.label}</p>
+                <p className="font-sans text-white/85 leading-none mb-1.5" style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 500 }}>{s.num}</p>
+                <p className="font-label text-[10px] uppercase tracking-[0.06em] text-white/35">{s.label}</p>
               </div>
             ))}
           </div>
@@ -130,9 +130,11 @@ export default function StoriesPage() {
       {/* ═══ SIGNATURE STORIES ═══ */}
       <div className="bg-cream py-16 md:py-20">
         <div className="max-w-[1080px] mx-auto px-8 md:px-12">
-          <div className="border-t border-navy/10 pt-6 mb-12">
+          <div className="mb-12">
+            <div className="w-8 h-[2px] bg-[#c4543a] mb-5" />
+            <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Tier 01</p>
             <h2 className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>Signature Stories</h2>
-            <p className="font-sans text-navy/50 text-[15px] leading-relaxed mt-2 max-w-xl">Highest impact. Strong structure. Clear metrics and photography. Use for annual reports, board presentations, lender pitches, and campaign hero stories.</p>
+            <p className="font-sans text-navy/50 text-[14px] leading-relaxed mt-2 max-w-[480px]">Highest impact. Strong structure. Clear metrics and photography. Use for annual reports, board presentations, lender pitches, and campaign hero stories.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0.5">
@@ -184,14 +186,16 @@ export default function StoriesPage() {
       {/* ═══ GROWTH STORIES ═══ */}
       <div className="bg-cream py-16 md:py-20">
         <div className="max-w-[1080px] mx-auto px-8 md:px-12">
-          <div className="border-t border-navy/10 pt-6 mb-12">
+          <div className="mb-10">
+            <div className="w-8 h-[2px] bg-[#c4543a] mb-5" />
+            <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Tier 02</p>
             <h2 className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>Growth Stories</h2>
-            <p className="font-sans text-navy/50 text-[15px] leading-relaxed mt-2 max-w-xl">Good narrative, developing structure. These stories show real progress but may need tighter metrics or editing before use in formal presentations.</p>
+            <p className="font-sans text-navy/50 text-[14px] leading-relaxed mt-2 max-w-[480px]">Good narrative, developing structure. These stories show real progress but may need tighter metrics or editing before use in formal presentations.</p>
           </div>
 
           <div className="flex flex-col gap-0.5">
             {growthStories.map((g) => (
-              <div key={g.biz} className="bg-white p-6 grid grid-cols-1 md:grid-cols-[1fr_1.2fr_auto] gap-6 md:gap-8 items-center hover:shadow-sm transition-shadow duration-200">
+              <div key={g.biz} className="bg-white p-6 grid grid-cols-1 md:grid-cols-[1fr_1.2fr_80px] gap-6 md:gap-8 items-start hover:shadow-sm transition-shadow duration-200">
                 <div className="min-w-0">
                   <p className="font-sans text-navy text-[11px] uppercase tracking-[0.04em] mb-1" style={{ fontWeight: 500 }}>{g.biz}</p>
                   <p className="font-sans text-navy/50 text-[12px] mb-0.5">{g.owner}</p>
@@ -199,20 +203,16 @@ export default function StoriesPage() {
                   <p className="font-sans text-navy/60 text-[14px] italic leading-snug">{g.tagline}</p>
                 </div>
                 <div className="min-w-0">
-                  <p className="font-sans text-navy/30 text-[10px] uppercase tracking-[0.04em] mb-2" style={{ fontWeight: 500 }}>Key Results</p>
+                  <p className="font-label text-[9px] text-navy/25 uppercase tracking-[0.08em] mb-2">Key Results</p>
                   {g.results.map((r) => (
-                    <p key={r} className="font-sans text-navy/55 text-[13px] leading-snug pl-3.5 relative mb-1 before:content-[''] before:absolute before:left-0 before:top-[6px] before:w-[5px] before:h-[5px] before:rounded-full before:bg-steel">{r}</p>
+                    <p key={r} className="font-sans text-navy/60 text-[13px] leading-snug pl-3.5 relative mb-1 before:content-[''] before:absolute before:left-0 before:top-[7px] before:w-[4px] before:h-[4px] before:rounded-full before:bg-[#c4543a]/60">{r}</p>
                   ))}
-                  <p className="font-sans text-navy/30 text-[12px] italic mt-3 pt-2.5 border-t border-navy/[0.04]">&ldquo;{g.quote}&rdquo;</p>
+                  <p className="font-sans text-navy/35 text-[13px] italic mt-3 pt-2.5 border-t border-navy/[0.05] leading-snug">&ldquo;{g.quote}&rdquo;</p>
                 </div>
-                <div className="flex flex-col items-end gap-3 shrink-0">
-                  <span className="inline-flex items-center gap-1 font-label text-[9px] text-[#A73B44] px-2.5 py-1 border border-[#A73B44]/20 bg-[#A73B44]/[0.04]">
-                    <span className="material-symbols-outlined" style={{ fontSize: 10 }}>warning</span>
-                    {g.issue}
-                  </span>
+                <div className="flex flex-col items-end gap-3 pt-0.5">
                   <a href={g.url} target="_blank" rel="noopener noreferrer" className="font-sans text-[12px] text-[#004290] inline-flex items-center gap-1 no-underline hover:gap-2 transition-all" style={{ fontWeight: 500 }}>
-                    View Story
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    View
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                   </a>
                 </div>
               </div>
@@ -224,28 +224,38 @@ export default function StoriesPage() {
       {/* ═══ COMMUNITY SPOTLIGHTS ═══ */}
       <div className="bg-cream py-16 md:py-20">
         <div className="max-w-[1080px] mx-auto px-8 md:px-12">
-          <div className="border-t border-navy/10 pt-6 mb-12">
+          <div className="mb-10">
+            <div className="w-8 h-[2px] bg-[#c4543a] mb-5" />
+            <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Tier 03</p>
             <h2 className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>Community Spotlights</h2>
-            <p className="font-sans text-navy/50 text-[15px] leading-relaxed mt-2 max-w-xl">Inspiring personal stories with lighter economic impact. Best for social media highlights, newsletter human-interest pieces, and community engagement.</p>
+            <p className="font-sans text-navy/50 text-[14px] leading-relaxed mt-2 max-w-[480px]">Inspiring personal stories with lighter economic impact. Best for social media highlights, newsletter human-interest pieces, and community engagement.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-0.5">
             {spotlights.map((sp) => (
-              <div key={sp.biz} className="bg-white p-6 flex flex-col hover:shadow-sm transition-shadow duration-200">
-                <p className="font-sans text-navy text-[11px] uppercase tracking-[0.04em] mb-0.5" style={{ fontWeight: 500 }}>{sp.biz}</p>
-                <p className="font-sans text-navy/50 text-[12px] mb-0.5">{sp.owner}</p>
-                <p className="font-label text-[9px] text-navy/30 uppercase tracking-[0.03em] mb-3.5">{sp.center}</p>
-                <p className="font-sans text-navy/55 text-[14px] leading-relaxed mb-4 flex-1">{sp.desc}</p>
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {sp.tags.map((t) => (
-                    <span key={t} className="font-label text-[8px] text-steel px-2 py-0.5 border border-steel/25 uppercase tracking-[0.03em]">{t}</span>
-                  ))}
-                </div>
-                <div className="pt-3 border-t border-navy/[0.04]">
-                  <a href={sp.url} target="_blank" rel="noopener noreferrer" className="font-sans text-[12px] text-[#004290] inline-flex items-center gap-1 no-underline hover:gap-2 transition-all" style={{ fontWeight: 500 }}>
-                    View Story
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                  </a>
+              <div key={sp.biz} className="bg-white flex flex-col hover:shadow-sm transition-shadow duration-200 overflow-hidden">
+                {sp.photo && (
+                  <div className="relative h-[180px] overflow-hidden shrink-0">
+                    <img src={sp.photo} alt={sp.biz} className="w-full h-full object-cover object-top" />
+                    <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, ${sp.photoTint}55 0%, ${sp.photoTint}22 50%, transparent 100%)` }} />
+                  </div>
+                )}
+                <div className="p-6 flex-1 flex flex-col">
+                  <p className="font-sans text-navy text-[11px] uppercase tracking-[0.04em] mb-0.5" style={{ fontWeight: 500 }}>{sp.biz}</p>
+                  <p className="font-sans text-navy/50 text-[12px] mb-0.5">{sp.owner}</p>
+                  <p className="font-label text-[9px] text-navy/30 uppercase tracking-[0.03em] mb-3.5">{sp.center}</p>
+                  <p className="font-sans text-navy/55 text-[14px] leading-relaxed mb-4 flex-1">{sp.desc}</p>
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {sp.tags.map((t) => (
+                      <span key={t} className="font-label text-[8px] text-navy/40 px-2 py-0.5 border border-navy/15 uppercase tracking-[0.03em]">{t}</span>
+                    ))}
+                  </div>
+                  <div className="pt-3 border-t border-navy/[0.04]">
+                    <a href={sp.url} target="_blank" rel="noopener noreferrer" className="font-sans text-[12px] text-[#004290] inline-flex items-center gap-1 no-underline hover:gap-2 transition-all" style={{ fontWeight: 500 }}>
+                      View Story
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}
@@ -254,21 +264,22 @@ export default function StoriesPage() {
       </div>
 
       {/* ═══ HOW TO PROMOTE — DISTRIBUTION GUIDE ═══ */}
-      <div className="bg-[#004290] py-16 md:py-20 relative overflow-hidden">
+      <div className="bg-[#0f1c2e] py-16 md:py-20 relative overflow-hidden">
         <SbdcWatermark className="absolute -right-[6%] top-[8%] w-[35vw] max-w-[420px] text-white pointer-events-none select-none" opacity={0.04} />
         <div className="max-w-[1080px] mx-auto px-8 md:px-12 relative z-10">
-          <div className="border-t border-white/15 pt-6 mb-10">
-            <p className="font-label text-[10px] uppercase tracking-[0.1em] text-white/35 mb-2">Distribution</p>
+          <div className="mb-10">
+            <div className="w-full h-[2px] bg-[#c4543a] mb-6" />
+            <p className="font-label text-[10px] uppercase tracking-[0.1em] text-white/30 mb-2">Distribution</p>
             <h2 className="font-sans text-white/95 tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>How to Promote Each Tier</h2>
-            <p className="font-sans text-white/45 text-[15px] leading-relaxed mt-2 max-w-xl">Each story tier has a different distribution strategy. Signature stories are strategic assets. Growth stories fuel everyday content. Spotlights keep social feeds human.</p>
+            <p className="font-sans text-white/40 text-[14px] leading-relaxed mt-2 max-w-[480px]">Each story tier has a different distribution strategy. Signature stories are strategic assets. Growth stories fuel everyday content. Spotlights keep social feeds human.</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-0.5">
             {/* Signature */}
-            <div className="bg-white/[0.07] p-6 flex flex-col">
+            <div className="bg-white/[0.06] p-6 flex flex-col">
               <div className="flex items-center gap-2 mb-4">
-                <span className="material-symbols-outlined text-white/70" style={{ fontSize: 20, fontVariationSettings: "'FILL' 1" }}>star</span>
-                <h3 className="font-sans text-white text-[15px]" style={{ fontWeight: 500 }}>Signature Stories</h3>
+                <div className="w-1.5 h-1.5 rounded-full bg-[#c4543a]" />
+                <h3 className="font-sans text-white text-[14px]" style={{ fontWeight: 500 }}>Signature Stories</h3>
               </div>
               <p className="font-sans text-white/50 text-[13px] leading-relaxed mb-5">~15 per year. The highest-impact narratives &mdash; capital, expansion, innovation, and underserved communities. These become strategic tools for fundraising, stakeholder engagement, PR, and special events.</p>
 
@@ -291,32 +302,16 @@ export default function StoriesPage() {
                 ))}
               </div>
 
-              {/* Mini mockup — PDF preview */}
-              <div className="mt-auto">
-                <p className="font-label text-[8px] uppercase tracking-[0.06em] text-white/25 mb-2">Preview</p>
-                <div className="bg-white rounded-sm overflow-hidden shadow-lg" style={{ maxWidth: 180 }}>
-                  <div className="bg-[#0f1c2e] px-3 py-2 flex items-center gap-2">
-                    <div className="w-10 h-1.5 bg-white/25 rounded-sm" />
-                  </div>
-                  <div className="p-3">
-                    <div className="w-16 h-1 bg-navy/10 rounded-sm mb-1.5" />
-                    <div className="font-sans text-[7px] text-navy/70 mb-1" style={{ fontWeight: 500 }}>$559K Capital</div>
-                    <div className="w-full h-0.5 bg-navy/[0.06] mb-1" />
-                    <div className="w-[80%] h-0.5 bg-navy/[0.04] mb-1" />
-                    <div className="w-[60%] h-0.5 bg-navy/[0.04]" />
-                  </div>
-                  <div className="bg-cream px-3 py-1.5">
-                    <div className="w-8 h-1 bg-navy/10 rounded-sm" />
-                  </div>
-                </div>
+              <div className="mt-auto pt-4 border-t border-white/[0.06]">
+                <p className="font-label text-[8px] uppercase tracking-[0.06em] text-white/20">Annual reports &middot; Board decks &middot; Lender pitches</p>
               </div>
             </div>
 
             {/* Growth */}
-            <div className="bg-white/[0.07] p-6 flex flex-col">
+            <div className="bg-white/[0.06] p-6 flex flex-col">
               <div className="flex items-center gap-2 mb-4">
-                <span className="material-symbols-outlined text-white/70" style={{ fontSize: 20, fontVariationSettings: "'FILL' 1" }}>trending_up</span>
-                <h3 className="font-sans text-white text-[15px]" style={{ fontWeight: 500 }}>Growth Stories</h3>
+                <div className="w-1.5 h-1.5 rounded-full bg-white/30" />
+                <h3 className="font-sans text-white text-[14px]" style={{ fontWeight: 500 }}>Growth Stories</h3>
               </div>
               <p className="font-sans text-white/50 text-[13px] leading-relaxed mb-5">Ongoing library. Strong narratives with real results, but not &ldquo;trophy&rdquo; level. These fuel regular content &mdash; a portfolio of &ldquo;wow, look at this growth&rdquo; moments. No PDFs, no dedicated web pages.</p>
 
@@ -338,24 +333,16 @@ export default function StoriesPage() {
                 ))}
               </div>
 
-              {/* Mini mockup — social post */}
-              <div className="mt-auto">
-                <p className="font-label text-[8px] uppercase tracking-[0.06em] text-white/25 mb-2">Preview</p>
-                <div className="bg-[#0f1c2e] rounded-sm overflow-hidden shadow-lg aspect-square" style={{ maxWidth: 140 }}>
-                  <div className="h-full flex flex-col items-center justify-center p-3 text-center relative">
-                    <div className="font-sans text-white text-[10px] leading-tight mb-1" style={{ fontWeight: 500 }}>3&times; Revenue</div>
-                    <div className="font-sans text-white/40 text-[6px]">The Early Rise</div>
-                    <div className="absolute bottom-2 w-6 h-[2px] bg-white/15 rounded-sm" />
-                  </div>
-                </div>
+              <div className="mt-auto pt-4 border-t border-white/[0.06]">
+                <p className="font-label text-[8px] uppercase tracking-[0.06em] text-white/20">Social posts &middot; Newsletters &middot; Blog &middot; Partner updates</p>
               </div>
             </div>
 
             {/* Community Spotlights */}
-            <div className="bg-white/[0.07] p-6 flex flex-col">
+            <div className="bg-white/[0.06] p-6 flex flex-col">
               <div className="flex items-center gap-2 mb-4">
-                <span className="material-symbols-outlined text-white/70" style={{ fontSize: 20, fontVariationSettings: "'FILL' 1" }}>flash_on</span>
-                <h3 className="font-sans text-white text-[15px]" style={{ fontWeight: 500 }}>Community Spotlights</h3>
+                <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
+                <h3 className="font-sans text-white text-[14px]" style={{ fontWeight: 500 }}>Community Spotlights</h3>
               </div>
               <p className="font-sans text-white/50 text-[13px] leading-relaxed mb-5">Mostly social media. Human-interest stories that keep feeds warm and relatable. Not metrics-driven &mdash; these are about connection, community, and the human side of entrepreneurship.</p>
 
@@ -375,45 +362,38 @@ export default function StoriesPage() {
                 ))}
               </div>
 
-              {/* Mini mockup — IG story */}
-              <div className="mt-auto">
-                <p className="font-label text-[8px] uppercase tracking-[0.06em] text-white/25 mb-2">Preview</p>
-                <div className="bg-cream rounded-sm overflow-hidden shadow-lg border border-black/[0.06]" style={{ maxWidth: 90, aspectRatio: "9/16" }}>
-                  <div className="h-full flex flex-col items-center justify-center p-2 text-center">
-                    <div className="w-6 h-6 rounded-full bg-navy/10 mb-1.5 flex items-center justify-center">
-                      <span className="material-symbols-outlined text-navy/20" style={{ fontSize: 10 }}>person</span>
-                    </div>
-                    <div className="font-sans text-navy/60 text-[5px] leading-tight" style={{ fontWeight: 500 }}>Angel Rodriguez</div>
-                    <div className="font-sans text-navy/30 text-[4px]">Cha-Cha Sweets</div>
-                  </div>
-                </div>
+              <div className="mt-auto pt-4 border-t border-white/[0.06]">
+                <p className="font-label text-[8px] uppercase tracking-[0.06em] text-white/20">Instagram &middot; Facebook &middot; Community engagement</p>
               </div>
             </div>
           </div>
 
           {/* Topic range note */}
-          <div className="mt-5 p-4 bg-fog/40 max-w-[540px] font-sans text-[#0f1c2e] text-[13px] leading-relaxed">
-            <strong style={{ fontWeight: 500 }}>Story range:</strong> Signature stories should span capital access, business expansion, and innovation. Occasionally spotlight rural and underserved communities to reflect the full reach of the network.
+          <div className="mt-6 p-5 bg-white/[0.06] border-l-2 border-[#c4543a] max-w-[540px]">
+            <p className="font-label text-[9px] uppercase tracking-[0.08em] text-white/25 mb-1.5">Story Range</p>
+            <p className="font-sans text-white/55 text-[13px] leading-relaxed">Signature stories should span capital access, business expansion, and innovation. Occasionally spotlight rural and underserved communities to reflect the full reach of the network.</p>
           </div>
         </div>
       </div>
 
       {/* ═══ STORY SCORING RUBRIC ═══ */}
-      <div className="bg-white py-16 md:py-20">
+      <div className="bg-cream py-16 md:py-20">
         <div className="max-w-[1080px] mx-auto px-8 md:px-12">
-          <div className="border-t border-navy/10 pt-6 mb-12">
+          <div className="mb-12">
+            <div className="w-8 h-[2px] bg-[#c4543a] mb-5" />
+            <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Evaluation</p>
             <h2 className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>Story Scoring Rubric</h2>
-            <p className="font-sans text-navy/50 text-[15px] leading-relaxed mt-2 max-w-xl">Use this rubric to evaluate and classify new client stories. Every story should be scored before publishing.</p>
+            <p className="font-sans text-navy/50 text-[14px] leading-relaxed mt-2 max-w-[480px]">Use this rubric to evaluate and classify new client stories. Every story should be scored before publishing.</p>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full border-collapse min-w-[700px]">
               <thead>
-                <tr>
-                  <th className="text-left font-sans text-navy/40 text-[10px] uppercase tracking-[0.04em] px-5 py-3.5 border-b border-navy/10 bg-cream" style={{ fontWeight: 500, width: "16%" }}>Criteria</th>
-                  <th className="text-left font-sans text-[#004290] text-[10px] uppercase tracking-[0.04em] px-5 py-3.5 border-b border-navy/10 bg-cream" style={{ fontWeight: 500 }}>Signature (4–5 pts)</th>
-                  <th className="text-left font-sans text-steel text-[10px] uppercase tracking-[0.04em] px-5 py-3.5 border-b border-navy/10 bg-cream" style={{ fontWeight: 500 }}>Growth (2–3 pts)</th>
-                  <th className="text-left font-sans text-navy/35 text-[10px] uppercase tracking-[0.04em] px-5 py-3.5 border-b border-navy/10 bg-cream" style={{ fontWeight: 500 }}>Spotlight (0–1 pts)</th>
+                <tr className="bg-[#0f1c2e]">
+                  <th className="text-left font-label text-[9px] uppercase tracking-[0.08em] px-5 py-3.5 text-white/35" style={{ fontWeight: 500, width: "16%" }}>Criteria</th>
+                  <th className="text-left font-label text-[9px] uppercase tracking-[0.08em] px-5 py-3.5 text-white/35" style={{ fontWeight: 500 }}>Signature (4–5 pts)</th>
+                  <th className="text-left font-label text-[9px] uppercase tracking-[0.08em] px-5 py-3.5 text-white/35" style={{ fontWeight: 500 }}>Growth (2–3 pts)</th>
+                  <th className="text-left font-label text-[9px] uppercase tracking-[0.08em] px-5 py-3.5 text-white/35" style={{ fontWeight: 500 }}>Spotlight (0–1 pts)</th>
                 </tr>
               </thead>
               <tbody>
@@ -423,12 +403,12 @@ export default function StoriesPage() {
                   ["Quote Quality", "Specific, attributable, mentions SBDC by name, speaks to measurable outcome", "Positive but generic (\u201ccouldn\u2019t have done it without them\u201d)", "Only emotional / no business substance"],
                   ["Photography", "Professional headshot or business photography available", "Has some imagery but not professional", "No photography available"],
                   ["Reusability", "Can headline an annual report, board presentation, or lender pitch", "Works for newsletters, blog posts, partner updates with light editing", "Best for social media posts and community engagement"],
-                ].map(([criteria, sig, growth, spot]) => (
-                  <tr key={criteria}>
-                    <td className="font-sans text-navy text-[11px] uppercase tracking-[0.04em] px-5 py-4 border-b border-navy/[0.04] align-top" style={{ fontWeight: 500 }}>{criteria}</td>
-                    <td className="font-sans text-navy/50 text-[13px] leading-snug px-5 py-4 border-b border-navy/[0.04] align-top">{sig}</td>
-                    <td className="font-sans text-navy/50 text-[13px] leading-snug px-5 py-4 border-b border-navy/[0.04] align-top">{growth}</td>
-                    <td className="font-sans text-navy/50 text-[13px] leading-snug px-5 py-4 border-b border-navy/[0.04] align-top">{spot}</td>
+                ].map(([criteria, sig, growth, spot], i) => (
+                  <tr key={criteria} className={i % 2 === 0 ? "bg-white" : "bg-cream/60"}>
+                    <td className="font-label text-[9px] text-navy uppercase tracking-[0.06em] px-5 py-4 border-b border-navy/[0.04] align-top" style={{ fontWeight: 500 }}>{criteria}</td>
+                    <td className="font-sans text-navy/55 text-[13px] leading-snug px-5 py-4 border-b border-navy/[0.04] align-top">{sig}</td>
+                    <td className="font-sans text-navy/55 text-[13px] leading-snug px-5 py-4 border-b border-navy/[0.04] align-top">{growth}</td>
+                    <td className="font-sans text-navy/55 text-[13px] leading-snug px-5 py-4 border-b border-navy/[0.04] align-top">{spot}</td>
                   </tr>
                 ))}
               </tbody>
@@ -436,7 +416,7 @@ export default function StoriesPage() {
           </div>
 
           {/* Score guide */}
-          <div className="bg-white mt-0.5 pt-6">
+          <div className="bg-white mt-0.5 p-6">
             <p className="font-sans text-navy text-[10px] uppercase tracking-[0.04em] mb-4 flex items-center gap-2" style={{ fontWeight: 500 }}>
               <span className="material-symbols-outlined text-[#004290]" style={{ fontSize: 14 }}>speed</span>
               Quick Score Guide
@@ -458,7 +438,7 @@ export default function StoriesPage() {
       </div>
 
       {/* ═══ STORY TOOLKIT ═══ */}
-      <div className="bg-cream py-16 md:py-20 relative overflow-hidden">
+      <div className="bg-white py-16 md:py-20 relative overflow-hidden">
         <span
           className="material-symbols-outlined absolute -right-8 top-[5%] text-navy/[0.025] pointer-events-none select-none"
           style={{ fontSize: "min(50vw, 500px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
@@ -467,9 +447,11 @@ export default function StoriesPage() {
           article
         </span>
         <div className="max-w-[1080px] mx-auto px-8 md:px-12 relative z-10">
-          <div className="border-t border-navy/10 pt-6 mb-12">
+          <div className="mb-12">
+            <div className="w-8 h-[2px] bg-[#c4543a] mb-5" />
+            <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Templates</p>
             <h2 className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>Story Toolkit</h2>
-            <p className="font-sans text-navy/50 text-[15px] leading-relaxed mt-2 max-w-xl">Templates and guidelines for writing new success stories to the Signature standard.</p>
+            <p className="font-sans text-navy/50 text-[14px] leading-relaxed mt-2 max-w-[480px]">Templates and guidelines for writing new success stories to the Signature standard.</p>
           </div>
 
           {/* A. Story Structure Template */}
