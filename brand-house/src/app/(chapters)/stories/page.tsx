@@ -293,7 +293,7 @@ export default function StoriesPage() {
                   { icon: "mail", label: "Stakeholder emails", desc: "Quarterly impact updates to funders & partners" },
                 ].map((ch) => (
                   <div key={ch.label} className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-steel/70 shrink-0 mt-0.5" style={{ fontSize: 14, fontVariationSettings: "'FILL' 1" }}>{ch.icon}</span>
+                    <span className="material-symbols-outlined text-[#8FC5D9]/65 shrink-0 mt-0.5" style={{ fontSize: 14, fontVariationSettings: "'FILL' 1" }}>{ch.icon}</span>
                     <div>
                       <p className="font-sans text-white/80 text-[12px]" style={{ fontWeight: 500 }}>{ch.label}</p>
                       <p className="font-sans text-white/35 text-[11px]">{ch.desc}</p>
@@ -303,7 +303,7 @@ export default function StoriesPage() {
               </div>
 
               <div className="mt-auto pt-4 border-t border-white/[0.06]">
-                <p className="font-label text-[8px] uppercase tracking-[0.06em] text-white/20">Annual reports &middot; Board decks &middot; Lender pitches</p>
+                <p className="font-label text-[8px] uppercase tracking-[0.06em] text-white/40">Annual reports &middot; Board decks &middot; Lender pitches</p>
               </div>
             </div>
 
@@ -324,7 +324,7 @@ export default function StoriesPage() {
                   { icon: "groups", label: "Internal library", desc: "Maintained in shared drive for center teams" },
                 ].map((ch) => (
                   <div key={ch.label} className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-steel/70 shrink-0 mt-0.5" style={{ fontSize: 14, fontVariationSettings: "'FILL' 1" }}>{ch.icon}</span>
+                    <span className="material-symbols-outlined text-[#8FC5D9]/65 shrink-0 mt-0.5" style={{ fontSize: 14, fontVariationSettings: "'FILL' 1" }}>{ch.icon}</span>
                     <div>
                       <p className="font-sans text-white/80 text-[12px]" style={{ fontWeight: 500 }}>{ch.label}</p>
                       <p className="font-sans text-white/35 text-[11px]">{ch.desc}</p>
@@ -334,7 +334,7 @@ export default function StoriesPage() {
               </div>
 
               <div className="mt-auto pt-4 border-t border-white/[0.06]">
-                <p className="font-label text-[8px] uppercase tracking-[0.06em] text-white/20">Social posts &middot; Newsletters &middot; Blog &middot; Partner updates</p>
+                <p className="font-label text-[8px] uppercase tracking-[0.06em] text-white/40">Social posts &middot; Newsletters &middot; Blog &middot; Partner updates</p>
               </div>
             </div>
 
@@ -353,7 +353,7 @@ export default function StoriesPage() {
                   { icon: "favorite", label: "Community engagement", desc: "Celebrates diverse founders and local impact" },
                 ].map((ch) => (
                   <div key={ch.label} className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-steel/70 shrink-0 mt-0.5" style={{ fontSize: 14, fontVariationSettings: "'FILL' 1" }}>{ch.icon}</span>
+                    <span className="material-symbols-outlined text-[#8FC5D9]/65 shrink-0 mt-0.5" style={{ fontSize: 14, fontVariationSettings: "'FILL' 1" }}>{ch.icon}</span>
                     <div>
                       <p className="font-sans text-white/80 text-[12px]" style={{ fontWeight: 500 }}>{ch.label}</p>
                       <p className="font-sans text-white/35 text-[11px]">{ch.desc}</p>
@@ -363,7 +363,7 @@ export default function StoriesPage() {
               </div>
 
               <div className="mt-auto pt-4 border-t border-white/[0.06]">
-                <p className="font-label text-[8px] uppercase tracking-[0.06em] text-white/20">Instagram &middot; Facebook &middot; Community engagement</p>
+                <p className="font-label text-[8px] uppercase tracking-[0.06em] text-white/40">Instagram &middot; Facebook &middot; Community engagement</p>
               </div>
             </div>
           </div>
@@ -390,10 +390,10 @@ export default function StoriesPage() {
             <table className="w-full border-collapse min-w-[700px]">
               <thead>
                 <tr className="bg-[#0f1c2e]">
-                  <th className="text-left font-label text-[9px] uppercase tracking-[0.08em] px-5 py-3.5 text-white/35" style={{ fontWeight: 500, width: "16%" }}>Criteria</th>
-                  <th className="text-left font-label text-[9px] uppercase tracking-[0.08em] px-5 py-3.5 text-white/35" style={{ fontWeight: 500 }}>Signature (4–5 pts)</th>
-                  <th className="text-left font-label text-[9px] uppercase tracking-[0.08em] px-5 py-3.5 text-white/35" style={{ fontWeight: 500 }}>Growth (2–3 pts)</th>
-                  <th className="text-left font-label text-[9px] uppercase tracking-[0.08em] px-5 py-3.5 text-white/35" style={{ fontWeight: 500 }}>Spotlight (0–1 pts)</th>
+                  <th className="text-left font-label text-[9px] uppercase tracking-[0.08em] px-5 py-3.5 text-white/50" style={{ fontWeight: 400, width: "16%" }}>Criteria</th>
+                  <th className="text-left font-label text-[9px] uppercase tracking-[0.08em] px-5 py-3.5 text-white/50" style={{ fontWeight: 400 }}>Signature (4–5 pts)</th>
+                  <th className="text-left font-label text-[9px] uppercase tracking-[0.08em] px-5 py-3.5 text-white/50" style={{ fontWeight: 400 }}>Growth (2–3 pts)</th>
+                  <th className="text-left font-label text-[9px] uppercase tracking-[0.08em] px-5 py-3.5 text-white/50" style={{ fontWeight: 400 }}>Spotlight (0–1 pts)</th>
                 </tr>
               </thead>
               <tbody>
@@ -438,14 +438,19 @@ export default function StoriesPage() {
       </div>
 
       {/* ═══ STORY TOOLKIT ═══ */}
-      <div className="bg-white py-16 md:py-20 relative overflow-hidden">
-        <span
-          className="material-symbols-outlined absolute -right-8 top-[5%] text-navy/[0.025] pointer-events-none select-none"
-          style={{ fontSize: "min(50vw, 500px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
+      <div className="bg-white py-16 md:py-20 relative">
+        <div
+          className="absolute right-0 top-0 bottom-0 overflow-hidden pointer-events-none select-none"
+          style={{ width: "45vw", maxWidth: 480 }}
           aria-hidden="true"
         >
-          article
-        </span>
+          <span
+            className="material-symbols-outlined text-navy/[0.03] absolute right-[-8%] top-[8%]"
+            style={{ fontSize: "min(44vw, 460px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
+          >
+            article
+          </span>
+        </div>
         <div className="max-w-[1080px] mx-auto px-8 md:px-12 relative z-10">
           <div className="mb-12">
             <div className="w-8 h-[2px] bg-[#c4543a] mb-5" />
@@ -516,27 +521,29 @@ export default function StoriesPage() {
               <span className="material-symbols-outlined" style={{ fontSize: 14 }}>bar_chart</span>
               C. Metric Priority Guide
             </p>
-            <ol className="list-none p-0 counter-reset-none">
-              {[
-                ["Capital Accessed", "$ amount"],
-                ["Jobs Created or Retained", "headcount"],
-                ["Revenue / Sales Growth", "$ or %"],
-                ["Loans Secured", "$ amount + lender"],
-                ["Cost Reduction", "%"],
-                ["Certifications Obtained", "WBE, MBE, etc."],
-                ["Clients / Customers Gained", "headcount"],
-                ["Social / Digital Growth", "followers, traffic"],
-              ].map(([name, detail], i) => (
-                <li key={name} className="flex items-baseline gap-3.5 py-2 border-b border-navy/[0.04] last:border-b-0">
-                  <span className="font-sans text-[#004290] text-lg min-w-[20px] text-right" style={{ fontWeight: 500 }}>{i + 1}</span>
-                  <span className="font-sans text-navy/70 text-[14px]">{name}</span>
-                  <span className="font-sans text-navy/30 text-[12px] ml-auto">{detail}</span>
-                </li>
-              ))}
-            </ol>
-            <p className="font-sans text-navy/50 text-[13px] leading-relaxed mt-5 pt-4 border-t border-navy/10">
-              <strong className="text-navy" style={{ fontWeight: 500 }}>Stories with metrics ranked 1–4 as primary are almost always Signature-quality.</strong> Stories led by metrics 5–8 need supporting capital/jobs data to reach Signature tier.
-            </p>
+            <div className="max-w-[560px]">
+              <ol className="list-none p-0">
+                {[
+                  ["Capital Accessed", "$ amount"],
+                  ["Jobs Created or Retained", "headcount"],
+                  ["Revenue / Sales Growth", "$ or %"],
+                  ["Loans Secured", "$ amount + lender"],
+                  ["Cost Reduction", "%"],
+                  ["Certifications Obtained", "WBE, MBE, etc."],
+                  ["Clients / Customers Gained", "headcount"],
+                  ["Social / Digital Growth", "followers, traffic"],
+                ].map(([name, detail], i) => (
+                  <li key={name} className={`flex items-baseline gap-3.5 py-2 border-b border-navy/[0.04] last:border-b-0${i >= 4 ? " opacity-50" : ""}`}>
+                    <span className="font-sans text-[#004290] text-lg min-w-[20px] text-right" style={{ fontWeight: 500 }}>{i + 1}</span>
+                    <span className="font-sans text-navy/70 text-[14px]">{name}</span>
+                    <span className="font-sans text-navy/30 text-[12px] ml-auto">{detail}</span>
+                  </li>
+                ))}
+              </ol>
+              <p className="font-sans text-navy/50 text-[13px] leading-relaxed mt-5 pt-4 border-t border-navy/10">
+                <strong className="text-navy" style={{ fontWeight: 500 }}>Stories with metrics ranked 1–4 as primary are almost always Signature-quality.</strong> Stories led by metrics 5–8 need supporting capital/jobs data to reach Signature tier.
+              </p>
+            </div>
           </div>
         </div>
       </div>
