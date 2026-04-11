@@ -1,127 +1,109 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { GALLERY_ITEMS, type GalleryItem } from "@/lib/gallery-data";
+import { GALLERY_ITEMS, type GalleryItem, type OverlayColor } from "@/lib/gallery-data";
 
-/** Split gallery items into segments at fullWidth boundaries. */
-function splitSegments(items: GalleryItem[]) {
-  const segments: { masonry: GalleryItem[]; fullWidth?: GalleryItem }[] = [];
-  let current: GalleryItem[] = [];
+// Brand color overlays — resting at 30% opacity, rising to 55% on hover
+const OVERLAY_COLORS: Record<OverlayColor, string> = {
+  navy:  "rgba(15, 28, 46,",   // #0f1c2e
+  royal: "rgba(29, 90, 167,",  // #1D5AA7
+  coral: "rgba(196, 84, 58,",  // #c4543a
+  pool:  "rgba(143, 197, 217,", // #8FC5D9
+};
 
-  for (const item of items) {
-    if (item.fullWidth) {
-      segments.push({ masonry: current, fullWidth: item });
-      current = [];
-    } else {
-      current.push(item);
-    }
-  }
-  if (current.length > 0) {
-    segments.push({ masonry: current });
-  }
-  return segments;
+function overlayStyle(color: OverlayColor | undefined, hover: boolean): string {
+  if (!color) return "transparent";
+  const base = OVERLAY_COLORS[color];
+  return `${base} ${hover ? "0.55" : "0.30"})`;
 }
+
+// ─── Individual tile ──────────────────────────────────────────────────────────
 
 function Tile({ item }: { item: GalleryItem }) {
+  const color = item.overlay ?? "navy";
+  const baseStyle = `${OVERLAY_COLORS[color]} 0.28)`;
+  const hoverStyle = `${OVERLAY_COLORS[color]} 0.55)`;
+
   if (item.type === "video") {
     return (
       <div
-        className="masonry-item break-inside-avoid mb-[3px] overflow-hidden"
-        style={{ opacity: 0, transform: "translateY(40px)" }}
+        className="gallery-tile relative overflow-hidden"
+        style={{
+          gridColumn: item.fullWidth ? "1 / -1" : undefined,
+          gridRow: item.fullWidth ? "span 2" : undefined,
+        }}
       >
         <video
           autoPlay
           muted
           loop
           playsInline
-          className="w-full h-auto block transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.03]"
-          style={{
-            aspectRatio: item.aspectRatio,
-            objectFit: "cover",
-            objectPosition: item.objectPosition ?? "center",
-          }}
+          className="w-full h-full object-cover"
+          style={{ objectPosition: item.objectPosition ?? "center" }}
         >
           <source src={item.src} type="video/mp4" />
         </video>
+        {/* Permanent dark scrim so video doesn't blow out */}
+        <div className="absolute inset-0 bg-[rgba(15,28,46,0.35)] pointer-events-none" />
       </div>
     );
   }
 
   return (
     <div
-      className="masonry-item break-inside-avoid mb-[3px] overflow-hidden"
-      style={{ opacity: 0, transform: "translateY(40px)" }}
+      className="gallery-tile group relative overflow-hidden cursor-pointer"
+      style={{ opacity: 0, transform: "translateY(32px)" }}
     >
+      {/* Photo */}
       <img
         src={item.src}
         alt={item.alt ?? ""}
         loading="lazy"
-        className="w-full h-auto block object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.03]"
-        style={{
-          aspectRatio: item.aspectRatio,
-          objectPosition: item.objectPosition ?? "center",
-        }}
+        className="w-full h-full object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"
+        style={{ objectPosition: item.objectPosition ?? "center" }}
       />
-    </div>
-  );
-}
 
-function FullWidthTile({ item }: { item: GalleryItem }) {
-  if (item.type === "video") {
-    return (
+      {/* Brand color overlay — always visible at low opacity, deepens on hover */}
       <div
-        className="masonry-item mb-[3px] overflow-hidden"
-        style={{ opacity: 0, transform: "translateY(40px)" }}
-      >
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full block transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.03]"
-          style={{
-            aspectRatio: item.aspectRatio,
-            objectFit: "cover",
-            objectPosition: item.objectPosition ?? "center",
-          }}
-        >
-          <source src={item.src} type="video/mp4" />
-        </video>
-      </div>
-    );
-  }
-
-  return (
-    <div
-      className="masonry-item mb-[3px] overflow-hidden"
-      style={{ opacity: 0, transform: "translateY(40px)" }}
-    >
-      <img
-        src={item.src}
-        alt={item.alt ?? ""}
-        loading="lazy"
-        className="w-full block object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.03]"
+        className="absolute inset-0 transition-all duration-500"
         style={{
-          aspectRatio: item.aspectRatio,
-          objectPosition: item.objectPosition ?? "center",
+          background: `linear-gradient(to top, ${hoverStyle} 0%, ${baseStyle} 60%, transparent 100%)`,
         }}
       />
+      {/* Hover state boost — separate layer so we can transition opacity */}
+      <div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{
+          background: `${OVERLAY_COLORS[color]} 0.28)`,
+          mixBlendMode: "multiply",
+        }}
+      />
+
+      {/* Caption */}
+      {item.caption && (
+        <div className="absolute bottom-0 left-0 right-0 px-4 py-3 sm:px-5 sm:py-4">
+          <span className="font-label text-[10px] sm:text-[11px] uppercase tracking-[0.14em] text-white/90 leading-none">
+            {item.caption}
+          </span>
+        </div>
+      )}
     </div>
   );
 }
+
+// ─── Main component ───────────────────────────────────────────────────────────
 
 export default function MasonryGallery() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const segments = splitSegments(GALLERY_ITEMS);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
+      "(prefers-reduced-motion: reduce)"
     ).matches;
 
     if (prefersReducedMotion) {
       containerRef.current
-        ?.querySelectorAll<HTMLElement>(".masonry-item")
+        ?.querySelectorAll<HTMLElement>(".gallery-tile")
         .forEach((el) => {
           el.style.opacity = "1";
           el.style.transform = "none";
@@ -138,17 +120,17 @@ export default function MasonryGallery() {
       if (!containerRef.current) return;
 
       ctx = gsap.context(() => {
-        ScrollTrigger.batch(".masonry-item", {
+        ScrollTrigger.batch(".gallery-tile", {
           onEnter: (batch) => {
             gsap.to(batch, {
               opacity: 1,
               y: 0,
-              stagger: 0.06,
-              duration: 0.8,
+              stagger: 0.05,
+              duration: 0.75,
               ease: "power3.out",
             });
           },
-          start: "top 92%",
+          start: "top 93%",
         });
       }, containerRef.current);
     }
@@ -160,22 +142,39 @@ export default function MasonryGallery() {
   }, []);
 
   return (
-    <section ref={containerRef} className="bg-[#0f1c2e] px-[3px] py-[3px]">
-      {segments.map((seg, i) => (
-        <div key={i}>
-          {seg.masonry.length > 0 && (
+    <section ref={containerRef} className="bg-[#0f1c2e]">
+      {/*
+        CSS Grid — 3 equal columns, fixed row height.
+        Gap is 2px so tiles feel tight like the calendar card grid.
+        Videos and fullWidth items span all 3 columns.
+      */}
+      <div
+        className="grid gap-[2px]"
+        style={{
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gridAutoRows: "clamp(220px, 28vw, 400px)",
+        }}
+      >
+        {GALLERY_ITEMS.map((item) => {
+          // Parse span classes to inline grid styles for reliability
+          const spanMatch = item.span?.match(/col-span-(\d)/);
+          const rowMatch  = item.span?.match(/row-span-(\d)/);
+          const colSpan   = spanMatch ? parseInt(spanMatch[1]) : 1;
+          const rowSpan   = rowMatch  ? parseInt(rowMatch[1])  : 1;
+
+          return (
             <div
-              className="columns-2 sm:columns-3 lg:columns-4"
-              style={{ columnGap: "3px" }}
+              key={item.id}
+              style={{
+                gridColumn: `span ${colSpan}`,
+                gridRow: `span ${rowSpan}`,
+              }}
             >
-              {seg.masonry.map((item) => (
-                <Tile key={item.id} item={item} />
-              ))}
+              <Tile item={item} />
             </div>
-          )}
-          {seg.fullWidth && <FullWidthTile item={seg.fullWidth} />}
-        </div>
-      ))}
+          );
+        })}
+      </div>
     </section>
   );
 }
