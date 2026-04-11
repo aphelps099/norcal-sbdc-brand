@@ -117,19 +117,23 @@ export default function ColorsPage() {
         {/* Grain texture overlay */}
         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E\")" }} />
 
-        {/* Brand star — right half bg */}
+        {/* Brand star — right half bg, fades left into gradient */}
         <div className="absolute right-0 top-0 bottom-0 w-1/2 flex items-center justify-center pointer-events-none select-none overflow-hidden">
           <svg
             viewBox="0 0 2107 2003"
-            className="w-[min(52vw,500px)] h-[min(52vw,500px)] opacity-[0.08]"
+            className="w-[min(58vw,560px)] h-[min(58vw,560px)]"
             aria-hidden="true"
           >
+            <defs>
+              <radialGradient id="starFade" cx="60%" cy="50%" r="55%">
+                <stop offset="0%" stopColor="white" stopOpacity="0.13" />
+                <stop offset="55%" stopColor="white" stopOpacity="0.06" />
+                <stop offset="100%" stopColor="white" stopOpacity="0" />
+              </radialGradient>
+            </defs>
             <path
               d="M1011.48501,11.2353369 L1169.72409,653.038218 L2091.60532,738.475943 L1226.23134,1130.98717 L1458.06865,1976.22037 L1218.31263,1579.03879 L1078.64652,1068.49933 L1637.1469,813.428761 L1067.25191,759.657045 L969.048512,364.4811 L788.430601,706.886932 L338.267364,625.263122 L26.9639197,467.282973 L10.0982009,446.966622 L717.102633,575.532031 L1011.48501,11.2353369 Z"
-              fill="none"
-              stroke="white"
-              strokeWidth="18"
-              strokeLinejoin="round"
+              fill="url(#starFade)"
             />
           </svg>
         </div>
@@ -137,12 +141,11 @@ export default function ColorsPage() {
         {/* Content */}
         <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-12">
           {/* Top row */}
-          <div className="flex items-start justify-between">
+          <div className="flex items-start">
             <div>
               <span className="font-label text-[9px] uppercase tracking-[0.12em] text-white/60 inline-block px-2 py-1 border border-white/25">Brand Gradient</span>
               <p className="font-label text-[9px] uppercase tracking-[0.08em] text-white/20 mt-2">Navy → Royal → Pool → Cloud</p>
             </div>
-            <p className="font-label text-[9px] uppercase tracking-[0.1em] text-white/20">NorCal SBDC</p>
           </div>
 
           {/* Center headline */}
@@ -162,12 +165,11 @@ export default function ColorsPage() {
             </h2>
           </div>
 
-          {/* Bottom subheading row */}
-          <div className="flex items-end justify-between">
+          {/* Bottom subheading */}
+          <div>
             <p className="font-sans text-white/40 text-[13px] leading-relaxed max-w-[420px]">
               From navy to light — used across digital surfaces, reports, and campaign headers to convey depth and trust.
             </p>
-            <p className="hidden md:block font-label text-[9px] uppercase tracking-[0.08em] text-white/20">Gradient applies across all digital surfaces</p>
           </div>
         </div>
       </div>
