@@ -164,7 +164,7 @@ export default function TypographyPage() {
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c4543a]" />
         <SbdcWatermark className="absolute -right-[6%] top-[6%] w-[38vw] max-w-[480px] text-white pointer-events-none select-none" opacity={0.03} />
 
-        <div className="max-w-[960px] mx-auto px-8 md:px-12 relative z-10">
+        <div className="max-w-[780px] mx-auto px-8 md:px-12 relative z-10">
           <p className="font-label text-[10px] uppercase tracking-[0.1em] text-white/25 mb-2">Scale</p>
           <h2
             className="tracking-[-0.02em] text-white/90 mb-14"
@@ -241,11 +241,11 @@ export default function TypographyPage() {
               color: "rgba(255,255,255,0.30)",
             },
           ].map((row, i) => (
-            <div key={row.label} className={`grid grid-cols-[100px_1fr] gap-8 py-7 ${i < 5 ? "border-b border-white/[0.06]" : ""}`}>
+            <div key={row.label} className={`grid grid-cols-[120px_1fr] gap-8 py-7 ${i < 5 ? "border-b border-white/[0.06]" : ""}`}>
               {/* Left: label + spec */}
               <div className="pt-1 shrink-0">
-                <p className="font-label text-[9px] uppercase tracking-[0.08em] text-white/25 mb-1.5">{row.label}</p>
-                <p className="font-label text-[8px] text-white/15 leading-relaxed" style={{ letterSpacing: "0.02em" }}>{row.spec}</p>
+                <p className="font-label text-[10px] uppercase tracking-[0.08em] text-white/50 mb-2">{row.label}</p>
+                <p className="font-label text-[9px] text-white/25 leading-relaxed" style={{ letterSpacing: "0.02em" }}>{row.spec}</p>
               </div>
               {/* Right: live specimen */}
               <div>
