@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // ─── Brand color overlays ─────────────────────────────────────────────────────
 type OV = "navy" | "royal" | "coral";
@@ -37,7 +37,7 @@ function Tile({
   );
 }
 
-// ─── Video tile ───────────────────────────────────────────────────────────────
+// ─── Self-hosted video tile ───────────────────────────────────────────────────
 function VideoTile({ src }: { src: string }) {
   return (
     <div className="gallery-tile relative overflow-hidden h-full w-full"
@@ -46,6 +46,63 @@ function VideoTile({ src }: { src: string }) {
         <source src={src} type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-[rgba(15,28,46,0.25)] pointer-events-none" />
+    </div>
+  );
+}
+
+// ─── YouTube tile ─────────────────────────────────────────────────────────────
+// Shows the HD thumbnail with a play button. Click loads the iframe.
+function YTTile({
+  videoId, label, ov = "navy",
+}: {
+  videoId: string; label?: string; ov?: OV;
+}) {
+  const [playing, setPlaying] = useState(false);
+  const thumb = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+  const thumbFallback = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+
+  return (
+    <div className="gallery-tile group relative overflow-hidden h-full w-full cursor-pointer"
+         style={{ opacity: 0, transform: "translateY(20px)" }}
+         onClick={() => setPlaying(true)}>
+      {playing ? (
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="absolute inset-0 w-full h-full border-0"
+          title={label ?? "NorCal SBDC Video"}
+        />
+      ) : (
+        <>
+          {/* Thumbnail */}
+          <img
+            src={thumb}
+            alt={label ?? "Video"}
+            loading="lazy"
+            className="w-full h-full object-cover object-center transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+            onError={(e) => { (e.target as HTMLImageElement).src = thumbFallback; }}
+          />
+          {/* Brand color gradient */}
+          <div className="absolute inset-0 pointer-events-none"
+               style={{ background: `linear-gradient(to top, rgba(${C[ov]},0.70) 0%, rgba(${C[ov]},0.12) 55%, transparent 100%)` }} />
+          {/* Play button */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center
+                            transition-all duration-300 group-hover:bg-white/35 group-hover:scale-110">
+              <svg viewBox="0 0 24 24" fill="white" className="w-6 h-6 ml-0.5">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+          {/* Label */}
+          {label && (
+            <div className="absolute bottom-0 left-0 right-0 px-4 py-3">
+              <span className="font-label text-[10px] uppercase tracking-[0.16em] text-white/90">{label}</span>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }
@@ -180,8 +237,15 @@ export default function MasonryGallery() {
               alt="Kitchenware boutique owner" label="NorCal SBDC Client" pos="center 35%" ov="royal" />,
       ]} />
 
-      {/* 6 — video full-bleed */}
+      {/* 6 — self-hosted video full-bleed (Emerge 2024) */}
       <Row1 h={VID} tile={<VideoTile src="https://www.norcalsbdc.org/wp-content/uploads/2025/05/emerge-24-footage2.mp4" />} />
+
+      {/* 6b — 3-col YouTube row */}
+      <Row3 h={VID} tiles={[
+        <YTTile key="yt1" videoId="lBA9wkQ-Wto" label="Let's Make It Happen" ov="navy" />,
+        <YTTile key="yt2" videoId="5s8fBXxKaJc" label="YBP 2025" ov="royal" />,
+        <YTTile key="yt3" videoId="4IIVTZ-vBSs" label="NorCal SBDC" ov="coral" />,
+      ]} />
 
       {/* 7 — 3-col */}
       <Row3 h={LG} tiles={[
