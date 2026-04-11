@@ -44,7 +44,7 @@ export default function BrandVideoPlayer({ videoId }: { videoId: string }) {
   const [muted,   setMuted]   = useState(false);
   const [volume,  setVolume]  = useState(80);
   const [showVol, setShowVol] = useState(false);
-  const volTimeout = useRef<ReturnType<typeof setTimeout>>();
+  const volTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   // Load YouTube IFrame API once
   useEffect(() => {
