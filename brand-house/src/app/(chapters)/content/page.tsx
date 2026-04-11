@@ -77,7 +77,11 @@ function SectionLabelLight({ eyebrow, title }: { eyebrow: string; title: string 
 export default function ContentPage() {
   return (
     <>
-      <InteriorHero bg="#00685E"
+      <InteriorHero
+        gradient={{
+          angle: 150,
+          stops: ["#0f1c2e", "#0f1c2e", "#1D5AA7", "#8FC5D9", "#0f1c2e"],
+        }}
         title="Content"
         subtitle="Guidelines for social media, newsletters, and web publishing — so every center shows up with one unified voice."
       />
