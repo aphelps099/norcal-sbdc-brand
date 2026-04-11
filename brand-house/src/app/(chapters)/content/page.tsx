@@ -148,38 +148,43 @@ export default function ContentPage() {
         </div>
       </div>
 
-      {/* ── Social Media Principles ── */}
-      <div className="bg-white py-16 md:py-24 relative overflow-hidden">
+      {/* ── Social Media Principles — navy bg for visual weight ── */}
+      <div className="bg-[#0f1c2e] relative overflow-hidden">
+        <div className="w-full h-[2px] bg-[#c4543a]" />
         <span
-          className="material-symbols-outlined absolute -right-8 -top-6 text-navy/[0.025] pointer-events-none select-none"
+          className="material-symbols-outlined absolute -right-8 -top-6 text-white/[0.025] pointer-events-none select-none"
           style={{ fontSize: "min(50vw, 500px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
           aria-hidden="true"
         >
           forum
         </span>
-        <div className="max-w-[1080px] mx-auto px-8 md:px-12 relative z-10">
-          <SectionLabel eyebrow="Social Media" title="Principles" />
-          <p className="font-sans text-base text-navy/50 leading-relaxed mb-14 max-w-2xl -mt-6">
+        <div className="max-w-[1080px] mx-auto px-8 md:px-12 py-16 md:py-20 relative z-10">
+          <div className="border-t border-white/[0.08] pt-6 mb-8">
+            <p className="font-label text-[10px] uppercase tracking-[0.1em] text-white/30 mb-2">Social Media</p>
+            <h2 className="font-sans text-white/90 tracking-[-0.02em]" style={{ fontSize: "clamp(28px, 3.2vw, 40px)", fontWeight: 500 }}>Principles</h2>
+          </div>
+          <p className="font-sans text-white/40 leading-[1.7] mb-10 max-w-[600px]"
+            style={{ fontSize: "clamp(14px, 1.4vw, 16px)" }}>
             We build our social media presence on two basics: content that&rsquo;s relevant
             and compelling to our audiences, and being authentic. Every post reflects who we are.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px border border-navy/[0.08] overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px border border-white/[0.06] overflow-hidden">
             {socialPrinciples.map((p) => (
-              <div key={p.title} className="p-6 bg-white">
+              <div key={p.title} className="p-6 bg-[#0f1c2e] hover:bg-white/[0.02] transition-colors">
                 <div className="flex items-start gap-3">
                   <span
-                    className="material-symbols-outlined text-[#c4543a]/50 shrink-0 mt-0.5"
+                    className="material-symbols-outlined text-[#c4543a]/60 shrink-0 mt-0.5"
                     style={{ fontSize: "18px", fontVariationSettings: "'FILL' 1, 'wght' 400" }}
                     aria-hidden="true"
                   >
                     {p.icon}
                   </span>
                   <div>
-                    <h3 className="font-sans text-navy text-[14px] mb-1" style={{ fontWeight: 500 }}>
+                    <h3 className="font-sans text-white/80 text-[14px] mb-1.5" style={{ fontWeight: 500 }}>
                       {p.title}
                     </h3>
-                    <p className="font-sans text-[13px] text-navy/50 leading-relaxed">
+                    <p className="font-sans text-[13px] text-white/35 leading-relaxed">
                       {p.desc}
                     </p>
                   </div>
@@ -243,44 +248,75 @@ export default function ContentPage() {
       </div>
 
       {/* ── Platform Guidance ── */}
-      <div className="bg-white py-16 md:py-24 relative overflow-hidden">
-        <span
-          className="material-symbols-outlined absolute -left-12 bottom-[-4%] text-navy/[0.025] pointer-events-none select-none"
-          style={{ fontSize: "min(55vw, 560px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
-          aria-hidden="true"
-        >
-          share
-        </span>
+      <div className="bg-white py-16 md:py-20 relative overflow-hidden">
         <div className="max-w-[1080px] mx-auto px-8 md:px-12 relative z-10">
           <SectionLabel eyebrow="Platforms" title="Platform Guidance" />
 
-          <div className="hidden md:grid grid-cols-[48px_1fr_1fr_1fr_120px] gap-4 pb-3 border-b-2 border-navy/10 mb-0">
-            <div />
-            <p className="font-label text-[10px] uppercase tracking-[0.12em] text-navy/30">Tone</p>
-            <p className="font-label text-[10px] uppercase tracking-[0.12em] text-navy/30">Focus</p>
-            <p className="font-label text-[10px] uppercase tracking-[0.12em] text-navy/30">Frequency</p>
-            <p className="font-label text-[10px] uppercase tracking-[0.12em] text-navy/30">Limit</p>
+          {/* Desktop table */}
+          <div className="hidden md:block border border-navy/[0.08] overflow-hidden">
+            {/* Header */}
+            <div className="grid grid-cols-[180px_1fr_1.6fr_110px_130px] bg-navy">
+              <div className="px-5 py-3">
+                <p className="font-label text-[10px] uppercase tracking-[0.12em] text-white/40">Platform</p>
+              </div>
+              <div className="px-5 py-3 border-l border-white/[0.06]">
+                <p className="font-label text-[10px] uppercase tracking-[0.12em] text-white/40">Tone</p>
+              </div>
+              <div className="px-5 py-3 border-l border-white/[0.06]">
+                <p className="font-label text-[10px] uppercase tracking-[0.12em] text-white/40">Focus</p>
+              </div>
+              <div className="px-5 py-3 border-l border-white/[0.06]">
+                <p className="font-label text-[10px] uppercase tracking-[0.12em] text-white/40">Frequency</p>
+              </div>
+              <div className="px-5 py-3 border-l border-white/[0.06]">
+                <p className="font-label text-[10px] uppercase tracking-[0.12em] text-white/40">Char limit</p>
+              </div>
+            </div>
+            {/* Rows */}
+            {platformGuidance.map((row, i) => (
+              <div
+                key={row.platform}
+                className={`grid grid-cols-[180px_1fr_1.6fr_110px_130px] items-center ${
+                  i < platformGuidance.length - 1 ? "border-b border-navy/[0.06]" : ""
+                }`}
+              >
+                <div className="flex items-center gap-3 px-5 py-4 border-r border-navy/[0.06]">
+                  <SocialIcon name={row.icon} />
+                  <span className="font-sans text-navy text-[14px]" style={{ fontWeight: 500 }}>{row.platform}</span>
+                </div>
+                <div className="px-5 py-4 border-r border-navy/[0.06]">
+                  <p className="font-sans text-[13px] text-navy/65">{row.tone}</p>
+                </div>
+                <div className="px-5 py-4 border-r border-navy/[0.06]">
+                  <p className="font-sans text-[13px] text-navy/50 leading-snug">{row.focus}</p>
+                </div>
+                <div className="px-5 py-4 border-r border-navy/[0.06]">
+                  <p className="font-sans text-[13px] text-navy/50">{row.frequency}</p>
+                </div>
+                <div className="px-5 py-4">
+                  <p className="font-sans text-[13px] text-navy/40">{row.charLimit}</p>
+                </div>
+              </div>
+            ))}
           </div>
 
-          {platformGuidance.map((row, i) => (
-            <div
-              key={row.platform}
-              className={`grid grid-cols-1 md:grid-cols-[48px_1fr_1fr_1fr_120px] gap-4 py-5 items-center ${
-                i < platformGuidance.length - 1 ? "border-b border-navy/[0.06]" : ""
-              }`}
-            >
-              <div className="flex items-center gap-3 md:block">
-                <SocialIcon name={row.icon} />
-                <span className="font-sans text-navy text-[15px] md:hidden" style={{ fontWeight: 500 }}>
-                  {row.platform}
-                </span>
+          {/* Mobile stack */}
+          <div className="md:hidden space-y-4">
+            {platformGuidance.map((row) => (
+              <div key={row.platform} className="border border-navy/[0.08] p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <SocialIcon name={row.icon} />
+                  <span className="font-sans text-navy text-[15px]" style={{ fontWeight: 500 }}>{row.platform}</span>
+                </div>
+                <p className="font-sans text-[13px] text-navy/60 mb-1">{row.tone}</p>
+                <p className="font-sans text-[13px] text-navy/45 leading-snug mb-2">{row.focus}</p>
+                <div className="flex gap-4">
+                  <span className="font-label text-[11px] text-navy/35 uppercase tracking-[0.06em]">{row.frequency}</span>
+                  <span className="font-label text-[11px] text-navy/35 uppercase tracking-[0.06em]">{row.charLimit}</span>
+                </div>
               </div>
-              <p className="font-sans text-[14px] text-navy/70">{row.tone}</p>
-              <p className="font-sans text-[13px] text-navy/55 leading-snug">{row.focus}</p>
-              <p className="font-label text-[12px] text-navy/40">{row.frequency}</p>
-              <p className="font-label text-[12px] text-navy/40">{row.charLimit}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
@@ -354,11 +390,11 @@ export default function ContentPage() {
         </div>
       </div>
 
-      {/* ── Responding to Comments ── */}
-      <div className="bg-white py-16 md:py-24 relative overflow-hidden">
+      {/* ── Responding to Comments — cream bg, darker feel ── */}
+      <div className="py-16 md:py-20 relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
         <span
-          className="material-symbols-outlined absolute -right-6 top-[8%] text-navy/[0.025] pointer-events-none select-none"
-          style={{ fontSize: "min(40vw, 400px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
+          className="material-symbols-outlined absolute -left-6 bottom-[-4%] text-navy/[0.025] pointer-events-none select-none"
+          style={{ fontSize: "min(40vw, 380px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
           aria-hidden="true"
         >
           chat_bubble
@@ -366,34 +402,41 @@ export default function ContentPage() {
         <div className="max-w-[1080px] mx-auto px-8 md:px-12 relative z-10">
           <SectionLabel eyebrow="Community" title="Responding to Comments" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14">
+            {/* Left — guidance + template */}
             <div>
-              <p className="font-sans text-base text-navy/50 leading-relaxed mb-8">
+              <p className="font-sans text-navy/55 leading-[1.7] mb-8"
+                style={{ fontSize: "clamp(14px, 1.4vw, 16px)" }}>
                 Respond publicly to negative comments, then move the
                 discussion to a private space as quickly as possible.
               </p>
-              <div className="border-l-2 border-[#c4543a]/40 pl-5">
-                <p className="font-label text-[10px] uppercase tracking-[0.12em] text-navy/30 mb-3">
-                  Template Response
-                </p>
-                <p className="font-sans text-[15px] text-navy/70 italic leading-relaxed">
-                  &ldquo;We are so sorry you&rsquo;ve had a negative experience. Please
-                  private message us with your email address so we can help you
-                  resolve the issue.&rdquo;
-                </p>
+              {/* Template — styled like a card */}
+              <div className="bg-white border border-navy/[0.07] overflow-hidden">
+                <div className="bg-navy px-5 py-3">
+                  <p className="font-label text-[10px] uppercase tracking-[0.14em] text-white/40">Template Response</p>
+                </div>
+                <div className="px-6 py-5 border-l-2 border-[#c4543a]">
+                  <p className="font-sans text-[15px] text-navy/70 italic leading-relaxed">
+                    &ldquo;We are so sorry you&rsquo;ve had a negative experience. Please
+                    private message us with your email address so we can help you
+                    resolve the issue.&rdquo;
+                  </p>
+                </div>
               </div>
             </div>
+
+            {/* Right — policy */}
             <div>
-              <div className="flex items-center justify-between mb-4">
-                <p className="font-label text-[10px] uppercase tracking-[0.12em] text-navy/30">
-                  Facebook Comments Policy
-                </p>
-                <CopyButton text={commentPolicy} />
-              </div>
-              <div className="p-6 bg-[#f7f7f5] max-h-[320px] overflow-y-auto">
-                <p className="font-sans text-[13px] text-navy/50 leading-relaxed whitespace-pre-wrap">
-                  {commentPolicy}
-                </p>
+              <div className="bg-white border border-navy/[0.07] overflow-hidden">
+                <div className="bg-navy px-5 py-3 flex items-center justify-between">
+                  <p className="font-label text-[10px] uppercase tracking-[0.14em] text-white/40">Facebook Comments Policy</p>
+                  <CopyButton text={commentPolicy} />
+                </div>
+                <div className="p-6 max-h-[280px] overflow-y-auto">
+                  <p className="font-sans text-[13px] text-navy/50 leading-relaxed whitespace-pre-wrap">
+                    {commentPolicy}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -524,37 +567,56 @@ export default function ContentPage() {
       </div>
 
       {/* ── Web Publishing ── */}
-      <div className="bg-white py-16 md:py-24 relative overflow-hidden">
-        <span
-          className="material-symbols-outlined absolute -right-10 top-[-5%] text-navy/[0.025] pointer-events-none select-none"
-          style={{ fontSize: "min(55vw, 560px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
-          aria-hidden="true"
-        >
-          language
-        </span>
+      <div className="bg-white py-16 md:py-20 relative overflow-hidden">
+        <SbdcWatermark
+          className="absolute -right-[6%] top-[8%] w-[36vw] max-w-[420px] text-navy pointer-events-none select-none"
+          opacity={0.025}
+        />
         <div className="max-w-[1080px] mx-auto px-8 md:px-12 relative z-10">
           <SectionLabel eyebrow="Web" title="Web Publishing" />
+          <p className="font-sans text-navy/45 leading-[1.7] mb-10 max-w-[580px] -mt-6"
+            style={{ fontSize: "clamp(14px, 1.4vw, 16px)" }}>
+            Every page we publish is a reflection of the brand. Keep it clean, accessible, and direct.
+          </p>
 
           <div className="border border-navy/[0.08] overflow-hidden">
+            {/* Column headers */}
+            <div className="grid grid-cols-1 md:grid-cols-[220px_1fr_1fr] bg-navy">
+              <div className="px-5 py-3">
+                <p className="font-label text-[10px] uppercase tracking-[0.12em] text-white/40">Rule</p>
+              </div>
+              <div className="hidden md:block px-5 py-3 border-l border-white/[0.06]">
+                <div className="flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-[#8FC5D9]" style={{ fontSize: "13px" }}>check_circle</span>
+                  <p className="font-label text-[10px] uppercase tracking-[0.12em] text-white/40">Do this</p>
+                </div>
+              </div>
+              <div className="hidden md:block px-5 py-3 border-l border-white/[0.06]">
+                <div className="flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-[#c4543a]/70" style={{ fontSize: "13px" }}>cancel</span>
+                  <p className="font-label text-[10px] uppercase tracking-[0.12em] text-white/40">Not this</p>
+                </div>
+              </div>
+            </div>
             {webPublishingRules.map((rule, i) => (
               <div
                 key={rule.title}
-                className={`grid grid-cols-1 md:grid-cols-[220px_1fr_1fr] items-center ${
+                className={`grid grid-cols-1 md:grid-cols-[220px_1fr_1fr] items-stretch ${
                   i < webPublishingRules.length - 1 ? "border-b border-navy/[0.06]" : ""
                 }`}
               >
-                <div className="px-5 py-4 md:border-r border-navy/[0.06]">
-                  <h3 className="font-sans text-navy text-[14px]" style={{ fontWeight: 500 }}>
+                <div className="px-5 py-4 md:border-r border-navy/[0.06] bg-navy/[0.02]">
+                  <h3 className="font-sans text-navy text-[14px] leading-snug" style={{ fontWeight: 500 }}>
                     {rule.title}
                   </h3>
                 </div>
-                <div className="flex gap-2 items-center px-5 py-4 md:border-r border-navy/[0.06]">
-                  <span className="material-symbols-outlined text-[#00685E] shrink-0" style={{ fontSize: "16px" }}>check</span>
-                  <span className="font-sans text-[13px] text-navy/65">{rule.good}</span>
+                <div className="flex gap-2.5 items-start px-5 py-4 md:border-r border-navy/[0.06]">
+                  <span className="material-symbols-outlined text-[#00685E] shrink-0 mt-0.5" style={{ fontSize: "15px" }}>check</span>
+                  <span className="font-sans text-[13px] text-navy/65 leading-snug">{rule.good}</span>
                 </div>
-                <div className="flex gap-2 items-center px-5 py-4">
-                  <span className="material-symbols-outlined text-[#A73B44] shrink-0" style={{ fontSize: "16px" }}>close</span>
-                  <span className="font-sans text-[13px] text-navy/50">{rule.bad}</span>
+                <div className="flex gap-2.5 items-start px-5 py-4">
+                  <span className="material-symbols-outlined text-[#A73B44] shrink-0 mt-0.5" style={{ fontSize: "15px" }}>close</span>
+                  <span className="font-sans text-[13px] text-navy/45 leading-snug">{rule.bad}</span>
                 </div>
               </div>
             ))}
