@@ -63,7 +63,6 @@ export default function VoicePage() {
       {/* Brand Personality — dark navy bg */}
       <div className="bg-[#0f1c2e] py-12 md:py-16 relative overflow-hidden">
         <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
-        <div className="mb-16">
           <div className="max-w-[780px] mx-auto px-8 md:px-12">
             <h2
               className="tracking-[-0.02em] text-white/90 mb-6"
@@ -78,38 +77,41 @@ export default function VoicePage() {
             <p className="font-sans text-lg md:text-xl text-white/50 leading-[1.7] max-w-[640px] mb-10">
               We are <strong className="text-white/80">confident</strong> but never
               arrogant. <strong className="text-white/80">Expert</strong> but never
-              condescending. <strong className="text-white/80">Warm</strong> but never
+              condescending. <strong className="text-white/80">Warm</strong>{" "}but never
               unprofessional. We speak like the advisor you&rsquo;d actually want to have
               coffee with.
             </p>
 
             {/* Brand video — YBP 2025 */}
-            <div className="mb-12 overflow-hidden" style={{ borderRadius: "2px" }}>
+            <div className="overflow-hidden" style={{ borderRadius: "2px" }}>
               <BrandVideoPlayer videoId="5s8fBXxKaJc" />
             </div>
           </div>
-          <div className="max-w-[960px] mx-auto px-8 md:px-12">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
-              {voiceAttributes.map((attr, i) => (
-                <div
-                  key={attr.trait}
-                  className={`py-6 px-6 ${i < voiceAttributes.length - 1 ? "border-r border-white/[0.06]" : ""}`}
+      </div>
+
+      {/* Voice Attributes — still navy, but visually separated below the video */}
+      <div className="bg-[#0f1c2e] pb-12 md:pb-16">
+        <div className="max-w-[960px] mx-auto px-8 md:px-12 pt-10">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
+            {voiceAttributes.map((attr, i) => (
+              <div
+                key={attr.trait}
+                className={`py-6 px-6 ${i < voiceAttributes.length - 1 ? "border-r border-white/[0.06]" : ""}`}
+              >
+                <h3
+                  className="text-white/90 mb-2 tracking-[-0.01em]"
+                  style={{
+                    fontFamily: "var(--sans)",
+                    fontSize: "clamp(20px, 2vw, 24px)",
+                  }}
                 >
-                  <h3
-                    className="text-white/90 mb-2 tracking-[-0.01em]"
-                    style={{
-                      fontFamily: "var(--sans)",
-                      fontSize: "clamp(20px, 2vw, 24px)",
-                    }}
-                  >
-                    {attr.trait}
-                  </h3>
-                  <p className="font-sans text-sm text-white/50 leading-relaxed">
-                    {attr.description}
-                  </p>
-                </div>
-              ))}
-            </div>
+                  {attr.trait}
+                </h3>
+                <p className="font-sans text-sm text-white/50 leading-relaxed">
+                  {attr.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
