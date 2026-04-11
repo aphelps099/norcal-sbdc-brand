@@ -1,5 +1,6 @@
 
 import InteriorHero from "@/components/InteriorHero";
+import BrandVideoPlayer from "@/components/BrandVideoPlayer";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
 
@@ -74,13 +75,18 @@ export default function VoicePage() {
             >
               Brand Personality
             </h2>
-            <p className="font-sans text-lg md:text-xl text-white/50 leading-[1.7] max-w-[640px] mb-12">
+            <p className="font-sans text-lg md:text-xl text-white/50 leading-[1.7] max-w-[640px] mb-10">
               We are <strong className="text-white/80">confident</strong> but never
               arrogant. <strong className="text-white/80">Expert</strong> but never
               condescending. <strong className="text-white/80">Warm</strong> but never
               unprofessional. We speak like the advisor you&rsquo;d actually want to have
               coffee with.
             </p>
+
+            {/* Brand video — YBP 2025 */}
+            <div className="mb-12 overflow-hidden" style={{ borderRadius: "2px" }}>
+              <BrandVideoPlayer videoId="5s8fBXxKaJc" />
+            </div>
           </div>
           <div className="max-w-[960px] mx-auto px-8 md:px-12">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
