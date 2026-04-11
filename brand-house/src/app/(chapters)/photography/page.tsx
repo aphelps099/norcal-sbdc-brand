@@ -30,18 +30,24 @@ const overlaySpecs = [
     bg: "linear-gradient(180deg, rgba(15,28,46,0.3) 0%, rgba(15,28,46,0.7) 100%)",
     css: "background: linear-gradient(180deg, rgba(15,28,46,0.3) 0%, rgba(15,28,46,0.7) 100%)",
     use: "Hero images, event coverage, full-bleed backgrounds",
+    photo: "https://www.norcalsbdc.org/wp-content/uploads/sites/32/2026/03/Michelle-8-1-2.jpeg",
+    photoPos: "center 20%",
   },
   {
     name: "Brand gradient",
     bg: "linear-gradient(135deg, rgba(29,90,167,0.6) 0%, rgba(15,28,46,0.8) 100%)",
     css: "background: linear-gradient(135deg, rgba(29,90,167,0.6) 0%, rgba(15,28,46,0.8) 100%)",
     use: "Social media covers, presentation slides",
+    photo: "https://lh3.googleusercontent.com/pw/AP1GczMYzkhqGE_G40QFOoQ9ID8cwo_d8HbRjaDEQoMdqXh-ewCVBnu12KKYyeMWJHxUSlaBErDw3xmsSSdQPq-oBB0bXEyoQqlbbKOfXgGxVo_oD4g7QG34fD7Cme_gW5sIC5flUEMxMSrgHMARFOPnMuSn=w1353-h900-s-no-gm",
+    photoPos: "center 35%",
   },
   {
     name: "Light wash",
     bg: "rgba(245,244,240,0.85)",
     css: "background: rgba(245,244,240,0.85)",
     use: "Text-heavy layouts where photo is ambient background",
+    photo: "https://lh3.googleusercontent.com/pw/AP1GczMf-e74lJq-5gj59KmJLM625VhnlScyQfkCO0ooMmsgT8LT19uk5stB_vrE1qUEFSVoASEmxN1pIF6oWi9C9QubK46H1HmXYxArDeazR_-53zkyLrf7iB3b8EI7ftfFjPHajclRXjTttQMs0Z6lx38j=w1350-h900-s-no-gm",
+    photoPos: "center 35%",
   },
 ];
 
@@ -205,11 +211,14 @@ export default function PhotographyPage() {
                 key={spec.name}
                 className="border border-black/[0.06] overflow-hidden"
               >
-                {/* Preview swatch */}
-                <div
-                  className="h-32 relative"
-                  style={{ background: "#2B3035" }}
-                >
+                {/* Preview swatch — real photo behind gradient */}
+                <div className="h-40 relative overflow-hidden">
+                  <img
+                    src={spec.photo}
+                    alt={spec.name}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    style={{ objectPosition: spec.photoPos }}
+                  />
                   <div className="absolute inset-0" style={{ background: spec.bg }} />
                   <div className="absolute inset-0 flex items-end p-4">
                     <span className="font-label text-[11px] text-white/80 uppercase tracking-[0.1em]">
