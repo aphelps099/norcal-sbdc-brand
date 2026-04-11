@@ -117,13 +117,32 @@ export default function ColorsPage() {
         {/* Grain texture overlay */}
         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E\")" }} />
 
+        {/* Animated star — right half bg */}
+        <div className="absolute right-0 top-0 bottom-0 w-1/2 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+          <svg
+            viewBox="0 0 200 200"
+            className="w-[min(55vw,520px)] h-[min(55vw,520px)] opacity-[0.07]"
+            style={{ animation: "spin 40s linear infinite", transformOrigin: "center" }}
+            aria-hidden="true"
+          >
+            <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
+            <polygon
+              points="100,4 127,72 198,72 143,113 164,182 100,142 36,182 57,113 2,72 73,72"
+              fill="none"
+              stroke="white"
+              strokeWidth="1.5"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+
         {/* Content */}
         <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-12">
           {/* Top row */}
           <div className="flex items-start justify-between">
             <div>
-              <p className="font-label text-[9px] uppercase tracking-[0.12em] text-white/30 mb-2">Brand Gradient</p>
-              <p className="font-label text-[9px] uppercase tracking-[0.08em] text-white/20">Navy → Royal → Pool → Cloud</p>
+              <span className="font-label text-[9px] uppercase tracking-[0.12em] text-white/60 inline-block px-2 py-1 border border-white/25">Brand Gradient</span>
+              <p className="font-label text-[9px] uppercase tracking-[0.08em] text-white/20 mt-2">Navy → Royal → Pool → Cloud</p>
             </div>
             <p className="font-label text-[9px] uppercase tracking-[0.1em] text-white/20">NorCal SBDC</p>
           </div>
@@ -145,21 +164,11 @@ export default function ColorsPage() {
             </h2>
           </div>
 
-          {/* Bottom stats row */}
+          {/* Bottom subheading row */}
           <div className="flex items-end justify-between">
-            <div className="flex gap-8 md:gap-14">
-              {[
-                { num: "42K", label: "Jobs Created" },
-                { num: "$2.1B", label: "Capital Accessed" },
-                { num: "1980", label: "Founded" },
-              ].map((s) => (
-                <div key={s.label}>
-                  <p className="font-sans text-white/80 leading-none mb-1" style={{ fontSize: "clamp(18px, 2.2vw, 28px)", fontWeight: 500 }}>{s.num}</p>
-                  <p className="font-label text-[9px] uppercase tracking-[0.08em] text-white/30">{s.label}</p>
-                </div>
-              ))}
-            </div>
-            <div className="hidden md:block w-[1px] h-10 bg-white/10" />
+            <p className="font-sans text-white/40 text-[13px] leading-relaxed max-w-[420px]">
+              From navy to light — used across digital surfaces, reports, and campaign headers to convey depth and trust.
+            </p>
             <p className="hidden md:block font-label text-[9px] uppercase tracking-[0.08em] text-white/20">Gradient applies across all digital surfaces</p>
           </div>
         </div>
