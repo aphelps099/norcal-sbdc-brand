@@ -3,16 +3,11 @@
 import { useEffect, useRef } from "react";
 
 interface ApplicationsHeaderProps {
-  eyebrow?: string;
   title: string;
   lead?: string;
 }
 
-export default function ApplicationsHeader({
-  eyebrow = "02",
-  title,
-  lead,
-}: ApplicationsHeaderProps) {
+export default function ApplicationsHeader({ title, lead }: ApplicationsHeaderProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -53,33 +48,44 @@ export default function ApplicationsHeader({
   }, []);
 
   return (
-    <div ref={wrapRef} className="max-w-[1280px] mx-auto px-8 md:px-12 pt-20 md:pt-28 pb-10 md:pb-14">
-      <p className="font-label text-[10px] uppercase tracking-[0.16em] text-navy/35 mb-5">
-        {eyebrow}
-      </p>
-
-      <div className="relative inline-block pb-4 md:pb-6">
+    <div ref={wrapRef} className="pt-20 md:pt-28 pb-8 md:pb-10">
+      <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
         <h2
-          className="tracking-[-0.035em] text-navy leading-[0.95]"
+          className="text-navy tracking-[-0.015em] mb-6 md:mb-8"
           style={{
             fontFamily: "var(--sans)",
             fontWeight: 500,
-            fontSize: "clamp(56px, 11vw, 144px)",
+            fontSize: "clamp(28px, 3.2vw, 40px)",
+            lineHeight: 1.05,
           }}
         >
           {title}
         </h2>
-        <span
+      </div>
+
+      {/* Full-bleed hairline rule */}
+      <div className="relative w-full">
+        <div
           data-underline
-          className="absolute left-0 right-0 bottom-0 block h-[2px] bg-[#0f1c2e] origin-left"
-          style={{ transform: "scaleX(0)" }}
+          className="origin-left"
+          aria-hidden
+          style={{
+            height: 1,
+            background: "rgba(15,28,46,0.18)",
+            transform: "scaleX(0)",
+          }}
         />
       </div>
 
       {lead && (
-        <p className="mt-8 text-navy/55 text-[15px] md:text-[16px] leading-[1.6] font-sans max-w-[440px]">
-          {lead}
-        </p>
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
+          <p
+            className="mt-6 md:mt-8 text-navy/55 font-sans max-w-[520px]"
+            style={{ fontSize: "14px", lineHeight: 1.6 }}
+          >
+            {lead}
+          </p>
+        </div>
       )}
     </div>
   );

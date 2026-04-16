@@ -24,9 +24,22 @@ export default function ColorsTabs() {
   const [tab, setTab] = useState<Tab>("colors");
 
   return (
-    <div className="max-w-[960px] mx-auto px-8 md:px-12">
-      {/* Tab bar */}
-      <div className="flex items-end gap-8 border-b border-navy/10 mb-10">
+    <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
+      {/* Section heading — clean, no eyebrow number */}
+      <h2
+        className="text-navy tracking-[-0.015em] mb-8 md:mb-10"
+        style={{
+          fontFamily: "var(--sans)",
+          fontWeight: 500,
+          fontSize: "clamp(28px, 3.2vw, 40px)",
+          lineHeight: 1.05,
+        }}
+      >
+        Brand Colors
+      </h2>
+
+      {/* Tab bar — outlined chips, active has underline lip */}
+      <div className="flex items-stretch gap-0 mb-10 md:mb-12">
         <TabButton
           label="Brand Colors"
           active={tab === "colors"}
@@ -41,13 +54,13 @@ export default function ColorsTabs() {
 
       {tab === "colors" ? (
         <div>
-          <p className="text-navy/45 text-[14px] leading-relaxed font-sans mb-12 max-w-[520px]">
+          <p className="text-navy/50 text-[13px] leading-relaxed font-sans mb-10 max-w-[520px]">
             Hover any swatch to see its intended usage. Click to copy the hex value.
           </p>
 
           {colorGroups.map((group) => (
-            <div key={group.label} className="mb-14 last:mb-0">
-              <h3 className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/40 mb-4">
+            <div key={group.label} className="mb-10 last:mb-0">
+              <h3 className="font-label text-[10px] uppercase tracking-[0.14em] text-navy/40 mb-3">
                 {group.label}
               </h3>
               <ColorSwatchGrid>
@@ -68,7 +81,7 @@ export default function ColorsTabs() {
         </div>
       ) : (
         <div>
-          <p className="text-navy/45 text-[14px] leading-relaxed font-sans mb-12 max-w-[520px]">
+          <p className="text-navy/50 text-[13px] leading-relaxed font-sans mb-10 max-w-[520px]">
             WCAG 2.1 contrast ratios for key brand color pairings. All primary text
             combinations meet AA or higher.
           </p>
@@ -131,18 +144,23 @@ function TabButton({
   return (
     <button
       onClick={onClick}
-      className="group relative pb-3 transition-colors duration-200"
+      className="relative px-5 md:px-6 py-3 md:py-3.5 transition-colors duration-200"
       style={{
-        color: active ? "#0f1c2e" : "rgba(15,28,46,0.35)",
+        color: active ? "#0f1c2e" : "rgba(15,28,46,0.5)",
         fontFamily: "var(--sans)",
         fontWeight: 500,
-        fontSize: "clamp(20px, 2.4vw, 28px)",
-        letterSpacing: "-0.01em",
+        fontSize: "14px",
+        letterSpacing: "-0.005em",
+        border: "1px solid rgba(15,28,46,0.18)",
+        marginRight: -1,
+        backgroundColor: "transparent",
       }}
     >
       {label}
+      {/* Active underline lip — sits on bottom border */}
       <span
-        className="absolute left-0 right-0 -bottom-px h-[2px] transition-transform duration-300 origin-left"
+        aria-hidden
+        className="absolute left-[-1px] right-[-1px] -bottom-px h-[2px] transition-transform duration-300 origin-left"
         style={{
           backgroundColor: "#0f1c2e",
           transform: active ? "scaleX(1)" : "scaleX(0)",
