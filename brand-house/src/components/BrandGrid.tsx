@@ -76,9 +76,9 @@ export default function BrandGrid() {
 
   return (
     <section ref={sectionRef} className="bg-cream" id="chapters">
-      <div className="max-w-[1080px] mx-auto px-8 sm:px-12 py-20 sm:py-24">
+      <div className="max-w-[1080px] mx-auto px-8 sm:px-12" style={{ paddingTop: 90, paddingBottom: 180 }}>
         {/* Header with legend */}
-        <div className="brand-grid-header border-t border-navy pt-3.5 mb-13 flex items-baseline justify-between flex-wrap gap-5">
+        <div className="brand-grid-header border-t border-navy pt-3.5 flex items-baseline justify-between flex-wrap gap-5">
           <div>
             <p className="font-label text-[10px] uppercase tracking-[0.14em] text-navy/55 mb-1.5">
               {pills.length} Chapters
@@ -101,7 +101,7 @@ export default function BrandGrid() {
         </div>
 
         {/* Pill cloud */}
-        <div className="flex flex-wrap gap-3.5" style={{ marginTop: 52 }}>
+        <div className="flex flex-wrap gap-3.5" style={{ marginTop: 90 }}>
           {pills.map((pill) => {
             const cat = catColors[pill.cat];
             return (
