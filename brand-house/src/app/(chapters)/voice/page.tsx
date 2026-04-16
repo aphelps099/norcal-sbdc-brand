@@ -29,7 +29,9 @@ const toneTable = [
 export default function VoicePage() {
   return (
     <>
-      <InteriorHero bg="#A73B44"
+      <InteriorHero
+        chapterNumber="04"
+        category="strategy"
         title="Voice & Tone"
         subtitle="Our voice is the personality behind every word — confident, human, and always rooted in expertise."
       />

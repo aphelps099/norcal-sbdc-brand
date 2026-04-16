@@ -10,7 +10,8 @@ export default function ColorsPage() {
   return (
     <>
       <InteriorHero
-        bg="#0f1c2e"
+        chapterNumber="01"
+        category="visual"
         title="Colors"
         subtitle="Our palette is built for contrast, accessibility, and editorial impact."
       />

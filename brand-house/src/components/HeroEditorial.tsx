@@ -93,7 +93,7 @@ export default function HeroEditorial() {
                 fontFamily: "var(--font-wide)",
                 fontSize: "clamp(56px, 11vw, 160px)",
                 fontWeight: 700,
-                letterSpacing: "0.01em",
+                letterSpacing: "0",
                 opacity: 0,
               }}
             >

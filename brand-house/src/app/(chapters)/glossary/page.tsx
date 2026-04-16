@@ -183,7 +183,9 @@ const glossarySections = [
 export default function GlossaryPage() {
   return (
     <>
-      <InteriorHero bg="#004290"
+      <InteriorHero
+        chapterNumber="12"
+        category="tools"
         title="Glossary"
         subtitle="Terms, acronyms, and definitions used across the NorCal SBDC network. Keep this reference handy — consistent language builds trust."
       />

@@ -73,7 +73,9 @@ const compositionRules = [
 export default function PhotographyPage() {
   return (
     <>
-      <InteriorHero bg="#2B3035"
+      <InteriorHero
+        chapterNumber="05"
+        category="strategy"
         title="Photo & Video"
         subtitle="People, not programs. Faces, not buildings. Every image should make the person visible — because the service is the person."
       />

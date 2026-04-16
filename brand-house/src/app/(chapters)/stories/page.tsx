@@ -103,7 +103,9 @@ const spotlights = [
 export default function StoriesPage() {
   return (
     <>
-      <InteriorHero bg="#0f1c2e"
+      <InteriorHero
+        chapterNumber="07"
+        category="strategy"
         title="Success Stories"
         subtitle="Real businesses. Measurable impact. Organized by story tier to help you find the right client narrative for any audience."
       />
