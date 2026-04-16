@@ -80,7 +80,7 @@ export default function ContentPage() {
       <InteriorHero
         chapterNumber="06"
         category="strategy"
-        title="content"
+        title="Content"
         subtitle="Guidelines for social media, newsletters, and web publishing — so every center shows up with one unified voice."
       />
 

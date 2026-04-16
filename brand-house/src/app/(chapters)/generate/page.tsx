@@ -9,11 +9,11 @@ export default function GeneratePage() {
       <InteriorHero
         chapterNumber="10"
         category="tools"
-        title="generate"
+        title="Generate"
         subtitle="Create on-brand content in seconds. Select a format, answer a few questions, and get copy that sounds like us."
       />
 
-      <div className="bg-white py-16 md:py-24">
+      <div className="bg-cream py-16 md:py-24">
         <div className="max-w-[1200px] mx-auto px-8 md:px-12">
           <h2
             className="tracking-[-0.02em] mb-2 text-navy"

@@ -387,7 +387,7 @@ export default function TypographyPage() {
       <InteriorHero
         chapterNumber="02"
         category="visual"
-        title="fonts"
+        title="Fonts"
         subtitle="Three typefaces, three jobs — Proxima Nova, Extra Wide, and Turnip."
       />
 

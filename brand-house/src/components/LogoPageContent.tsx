@@ -238,7 +238,7 @@ export default function LogoPageContent() {
   }, []);
 
   return (
-    <div ref={contentRef} className="bg-white">
+    <div ref={contentRef} className="bg-cream">
       {/* ═══ Intro section — offset 2-column ═══ */}
       <section className="logo-section py-16 md:py-24">
         <div className={COL_WIDE}>

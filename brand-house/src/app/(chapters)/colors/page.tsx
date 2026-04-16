@@ -12,12 +12,12 @@ export default function ColorsPage() {
       <InteriorHero
         chapterNumber="01"
         category="visual"
-        title="color"
+        title="Colors"
         subtitle="Our palette is built for contrast, accessibility, and editorial impact."
       />
 
-      {/* Recommended Refined Palette — white bg */}
-      <div className="bg-white py-16 md:py-24">
+      {/* Recommended Refined Palette — cream continues the hero */}
+      <div className="bg-cream py-16 md:py-24">
         <div className="max-w-[960px] mx-auto px-8 md:px-12">
           <div className="w-8 h-[2px] bg-[#c4543a] mb-5" />
           <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Palette</p>

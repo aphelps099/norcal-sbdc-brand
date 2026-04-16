@@ -131,18 +131,17 @@ export default function InteriorHero({
           {chapterNumber ? `Chapter ${chapterNumber} · ${cat.label}` : cat.label}
         </p>
 
-        {/* Oversized page title — Proxima Extrabold, lowercase */}
+        {/* Oversized page title — Proxima Nova Light, XXXXL */}
         <h1
           className="interior-hero-title mt-6"
           data-reveal
           style={{
             fontFamily: "var(--sans)",
-            fontWeight: 800,
-            fontSize: "clamp(88px, 15vw, 216px)",
-            letterSpacing: "-0.045em",
+            fontWeight: 300,
+            fontSize: "clamp(112px, 17vw, 260px)",
+            letterSpacing: "-0.035em",
             lineHeight: 0.9,
             color: "#0f1c2e",
-            textTransform: "lowercase",
             opacity: 0,
           }}
         >
