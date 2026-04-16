@@ -147,13 +147,13 @@ export default function TypographyHero() {
         </p>
       </div>
 
-      {/* Full-bleed hairline rule */}
-      <div className="relative z-10 w-full">
+      {/* Container-width 2px rule (matches nav underline weight) */}
+      <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
         <div
           data-line
           aria-hidden
           style={{
-            height: 1,
+            height: 2,
             background: "rgba(15,28,46,0.18)",
             transformOrigin: "left center",
             transform: "scaleX(0)",

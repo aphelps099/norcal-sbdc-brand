@@ -63,14 +63,14 @@ export default function ApplicationsHeader({ title, lead }: ApplicationsHeaderPr
         </h2>
       </div>
 
-      {/* Full-bleed hairline rule */}
-      <div className="relative w-full">
+      {/* Container-width 2px rule (matches nav underline weight) */}
+      <div className="relative max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
         <div
           data-underline
           className="origin-left"
           aria-hidden
           style={{
-            height: 1,
+            height: 2,
             background: "rgba(15,28,46,0.18)",
             transform: "scaleX(0)",
           }}
