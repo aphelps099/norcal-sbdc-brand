@@ -26,7 +26,7 @@ function RotatingHeadline() {
     >
       Your Business<br />
       <span
-        className="text-royal inline-block transition-all duration-400 ease-out"
+        className="text-royal inline-block"
         style={{
           opacity: animating ? 0 : 1,
           transform: animating ? "translateY(12px)" : "translateY(0)",
@@ -39,35 +39,52 @@ function RotatingHeadline() {
   );
 }
 
+/**
+ * Hero mosaic — 5 tiles in a 3-column CSS grid.
+ * Real NorCal SBDC clients and advisors only. No stock photography.
+ *
+ * Layout:
+ *   [ Michelle (tall) ]  [ Angel Cha-Cha Sweets (wide) ]
+ *   [ Michelle (tall) ]  [ Marin Auto / Lab scene      ]
+ *   [ Boutique owner (wide, bottom) ]  [ Rancher       ]
+ */
 const images = [
   {
-    src: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80&fit=crop&auto=format",
-    pos: "center 40%",
+    src: "https://www.norcalsbdc.org/wp-content/uploads/sites/32/2026/03/Michelle-8-1-2.jpeg",
+    alt: "Michelle Nayfack — After-School Snack Attack",
+    caption: "After-School Snack Attack",
+    pos: "center 20%",
     span: "col-span-1 row-span-2",
   },
   {
-    src: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&q=80&fit=crop&auto=format",
-    pos: "center",
+    src: "https://www.norcalsbdc.org/wp-content/uploads/sites/26/2025/11/Angel-Cha-Cha-Sweets-1-970x1200.jpeg",
+    alt: "Angel — Cha-Cha Sweets",
+    caption: "Cha-Cha Sweets",
+    pos: "center 25%",
     span: "col-span-2 row-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80&fit=crop&auto=format",
-    pos: "center",
+    src: "https://www.norcalsbdc.org/wp-content/uploads/sites/13/2025/07/thumbnail_Nivedita-in-lab-with-Takehiro-1200x675.jpg",
+    alt: "Nivedita & Takehiro — Kamet Automation Inc.",
+    caption: "Kamet Automation Inc.",
+    pos: "center 40%",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1573164713988-8665fc963095?w=800&q=80&fit=crop&auto=format",
-    pos: "center",
-    span: "col-span-1 row-span-1",
+    src: "https://lh3.googleusercontent.com/pw/AP1GczMZYn9VzciIvhfESsX47KnHcOhLkJZIY3fGkqi5DJ8Y7cSi8NbG37M7EG0ETqHDFvhdTPBvMqXjn31oO1nIbxh5wA3TqwCt3hD0iIaHY2cVkdqsA3SqsVk6oKKiJuJ0LJVRW8xgPy-TRsIf333Wo6nr=w1350-h900-s-no-gm",
+    alt: "Business owner in front of her boutique retail shop",
+    caption: "NorCal SBDC Client",
+    pos: "center 30%",
+    span: "col-span-2 row-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80&fit=crop&auto=format",
-    pos: "center",
+    src: "https://lh3.googleusercontent.com/pw/AP1GczMYzkhqGE_G40QFOoQ9ID8cwo_d8HbRjaDEQoMdqXh-ewCVBnu12KKYyeMWJHxUSlaBErDw3xmsSSdQPq-oBB0bXEyoQqlbbKOfXgGxVo_oD4g7QG34fD7Cme_gW5sIC5flUEMxMSrgHMARFOPnMuSn=w1353-h900-s-no-gm",
+    alt: "Rancher with border collie and cattle herd",
+    caption: "NorCal SBDC Client",
+    pos: "center 40%",
     span: "col-span-1 row-span-1",
   },
 ];
-
-
 
 export default function PhotoMosaic() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -86,7 +103,10 @@ export default function PhotoMosaic() {
           ".mosaic-heading",
           { opacity: 0, y: 24 },
           {
-            opacity: 1, y: 0, duration: 1, ease: "power3.out",
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out",
             scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
           }
         );
@@ -97,7 +117,9 @@ export default function PhotoMosaic() {
             tile,
             { opacity: 0, y: 40, scale: 0.98 },
             {
-              opacity: 1, y: 0, scale: 1,
+              opacity: 1,
+              y: 0,
+              scale: 1,
               duration: 1,
               ease: "power3.out",
               delay: i * 0.08,
@@ -105,23 +127,23 @@ export default function PhotoMosaic() {
             }
           );
         });
-
-
       }, sectionRef.current);
     }
 
     init();
-    return () => { ctx?.revert(); };
+    return () => {
+      ctx?.revert();
+    };
   }, []);
 
   return (
     <section ref={sectionRef} className="bg-white relative">
-      {/* Content area with extra bottom padding for overlap */}
+      {/* Rotating headline */}
       <div className="max-w-[1400px] mx-auto px-8 sm:px-12 pt-32 sm:pt-40 pb-0">
         <RotatingHeadline />
       </div>
 
-      {/* Photo grid — tighter to heading for overlap energy */}
+      {/* Mosaic photo grid */}
       <div className="px-3 sm:px-5 pt-8 sm:pt-10 pb-3 sm:pb-5">
         <div
           className="grid gap-1.5 sm:gap-2"
@@ -133,15 +155,21 @@ export default function PhotoMosaic() {
           {images.map((img, i) => (
             <div
               key={i}
-              className={`mosaic-tile relative overflow-hidden ${img.span}`}
+              className={`mosaic-tile relative overflow-hidden group ${img.span}`}
             >
               <img
                 src={img.src}
-                alt=""
+                alt={img.alt}
                 loading="lazy"
-                className="w-full h-full object-cover transition-transform duration-[1.4s] ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.03]"
+                className="w-full h-full object-cover transition-transform duration-[1.4s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
                 style={{ objectPosition: img.pos }}
               />
+              {/* Caption — slides up on hover */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[rgba(15,28,46,0.72)] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none flex items-end p-4 sm:p-5">
+                <span className="font-label text-[11px] uppercase tracking-[0.12em] text-white/90 translate-y-1 group-hover:translate-y-0 transition-transform duration-500">
+                  {img.caption}
+                </span>
+              </div>
             </div>
           ))}
         </div>
