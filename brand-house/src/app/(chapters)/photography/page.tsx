@@ -76,11 +76,11 @@ export default function PhotographyPage() {
       <InteriorHero
         chapterNumber="05"
         category="strategy"
-        title="photos"
+        title="Photos"
         subtitle="People, not programs. Faces, not buildings. Every image should make the person visible — because the service is the person."
       />
 
-      <div className="bg-white py-12 md:py-16">
+      <div className="bg-cream py-12 md:py-16">
         {/* Philosophy */}
         <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-16">
           <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-6">

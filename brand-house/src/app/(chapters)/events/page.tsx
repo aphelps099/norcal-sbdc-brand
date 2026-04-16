@@ -235,7 +235,7 @@ export default function EventsPage() {
       <InteriorHero
         chapterNumber="09"
         category="tools"
-        title="events"
+        title="Events"
         subtitle="Templates, live samples, and guidelines for creating on-brand event collateral — from workshop flyers and banners to name badges and social graphics."
       />
 

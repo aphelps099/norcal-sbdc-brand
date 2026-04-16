@@ -186,11 +186,11 @@ export default function GlossaryPage() {
       <InteriorHero
         chapterNumber="12"
         category="tools"
-        title="glossary"
+        title="Glossary"
         subtitle="Terms, acronyms, and definitions used across the NorCal SBDC network. Keep this reference handy — consistent language builds trust."
       />
 
-      <div className="bg-white py-12 md:py-16">
+      <div className="bg-cream py-12 md:py-16">
         {/* Intro */}
         <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-14">
           <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-6">
