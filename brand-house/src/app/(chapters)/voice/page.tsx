@@ -2,25 +2,12 @@
 import BrandVideoPlayer from "@/components/BrandVideoPlayer";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
-
-const weAreData = [
-  { trait: "Direct", desc: "Lead with the point.", anti: "Bureaucratic", antiDesc: "No acronym-laden jargon." },
-  { trait: "Human", desc: "Write like a person, not an institution.", anti: "Institutional", antiDesc: "Never sound like a press release." },
-  { trait: "Knowing", desc: "We have the data and the experience.", anti: "Condescending", antiDesc: "Never talk down to a business owner." },
-  { trait: "Optimistic", desc: "We believe in the businesses we serve.", anti: "Naive", antiDesc: "We're honest about the hard parts too." },
-];
+import VoiceHero from "@/components/VoiceHero";
 
 const pillars = [
-  { name: "Your Business, People", sub: "Advisors, mentors, real humans", color: "#004290" },
-  { name: "Your Business, Funded", sub: "Capital access, loans, grants", color: "#A73B44" },
-  { name: "Your Business, Connected", sub: "Network, resources, community", color: "#5684BA" },
-];
-
-const headlinePatterns = [
-  { text: "What\u2019s free advice worth? $547 million,", emphasis: "last year." },
-  { text: "Your business deserves someone who", emphasis: "gets it." },
-  { text: "Don\u2019t settle for", emphasis: "generic advice." },
-  { text: "Real clients. Real", emphasis: "results." },
+  { name: "Your Business, People", sub: "Advisors, mentors, real humans." },
+  { name: "Your Business, Funded", sub: "Capital access, loans, grants." },
+  { name: "Your Business, Connected", sub: "Network, resources, community." },
 ];
 
 const proofPoints = [
@@ -29,582 +16,470 @@ const proofPoints = [
   { number: "1,900+", label: "jobs created" },
 ];
 
+// Shared 2px container-width steel rule
+function SectionRule() {
+  return (
+    <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
+      <div
+        aria-hidden
+        style={{
+          height: 2,
+          background: "#5684BA",
+          opacity: 0.85,
+        }}
+      />
+    </div>
+  );
+}
+
+// Shared section heading — Proxima 500, per design spec
+function SectionHeading({
+  eyebrow,
+  title,
+}: {
+  eyebrow: string;
+  title: string;
+}) {
+  return (
+    <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
+      <p
+        className="uppercase"
+        style={{
+          fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+          fontSize: "11px",
+          letterSpacing: "0.22em",
+          color: "rgba(133, 163, 200, 0.75)",
+        }}
+      >
+        {eyebrow}
+      </p>
+      <h2
+        className="mt-4"
+        style={{
+          fontFamily: "var(--sans)",
+          fontWeight: 500,
+          fontSize: "clamp(28px, 3.2vw, 40px)",
+          letterSpacing: "-0.015em",
+          lineHeight: 1.05,
+          color: "#f5f4f0",
+        }}
+      >
+        {title}
+      </h2>
+    </div>
+  );
+}
+
 export default function VoicePage() {
   return (
-    <>
-      {/* ── SECTION 1 — Full-bleed Voice Statement ── */}
-      <section
-        className="min-h-screen flex items-center justify-center relative overflow-hidden"
-        style={{ backgroundColor: "#0f1c2e" }}
-      >
+    <div style={{ backgroundColor: "#0f1c2e" }}>
+      {/* ── HERO ── */}
+      <VoiceHero />
+
+      {/* ── VIDEO ── */}
+      <section className="pt-20 md:pt-28 pb-6 relative">
         <SbdcWatermark
           className="absolute inset-0 w-full h-full pointer-events-none select-none"
-          opacity={0.025}
+          opacity={0.02}
         />
-        <p
-          className="absolute top-0 left-0 pt-8 pl-8 md:pt-10 md:pl-10 uppercase"
-          style={{
-            fontFamily: "var(--mono)",
-            fontSize: "10px",
-            letterSpacing: "0.12em",
-            color: "rgba(255,255,255,0.25)",
-          }}
-        >
-          Voice &amp; Tone
-        </p>
-        <div className="text-center px-6 relative z-10">
-          <h1
-            className="italic"
-            style={{
-              fontFamily: "var(--serif)",
-              fontSize: "clamp(72px, 12vw, 140px)",
-              color: "rgba(255,255,255,0.9)",
-              letterSpacing: "-0.03em",
-              lineHeight: 0.95,
-            }}
-          >
-            Your Business,
-            <br />
-            Better.
-          </h1>
+        <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
           <p
-            className="mt-8"
+            className="uppercase mb-6"
             style={{
-              fontFamily: "var(--sans)",
-              fontSize: "20px",
-              color: "rgba(255,255,255,0.4)",
-              letterSpacing: "0.01em",
+              fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+              fontSize: "11px",
+              letterSpacing: "0.22em",
+              color: "rgba(133, 163, 200, 0.75)",
             }}
           >
-            This is how we speak.
+            01 · Brand Film
           </p>
-        </div>
-      </section>
-
-      {/* ── SECTION 2 — Brand Video ── */}
-      <section
-        className="py-16 md:py-24"
-        style={{ backgroundColor: "#0f1c2e" }}
-      >
-        <div className="max-w-[960px] mx-auto px-8 md:px-12">
-          <div className="overflow-hidden" style={{ borderRadius: "2px" }}>
+          <div
+            className="overflow-hidden"
+            style={{
+              borderRadius: 2,
+              border: "1px solid rgba(133,163,200,0.15)",
+            }}
+          >
             <BrandVideoPlayer videoId="5s8fBXxKaJc" />
           </div>
           <p
-            className="mt-6 text-center italic"
+            className="mt-5 italic"
             style={{
               fontFamily: "var(--serif)",
-              fontSize: "18px",
-              color: "rgba(255,255,255,0.3)",
+              fontSize: "15px",
+              color: "rgba(133,163,200,0.55)",
             }}
           >
-            Brand Video
+            The tone of voice, in motion.
           </p>
         </div>
       </section>
 
-      {/* ── SECTION 3 — We Are / We Are Not ── */}
-      <section
-        className="pt-8 pb-20 md:pb-28"
-        style={{ backgroundColor: "#0f1c2e" }}
-      >
-        <div className="max-w-[960px] mx-auto px-8 md:px-12">
-          {/* Desktop: two-column grid */}
-          <div className="hidden md:grid grid-cols-2 gap-0">
-            {/* Left column — We Are */}
-            <div>
-              <p
-                className="uppercase mb-8"
-                style={{
-                  fontFamily: "var(--sans)",
-                  fontSize: "14px",
-                  letterSpacing: "0.08em",
-                  color: "rgba(255,255,255,0.3)",
-                }}
-              >
-                We are
-              </p>
-              {weAreData.map((row, i) => (
-                <div
-                  key={row.trait}
-                  className={`py-6 ${i < weAreData.length - 1 ? "border-b border-white/[0.06]" : ""}`}
-                >
-                  <p
-                    style={{
-                      fontFamily: "var(--sans)",
-                      fontSize: "20px",
-                      fontWeight: 500,
-                      color: "rgba(255,255,255,0.9)",
-                    }}
-                  >
-                    {row.trait}
-                  </p>
-                  <p
-                    className="mt-1"
-                    style={{
-                      fontFamily: "var(--sans)",
-                      fontSize: "14px",
-                      color: "rgba(255,255,255,0.45)",
-                    }}
-                  >
-                    {row.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-            {/* Right column — We Are Not */}
-            <div>
-              <p
-                className="uppercase mb-8"
-                style={{
-                  fontFamily: "var(--sans)",
-                  fontSize: "14px",
-                  letterSpacing: "0.08em",
-                  color: "rgba(167,59,68,0.4)",
-                }}
-              >
-                We are not
-              </p>
-              {weAreData.map((row, i) => (
-                <div
-                  key={row.anti}
-                  className={`py-6 ${i < weAreData.length - 1 ? "border-b border-white/[0.06]" : ""}`}
-                >
-                  <p
-                    style={{
-                      fontFamily: "var(--sans)",
-                      fontSize: "20px",
-                      color: "rgba(255,255,255,0.2)",
-                    }}
-                  >
-                    {row.anti}
-                  </p>
-                  <p
-                    className="mt-1"
-                    style={{
-                      fontFamily: "var(--sans)",
-                      fontSize: "14px",
-                      color: "rgba(255,255,255,0.15)",
-                    }}
-                  >
-                    {row.antiDesc}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+      <div className="pt-16 md:pt-24">
+        <SectionRule />
+      </div>
 
-          {/* Mobile: stacked single column */}
-          <div className="md:hidden">
-            <p
-              className="uppercase mb-8"
-              style={{
-                fontFamily: "var(--sans)",
-                fontSize: "14px",
-                letterSpacing: "0.08em",
-                color: "rgba(255,255,255,0.3)",
-              }}
-            >
-              We are
-            </p>
-            {weAreData.map((row, i) => (
-              <div
-                key={row.trait}
-                className={`py-6 ${i < weAreData.length - 1 ? "border-b border-white/[0.06]" : ""}`}
-              >
-                <p
-                  style={{
-                    fontFamily: "var(--sans)",
-                    fontSize: "20px",
-                    fontWeight: 500,
-                    color: "rgba(255,255,255,0.9)",
-                  }}
-                >
-                  {row.trait}
-                </p>
-                <p
-                  className="mt-1"
-                  style={{
-                    fontFamily: "var(--sans)",
-                    fontSize: "14px",
-                    color: "rgba(255,255,255,0.45)",
-                  }}
-                >
-                  {row.desc}
-                </p>
-              </div>
-            ))}
-
-            <p
-              className="uppercase mt-12 mb-8"
-              style={{
-                fontFamily: "var(--sans)",
-                fontSize: "14px",
-                letterSpacing: "0.08em",
-                color: "rgba(167,59,68,0.4)",
-              }}
-            >
-              We are not
-            </p>
-            {weAreData.map((row, i) => (
-              <div
-                key={row.anti}
-                className={`py-6 ${i < weAreData.length - 1 ? "border-b border-white/[0.06]" : ""}`}
-              >
-                <p
-                  style={{
-                    fontFamily: "var(--sans)",
-                    fontSize: "20px",
-                    color: "rgba(255,255,255,0.2)",
-                  }}
-                >
-                  {row.anti}
-                </p>
-                <p
-                  className="mt-1"
-                  style={{
-                    fontFamily: "var(--sans)",
-                    fontSize: "14px",
-                    color: "rgba(255,255,255,0.15)",
-                  }}
-                >
-                  {row.antiDesc}
-                </p>
-              </div>
-            ))}
-          </div>
+      {/* ── PERSONALITY — short serif paragraph ── */}
+      <section className="pt-14 md:pt-20 pb-24 md:pb-32">
+        <SectionHeading eyebrow="02 · Personality" title="Four traits, one voice." />
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 mt-12 md:mt-14">
+          <p
+            className="italic max-w-[980px]"
+            style={{
+              fontFamily: "var(--serif)",
+              fontSize: "clamp(26px, 3.2vw, 44px)",
+              lineHeight: 1.25,
+              letterSpacing: "-0.015em",
+              color: "rgba(245, 244, 240, 0.92)",
+            }}
+          >
+            We are{" "}
+            <span style={{ color: "#85A3C8" }}>direct</span> — leading with the
+            point, never with the acronym. We are{" "}
+            <span style={{ color: "#85A3C8" }}>human</span>, writing like a
+            person and not an institution. We are{" "}
+            <span style={{ color: "#85A3C8" }}>knowing</span>, because the data
+            and the experience are ours. And we are{" "}
+            <span style={{ color: "#85A3C8" }}>optimistic</span> — honest about
+            the hard parts, and still convinced a small business can change a
+            town.
+          </p>
         </div>
       </section>
 
-      {/* ── SECTION 4 — Voice in Action (cream) ── */}
-      <section
-        className="py-24 md:py-32"
-        style={{ backgroundColor: "#f5f4f0" }}
-      >
-        <div className="max-w-[1060px] mx-auto px-8 md:px-12">
-          <div className="border-t pt-6 mb-16" style={{ borderColor: "rgba(15,28,46,0.08)" }}>
-            <p
-              className="uppercase"
-              style={{
-                fontFamily: "var(--mono)",
-                fontSize: "10px",
-                letterSpacing: "0.12em",
-                color: "rgba(15,28,46,0.25)",
-              }}
-            >
-              01 &middot; Voice in Action
-            </p>
-          </div>
+      <SectionRule />
 
-          {/* Specimen A — Hero Headline */}
-          <div>
-            <p
-              className="uppercase mb-4"
+      {/* ── VOICE IN ACTION — billboard gallery ── */}
+      <section className="pt-14 md:pt-20 pb-24 md:pb-32">
+        <SectionHeading
+          eyebrow="03 · Voice in Action"
+          title="The voice at billboard scale."
+        />
+
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 mt-16 md:mt-20">
+          {/* Specimen 1 — Homepage wide display */}
+          <figure className="py-14 md:py-20 border-t border-white/[0.08]">
+            <figcaption
+              className="uppercase mb-6"
               style={{
-                fontFamily: "var(--mono)",
-                fontSize: "10px",
-                letterSpacing: "0.12em",
-                color: "rgba(15,28,46,0.25)",
+                fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+                fontSize: "11px",
+                letterSpacing: "0.22em",
+                color: "rgba(133,163,200,0.55)",
               }}
             >
               Homepage
-            </p>
+            </figcaption>
             <p
               className="uppercase"
               style={{
                 fontFamily: "var(--font-wide)",
                 fontWeight: 700,
-                fontSize: "clamp(28px, 4.5vw, 52px)",
-                color: "#0f1c2e",
-                letterSpacing: "0.02em",
-                lineHeight: 1.1,
+                fontSize: "clamp(40px, 6.2vw, 92px)",
+                color: "#f5f4f0",
+                letterSpacing: "0.01em",
+                lineHeight: 1.02,
               }}
             >
               What&rsquo;s free advice worth? $547 million,{" "}
               <span style={{ color: "#A73B44" }}>last year.</span>
             </p>
-          </div>
+          </figure>
 
-          {/* Specimen B — Client Story Lede */}
-          <div className="mt-16 md:mt-20">
-            <p
-              className="uppercase mb-4"
+          {/* Specimen 2 — Client story serif */}
+          <figure className="py-14 md:py-20 border-t border-white/[0.08]">
+            <figcaption
+              className="uppercase mb-6"
               style={{
-                fontFamily: "var(--mono)",
-                fontSize: "10px",
-                letterSpacing: "0.12em",
-                color: "rgba(15,28,46,0.25)",
+                fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+                fontSize: "11px",
+                letterSpacing: "0.22em",
+                color: "rgba(133,163,200,0.55)",
               }}
             >
               Client Story
-            </p>
+            </figcaption>
             <p
-              className="italic max-w-[800px]"
+              className="italic"
               style={{
                 fontFamily: "var(--serif)",
-                fontSize: "clamp(28px, 4vw, 48px)",
-                color: "#0f1c2e",
-                letterSpacing: "-0.01em",
-                lineHeight: 1.2,
+                fontSize: "clamp(36px, 5.6vw, 84px)",
+                color: "#f5f4f0",
+                letterSpacing: "-0.02em",
+                lineHeight: 1.08,
               }}
             >
-              &ldquo;When Maria came to us, she had a recipe and a dream.&rdquo;
+              &ldquo;When Maria came to us, she had a recipe and{" "}
+              <span style={{ color: "#85A3C8" }}>a dream.</span>&rdquo;
             </p>
-          </div>
+          </figure>
 
-          {/* Specimen C — Impact Stat */}
-          <div className="mt-16 md:mt-20">
-            <p
-              className="uppercase mb-4"
+          {/* Specimen 3 — Impact stat */}
+          <figure className="py-14 md:py-20 border-t border-white/[0.08]">
+            <figcaption
+              className="uppercase mb-6"
               style={{
-                fontFamily: "var(--mono)",
-                fontSize: "10px",
-                letterSpacing: "0.12em",
-                color: "rgba(15,28,46,0.25)",
+                fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+                fontSize: "11px",
+                letterSpacing: "0.22em",
+                color: "rgba(133,163,200,0.55)",
               }}
             >
               Impact
-            </p>
-            <p
-              style={{
-                fontFamily: "var(--font-wide)",
-                fontWeight: 700,
-                fontSize: "clamp(56px, 10vw, 120px)",
-                color: "#0f1c2e",
-                letterSpacing: "-0.02em",
-                lineHeight: 1,
-              }}
-            >
-              $2.8B
-            </p>
-            <p
-              className="mt-2"
-              style={{
-                fontFamily: "var(--sans)",
-                fontSize: "16px",
-                color: "rgba(15,28,46,0.4)",
-              }}
-            >
-              in capital raised since 1980
-            </p>
-          </div>
+            </figcaption>
+            <div className="flex flex-col md:flex-row md:items-end md:gap-10">
+              <p
+                style={{
+                  fontFamily: "var(--font-wide)",
+                  fontWeight: 700,
+                  fontSize: "clamp(96px, 16vw, 220px)",
+                  color: "#f5f4f0",
+                  letterSpacing: "-0.03em",
+                  lineHeight: 0.88,
+                }}
+              >
+                $2.8B
+              </p>
+              <p
+                className="mt-4 md:mt-0 md:pb-4 max-w-[320px]"
+                style={{
+                  fontFamily: "var(--sans)",
+                  fontWeight: 500,
+                  fontSize: "15px",
+                  lineHeight: 1.5,
+                  color: "rgba(133,163,200,0.75)",
+                }}
+              >
+                in capital raised since 1980. Real dollars into real
+                businesses.
+              </p>
+            </div>
+          </figure>
 
-          {/* Specimen D — Social Post */}
-          <div className="mt-16 md:mt-20">
-            <p
-              className="uppercase mb-4"
+          {/* Specimen 4 — Social */}
+          <figure className="py-14 md:py-20 border-t border-b border-white/[0.08]">
+            <figcaption
+              className="uppercase mb-6"
               style={{
-                fontFamily: "var(--mono)",
-                fontSize: "10px",
-                letterSpacing: "0.12em",
-                color: "rgba(15,28,46,0.25)",
+                fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+                fontSize: "11px",
+                letterSpacing: "0.22em",
+                color: "rgba(133,163,200,0.55)",
               }}
             >
               Social
-            </p>
+            </figcaption>
             <p
               style={{
                 fontFamily: "var(--sans)",
                 fontWeight: 500,
-                fontSize: "clamp(20px, 2.8vw, 32px)",
-                color: "#0f1c2e",
-                letterSpacing: "-0.01em",
+                fontSize: "clamp(32px, 4.5vw, 64px)",
+                color: "#f5f4f0",
+                letterSpacing: "-0.015em",
+                lineHeight: 1.08,
               }}
             >
-              42,000 jobs created. And counting.
+              42,000 jobs created.{" "}
+              <span style={{ color: "rgba(245,244,240,0.5)" }}>
+                And counting.
+              </span>
             </p>
             <p
-              className="mt-3"
+              className="mt-5"
               style={{
-                fontFamily: "var(--mono)",
+                fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
                 fontSize: "12px",
-                color: "rgba(15,28,46,0.25)",
+                letterSpacing: "0.12em",
+                color: "rgba(133,163,200,0.55)",
               }}
             >
               #YourBusinessBetter
             </p>
-          </div>
+          </figure>
         </div>
       </section>
 
-      {/* ── SECTION 5 — Messaging Framework (navy) ── */}
-      <section style={{ backgroundColor: "#0f1c2e" }}>
-        <div className="w-full h-[2px]" style={{ backgroundColor: "#c4543a" }} />
-        <div className="max-w-[960px] mx-auto px-8 md:px-12 py-24 md:py-32">
-          {/* Tagline */}
-          <h2
-            className="italic"
-            style={{
-              fontFamily: "var(--serif)",
-              fontSize: "clamp(48px, 8vw, 96px)",
-              color: "rgba(255,255,255,0.9)",
-              letterSpacing: "-0.02em",
-              lineHeight: 1.0,
-            }}
-          >
-            Your Business,
-            <br />
-            Better.
-          </h2>
-          <p
-            className="mt-4 uppercase"
-            style={{
-              fontFamily: "var(--mono)",
-              fontSize: "10px",
-              letterSpacing: "0.12em",
-              color: "rgba(255,255,255,0.2)",
-            }}
-          >
-            Primary Tagline
-          </p>
+      <SectionRule />
 
-          {/* Pillars */}
-          <div className="mt-16 border-t border-white/[0.06]">
-            {pillars.map((p) => (
-              <div
-                key={p.name}
-                className="grid grid-cols-1 md:grid-cols-[240px_1fr] py-5 border-b border-white/[0.06] items-baseline gap-2 md:gap-0"
-              >
-                <div className="flex items-center gap-3">
-                  <span
-                    className="inline-block w-[6px] h-[6px] rounded-full shrink-0"
-                    style={{ backgroundColor: p.color }}
-                  />
-                  <span
+      {/* ── MESSAGING PILLARS ── */}
+      <section className="pt-14 md:pt-20 pb-28 md:pb-36">
+        <SectionHeading
+          eyebrow="04 · Messaging Pillars"
+          title="Taglines, metrics, and the mantra."
+        />
+
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 mt-14 md:mt-20">
+          {/* Primary tagline */}
+          <div className="border-t border-white/[0.08] pt-10 md:pt-12">
+            <p
+              className="uppercase mb-5"
+              style={{
+                fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+                fontSize: "11px",
+                letterSpacing: "0.22em",
+                color: "rgba(133,163,200,0.55)",
+              }}
+            >
+              Primary Tagline
+            </p>
+            <h3
+              className="italic"
+              style={{
+                fontFamily: "var(--serif)",
+                fontSize: "clamp(56px, 9vw, 128px)",
+                color: "#f5f4f0",
+                letterSpacing: "-0.03em",
+                lineHeight: 0.96,
+              }}
+            >
+              Your Business,
+              <br />
+              Better.
+            </h3>
+          </div>
+
+          {/* Three pillars */}
+          <div className="mt-20 md:mt-28">
+            <p
+              className="uppercase mb-10"
+              style={{
+                fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+                fontSize: "11px",
+                letterSpacing: "0.22em",
+                color: "rgba(133,163,200,0.55)",
+              }}
+            >
+              Three Pillars
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+              {pillars.map((p) => (
+                <div
+                  key={p.name}
+                  className="py-8 md:py-2 md:pl-6 md:border-l border-t md:border-t-0 border-white/[0.08]"
+                >
+                  <p
                     style={{
                       fontFamily: "var(--sans)",
-                      fontSize: "18px",
                       fontWeight: 500,
-                      color: "rgba(255,255,255,0.8)",
+                      fontSize: "clamp(22px, 2.2vw, 28px)",
+                      color: "#f5f4f0",
+                      letterSpacing: "-0.01em",
+                      lineHeight: 1.15,
                     }}
                   >
                     {p.name}
-                  </span>
+                  </p>
+                  <p
+                    className="mt-3"
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontWeight: 400,
+                      fontSize: "15px",
+                      lineHeight: 1.55,
+                      color: "rgba(133,163,200,0.75)",
+                    }}
+                  >
+                    {p.sub}
+                  </p>
                 </div>
-                <span
-                  style={{
-                    fontFamily: "var(--sans)",
-                    fontSize: "14px",
-                    color: "rgba(255,255,255,0.35)",
-                  }}
-                >
-                  {p.sub}
-                </span>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
-          {/* Headline Patterns */}
-          <div className="mt-14 border-t border-white/[0.06] pt-6">
+          {/* Metrics / proof points */}
+          <div className="mt-20 md:mt-28 pt-10 md:pt-12 border-t border-white/[0.08]">
             <p
-              className="uppercase mb-6"
+              className="uppercase mb-10"
               style={{
-                fontFamily: "var(--mono)",
-                fontSize: "10px",
-                letterSpacing: "0.12em",
-                color: "rgba(255,255,255,0.2)",
+                fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+                fontSize: "11px",
+                letterSpacing: "0.22em",
+                color: "rgba(133,163,200,0.55)",
               }}
             >
-              Headline Patterns
+              By the Numbers
             </p>
-            {headlinePatterns.map((h, i) => (
-              <div key={i} className="py-4 border-b border-white/[0.06]">
-                <p
-                  style={{
-                    fontFamily: "var(--sans)",
-                    fontSize: "clamp(15px, 1.6vw, 18px)",
-                    color: "rgba(255,255,255,0.6)",
-                  }}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+              {proofPoints.map((pt) => (
+                <div
+                  key={pt.label}
+                  className="py-8 md:py-0 md:pl-6 md:border-l border-t md:border-t-0 border-white/[0.08]"
+                  style={{ minWidth: 0 }}
                 >
-                  &ldquo;{h.text}{" "}
-                  <em className="italic" style={{ color: "#A73B44" }}>
-                    {h.emphasis}
-                  </em>
-                  &rdquo;
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 6 — Closer (proof points + knockout quote) ── */}
-      <section
-        className="pt-8 pb-24 md:pb-32 relative overflow-hidden"
-        style={{ backgroundColor: "#0f1c2e" }}
-      >
-        <SbdcWatermark
-          className="absolute -right-[8%] top-[10%] w-[35vw] max-w-[420px] pointer-events-none select-none"
-          opacity={0.025}
-        />
-        <div className="max-w-[960px] mx-auto px-8 md:px-12 relative z-10">
-          {/* Proof points */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
-            {proofPoints.map((pt, i) => (
-              <div
-                key={pt.label}
-                className={`text-center py-8 md:py-0 ${
-                  i < proofPoints.length - 1
-                    ? "border-b md:border-b-0 md:border-r border-white/[0.06]"
-                    : ""
-                }`}
-              >
-                <p
-                  style={{
-                    fontFamily: "var(--font-wide)",
-                    fontWeight: 700,
-                    fontSize: "clamp(36px, 5vw, 64px)",
-                    color: "rgba(255,255,255,0.9)",
-                  }}
-                >
-                  {pt.number}
-                </p>
-                <p
-                  className="mt-2"
-                  style={{
-                    fontFamily: "var(--sans)",
-                    fontSize: "12px",
-                    color: "rgba(255,255,255,0.25)",
-                  }}
-                >
-                  {pt.label}
-                </p>
-              </div>
-            ))}
+                  <p
+                    style={{
+                      fontFamily: "var(--font-wide)",
+                      fontWeight: 700,
+                      fontSize: "clamp(44px, 4.6vw, 68px)",
+                      color: "#f5f4f0",
+                      letterSpacing: "-0.02em",
+                      lineHeight: 0.95,
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {pt.number}
+                  </p>
+                  <p
+                    className="mt-3"
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontSize: "15px",
+                      color: "rgba(133,163,200,0.75)",
+                    }}
+                  >
+                    {pt.label}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Knockout quote */}
-          <div className="mt-16 border-t border-white/[0.06] pt-12">
+          {/* Manifesto / boilerplate */}
+          <div className="mt-20 md:mt-28 pt-10 md:pt-12 border-t border-white/[0.08]">
             <p
-              className="italic text-center mx-auto max-w-[720px]"
+              className="uppercase mb-8"
+              style={{
+                fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+                fontSize: "11px",
+                letterSpacing: "0.22em",
+                color: "rgba(133,163,200,0.55)",
+              }}
+            >
+              Sample Boilerplate · Manifesto
+            </p>
+            <p
+              className="italic max-w-[960px]"
               style={{
                 fontFamily: "var(--serif)",
-                fontSize: "clamp(22px, 3vw, 36px)",
-                color: "rgba(255,255,255,0.6)",
-                letterSpacing: "-0.01em",
-                lineHeight: 1.4,
+                fontSize: "clamp(24px, 2.9vw, 40px)",
+                color: "rgba(245,244,240,0.92)",
+                letterSpacing: "-0.015em",
+                lineHeight: 1.3,
               }}
             >
-              &ldquo;We don&rsquo;t just advise. We sit across the table, roll up
-              our sleeves, and help you build something that lasts.&rdquo;
+              &ldquo;We don&rsquo;t just advise. We sit across the table, roll
+              up our sleeves, and help you build something that lasts. That&rsquo;s
+              how 8,500 businesses became{" "}
+              <span style={{ color: "#85A3C8" }}>8,500 stories</span> — and
+              counting.&rdquo;
+            </p>
+            <p
+              className="mt-8"
+              style={{
+                fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+                fontSize: "12px",
+                letterSpacing: "0.18em",
+                color: "rgba(133,163,200,0.55)",
+              }}
+            >
+              #YourBusinessBetter · #NorCalSBDC · #PeopleFundedConnected
             </p>
           </div>
-
-          {/* Hashtags */}
-          <p
-            className="mt-12 text-center"
-            style={{
-              fontFamily: "var(--mono)",
-              fontSize: "11px",
-              color: "rgba(255,255,255,0.15)",
-            }}
-          >
-            #YourBusinessBetter &nbsp;&middot;&nbsp; #NorCalSBDC &nbsp;&middot;&nbsp; #PeopleFundedConnected
-          </p>
         </div>
       </section>
 
       <NextSectionLink title="Photography" href="/photography" />
-    </>
+    </div>
   );
 }
