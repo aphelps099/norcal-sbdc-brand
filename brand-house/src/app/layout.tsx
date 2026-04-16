@@ -24,7 +24,7 @@ export default function RootLayout({
         />
         <link
           rel="stylesheet"
-          href="https://use.typekit.net/qpa2fmy.css"
+          href="https://use.typekit.net/pkl5rjs.css"
         />
         {/* Material Symbols Outlined — variable icon font */}
         <link
