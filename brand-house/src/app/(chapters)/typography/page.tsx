@@ -272,12 +272,12 @@ function TypeInUse() {
         </p>
       </div>
 
-      {/* Full-bleed hairline rule */}
-      <div className="w-full mb-12 md:mb-16">
+      {/* Container-width 2px rule under heading */}
+      <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 mb-12 md:mb-16">
         <div
           aria-hidden
           style={{
-            height: 1,
+            height: 2,
             background: "rgba(15,28,46,0.18)",
           }}
         />
@@ -724,8 +724,8 @@ function UsageReference({ rows }: { rows: UsageRow[] }) {
         </p>
       </div>
 
-      <div className="w-full mb-12 md:mb-16">
-        <div aria-hidden style={{ height: 1, background: "rgba(15,28,46,0.18)" }} />
+      <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 mb-12 md:mb-16">
+        <div aria-hidden style={{ height: 2, background: "rgba(15,28,46,0.18)" }} />
       </div>
 
       <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
