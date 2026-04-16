@@ -1,14 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import Fuse from "fuse.js";
-import { searchData, type SearchItem } from "@/lib/search-index";
 import { STAR_PATH } from "@/lib/brand-tokens";
-
-const fuse = new Fuse(searchData, {
-  keys: ["title", "section", "content"],
-  threshold: 0.4,
-});
 
 /* 4-column nav — mirrors CA SBDC Explore / About / Impact / Connect */
 const NAV_COLS = [
@@ -54,15 +47,9 @@ export default function TopNav() {
   const [mounted, setMounted] = useState(false);
   const [closing, setClosing] = useState(false);
   const [starActive, setStarActive] = useState(false);
-  const [query, setQuery] = useState("");
   const [starKey, setStarKey] = useState(0);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const starTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const searchRef = useRef<HTMLInputElement>(null);
-
-  const results: SearchItem[] = query
-    ? fuse.search(query).map((r) => r.item)
-    : [];
 
   useEffect(() => {
     const onScroll = () => {
@@ -82,10 +69,8 @@ export default function TopNav() {
       setMounted(true);
       setStarKey((k) => k + 1);
       starTimer.current = setTimeout(() => setStarActive(true), 50);
-      setTimeout(() => searchRef.current?.focus(), 500);
     } else {
       document.body.style.overflow = "";
-      setQuery("");
       setStarActive(false);
       setClosing(true);
       closeTimer.current = setTimeout(() => {
@@ -204,14 +189,19 @@ export default function TopNav() {
         <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 py-4 flex items-center justify-between relative z-[60]">
           <a
             href="/"
-            className={`text-[0.65rem] tracking-[0.18em] uppercase transition-colors duration-500 no-underline ${
+            className={`uppercase transition-colors duration-500 no-underline ${
               menuOpen
-                ? "text-white/50 hover:text-white"
+                ? "text-white/70 hover:text-white"
                 : isDark
-                  ? "text-white/70 hover:text-white"
+                  ? "text-white/75 hover:text-white"
                   : "text-navy hover:text-navy"
             }`}
-            style={{ fontFamily: "var(--sans)", fontWeight: 500 }}
+            style={{
+              fontFamily: "var(--font-wide)",
+              fontWeight: 700,
+              fontSize: "14px",
+              letterSpacing: "0.22em",
+            }}
           >
             Brand
           </a>
@@ -335,12 +325,13 @@ export default function TopNav() {
                             }}
                           >
                             <span
-                              className="block text-white/80 hover:underline transition-colors duration-200 group-hover/nav:text-white"
+                              className="block text-white/75 transition-colors duration-200 group-hover/nav:text-white"
                               style={{
-                                fontFamily: "var(--sans)",
-                                fontWeight: 700,
-                                fontSize: "clamp(0.875rem, 1.2vw, 1rem)",
-                                letterSpacing: "0.05em",
+                                fontFamily: "var(--serif)",
+                                fontWeight: 300,
+                                fontSize: "clamp(1.375rem, 2vw, 1.75rem)",
+                                letterSpacing: "-0.01em",
+                                lineHeight: 1.25,
                               }}
                             >
                               {link.label}
@@ -354,9 +345,9 @@ export default function TopNav() {
               </div>
             </div>
 
-            {/* ── Search & CTA band ── */}
+            {/* ── Bottom band — logo + tagline ── */}
             <div
-              className="shrink-0"
+              className="shrink-0 border-t border-white/[0.1]"
               style={{
                 opacity: menuOpen ? 1 : 0,
                 transform: menuOpen ? "translateY(0)" : "translateY(12px)",
@@ -365,114 +356,39 @@ export default function TopNav() {
                   : "opacity 0.2s ease, transform 0.2s ease",
               }}
             >
-              {/* Search result cards — appear ABOVE the search bar */}
-              <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16">
-                <div
-                  className="pb-8 transition-all duration-300"
+              <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 py-8 flex items-center justify-between gap-6">
+                {/* Logo */}
+                <div className="shrink-0">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/logos/NCN_Band_Logo_White.png"
+                    alt="NorCal SBDC"
+                    className="h-12 w-auto opacity-60"
+                  />
+                </div>
+
+                {/* Tagline — the one line that matters */}
+                <p
+                  className="text-right text-white/80"
                   style={{
-                    minHeight: query && results.length > 0 ? "auto" : 0,
-                    opacity: query && results.length > 0 ? 1 : 0,
-                    transform: query && results.length > 0 ? "translateY(0)" : "translateY(8px)",
+                    fontFamily: "var(--sans)",
+                    fontWeight: 500,
+                    fontSize: "clamp(1rem, 1.6vw, 1.5rem)",
+                    letterSpacing: "-0.02em",
+                    lineHeight: 1.1,
                   }}
                 >
-                  <div className="flex flex-col gap-1">
-                    {results.slice(0, 6).map((item) => (
-                      <a
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setMenuOpen(false)}
-                        className="group/card py-2 no-underline flex items-baseline gap-3"
-                      >
-                        <span
-                          className="text-white/50 group-hover/card:text-white transition-colors duration-200"
-                          style={{ fontFamily: "var(--sans)", fontSize: "clamp(1.1rem, 2vw, 1.5rem)", fontWeight: 500 }}
-                        >
-                          {item.title}
-                        </span>
-                        <span
-                          className="text-white/15 group-hover/card:text-white/30 transition-colors duration-200"
-                          style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase" as const }}
-                        >
-                          {item.section}
-                        </span>
-                      </a>
-                    ))}
-                  </div>
-                  {query && results.length === 0 && (
-                    <span className="text-white/20" style={{ fontFamily: "var(--sans)", fontSize: "1.1rem" }}>
-                      No results for &ldquo;{query}&rdquo;
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              {/* Bottom band */}
-              <div className="border-t border-white/[0.1]">
-                <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 py-7 flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-12">
-                  {/* Logo */}
-                  <div className="shrink-0">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src="/logos/NCN_Band_Logo_White.png"
-                      alt="NorCal SBDC"
-                      className="h-12 w-auto opacity-50"
-                    />
-                  </div>
-
-                  {/* Description */}
-                  <p
-                    className="text-white/40 flex-1 max-w-md"
+                  Your business,{" "}
+                  <em
                     style={{
-                      fontFamily: "var(--sans)",
-                      fontSize: "0.85rem",
-                      lineHeight: "1.55",
+                      fontFamily: "var(--serif)",
+                      fontStyle: "italic",
                       fontWeight: 400,
                     }}
                   >
-                    Find what you need — colors, logos, templates, voice guidelines, and more. Everything to keep the NorCal SBDC brand sharp and consistent.
-                  </p>
-
-                  {/* Material Design search input */}
-                  <div className="shrink-0 relative w-[280px] sm:w-[320px]">
-                    <div className="flex items-center gap-3">
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="text-white/25 shrink-0"
-                      >
-                        <circle cx="11" cy="11" r="7" />
-                        <path d="m20 20-3.5-3.5" />
-                      </svg>
-                      <input
-                        ref={searchRef}
-                        type="text"
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        placeholder="Search brand house..."
-                        className="flex-1 bg-transparent text-white/80 outline-none placeholder:text-white/25 peer"
-                        style={{
-                          fontFamily: "var(--sans)",
-                          fontSize: "0.95rem",
-                          fontWeight: 400,
-                          letterSpacing: "0.01em",
-                          paddingBottom: "8px",
-                        }}
-                      />
-                    </div>
-                    {/* Material underline — bold, animated color on focus */}
-                    <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/15 transition-colors duration-300" />
-                    <div
-                      className="absolute bottom-0 left-0 right-0 h-[2px] origin-left scale-x-0 peer-focus:scale-x-100 transition-transform duration-300"
-                      style={{ backgroundColor: "#5684BA" }}
-                    />
-                  </div>
-                </div>
+                    better.
+                  </em>
+                </p>
               </div>
             </div>
           </div>
