@@ -4,7 +4,8 @@
    FONTS — Three-font system via Adobe Fonts / Typekit (loaded in layout.tsx)
      · proxima-nova              — Workhorse   (500)
      · proxima-nova-extra-wide   — Display Label (700, CAPS only)
-     · turnip                    — Editorial Voice (300 / 400 / 400i)
+     · proxima-sera              — Editorial Voice (300 / 400 / 500 + italics)
+        Replaces Turnip — flows cohesively with the Proxima Nova family.
    Plus Roboto Mono (utility: code, hex, paths) loaded from Google Fonts.
    Local Proxima Nova fallback kept as a safety net if Typekit fails.
    ═══════════════════════════════════════════ */
@@ -61,7 +62,7 @@
   --sans: 'proxima-nova', 'Proxima Nova', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
   --sans-wide: 'proxima-nova-extra-wide', 'proxima-nova-wide', 'proxima-nova', 'Proxima Nova', -apple-system, sans-serif;
   --sans-label: 'proxima-nova-extra-wide', 'proxima-nova-wide', 'proxima-nova', 'Proxima Nova', -apple-system, sans-serif;
-  --serif: 'turnip', Georgia, 'Times New Roman', serif;
+  --serif: 'proxima-sera', 'turnip', Georgia, 'Times New Roman', serif;
   --mono: 'Roboto Mono', 'SF Mono', 'Fira Code', monospace;
 
   --pad: clamp(24px, 5vw, 64px);
@@ -93,7 +94,7 @@
   --font-sans: 'proxima-nova', 'Proxima Nova', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
   --font-wide: 'proxima-nova-extra-wide', 'proxima-nova-wide', 'proxima-nova', 'Proxima Nova', -apple-system, sans-serif;
   --font-label: 'proxima-nova-extra-wide', 'proxima-nova-wide', 'proxima-nova', 'Proxima Nova', -apple-system, sans-serif;
-  --font-serif: 'turnip', Georgia, 'Times New Roman', serif;
+  --font-serif: 'proxima-sera', 'turnip', Georgia, 'Times New Roman', serif;
   --font-mono: 'Roboto Mono', 'SF Mono', 'Fira Code', monospace;
 }
 

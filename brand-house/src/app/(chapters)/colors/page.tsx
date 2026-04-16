@@ -109,7 +109,7 @@ export default function ColorsPage() {
             </PosterFrame>
 
             {/* ─── Poster 2 · TURNIP EDITORIAL ─── */}
-            <PosterFrame caption="02 · Editorial — Turnip on Cream">
+            <PosterFrame caption="02 · Editorial — Sera on Cream">
               <div className="absolute inset-0" style={{ backgroundColor: "#f5f4f0" }} />
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c4543a]" />
               <div className="relative h-full flex flex-col justify-between p-6 md:p-8">
@@ -270,7 +270,7 @@ export default function ColorsPage() {
             </PosterFrame>
 
             {/* ─── Poster 6 · TAGLINE (Turnip closer) ─── */}
-            <PosterFrame caption="06 · Tagline — Turnip italic closer">
+            <PosterFrame caption="06 · Tagline — Sera italic closer">
               <div className="absolute inset-0" style={{ backgroundColor: "#0f1c2e" }} />
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c4543a]" />
               <div className="absolute -right-12 -top-12 w-[70%] opacity-[0.06] pointer-events-none">
