@@ -1,77 +1,95 @@
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
-import CopyButton from "@/components/CopyButton";
 
 const COBALT = "#004290";
 const BERRY = "#A73B44";
 const FOREST = "#2e8a55";
 
-const embedLink = `<link rel="stylesheet" href="https://use.typekit.net/pkl5rjs.css">`;
-
-const embedCss = `/* Workhorse — UI, body, display */
---font-sans: 'proxima-nova', -apple-system, Helvetica, sans-serif;
-
-/* Display labels — 700, caps only */
---font-wide: 'proxima-nova-extra-wide', 'proxima-nova', sans-serif;
-
-/* Editorial voice — 300 / 400 / 400i */
---font-serif: 'turnip', Georgia, 'Times New Roman', serif;`;
-
 const cast = [
   {
     num: "01",
     role: "Workhorse",
-    showpiece: "Aa",
-    showpieceStyle: {
+    name: "Proxima Nova",
+    slug: "proxima-nova · Medium 500",
+    nameStyle: {
       fontFamily: "var(--sans)",
       fontWeight: 500,
-      fontSize: "64px",
-      letterSpacing: "-0.02em",
+      fontSize: "44px",
+      letterSpacing: "-0.03em",
+      lineHeight: 1,
     } as const,
-    name: (
-      <>
-        Proxima<br />Nova
-      </>
-    ),
-    slug: "proxima-nova · Medium 500",
-    blurb:
-      "Headings, body copy, UI, navigation — the reliable voice across 90% of the system.",
+    specimenStyle: {
+      fontFamily: "var(--sans)",
+      fontWeight: 500,
+      fontSize: "20px",
+      letterSpacing: "-0.01em",
+      lineHeight: 1.5,
+    } as const,
+    lines: [
+      "Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm",
+      "Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz",
+      "0 1 2 3 4 5 6 7 8 9  !  ?  &  @  —",
+    ],
   },
   {
     num: "02",
     role: "Display",
-    showpiece: "NC",
-    showpieceStyle: {
+    name: "Proxima Nova Extra Wide",
+    slug: "proxima-nova-extra-wide · Bold 700",
+    nameStyle: {
+      fontFamily: "var(--sans)",
+      fontWeight: 500,
+      fontSize: "26px",
+      letterSpacing: "-0.02em",
+      lineHeight: 1.1,
+    } as const,
+    specimenStyle: {
       fontFamily: "var(--font-wide)",
       fontWeight: 700,
-      fontSize: "60px",
-      letterSpacing: "0.02em",
+      fontSize: "16px",
+      letterSpacing: "0.08em",
+      lineHeight: 1.75,
       textTransform: "uppercase" as const,
     },
-    name: (
-      <>
-        Proxima Nova<br />Extra Wide
-      </>
-    ),
-    slug: "proxima-nova-extra-wide · Bold 700",
-    blurb:
-      "Eyebrows, kickers, category labels. Caps only — the typographic shoulder tap.",
+    lines: [
+      "A B C D E F G H I J K L M",
+      "N O P Q R S T U V W X Y Z",
+      "0 1 2 3 4 5 6 7 8 9  ·  &",
+    ],
   },
   {
     num: "03",
     role: "Editorial",
-    showpiece: "better.",
-    showpieceStyle: {
+    name: "Turnip",
+    slug: "turnip · 300 / 400 / 400 italic",
+    nameStyle: {
+      fontFamily: "var(--serif)",
+      fontWeight: 400,
+      fontSize: "48px",
+      letterSpacing: "-0.01em",
+      lineHeight: 1,
+    } as const,
+    specimenStyle: {
+      fontFamily: "var(--serif)",
+      fontWeight: 400,
+      fontSize: "20px",
+      letterSpacing: "-0.005em",
+      lineHeight: 1.5,
+    } as const,
+    lines: [
+      "Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm",
+      "Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz",
+      "0 1 2 3 4 5 6 7 8 9  ?  &  —",
+    ],
+    italicLine: "Aa Bb Cc · better. · across a table.",
+    italicStyle: {
       fontFamily: "var(--serif)",
       fontWeight: 400,
       fontStyle: "italic" as const,
-      fontSize: "64px",
-      letterSpacing: "-0.01em",
+      fontSize: "20px",
+      letterSpacing: "-0.005em",
+      lineHeight: 1.5,
     },
-    name: <>Turnip</>,
-    slug: "turnip · Book 300 / Regular 400 / Italic",
-    blurb:
-      "Pull quotes, manifesto prose, tagline closer. The warm, human counterweight.",
   },
 ];
 
@@ -442,26 +460,11 @@ export default function TypographyPage() {
                   >
                     {c.num} · {c.role}
                   </p>
-                  <div
-                    className="text-navy leading-none mb-7"
-                    style={c.showpieceStyle}
-                  >
-                    {c.showpiece}
-                  </div>
-                  <p
-                    className="text-navy mb-2"
-                    style={{
-                      fontFamily: "var(--sans)",
-                      fontWeight: 500,
-                      fontSize: "26px",
-                      letterSpacing: "-0.015em",
-                      lineHeight: 1.1,
-                    }}
-                  >
+                  <p className="text-navy mb-2" style={c.nameStyle}>
                     {c.name}
                   </p>
                   <p
-                    className="text-navy/50 mb-5"
+                    className="text-navy/50 mb-6 pb-5 border-b border-navy/[0.1]"
                     style={{
                       fontFamily: "var(--font-wide)",
                       fontWeight: 400,
@@ -472,18 +475,16 @@ export default function TypographyPage() {
                   >
                     {c.slug}
                   </p>
-                  <p
-                    className="text-navy/75"
-                    style={{
-                      fontFamily: "var(--sans)",
-                      fontWeight: 500,
-                      fontSize: "14px",
-                      letterSpacing: "-0.01em",
-                      lineHeight: 1.55,
-                    }}
-                  >
-                    {c.blurb}
-                  </p>
+                  <div className="text-navy/85 space-y-1" style={c.specimenStyle}>
+                    {c.lines.map((line) => (
+                      <p key={line}>{line}</p>
+                    ))}
+                    {c.italicLine && (
+                      <p className="text-navy/85 pt-1" style={c.italicStyle}>
+                        {c.italicLine}
+                      </p>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -615,73 +616,319 @@ export default function TypographyPage() {
           </div>
         </section>
 
-        {/* 04 · Embed */}
+        {/* 04 · In Action */}
         <section className="pt-20 md:pt-24 pb-6">
           <div className="max-w-[960px] mx-auto px-8 md:px-12">
             <div className="border-t border-navy/[0.16] pt-6">
               <SectionHeader
-                eyebrow="04 · Embed"
-                title="Drop-in code."
-                sub="Link the Typekit sheet, then wire three CSS variables."
+                eyebrow="04 · In Action"
+                title="Where the three faces go together."
+                sub="Small previews of the type doing its actual job — newsletter, social ad, flier, success story."
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div className="relative">
+              {/* Newsletter */}
+              <figure className="bg-white border border-navy/[0.12] p-7 md:p-8 flex flex-col">
+                <figcaption
+                  className="mb-5 text-navy/45"
+                  style={{
+                    fontFamily: "var(--font-wide)",
+                    fontWeight: 700,
+                    fontSize: "10px",
+                    letterSpacing: "0.24em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Email Newsletter
+                </figcaption>
                 <p
-                  className="mb-2 text-navy/50"
+                  className="text-navy/55 mb-3"
                   style={{
                     fontFamily: "var(--font-wide)",
                     fontWeight: 700,
                     fontSize: "10px",
                     letterSpacing: "0.22em",
                     textTransform: "uppercase",
+                    color: COBALT,
                   }}
                 >
-                  1 · Typekit
+                  Issue 12 · April
                 </p>
-                <pre
-                  className="bg-navy text-cream p-5 md:p-6 rounded-md overflow-x-auto"
+                <p
+                  className="text-navy mb-3"
                   style={{
-                    fontFamily: "var(--mono)",
-                    fontSize: "13px",
-                    lineHeight: 1.6,
+                    fontFamily: "var(--sans)",
+                    fontWeight: 500,
+                    fontSize: "28px",
+                    letterSpacing: "-0.02em",
+                    lineHeight: 1.1,
                   }}
                 >
-                  <code>{embedLink}</code>
-                </pre>
-                <div className="absolute top-7 right-2">
-                  <CopyButton text={embedLink} />
+                  What&rsquo;s working right now.
+                </p>
+                <p
+                  className="text-navy/70 mb-5"
+                  style={{
+                    fontFamily: "var(--sans)",
+                    fontWeight: 500,
+                    fontSize: "14px",
+                    letterSpacing: "-0.01em",
+                    lineHeight: 1.55,
+                  }}
+                >
+                  Three ideas our advisors are using with clients this month — plus a story from Humboldt.
+                </p>
+                <div className="mt-auto pt-4 border-t border-navy/[0.08]">
+                  <p
+                    className="text-navy/50"
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontWeight: 500,
+                      fontSize: "12px",
+                      letterSpacing: "-0.005em",
+                    }}
+                  >
+                    Read the issue{" "}
+                    <em
+                      style={{
+                        fontFamily: "var(--serif)",
+                        fontStyle: "italic",
+                        color: COBALT,
+                      }}
+                    >
+                      →
+                    </em>
+                  </p>
                 </div>
-              </div>
+              </figure>
 
-              <div className="relative">
+              {/* Social ad */}
+              <figure className="bg-navy text-cream p-7 md:p-8 flex flex-col aspect-auto">
+                <figcaption
+                  className="mb-5"
+                  style={{
+                    fontFamily: "var(--font-wide)",
+                    fontWeight: 700,
+                    fontSize: "10px",
+                    letterSpacing: "0.24em",
+                    textTransform: "uppercase",
+                    color: "rgba(245,244,240,0.45)",
+                  }}
+                >
+                  Social Ad
+                </figcaption>
                 <p
-                  className="mb-2 text-navy/50"
+                  className="mb-4"
                   style={{
                     fontFamily: "var(--font-wide)",
                     fontWeight: 700,
                     fontSize: "10px",
                     letterSpacing: "0.22em",
                     textTransform: "uppercase",
+                    color: "rgba(245,244,240,0.6)",
                   }}
                 >
-                  2 · CSS Variables
+                  For Small Business
                 </p>
-                <pre
-                  className="bg-navy text-cream p-5 md:p-6 rounded-md overflow-x-auto"
+                <p
                   style={{
-                    fontFamily: "var(--mono)",
-                    fontSize: "13px",
-                    lineHeight: 1.6,
+                    fontFamily: "var(--sans)",
+                    fontWeight: 500,
+                    fontSize: "36px",
+                    letterSpacing: "-0.02em",
+                    lineHeight: 1.05,
+                    color: "rgba(245,244,240,0.95)",
                   }}
                 >
-                  <code>{embedCss}</code>
-                </pre>
-                <div className="absolute top-7 right-2">
-                  <CopyButton text={embedCss} />
+                  Your business,{" "}
+                  <em
+                    style={{
+                      fontFamily: "var(--serif)",
+                      fontStyle: "italic",
+                      fontWeight: 400,
+                    }}
+                  >
+                    better.
+                  </em>
+                </p>
+                <div className="mt-auto pt-6">
+                  <p
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontWeight: 500,
+                      fontSize: "12px",
+                      letterSpacing: "-0.005em",
+                      color: "rgba(245,244,240,0.65)",
+                    }}
+                  >
+                    Free advising ·{" "}
+                    <span style={{ fontFamily: "var(--mono)", fontSize: "11px" }}>
+                      norcalsbdc.org
+                    </span>
+                  </p>
                 </div>
-              </div>
+              </figure>
+
+              {/* Flier */}
+              <figure className="bg-cream border border-navy/[0.12] p-7 md:p-8 flex flex-col">
+                <figcaption
+                  className="mb-5 text-navy/45"
+                  style={{
+                    fontFamily: "var(--font-wide)",
+                    fontWeight: 700,
+                    fontSize: "10px",
+                    letterSpacing: "0.24em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Workshop Flier
+                </figcaption>
+                <p
+                  className="mb-4"
+                  style={{
+                    fontFamily: "var(--font-wide)",
+                    fontWeight: 700,
+                    fontSize: "10px",
+                    letterSpacing: "0.22em",
+                    textTransform: "uppercase",
+                    color: BERRY,
+                  }}
+                >
+                  Workshop · March 12
+                </p>
+                <p
+                  className="text-navy mb-2"
+                  style={{
+                    fontFamily: "var(--sans)",
+                    fontWeight: 500,
+                    fontSize: "30px",
+                    letterSpacing: "-0.02em",
+                    lineHeight: 1.05,
+                  }}
+                >
+                  Financing Your Next Move
+                </p>
+                <p
+                  className="text-navy/70 mb-5"
+                  style={{
+                    fontFamily: "var(--serif)",
+                    fontWeight: 400,
+                    fontSize: "17px",
+                    letterSpacing: "-0.005em",
+                    lineHeight: 1.35,
+                  }}
+                >
+                  A conversation with lenders who fund local businesses.
+                </p>
+                <div className="mt-auto pt-4 border-t border-navy/[0.1] grid grid-cols-2 gap-3">
+                  <div>
+                    <p
+                      className="text-navy/45 mb-0.5"
+                      style={{
+                        fontFamily: "var(--font-wide)",
+                        fontWeight: 700,
+                        fontSize: "9px",
+                        letterSpacing: "0.22em",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      When
+                    </p>
+                    <p
+                      className="text-navy/80"
+                      style={{ fontFamily: "var(--mono)", fontSize: "12px" }}
+                    >
+                      03.12 · 6–8 PM
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      className="text-navy/45 mb-0.5"
+                      style={{
+                        fontFamily: "var(--font-wide)",
+                        fontWeight: 700,
+                        fontSize: "9px",
+                        letterSpacing: "0.22em",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Where
+                    </p>
+                    <p
+                      className="text-navy/80"
+                      style={{ fontFamily: "var(--mono)", fontSize: "12px" }}
+                    >
+                      Eureka · 1st St.
+                    </p>
+                  </div>
+                </div>
+              </figure>
+
+              {/* Success story */}
+              <figure className="bg-white border border-navy/[0.12] p-7 md:p-8 flex flex-col">
+                <figcaption
+                  className="mb-5 text-navy/45"
+                  style={{
+                    fontFamily: "var(--font-wide)",
+                    fontWeight: 700,
+                    fontSize: "10px",
+                    letterSpacing: "0.24em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Success Story
+                </figcaption>
+                <p
+                  className="mb-4"
+                  style={{
+                    fontFamily: "var(--font-wide)",
+                    fontWeight: 700,
+                    fontSize: "10px",
+                    letterSpacing: "0.22em",
+                    textTransform: "uppercase",
+                    color: FOREST,
+                  }}
+                >
+                  Arcata, CA
+                </p>
+                <p
+                  className="text-navy mb-4"
+                  style={{
+                    fontFamily: "var(--serif)",
+                    fontWeight: 400,
+                    fontSize: "34px",
+                    letterSpacing: "-0.01em",
+                    lineHeight: 1.05,
+                  }}
+                >
+                  Dick Taylor Chocolates
+                </p>
+                <p
+                  className="text-navy/75 mb-5"
+                  style={{
+                    fontFamily: "var(--serif)",
+                    fontWeight: 400,
+                    fontStyle: "italic",
+                    fontSize: "18px",
+                    letterSpacing: "-0.005em",
+                    lineHeight: 1.4,
+                  }}
+                >
+                  &ldquo;They walked us through the hardest year we&rsquo;ve had.&rdquo;
+                </p>
+                <p
+                  className="text-navy/55 mt-auto"
+                  style={{
+                    fontFamily: "var(--sans)",
+                    fontWeight: 500,
+                    fontSize: "12px",
+                    letterSpacing: "-0.005em",
+                  }}
+                >
+                  — Adam &amp; Dustin, co-founders
+                </p>
+              </figure>
             </div>
           </div>
         </section>
