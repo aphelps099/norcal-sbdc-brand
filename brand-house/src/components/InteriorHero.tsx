@@ -20,7 +20,7 @@ const CATEGORY = {
 interface InteriorHeroProps {
   title: string;
   subtitle?: string;
-  /** Chapter number as two-digit string (e.g. "01"). Rendered as oversized Turnip BG accent. */
+  /** Chapter number as two-digit string (e.g. "01"). Rendered as oversized Proxima Sera BG accent. */
   chapterNumber?: string;
   /** Content category — drives top bar, eyebrow, and underline color. */
   category?: ChapterCategory;
@@ -90,7 +90,7 @@ export default function InteriorHero({
         style={{ height: "5px", background: cat.color }}
       />
 
-      {/* Oversized Turnip chapter number — BG hero accent, bleeds off the right edge */}
+      {/* Oversized Proxima Sera chapter number — BG hero accent, bleeds off the right edge */}
       {chapterNumber && (
         <span
           aria-hidden

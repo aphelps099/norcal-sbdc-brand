@@ -65,8 +65,8 @@ const cast = [
   {
     num: "03",
     role: "Editorial",
-    name: "Turnip",
-    slug: "turnip · 300 / 400 / 400 italic",
+    name: "Proxima Sera",
+    slug: "proxima-sera · 300 / 400 / 500 / 700 + italics",
     nameStyle: {
       fontFamily: "var(--serif)",
       fontWeight: 400,
@@ -191,7 +191,7 @@ const usageRows = [
   },
   {
     role: "Pull Quotes",
-    spec: "Turnip 400 Italic · 32–56px",
+    spec: "Proxima Sera 400 Italic · 32–56px",
     sample: (
       <span
         style={{
@@ -209,7 +209,7 @@ const usageRows = [
   },
   {
     role: "Success Story Titles",
-    spec: "Turnip 400 · 40–64px",
+    spec: "Proxima Sera 400 · 40–64px",
     sample: (
       <span
         style={{
@@ -226,7 +226,7 @@ const usageRows = [
   },
   {
     role: "Inline Emphasis",
-    spec: "Turnip 400 Italic inside body",
+    spec: "Proxima Sera 400 Italic inside body",
     sample: (
       <span
         style={{
@@ -252,7 +252,7 @@ const usageRows = [
   },
   {
     role: "Manifesto Prose",
-    spec: "Turnip 300 Book · 22–28px",
+    spec: "Proxima Sera 300 Light · 22–28px",
     sample: (
       <span
         style={{
@@ -269,7 +269,7 @@ const usageRows = [
   },
   {
     role: "Tagline Closer",
-    spec: "Proxima 500 + Turnip Italic on closer",
+    spec: "Proxima 500 + Proxima Sera Italic on closer",
     sample: (
       <span
         style={{
@@ -305,15 +305,15 @@ const dos = [
   "Use Proxima 500 as the workhorse — headings, body, UI.",
   "Reserve Extra Wide 700 for short caps — eyebrows and kickers at 10–13px.",
   "Use Extra Wide 700 CAPS at 56–160px for single-word display wordmarks, tracking 0.",
-  "Use Turnip Italic on the final word of a tagline for warmth.",
-  "Let Turnip 300 carry manifesto prose at 22–28px.",
+  "Use Proxima Sera Italic on the final word of a tagline for warmth.",
+  "Let Proxima Sera 300 carry manifesto prose at 22–28px.",
   "Keep mono (Roboto Mono) to code, hex values, and file paths.",
   "Set Proxima tracking at −0.02em for headings, −0.01em for body.",
 ];
 
 const donts = [
   "Don\u2019t set Extra Wide in lowercase or long sentences.",
-  "Don\u2019t use Turnip for buttons, form labels, or navigation.",
+  "Don\u2019t use Proxima Sera for buttons, form labels, or navigation.",
   "Don\u2019t stack two italic words in a tagline — italicize one closer.",
   "Don\u2019t pair Proxima Medium with Proxima Regular for hierarchy.",
   "Don\u2019t introduce a fourth typeface.",
@@ -388,7 +388,7 @@ export default function TypographyPage() {
         chapterNumber="02"
         category="visual"
         title="Fonts"
-        subtitle="Three typefaces, three jobs — Proxima Nova, Extra Wide, and Turnip."
+        subtitle="Three typefaces, three jobs — Proxima Nova, Extra Wide, and Proxima Sera."
       />
 
       <div className="bg-cream">

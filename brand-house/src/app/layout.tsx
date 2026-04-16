@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <head>
-        {/* Adobe Fonts (Typekit) — Proxima Nova, Proxima Nova Extra Wide, Turnip */}
+        {/* Adobe Fonts (Typekit) — Proxima Nova, Proxima Nova Extra Wide, Proxima Sera */}
         <link
           rel="preconnect"
           href="https://use.typekit.net"

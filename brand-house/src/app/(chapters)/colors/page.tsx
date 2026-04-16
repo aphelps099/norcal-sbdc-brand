@@ -130,8 +130,8 @@ export default function ColorsPage() {
               </div>
             </PosterFrame>
 
-            {/* ─── Poster 2 · TURNIP EDITORIAL (uses Turnip) ─── */}
-            <PosterFrame caption="02 · Editorial — Turnip on Cream">
+            {/* ─── Poster 2 · PROXIMA SERA EDITORIAL (uses Proxima Sera) ─── */}
+            <PosterFrame caption="02 · Editorial — Proxima Sera on Cream">
               <div className="absolute inset-0" style={{ backgroundColor: "#f5f4f0" }} />
               {/* Coral rule */}
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c4543a]" />
@@ -305,8 +305,8 @@ export default function ColorsPage() {
               </div>
             </PosterFrame>
 
-            {/* ─── Poster 6 · TAGLINE KNOCKOUT (Navy + Turnip italic) ─── */}
-            <PosterFrame caption="06 · Tagline — Turnip italic closer">
+            {/* ─── Poster 6 · TAGLINE KNOCKOUT (Navy + Proxima Sera italic) ─── */}
+            <PosterFrame caption="06 · Tagline — Proxima Sera italic closer">
               <div className="absolute inset-0" style={{ backgroundColor: "#0f1c2e" }} />
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c4543a]" />
               <div className="absolute -right-12 -top-12 w-[70%] opacity-[0.06] pointer-events-none">

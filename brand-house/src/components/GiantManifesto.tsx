@@ -75,7 +75,7 @@ export default function GiantManifesto() {
           Our Manifesto
         </p>
 
-        {/* Body — Turnip Book (editorial voice, manifesto prose) */}
+        {/* Body — Proxima Sera Light (editorial voice, manifesto prose) */}
         <p
           className="m-body leading-[1.55] tracking-[-0.004em] text-white/95 mb-20 md:mb-22"
           data-reveal
