@@ -172,6 +172,24 @@ const usageRows = [
     ),
   },
   {
+    role: "Display Wordmark",
+    spec: "Wide 700 · CAPS · 56–160px · tracking 0",
+    sample: (
+      <span
+        style={{
+          fontFamily: "var(--font-wide)",
+          fontWeight: 700,
+          fontSize: "44px",
+          letterSpacing: "0",
+          lineHeight: 0.92,
+          textTransform: "uppercase",
+        }}
+      >
+        Brand
+      </span>
+    ),
+  },
+  {
     role: "Pull Quotes",
     spec: "Turnip 400 Italic · 32–56px",
     sample: (
@@ -285,7 +303,8 @@ const usageRows = [
 
 const dos = [
   "Use Proxima 500 as the workhorse — headings, body, UI.",
-  "Reserve Extra Wide 700 for short, caps eyebrows and kickers.",
+  "Reserve Extra Wide 700 for short caps — eyebrows and kickers at 10–13px.",
+  "Use Extra Wide 700 CAPS at 56–160px for single-word display wordmarks, tracking 0.",
   "Use Turnip Italic on the final word of a tagline for warmth.",
   "Let Turnip 300 carry manifesto prose at 22–28px.",
   "Keep mono (Roboto Mono) to code, hex values, and file paths.",
@@ -366,7 +385,8 @@ export default function TypographyPage() {
   return (
     <>
       <InteriorHero
-        bg="#0f1c2e"
+        chapterNumber="02"
+        category="visual"
         title="Typography"
         subtitle="Three typefaces, three jobs — Proxima Nova, Extra Wide, and Turnip."
       />

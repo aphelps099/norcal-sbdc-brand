@@ -12,7 +12,8 @@ export default function TemplatesPage() {
   return (
     <>
       <InteriorHero
-        bg="#0f1c2e"
+        chapterNumber="08"
+        category="tools"
         title="Templates"
         subtitle="Ready-to-use copy blocks for emails, presentations, and social channels."
       />

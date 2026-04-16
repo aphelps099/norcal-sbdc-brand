@@ -232,7 +232,12 @@ export default function EventsPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <InteriorHero bg="#0f1c2e" title="Event Graphics" subtitle="Templates, live samples, and guidelines for creating on-brand event collateral — from workshop flyers and banners to name badges and social graphics." />
+      <InteriorHero
+        chapterNumber="09"
+        category="tools"
+        title="Event Graphics"
+        subtitle="Templates, live samples, and guidelines for creating on-brand event collateral — from workshop flyers and banners to name badges and social graphics."
+      />
 
       {/* Hero stats band */}
       <div className="bg-[#0f1c2e] pb-12 md:pb-16">

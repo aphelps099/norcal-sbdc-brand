@@ -6,7 +6,9 @@ import NextSectionLink from "@/components/NextSectionLink";
 export default function LogosPage() {
   return (
     <>
-      <InteriorHero bg="#0f1c2e"
+      <InteriorHero
+        chapterNumber="03"
+        category="visual"
         title="Logos"
         subtitle="The California SBDC logo represents us at the very highest level. It acts as a signature, an identifier, and a stamp of quality."
       />

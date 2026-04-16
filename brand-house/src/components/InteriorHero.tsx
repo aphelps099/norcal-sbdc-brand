@@ -2,36 +2,39 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { STAR_PATH } from "@/lib/brand-tokens";
 
-/** Each page gets a unique 5-stop diagonal gradient from the brand palette. */
+/** Category drives top bar + eyebrow + animated underline color. */
+export type ChapterCategory = "visual" | "strategy" | "tools";
+
+/** Preserved for saved-colors archive page — no longer consumed by this hero. */
 export interface GradientDef {
-  /** Gradient angle in degrees (default 135 = top-left to bottom-right). */
   angle?: number;
-  /** Five hex color stops. */
   stops: [string, string, string, string, string];
 }
+
+const CATEGORY = {
+  visual:   { label: "Visual Identity",   color: "#004290" },
+  strategy: { label: "Strategy & Voice",  color: "#A73B44" },
+  tools:    { label: "Tools & Resources", color: "#5684BA" },
+} as const;
 
 interface InteriorHeroProps {
   title: string;
   subtitle?: string;
-  /** Per-page gradient definition. Falls back to navy if omitted. */
-  gradient?: GradientDef;
-  /** Solid brand color background (takes precedence over gradient). */
-  bg?: string;
+  /** Chapter number as two-digit string (e.g. "01"). Rendered as ghosted Turnip BG accent. */
+  chapterNumber?: string;
+  /** Content category — drives top bar, eyebrow, and underline color. */
+  category?: ChapterCategory;
 }
-
-/** Unique SVG filter ID per mount to avoid collisions when multiple heros render. */
-let filterId = 0;
 
 export default function InteriorHero({
   title,
   subtitle,
-  gradient,
-  bg,
+  chapterNumber,
+  category = "visual",
 }: InteriorHeroProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const id = useRef(`grain-${++filterId}`);
+  const cat = CATEGORY[category];
 
   useEffect(() => {
     async function init() {
@@ -40,180 +43,159 @@ export default function InteriorHero({
       if (prefersReducedMotion) {
         const el = sectionRef.current;
         if (!el) return;
-        const title = el.querySelector<HTMLElement>(".interior-hero-title");
-        const accent = el.querySelector<HTMLElement>(".interior-hero-accent");
+        el.querySelectorAll<HTMLElement>("[data-reveal]").forEach((n) => {
+          n.style.opacity = "1";
+          n.style.transform = "translateY(0)";
+        });
         const line = el.querySelector<HTMLElement>(".interior-hero-line");
-        const sub = el.querySelector<HTMLElement>(".interior-hero-sub");
-        if (title) { title.style.opacity = "1"; title.style.transform = "translateY(0)"; }
-        if (accent) accent.style.transform = "scaleX(1)";
         if (line) line.style.transform = "scaleX(1)";
-        if (sub) { sub.style.opacity = "1"; sub.style.transform = "translateY(0)"; }
         return;
       }
 
       const { gsap } = await import("gsap");
       if (!sectionRef.current) return;
+
       gsap.context(() => {
-        gsap.fromTo(
-          ".interior-hero-title",
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.1 }
-        );
-        gsap.fromTo(
-          ".interior-hero-accent",
-          { scaleX: 0 },
-          { scaleX: 1, duration: 0.5, ease: "power2.out", delay: 0.4 }
-        );
-        gsap.fromTo(
-          ".interior-hero-line",
-          { scaleX: 0 },
-          { scaleX: 1, duration: 0.6, ease: "power2.out", delay: 0.5 }
-        );
+        gsap.fromTo(".interior-hero-eyebrow",
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", delay: 0.1 });
+
+        gsap.fromTo(".interior-hero-title",
+          { opacity: 0, y: 26 },
+          { opacity: 1, y: 0, duration: 0.9, ease: "power3.out", delay: 0.2 });
+
+        gsap.fromTo(".interior-hero-chapter",
+          { opacity: 0 },
+          { opacity: 1, duration: 1.4, ease: "power2.out", delay: 0.5 });
+
         if (subtitle) {
-          gsap.fromTo(
-            ".interior-hero-sub",
-            { opacity: 0, y: 15 },
-            { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", delay: 0.6 }
-          );
+          gsap.fromTo(".interior-hero-sub",
+            { opacity: 0, y: 12 },
+            { opacity: 1, y: 0, duration: 0.7, ease: "power2.out", delay: 0.55 });
         }
+
+        gsap.fromTo(".interior-hero-line",
+          { scaleX: 0 },
+          { scaleX: 1, duration: 1.0, ease: "power3.out", delay: 0.9 });
       }, sectionRef.current);
     }
     init();
   }, [subtitle]);
 
-  const angle = gradient?.angle ?? 135;
-  const gradId = `grad-${id.current}`;
-
-  // Convert angle to x1,y1 → x2,y2 for SVG linearGradient
-  const rad = ((angle - 90) * Math.PI) / 180;
-  const x2 = Math.round(50 + Math.cos(rad) * 50);
-  const y2 = Math.round(50 + Math.sin(rad) * 50);
-  const x1 = 100 - x2;
-  const y1 = 100 - y2;
-
   return (
-    <section ref={sectionRef} className="relative overflow-hidden">
-      {/* Full-bleed background */}
-      {bg ? (
-        <div className="absolute inset-0" style={{ backgroundColor: bg }} />
-      ) : gradient ? (
-        <>
-          <svg
-            className="absolute inset-0 w-full h-full"
-            preserveAspectRatio="xMidYMid slice"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <defs>
-              <linearGradient
-                id={gradId}
-                x1={`${x1}%`}
-                y1={`${y1}%`}
-                x2={`${x2}%`}
-                y2={`${y2}%`}
-              >
-                <stop offset="0%" stopColor={gradient.stops[0]} />
-                <stop offset="25%" stopColor={gradient.stops[1]} />
-                <stop offset="50%" stopColor={gradient.stops[2]} />
-                <stop offset="75%" stopColor={gradient.stops[3]} />
-                <stop offset="100%" stopColor={gradient.stops[4]} />
-              </linearGradient>
-              <filter id={id.current} x="0%" y="0%" width="100%" height="100%">
-                <feTurbulence
-                  type="fractalNoise"
-                  baseFrequency="0.65"
-                  numOctaves="3"
-                  stitchTiles="stitch"
-                  result="noise"
-                />
-                <feColorMatrix
-                  type="saturate"
-                  values="0"
-                  in="noise"
-                  result="mono"
-                />
-                <feBlend in="SourceGraphic" in2="mono" mode="soft-light" />
-              </filter>
-            </defs>
-            <rect
-              width="100%"
-              height="100%"
-              fill={`url(#${gradId})`}
-              filter={`url(#${id.current})`}
-            />
-          </svg>
-          {/* Navy multiply overlay — tames grain, deepens color */}
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundColor: "#0f1c2e",
-              mixBlendMode: "multiply",
-              opacity: 0.35,
-            }}
-          />
-        </>
-      ) : (
-        <div className="absolute inset-0 bg-navy" />
-      )}
-
-      {/* SBDC star — decorative accent, upper-right */}
-      <svg
-        className="absolute -right-[8%] -top-[10%] w-[45vw] max-w-[500px] text-white pointer-events-none select-none hidden md:block"
-        viewBox="0 0 2100 2000"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <path
-          d={STAR_PATH}
-          stroke="currentColor"
-          strokeWidth="3"
-          fill="none"
-          opacity={0.06}
-        />
-      </svg>
-
-      {/* Vertical accent stripe — right edge */}
+    <section ref={sectionRef} className="relative bg-cream overflow-hidden">
+      {/* 5px category top bar */}
       <div
-        className="interior-hero-accent absolute right-0 top-0 w-1 h-full bg-pool/30 hidden md:block"
-        style={{ transformOrigin: "top center", transform: "scaleX(0)" }}
-        aria-hidden="true"
+        aria-hidden
+        className="w-full"
+        style={{ height: "5px", background: cat.color }}
       />
 
-      {/* Text content — asymmetric left-align */}
-      <div className="relative z-10 min-h-[42vh] md:min-h-[46vh] flex flex-col justify-end px-8 md:px-12 lg:px-16 pt-28 pb-10 md:pt-32 md:pb-14 max-w-[860px]">
+      {/* Giant Turnip chapter number — BG accent, bleeds off the right edge */}
+      {chapterNumber && (
+        <span
+          aria-hidden
+          className="interior-hero-chapter absolute pointer-events-none select-none z-0"
+          data-reveal
+          style={{
+            fontFamily: "var(--serif)",
+            fontWeight: 400,
+            fontStyle: "italic",
+            fontSize: "clamp(200px, 36vw, 560px)",
+            lineHeight: 0.82,
+            letterSpacing: "-0.04em",
+            color: "rgba(15, 28, 46, 0.06)",
+            top: "clamp(40px, 6vw, 96px)",
+            right: "-2vw",
+            opacity: 0,
+          }}
+        >
+          {chapterNumber}
+        </span>
+      )}
+
+      {/* Content container */}
+      <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 pt-20 md:pt-32 pb-[150px] md:pb-[200px]">
+        {/* Back-to-home breadcrumb */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-white/40 hover:text-white/70 transition-colors mb-10 md:mb-14"
-          style={{ fontFamily: "var(--sans-label)" }}
+          className="inline-flex items-center gap-2 text-navy/40 hover:text-navy/70 transition-colors uppercase no-underline"
+          style={{
+            fontFamily: "var(--font-wide)",
+            fontWeight: 700,
+            fontSize: "10px",
+            letterSpacing: "0.22em",
+          }}
         >
           <span className="inline-block w-4 h-[1.5px] bg-current" />
           Brand House
         </Link>
-        <h1
-          className="interior-hero-title tracking-[-0.04em] leading-[0.92]"
+
+        {/* Eyebrow: Chapter NN · Category — category color */}
+        <p
+          className="interior-hero-eyebrow mt-10 uppercase"
+          data-reveal
           style={{
-            fontFamily: "var(--sans)",
-            fontWeight: 500,
-            fontSize: "clamp(48px, 8vw, 96px)",
-            color: "#f5f4f0",
+            fontFamily: "var(--font-wide)",
+            fontWeight: 700,
+            fontSize: "clamp(11px, 1vw, 13px)",
+            letterSpacing: "0.24em",
+            color: cat.color,
+            opacity: 0,
+          }}
+        >
+          {chapterNumber ? `Chapter ${chapterNumber} · ${cat.label}` : cat.label}
+        </p>
+
+        {/* Oversized page title — Extra Wide CAPS */}
+        <h1
+          className="interior-hero-title mt-4 uppercase"
+          data-reveal
+          style={{
+            fontFamily: "var(--font-wide)",
+            fontWeight: 700,
+            fontSize: "clamp(56px, 11vw, 144px)",
+            letterSpacing: "0",
+            lineHeight: 0.92,
+            color: "#0f1c2e",
             opacity: 0,
           }}
         >
           {title}
         </h1>
-        <div
-          className="interior-hero-line h-[3px] bg-white/20 mt-6 max-w-[120px]"
-          style={{ transformOrigin: "left center", transform: "scaleX(0)" }}
-        />
+
+        {/* Short summary */}
         {subtitle && (
           <p
-            className="interior-hero-sub text-white/50 text-base md:text-lg font-400 mt-5 max-w-xl leading-relaxed"
-            style={{ opacity: 0, fontFamily: "var(--sans)" }}
+            className="interior-hero-sub mt-10 max-w-[620px]"
+            data-reveal
+            style={{
+              fontFamily: "var(--sans)",
+              fontWeight: 500,
+              fontSize: "clamp(17px, 1.5vw, 21px)",
+              lineHeight: 1.55,
+              letterSpacing: "-0.01em",
+              color: "#4a4a4a",
+              opacity: 0,
+            }}
           >
             {subtitle}
           </p>
         )}
+      </div>
+
+      {/* Animated category underline — spans container, transitions into page content */}
+      <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
+        <div
+          className="interior-hero-line"
+          aria-hidden
+          style={{
+            height: "3px",
+            background: cat.color,
+            transformOrigin: "left center",
+            transform: "scaleX(0)",
+          }}
+        />
       </div>
     </section>
   );
