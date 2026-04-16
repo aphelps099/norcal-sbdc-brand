@@ -2,68 +2,61 @@
 
 import { useEffect, useRef } from "react";
 
+const lines = [
+  { text: "We believe small business owners deserve more than generic advice.", delay: 0.35 },
+  { text: "We believe the best guidance happens across a table \u2014 not across a screen.", delay: 0.75 },
+  { jsx: true, delay: 1.15 },
+  { text: "This is what we show up for. Every day. Across Northern California.", delay: 1.75, break: true },
+  { ybb: true, delay: 2.45, break: true },
+];
+
 export default function GiantManifesto() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) {
+      sectionRef.current?.querySelectorAll<HTMLElement>(".m-line").forEach((el) => {
+        el.style.opacity = "0.94";
+        el.style.transform = "translateY(0)";
+      });
+      const kicker = sectionRef.current?.querySelector<HTMLElement>(".m-kicker");
+      const meta = sectionRef.current?.querySelector<HTMLElement>(".m-meta");
+      if (kicker) kicker.style.opacity = "0.9";
+      if (meta) meta.style.opacity = "0.7";
+      return;
+    }
+
     let ctx: ReturnType<typeof import("gsap")["gsap"]["context"]> | undefined;
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     async function init() {
-      if (prefersReducedMotion) {
-        sectionRef.current?.querySelectorAll<HTMLElement>(".m-word").forEach((el) => {
-          el.style.opacity = "1";
-        });
-        const eyebrow = sectionRef.current?.querySelector<HTMLElement>(".manifesto-eyebrow");
-        const accent = sectionRef.current?.querySelector<HTMLElement>(".manifesto-accent");
-        if (eyebrow) { eyebrow.style.opacity = "1"; eyebrow.style.transform = "translateY(0)"; }
-        if (accent) accent.style.transform = "scaleX(1)";
-        return;
-      }
-
       const { gsap } = await import("gsap");
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
       gsap.registerPlugin(ScrollTrigger);
       if (!sectionRef.current) return;
 
       ctx = gsap.context(() => {
-        gsap.fromTo(
-          ".manifesto-eyebrow",
-          { opacity: 0, y: 12 },
-          {
-            opacity: 1, y: 0, duration: 0.8, ease: "power3.out",
-            scrollTrigger: { trigger: sectionRef.current, start: "top 78%" },
-          }
-        );
+        gsap.fromTo(".m-kicker", { opacity: 0 }, {
+          opacity: 0.9, duration: 0.8, ease: "power2.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+        });
+        gsap.fromTo(".m-meta", { opacity: 0 }, {
+          opacity: 0.7, duration: 0.8, delay: 0.1, ease: "power2.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+        });
 
-        gsap.fromTo(
-          ".manifesto-accent",
-          { scaleX: 0 },
-          {
-            scaleX: 1, duration: 0.6, ease: "power2.out",
-            scrollTrigger: { trigger: sectionRef.current, start: "top 78%" },
-          }
-        );
-
-        const words = sectionRef.current!.querySelectorAll<HTMLElement>(".m-word");
-        words.forEach((word) => {
-          gsap.fromTo(
-            word,
-            { opacity: 0.08 },
+        const lineEls = sectionRef.current!.querySelectorAll<HTMLElement>(".m-line");
+        lineEls.forEach((el, i) => {
+          const d = parseFloat(el.dataset.delay || "0");
+          gsap.fromTo(el,
+            { opacity: 0, y: 14 },
             {
-              opacity: 1,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: word,
-                start: "top 85%",
-                end: "top 55%",
-                scrub: true,
-              },
+              opacity: 0.94, y: 0, duration: 1,
+              ease: "power3.out", delay: d,
+              scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
             }
           );
         });
-
-
       }, sectionRef.current);
     }
 
@@ -71,69 +64,72 @@ export default function GiantManifesto() {
     return () => { ctx?.revert(); };
   }, []);
 
-  const segments = [
-    { text: "You don\u2019t need a pamphlet. You need someone who\u2019ll ", highlight: false },
-    { text: "listen,", highlight: true },
-    { text: " sit across the table, learn your numbers and your neighborhood \u2014 then help you ", highlight: false },
-    { text: "build", highlight: true },
-    { text: " something that lasts. That\u2019s what we do. One business, one ", highlight: false },
-    { text: "relationship", highlight: true },
-    { text: " at a time.", highlight: false },
-  ];
-
-  // Build word array with highlight flags
-  const words: { text: string; highlight: boolean }[] = [];
-  segments.forEach((seg) => {
-    seg.text.split(" ").filter(Boolean).forEach((w) => {
-      words.push({ text: w, highlight: seg.highlight });
-    });
-  });
-
   return (
-    <section ref={sectionRef} className="bg-cream-warm relative overflow-hidden">
-      {/* Asymmetric accent — thin vertical line on the left */}
+    <section ref={sectionRef} className="bg-[#0f1c2e] text-cream relative overflow-hidden" style={{ padding: "128px 0 136px" }}>
+      {/* Giant quotation mark */}
       <div
-        className="absolute left-[5%] top-0 w-[1px] h-full bg-navy/[0.04] hidden lg:block"
+        className="absolute pointer-events-none select-none"
+        style={{
+          top: -100,
+          left: -60,
+          fontSize: 640,
+          fontFamily: "var(--sans)",
+          fontWeight: 500,
+          color: "#3a7ad4",
+          opacity: 0.07,
+          lineHeight: 1,
+          letterSpacing: "-0.05em",
+        }}
         aria-hidden="true"
-      />
-
-      <div className="max-w-[960px] mx-auto px-8 sm:px-12 py-28 sm:py-36 relative">
-        {/* Eyebrow with accent bar */}
-        <div className="flex items-center gap-4 mb-10 sm:mb-14">
-          <span
-            className="manifesto-accent accent-bar"
-            style={{ transformOrigin: "left center", transform: "scaleX(0)" }}
-          />
-          <p
-            className="manifesto-eyebrow text-navy/40 uppercase"
-            style={{ fontFamily: "var(--sans-label)", fontSize: "0.7rem", letterSpacing: "0.18em" }}
-          >
-            Our Manifesto
-          </p>
-        </div>
-
-        <h2 className="leading-[1.2] tracking-[-0.025em]" style={{ fontSize: "clamp(28px, 4.2vw, 54px)" }}>
-          {words.map((word, i) => (
-            <span key={i}>
-              <span
-                className={`m-word font-sans inline-block ${word.highlight ? "text-royal" : "text-navy"}`}
-                style={{
-                  opacity: 0.08,
-                  textDecoration: word.highlight ? "underline" : "none",
-                  textDecorationColor: "var(--royal)",
-                  textUnderlineOffset: "6px",
-                  textDecorationThickness: "2px",
-                }}
-              >
-                {word.text}
-              </span>
-              {" "}
-            </span>
-          ))}
-        </h2>
+      >
+        &ldquo;
       </div>
 
+      <div className="max-w-[1080px] mx-auto px-8 sm:px-12 relative">
+        {/* Section header */}
+        <div className="border-t border-cream/25 pt-3.5 mb-16 flex items-baseline justify-between flex-wrap gap-5">
+          <p className="m-kicker font-label text-[10px] uppercase tracking-[0.14em] text-fog" style={{ opacity: 0 }}>Our Manifesto</p>
+          <p className="m-meta font-label text-[10px] uppercase tracking-[0.14em] text-fog" style={{ opacity: 0 }}>NorCal SBDC &middot; Est. 1989</p>
+        </div>
 
+        {/* Manifesto text */}
+        <p
+          className="font-sans"
+          style={{
+            fontSize: "clamp(28px, 3.8vw, 48px)",
+            fontWeight: 500,
+            letterSpacing: "-0.018em",
+            lineHeight: 1.22,
+            color: "#f5f4f0",
+            maxWidth: "36ch",
+          }}
+        >
+          <span className="m-line block" data-delay="0.35" style={{ opacity: 0, transform: "translateY(14px)" }}>
+            We believe small business owners deserve more than generic advice.
+          </span>
+          <span className="m-line block" data-delay="0.75" style={{ opacity: 0, transform: "translateY(14px)" }}>
+            We believe the best guidance happens across a table &mdash; not across a screen.
+          </span>
+          <span className="m-line block" data-delay="1.15" style={{ opacity: 0, transform: "translateY(14px)" }}>
+            We believe the right <span style={{ color: "#7BA7DB" }}>people</span>, the right <span style={{ color: "#7BA7DB" }}>capital</span>, and the right <span style={{ color: "#7BA7DB" }}>connections</span> can change what&rsquo;s possible for a business.
+          </span>
+          <span className="m-line block" data-delay="1.75" style={{ opacity: 0, transform: "translateY(14px)", marginTop: "0.8em" }}>
+            This is what we show up for. Every day. Across Northern California.
+          </span>
+          <span className="m-line block" data-delay="2.45" style={{ opacity: 0, transform: "translateY(14px)", marginTop: "0.9em" }}>
+            <span
+              style={{
+                background: "linear-gradient(90deg, #7BA7DB 0%, #9DBDE2 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Your business, better.
+            </span>
+          </span>
+        </p>
+      </div>
     </section>
   );
 }
