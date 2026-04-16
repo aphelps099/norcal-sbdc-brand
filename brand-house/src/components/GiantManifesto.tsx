@@ -101,16 +101,15 @@ export default function GiantManifesto() {
             Our Promise
           </p>
           <p
-            className="font-sans text-white tracking-[-0.018em] leading-none"
-            style={{ fontSize: "clamp(36px, 4.4vw, 56px)", fontWeight: 500 }}
+            className="text-white tracking-[-0.018em]"
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "clamp(36px, 4.4vw, 56px)",
+              fontWeight: 400,
+              lineHeight: 1.02,
+            }}
           >
-            Your business,{" "}
-            <em
-              className="italic"
-              style={{ fontFamily: "var(--font-serif)", fontWeight: 400 }}
-            >
-              better.
-            </em>
+            Your business, <span className="italic">better.</span>
           </p>
         </div>
       </div>
