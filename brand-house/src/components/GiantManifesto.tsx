@@ -65,23 +65,24 @@ export default function GiantManifesto() {
       />
 
       <div className="max-w-[1080px] mx-auto px-8 sm:px-12 relative z-[2]">
-        {/* Eyebrow */}
+        {/* Eyebrow — Proxima Nova Extra Wide, caps label */}
         <p
-          className="m-eyebrow font-sans text-[11px] uppercase tracking-[0.24em] text-white/80 mb-11 inline-flex items-center gap-3.5"
+          className="m-eyebrow text-[11px] uppercase tracking-[0.24em] text-white/80 mb-11 inline-flex items-center gap-3.5"
           data-reveal
-          style={{ opacity: 0, fontWeight: 500 }}
+          style={{ opacity: 0, fontFamily: "var(--font-wide)", fontWeight: 700 }}
         >
           <span className="w-7 h-px bg-white/70" />
           Our Manifesto
         </p>
 
-        {/* Body — prose paragraph */}
+        {/* Body — Turnip Book (editorial voice, manifesto prose) */}
         <p
-          className="m-body font-sans leading-[1.55] tracking-[-0.004em] text-white/95 mb-20 md:mb-22"
+          className="m-body leading-[1.55] tracking-[-0.004em] text-white/95 mb-20 md:mb-22"
           data-reveal
           style={{
+            fontFamily: "var(--font-serif)",
             fontSize: "clamp(22px, 2.4vw, 28px)",
-            fontWeight: 500,
+            fontWeight: 300,
             maxWidth: "60ch",
             opacity: 0,
             transform: "translateY(14px)",
@@ -93,8 +94,8 @@ export default function GiantManifesto() {
         {/* Closer */}
         <div className="m-closer" data-reveal style={{ opacity: 0, transform: "translateY(14px)" }}>
           <p
-            className="font-sans text-[11px] uppercase tracking-[0.24em] text-white/70 mb-3.5 inline-flex items-center gap-3.5"
-            style={{ fontWeight: 500 }}
+            className="text-[11px] uppercase tracking-[0.24em] text-white/70 mb-3.5 inline-flex items-center gap-3.5"
+            style={{ fontFamily: "var(--font-wide)", fontWeight: 700 }}
           >
             <span className="w-7 h-px bg-white/70" />
             Our Promise
@@ -103,7 +104,13 @@ export default function GiantManifesto() {
             className="font-sans text-white tracking-[-0.018em] leading-none"
             style={{ fontSize: "clamp(36px, 4.4vw, 56px)", fontWeight: 500 }}
           >
-            Your business, <em className="italic">better.</em>
+            Your business,{" "}
+            <em
+              className="italic"
+              style={{ fontFamily: "var(--font-serif)", fontWeight: 400 }}
+            >
+              better.
+            </em>
           </p>
         </div>
       </div>

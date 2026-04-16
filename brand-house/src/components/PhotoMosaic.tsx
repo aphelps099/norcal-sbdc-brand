@@ -27,8 +27,11 @@ function RotatingHeadline() {
       >
         Your Business<br />
         <span
-          className="text-[#004290] inline-block"
+          className="text-[#004290] inline-block italic"
           style={{
+            fontFamily: "var(--font-serif)",
+            fontWeight: 400,
+            letterSpacing: "-0.015em",
             opacity: animating ? 0 : 1,
             transform: animating ? "translateY(12px)" : "translateY(0)",
             transition: "opacity 0.4s ease, transform 0.4s ease",
@@ -37,7 +40,10 @@ function RotatingHeadline() {
           {ROTATE_WORDS[index]}
         </span>
       </h2>
-      <p className="font-label text-[10px] uppercase tracking-[0.14em] text-navy/55 pb-3 text-right leading-relaxed hidden sm:block">
+      <p
+        className="text-[10px] uppercase tracking-[0.14em] text-navy/55 pb-3 text-right leading-relaxed hidden sm:block"
+        style={{ fontFamily: "var(--font-wide)", fontWeight: 700 }}
+      >
         The people<br />we work with
       </p>
     </div>
@@ -166,7 +172,12 @@ export default function PhotoMosaic() {
 
                 {/* Caption */}
                 <div className="absolute inset-x-0 bottom-0 p-5 text-white z-[2] pointer-events-none translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]">
-                  <p className="font-label text-[10px] uppercase tracking-[0.14em] text-white/75 mb-1.5">{tile.kicker}</p>
+                  <p
+                    className="text-[10px] uppercase tracking-[0.14em] text-white/75 mb-1.5"
+                    style={{ fontFamily: "var(--font-wide)", fontWeight: 700 }}
+                  >
+                    {tile.kicker}
+                  </p>
                   <p className="font-sans tracking-[-0.01em] leading-tight" style={{ fontSize: isHero ? 34 : isWide ? 26 : 22, fontWeight: 500 }}>{tile.name}</p>
                 </div>
               </div>

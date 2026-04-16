@@ -16,6 +16,16 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <head>
+        {/* Adobe Fonts (Typekit) — Proxima Nova, Proxima Nova Extra Wide, Turnip */}
+        <link
+          rel="preconnect"
+          href="https://use.typekit.net"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="stylesheet"
+          href="https://use.typekit.net/qpa2fmy.css"
+        />
         {/* Material Symbols Outlined — variable icon font */}
         <link
           rel="preconnect"

@@ -80,7 +80,10 @@ export default function BrandGrid() {
         {/* Header with legend */}
         <div className="brand-grid-header border-t border-navy pt-3.5 flex items-baseline justify-between flex-wrap gap-5">
           <div>
-            <p className="font-label text-[10px] uppercase tracking-[0.14em] text-navy/55 mb-1.5">
+            <p
+              className="text-[10px] uppercase tracking-[0.14em] text-navy/55 mb-1.5"
+              style={{ fontFamily: "var(--font-wide)", fontWeight: 700 }}
+            >
               {pills.length} Chapters
             </p>
             <h2
@@ -94,7 +97,12 @@ export default function BrandGrid() {
             {legend.map((l) => (
               <div key={l.label} className="flex items-center gap-2">
                 <div className="w-[18px] h-[3px] rounded-sm" style={{ backgroundColor: l.color }} />
-                <span className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/85">{l.label}</span>
+                <span
+                  className="text-[10px] uppercase tracking-[0.1em] text-navy/85"
+                  style={{ fontFamily: "var(--font-wide)", fontWeight: 700 }}
+                >
+                  {l.label}
+                </span>
               </div>
             ))}
           </div>
