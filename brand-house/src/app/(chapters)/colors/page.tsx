@@ -12,7 +12,7 @@ export default function ColorsPage() {
       <InteriorHero
         chapterNumber="01"
         category="visual"
-        title="Colors"
+        title="color"
         subtitle="Our palette is built for contrast, accessibility, and editorial impact."
       />
 

@@ -186,7 +186,7 @@ export default function GlossaryPage() {
       <InteriorHero
         chapterNumber="12"
         category="tools"
-        title="Glossary"
+        title="glossary"
         subtitle="Terms, acronyms, and definitions used across the NorCal SBDC network. Keep this reference handy — consistent language builds trust."
       />
 

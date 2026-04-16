@@ -76,7 +76,7 @@ export default function PhotographyPage() {
       <InteriorHero
         chapterNumber="05"
         category="strategy"
-        title="Photo & Video"
+        title="photos"
         subtitle="People, not programs. Faces, not buildings. Every image should make the person visible — because the service is the person."
       />
 

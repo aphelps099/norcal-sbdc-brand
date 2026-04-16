@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { STAR_PATH } from "@/lib/brand-tokens";
 
 /* 4-column nav — mirrors CA SBDC Explore / About / Impact / Connect */
@@ -41,6 +42,8 @@ const NAV_COLS = [
 /* Star SVG path imported from brand-tokens */
 
 export default function TopNav() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [pastHero, setPastHero] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -97,7 +100,8 @@ export default function TopNav() {
     return () => window.removeEventListener("keydown", onKey);
   }, [menuOpen]);
 
-  const isDark = !pastHero && !menuOpen;
+  /* Only the homepage hero is dark. Interior pages render on cream — always use dark nav text there. */
+  const isDark = isHome && !pastHero && !menuOpen;
 
   return (
     <>
@@ -180,7 +184,7 @@ export default function TopNav() {
           menuOpen
             ? "bg-transparent"
             : scrolled
-              ? pastHero
+              ? !isHome || pastHero
                 ? "bg-white/90 backdrop-blur-2xl border-b border-black/[0.06]"
                 : "bg-black/30 backdrop-blur-2xl"
               : "bg-transparent"

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
 
 /** Category drives top bar + eyebrow + animated underline color. */
 export type ChapterCategory = "visual" | "strategy" | "tools";
@@ -21,7 +20,7 @@ const CATEGORY = {
 interface InteriorHeroProps {
   title: string;
   subtitle?: string;
-  /** Chapter number as two-digit string (e.g. "01"). Rendered as ghosted Turnip BG accent. */
+  /** Chapter number as two-digit string (e.g. "01"). Rendered as oversized Turnip BG accent. */
   chapterNumber?: string;
   /** Content category — drives top bar, eyebrow, and underline color. */
   category?: ChapterCategory;
@@ -61,17 +60,17 @@ export default function InteriorHero({
           { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", delay: 0.1 });
 
         gsap.fromTo(".interior-hero-title",
-          { opacity: 0, y: 26 },
-          { opacity: 1, y: 0, duration: 0.9, ease: "power3.out", delay: 0.2 });
+          { opacity: 0, y: 28 },
+          { opacity: 1, y: 0, duration: 0.95, ease: "power3.out", delay: 0.2 });
 
         gsap.fromTo(".interior-hero-chapter",
-          { opacity: 0 },
-          { opacity: 1, duration: 1.4, ease: "power2.out", delay: 0.5 });
+          { opacity: 0, x: 40 },
+          { opacity: 1, x: 0, duration: 1.6, ease: "power2.out", delay: 0.35 });
 
         if (subtitle) {
           gsap.fromTo(".interior-hero-sub",
             { opacity: 0, y: 12 },
-            { opacity: 1, y: 0, duration: 0.7, ease: "power2.out", delay: 0.55 });
+            { opacity: 1, y: 0, duration: 0.7, ease: "power2.out", delay: 0.6 });
         }
 
         gsap.fromTo(".interior-hero-line",
@@ -91,7 +90,7 @@ export default function InteriorHero({
         style={{ height: "5px", background: cat.color }}
       />
 
-      {/* Giant Turnip chapter number — BG accent, bleeds off the right edge */}
+      {/* Oversized Turnip chapter number — BG hero accent, bleeds off the right edge */}
       {chapterNumber && (
         <span
           aria-hidden
@@ -101,12 +100,12 @@ export default function InteriorHero({
             fontFamily: "var(--serif)",
             fontWeight: 400,
             fontStyle: "italic",
-            fontSize: "clamp(200px, 36vw, 560px)",
+            fontSize: "clamp(420px, 62vw, 960px)",
             lineHeight: 0.82,
             letterSpacing: "-0.04em",
-            color: "rgba(15, 28, 46, 0.06)",
-            top: "clamp(40px, 6vw, 96px)",
-            right: "-2vw",
+            color: "rgba(15, 28, 46, 0.08)",
+            top: "clamp(20px, 3vw, 64px)",
+            right: "-6vw",
             opacity: 0,
           }}
         >
@@ -115,25 +114,10 @@ export default function InteriorHero({
       )}
 
       {/* Content container */}
-      <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 pt-20 md:pt-32 pb-[150px] md:pb-[200px]">
-        {/* Back-to-home breadcrumb */}
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-navy/40 hover:text-navy/70 transition-colors uppercase no-underline"
-          style={{
-            fontFamily: "var(--font-wide)",
-            fontWeight: 700,
-            fontSize: "10px",
-            letterSpacing: "0.22em",
-          }}
-        >
-          <span className="inline-block w-4 h-[1.5px] bg-current" />
-          Brand House
-        </Link>
-
+      <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 pt-40 md:pt-56 pb-[150px] md:pb-[200px]">
         {/* Eyebrow: Chapter NN · Category — category color */}
         <p
-          className="interior-hero-eyebrow mt-10 uppercase"
+          className="interior-hero-eyebrow uppercase"
           data-reveal
           style={{
             fontFamily: "var(--font-wide)",
@@ -147,17 +131,18 @@ export default function InteriorHero({
           {chapterNumber ? `Chapter ${chapterNumber} · ${cat.label}` : cat.label}
         </p>
 
-        {/* Oversized page title — Extra Wide CAPS */}
+        {/* Oversized page title — Proxima Extrabold, lowercase */}
         <h1
-          className="interior-hero-title mt-4 uppercase"
+          className="interior-hero-title mt-6"
           data-reveal
           style={{
-            fontFamily: "var(--font-wide)",
-            fontWeight: 700,
-            fontSize: "clamp(56px, 11vw, 144px)",
-            letterSpacing: "0",
-            lineHeight: 0.92,
+            fontFamily: "var(--sans)",
+            fontWeight: 800,
+            fontSize: "clamp(88px, 15vw, 216px)",
+            letterSpacing: "-0.045em",
+            lineHeight: 0.9,
             color: "#0f1c2e",
+            textTransform: "lowercase",
             opacity: 0,
           }}
         >

@@ -99,7 +99,7 @@ export default function SavedColorsPage() {
     <>
       <InteriorHero
         category="visual"
-        title="Saved Colors"
+        title="saved colors"
         subtitle="Archived gradient definitions from the original Brand House heroes. Available for reuse in presentations, social, and marketing materials."
       />
 

@@ -12,6 +12,8 @@
 /* Local fallback — only used if Typekit fails to load */
 @font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-MediumIt.otf') format('opentype'); font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-Extrabold.otf') format('opentype'); font-weight: 800; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-ExtraboldIt.otf') format('opentype'); font-weight: 800; font-style: italic; font-display: swap; }
 
 /* Material Symbols utility */
 .material-symbols-outlined {
