@@ -18,7 +18,7 @@ const NAV_COLS = [
     heading: "Identity",
     links: [
       { label: "Voice & Tone", href: "/voice" },
-      { label: "Photography", href: "/photography" },
+      { label: "Media", href: "/photography" },
       { label: "Stories", href: "/stories" },
     ],
   },

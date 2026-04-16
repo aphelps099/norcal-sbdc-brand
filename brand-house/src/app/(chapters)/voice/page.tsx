@@ -479,7 +479,7 @@ export default function VoicePage() {
         </div>
       </section>
 
-      <NextSectionLink title="Photography" href="/photography" />
+      <NextSectionLink title="Media" href="/photography" />
     </div>
   );
 }

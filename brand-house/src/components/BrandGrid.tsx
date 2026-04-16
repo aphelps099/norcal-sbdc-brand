@@ -7,7 +7,7 @@ const pills = [
   { title: "Typography", href: "/typography", cat: "visual" },
   { title: "Logos", href: "/logos", cat: "visual" },
   { title: "Voice & Tone", href: "/voice", cat: "strategy" },
-  { title: "Photography", href: "/photography", cat: "strategy" },
+  { title: "Media", href: "/photography", cat: "strategy" },
   { title: "Content", href: "/content", cat: "strategy" },
   { title: "Success Stories", href: "/stories", cat: "strategy" },
   { title: "Templates", href: "/templates", cat: "tools" },

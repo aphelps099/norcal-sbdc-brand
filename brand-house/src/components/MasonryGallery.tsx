@@ -16,18 +16,22 @@ function Tile({
 }: {
   src: string; alt: string; label?: string; pos?: string; ov?: OV;
 }) {
+  const [broken, setBroken] = useState(false);
   return (
     <div className="gallery-tile group relative overflow-hidden h-full w-full"
-         style={{ opacity: 0, transform: "translateY(20px)" }}>
-      <img src={src} alt={alt} loading="lazy"
-           className="w-full h-full object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
-           style={{ objectPosition: pos }} />
-      {/* Permanent gradient from bottom — always colored */}
-      <div className="absolute inset-0 pointer-events-none"
-           style={{ background: `linear-gradient(to top, rgba(${C[ov]},0.72) 0%, rgba(${C[ov]},0.15) 50%, transparent 100%)` }} />
-      {/* Hover: full wash */}
-      <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-           style={{ background: `rgba(${C[ov]},0.38)`, mixBlendMode: "multiply" }} />
+         style={{ opacity: 0, transform: "translateY(20px)", backgroundColor: "#e5e3dc" }}>
+      {!broken && (
+        <img src={src} alt="" loading="lazy"
+             className="w-full h-full object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
+             style={{ objectPosition: pos }}
+             onError={() => setBroken(true)} />
+      )}
+      {broken && (
+        <div className="absolute inset-0" style={{ backgroundColor: "#e5e3dc" }} aria-label={alt} />
+      )}
+      {/* Subtle bottom gradient for label legibility only */}
+      <div className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
+           style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 100%)" }} />
       {label && (
         <div className="absolute bottom-0 left-0 right-0 px-4 py-3">
           <span className="font-label text-[10px] uppercase tracking-[0.16em] text-white/90">{label}</span>
@@ -45,7 +49,6 @@ function VideoTile({ src }: { src: string }) {
       <video autoPlay muted loop playsInline className="w-full h-full object-cover object-center">
         <source src={src} type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-[rgba(15,28,46,0.25)] pointer-events-none" />
     </div>
   );
 }
@@ -78,14 +81,14 @@ function YTTile({
           {/* Thumbnail */}
           <img
             src={thumb}
-            alt={label ?? "Video"}
+            alt=""
             loading="lazy"
             className="w-full h-full object-cover object-center transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
             onError={(e) => { (e.target as HTMLImageElement).src = thumbFallback; }}
           />
-          {/* Brand color gradient */}
+          {/* Subtle bottom gradient for play button + label legibility */}
           <div className="absolute inset-0 pointer-events-none"
-               style={{ background: `linear-gradient(to top, rgba(${C[ov]},0.70) 0%, rgba(${C[ov]},0.12) 55%, transparent 100%)` }} />
+               style={{ background: "linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.08) 55%, rgba(0,0,0,0.15) 100%)" }} />
           {/* Play button */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center
@@ -188,7 +191,7 @@ export default function MasonryGallery() {
   }, []);
 
   return (
-    <section ref={ref} className="bg-[#0f1c2e]"
+    <section ref={ref} className="bg-cream"
              style={{ display: "flex", flexDirection: "column", gap: G }}>
 
       {/* 1 — 4-col */}
