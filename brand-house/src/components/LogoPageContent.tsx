@@ -107,13 +107,29 @@ const MISUSE_ITEMS = [
 const COL_NARROW = "max-w-[780px] mx-auto px-8 md:px-12";
 const COL_WIDE = "max-w-[960px] mx-auto px-8 md:px-12";
 
-/* ─── Section heading component ─── */
+/* ─── Section heading component ───
+   Matches the site-wide section rhythm: heading + 2px container-width rule
+   at rgba(15,28,46,0.18) (same weight as nav underline). */
 function SectionHeading({ id, title }: { id: string; title: string }) {
   return (
     <div id={id} className="scroll-mt-24 mb-8">
-      <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em]">
+      <h2
+        className="text-navy"
+        style={{
+          fontFamily: "var(--sans)",
+          fontWeight: 500,
+          fontSize: "clamp(28px, 3.2vw, 40px)",
+          letterSpacing: "-0.015em",
+          lineHeight: 1.05,
+        }}
+      >
         {title}
       </h2>
+      <div
+        aria-hidden
+        className="mt-6 md:mt-8"
+        style={{ height: 2, background: "rgba(15,28,46,0.18)" }}
+      />
     </div>
   );
 }
