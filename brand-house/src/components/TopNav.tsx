@@ -299,12 +299,12 @@ export default function TopNav() {
                       }}
                     >
                       <h3
-                        className="text-white pb-3 mb-3 border-b-2 border-white"
+                        className="text-white uppercase pb-3 mb-3 border-b-2 border-white"
                         style={{
-                          fontFamily: "var(--serif, Georgia, serif)",
-                          fontWeight: 400,
-                          fontSize: "clamp(1.5rem, 2.5vw, 2rem)",
-                          letterSpacing: "0.05em",
+                          fontFamily: "var(--font-wide)",
+                          fontWeight: 700,
+                          fontSize: "clamp(13px, 1.4vw, 16px)",
+                          letterSpacing: "0.22em",
                         }}
                       >
                         {col.heading}
@@ -327,11 +327,11 @@ export default function TopNav() {
                             <span
                               className="block text-white/75 transition-colors duration-200 group-hover/nav:text-white"
                               style={{
-                                fontFamily: "var(--serif)",
-                                fontWeight: 300,
-                                fontSize: "clamp(1.375rem, 2vw, 1.75rem)",
-                                letterSpacing: "-0.01em",
-                                lineHeight: 1.25,
+                                fontFamily: "var(--sans)",
+                                fontWeight: 500,
+                                fontSize: "clamp(1.25rem, 1.75vw, 1.5rem)",
+                                letterSpacing: "-0.015em",
+                                lineHeight: 1.3,
                               }}
                             >
                               {link.label}
