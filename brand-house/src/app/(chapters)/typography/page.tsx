@@ -1,7 +1,407 @@
-
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
-import SbdcWatermark from "@/components/SbdcWatermark";
+import CopyButton from "@/components/CopyButton";
+
+const COBALT = "#004290";
+const BERRY = "#A73B44";
+const FOREST = "#2e8a55";
+
+const embedLink = `<link rel="stylesheet" href="https://use.typekit.net/pkl5rjs.css">`;
+
+const embedCss = `/* Workhorse — UI, body, display */
+--font-sans: 'proxima-nova', -apple-system, Helvetica, sans-serif;
+
+/* Display labels — 700, caps only */
+--font-wide: 'proxima-nova-extra-wide', 'proxima-nova', sans-serif;
+
+/* Editorial voice — 300 / 400 / 400i */
+--font-serif: 'turnip', Georgia, 'Times New Roman', serif;`;
+
+const cast = [
+  {
+    num: "01",
+    role: "Workhorse",
+    showpiece: "Aa",
+    showpieceStyle: {
+      fontFamily: "var(--sans)",
+      fontWeight: 500,
+      fontSize: "64px",
+      letterSpacing: "-0.02em",
+    } as const,
+    name: (
+      <>
+        Proxima<br />Nova
+      </>
+    ),
+    slug: "proxima-nova · Medium 500",
+    blurb:
+      "Headings, body copy, UI, navigation — the reliable voice across 90% of the system.",
+  },
+  {
+    num: "02",
+    role: "Display",
+    showpiece: "NC",
+    showpieceStyle: {
+      fontFamily: "var(--font-wide)",
+      fontWeight: 700,
+      fontSize: "60px",
+      letterSpacing: "0.02em",
+      textTransform: "uppercase" as const,
+    },
+    name: (
+      <>
+        Proxima Nova<br />Extra Wide
+      </>
+    ),
+    slug: "proxima-nova-extra-wide · Bold 700",
+    blurb:
+      "Eyebrows, kickers, category labels. Caps only — the typographic shoulder tap.",
+  },
+  {
+    num: "03",
+    role: "Editorial",
+    showpiece: "better.",
+    showpieceStyle: {
+      fontFamily: "var(--serif)",
+      fontWeight: 400,
+      fontStyle: "italic" as const,
+      fontSize: "64px",
+      letterSpacing: "-0.01em",
+    },
+    name: <>Turnip</>,
+    slug: "turnip · Book 300 / Regular 400 / Italic",
+    blurb:
+      "Pull quotes, manifesto prose, tagline closer. The warm, human counterweight.",
+  },
+];
+
+const usageRows = [
+  {
+    role: "Page Titles · H1",
+    spec: "Proxima 500 · 48–72px · −0.03em",
+    sample: (
+      <span
+        style={{
+          fontFamily: "var(--sans)",
+          fontWeight: 500,
+          fontSize: "34px",
+          letterSpacing: "-0.03em",
+          lineHeight: 1.05,
+        }}
+      >
+        Brand Components
+      </span>
+    ),
+  },
+  {
+    role: "Section Headlines · H2",
+    spec: "Proxima 500 · 32–48px · −0.02em",
+    sample: (
+      <span
+        style={{
+          fontFamily: "var(--sans)",
+          fontWeight: 500,
+          fontSize: "26px",
+          letterSpacing: "-0.02em",
+          lineHeight: 1.1,
+        }}
+      >
+        Your Business, Better.
+      </span>
+    ),
+  },
+  {
+    role: "Body Copy",
+    spec: "Proxima 500 · 15–18px · −0.01em",
+    sample: (
+      <span
+        style={{
+          fontFamily: "var(--sans)",
+          fontWeight: 500,
+          fontSize: "14px",
+          letterSpacing: "-0.01em",
+          lineHeight: 1.55,
+        }}
+      >
+        Advisors who show up, ask the right questions, and stay through the messy middle.
+      </span>
+    ),
+  },
+  {
+    role: "Eyebrows · Kickers",
+    spec: "Wide 700 · 11px CAPS · +0.14em",
+    sample: (
+      <span
+        style={{
+          fontFamily: "var(--font-wide)",
+          fontWeight: 700,
+          fontSize: "11px",
+          letterSpacing: "0.14em",
+          textTransform: "uppercase",
+        }}
+      >
+        Our Manifesto
+      </span>
+    ),
+  },
+  {
+    role: "Pull Quotes",
+    spec: "Turnip 400 Italic · 32–56px",
+    sample: (
+      <span
+        style={{
+          fontFamily: "var(--serif)",
+          fontWeight: 400,
+          fontStyle: "italic",
+          fontSize: "24px",
+          letterSpacing: "-0.01em",
+          lineHeight: 1.2,
+        }}
+      >
+        &ldquo;One business, one relationship at a time.&rdquo;
+      </span>
+    ),
+  },
+  {
+    role: "Success Story Titles",
+    spec: "Turnip 400 · 40–64px",
+    sample: (
+      <span
+        style={{
+          fontFamily: "var(--serif)",
+          fontWeight: 400,
+          fontSize: "30px",
+          letterSpacing: "-0.01em",
+          lineHeight: 1.1,
+        }}
+      >
+        Dick Taylor Chocolates
+      </span>
+    ),
+  },
+  {
+    role: "Inline Emphasis",
+    spec: "Turnip 400 Italic inside body",
+    sample: (
+      <span
+        style={{
+          fontFamily: "var(--sans)",
+          fontWeight: 500,
+          fontSize: "14px",
+          lineHeight: 1.55,
+        }}
+      >
+        …the real work happens{" "}
+        <em
+          style={{
+            fontFamily: "var(--serif)",
+            fontWeight: 400,
+            fontStyle: "italic",
+          }}
+        >
+          across a table
+        </em>
+        .
+      </span>
+    ),
+  },
+  {
+    role: "Manifesto Prose",
+    spec: "Turnip 300 Book · 22–28px",
+    sample: (
+      <span
+        style={{
+          fontFamily: "var(--serif)",
+          fontWeight: 300,
+          fontSize: "17px",
+          letterSpacing: "-0.005em",
+          lineHeight: 1.45,
+        }}
+      >
+        We believe small business is the most honest form of work.
+      </span>
+    ),
+  },
+  {
+    role: "Tagline Closer",
+    spec: "Proxima 500 + Turnip Italic on closer",
+    sample: (
+      <span
+        style={{
+          fontFamily: "var(--sans)",
+          fontWeight: 500,
+          fontSize: "26px",
+          letterSpacing: "-0.02em",
+          lineHeight: 1.1,
+        }}
+      >
+        Your business,{" "}
+        <em
+          style={{
+            fontFamily: "var(--serif)",
+            fontWeight: 400,
+            fontStyle: "italic",
+          }}
+        >
+          better.
+        </em>
+      </span>
+    ),
+  },
+];
+
+const weights = [
+  {
+    family: "Proxima Nova",
+    slug: "var(--sans)",
+    rows: [
+      {
+        num: "500",
+        label: "Medium",
+        sample: "Everything the system leans on.",
+        style: { fontFamily: "var(--sans)", fontWeight: 500, fontSize: "22px", letterSpacing: "-0.02em" } as const,
+      },
+    ],
+  },
+  {
+    family: "Proxima Nova Extra Wide",
+    slug: "var(--font-wide)",
+    rows: [
+      {
+        num: "700",
+        label: "Bold · CAPS",
+        sample: "EYEBROWS · KICKERS · CHAPTER MARKS",
+        style: {
+          fontFamily: "var(--font-wide)",
+          fontWeight: 700,
+          fontSize: "13px",
+          letterSpacing: "0.14em",
+          textTransform: "uppercase",
+        } as const,
+      },
+      {
+        num: "400",
+        label: "Regular · CAPS",
+        sample: "METADATA ROWS · SMALL TAGS",
+        style: {
+          fontFamily: "var(--font-wide)",
+          fontWeight: 400,
+          fontSize: "12px",
+          letterSpacing: "0.14em",
+          textTransform: "uppercase",
+        } as const,
+      },
+    ],
+  },
+  {
+    family: "Turnip",
+    slug: "var(--serif)",
+    rows: [
+      {
+        num: "300",
+        label: "Book",
+        sample: "Manifesto prose, long-form editorial belief.",
+        style: { fontFamily: "var(--serif)", fontWeight: 300, fontSize: "20px", lineHeight: 1.4 } as const,
+      },
+      {
+        num: "400",
+        label: "Regular",
+        sample: "Success story titles and display serif headings.",
+        style: { fontFamily: "var(--serif)", fontWeight: 400, fontSize: "20px", lineHeight: 1.3 } as const,
+      },
+      {
+        num: "400i",
+        label: "Italic",
+        sample: "Pull quotes and the tagline closer.",
+        style: {
+          fontFamily: "var(--serif)",
+          fontWeight: 400,
+          fontStyle: "italic",
+          fontSize: "20px",
+          lineHeight: 1.3,
+        } as const,
+      },
+    ],
+  },
+];
+
+const dos = [
+  "Use Proxima 500 as the workhorse — headings, body, UI.",
+  "Reserve Extra Wide 700 for short, caps eyebrows and kickers.",
+  "Use Turnip Italic on the final word of a tagline for warmth.",
+  "Let Turnip 300 carry manifesto prose at 22–28px.",
+  "Keep mono (Roboto Mono) to code, hex values, and file paths.",
+  "Set Proxima tracking at −0.02em for headings, −0.01em for body.",
+];
+
+const donts = [
+  "Don\u2019t set Extra Wide in lowercase or long sentences.",
+  "Don\u2019t use Turnip for buttons, form labels, or navigation.",
+  "Don\u2019t stack two italic words in a tagline — italicize one closer.",
+  "Don\u2019t pair Proxima Medium with Proxima Regular for hierarchy.",
+  "Don\u2019t introduce a fourth typeface.",
+  "Don\u2019t use mono for body copy or decorative accents.",
+];
+
+const monoExamples = [
+  { label: "Hex", value: "#0F1C2E" },
+  { label: "Token", value: "--color-navy" },
+  { label: "Path", value: "/brand/typography" },
+  { label: "Code", value: "font-family: var(--sans)" },
+];
+
+function SectionHeader({
+  eyebrow,
+  title,
+  sub,
+}: {
+  eyebrow: string;
+  title: string;
+  sub?: string;
+}) {
+  return (
+    <header className="mb-10 md:mb-12">
+      <p
+        className="text-navy/40 mb-3"
+        style={{
+          fontFamily: "var(--font-wide)",
+          fontWeight: 700,
+          fontSize: "10px",
+          letterSpacing: "0.24em",
+          textTransform: "uppercase",
+        }}
+      >
+        {eyebrow}
+      </p>
+      <h2
+        className="text-navy"
+        style={{
+          fontFamily: "var(--sans)",
+          fontWeight: 500,
+          fontSize: "clamp(24px, 3vw, 34px)",
+          letterSpacing: "-0.02em",
+          lineHeight: 1.1,
+        }}
+      >
+        {title}
+      </h2>
+      {sub && (
+        <p
+          className="text-navy/55 mt-3 max-w-[560px]"
+          style={{
+            fontFamily: "var(--sans)",
+            fontWeight: 500,
+            fontSize: "15px",
+            letterSpacing: "-0.01em",
+            lineHeight: 1.55,
+          }}
+        >
+          {sub}
+        </p>
+      )}
+    </header>
+  );
+}
 
 export default function TypographyPage() {
   return (
@@ -9,356 +409,458 @@ export default function TypographyPage() {
       <InteriorHero
         bg="#0f1c2e"
         title="Typography"
-        subtitle="Two typefaces — Proxima Nova for authority, Roboto Mono for precision."
+        subtitle="Three typefaces, three jobs — Proxima Nova, Extra Wide, and Turnip."
       />
 
-      {/* ── Specimens ── */}
-      <div className="bg-cream py-16 md:py-24 overflow-hidden">
-        <div className="max-w-[960px] mx-auto px-8 md:px-12">
-
-          {/* Proxima Nova specimen */}
-          <div className="mb-20 md:mb-28">
-            <div className="w-8 h-[2px] bg-[#c4543a] mb-5" />
-            <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">
-              Primary Typeface — 01
-            </p>
-
-            {/* Giant specimen name */}
-            <p
-              className="text-navy tracking-[-0.04em] leading-[0.95] mb-1"
-              style={{
-                fontFamily: "var(--sans)",
-                fontWeight: 500,
-                fontSize: "clamp(52px, 9vw, 120px)",
-              }}
-            >
-              Proxima
-            </p>
-            <p
-              className="text-navy/20 tracking-[-0.04em] leading-[0.95]"
-              style={{
-                fontFamily: "var(--sans)",
-                fontWeight: 500,
-                fontSize: "clamp(52px, 9vw, 120px)",
-              }}
-            >
-              Nova
-            </p>
-
-            {/* Metadata row */}
-            <div className="mt-8 pt-5 border-t border-navy/[0.07] grid grid-cols-[1fr_1fr_1fr] gap-4 max-w-[640px]">
-              {[
-                { label: "Weight", val: "Medium 500" },
-                { label: "Usage", val: "Headings, body, display" },
-                { label: "Tracking", val: "−0.02em to −0.04em" },
-              ].map((m) => (
-                <div key={m.label}>
-                  <p className="font-label text-[9px] uppercase tracking-[0.08em] text-navy/25 mb-1">{m.label}</p>
-                  <p className="font-sans text-navy/60 text-[12px]">{m.val}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Alphabet */}
-            <div className="mt-10">
-              <p
-                className="text-navy/50 leading-[1.65] mb-2"
-                style={{
-                  fontFamily: "var(--sans)",
-                  fontWeight: 500,
-                  fontSize: "clamp(16px, 2vw, 22px)",
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz
-              </p>
-              <p
-                className="text-navy/25 leading-[1.65]"
-                style={{
-                  fontFamily: "var(--sans)",
-                  fontWeight: 500,
-                  fontSize: "clamp(16px, 2vw, 22px)",
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                0 1 2 3 4 5 6 7 8 9 &nbsp; ! @ # $ % & * ( ) — , . / ?
-              </p>
+      <div className="bg-cream">
+        {/* 01 · The Cast */}
+        <section className="pt-20 md:pt-24 pb-6">
+          <div className="max-w-[960px] mx-auto px-8 md:px-12">
+            <div className="border-t border-navy/[0.16] pt-6">
+              <SectionHeader
+                eyebrow="01 · The Cast"
+                title="Three typefaces, three jobs."
+                sub="Each face earns its place by doing one thing the other two can’t."
+              />
             </div>
           </div>
 
-          {/* Roboto Mono specimen */}
-          <div>
-            <div className="w-8 h-[2px] bg-[#c4543a] mb-5" />
-            <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">
-              Secondary Typeface — 02
-            </p>
-
-            <p
-              className="text-navy uppercase leading-[1.0] mb-1"
-              style={{
-                fontFamily: "var(--sans-label)",
-                fontWeight: 400,
-                fontSize: "clamp(28px, 4.5vw, 64px)",
-                letterSpacing: "0.10em",
-              }}
-            >
-              ROBOTO
-            </p>
-            <p
-              className="text-navy/20 uppercase leading-[1.0]"
-              style={{
-                fontFamily: "var(--sans-label)",
-                fontWeight: 400,
-                fontSize: "clamp(28px, 4.5vw, 64px)",
-                letterSpacing: "0.10em",
-              }}
-            >
-              MONO
-            </p>
-
-            {/* Metadata row */}
-            <div className="mt-8 pt-5 border-t border-navy/[0.07] grid grid-cols-[1fr_1fr_1fr] gap-4 max-w-[640px]">
-              {[
-                { label: "Weight", val: "Regular 400" },
-                { label: "Usage", val: "Labels, eyebrows, micro-copy" },
-                { label: "Tracking", val: "+0.08em to +0.18em" },
-              ].map((m) => (
-                <div key={m.label}>
-                  <p className="font-label text-[9px] uppercase tracking-[0.08em] text-navy/25 mb-1">{m.label}</p>
-                  <p className="font-sans text-navy/60 text-[12px]">{m.val}</p>
+          <div className="max-w-[960px] mx-auto px-8 md:px-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-navy/[0.16] border border-navy/[0.16]">
+              {cast.map((c) => (
+                <div key={c.num} className="bg-white p-8 md:p-9 flex flex-col">
+                  <p
+                    className="mb-6"
+                    style={{
+                      fontFamily: "var(--font-wide)",
+                      fontWeight: 700,
+                      fontSize: "10px",
+                      letterSpacing: "0.24em",
+                      textTransform: "uppercase",
+                      color: COBALT,
+                    }}
+                  >
+                    {c.num} · {c.role}
+                  </p>
+                  <div
+                    className="text-navy leading-none mb-7"
+                    style={c.showpieceStyle}
+                  >
+                    {c.showpiece}
+                  </div>
+                  <p
+                    className="text-navy mb-2"
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontWeight: 500,
+                      fontSize: "26px",
+                      letterSpacing: "-0.015em",
+                      lineHeight: 1.1,
+                    }}
+                  >
+                    {c.name}
+                  </p>
+                  <p
+                    className="text-navy/50 mb-5"
+                    style={{
+                      fontFamily: "var(--font-wide)",
+                      fontWeight: 400,
+                      fontSize: "11px",
+                      letterSpacing: "0.14em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {c.slug}
+                  </p>
+                  <p
+                    className="text-navy/75"
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontWeight: 500,
+                      fontSize: "14px",
+                      letterSpacing: "-0.01em",
+                      lineHeight: 1.55,
+                    }}
+                  >
+                    {c.blurb}
+                  </p>
                 </div>
               ))}
             </div>
+          </div>
+        </section>
 
-            {/* Alphabet */}
-            <div className="mt-10">
-              <p
-                className="text-navy/50 leading-[1.9] mb-1 uppercase"
-                style={{
-                  fontFamily: "var(--sans-label)",
-                  fontWeight: 400,
-                  fontSize: "clamp(11px, 1.4vw, 16px)",
-                  letterSpacing: "0.10em",
-                }}
-              >
-                A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
-              </p>
-              <p
-                className="text-navy/30 leading-[1.9]"
-                style={{
-                  fontFamily: "var(--sans-label)",
-                  fontWeight: 400,
-                  fontSize: "clamp(11px, 1.4vw, 16px)",
-                  letterSpacing: "0.10em",
-                }}
-              >
-                0 1 2 3 4 5 6 7 8 9 &nbsp; : ; . , / % $ —
-              </p>
+        {/* 02 · Usage */}
+        <section className="pt-20 md:pt-24 pb-6">
+          <div className="max-w-[960px] mx-auto px-8 md:px-12">
+            <div className="border-t border-navy/[0.16] pt-6">
+              <SectionHeader
+                eyebrow="02 · Usage"
+                title="Which face for which job."
+                sub="The reference sheet for advisors and developers. Samples render live in the actual face."
+              />
+            </div>
+
+            <div>
+              {usageRows.map((row, i) => (
+                <div
+                  key={row.role}
+                  className={`grid grid-cols-1 md:grid-cols-[200px_1fr_1.5fr] gap-4 md:gap-8 py-4 ${
+                    i < usageRows.length - 1 ? "border-b border-navy/[0.08]" : ""
+                  }`}
+                >
+                  <p
+                    className="text-navy"
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontWeight: 500,
+                      fontSize: "13px",
+                      letterSpacing: "-0.01em",
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    {row.role}
+                  </p>
+                  <p
+                    className="text-navy/50"
+                    style={{
+                      fontFamily: "var(--font-wide)",
+                      fontWeight: 400,
+                      fontSize: "11px",
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    {row.spec}
+                  </p>
+                  <div className="text-navy self-center">{row.sample}</div>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      {/* ── Type Scale ── dark, dramatic */}
-      <div className="bg-[#0f1c2e] py-16 md:py-24 relative overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c4543a]" />
-        <SbdcWatermark className="absolute -right-[6%] top-[6%] w-[38vw] max-w-[480px] text-white pointer-events-none select-none" opacity={0.03} />
+        {/* 03 · Weights */}
+        <section className="pt-20 md:pt-24 pb-6">
+          <div className="max-w-[960px] mx-auto px-8 md:px-12">
+            <div className="border-t border-navy/[0.16] pt-6">
+              <SectionHeader
+                eyebrow="03 · Weights"
+                title="Only the weights we use."
+                sub="Six weights total across three families. If it isn’t listed, don’t ship it."
+              />
+            </div>
 
-        <div className="max-w-[780px] mx-auto px-8 md:px-12 relative z-10">
-          <p className="font-label text-[10px] uppercase tracking-[0.1em] text-white/25 mb-2">Scale</p>
-          <h2
-            className="tracking-[-0.02em] text-white/90 mb-14"
-            style={{ fontFamily: "var(--sans)", fontWeight: 500, fontSize: "clamp(1.1rem, 2vw, 1.4rem)" }}
-          >
-            Type Scale
-          </h2>
+            <div className="space-y-10">
+              {weights.map((family) => (
+                <div key={family.family}>
+                  <div className="flex items-baseline justify-between mb-3 pb-2 border-b border-navy/[0.12]">
+                    <p
+                      className="text-navy"
+                      style={{
+                        fontFamily: "var(--sans)",
+                        fontWeight: 500,
+                        fontSize: "16px",
+                        letterSpacing: "-0.015em",
+                      }}
+                    >
+                      {family.family}
+                    </p>
+                    <code
+                      className="text-navy/40"
+                      style={{
+                        fontFamily: "var(--mono)",
+                        fontSize: "11px",
+                        letterSpacing: "0",
+                      }}
+                    >
+                      {family.slug}
+                    </code>
+                  </div>
+                  {family.rows.map((r) => (
+                    <div
+                      key={r.num}
+                      className="grid grid-cols-[60px_180px_1fr] gap-4 items-center py-3 border-b border-navy/[0.06] last:border-b-0"
+                    >
+                      <p
+                        className="text-navy/40"
+                        style={{
+                          fontFamily: "var(--mono)",
+                          fontSize: "12px",
+                        }}
+                      >
+                        {r.num}
+                      </p>
+                      <p
+                        className="text-navy/65"
+                        style={{
+                          fontFamily: "var(--font-wide)",
+                          fontWeight: 400,
+                          fontSize: "11px",
+                          letterSpacing: "0.14em",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {r.label}
+                      </p>
+                      <p className="text-navy" style={r.style}>
+                        {r.sample}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
-          {[
-            {
-              label: "Display",
-              spec: "Proxima Nova 500 · 40–64px · −0.03em · lh 1.05",
-              sample: "Your Business, Better.",
-              font: "var(--sans)",
-              weight: 500,
-              size: "clamp(40px, 6vw, 64px)",
-              tracking: "-0.03em",
-              lh: "1.05",
-              color: "rgba(255,255,255,0.90)",
-            },
-            {
-              label: "H1",
-              spec: "Proxima Nova 500 · 28–44px · −0.02em · lh 1.1",
-              sample: "Meet Your Business People",
-              font: "var(--sans)",
-              weight: 500,
-              size: "clamp(28px, 4vw, 44px)",
-              tracking: "-0.02em",
-              lh: "1.1",
-              color: "rgba(255,255,255,0.85)",
-            },
-            {
-              label: "H2",
-              spec: "Proxima Nova 500 · 22–32px · −0.02em · lh 1.15",
-              sample: "Capital Access Programs",
-              font: "var(--sans)",
-              weight: 500,
-              size: "clamp(22px, 3vw, 32px)",
-              tracking: "-0.02em",
-              lh: "1.15",
-              color: "rgba(255,255,255,0.80)",
-            },
-            {
-              label: "Body",
-              spec: "Proxima Nova 500 · 16–17px · −0.01em · lh 1.7",
-              sample: "Since 1980, SBDC advisors have helped Northern California businesses raise $2.8B in capital, create 42,000+ jobs, and turn kitchen-table ideas into million-dollar companies.",
-              font: "var(--sans)",
-              weight: 500,
-              size: "clamp(16px, 1.2vw, 17px)",
-              tracking: "-0.01em",
-              lh: "1.7",
-              color: "rgba(255,255,255,0.55)",
-            },
-            {
-              label: "Label",
-              spec: "Roboto Mono 400 · 13px · +0.14em · lh 1.4",
-              sample: "CAPITAL ACCESS · BUSINESS PLANNING · CRISIS RECOVERY",
-              font: "var(--sans-label)",
-              weight: 400,
-              size: "13px",
-              tracking: "0.14em",
-              lh: "1.4",
-              color: "rgba(255,255,255,0.45)",
-            },
-            {
-              label: "Helper",
-              spec: "Roboto Mono 400 · 11px · +0.02em · lh 1.5",
-              sample: "Funded in part through a cooperative agreement with the US Small Business Administration.",
-              font: "var(--sans-label)",
-              weight: 400,
-              size: "11px",
-              tracking: "0.02em",
-              lh: "1.5",
-              color: "rgba(255,255,255,0.30)",
-            },
-          ].map((row, i) => (
-            <div key={row.label} className={`grid grid-cols-[120px_1fr] gap-8 py-7 ${i < 5 ? "border-b border-white/[0.06]" : ""}`}>
-              {/* Left: label + spec */}
-              <div className="pt-1 shrink-0">
-                <p className="font-label text-[10px] uppercase tracking-[0.08em] text-white/50 mb-2">{row.label}</p>
-                <p className="font-label text-[9px] text-white/25 leading-relaxed" style={{ letterSpacing: "0.02em" }}>{row.spec}</p>
-              </div>
-              {/* Right: live specimen */}
-              <div>
+        {/* 04 · Embed */}
+        <section className="pt-20 md:pt-24 pb-6">
+          <div className="max-w-[960px] mx-auto px-8 md:px-12">
+            <div className="border-t border-navy/[0.16] pt-6">
+              <SectionHeader
+                eyebrow="04 · Embed"
+                title="Drop-in code."
+                sub="Link the Typekit sheet, then wire three CSS variables."
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="relative">
                 <p
+                  className="mb-2 text-navy/50"
                   style={{
-                    fontFamily: row.font,
-                    fontWeight: row.weight,
-                    fontSize: row.size,
-                    letterSpacing: row.tracking,
-                    lineHeight: row.lh,
-                    color: row.color,
-                    maxWidth: row.label === "Body" || row.label === "Helper" ? "600px" : undefined,
+                    fontFamily: "var(--font-wide)",
+                    fontWeight: 700,
+                    fontSize: "10px",
+                    letterSpacing: "0.22em",
+                    textTransform: "uppercase",
                   }}
                 >
-                  {row.sample}
+                  1 · Typekit
                 </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ── Rules ── */}
-      <div className="bg-[#0f1c2e] py-14 md:py-20 relative overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c4543a]" />
-        <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
-        <div className="max-w-[960px] mx-auto px-8 md:px-12">
-          <p className="font-label text-[10px] uppercase tracking-[0.1em] text-white/25 mb-2">Rules</p>
-          <h2
-            className="tracking-[-0.02em] text-white/90 mb-8"
-            style={{ fontFamily: "var(--sans)", fontWeight: 500, fontSize: "clamp(1.1rem, 2vw, 1.4rem)" }}
-          >
-            Usage Guidelines
-          </h2>
-
-          {/* Rules prose */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-0.5 mb-12">
-            {[
-              {
-                num: "01",
-                title: "Proxima Nova — primary",
-                body: "Weight 500 across all headings, body copy, navigation, and display. Tight letter-spacing (−0.02em to −0.04em) for a confident, compressed presence.",
-              },
-              {
-                num: "02",
-                title: "Roboto Mono — labels only",
-                body: "Regular 400 for eyebrows, helper text, footers, and UI micro-copy. Wide tracking (+0.08em to +0.18em) creates the precision contrast with Proxima Nova.",
-              },
-              {
-                num: "03",
-                title: "Two typefaces, no more",
-                body: "Never introduce a third typeface. Proxima Nova + Roboto Mono is the complete pairing. Weight variation within Proxima Nova handles all hierarchy needs.",
-              },
-            ].map((r) => (
-              <div key={r.num} className="bg-white/[0.04] p-6">
-                <p className="font-label text-[9px] uppercase tracking-[0.08em] text-[#c4543a]/70 mb-3">{r.num}</p>
-                <p className="font-sans text-white/80 text-[13px] mb-2" style={{ fontWeight: 500 }}>{r.title}</p>
-                <p className="font-sans text-white/40 text-[13px] leading-relaxed">{r.body}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Do / Don't */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0.5">
-            {/* Do */}
-            <div className="bg-white/[0.04] p-6 md:p-8">
-              <span className="inline-block font-label text-[10px] uppercase tracking-[0.14em] px-2.5 py-1 mb-6 border border-[#4DB8AD]/30 text-[#4DB8AD]/80">
-                Do
-              </span>
-              <div className="mb-5">
-                <p
-                  className="text-white/85 leading-[1.15] tracking-[-0.02em] mb-2"
-                  style={{ fontFamily: "var(--sans)", fontWeight: 500, fontSize: "22px" }}
+                <pre
+                  className="bg-navy text-cream p-5 md:p-6 rounded-md overflow-x-auto"
+                  style={{
+                    fontFamily: "var(--mono)",
+                    fontSize: "13px",
+                    lineHeight: 1.6,
+                  }}
                 >
-                  Business Growth Report
-                </p>
-                <p
-                  className="text-white/30"
-                  style={{ fontFamily: "var(--sans-label)", fontSize: "10px", letterSpacing: "0.12em" }}
-                >
-                  Q4 2025 · NORTHERN CALIFORNIA
-                </p>
+                  <code>{embedLink}</code>
+                </pre>
+                <div className="absolute top-7 right-2">
+                  <CopyButton text={embedLink} />
+                </div>
               </div>
-              <p className="font-sans text-white/35 text-[13px] leading-relaxed">
-                Proxima Nova headings paired with Roboto Mono labels. Consistent tracking. Clear hierarchy.
-              </p>
-            </div>
 
-            {/* Don't */}
-            <div className="bg-white/[0.04] p-6 md:p-8">
-              <span className="inline-block font-label text-[10px] uppercase tracking-[0.14em] px-2.5 py-1 mb-6 border border-[#D98088]/30 text-[#D98088]/80">
-                Don&apos;t
-              </span>
-              <div className="mb-5">
+              <div className="relative">
                 <p
-                  className="text-white/85 leading-[1.15] mb-1"
-                  style={{ fontFamily: "var(--sans)", fontWeight: 500, fontSize: "22px", letterSpacing: "0.08em" }}
+                  className="mb-2 text-navy/50"
+                  style={{
+                    fontFamily: "var(--font-wide)",
+                    fontWeight: 700,
+                    fontSize: "10px",
+                    letterSpacing: "0.22em",
+                    textTransform: "uppercase",
+                  }}
                 >
-                  Business Growth Report
+                  2 · CSS Variables
                 </p>
-                <p
-                  className="text-white/50"
-                  style={{ fontFamily: "var(--sans)", fontWeight: 500, fontSize: "14px", letterSpacing: "-0.02em" }}
+                <pre
+                  className="bg-navy text-cream p-5 md:p-6 rounded-md overflow-x-auto"
+                  style={{
+                    fontFamily: "var(--mono)",
+                    fontSize: "13px",
+                    lineHeight: 1.6,
+                  }}
                 >
-                  Q4 2025 · Northern California
-                </p>
+                  <code>{embedCss}</code>
+                </pre>
+                <div className="absolute top-7 right-2">
+                  <CopyButton text={embedCss} />
+                </div>
               </div>
-              <p className="font-sans text-white/35 text-[13px] leading-relaxed">
-                Don&apos;t add positive tracking to headings, use Proxima Nova for labels, or mix more than two typefaces.
-              </p>
             </div>
           </div>
-        </div>
+        </section>
+
+        {/* 05 · Rules */}
+        <section className="pt-20 md:pt-24 pb-6">
+          <div className="max-w-[960px] mx-auto px-8 md:px-12">
+            <div className="border-t border-navy/[0.16] pt-6">
+              <SectionHeader
+                eyebrow="05 · Rules"
+                title="Do / Don’t."
+                sub="Six each. The short answer when you’re unsure."
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 bg-white border border-navy/[0.16]">
+              <div className="p-7 md:p-8 border-b md:border-b-0 md:border-r border-navy/[0.12]">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="inline-block w-6 h-px" style={{ background: FOREST }} />
+                  <span
+                    style={{
+                      fontFamily: "var(--font-wide)",
+                      fontWeight: 700,
+                      fontSize: "11px",
+                      letterSpacing: "0.22em",
+                      textTransform: "uppercase",
+                      color: FOREST,
+                    }}
+                  >
+                    Do
+                  </span>
+                </div>
+                <ul>
+                  {dos.map((d, i) => (
+                    <li
+                      key={d}
+                      className={`py-2.5 text-navy/85 ${
+                        i < dos.length - 1 ? "border-b border-navy/[0.08]" : ""
+                      }`}
+                      style={{
+                        fontFamily: "var(--sans)",
+                        fontWeight: 500,
+                        fontSize: "15px",
+                        letterSpacing: "-0.01em",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {d}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="p-7 md:p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="inline-block w-6 h-px" style={{ background: BERRY }} />
+                  <span
+                    style={{
+                      fontFamily: "var(--font-wide)",
+                      fontWeight: 700,
+                      fontSize: "11px",
+                      letterSpacing: "0.22em",
+                      textTransform: "uppercase",
+                      color: BERRY,
+                    }}
+                  >
+                    Don&rsquo;t
+                  </span>
+                </div>
+                <ul>
+                  {donts.map((d, i) => (
+                    <li
+                      key={d}
+                      className={`py-2.5 text-navy/85 ${
+                        i < donts.length - 1 ? "border-b border-navy/[0.08]" : ""
+                      }`}
+                      style={{
+                        fontFamily: "var(--sans)",
+                        fontWeight: 500,
+                        fontSize: "15px",
+                        letterSpacing: "-0.01em",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {d}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 06 · Monospace strip */}
+        <section className="pt-20 md:pt-24 pb-6">
+          <div className="max-w-[960px] mx-auto px-8 md:px-12">
+            <div className="bg-navy text-cream px-7 md:px-10 py-8 md:py-9">
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-8 items-center">
+                <div>
+                  <p
+                    className="mb-2"
+                    style={{
+                      fontFamily: "var(--font-wide)",
+                      fontWeight: 700,
+                      fontSize: "10px",
+                      letterSpacing: "0.24em",
+                      textTransform: "uppercase",
+                      color: "rgba(245,244,240,0.55)",
+                    }}
+                  >
+                    06 · Utility Only
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontWeight: 500,
+                      fontSize: "18px",
+                      letterSpacing: "-0.01em",
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    Mono shows up{" "}
+                    <em
+                      style={{
+                        fontFamily: "var(--serif)",
+                        fontStyle: "italic",
+                        fontWeight: 400,
+                      }}
+                    >
+                      only
+                    </em>{" "}
+                    when you’re displaying code, values, or paths.
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+                  {monoExamples.map((ex) => (
+                    <div key={ex.label}>
+                      <p
+                        style={{
+                          fontFamily: "var(--font-wide)",
+                          fontWeight: 700,
+                          fontSize: "9px",
+                          letterSpacing: "0.24em",
+                          textTransform: "uppercase",
+                          color: "rgba(245,244,240,0.45)",
+                        }}
+                      >
+                        {ex.label}
+                      </p>
+                      <p
+                        className="mt-1"
+                        style={{
+                          fontFamily: "var(--mono)",
+                          fontSize: "13px",
+                          color: "rgba(245,244,240,0.92)",
+                        }}
+                      >
+                        {ex.value}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <p
+              className="text-navy/60 mt-4"
+              style={{
+                fontFamily: "var(--sans)",
+                fontWeight: 500,
+                fontSize: "12px",
+                letterSpacing: "-0.005em",
+              }}
+            >
+              Stack: <code style={{ fontFamily: "var(--mono)" }}>&apos;Roboto Mono&apos;, &apos;SF Mono&apos;, &apos;Fira Code&apos;, monospace</code>.
+            </p>
+          </div>
+        </section>
+
+        <div className="h-20 md:h-24" />
       </div>
 
       <NextSectionLink title="Logos" href="/logos" />
