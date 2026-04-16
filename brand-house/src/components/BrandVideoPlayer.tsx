@@ -170,20 +170,25 @@ export default function BrandVideoPlayer({ videoId }: { videoId: string }) {
         {/* Navy tint */}
         <div className="absolute inset-0 bg-[rgba(15,28,46,0.45)] transition-opacity duration-300 group-hover:bg-[rgba(15,28,46,0.30)]" />
 
-        {/* Play button */}
+        {/* Play video — italic serif word mark */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div
-            className={`w-[72px] h-[72px] rounded-full border border-white/30 flex items-center justify-center
-                        transition-all duration-300
-                        ${ready
-                          ? "bg-white/15 backdrop-blur-sm group-hover:bg-white/28 group-hover:scale-110 group-hover:border-white/55"
-                          : "bg-white/8 animate-pulse"
-                        }`}
+          <span
+            className={`italic transition-all duration-300 ${
+              ready
+                ? "opacity-85 group-hover:opacity-100 group-hover:tracking-normal"
+                : "opacity-40 animate-pulse"
+            }`}
+            style={{
+              fontFamily: "var(--serif)",
+              fontWeight: 400,
+              fontSize: "clamp(36px, 4.2vw, 60px)",
+              color: "#f5f4f0",
+              letterSpacing: "-0.01em",
+              textShadow: "0 2px 28px rgba(0,0,0,0.35)",
+            }}
           >
-            <svg viewBox="0 0 24 24" fill="white" className="w-8 h-8 ml-1 drop-shadow">
-              <path d="M8 5v14l11-7z"/>
-            </svg>
-          </div>
+            play video
+          </span>
         </div>
       </div>
 

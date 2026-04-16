@@ -10,10 +10,18 @@ const pillars = [
   { name: "Your Business, Connected", sub: "Network, resources, community." },
 ];
 
-const proofPoints = [
-  { number: "8,500+", label: "businesses served" },
-  { number: "$240M+", label: "capital raised" },
-  { number: "1,900+", label: "jobs created" },
+const norcalProofPoints = [
+  { number: "3,723", label: "Jobs Created" },
+  { number: "712", label: "Businesses Started" },
+  { number: "$201M", label: "Sales Growth (2025)" },
+];
+
+const nationalProofPoints = [
+  { number: "$40", label: "Generated for every $1 invested" },
+  { number: "2x", label: "Faster Sales" },
+  { number: "68K+", label: "Jobs Created" },
+  { number: "$5.5B", label: "Capital" },
+  { number: "96%", label: "Recommend" },
 ];
 
 // Shared 2px container-width steel rule
@@ -387,7 +395,7 @@ export default function VoicePage() {
             </div>
           </div>
 
-          {/* Metrics / proof points */}
+          {/* ── BY THE NUMBERS — NorCal hero + America's SBDC comparison ── */}
           <div className="mt-20 md:mt-28 pt-10 md:pt-12 border-t border-white/[0.08]">
             <p
               className="uppercase mb-10"
@@ -400,38 +408,199 @@ export default function VoicePage() {
             >
               By the Numbers
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
-              {proofPoints.map((pt) => (
-                <div
-                  key={pt.label}
-                  className="py-8 md:py-0 md:pl-6 md:border-l border-t md:border-t-0 border-white/[0.08]"
-                  style={{ minWidth: 0 }}
-                >
+
+            {/* NorCal SBDC — primary hero stat */}
+            <div>
+              <p
+                className="uppercase mb-8"
+                style={{
+                  fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+                  fontSize: "11px",
+                  letterSpacing: "0.22em",
+                  color: "#85A3C8",
+                }}
+              >
+                NorCal SBDC
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 items-end">
+                {/* Hero stat — spans 7 cols */}
+                <div className="md:col-span-7">
                   <p
+                    className="uppercase"
                     style={{
-                      fontFamily: "var(--font-wide)",
-                      fontWeight: 700,
-                      fontSize: "clamp(44px, 4.6vw, 68px)",
-                      color: "#f5f4f0",
-                      letterSpacing: "-0.02em",
-                      lineHeight: 0.95,
-                      whiteSpace: "nowrap",
+                      fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+                      fontSize: "11px",
+                      letterSpacing: "0.22em",
+                      color: "rgba(133,163,200,0.55)",
                     }}
                   >
-                    {pt.number}
+                    Total Capital Accessed
                   </p>
                   <p
                     className="mt-3"
                     style={{
-                      fontFamily: "var(--sans)",
-                      fontSize: "15px",
+                      fontFamily: "var(--serif)",
+                      fontStyle: "italic",
+                      fontWeight: 400,
+                      fontSize: "clamp(120px, 18vw, 260px)",
+                      color: "#f5f4f0",
+                      letterSpacing: "-0.04em",
+                      lineHeight: 0.88,
+                    }}
+                  >
+                    $549M
+                  </p>
+                  <p
+                    className="mt-4 uppercase"
+                    style={{
+                      fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+                      fontSize: "11px",
+                      letterSpacing: "0.22em",
                       color: "rgba(133,163,200,0.75)",
                     }}
                   >
-                    {pt.label}
+                    In Client Capital
                   </p>
                 </div>
-              ))}
+
+                {/* Supporting copy — spans 5 cols */}
+                <div className="md:col-span-5 md:pb-6">
+                  <p
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontWeight: 500,
+                      fontSize: "clamp(17px, 1.4vw, 19px)",
+                      lineHeight: 1.5,
+                      color: "#f5f4f0",
+                      letterSpacing: "-0.005em",
+                    }}
+                  >
+                    Every dollar we help secure strengthens local communities.
+                  </p>
+                  <p
+                    className="mt-5"
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontWeight: 400,
+                      fontSize: "15px",
+                      lineHeight: 1.6,
+                      color: "rgba(133,163,200,0.85)",
+                    }}
+                  >
+                    Our advisors work one-on-one with entrepreneurs to access
+                    capital, create jobs, and grow sustainable businesses
+                    across Northern California.
+                  </p>
+                </div>
+              </div>
+
+              {/* NorCal supporting stats row */}
+              <div className="mt-16 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+                {norcalProofPoints.map((pt) => (
+                  <div
+                    key={pt.label}
+                    className="py-8 md:py-0 md:pl-6 md:border-l border-t md:border-t-0 border-white/[0.08]"
+                    style={{ minWidth: 0 }}
+                  >
+                    <p
+                      style={{
+                        fontFamily: "var(--font-wide)",
+                        fontWeight: 700,
+                        fontSize: "clamp(44px, 4.6vw, 68px)",
+                        color: "#f5f4f0",
+                        letterSpacing: "-0.02em",
+                        lineHeight: 0.95,
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {pt.number}
+                    </p>
+                    <p
+                      className="mt-3"
+                      style={{
+                        fontFamily: "var(--sans)",
+                        fontSize: "15px",
+                        color: "rgba(133,163,200,0.75)",
+                      }}
+                    >
+                      {pt.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Steel rule between subsections */}
+            <div
+              aria-hidden
+              className="mt-20 md:mt-28"
+              style={{
+                height: 2,
+                background: "#5684BA",
+                opacity: 0.85,
+              }}
+            />
+
+            {/* America's SBDC Network — secondary comparison row */}
+            <div className="mt-14 md:mt-20">
+              <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-4 mb-12">
+                <p
+                  className="uppercase"
+                  style={{
+                    fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+                    fontSize: "11px",
+                    letterSpacing: "0.22em",
+                    color: "#85A3C8",
+                  }}
+                >
+                  America&rsquo;s SBDC Network
+                </p>
+                <p
+                  style={{
+                    fontFamily: "var(--sans)",
+                    fontSize: "15px",
+                    color: "rgba(133,163,200,0.75)",
+                  }}
+                >
+                  National context
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8">
+                {nationalProofPoints.map((pt) => (
+                  <div
+                    key={pt.label}
+                    className="pt-6 border-t border-white/[0.08]"
+                    style={{ minWidth: 0 }}
+                  >
+                    <p
+                      style={{
+                        fontFamily: "var(--font-wide)",
+                        fontWeight: 700,
+                        fontSize: "clamp(34px, 3.2vw, 48px)",
+                        color: "#f5f4f0",
+                        letterSpacing: "-0.02em",
+                        lineHeight: 0.95,
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {pt.number}
+                    </p>
+                    <p
+                      className="mt-3"
+                      style={{
+                        fontFamily: "var(--sans)",
+                        fontSize: "15px",
+                        lineHeight: 1.4,
+                        color: "rgba(133,163,200,0.75)",
+                      }}
+                    >
+                      {pt.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
