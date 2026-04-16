@@ -46,11 +46,6 @@ export default function TypographySpecimens() {
         </p>
       </div>
 
-      {/* Container-width 2px rule under heading */}
-      <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
-        <div aria-hidden style={{ height: 2, background: "rgba(15,28,46,0.18)" }} />
-      </div>
-
       {/* Row 01 · Sans / Display Caps — centered two-column pairing */}
       <div
         className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 text-center"
