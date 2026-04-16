@@ -1,10 +1,15 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════
-   FONTS — Proxima Nova (display/body) + Roboto Mono (labels/helpers)
+   FONTS — Three-font system via Adobe Fonts / Typekit (loaded in layout.tsx)
+     · proxima-nova              — Workhorse   (500)
+     · proxima-nova-extra-wide   — Display Label (700, CAPS only)
+     · turnip                    — Editorial Voice (300 / 400 / 400i)
+   Plus Roboto Mono (utility: code, hex, paths) loaded from Google Fonts.
+   Local Proxima Nova fallback kept as a safety net if Typekit fails.
    ═══════════════════════════════════════════ */
 
-/* Proxima Nova — headings, body, navigation, display */
+/* Local fallback — only used if Typekit fails to load */
 @font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Proxima Nova'; src: url('/fonts/ProximaNova-MediumIt.otf') format('opentype'); font-weight: 500; font-style: italic; font-display: swap; }
 
@@ -51,9 +56,10 @@
   --text-tertiary: #888888;
   --rule: rgba(0,0,0,0.08);
 
-  --sans: 'Proxima Nova', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
-  --sans-label: 'Roboto Mono', 'Proxima Nova', -apple-system, monospace;
-  --serif: 'Proxima Nova', -apple-system, 'Helvetica Neue', sans-serif;
+  --sans: 'proxima-nova', 'Proxima Nova', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+  --sans-wide: 'proxima-nova-extra-wide', 'proxima-nova-wide', 'proxima-nova', 'Proxima Nova', -apple-system, sans-serif;
+  --sans-label: 'proxima-nova-extra-wide', 'proxima-nova-wide', 'proxima-nova', 'Proxima Nova', -apple-system, sans-serif;
+  --serif: 'turnip', Georgia, 'Times New Roman', serif;
   --mono: 'Roboto Mono', 'SF Mono', 'Fira Code', monospace;
 
   --pad: clamp(24px, 5vw, 64px);
@@ -82,9 +88,10 @@
   --color-text-secondary: #4a4a4a;
   --color-text-tertiary: #888888;
 
-  --font-sans: 'Proxima Nova', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
-  --font-label: 'Roboto Mono', 'Proxima Nova', -apple-system, monospace;
-  --font-serif: 'Proxima Nova', -apple-system, 'Helvetica Neue', sans-serif;
+  --font-sans: 'proxima-nova', 'Proxima Nova', -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+  --font-wide: 'proxima-nova-extra-wide', 'proxima-nova-wide', 'proxima-nova', 'Proxima Nova', -apple-system, sans-serif;
+  --font-label: 'proxima-nova-extra-wide', 'proxima-nova-wide', 'proxima-nova', 'Proxima Nova', -apple-system, sans-serif;
+  --font-serif: 'turnip', Georgia, 'Times New Roman', serif;
   --font-mono: 'Roboto Mono', 'SF Mono', 'Fira Code', monospace;
 }
 
