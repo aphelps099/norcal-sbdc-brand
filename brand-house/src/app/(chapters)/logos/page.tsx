@@ -9,7 +9,7 @@ export default function LogosPage() {
       <InteriorHero
         chapterNumber="03"
         category="visual"
-        title="Logos"
+        title="logos"
         subtitle="The California SBDC logo represents us at the very highest level. It acts as a signature, an identifier, and a stamp of quality."
       />
       <LogoPageContent />
