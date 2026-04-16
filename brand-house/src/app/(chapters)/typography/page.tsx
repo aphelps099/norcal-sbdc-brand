@@ -5,6 +5,10 @@ const COBALT = "#004290";
 const BERRY = "#A73B44";
 const FOREST = "#2e8a55";
 
+/* ------------------------------------------------------------------ */
+/*  01 · The Cast — data                                              */
+/* ------------------------------------------------------------------ */
+
 const cast = [
   {
     num: "01",
@@ -14,16 +18,16 @@ const cast = [
     nameStyle: {
       fontFamily: "var(--sans)",
       fontWeight: 500,
-      fontSize: "44px",
-      letterSpacing: "-0.03em",
-      lineHeight: 1,
+      fontSize: "clamp(64px, 10vw, 110px)",
+      letterSpacing: "-0.04em",
+      lineHeight: 0.95,
     } as const,
     specimenStyle: {
       fontFamily: "var(--sans)",
       fontWeight: 500,
-      fontSize: "20px",
+      fontSize: "clamp(18px, 2.4vw, 28px)",
       letterSpacing: "-0.01em",
-      lineHeight: 1.5,
+      lineHeight: 1.45,
     } as const,
     lines: [
       "Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm",
@@ -34,20 +38,21 @@ const cast = [
   {
     num: "02",
     role: "Display",
-    name: "Proxima Nova Extra Wide",
+    name: "Extra Wide",
     slug: "proxima-nova-extra-wide · Bold 700",
     nameStyle: {
-      fontFamily: "var(--sans)",
-      fontWeight: 500,
-      fontSize: "26px",
-      letterSpacing: "-0.02em",
-      lineHeight: 1.1,
-    } as const,
+      fontFamily: "var(--font-wide)",
+      fontWeight: 700,
+      fontSize: "clamp(48px, 8vw, 96px)",
+      letterSpacing: "0.06em",
+      lineHeight: 0.95,
+      textTransform: "uppercase" as const,
+    },
     specimenStyle: {
       fontFamily: "var(--font-wide)",
       fontWeight: 700,
-      fontSize: "16px",
-      letterSpacing: "0.08em",
+      fontSize: "clamp(14px, 1.8vw, 20px)",
+      letterSpacing: "0.1em",
       lineHeight: 1.75,
       textTransform: "uppercase" as const,
     },
@@ -65,16 +70,16 @@ const cast = [
     nameStyle: {
       fontFamily: "var(--serif)",
       fontWeight: 400,
-      fontSize: "48px",
-      letterSpacing: "-0.01em",
-      lineHeight: 1,
+      fontSize: "clamp(72px, 11vw, 120px)",
+      letterSpacing: "-0.02em",
+      lineHeight: 0.92,
     } as const,
     specimenStyle: {
       fontFamily: "var(--serif)",
       fontWeight: 400,
-      fontSize: "20px",
+      fontSize: "clamp(18px, 2.4vw, 28px)",
       letterSpacing: "-0.005em",
-      lineHeight: 1.5,
+      lineHeight: 1.45,
     } as const,
     lines: [
       "Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm",
@@ -86,12 +91,16 @@ const cast = [
       fontFamily: "var(--serif)",
       fontWeight: 400,
       fontStyle: "italic" as const,
-      fontSize: "20px",
+      fontSize: "clamp(18px, 2.4vw, 28px)",
       letterSpacing: "-0.005em",
-      lineHeight: 1.5,
+      lineHeight: 1.45,
     },
   },
 ];
+
+/* ------------------------------------------------------------------ */
+/*  02 · Usage — data                                                 */
+/* ------------------------------------------------------------------ */
 
 const usageRows = [
   {
@@ -268,6 +277,10 @@ const usageRows = [
   },
 ];
 
+/* ------------------------------------------------------------------ */
+/*  03 · Weights — data                                               */
+/* ------------------------------------------------------------------ */
+
 const weights = [
   {
     family: "Proxima Nova",
@@ -341,7 +354,23 @@ const weights = [
       },
     ],
   },
+  {
+    family: "Roboto Mono",
+    slug: "var(--mono)",
+    rows: [
+      {
+        num: "400",
+        label: "Regular",
+        sample: "Code, hex values, tokens, file paths.",
+        style: { fontFamily: "var(--mono)", fontWeight: 400, fontSize: "14px", lineHeight: 1.5 } as const,
+      },
+    ],
+  },
 ];
+
+/* ------------------------------------------------------------------ */
+/*  05 · Do / Don't — data                                            */
+/* ------------------------------------------------------------------ */
 
 const dos = [
   "Use Proxima 500 as the workhorse — headings, body, UI.",
@@ -361,12 +390,9 @@ const donts = [
   "Don\u2019t use mono for body copy or decorative accents.",
 ];
 
-const monoExamples = [
-  { label: "Hex", value: "#0F1C2E" },
-  { label: "Token", value: "--color-navy" },
-  { label: "Path", value: "/brand/typography" },
-  { label: "Code", value: "font-family: var(--sans)" },
-];
+/* ------------------------------------------------------------------ */
+/*  SectionHeader                                                     */
+/* ------------------------------------------------------------------ */
 
 function SectionHeader({
   eyebrow,
@@ -378,7 +404,7 @@ function SectionHeader({
   sub?: string;
 }) {
   return (
-    <header className="mb-10 md:mb-12">
+    <header className="mb-10 md:mb-14">
       <p
         className="text-navy/40 mb-3"
         style={{
@@ -421,6 +447,10 @@ function SectionHeader({
   );
 }
 
+/* ------------------------------------------------------------------ */
+/*  Page                                                              */
+/* ------------------------------------------------------------------ */
+
 export default function TypographyPage() {
   return (
     <>
@@ -431,68 +461,82 @@ export default function TypographyPage() {
       />
 
       <div className="bg-cream">
-        {/* 01 · The Cast */}
-        <section className="pt-20 md:pt-24 pb-6">
+
+        {/* ============================================================
+            01 · THE CAST — full-width stacked rows, no cards
+        ============================================================ */}
+        <section style={{ paddingTop: "clamp(80px, 10vw, 140px)", paddingBottom: "24px" }}>
           <div className="max-w-[960px] mx-auto px-8 md:px-12">
             <div className="border-t border-navy/[0.16] pt-6">
               <SectionHeader
                 eyebrow="01 · The Cast"
                 title="Three typefaces, three jobs."
-                sub="Each face earns its place by doing one thing the other two can’t."
+                sub="Each face earns its place by doing one thing the other two can't."
               />
             </div>
           </div>
 
           <div className="max-w-[960px] mx-auto px-8 md:px-12">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-navy/[0.16] border border-navy/[0.16]">
-              {cast.map((c) => (
-                <div key={c.num} className="bg-white p-8 md:p-9 flex flex-col">
-                  <p
-                    className="mb-6"
-                    style={{
-                      fontFamily: "var(--font-wide)",
-                      fontWeight: 700,
-                      fontSize: "10px",
-                      letterSpacing: "0.24em",
-                      textTransform: "uppercase",
-                      color: COBALT,
-                    }}
-                  >
-                    {c.num} · {c.role}
-                  </p>
-                  <p className="text-navy mb-2" style={c.nameStyle}>
-                    {c.name}
-                  </p>
-                  <p
-                    className="text-navy/50 mb-6 pb-5 border-b border-navy/[0.1]"
-                    style={{
-                      fontFamily: "var(--font-wide)",
-                      fontWeight: 400,
-                      fontSize: "11px",
-                      letterSpacing: "0.14em",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    {c.slug}
-                  </p>
-                  <div className="text-navy/85 space-y-1" style={c.specimenStyle}>
-                    {c.lines.map((line) => (
-                      <p key={line}>{line}</p>
-                    ))}
-                    {c.italicLine && (
-                      <p className="text-navy/85 pt-1" style={c.italicStyle}>
-                        {c.italicLine}
-                      </p>
-                    )}
-                  </div>
+            {cast.map((c, i) => (
+              <div
+                key={c.num}
+                className={i < cast.length - 1 ? "border-b border-navy/[0.12]" : ""}
+                style={{ paddingTop: i === 0 ? 0 : "clamp(48px, 6vw, 72px)", paddingBottom: "clamp(48px, 6vw, 72px)" }}
+              >
+                {/* Role kicker */}
+                <p
+                  className="mb-6"
+                  style={{
+                    fontFamily: "var(--font-wide)",
+                    fontWeight: 700,
+                    fontSize: "10px",
+                    letterSpacing: "0.24em",
+                    textTransform: "uppercase",
+                    color: COBALT,
+                  }}
+                >
+                  {c.num} · {c.role}
+                </p>
+
+                {/* Hero font name — oversized */}
+                <p className="text-navy mb-4" style={c.nameStyle}>
+                  {c.name}
+                </p>
+
+                {/* Slug metadata */}
+                <p
+                  className="text-navy/45 mb-10"
+                  style={{
+                    fontFamily: "var(--font-wide)",
+                    fontWeight: 400,
+                    fontSize: "11px",
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {c.slug}
+                </p>
+
+                {/* Character specimen */}
+                <div className="text-navy/80" style={c.specimenStyle}>
+                  {c.lines.map((line) => (
+                    <p key={line}>{line}</p>
+                  ))}
+                  {c.italicLine && (
+                    <p className="text-navy/80 pt-2" style={c.italicStyle}>
+                      {c.italicLine}
+                    </p>
+                  )}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </section>
 
-        {/* 02 · Usage */}
-        <section className="pt-20 md:pt-24 pb-6">
+        {/* ============================================================
+            02 · USAGE
+        ============================================================ */}
+        <section style={{ paddingTop: "clamp(100px, 12vw, 160px)", paddingBottom: "24px" }}>
           <div className="max-w-[960px] mx-auto px-8 md:px-12">
             <div className="border-t border-navy/[0.16] pt-6">
               <SectionHeader
@@ -542,14 +586,16 @@ export default function TypographyPage() {
           </div>
         </section>
 
-        {/* 03 · Weights */}
-        <section className="pt-20 md:pt-24 pb-6">
+        {/* ============================================================
+            03 · WEIGHTS
+        ============================================================ */}
+        <section style={{ paddingTop: "clamp(100px, 12vw, 160px)", paddingBottom: "24px" }}>
           <div className="max-w-[960px] mx-auto px-8 md:px-12">
             <div className="border-t border-navy/[0.16] pt-6">
               <SectionHeader
                 eyebrow="03 · Weights"
                 title="Only the weights we use."
-                sub="Six weights total across three families. If it isn’t listed, don’t ship it."
+                sub="Seven weights total across four families. If it isn't listed, don't ship it."
               />
             </div>
 
@@ -616,22 +662,117 @@ export default function TypographyPage() {
           </div>
         </section>
 
-        {/* 04 · In Action */}
-        <section className="pt-20 md:pt-24 pb-6">
+        {/* ============================================================
+            04 · IN ACTION — editorial asymmetric layout
+        ============================================================ */}
+        <section style={{ paddingTop: "clamp(100px, 12vw, 160px)", paddingBottom: "24px" }}>
           <div className="max-w-[960px] mx-auto px-8 md:px-12">
             <div className="border-t border-navy/[0.16] pt-6">
               <SectionHeader
                 eyebrow="04 · In Action"
                 title="Where the three faces go together."
-                sub="Small previews of the type doing its actual job — newsletter, social ad, flier, success story."
+                sub="Real artifacts — reports, social posts, fliers, stories — rendered with the system's three typefaces."
               />
             </div>
+          </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {/* Newsletter */}
-              <figure className="bg-white border border-navy/[0.12] p-7 md:p-8 flex flex-col">
+          {/* Impact Report — full-width navy hero */}
+          <div className="max-w-[960px] mx-auto px-8 md:px-12 mb-5">
+            <figure className="bg-navy text-cream p-10 md:p-14" style={{ minHeight: "380px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              <div>
                 <figcaption
-                  className="mb-5 text-navy/45"
+                  className="mb-8"
+                  style={{
+                    fontFamily: "var(--font-wide)",
+                    fontWeight: 700,
+                    fontSize: "10px",
+                    letterSpacing: "0.24em",
+                    textTransform: "uppercase",
+                    color: "rgba(245,244,240,0.4)",
+                  }}
+                >
+                  Impact Report Cover
+                </figcaption>
+                <p
+                  className="mb-2"
+                  style={{
+                    fontFamily: "var(--font-wide)",
+                    fontWeight: 700,
+                    fontSize: "10px",
+                    letterSpacing: "0.22em",
+                    textTransform: "uppercase",
+                    color: "rgba(245,244,240,0.5)",
+                  }}
+                >
+                  NorCal SBDC · 2025 Annual Report
+                </p>
+                <p
+                  className="mb-6"
+                  style={{
+                    fontFamily: "var(--serif)",
+                    fontWeight: 400,
+                    fontSize: "clamp(32px, 5vw, 52px)",
+                    letterSpacing: "-0.015em",
+                    lineHeight: 1.05,
+                    color: "rgba(245,244,240,0.95)",
+                  }}
+                >
+                  36 Counties. 14 Centers.
+                  <br />
+                  One Mission.
+                </p>
+              </div>
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+                <div>
+                  <p
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontWeight: 500,
+                      fontSize: "clamp(40px, 6vw, 64px)",
+                      letterSpacing: "-0.03em",
+                      lineHeight: 1,
+                      color: "rgba(245,244,240,0.92)",
+                    }}
+                  >
+                    $412M
+                  </p>
+                  <p
+                    className="mt-1"
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontWeight: 500,
+                      fontSize: "14px",
+                      letterSpacing: "-0.01em",
+                      color: "rgba(245,244,240,0.55)",
+                    }}
+                  >
+                    in capital accessed
+                  </p>
+                </div>
+                <p
+                  style={{
+                    fontFamily: "var(--sans)",
+                    fontWeight: 500,
+                    fontSize: "13px",
+                    letterSpacing: "-0.005em",
+                    lineHeight: 1.5,
+                    color: "rgba(245,244,240,0.5)",
+                    maxWidth: "320px",
+                  }}
+                >
+                  Advisors who show up, ask the right questions, and stay through the messy middle.
+                </p>
+              </div>
+            </figure>
+          </div>
+
+          {/* Row 2: Signature Story + Social Ad */}
+          <div className="max-w-[960px] mx-auto px-8 md:px-12 mb-5">
+            <div className="grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-5">
+              {/* Signature Story PDF excerpt */}
+              <figure className="bg-white border border-navy/[0.08] p-8 md:p-10 flex flex-col">
+                <figcaption
+                  className="mb-6 text-navy/40"
                   style={{
                     fontFamily: "var(--font-wide)",
                     fontWeight: 700,
@@ -640,35 +781,48 @@ export default function TypographyPage() {
                     textTransform: "uppercase",
                   }}
                 >
-                  Email Newsletter
+                  Signature Story PDF
                 </figcaption>
                 <p
-                  className="text-navy/55 mb-3"
+                  className="mb-1"
                   style={{
                     fontFamily: "var(--font-wide)",
                     fontWeight: 700,
                     fontSize: "10px",
                     letterSpacing: "0.22em",
                     textTransform: "uppercase",
-                    color: COBALT,
+                    color: FOREST,
                   }}
                 >
-                  Issue 12 · April
+                  Arcata, CA
                 </p>
                 <p
-                  className="text-navy mb-3"
+                  className="text-navy mb-5"
                   style={{
-                    fontFamily: "var(--sans)",
-                    fontWeight: 500,
-                    fontSize: "28px",
-                    letterSpacing: "-0.02em",
-                    lineHeight: 1.1,
+                    fontFamily: "var(--serif)",
+                    fontWeight: 400,
+                    fontSize: "clamp(28px, 4vw, 38px)",
+                    letterSpacing: "-0.01em",
+                    lineHeight: 1.05,
                   }}
                 >
-                  What&rsquo;s working right now.
+                  Dick Taylor Chocolates
                 </p>
                 <p
                   className="text-navy/70 mb-5"
+                  style={{
+                    fontFamily: "var(--serif)",
+                    fontWeight: 400,
+                    fontStyle: "italic",
+                    fontSize: "20px",
+                    letterSpacing: "-0.005em",
+                    lineHeight: 1.35,
+                  }}
+                >
+                  &ldquo;They walked us through the hardest year we&rsquo;ve had — and came back the next.&rdquo;
+                </p>
+                <p
+                  className="text-navy/60"
                   style={{
                     fontFamily: "var(--sans)",
                     fontWeight: 500,
@@ -677,34 +831,21 @@ export default function TypographyPage() {
                     lineHeight: 1.55,
                   }}
                 >
-                  Three ideas our advisors are using with clients this month — plus a story from Humboldt.
+                  When Adam Dick and Dustin Taylor decided to scale their bean-to-bar operation, they needed more than capital — they needed a plan.
                 </p>
-                <div className="mt-auto pt-4 border-t border-navy/[0.08]">
-                  <p
-                    className="text-navy/50"
-                    style={{
-                      fontFamily: "var(--sans)",
-                      fontWeight: 500,
-                      fontSize: "12px",
-                      letterSpacing: "-0.005em",
-                    }}
-                  >
-                    Read the issue{" "}
-                    <em
-                      style={{
-                        fontFamily: "var(--serif)",
-                        fontStyle: "italic",
-                        color: COBALT,
-                      }}
-                    >
-                      →
-                    </em>
-                  </p>
-                </div>
+                <p
+                  className="text-navy/40 mt-auto pt-6"
+                  style={{
+                    fontFamily: "var(--mono)",
+                    fontSize: "11px",
+                  }}
+                >
+                  — Adam &amp; Dustin, co-founders
+                </p>
               </figure>
 
-              {/* Social ad */}
-              <figure className="bg-navy text-cream p-7 md:p-8 flex flex-col aspect-auto">
+              {/* Social Ad — square */}
+              <figure className="bg-navy text-cream p-7 md:p-8 flex flex-col" style={{ aspectRatio: "1 / 1" }}>
                 <figcaption
                   className="mb-5"
                   style={{
@@ -713,7 +854,7 @@ export default function TypographyPage() {
                     fontSize: "10px",
                     letterSpacing: "0.24em",
                     textTransform: "uppercase",
-                    color: "rgba(245,244,240,0.45)",
+                    color: "rgba(245,244,240,0.4)",
                   }}
                 >
                   Social Ad
@@ -726,16 +867,17 @@ export default function TypographyPage() {
                     fontSize: "10px",
                     letterSpacing: "0.22em",
                     textTransform: "uppercase",
-                    color: "rgba(245,244,240,0.6)",
+                    color: "rgba(245,244,240,0.55)",
                   }}
                 >
                   For Small Business
                 </p>
                 <p
+                  className="mt-auto"
                   style={{
                     fontFamily: "var(--sans)",
                     fontWeight: 500,
-                    fontSize: "36px",
+                    fontSize: "clamp(28px, 4vw, 40px)",
                     letterSpacing: "-0.02em",
                     lineHeight: 1.05,
                     color: "rgba(245,244,240,0.95)",
@@ -752,14 +894,14 @@ export default function TypographyPage() {
                     better.
                   </em>
                 </p>
-                <div className="mt-auto pt-6">
+                <div className="pt-6">
                   <p
                     style={{
                       fontFamily: "var(--sans)",
                       fontWeight: 500,
                       fontSize: "12px",
                       letterSpacing: "-0.005em",
-                      color: "rgba(245,244,240,0.65)",
+                      color: "rgba(245,244,240,0.55)",
                     }}
                   >
                     Free advising ·{" "}
@@ -769,11 +911,16 @@ export default function TypographyPage() {
                   </p>
                 </div>
               </figure>
+            </div>
+          </div>
 
-              {/* Flier */}
-              <figure className="bg-cream border border-navy/[0.12] p-7 md:p-8 flex flex-col">
+          {/* Row 3: Workshop Flier + Legislative One-Pager + Success Story */}
+          <div className="max-w-[960px] mx-auto px-8 md:px-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {/* Workshop Flier — fixed subtitle size */}
+              <figure className="bg-cream border border-navy/[0.08] p-7 md:p-8 flex flex-col">
                 <figcaption
-                  className="mb-5 text-navy/45"
+                  className="mb-5 text-navy/40"
                   style={{
                     fontFamily: "var(--font-wide)",
                     fontWeight: 700,
@@ -810,18 +957,18 @@ export default function TypographyPage() {
                   Financing Your Next Move
                 </p>
                 <p
-                  className="text-navy/70 mb-5"
+                  className="text-navy/65 mb-5"
                   style={{
                     fontFamily: "var(--serif)",
                     fontWeight: 400,
-                    fontSize: "17px",
+                    fontSize: "14px",
                     letterSpacing: "-0.005em",
                     lineHeight: 1.35,
                   }}
                 >
                   A conversation with lenders who fund local businesses.
                 </p>
-                <div className="mt-auto pt-4 border-t border-navy/[0.1] grid grid-cols-2 gap-3">
+                <div className="mt-auto pt-4 border-t border-navy/[0.08] grid grid-cols-2 gap-3">
                   <div>
                     <p
                       className="text-navy/45 mb-0.5"
@@ -865,10 +1012,99 @@ export default function TypographyPage() {
                 </div>
               </figure>
 
-              {/* Success story */}
-              <figure className="bg-white border border-navy/[0.12] p-7 md:p-8 flex flex-col">
+              {/* Legislative One-Pager */}
+              <figure className="bg-white border border-navy/[0.08] p-7 md:p-8 flex flex-col">
                 <figcaption
-                  className="mb-5 text-navy/45"
+                  className="mb-5 text-navy/40"
+                  style={{
+                    fontFamily: "var(--font-wide)",
+                    fontWeight: 700,
+                    fontSize: "10px",
+                    letterSpacing: "0.24em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Legislative Brief
+                </figcaption>
+                <p
+                  className="mb-1"
+                  style={{
+                    fontFamily: "var(--font-wide)",
+                    fontWeight: 700,
+                    fontSize: "10px",
+                    letterSpacing: "0.22em",
+                    textTransform: "uppercase",
+                    color: COBALT,
+                  }}
+                >
+                  Policy · 2025
+                </p>
+                <p
+                  className="text-navy mb-4"
+                  style={{
+                    fontFamily: "var(--sans)",
+                    fontWeight: 500,
+                    fontSize: "22px",
+                    letterSpacing: "-0.02em",
+                    lineHeight: 1.1,
+                  }}
+                >
+                  Small Business Impact in Northern California
+                </p>
+                <p
+                  className="text-navy/60 mb-4"
+                  style={{
+                    fontFamily: "var(--sans)",
+                    fontWeight: 500,
+                    fontSize: "13px",
+                    letterSpacing: "-0.01em",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  NorCal SBDC centers served 4,200+ clients last year across 36 counties — from the Oregon border to the Bay Area.
+                </p>
+                <div className="py-3 border-y border-navy/[0.08] mb-4">
+                  <p
+                    className="text-navy"
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontWeight: 500,
+                      fontSize: "28px",
+                      letterSpacing: "-0.02em",
+                      lineHeight: 1,
+                    }}
+                  >
+                    4,200+
+                  </p>
+                  <p
+                    className="text-navy/50 mt-1"
+                    style={{
+                      fontFamily: "var(--font-wide)",
+                      fontWeight: 400,
+                      fontSize: "10px",
+                      letterSpacing: "0.14em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Clients Served
+                  </p>
+                </div>
+                <p
+                  className="text-navy/40 mt-auto"
+                  style={{
+                    fontFamily: "var(--mono)",
+                    fontSize: "10px",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  Source: SBA District Office, FY 2025
+                </p>
+              </figure>
+
+              {/* Success Story */}
+              <figure className="bg-white border border-navy/[0.08] p-7 md:p-8 flex flex-col">
+                <figcaption
+                  className="mb-5 text-navy/40"
                   style={{
                     fontFamily: "var(--font-wide)",
                     fontWeight: 700,
@@ -933,19 +1169,21 @@ export default function TypographyPage() {
           </div>
         </section>
 
-        {/* 05 · Rules */}
-        <section className="pt-20 md:pt-24 pb-6">
+        {/* ============================================================
+            05 · RULES — lighter Do/Don't, no outer card
+        ============================================================ */}
+        <section style={{ paddingTop: "clamp(100px, 12vw, 160px)", paddingBottom: "24px" }}>
           <div className="max-w-[960px] mx-auto px-8 md:px-12">
             <div className="border-t border-navy/[0.16] pt-6">
               <SectionHeader
                 eyebrow="05 · Rules"
-                title="Do / Don’t."
-                sub="Six each. The short answer when you’re unsure."
+                title="Do / Don't."
+                sub="Six each. The short answer when you're unsure."
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 bg-white border border-navy/[0.16]">
-              <div className="p-7 md:p-8 border-b md:border-b-0 md:border-r border-navy/[0.12]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+              <div className="pr-0 md:pr-10 pb-8 md:pb-0">
                 <div className="flex items-center gap-3 mb-6">
                   <span className="inline-block w-6 h-px" style={{ background: FOREST }} />
                   <span
@@ -982,7 +1220,7 @@ export default function TypographyPage() {
                 </ul>
               </div>
 
-              <div className="p-7 md:p-8">
+              <div className="pl-0 md:pl-10 border-t md:border-t-0 md:border-l border-navy/[0.12] pt-8 md:pt-0">
                 <div className="flex items-center gap-3 mb-6">
                   <span className="inline-block w-6 h-px" style={{ background: BERRY }} />
                   <span
@@ -1022,92 +1260,7 @@ export default function TypographyPage() {
           </div>
         </section>
 
-        {/* 06 · Monospace strip */}
-        <section className="pt-20 md:pt-24 pb-6">
-          <div className="max-w-[960px] mx-auto px-8 md:px-12">
-            <div className="bg-navy text-cream px-7 md:px-10 py-8 md:py-9">
-              <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-8 items-center">
-                <div>
-                  <p
-                    className="mb-2"
-                    style={{
-                      fontFamily: "var(--font-wide)",
-                      fontWeight: 700,
-                      fontSize: "10px",
-                      letterSpacing: "0.24em",
-                      textTransform: "uppercase",
-                      color: "rgba(245,244,240,0.55)",
-                    }}
-                  >
-                    06 · Utility Only
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--sans)",
-                      fontWeight: 500,
-                      fontSize: "18px",
-                      letterSpacing: "-0.01em",
-                      lineHeight: 1.4,
-                    }}
-                  >
-                    Mono shows up{" "}
-                    <em
-                      style={{
-                        fontFamily: "var(--serif)",
-                        fontStyle: "italic",
-                        fontWeight: 400,
-                      }}
-                    >
-                      only
-                    </em>{" "}
-                    when you’re displaying code, values, or paths.
-                  </p>
-                </div>
-                <div className="grid grid-cols-2 gap-x-6 gap-y-3">
-                  {monoExamples.map((ex) => (
-                    <div key={ex.label}>
-                      <p
-                        style={{
-                          fontFamily: "var(--font-wide)",
-                          fontWeight: 700,
-                          fontSize: "9px",
-                          letterSpacing: "0.24em",
-                          textTransform: "uppercase",
-                          color: "rgba(245,244,240,0.45)",
-                        }}
-                      >
-                        {ex.label}
-                      </p>
-                      <p
-                        className="mt-1"
-                        style={{
-                          fontFamily: "var(--mono)",
-                          fontSize: "13px",
-                          color: "rgba(245,244,240,0.92)",
-                        }}
-                      >
-                        {ex.value}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <p
-              className="text-navy/60 mt-4"
-              style={{
-                fontFamily: "var(--sans)",
-                fontWeight: 500,
-                fontSize: "12px",
-                letterSpacing: "-0.005em",
-              }}
-            >
-              Stack: <code style={{ fontFamily: "var(--mono)" }}>&apos;Roboto Mono&apos;, &apos;SF Mono&apos;, &apos;Fira Code&apos;, monospace</code>.
-            </p>
-          </div>
-        </section>
-
-        <div className="h-20 md:h-24" />
+        <div style={{ height: "clamp(80px, 10vw, 120px)" }} />
       </div>
 
       <NextSectionLink title="Logos" href="/logos" />
