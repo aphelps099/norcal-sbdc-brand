@@ -175,11 +175,25 @@ function GridForGroup({ group }: { group: CategoryGroup }) {
   const featured = group.items.find((i) => i.featured)!;
   const standard = group.items.filter((i) => !i.featured);
 
+  /*
+   * The featured card (span 2) + the first standard card fill row 1.
+   * Remaining standard items flow into subsequent 3-col rows.
+   * If those remaining items don't fill the last row evenly,
+   * the final item stretches to close the gap.
+   */
+  const remainingAfterRow1 = standard.length - 1; // first standard shares row with featured
+  const leftover = remainingAfterRow1 > 0 ? remainingAfterRow1 % 3 : 0;
+  const lastStretches = leftover !== 0;
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[3px]">
       <Card item={featured} span2 />
-      {standard.map((item) => (
-        <Card key={item.href} item={item} />
+      {standard.map((item, i) => (
+        <Card
+          key={item.href}
+          item={item}
+          span2={lastStretches && i === standard.length - 1}
+        />
       ))}
     </div>
   );
@@ -201,7 +215,7 @@ function Card({ item, span2 }: { item: BrandItem; span2?: boolean }) {
         "p-6 sm:p-7",
         "transition-all duration-300",
         "hover:shadow-lg hover:shadow-navy/[0.06] hover:-translate-y-0.5",
-        span2 ? "sm:col-span-2" : "",
+        span2 ? "sm:col-span-2 lg:col-span-2" : "",
       ].join(" ")}
     >
       {/* Left-edge accent bar */}
