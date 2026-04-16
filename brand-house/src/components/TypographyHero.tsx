@@ -3,11 +3,13 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Editorial hero for the Colors page — oversized Turnip serif title with a
- * translucent chapter number sitting behind it, a quiet helper line, and a
- * full-bleed hairline rule at the base.
+ * Editorial hero for the Typography page — mirrors the ColorsHero treatment.
+ * Oversized Proxima Sera serif title with a translucent chapter number sitting
+ * behind it, a quiet helper line, and a full-bleed hairline rule at the base.
+ *
+ * This is the canonical section-hero pattern for every chapter page.
  */
-export default function ColorsHero() {
+export default function TypographyHero() {
   const rootRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -72,7 +74,7 @@ export default function ColorsHero() {
       {/* Coral category bar */}
       <div aria-hidden className="w-full" style={{ height: 3, background: "#c4543a" }} />
 
-      {/* Giant translucent chapter "02" — wait, colors is 01. Use chapter number visually. */}
+      {/* Giant translucent chapter "02" */}
       <span
         aria-hidden
         data-reveal="chapter"
@@ -90,7 +92,7 @@ export default function ColorsHero() {
           opacity: 0,
         }}
       >
-        01
+        02
       </span>
 
       <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 pt-28 md:pt-36 pb-10 md:pb-14">
@@ -106,10 +108,10 @@ export default function ColorsHero() {
             opacity: 0,
           }}
         >
-          Chapter 01 · Visual Identity
+          Chapter 02 · Visual Identity
         </p>
 
-        {/* Oversized Turnip serif title — editorial */}
+        {/* Oversized serif title — editorial */}
         <h1
           data-reveal="title"
           className="mt-6 md:mt-8"
@@ -124,7 +126,7 @@ export default function ColorsHero() {
             opacity: 0,
           }}
         >
-          Color
+          Fonts
         </h1>
 
         {/* Quiet helper line */}
@@ -141,7 +143,7 @@ export default function ColorsHero() {
             opacity: 0,
           }}
         >
-          Our palette is built for contrast, accessibility, and editorial impact.
+          Two families, three jobs — a workhorse sans, a wide display caps, and an editorial serif.
         </p>
       </div>
 
