@@ -277,96 +277,7 @@ const usageRows = [
   },
 ];
 
-/* ------------------------------------------------------------------ */
-/*  03 · Weights — data                                               */
-/* ------------------------------------------------------------------ */
 
-const weights = [
-  {
-    family: "Proxima Nova",
-    slug: "var(--sans)",
-    rows: [
-      {
-        num: "500",
-        label: "Medium",
-        sample: "Everything the system leans on.",
-        style: { fontFamily: "var(--sans)", fontWeight: 500, fontSize: "22px", letterSpacing: "-0.02em" } as const,
-      },
-    ],
-  },
-  {
-    family: "Proxima Nova Extra Wide",
-    slug: "var(--font-wide)",
-    rows: [
-      {
-        num: "700",
-        label: "Bold · CAPS",
-        sample: "EYEBROWS · KICKERS · CHAPTER MARKS",
-        style: {
-          fontFamily: "var(--font-wide)",
-          fontWeight: 700,
-          fontSize: "13px",
-          letterSpacing: "0.14em",
-          textTransform: "uppercase",
-        } as const,
-      },
-      {
-        num: "400",
-        label: "Regular · CAPS",
-        sample: "METADATA ROWS · SMALL TAGS",
-        style: {
-          fontFamily: "var(--font-wide)",
-          fontWeight: 400,
-          fontSize: "12px",
-          letterSpacing: "0.14em",
-          textTransform: "uppercase",
-        } as const,
-      },
-    ],
-  },
-  {
-    family: "Turnip",
-    slug: "var(--serif)",
-    rows: [
-      {
-        num: "300",
-        label: "Book",
-        sample: "Manifesto prose, long-form editorial belief.",
-        style: { fontFamily: "var(--serif)", fontWeight: 300, fontSize: "20px", lineHeight: 1.4 } as const,
-      },
-      {
-        num: "400",
-        label: "Regular",
-        sample: "Success story titles and display serif headings.",
-        style: { fontFamily: "var(--serif)", fontWeight: 400, fontSize: "20px", lineHeight: 1.3 } as const,
-      },
-      {
-        num: "400i",
-        label: "Italic",
-        sample: "Pull quotes and the tagline closer.",
-        style: {
-          fontFamily: "var(--serif)",
-          fontWeight: 400,
-          fontStyle: "italic",
-          fontSize: "20px",
-          lineHeight: 1.3,
-        } as const,
-      },
-    ],
-  },
-  {
-    family: "Roboto Mono",
-    slug: "var(--mono)",
-    rows: [
-      {
-        num: "400",
-        label: "Regular",
-        sample: "Code, hex values, tokens, file paths.",
-        style: { fontFamily: "var(--mono)", fontWeight: 400, fontSize: "14px", lineHeight: 1.5 } as const,
-      },
-    ],
-  },
-];
 
 /* ------------------------------------------------------------------ */
 /*  05 · Do / Don't — data                                            */
@@ -586,90 +497,16 @@ export default function TypographyPage() {
           </div>
         </section>
 
+
+
         {/* ============================================================
-            03 · WEIGHTS
+            03 · IN ACTION — editorial asymmetric layout
         ============================================================ */}
         <section style={{ paddingTop: "clamp(100px, 12vw, 160px)", paddingBottom: "24px" }}>
           <div className="max-w-[960px] mx-auto px-8 md:px-12">
             <div className="border-t border-navy/[0.16] pt-6">
               <SectionHeader
-                eyebrow="03 · Weights"
-                title="Only the weights we use."
-                sub="Seven weights total across four families. If it isn't listed, don't ship it."
-              />
-            </div>
-
-            <div className="space-y-10">
-              {weights.map((family) => (
-                <div key={family.family}>
-                  <div className="flex items-baseline justify-between mb-3 pb-2 border-b border-navy/[0.12]">
-                    <p
-                      className="text-navy"
-                      style={{
-                        fontFamily: "var(--sans)",
-                        fontWeight: 500,
-                        fontSize: "16px",
-                        letterSpacing: "-0.015em",
-                      }}
-                    >
-                      {family.family}
-                    </p>
-                    <code
-                      className="text-navy/40"
-                      style={{
-                        fontFamily: "var(--mono)",
-                        fontSize: "11px",
-                        letterSpacing: "0",
-                      }}
-                    >
-                      {family.slug}
-                    </code>
-                  </div>
-                  {family.rows.map((r) => (
-                    <div
-                      key={r.num}
-                      className="grid grid-cols-[60px_180px_1fr] gap-4 items-center py-3 border-b border-navy/[0.06] last:border-b-0"
-                    >
-                      <p
-                        className="text-navy/40"
-                        style={{
-                          fontFamily: "var(--mono)",
-                          fontSize: "12px",
-                        }}
-                      >
-                        {r.num}
-                      </p>
-                      <p
-                        className="text-navy/65"
-                        style={{
-                          fontFamily: "var(--font-wide)",
-                          fontWeight: 400,
-                          fontSize: "11px",
-                          letterSpacing: "0.14em",
-                          textTransform: "uppercase",
-                        }}
-                      >
-                        {r.label}
-                      </p>
-                      <p className="text-navy" style={r.style}>
-                        {r.sample}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ============================================================
-            04 · IN ACTION — editorial asymmetric layout
-        ============================================================ */}
-        <section style={{ paddingTop: "clamp(100px, 12vw, 160px)", paddingBottom: "24px" }}>
-          <div className="max-w-[960px] mx-auto px-8 md:px-12">
-            <div className="border-t border-navy/[0.16] pt-6">
-              <SectionHeader
-                eyebrow="04 · In Action"
+                eyebrow="03 · In Action"
                 title="Where the three faces go together."
                 sub="Real artifacts — reports, social posts, fliers, stories — rendered with the system's three typefaces."
               />
@@ -914,9 +751,9 @@ export default function TypographyPage() {
             </div>
           </div>
 
-          {/* Row 3: Workshop Flier + Legislative One-Pager + Success Story */}
+          {/* Row 3: Workshop Flier + Success Story */}
           <div className="max-w-[960px] mx-auto px-8 md:px-12">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {/* Workshop Flier — fixed subtitle size */}
               <figure className="bg-cream border border-navy/[0.08] p-7 md:p-8 flex flex-col">
                 <figcaption
@@ -1012,94 +849,6 @@ export default function TypographyPage() {
                 </div>
               </figure>
 
-              {/* Legislative One-Pager */}
-              <figure className="bg-white border border-navy/[0.08] p-7 md:p-8 flex flex-col">
-                <figcaption
-                  className="mb-5 text-navy/40"
-                  style={{
-                    fontFamily: "var(--font-wide)",
-                    fontWeight: 700,
-                    fontSize: "10px",
-                    letterSpacing: "0.24em",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Legislative Brief
-                </figcaption>
-                <p
-                  className="mb-1"
-                  style={{
-                    fontFamily: "var(--font-wide)",
-                    fontWeight: 700,
-                    fontSize: "10px",
-                    letterSpacing: "0.22em",
-                    textTransform: "uppercase",
-                    color: COBALT,
-                  }}
-                >
-                  Policy · 2025
-                </p>
-                <p
-                  className="text-navy mb-4"
-                  style={{
-                    fontFamily: "var(--sans)",
-                    fontWeight: 500,
-                    fontSize: "22px",
-                    letterSpacing: "-0.02em",
-                    lineHeight: 1.1,
-                  }}
-                >
-                  Small Business Impact in Northern California
-                </p>
-                <p
-                  className="text-navy/60 mb-4"
-                  style={{
-                    fontFamily: "var(--sans)",
-                    fontWeight: 500,
-                    fontSize: "13px",
-                    letterSpacing: "-0.01em",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  NorCal SBDC centers served 4,200+ clients last year across 36 counties — from the Oregon border to the Bay Area.
-                </p>
-                <div className="py-3 border-y border-navy/[0.08] mb-4">
-                  <p
-                    className="text-navy"
-                    style={{
-                      fontFamily: "var(--sans)",
-                      fontWeight: 500,
-                      fontSize: "28px",
-                      letterSpacing: "-0.02em",
-                      lineHeight: 1,
-                    }}
-                  >
-                    4,200+
-                  </p>
-                  <p
-                    className="text-navy/50 mt-1"
-                    style={{
-                      fontFamily: "var(--font-wide)",
-                      fontWeight: 400,
-                      fontSize: "10px",
-                      letterSpacing: "0.14em",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    Clients Served
-                  </p>
-                </div>
-                <p
-                  className="text-navy/40 mt-auto"
-                  style={{
-                    fontFamily: "var(--mono)",
-                    fontSize: "10px",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  Source: SBA District Office, FY 2025
-                </p>
-              </figure>
 
               {/* Success Story */}
               <figure className="bg-white border border-navy/[0.08] p-7 md:p-8 flex flex-col">
@@ -1170,13 +919,13 @@ export default function TypographyPage() {
         </section>
 
         {/* ============================================================
-            05 · RULES — lighter Do/Don't, no outer card
+            04 · RULES — lighter Do/Don't, no outer card
         ============================================================ */}
         <section style={{ paddingTop: "clamp(100px, 12vw, 160px)", paddingBottom: "24px" }}>
           <div className="max-w-[960px] mx-auto px-8 md:px-12">
             <div className="border-t border-navy/[0.16] pt-6">
               <SectionHeader
-                eyebrow="05 · Rules"
+                eyebrow="04 · Rules"
                 title="Do / Don't."
                 sub="Six each. The short answer when you're unsure."
               />
