@@ -1,10 +1,39 @@
 import InteriorHero from "@/components/InteriorHero";
-import ColorSwatch from "@/components/ColorSwatch";
-import ColorSwatchGrid from "@/components/ColorSwatchGrid";
+import ColorsTabs from "@/components/ColorsTabs";
+import ApplicationsHeader from "@/components/ApplicationsHeader";
 import ColorsInUseCarousel from "@/components/ColorsInUseCarousel";
 import NextSectionLink from "@/components/NextSectionLink";
-import SbdcWatermark from "@/components/SbdcWatermark";
-import { colors, colorGroups, colorUsageCards } from "@/lib/brand-tokens";
+import { STAR_PATH } from "@/lib/brand-tokens";
+
+/** Shared poster card frame — fixed aspect, subtle shadow, refined border */
+function PosterFrame({
+  children,
+  caption,
+  widthClass = "w-[320px] md:w-[380px]",
+  aspect = "aspect-[3/4]",
+}: {
+  children: React.ReactNode;
+  caption: string;
+  widthClass?: string;
+  aspect?: string;
+}) {
+  return (
+    <div className={`flex-shrink-0 ${widthClass}`} style={{ scrollSnapAlign: "start" }}>
+      <div
+        className={`relative ${aspect} overflow-hidden`}
+        style={{
+          boxShadow:
+            "0 1px 2px rgba(15,28,46,0.04), 0 12px 40px -12px rgba(15,28,46,0.18)",
+        }}
+      >
+        {children}
+      </div>
+      <p className="mt-4 font-label text-[10px] uppercase tracking-[0.14em] text-navy/40">
+        {caption}
+      </p>
+    </div>
+  );
+}
 
 export default function ColorsPage() {
   return (
@@ -16,308 +45,224 @@ export default function ColorsPage() {
         subtitle="Our palette is built for contrast, accessibility, and editorial impact."
       />
 
-      {/* Recommended Refined Palette — cream continues the hero */}
-      <div className="bg-cream py-16 md:py-24">
-        <div className="max-w-[960px] mx-auto px-8 md:px-12">
-          <div className="w-8 h-[2px] bg-[#c4543a] mb-5" />
-          <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Palette</p>
-          <h2
-            className="tracking-[-0.02em] mb-2 text-navy"
-            style={{
-              fontFamily: "var(--sans)",
-              fontWeight: 500,
-              fontSize: "clamp(1.1rem, 2vw, 1.4rem)",
-            }}
-          >
-            Recommended Refined Palette
-          </h2>
-          <p className="text-navy/45 text-[14px] leading-relaxed font-sans mb-14 max-w-[480px]">
-            Organized by role so each color has a clear purpose in the brand system.
-          </p>
-
-          {colorGroups.map((group) => (
-            <div key={group.label} className="mb-16 last:mb-0">
-              <h3
-                className="font-label text-[11px] uppercase tracking-[0.12em] text-navy/40 mb-4"
-              >
-                {group.label}
-              </h3>
-              <ColorSwatchGrid>
-                {group.keys.map((key) => {
-                  const color = colors[key];
-                  return (
-                    <ColorSwatch
-                      key={color.hex}
-                      name={color.name}
-                      hex={color.hex}
-                      usage={color.usage}
-                    />
-                  );
-                })}
-              </ColorSwatchGrid>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Suggested Usage — cream bg */}
-      <div className="pb-16 md:pb-24 py-16 md:py-24" style={{ backgroundColor: "#f5f4f0" }}>
-        <div className="max-w-[960px] mx-auto px-8 md:px-12">
-          <div className="w-8 h-[2px] bg-[#c4543a] mb-5" />
-          <h3
-            className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-6"
-          >
-            Suggested Usage
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {colorUsageCards.map((card) => {
-              const color = colors[card.key];
-              const isLight =
-                parseInt(color.hex.replace("#", ""), 16) > 0xaaaaaa;
-              return (
-                <div
-                  key={card.key}
-                  className="border border-black/[0.06] overflow-hidden"
-                >
-                  <div
-                    className="px-5 py-5"
-                    style={{ backgroundColor: color.hex }}
-                  >
-                    <span
-                      className="font-sans text-[18px] font-medium"
-                      style={{
-                        color: isLight ? "rgba(0,0,0,0.7)" : "rgba(255,255,255,0.9)",
-                      }}
-                    >
-                      {color.name}
-                    </span>
-                  </div>
-                  <div className="px-5 py-4 bg-white">
-                    <p className="text-navy/60 text-[14px] leading-relaxed font-sans">
-                      {card.text}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-
-      {/* Gradient — full-width A24 hero band */}
-      <div
-        className="relative w-full overflow-hidden"
-        style={{
-          background: "linear-gradient(155deg, #0f1c2e 0%, #1D5AA7 45%, #85A3C8 75%, #c8d8e8 100%)",
-          minHeight: "clamp(320px, 38vw, 500px)",
-        }}
-      >
-        {/* Coral keyline */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c4543a]" />
-
-        {/* Grain texture overlay */}
-        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E\")" }} />
-
-        {/* Brand star — right half bg, fades left into gradient */}
-        <div className="absolute right-0 top-0 bottom-0 w-1/2 flex items-center justify-center pointer-events-none select-none overflow-hidden">
-          <svg
-            viewBox="0 0 2107 2003"
-            className="w-[min(58vw,560px)] h-[min(58vw,560px)]"
-            aria-hidden="true"
-          >
-            <defs>
-              <radialGradient id="starFade" cx="60%" cy="50%" r="55%">
-                <stop offset="0%" stopColor="white" stopOpacity="0.13" />
-                <stop offset="55%" stopColor="white" stopOpacity="0.06" />
-                <stop offset="100%" stopColor="white" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            <path
-              d="M1011.48501,11.2353369 L1169.72409,653.038218 L2091.60532,738.475943 L1226.23134,1130.98717 L1458.06865,1976.22037 L1218.31263,1579.03879 L1078.64652,1068.49933 L1637.1469,813.428761 L1067.25191,759.657045 L969.048512,364.4811 L788.430601,706.886932 L338.267364,625.263122 L26.9639197,467.282973 L10.0982009,446.966622 L717.102633,575.532031 L1011.48501,11.2353369 Z"
-              fill="url(#starFade)"
-            />
-          </svg>
-        </div>
-
-        {/* Content */}
-        <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-12">
-          {/* Top row */}
-          <div className="flex items-start">
-            <div>
-              <span className="font-label text-[9px] uppercase tracking-[0.12em] text-white/60 inline-block px-2 py-1 border border-white/25">Brand Gradient</span>
-              <p className="font-label text-[9px] uppercase tracking-[0.08em] text-white/20 mt-2">Navy → Royal → Pool → Cloud</p>
-            </div>
-          </div>
-
-          {/* Center headline */}
-          <div className="max-w-[680px]">
-            <div className="w-8 h-[2px] bg-[#c4543a] mb-5" />
-            <h2
-              className="tracking-[-0.03em] text-white/90 leading-[1.05]"
-              style={{
-                fontFamily: "var(--sans)",
-                fontWeight: 400,
-                fontSize: "clamp(32px, 5vw, 72px)",
-              }}
-            >
-              Northern California&rsquo;s
-              <br />
-              <span style={{ color: "rgba(255,255,255,0.45)" }}>Small Business Network.</span>
-            </h2>
-          </div>
-
-          {/* Bottom subheading */}
-          <div>
-            <p className="font-sans text-white/40 text-[13px] leading-relaxed max-w-[420px]">
-              From navy to light — used across digital surfaces, reports, and campaign headers to convey depth and trust.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Colors in Use — cream bg */}
-      <div className="py-16 md:py-24" style={{ backgroundColor: "#f5f4f0" }}>
+      {/* ───────────── 01 · BRAND COLORS (tabs) ───────────── */}
+      <div className="bg-cream pt-14 md:pt-20 pb-20 md:pb-28">
         <div className="max-w-[960px] mx-auto px-8 md:px-12 mb-10">
           <div className="w-8 h-[2px] bg-[#c4543a] mb-5" />
-          <h3 className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">
-            Colors in Use
-          </h3>
-          <h2
-            className="tracking-[-0.02em] text-navy mb-3"
-            style={{ fontFamily: "var(--sans)", fontWeight: 500, fontSize: "clamp(1.1rem, 2vw, 1.4rem)" }}
-          >
-            Palette in Context
-          </h2>
-          <p className="text-navy/45 text-[14px] leading-relaxed font-sans max-w-[480px]">
-            Realistic previews showing how each color role works across content types.
+          <p className="font-label text-[10px] uppercase tracking-[0.16em] text-navy/35">
+            01
           </p>
         </div>
+
+        <ColorsTabs />
+      </div>
+
+      {/* ───────────── 02 · APPLICATIONS (trophy gallery) ───────────── */}
+      <div className="bg-cream pb-24 md:pb-32">
+        <ApplicationsHeader
+          eyebrow="02"
+          title="Applications."
+          lead="Northern California’s small business network. From navy to light — used across digital surfaces, reports, and campaign headers to convey depth and trust."
+        />
 
         <div className="pl-8 md:pl-12">
           <ColorsInUseCarousel bgColor="#f5f4f0">
-
-            {/* Card 1 — Light mode content block */}
-            <div className="flex-shrink-0 w-[340px] md:w-[400px]" style={{ scrollSnapAlign: "start" }}>
-              <div className="relative border border-black/[0.06] overflow-hidden">
-                <div className="px-6 pt-8 pb-16" style={{ backgroundColor: "#F2F4F7" }}>
-                  <p
-                    className="text-[10px] uppercase tracking-[0.18em] mb-5"
-                    style={{ fontFamily: "var(--sans-label)", color: "#5684BA" }}
+            {/* ─── Poster 1 · THE BRAND GRADIENT ─── */}
+            <PosterFrame
+              caption="01 · The Brand Gradient"
+              widthClass="w-[360px] md:w-[440px]"
+            >
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(155deg, #0f1c2e 0%, #1D5AA7 45%, #85A3C8 75%, #c8d8e8 100%)",
+                }}
+              />
+              {/* Grain */}
+              <div
+                className="absolute inset-0 opacity-[0.06] mix-blend-overlay"
+                style={{
+                  backgroundImage:
+                    "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E\")",
+                }}
+              />
+              {/* Coral keyline */}
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c4543a]" />
+              {/* Star watermark */}
+              <div className="absolute -right-10 -bottom-10 w-[60%] opacity-[0.09] pointer-events-none">
+                <svg viewBox="0 0 2107 2003" aria-hidden="true">
+                  <path d={STAR_PATH} fill="white" />
+                </svg>
+              </div>
+              <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-7">
+                <div className="flex items-start justify-between">
+                  <span
+                    className="font-label text-[9px] uppercase tracking-[0.14em] text-white/70 inline-block px-2 py-1 border border-white/25"
                   >
-                    About the Program
-                  </p>
-                  <h4
-                    className="tracking-[-0.02em] mb-0 leading-[1.1]"
+                    Brand Gradient
+                  </span>
+                  <span className="font-label text-[9px] uppercase tracking-[0.1em] text-white/35">
+                    Navy → Cloud
+                  </span>
+                </div>
+                <div>
+                  <div className="w-8 h-[2px] bg-[#c4543a] mb-4" />
+                  <h3
+                    className="text-white/95 leading-[1.0] tracking-[-0.03em]"
                     style={{
                       fontFamily: "var(--sans)",
                       fontWeight: 500,
-                      fontSize: "22px",
-                      color: "#0f1c2e",
+                      fontSize: "clamp(28px, 3.4vw, 38px)",
                     }}
                   >
-                    Your Business, Better.
-                  </h4>
-                  <div
-                    className="mt-3 mb-5"
-                    style={{ width: 32, height: 2, backgroundColor: "#A73B44" }}
-                  />
+                    Northern
+                    <br />
+                    California&rsquo;s
+                    <br />
+                    <span style={{ color: "rgba(255,255,255,0.55)" }}>
+                      Small Business
+                      <br />
+                      Network.
+                    </span>
+                  </h3>
+                </div>
+              </div>
+            </PosterFrame>
+
+            {/* ─── Poster 2 · TURNIP EDITORIAL (uses Turnip) ─── */}
+            <PosterFrame caption="02 · Editorial — Turnip on Cream">
+              <div className="absolute inset-0" style={{ backgroundColor: "#f5f4f0" }} />
+              {/* Coral rule */}
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c4543a]" />
+              <div className="relative h-full flex flex-col justify-between p-6 md:p-8">
+                <div>
                   <p
-                    className="text-[14px] leading-[1.75] mb-5"
-                    style={{ fontFamily: "var(--sans)", fontWeight: 500, color: "#2D3340" }}
+                    className="font-label text-[9px] uppercase tracking-[0.18em] text-navy/40"
                   >
-                    Since 1980, NorCal SBDC advisors have helped thousands of
-                    entrepreneurs access capital, sharpen strategy, and grow with
-                    confidence.
+                    Client Story · 02
                   </p>
-                  <div
-                    className="inline-block px-5 py-2 rounded-sm text-[12px] tracking-[0.02em]"
+                </div>
+                <div>
+                  <p
+                    className="text-navy leading-[1.05] tracking-[-0.01em] mb-5"
+                    style={{
+                      fontFamily: "var(--serif)",
+                      fontStyle: "italic",
+                      fontWeight: 400,
+                      fontSize: "clamp(30px, 3.6vw, 44px)",
+                    }}
+                  >
+                    &ldquo;I couldn&rsquo;t have started this business without
+                    <span style={{ color: "#A73B44" }}> the SBDC</span>.&rdquo;
+                  </p>
+                  <div className="w-8 h-[2px] bg-[#c4543a] mb-3" />
+                  <p
+                    className="font-sans text-navy text-[12px]"
+                    style={{ fontWeight: 500 }}
+                  >
+                    David Cruz, CEO
+                  </p>
+                  <p className="font-label text-[9px] uppercase tracking-[0.1em] text-navy/45 mt-1">
+                    Rep It Out · Solano-Napa SBDC
+                  </p>
+                </div>
+              </div>
+            </PosterFrame>
+
+            {/* ─── Poster 3 · IMPACT STAT (Navy / Coral) ─── */}
+            <PosterFrame caption="03 · Impact Report — Navy anchor">
+              <div className="absolute inset-0" style={{ backgroundColor: "#0f1c2e" }} />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c4543a]" />
+              {/* Star watermark */}
+              <div className="absolute -left-16 -bottom-16 w-[70%] opacity-[0.05] pointer-events-none">
+                <svg viewBox="0 0 2107 2003" aria-hidden="true">
+                  <path d={STAR_PATH} fill="white" />
+                </svg>
+              </div>
+              <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-7">
+                <p className="font-label text-[9px] uppercase tracking-[0.14em] text-white/45">
+                  2025 Annual Impact
+                </p>
+                <div>
+                  <p
+                    className="leading-none tracking-[-0.04em] text-white mb-2"
                     style={{
                       fontFamily: "var(--sans)",
                       fontWeight: 500,
-                      backgroundColor: "#004290",
+                      fontSize: "clamp(56px, 7vw, 96px)",
+                    }}
+                  >
+                    $847M
+                  </p>
+                  <div className="w-8 h-[2px] bg-[#c4543a] my-4" />
+                  <p
+                    className="font-label text-[10px] uppercase tracking-[0.14em] text-white/60"
+                  >
+                    Capital Facilitated
+                  </p>
+                  <p className="mt-10 text-white/70 text-[13px] leading-[1.6] font-sans max-w-[260px]">
+                    Northern California&rsquo;s small businesses are the backbone of
+                    our communities.
+                  </p>
+                </div>
+              </div>
+            </PosterFrame>
+
+            {/* ─── Poster 4 · SOCIAL TILE (Royal gradient) ─── */}
+            <PosterFrame caption="04 · Social — Royal gradient" aspect="aspect-square">
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(160deg, #0f1c2e 0%, #1D5AA7 55%, #5684BA 100%)",
+                }}
+              />
+              <div
+                className="absolute inset-0 opacity-[0.05] mix-blend-overlay"
+                style={{
+                  backgroundImage:
+                    "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+                }}
+              />
+              <div className="relative z-10 h-full flex flex-col justify-between p-6">
+                <div className="flex items-center justify-between">
+                  <p className="font-label text-[9px] uppercase tracking-[0.14em] text-white/50">
+                    @norcalsbdc
+                  </p>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#c4543a]" />
+                </div>
+                <div>
+                  <p
+                    className="leading-[1.05] mb-3 tracking-[-0.02em]"
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontWeight: 500,
+                      fontSize: "clamp(22px, 3vw, 30px)",
                       color: "rgba(255,255,255,0.95)",
                     }}
                   >
-                    Get Started
-                  </div>
-                </div>
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
-                  style={{
-                    background: "linear-gradient(to bottom, rgba(242,244,247,0), #F2F4F7)",
-                  }}
-                />
-              </div>
-              <p className="mt-3 text-navy/40 text-[14px] leading-relaxed font-sans italic">
-                Light mode — Navy headlines on Cloud, Berry accent, Cobalt CTA.
-              </p>
-            </div>
-
-            {/* Card 2 — Dark mode content block */}
-            <div className="flex-shrink-0 w-[340px] md:w-[400px]" style={{ scrollSnapAlign: "start" }}>
-              <div className="relative border border-white/[0.06] overflow-hidden">
-                <div className="px-6 pt-8 pb-16" style={{ backgroundColor: "#0f1c2e" }}>
-                  <p
-                    className="text-[10px] uppercase tracking-[0.18em] mb-5"
-                    style={{ fontFamily: "var(--sans-label)", color: "rgba(133,163,200,0.5)" }}
-                  >
-                    Impact Report
+                    $713K raised.
+                    <br />
+                    <span style={{ color: "rgba(255,255,255,0.55)" }}>
+                      One advisor call at a time.
+                    </span>
                   </p>
-                  <h4
-                    className="tracking-[-0.02em] mb-0 leading-[1.1]"
-                    style={{
-                      fontFamily: "var(--sans)",
-                      fontWeight: 500,
-                      fontSize: "22px",
-                      color: "rgba(255,255,255,0.92)",
-                    }}
-                  >
-                    42,000 Jobs Created
-                  </h4>
-                  <div
-                    className="mt-3 mb-5"
-                    style={{ width: 32, height: 2, backgroundColor: "#85A3C8" }}
-                  />
-                  <p
-                    className="text-[14px] leading-[1.75] mb-5"
-                    style={{
-                      fontFamily: "var(--sans)",
-                      fontWeight: 500,
-                      color: "rgba(255,255,255,0.5)",
-                    }}
-                  >
-                    Northern California&rsquo;s small businesses are the backbone of our
-                    communities. Our advisors help them start, scale, and succeed.
+                  <div className="w-6 h-[2px] bg-[#c4543a] mb-3" />
+                  <p className="font-label text-[9px] uppercase tracking-[0.12em] text-white/40">
+                    Rep It Out · Vallejo
                   </p>
-                  <div
-                    className="inline-block px-5 py-2 rounded-sm text-[12px] tracking-[0.02em]"
-                    style={{
-                      fontFamily: "var(--sans)",
-                      fontWeight: 500,
-                      backgroundColor: "#00685E",
-                      color: "rgba(255,255,255,0.92)",
-                    }}
-                  >
-                    View Full Report
-                  </div>
                 </div>
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
-                  style={{
-                    background: "linear-gradient(to bottom, rgba(17,28,46,0), #0f1c2e)",
-                  }}
-                />
               </div>
-              <p className="mt-3 text-navy/40 text-[14px] leading-relaxed font-sans italic">
-                Dark mode — white on Navy, Fog accent, Evergreen CTA.
-              </p>
-            </div>
+            </PosterFrame>
 
-            {/* Card 3 — Newsletter header */}
-            <div className="flex-shrink-0 w-[340px] md:w-[400px]" style={{ scrollSnapAlign: "start" }}>
-              <div className="relative border border-black/[0.06] overflow-hidden">
+            {/* ─── Poster 5 · NEWSLETTER MASTHEAD (Cloud / Cobalt) ─── */}
+            <PosterFrame caption="05 · Newsletter masthead">
+              <div className="absolute inset-0" style={{ backgroundColor: "#FFFFFF" }} />
+              <div className="relative h-full flex flex-col">
+                {/* Navy masthead */}
                 <div
-                  className="px-6 pt-6 pb-5 flex items-center justify-between"
+                  className="flex items-center justify-between px-6 py-5"
                   style={{ backgroundColor: "#0f1c2e" }}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -325,241 +270,84 @@ export default function ColorsPage() {
                     src="/logos/NCN_Band_Logo_White.png"
                     alt="NorCal SBDC"
                     className="h-6 w-auto"
-                    style={{ opacity: 0.9 }}
+                    style={{ opacity: 0.95 }}
                   />
-                  <p
-                    className="text-[10px] uppercase tracking-[0.14em]"
-                    style={{
-                      fontFamily: "var(--sans-label)",
-                      color: "rgba(133,163,200,0.45)",
-                    }}
-                  >
+                  <p className="font-label text-[9px] uppercase tracking-[0.14em] text-white/45">
                     April 2026
                   </p>
                 </div>
+                {/* Cobalt strip */}
                 <div style={{ height: 3, backgroundColor: "#004290" }} />
-                <div className="px-6 pt-6 pb-20" style={{ backgroundColor: "#FFFFFF" }}>
-                  <p
-                    className="text-[10px] uppercase tracking-[0.18em] mb-3"
-                    style={{ fontFamily: "var(--sans-label)", color: "#5684BA" }}
-                  >
-                    The Business Advisor
-                  </p>
-                  <h4
-                    className="tracking-[-0.02em] leading-[1.15] mb-3"
+                {/* Body */}
+                <div className="flex-1 px-6 pt-7 pb-8 flex flex-col justify-between">
+                  <div>
+                    <p className="font-label text-[9px] uppercase tracking-[0.18em] text-[#5684BA] mb-3">
+                      The Business Advisor
+                    </p>
+                    <h4
+                      className="text-navy leading-[1.12] tracking-[-0.01em]"
+                      style={{
+                        fontFamily: "var(--sans)",
+                        fontWeight: 500,
+                        fontSize: "clamp(19px, 2.2vw, 24px)",
+                      }}
+                    >
+                      Spring Funding Roundup: New SBA Loan Programs for 2026.
+                    </h4>
+                  </div>
+                  <div>
+                    <div className="w-6 h-[2px] bg-[#c4543a] mb-3" />
+                    <p className="font-label text-[9px] uppercase tracking-[0.12em] text-navy/45">
+                      Issue 04 · Quarterly
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </PosterFrame>
+
+            {/* ─── Poster 6 · TAGLINE KNOCKOUT (Navy + Turnip italic) ─── */}
+            <PosterFrame caption="06 · Tagline — Turnip italic closer">
+              <div className="absolute inset-0" style={{ backgroundColor: "#0f1c2e" }} />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c4543a]" />
+              <div className="absolute -right-12 -top-12 w-[70%] opacity-[0.06] pointer-events-none">
+                <svg viewBox="0 0 2107 2003" aria-hidden="true">
+                  <path d={STAR_PATH} fill="white" />
+                </svg>
+              </div>
+              <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-8">
+                <p className="font-label text-[9px] uppercase tracking-[0.14em] text-white/45">
+                  Tagline
+                </p>
+                <div>
+                  <h3
+                    className="leading-[0.98] text-white tracking-[-0.02em]"
                     style={{
                       fontFamily: "var(--sans)",
                       fontWeight: 500,
-                      fontSize: "19px",
-                      color: "#0f1c2e",
+                      fontSize: "clamp(34px, 4.4vw, 56px)",
                     }}
                   >
-                    Spring Funding Roundup: New SBA Loan Programs for 2026
-                  </h4>
-                  <p
-                    className="text-[13px] leading-[1.75]"
-                    style={{ fontFamily: "var(--sans)", fontWeight: 500, color: "#2D3340" }}
-                  >
-                    This quarter, three new loan programs are available to NorCal small
-                    businesses. Our advisors break down eligibility, timelines, and how
-                    to get started.
-                  </p>
-                </div>
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none"
-                  style={{
-                    background: "linear-gradient(to bottom, rgba(255,255,255,0), #FFFFFF)",
-                  }}
-                />
-              </div>
-              <p className="mt-3 text-navy/40 text-[13px] leading-relaxed font-sans italic">
-                Newsletter — Navy masthead, Cobalt accent strip, Steel eyebrow.
-              </p>
-            </div>
-
-            {/* Card 4 — Stat / Impact tile (coral accent) */}
-            <div className="flex-shrink-0 w-[300px] md:w-[340px]" style={{ scrollSnapAlign: "start" }}>
-              <div className="relative overflow-hidden" style={{ backgroundColor: "#0f1c2e" }}>
-                <div className="h-[2px] bg-[#c4543a]" />
-                <div className="px-6 pt-7 pb-20">
-                  <p
-                    className="text-[9px] uppercase tracking-[0.14em] mb-6"
-                    style={{ fontFamily: "var(--sans-label)", color: "rgba(196,84,58,0.7)" }}
-                  >
-                    2025 Annual Impact
-                  </p>
-                  {[
-                    { num: "$847M", label: "Capital Facilitated" },
-                    { num: "6,200", label: "Businesses Served" },
-                    { num: "14,800", label: "Jobs Retained" },
-                  ].map((stat, i) => (
-                    <div key={stat.label} className={`${i < 2 ? "mb-5 pb-5 border-b" : ""}`} style={{ borderColor: "rgba(255,255,255,0.06)" }}>
-                      <p
-                        className="leading-none mb-1 tracking-[-0.03em]"
-                        style={{ fontFamily: "var(--sans)", fontWeight: 500, fontSize: "clamp(22px, 3vw, 30px)", color: "rgba(255,255,255,0.9)" }}
-                      >
-                        {stat.num}
-                      </p>
-                      <p style={{ fontFamily: "var(--sans-label)", fontSize: "9px", letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(255,255,255,0.28)" }}>
-                        {stat.label}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none"
-                  style={{ background: "linear-gradient(to bottom, transparent, #0f1c2e)" }}
-                />
-              </div>
-              <p className="mt-3 text-navy/40 text-[13px] leading-relaxed font-sans italic">
-                Impact stats — Coral keyline, Navy bg, white numerals.
-              </p>
-            </div>
-
-            {/* Card 5 — Client quote / pull quote */}
-            <div className="flex-shrink-0 w-[300px] md:w-[340px]" style={{ scrollSnapAlign: "start" }}>
-              <div className="relative overflow-hidden" style={{ backgroundColor: "#F2F4F7" }}>
-                <div
-                  className="px-6 pt-7 pb-20 flex flex-col"
-                  style={{ minHeight: 320 }}
-                >
-                  <p
-                    className="text-[9px] uppercase tracking-[0.14em] mb-6"
-                    style={{ fontFamily: "var(--sans-label)", color: "rgba(15,28,46,0.3)" }}
-                  >
-                    Client Story
-                  </p>
-                  <p
-                    className="tracking-[-0.01em] leading-[1.4] mb-5 flex-1"
-                    style={{
-                      fontFamily: "var(--sans)",
-                      fontWeight: 400,
-                      fontSize: "16px",
-                      color: "#0f1c2e",
-                    }}
-                  >
-                    &ldquo;I couldn&rsquo;t have accomplished my goal of starting a business and fulfilling my dream without the SBDC.&rdquo;
-                  </p>
-                  <div>
-                    <div className="w-6 h-[2px] mb-3" style={{ backgroundColor: "#c4543a" }} />
-                    <p style={{ fontFamily: "var(--sans)", fontSize: "11px", fontWeight: 500, color: "#0f1c2e", marginBottom: 2 }}>David Cruz, CEO</p>
-                    <p style={{ fontFamily: "var(--sans-label)", fontSize: "9px", letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(15,28,46,0.35)" }}>Rep It Out &middot; Solano-Napa SBDC</p>
-                  </div>
-                </div>
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
-                  style={{ background: "linear-gradient(to bottom, transparent, #F2F4F7)" }}
-                />
-              </div>
-              <p className="mt-3 text-navy/40 text-[13px] leading-relaxed font-sans italic">
-                Pull quote — Cloud bg, Navy type, coral attribution rule.
-              </p>
-            </div>
-
-            {/* Card 6 — Social post tile */}
-            <div className="flex-shrink-0 w-[260px] md:w-[300px]" style={{ scrollSnapAlign: "start" }}>
-              <div className="relative overflow-hidden aspect-square" style={{ backgroundColor: "#1D5AA7" }}>
-                <div
-                  className="absolute inset-0"
-                  style={{ background: "linear-gradient(160deg, #0f1c2e 0%, #1D5AA7 60%, #85A3C8 100%)" }}
-                />
-                <div className="relative z-10 h-full flex flex-col justify-between p-6">
-                  <div className="flex items-center justify-between">
-                    <p style={{ fontFamily: "var(--sans-label)", fontSize: "8px", letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)" }}>@norcalsbdc</p>
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#c4543a]" />
-                  </div>
-                  <div>
-                    <p
-                      className="leading-[1.2] mb-3 tracking-[-0.02em]"
-                      style={{ fontFamily: "var(--sans)", fontWeight: 500, fontSize: "clamp(18px, 2.5vw, 22px)", color: "rgba(255,255,255,0.92)" }}
+                    Your Business,
+                    <br />
+                    <span
+                      style={{
+                        fontFamily: "var(--serif)",
+                        fontStyle: "italic",
+                        fontWeight: 400,
+                        color: "#85A3C8",
+                      }}
                     >
-                      $713K raised.
-                      <br />
-                      <span style={{ color: "rgba(255,255,255,0.45)" }}>One advisor call at a time.</span>
-                    </p>
-                    <div className="w-6 h-[2px] bg-[#c4543a] mb-3" />
-                    <p style={{ fontFamily: "var(--sans-label)", fontSize: "8px", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.3)" }}>Rep It Out &middot; Vallejo</p>
-                  </div>
+                      Better.
+                    </span>
+                  </h3>
+                  <div className="w-8 h-[2px] bg-[#c4543a] mt-6 mb-3" />
+                  <p className="font-label text-[9px] uppercase tracking-[0.14em] text-white/45">
+                    Navy anchor · Fog emphasis
+                  </p>
                 </div>
               </div>
-              <p className="mt-3 text-navy/40 text-[13px] leading-relaxed font-sans italic">
-                Social tile — Royal gradient, coral dot, ghost type.
-              </p>
-            </div>
-
+            </PosterFrame>
           </ColorsInUseCarousel>
-        </div>
-      </div>
-
-
-      {/* Accessibility — WCAG contrast ratios */}
-      <div className="bg-[#0f1c2e] py-14 md:py-20 relative overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c4543a]" />
-        <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
-        <div className="max-w-[960px] mx-auto px-8 md:px-12">
-          <p className="font-label text-[10px] uppercase tracking-[0.1em] text-white/25 mb-2">Standards</p>
-          <h2
-            className="tracking-[-0.02em] text-white/90 mb-3"
-            style={{
-              fontFamily: "var(--sans)",
-              fontWeight: 500,
-              fontSize: "clamp(1.1rem, 2vw, 1.4rem)",
-            }}
-          >
-            Accessibility
-          </h2>
-          <p className="text-white/40 text-[14px] leading-relaxed font-sans mb-12 max-w-[480px]">
-            WCAG 2.1 contrast ratios for key brand color pairings. All primary text combinations meet AA or higher.
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {[
-              { fg: "Navy", bg: "White", fgHex: "#0f1c2e", bgHex: "#FFFFFF", ratio: "17.08", grade: "AAA" },
-              { fg: "Navy", bg: "Cloud", fgHex: "#0f1c2e", bgHex: "#F2F4F7", ratio: "15.50", grade: "AAA" },
-              { fg: "Cobalt", bg: "White", fgHex: "#004290", bgHex: "#FFFFFF", ratio: "9.62", grade: "AAA" },
-              { fg: "Berry", bg: "White", fgHex: "#A73B44", bgHex: "#FFFFFF", ratio: "6.26", grade: "AA" },
-              { fg: "Evergreen", bg: "White", fgHex: "#00685E", bgHex: "#FFFFFF", ratio: "6.68", grade: "AA" },
-              { fg: "White", bg: "Navy", fgHex: "#FFFFFF", bgHex: "#0f1c2e", ratio: "17.08", grade: "AAA" },
-              { fg: "White", bg: "Cobalt", fgHex: "#FFFFFF", bgHex: "#004290", ratio: "9.62", grade: "AAA" },
-              { fg: "White", bg: "Evergreen", fgHex: "#FFFFFF", bgHex: "#00685E", ratio: "6.68", grade: "AA" },
-              { fg: "Cloud", bg: "Navy", fgHex: "#F2F4F7", bgHex: "#0f1c2e", ratio: "15.50", grade: "AAA" },
-              { fg: "Fog", bg: "White", fgHex: "#85A3C8", bgHex: "#FFFFFF", ratio: "2.60", grade: "Fail" },
-            ].map((pair) => (
-              <div key={`${pair.fg}-${pair.bg}`}>
-                <div
-                  className="px-5 py-4 flex items-center justify-between"
-                  style={{
-                    backgroundColor: pair.bgHex,
-                    ...(pair.bgHex === "#0f1c2e" ? { border: "1px dotted rgba(255,255,255,0.25)" } : {}),
-                  }}
-                >
-                  <span
-                    className="font-sans text-[15px] tracking-[-0.01em]"
-                    style={{ color: pair.fgHex, fontWeight: 500 }}
-                  >
-                    Aa
-                  </span>
-                  <span
-                    className="font-label text-[11px] uppercase tracking-[0.1em]"
-                    style={{ color: pair.fgHex, opacity: 0.5 }}
-                  >
-                    {pair.ratio}:1 {pair.grade}
-                  </span>
-                </div>
-                <p className="px-1 pt-2 text-white/30 text-[12px] font-label uppercase tracking-[0.1em]">
-                  {pair.fg} on {pair.bg}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-12 pt-8 border-t border-white/[0.06]">
-            <p className="text-white/40 text-[13px] leading-relaxed font-sans max-w-lg">
-              <strong className="text-white/70 font-sans">Note:</strong> Fog (#85A3C8)
-              does not meet WCAG contrast requirements for text on white backgrounds.
-              Use Fog only for decorative fills, large background areas, or non-text elements.
-            </p>
-          </div>
         </div>
       </div>
 

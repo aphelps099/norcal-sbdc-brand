@@ -23,18 +23,39 @@ export default function ColorSwatch({ name, hex, usage }: ColorSwatchProps) {
   ].includes(hex.toLowerCase())
     || parseInt(hex.replace("#", ""), 16) > 0xaaaaaa;
 
-  const textColor = isLight ? "rgba(0,0,0,0.45)" : "rgba(255,255,255,0.55)";
-  const subColor = isLight ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)";
+  const textColor = isLight ? "rgba(0,0,0,0.55)" : "rgba(255,255,255,0.6)";
+  const subColor = isLight ? "rgba(0,0,0,0.35)" : "rgba(255,255,255,0.4)";
 
   return (
     <button
       onClick={handleCopy}
-      className="group text-left flex-1 min-w-0"
+      className="group text-left flex-1 min-w-0 relative"
     >
       <div
-        className="relative w-full h-[120px] md:h-[150px] overflow-hidden flex flex-col justify-end p-4"
+        className="relative w-full h-[140px] md:h-[180px] overflow-hidden flex flex-col justify-end p-4"
         style={{ backgroundColor: hex }}
       >
+        {/* Hover helper text — stacked mono, light grey bg, black text */}
+        <div
+          className="absolute top-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
+        >
+          <div
+            className="px-2.5 py-2 inline-block max-w-full"
+            style={{
+              backgroundColor: "#e8e8e5",
+              color: "#0a0a0a",
+              fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+              fontSize: "10px",
+              lineHeight: 1.55,
+              letterSpacing: "0.02em",
+              textTransform: "uppercase",
+            }}
+          >
+            {usage}.
+          </div>
+        </div>
+
+        {/* Bottom label row — name / hex */}
         <span
           className="font-sans text-[13px] mb-0.5"
           style={{ color: textColor, fontWeight: 500 }}
