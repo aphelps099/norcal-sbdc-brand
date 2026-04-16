@@ -34,46 +34,10 @@ export default function VoicePage() {
         subtitle="Our voice is the personality behind every word — confident, human, and always rooted in expertise."
       />
 
-      {/* Stats summary row — inspired by norcalsbdc.org/brand/messaging.html */}
-      <div className="bg-[#0f1c2e] border-t border-white/[0.06]">
-        <div className="max-w-[960px] mx-auto px-8 md:px-12 py-10 md:py-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { value: "1", label: "Primary Tagline" },
-              { value: "3", label: "Campaign Pillars" },
-              { value: "4", label: "Voice Attributes" },
-              { value: "5", label: "Tone Contexts" },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <p
-                  className="text-white/70 leading-none mb-2"
-                  style={{ fontFamily: "var(--sans)", fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 500 }}
-                >
-                  {stat.value}
-                </p>
-                <p className="font-label text-[10px] uppercase tracking-[0.14em] text-white/30">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Brand Personality — dark navy bg */}
-      <div className="bg-[#0f1c2e] py-12 md:py-16 relative overflow-hidden">
+      {/* Brand Personality + Voice Attributes — merged navy section */}
+      <div className="bg-[#0f1c2e] py-20 md:py-28 relative overflow-hidden">
         <SbdcWatermark className="absolute -right-[8%] top-[10%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none" opacity={0.035} />
           <div className="max-w-[780px] mx-auto px-8 md:px-12">
-            <h2
-              className="tracking-[-0.02em] text-white/90 mb-6"
-              style={{
-                fontFamily: "var(--sans)",
-                fontWeight: 500,
-                fontSize: "clamp(26px, 3.2vw, 36px)",
-              }}
-            >
-              Brand Personality
-            </h2>
             <p className="font-sans text-lg md:text-xl text-white/50 leading-[1.7] max-w-[640px] mb-10">
               We are <strong className="text-white/80">confident</strong> but never
               arrogant. <strong className="text-white/80">Expert</strong> but never
@@ -87,52 +51,50 @@ export default function VoicePage() {
               <BrandVideoPlayer videoId="5s8fBXxKaJc" />
             </div>
           </div>
-      </div>
 
-      {/* Voice Attributes — still navy, but visually separated below the video */}
-      <div className="bg-[#0f1c2e] pb-12 md:pb-16">
-        <div className="max-w-[960px] mx-auto px-8 md:px-12 pt-10">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
-            {voiceAttributes.map((attr, i) => (
-              <div
-                key={attr.trait}
-                className={`py-6 px-6 ${i < voiceAttributes.length - 1 ? "border-r border-white/[0.06]" : ""}`}
-              >
-                <h3
-                  className="text-white/90 mb-2 tracking-[-0.01em]"
-                  style={{
-                    fontFamily: "var(--sans)",
-                    fontSize: "clamp(20px, 2vw, 24px)",
-                  }}
+          {/* Voice Attributes — continuous navy below video */}
+          <div className="max-w-[960px] mx-auto px-8 md:px-12 pt-14">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
+              {voiceAttributes.map((attr, i) => (
+                <div
+                  key={attr.trait}
+                  className={`py-8 md:py-10 px-6 ${i < voiceAttributes.length - 1 ? "border-r border-white/[0.06]" : ""}`}
                 >
-                  {attr.trait}
-                </h3>
-                <p className="font-sans text-sm text-white/50 leading-relaxed">
-                  {attr.description}
-                </p>
-              </div>
-            ))}
+                  <h3
+                    className="text-white/90 mb-2 tracking-[-0.01em]"
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontSize: "clamp(22px, 2.4vw, 28px)",
+                    }}
+                  >
+                    {attr.trait}
+                  </h3>
+                  <p className="font-sans text-sm text-white/50 leading-relaxed">
+                    {attr.description}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
       </div>
 
-      {/* Messaging Framework — cream bg */}
-      <div className="py-14 md:py-20 relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
+      {/* Messaging Framework — cream bg, no cards */}
+      <div className="py-20 md:py-28 relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
         <div className="max-w-[960px] mx-auto px-8 md:px-12">
           <div className="border-t border-navy/10 pt-6 mb-12">
             <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Framework</p>
             <h2 className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(28px, 3.2vw, 40px)", fontWeight: 500 }}>Messaging Framework</h2>
           </div>
 
-          {/* Tagline + Pillars side by side */}
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-px border border-navy/[0.08] overflow-hidden mb-6">
-            <div className="bg-white p-6 md:p-8">
+          {/* Tagline + Pillars — no card borders, on cream */}
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-0 overflow-hidden mb-14">
+            <div className="p-6 md:p-8">
               <p className="font-label text-[10px] uppercase tracking-[0.18em] text-royal mb-4">Primary Tagline</p>
-              <p className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(22px, 2.4vw, 30px)", fontWeight: 500 }}>
-                Your Business, <em className="text-royal italic">Better.</em>
+              <p className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 500, lineHeight: 1.1 }}>
+                Your Business, <em style={{ fontFamily: "var(--serif)" }} className="text-royal italic">Better.</em>
               </p>
             </div>
-            <div className="bg-white p-6 md:p-8 border-t md:border-t-0 md:border-l border-navy/[0.07]">
+            <div className="p-6 md:p-8 border-t md:border-t-0 md:border-l border-navy/[0.08]">
               <p className="font-label text-[10px] uppercase tracking-[0.18em] text-royal mb-4">Campaign Pillars</p>
               <div className="space-y-3">
                 {[
@@ -149,14 +111,12 @@ export default function VoicePage() {
             </div>
           </div>
 
-          {/* Headline patterns */}
-          <div className="border border-navy/[0.08] overflow-hidden">
-            <div className="bg-navy px-6 py-3">
-              <p className="font-label text-[10px] uppercase tracking-[0.18em] text-white/40">Headline Patterns</p>
-            </div>
-            <div className="divide-y divide-navy/[0.06]">
+          {/* Headline Patterns — editorial rows on cream */}
+          <div className="border-t border-navy/[0.08] pt-4">
+            <p className="font-label text-[10px] uppercase tracking-[0.18em] text-navy/30 mb-4">Headline Patterns</p>
+            <div>
               {headlineExamples.map((h, i) => (
-                <div key={i} className="px-6 py-4 bg-white">
+                <div key={i} className="py-4 border-b border-navy/[0.08]">
                   <p className="font-sans text-navy leading-snug tracking-[-0.01em]" style={{ fontSize: "clamp(15px, 1.6vw, 18px)" }}>
                     &ldquo;{h.text} <em className="text-royal italic">{h.emphasis}</em>&rdquo;
                   </p>
@@ -167,35 +127,37 @@ export default function VoicePage() {
         </div>
       </div>
 
-      {/* Tone by Context — white bg */}
-      <div className="bg-white py-14 md:py-20">
+      {/* Tone by Context — cream bg, flattened table */}
+      <div className="py-20 md:py-28" style={{ backgroundColor: "#f5f4f0" }}>
         <div className="max-w-[960px] mx-auto px-8 md:px-12">
           <div className="border-t border-navy/10 pt-6 mb-12">
             <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Application</p>
             <h2 className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(28px, 3.2vw, 40px)", fontWeight: 500 }}>Tone by Context</h2>
           </div>
-          <div className="border border-black/[0.08] overflow-hidden">
-            <div className="grid grid-cols-[140px_140px_1fr] md:grid-cols-[160px_160px_1fr] bg-navy">
-              <div className="font-label text-[10px] uppercase tracking-[0.18em] text-white/40 px-5 py-3.5">Context</div>
-              <div className="font-label text-[10px] uppercase tracking-[0.18em] text-white/40 px-5 py-3.5 border-l border-white/[0.08]">Tone</div>
-              <div className="font-label text-[10px] uppercase tracking-[0.18em] text-white/40 px-5 py-3.5 border-l border-white/[0.08]">Example</div>
-            </div>
+
+          {/* Column labels */}
+          <div className="grid grid-cols-[140px_140px_1fr] md:grid-cols-[160px_160px_1fr]">
+            <div className="font-label text-[10px] uppercase tracking-[0.18em] text-navy/30 px-5 pb-3">Context</div>
+            <div className="font-label text-[10px] uppercase tracking-[0.18em] text-navy/30 px-5 pb-3 border-l border-navy/[0.08]">Tone</div>
+            <div className="font-label text-[10px] uppercase tracking-[0.18em] text-navy/30 px-5 pb-3 border-l border-navy/[0.08]">Example</div>
+          </div>
+          <div className="border-t border-navy/[0.08]">
             {toneTable.map((row, i) => (
               <div
                 key={i}
                 className={`grid grid-cols-[140px_140px_1fr] md:grid-cols-[160px_160px_1fr] items-center ${
-                  i < toneTable.length - 1 ? "border-b border-black/[0.06]" : ""
+                  i < toneTable.length - 1 ? "border-b border-navy/[0.06]" : ""
                 }`}
               >
                 <div className="px-5 py-4">
-                  <span className="inline-block px-2.5 py-1 border border-navy/[0.12] font-label text-[10px] uppercase tracking-[0.08em] text-navy/55">
+                  <span className="font-label text-[10px] uppercase tracking-[0.14em] text-navy/50">
                     {row.context}
                   </span>
                 </div>
-                <div className="px-5 py-4 border-l border-black/[0.06]">
+                <div className="px-5 py-4 border-l border-navy/[0.08]">
                   <span className="font-sans text-[13px] text-navy/60">{row.tone}</span>
                 </div>
-                <div className="px-5 py-4 border-l border-black/[0.06]">
+                <div className="px-5 py-4 border-l border-navy/[0.08]">
                   <p className="font-sans text-[15px] text-navy leading-snug tracking-[-0.01em]">
                     &ldquo;{row.example}&rdquo;
                   </p>
@@ -205,8 +167,9 @@ export default function VoicePage() {
           </div>
         </div>
       </div>
+
       {/* Campaign Strategy — cream bg */}
-      <div className="py-14 md:py-20 relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
+      <div className="py-20 md:py-28 relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
         <SbdcWatermark
           className="absolute -right-[6%] top-[8%] w-[32vw] max-w-[380px] text-navy pointer-events-none select-none"
           opacity={0.03}
@@ -233,25 +196,17 @@ export default function VoicePage() {
         </div>
       </div>
 
-      {/* The Three Pillars — white bg */}
-      <div className="bg-white py-14 md:py-20 relative overflow-hidden">
-        <span
-          className="material-symbols-outlined absolute -left-10 bottom-[-5%] text-navy/[0.025] pointer-events-none select-none"
-          style={{ fontSize: "min(55vw, 560px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
-          aria-hidden="true"
-        >
-          hub
-        </span>
+      {/* The Three Pillars — white bg, no card/icons, accent dots + vertical rules */}
+      <div className="bg-white py-20 md:py-28 relative overflow-hidden">
         <div className="max-w-[960px] mx-auto px-8 md:px-12 relative z-10">
           <div className="border-t border-navy/10 pt-6 mb-12">
             <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Brand Architecture</p>
             <h2 className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(28px, 3.2vw, 40px)", fontWeight: 500 }}>The Three Pillars</h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-px border border-navy/[0.06] overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-0">
             {[
               {
-                icon: "person",
                 name: "People",
                 sub: "Your Business People",
                 desc: "The advisors, mentors, and specialists who show up for entrepreneurs every day. This pillar humanizes the network — it's not a program, it's people.",
@@ -259,7 +214,6 @@ export default function VoicePage() {
                 color: "#004290",
               },
               {
-                icon: "account_balance",
                 name: "Funded",
                 sub: "Your Business Funded",
                 desc: "Capital access is the engine. Loan packaging, SBA lending guidance, grant readiness, and investor connections that turn plans into action.",
@@ -267,19 +221,15 @@ export default function VoicePage() {
                 color: "#A73B44",
               },
               {
-                icon: "hub",
                 name: "Connected",
                 sub: "Your Business Connected",
                 desc: "The network effect. Workshops, peer cohorts, lender introductions, and referral pathways that plug entrepreneurs into the ecosystem they need.",
                 proof: "200+ workshops annually. Partnerships with chambers, cities, and economic development orgs. Referral network spanning 36 counties.",
                 color: "#5684BA",
               },
-            ].map((pillar) => (
-              <div key={pillar.name} className="bg-white p-6 flex flex-col">
-                <span
-                  className="material-symbols-outlined text-navy mb-3"
-                  style={{ fontSize: 28, fontVariationSettings: "'FILL' 1, 'wght' 400" }}
-                >{pillar.icon}</span>
+            ].map((pillar, i) => (
+              <div key={pillar.name} className={`p-8 flex flex-col ${i < 2 ? "border-r border-navy/[0.06]" : ""}`}>
+                <div className="w-3 h-3 rounded-full mb-5" style={{ backgroundColor: pillar.color }} />
                 <h3 className="font-sans text-navy text-xl tracking-[-0.01em] mb-0.5" style={{ fontWeight: 500 }}>{pillar.name}</h3>
                 <p className="font-label text-[10px] uppercase tracking-[0.08em] text-navy/30 mb-3">{pillar.sub}</p>
                 <p className="font-sans text-navy/50 text-[14px] leading-relaxed mb-4">{pillar.desc}</p>
@@ -297,7 +247,7 @@ export default function VoicePage() {
       <div className="bg-[#0f1c2e] relative overflow-hidden">
         <div className="w-full h-[2px] bg-[#c4543a]" />
         <SbdcWatermark className="absolute -right-[8%] top-[15%] w-[35vw] max-w-[420px] text-white pointer-events-none select-none" opacity={0.03} />
-        <div className="max-w-[960px] mx-auto px-8 md:px-12 py-14 md:py-20 relative z-10">
+        <div className="max-w-[960px] mx-auto px-8 md:px-12 py-20 md:py-28 relative z-10">
           <div className="border-t border-white/[0.08] pt-6 mb-12">
             <p className="font-label text-[10px] uppercase tracking-[0.1em] text-white/30 mb-2">Messaging</p>
             <h2 className="font-sans text-white/90 tracking-[-0.02em]" style={{ fontSize: "clamp(28px, 3.2vw, 40px)", fontWeight: 500 }}>Key Messages</h2>
@@ -321,13 +271,9 @@ export default function VoicePage() {
             ))}
           </div>
 
-          <div className="flex flex-wrap gap-3">
-            {["#YourBusinessBetter", "#NorCalSBDC", "#PeopleFundedConnected", "#SmallBusinessGrowth"].map((tag) => (
-              <span key={tag} className="font-label text-[10px] uppercase tracking-[0.08em] px-3 py-1.5 border border-white/[0.1] text-white/30">
-                {tag}
-              </span>
-            ))}
-          </div>
+          <p className="font-mono text-[11px] text-white/20 tracking-wide">
+            #YourBusinessBetter &nbsp; #NorCalSBDC &nbsp; #PeopleFundedConnected &nbsp; #SmallBusinessGrowth
+          </p>
         </div>
       </div>
 
