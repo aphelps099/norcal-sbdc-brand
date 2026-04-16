@@ -2,24 +2,40 @@
 
 import { useEffect, useRef } from "react";
 
-const brandItems = [
-  { title: "Colors", description: "Palette, tints, accessible pairings.", href: "/colors", icon: "palette", accent: "#1D5AA7" },
-  { title: "Typography", description: "Proxima Nova + Roboto Mono type system.", href: "/typography", icon: "text_fields", accent: "#004290" },
-  { title: "Logos", description: "Suite, lockups, clear space rules.", href: "/logos", icon: "branding_watermark", accent: "#0f1c2e" },
-  { title: "Voice & Tone", description: "Personality and messaging framework.", href: "/voice", icon: "record_voice_over", accent: "#A73B44" },
-  { title: "Photography", description: "Style, treatments, composition.", href: "/photography", icon: "photo_camera", accent: "#2B3035" },
-  { title: "Templates", description: "Signatures, copy blocks, decks.", href: "/templates", icon: "dashboard", accent: "#0f1c2e" },
-  { title: "Content", description: "Social media and newsletter guidelines.", href: "/content", icon: "article", accent: "#00685E" },
-  { title: "Stories", description: "Client success stories.", href: "/stories", icon: "auto_stories", accent: "#A73B44" },
-  { title: "Generate", description: "AI-powered on-brand content.", href: "/generate", icon: "auto_awesome", accent: "#1D5AA7" },
-  { title: "Calendar", description: "Key dates and campaign themes.", href: "/calendar", icon: "calendar_month", accent: "#004290" },
-  { title: "Glossary", description: "Terms and definitions.", href: "/glossary", icon: "menu_book", accent: "#2B3035" },
+const pills = [
+  { title: "Colors", href: "/colors", cat: "visual" },
+  { title: "Typography", href: "/typography", cat: "visual" },
+  { title: "Logos", href: "/logos", cat: "visual" },
+  { title: "Voice & Tone", href: "/voice", cat: "strategy" },
+  { title: "Photography", href: "/photography", cat: "strategy" },
+  { title: "Content", href: "/content", cat: "strategy" },
+  { title: "Success Stories", href: "/stories", cat: "strategy" },
+  { title: "Templates", href: "/templates", cat: "tools" },
+  { title: "Events", href: "/events", cat: "tools" },
+  { title: "Generate", href: "/generate", cat: "tools" },
+  { title: "Calendar", href: "/calendar", cat: "tools" },
+  { title: "Glossary", href: "/glossary", cat: "tools" },
+];
+
+const catColors: Record<string, { border: string; bg: string; shadow: string }> = {
+  visual:   { border: "#004290", bg: "#004290", shadow: "rgba(0,66,144,0.45)" },
+  strategy: { border: "#A73B44", bg: "#A73B44", shadow: "rgba(167,59,68,0.45)" },
+  tools:    { border: "#5684BA", bg: "#5684BA", shadow: "rgba(86,132,186,0.5)" },
+};
+
+const legend = [
+  { label: "Visual Identity", color: "#004290" },
+  { label: "Strategy & Voice", color: "#A73B44" },
+  { label: "Tools & Resources", color: "#5684BA" },
 ];
 
 export default function BrandGrid() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
+
     let ctx: ReturnType<typeof import("gsap")["gsap"]["context"]> | undefined;
 
     async function init() {
@@ -38,15 +54,15 @@ export default function BrandGrid() {
           }
         );
 
-        const cards = sectionRef.current!.querySelectorAll<HTMLElement>(".brand-card");
-        cards.forEach((card, i) => {
+        const pillEls = sectionRef.current!.querySelectorAll<HTMLElement>(".brand-pill");
+        pillEls.forEach((el, i) => {
           gsap.fromTo(
-            card,
-            { opacity: 0, y: 24 },
+            el,
+            { opacity: 0, y: 16, scale: 0.96 },
             {
-              opacity: 1, y: 0,
+              opacity: 1, y: 0, scale: 1,
               duration: 0.7, ease: "power3.out",
-              delay: i * 0.04,
+              delay: i * 0.06,
               scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
             }
           );
@@ -60,61 +76,79 @@ export default function BrandGrid() {
 
   return (
     <section ref={sectionRef} className="bg-cream" id="chapters">
-      <div className="max-w-[1200px] mx-auto px-8 sm:px-12 py-20 sm:py-28">
-        {/* Header */}
-        <div className="brand-grid-header mb-12 sm:mb-16">
-          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-navy/30 mb-3">
-            {brandItems.length} Chapters
-          </p>
-          <h2
-            className="font-sans text-navy leading-[1.08] tracking-[-0.03em]"
-            style={{ fontSize: "clamp(30px, 4vw, 48px)", fontWeight: 500 }}
-          >
-            Brand Components
-          </h2>
+      <div className="max-w-[1080px] mx-auto px-8 sm:px-12 py-20 sm:py-24">
+        {/* Header with legend */}
+        <div className="brand-grid-header border-t border-navy pt-3.5 mb-13 flex items-baseline justify-between flex-wrap gap-5">
+          <div>
+            <p className="font-label text-[10px] uppercase tracking-[0.14em] text-navy/55 mb-1.5">
+              {pills.length} Chapters
+            </p>
+            <h2
+              className="font-sans text-navy tracking-[-0.01em]"
+              style={{ fontSize: 28, fontWeight: 500 }}
+            >
+              Brand Components
+            </h2>
+          </div>
+          <div className="flex gap-6 items-center flex-wrap">
+            {legend.map((l) => (
+              <div key={l.label} className="flex items-center gap-2">
+                <div className="w-[18px] h-[3px] rounded-sm" style={{ backgroundColor: l.color }} />
+                <span className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/85">{l.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {brandItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="brand-card group relative overflow-hidden rounded-xl bg-white p-7 sm:p-8 no-underline transition-all duration-300 hover:shadow-lg hover:shadow-navy/[0.06] hover:-translate-y-0.5"
-            >
-              {/* Oversized icon — cropped bg accent */}
-              <span
-                className="material-symbols-outlined absolute -right-4 -bottom-4 pointer-events-none select-none text-navy/[0.04] group-hover:text-navy/[0.07] transition-colors duration-500"
+        {/* Pill cloud */}
+        <div className="flex flex-wrap gap-3.5" style={{ marginTop: 52 }}>
+          {pills.map((pill) => {
+            const cat = catColors[pill.cat];
+            return (
+              <a
+                key={pill.href}
+                href={pill.href}
+                className="brand-pill inline-flex items-center no-underline whitespace-nowrap leading-none"
                 style={{
-                  fontSize: "160px",
-                  fontVariationSettings: "'FILL' 1, 'wght' 200, 'GRAD' 0, 'opsz' 48",
+                  padding: "26px 44px",
+                  borderRadius: 999,
+                  border: `2px solid ${cat.border}`,
+                  fontSize: 26,
+                  fontFamily: "var(--sans)",
+                  fontWeight: 500,
+                  letterSpacing: "-0.008em",
+                  color: "#0f1c2e",
+                  background: "transparent",
+                  cursor: "pointer",
+                  transition: "background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease",
                 }}
-                aria-hidden="true"
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget;
+                  el.style.backgroundColor = cat.bg;
+                  el.style.borderColor = cat.bg;
+                  el.style.color = "#ffffff";
+                  el.style.transform = "translateY(-3px) scale(1.04)";
+                  el.style.boxShadow = `0 12px 28px -12px ${cat.shadow}`;
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget;
+                  el.style.backgroundColor = "transparent";
+                  el.style.borderColor = cat.border;
+                  el.style.color = "#0f1c2e";
+                  el.style.transform = "translateY(0) scale(1)";
+                  el.style.boxShadow = "none";
+                }}
+                onMouseDown={(e) => {
+                  e.currentTarget.style.transform = "translateY(0) scale(0.97)";
+                }}
+                onMouseUp={(e) => {
+                  e.currentTarget.style.transform = "translateY(-3px) scale(1.04)";
+                }}
               >
-                {item.icon}
-              </span>
-
-              {/* Content */}
-              <div className="relative z-10">
-                {/* Accent dot */}
-                <div
-                  className="w-2 h-2 rounded-full mb-5 transition-transform duration-300 group-hover:scale-125"
-                  style={{ backgroundColor: item.accent }}
-                />
-
-                <h3
-                  className="font-sans text-navy tracking-[-0.02em] leading-[1.15] group-hover:text-royal transition-colors duration-300"
-                  style={{ fontSize: "1.2rem", fontWeight: 500 }}
-                >
-                  {item.title}
-                </h3>
-
-                <p className="font-sans text-[13px] text-navy/45 leading-[1.5] mt-2">
-                  {item.description}
-                </p>
-              </div>
-            </a>
-          ))}
+                {pill.title}
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>
