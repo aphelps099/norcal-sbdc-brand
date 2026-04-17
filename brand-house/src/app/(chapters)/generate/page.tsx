@@ -3,6 +3,7 @@ import NextSectionLink from "@/components/NextSectionLink";
 import ContentGenerator from "@/components/ContentGenerator";
 import BlueprintBackdrop from "@/components/BlueprintBackdrop";
 import GrainBackdrop from "@/components/GrainBackdrop";
+import AmbientSparkles from "@/components/AmbientSparkles";
 
 
 export default function GeneratePage() {
@@ -12,6 +13,7 @@ export default function GeneratePage() {
           painted after). Both are fixed/pointer-events-none. Content sits
           above at zIndex 1. */}
       <BlueprintBackdrop />
+      <AmbientSparkles zIndex={0} />
       <GrainBackdrop intensity={0.7} />
 
       <div className="relative" style={{ zIndex: 1 }}>
