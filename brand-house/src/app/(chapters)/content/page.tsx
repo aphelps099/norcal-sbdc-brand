@@ -300,7 +300,7 @@ export default function ContentPage() {
         chapterNumber="06"
         category="strategy"
         title="Content"
-        subtitle="Guidelines for social media and newsletters — so every center shows up with one unified voice."
+        subtitle="Guidelines for social media and newsletters — so SBDC consistently gets communicated with one unified voice."
         bgColor="transparent"
       />
 

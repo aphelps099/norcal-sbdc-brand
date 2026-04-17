@@ -107,6 +107,11 @@ export default function TopNav() {
   const onDarkHero = darkHeroRoutes.includes(pathname);
   const isDark = ((isHome && !pastHero) || (onDarkHero && !pastHero)) && !menuOpen;
 
+  /* Colored-hero routes render their hero on a mid-tone (steel/fog) — default
+     nav tertiary gray gets lost. Force navy burger + wordmark for these. */
+  const coloredHeroRoutes = ["/content"];
+  const onColoredHero = coloredHeroRoutes.includes(pathname);
+
   return (
     <>
       <style jsx global>{`
@@ -239,7 +244,9 @@ export default function TopNav() {
                   ? "text-white/50 hover:text-white"
                   : isDark
                     ? "text-white/40 hover:text-white"
-                    : "text-text-tertiary hover:text-navy"
+                    : onColoredHero
+                      ? "text-navy/70 hover:text-navy"
+                      : "text-text-tertiary hover:text-navy"
               }`}
               data-open={menuOpen}
               aria-label={menuOpen ? "Close menu" : "Open menu"}

@@ -176,7 +176,7 @@ export default function InteriorHero({
               fontSize: "clamp(18px, 1.5vw, 22px)",
               lineHeight: 1.5,
               letterSpacing: "-0.005em",
-              color: "rgba(15,28,46,0.7)",
+              color: "rgba(15,28,46,0.88)",
             }}
           >
             {cascadeWords(subtitle, { initialY: 14 })}
