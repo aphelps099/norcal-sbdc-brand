@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { cascadeWords } from "./CascadeText";
 
 /**
  * Editorial hero for the Typography page — mirrors the ColorsHero treatment.
@@ -20,7 +21,7 @@ export default function TypographyHero() {
     async function init() {
       if (prefersReduced) {
         rootRef.current
-          ?.querySelectorAll<HTMLElement>("[data-reveal]")
+          ?.querySelectorAll<HTMLElement>("[data-reveal], .cascade-word")
           .forEach((n) => {
             n.style.opacity = "1";
             n.style.transform = "translate(0, 0)";
@@ -34,30 +35,31 @@ export default function TypographyHero() {
       if (!rootRef.current) return;
 
       ctx = gsap.context(() => {
-        gsap.fromTo(
-          "[data-reveal='eyebrow']",
-          { opacity: 0, y: 8 },
-          { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", delay: 0.1 }
-        );
+        // Eyebrow — word cascade, tight stagger
+        gsap.to("[data-reveal='eyebrow'] .cascade-word", {
+          opacity: 1, y: 0, duration: 0.55, ease: "power3.out",
+          stagger: 0.025, delay: 0.1,
+        });
+        // Giant title — single block (single word reads better whole)
         gsap.fromTo(
           "[data-reveal='title']",
           { opacity: 0, y: 28 },
-          { opacity: 1, y: 0, duration: 0.95, ease: "power3.out", delay: 0.2 }
+          { opacity: 1, y: 0, duration: 0.95, ease: "power3.out", delay: 0.25 }
         );
         gsap.fromTo(
           "[data-reveal='chapter']",
           { opacity: 0, x: 40 },
           { opacity: 1, x: 0, duration: 1.6, ease: "power2.out", delay: 0.35 }
         );
-        gsap.fromTo(
-          "[data-reveal='helper']",
-          { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", delay: 0.55 }
-        );
+        // Helper — word cascade
+        gsap.to("[data-reveal='helper'] .cascade-word", {
+          opacity: 1, y: 0, duration: 0.75, ease: "power3.out",
+          stagger: 0.028, delay: 0.6,
+        });
         gsap.fromTo(
           "[data-line]",
           { scaleX: 0 },
-          { scaleX: 1, duration: 1.1, ease: "power3.out", delay: 0.85 }
+          { scaleX: 1, duration: 1.1, ease: "power3.out", delay: 0.95 }
         );
       }, rootRef);
     }
@@ -105,10 +107,9 @@ export default function TypographyHero() {
             fontSize: "11px",
             letterSpacing: "0.22em",
             color: "rgba(15,28,46,0.45)",
-            opacity: 0,
           }}
         >
-          Chapter 02 · Visual Identity
+          {cascadeWords("Chapter 02 · Visual Identity", { initialY: 10 })}
         </p>
 
         {/* Oversized serif title — editorial */}
@@ -140,10 +141,12 @@ export default function TypographyHero() {
             lineHeight: 1.55,
             letterSpacing: "-0.005em",
             color: "rgba(15,28,46,0.55)",
-            opacity: 0,
           }}
         >
-          Two families, three jobs — a workhorse sans, a wide display caps, and an editorial serif.
+          {cascadeWords(
+            "Two families, three jobs \u2014 a workhorse sans, a wide display caps, and an editorial serif.",
+            { initialY: 14 }
+          )}
         </p>
       </div>
 

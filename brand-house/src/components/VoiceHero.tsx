@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { cascadeWords } from "./CascadeText";
 
 /**
  * Voice chapter hero — navy background, steel accents.
@@ -22,7 +23,7 @@ export default function VoiceHero() {
     async function init() {
       if (prefersReduced) {
         rootRef.current
-          ?.querySelectorAll<HTMLElement>("[data-reveal]")
+          ?.querySelectorAll<HTMLElement>("[data-reveal], .cascade-word")
           .forEach((n) => {
             n.style.opacity = "1";
             n.style.transform = "translate(0, 0)";
@@ -36,30 +37,28 @@ export default function VoiceHero() {
       if (!rootRef.current) return;
 
       ctx = gsap.context(() => {
-        gsap.fromTo(
-          "[data-reveal='eyebrow']",
-          { opacity: 0, y: 8 },
-          { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", delay: 0.1 }
-        );
+        gsap.to("[data-reveal='eyebrow'] .cascade-word", {
+          opacity: 1, y: 0, duration: 0.55, ease: "power3.out",
+          stagger: 0.025, delay: 0.1,
+        });
         gsap.fromTo(
           "[data-reveal='title']",
           { opacity: 0, y: 28 },
-          { opacity: 1, y: 0, duration: 0.95, ease: "power3.out", delay: 0.2 }
+          { opacity: 1, y: 0, duration: 0.95, ease: "power3.out", delay: 0.25 }
         );
         gsap.fromTo(
           "[data-reveal='chapter']",
           { opacity: 0, x: 40 },
           { opacity: 1, x: 0, duration: 1.6, ease: "power2.out", delay: 0.35 }
         );
-        gsap.fromTo(
-          "[data-reveal='helper']",
-          { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", delay: 0.55 }
-        );
+        gsap.to("[data-reveal='helper'] .cascade-word", {
+          opacity: 1, y: 0, duration: 0.75, ease: "power3.out",
+          stagger: 0.028, delay: 0.6,
+        });
         gsap.fromTo(
           "[data-line]",
           { scaleX: 0 },
-          { scaleX: 1, duration: 1.1, ease: "power3.out", delay: 0.85 }
+          { scaleX: 1, duration: 1.1, ease: "power3.out", delay: 0.95 }
         );
       }, rootRef);
     }
@@ -108,10 +107,9 @@ export default function VoiceHero() {
             fontSize: "11px",
             letterSpacing: "0.22em",
             color: "rgba(133, 163, 200, 0.75)",
-            opacity: 0,
           }}
         >
-          Chapter 04 · Brand Expression
+          {cascadeWords("Chapter 04 · Brand Expression", { initialY: 10 })}
         </p>
 
         {/* Oversized serif title — cream on navy */}
@@ -143,11 +141,12 @@ export default function VoiceHero() {
             lineHeight: 1.55,
             letterSpacing: "-0.005em",
             color: "rgba(133, 163, 200, 0.7)",
-            opacity: 0,
           }}
         >
-          How we sound when we write. Direct, human, knowing, optimistic — and never
-          institutional.
+          {cascadeWords(
+            "How we sound when we write. Direct, human, knowing, optimistic \u2014 and never institutional.",
+            { initialY: 14 }
+          )}
         </p>
       </div>
 
