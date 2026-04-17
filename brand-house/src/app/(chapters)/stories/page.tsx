@@ -533,11 +533,7 @@ export default function StoriesPage() {
                 <ul className="space-y-3">
                   {[
                     "Lead with the most impressive metric.",
-                    "Keep the total story under 400 words.",
-                    "Use \u201cno-fee\u201d, never \u201cfree\u201d.",
                     "Name the specific NorCal SBDC center and advisor.",
-                    "Include at least three quantified outcomes.",
-                    "Get a direct, specific quote about business results.",
                     "Use Challenge → Solution → Results structure.",
                   ].map((d) => (
                     <li key={d} className="font-sans text-navy/80 leading-[1.55]" style={{ fontSize: "clamp(15px, 1.2vw, 16px)" }}>
@@ -553,11 +549,7 @@ export default function StoriesPage() {
                 <ul className="space-y-3">
                   {[
                     "Bury results at the bottom.",
-                    "Write more than three sentences per section.",
-                    "Focus on feelings without tangible outcomes.",
                     "Use generic quotes (\u201cgreat experience\u201d).",
-                    "Lead with the business backstory.",
-                    "Forget photography — always capture a portrait.",
                     "Use \u201cSBDC\u201d without the \u201cNorCal\u201d prefix.",
                   ].map((d) => (
                     <li key={d} className="font-sans text-navy/55 leading-[1.55]" style={{ fontSize: "clamp(15px, 1.2vw, 16px)" }}>
@@ -569,45 +561,20 @@ export default function StoriesPage() {
             </div>
           </div>
 
-          {/* C. Metric Priority */}
+          {/* C. Metric Priority — rule of thumb */}
           <div className="mt-20">
             <p className="font-label uppercase text-[#A73B44] mb-4" style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
               C · Metric Priority
             </p>
-            <h3 className="font-sans text-navy tracking-[-0.015em] mb-10" style={{ fontSize: "clamp(22px, 2vw, 28px)", fontWeight: 500, lineHeight: 1.15 }}>
+            <h3 className="font-sans text-navy tracking-[-0.015em] mb-6" style={{ fontSize: "clamp(22px, 2vw, 28px)", fontWeight: 500, lineHeight: 1.15 }}>
               What to lead with.
             </h3>
 
-            <div className="max-w-[780px] space-y-4">
-              {[
-                ["01", "Capital Accessed", "$ amount", true],
-                ["02", "Jobs Created or Retained", "headcount", true],
-                ["03", "Revenue / Sales Growth", "$ or %", true],
-                ["04", "Loans Secured", "$ amount + lender", true],
-                ["05", "Cost Reduction", "%", false],
-                ["06", "Certifications Obtained", "WBE, MBE, etc.", false],
-                ["07", "Clients / Customers Gained", "headcount", false],
-                ["08", "Social / Digital Growth", "followers, traffic", false],
-              ].map(([num, name, detail, primary]) => (
-                <div key={name as string} className="grid grid-cols-[40px_1fr_auto] gap-4 md:gap-8 items-baseline">
-                  <span className="font-label uppercase text-navy/45" style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                    {num}
-                  </span>
-                  <span className={`font-sans tracking-[-0.01em] ${primary ? "text-navy" : "text-navy/55"}`}
-                    style={{ fontSize: "clamp(16px, 1.3vw, 18px)", fontWeight: primary ? 500 : 400 }}>
-                    {name}
-                  </span>
-                  <span className="font-label uppercase text-navy/45" style={{ fontSize: "11px", letterSpacing: "0.18em" }}>
-                    {detail}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <p className="mt-8 font-sans italic text-navy/70 leading-[1.5] max-w-[680px]"
-              style={{ fontFamily: "var(--serif)", fontSize: "clamp(17px, 1.5vw, 20px)", fontWeight: 400 }}>
-              Stories with metrics one through four as primary are almost always Signature-quality.
-              Stories led by five through eight need supporting capital or jobs data to reach the tier.
+            <p className="font-sans text-navy/80 leading-[1.6] max-w-[720px]"
+              style={{ fontSize: "clamp(16px, 1.25vw, 18px)", fontWeight: 400 }}>
+              Lead with capital accessed, jobs created or retained, or revenue growth — in that order.
+              Loans secured, cost reduction, certifications, and social or digital growth make strong
+              supporting numbers, but rarely carry a Signature story on their own.
             </p>
           </div>
         </div>
