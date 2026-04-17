@@ -233,7 +233,7 @@ export default function EventsPage() {
     <>
       {/* ── Hero ── */}
       <InteriorHero
-        chapterNumber="09"
+        chapterNumber="10"
         category="tools"
         title="Events"
         subtitle="Templates, live samples, and guidelines for creating on-brand event collateral — from workshop flyers and banners to name badges and social graphics."

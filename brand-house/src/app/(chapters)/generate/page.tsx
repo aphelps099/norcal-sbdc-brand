@@ -7,7 +7,7 @@ export default function GeneratePage() {
   return (
     <>
       <InteriorHero
-        chapterNumber="10"
+        chapterNumber="11"
         category="tools"
         title="Generate"
         subtitle="Create on-brand content in seconds. Select a format, answer a few questions, and get copy that sounds like us."

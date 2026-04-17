@@ -27,6 +27,7 @@ const NAV_COLS = [
     links: [
       { label: "Templates", href: "/templates" },
       { label: "Content", href: "/content" },
+      { label: "Email", href: "/email" },
       { label: "Generate", href: "/generate" },
     ],
   },

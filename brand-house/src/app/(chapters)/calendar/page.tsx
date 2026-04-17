@@ -152,7 +152,7 @@ export default function CalendarPage() {
   return (
     <>
       <InteriorHero
-        chapterNumber="11"
+        chapterNumber="12"
         category="tools"
         title="Calendar"
         subtitle="Campaign themes, key dates, and a coordinated messaging framework so all 16 centers move together."

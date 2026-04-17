@@ -1,4 +1,6 @@
+"use client";
 
+import { useState } from "react";
 import InteriorHero from "@/components/InteriorHero";
 import CopyButton from "@/components/CopyButton";
 import NextSectionLink from "@/components/NextSectionLink";
@@ -28,17 +30,14 @@ const socialPrinciples = [
   {
     title: "Authentic",
     desc: "Use your real name. Never blog anonymously. Every post reflects who we are as people — not as an institution.",
-    icon: "verified",
   },
   {
     title: "Audience",
     desc: "A founder needs different content than a city councilmember. Tailor every message to the person on the other side of the screen.",
-    icon: "groups",
   },
   {
     title: "Privacy",
     desc: "Never disclose personal, confidential, or proprietary information about clients, advisors, partners, or lenders.",
-    icon: "shield",
   },
 ];
 
@@ -73,23 +72,13 @@ const platformGuidance = [
   },
 ];
 
-const emailBestPractices = [
-  { title: "Access is a Privilege", desc: "Clients gave you their attention willingly. Deliver a high-quality experience they can count on." },
-  { title: "Subject Lines Matter Most", desc: "Be specific and create urgency. “Free Workshop: Access to Capital — Feb 15” beats “February Newsletter.”" },
-  { title: "One Clear Call to Action", desc: "Every email should have one primary goal. Don't split attention across five different asks." },
-  { title: "Mobile-First Design", desc: "Over 60% of emails are opened on mobile. Use single-column layouts, large tap targets, and concise copy." },
-  { title: "Include Required Disclaimers", desc: "Every client and partner-facing mass email must include the SBA and ADA disclaimer. No exceptions." },
-];
-
-const sbaDisclaimer = `Funded in part through a cooperative agreement with the US Small Business Administration (SBA). Funded in part through a grant with the Governor's Office of Business and Economic Development. All opinions, conclusions, or recommendations expressed are those of the author(s) and do not necessarily reflect the view of the SBA, California Office of the Small Business Advocate or Cal Poly Humboldt sponsored programs.\n\nReasonable accommodations for persons with disabilities will be made if requested at least 72 hours in advance. Contact: [contact name] at [contact phone number] or email: [contact email].`;
-
 const commentPolicy = `The [Center Name] SBDC has created this page with the intention of providing a format for discussion about news and events related to [subject matter]. [Center Name] SBDC reserves the right to remove any content that is deemed, in our sole view, commercial, harmful, inappropriate, erroneous, harassing, libelous, threatening, discriminatory, or wildly off-topic. [Center Name] SBDC reserves the right to remove you from the community/block you from posting after the second offense. [Center Name] SBDC is not responsible for the content posted by others on this page; please note that community-contributed content is the opinion of the specific author and does not necessarily represent the opinions of [Center Name] SBDC.\n\nThank you for your participation and for your role in creating a safe and dynamic environment for our online community.`;
 
 /** Shared section heading style — consistent scale throughout */
 function SectionLabel({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
-    <div className="border-t border-navy/10 pt-6 mb-12">
-      <p className="font-label text-[11px] uppercase tracking-[0.22em] text-navy/35 mb-3">{eyebrow}</p>
+    <div className="border-t border-navy/20 pt-6 mb-12">
+      <p className="font-label text-[11px] uppercase tracking-[0.22em] text-navy/65 mb-3">{eyebrow}</p>
       <h2 className="font-sans text-navy tracking-[-0.015em]" style={{ fontSize: "clamp(28px, 3.2vw, 40px)", fontWeight: 500, lineHeight: 1.05 }}>{title}</h2>
     </div>
   );
@@ -97,9 +86,117 @@ function SectionLabel({ eyebrow, title }: { eyebrow: string; title: string }) {
 
 function SectionLabelLight({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
-    <div className="border-t border-white/[0.08] pt-6 mb-12">
-      <p className="font-label text-[11px] uppercase tracking-[0.22em] text-white/45 mb-3">{eyebrow}</p>
+    <div className="border-t border-white/30 pt-6 mb-12">
+      <p className="font-label text-[11px] uppercase tracking-[0.22em] text-white/80 mb-3">{eyebrow}</p>
       <h2 className="font-sans text-white tracking-[-0.015em]" style={{ fontSize: "clamp(28px, 3.2vw, 40px)", fontWeight: 500, lineHeight: 1.05 }}>{title}</h2>
+    </div>
+  );
+}
+
+/* ───────── PLATFORM TILES ─────────
+   Giant logo squares. Click one to reveal tone/focus/cadence inline below. */
+function PlatformTiles() {
+  const [active, setActive] = useState<string | null>("LinkedIn");
+  const current = platformGuidance.find((p) => p.platform === active) ?? null;
+
+  // brand colors for each platform for a tasteful, on-palette hover hint
+  const tint: Record<string, string> = {
+    LinkedIn: "#0f1c2e",
+    Facebook: "#004290",
+    Instagram: "#A73B44",
+    "X / Twitter": "#0f1c2e",
+  };
+
+  return (
+    <div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
+        {platformGuidance.map((p) => {
+          const isActive = active === p.platform;
+          return (
+            <button
+              key={p.platform}
+              onClick={() => setActive(isActive ? null : p.platform)}
+              aria-expanded={isActive}
+              className="group relative aspect-square flex flex-col items-center justify-center gap-6 transition-all duration-200 focus:outline-none"
+              style={{
+                backgroundColor: isActive ? tint[p.platform] : "rgba(255,255,255,0.10)",
+                border: isActive ? "1px solid rgba(255,255,255,0.35)" : "1px solid rgba(255,255,255,0.20)",
+              }}
+            >
+              <span className="text-white">
+                <SocialIcon name={p.icon} size={72} className="text-white" />
+              </span>
+              <span
+                className="font-sans text-white text-center px-4"
+                style={{ fontSize: "clamp(18px, 2vw, 24px)", fontWeight: 500, letterSpacing: "-0.015em" }}
+              >
+                {p.platform}
+              </span>
+              <span
+                className="material-symbols-outlined absolute top-3 right-3 text-white/70 transition-transform"
+                style={{ fontSize: "22px", transform: isActive ? "rotate(45deg)" : "rotate(0)" }}
+                aria-hidden="true"
+              >
+                add
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Detail panel — shown when a platform is active */}
+      {current && (
+        <div className="mt-6 md:mt-8 bg-white/[0.08] border border-white/25 p-8 md:p-10">
+          <div className="grid grid-cols-1 md:grid-cols-[240px_1fr_160px] gap-8 md:gap-10 items-start">
+            <div>
+              <p className="font-label uppercase text-white/70 mb-2"
+                style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
+                Platform
+              </p>
+              <p className="font-sans text-white"
+                style={{ fontSize: "clamp(22px, 2.2vw, 28px)", fontWeight: 500, letterSpacing: "-0.015em" }}>
+                {current.platform}
+              </p>
+              <p className="font-label uppercase text-white/70 mt-6 mb-2"
+                style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
+                Tone
+              </p>
+              <p className="italic text-white"
+                style={{
+                  fontFamily: "var(--serif)",
+                  fontSize: "clamp(22px, 2.4vw, 30px)",
+                  letterSpacing: "-0.02em",
+                  lineHeight: 1.15,
+                  fontWeight: 400,
+                }}>
+                {current.tone}.
+              </p>
+            </div>
+
+            <div>
+              <p className="font-label uppercase text-white/70 mb-2"
+                style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
+                Focus
+              </p>
+              <p className="font-sans text-white/95 leading-[1.55]"
+                style={{ fontSize: "clamp(16px, 1.5vw, 18px)", fontWeight: 400 }}>
+                {current.focus}
+              </p>
+            </div>
+
+            <div>
+              <p className="font-label uppercase text-white/70 mb-2"
+                style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
+                Cadence
+              </p>
+              <p className="font-sans text-white"
+                style={{ fontSize: "clamp(18px, 1.8vw, 22px)", fontWeight: 500 }}>
+                {current.frequency}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -111,19 +208,18 @@ export default function ContentPage() {
         chapterNumber="06"
         category="strategy"
         title="Content"
-        subtitle="Guidelines for social media, newsletters, and email — so every center shows up with one unified voice."
+        subtitle="Guidelines for social media and newsletters — so every center shows up with one unified voice."
       />
 
-      {/* ── CONTENT GENERATOR — editorial hero moment ── */}
-      <section className="bg-[#0f1c2e] relative overflow-hidden">
-        <div className="w-full h-[2px] bg-[#c4543a]" />
+      {/* ── CONTENT GENERATOR — editorial hero on cream ── */}
+      <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
+        <div className="w-full h-[2px] bg-[#1D5AA7]" />
         <SbdcWatermark
-          className="absolute -right-[6%] top-[10%] w-[38vw] max-w-[460px] text-white pointer-events-none select-none"
-          opacity={0.03}
+          className="absolute -right-[6%] top-[10%] w-[38vw] max-w-[460px] text-navy pointer-events-none select-none"
+          opacity={0.04}
         />
-        {/* Massive italic serif sparkle mark as art — gestural not literal */}
         <span
-          className="material-symbols-outlined absolute -right-12 -bottom-24 text-[#c4543a]/[0.07] pointer-events-none select-none"
+          className="material-symbols-outlined absolute -right-12 -bottom-24 text-[#1D5AA7]/[0.07] pointer-events-none select-none"
           style={{ fontSize: "min(80vw, 820px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
           aria-hidden="true"
         >
@@ -132,17 +228,15 @@ export default function ContentPage() {
 
         <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-24 md:py-36">
           <p className="font-label uppercase mb-8"
-            style={{ fontSize: "11px", letterSpacing: "0.22em", color: "#c4543a" }}>
+            style={{ fontSize: "11px", letterSpacing: "0.22em", color: "#1D5AA7" }}>
             Tool · AI-Powered
           </p>
 
-          {/* Hero title — italic serif to signal something special */}
           <h2
-            className="italic tracking-[-0.04em]"
+            className="italic tracking-[-0.04em] text-navy"
             style={{
               fontFamily: "var(--serif)",
               fontSize: "clamp(72px, 11vw, 180px)",
-              color: "#f5f4f0",
               lineHeight: 0.92,
               fontWeight: 400,
             }}
@@ -155,15 +249,15 @@ export default function ContentPage() {
           <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-start">
             <div className="md:col-span-7">
               <p
-                className="font-sans text-white leading-[1.45] max-w-[640px]"
+                className="font-sans text-navy/80 leading-[1.45] max-w-[640px]"
                 style={{ fontSize: "clamp(22px, 2.1vw, 28px)", fontWeight: 400, letterSpacing: "-0.01em" }}
               >
-                Write on-brand success stories, social posts, email campaigns, and workshop recaps — all trained on NorCal SBDC&rsquo;s voice, pillars, and messaging framework.
+                Write on-brand success stories, social posts, newsletters, and workshop recaps — all trained on NorCal SBDC&rsquo;s voice, pillars, and messaging framework.
               </p>
 
               <Link
                 href="/generate"
-                className="inline-flex items-center gap-3 mt-10 bg-[#c4543a] hover:bg-[#b84a31] text-white font-sans px-7 py-4 transition-colors no-underline"
+                className="inline-flex items-center gap-3 mt-10 bg-[#004290] hover:bg-[#003278] text-white font-sans px-7 py-4 transition-colors no-underline"
                 style={{ fontSize: "15px", fontWeight: 500, letterSpacing: "0.02em" }}
               >
                 <span
@@ -184,23 +278,23 @@ export default function ContentPage() {
 
             <div className="md:col-span-5 md:pt-4">
               <p className="font-label uppercase mb-5"
-                style={{ fontSize: "11px", letterSpacing: "0.22em", color: "rgba(133,163,200,0.55)" }}>
+                style={{ fontSize: "11px", letterSpacing: "0.22em", color: "rgba(15,28,46,0.55)" }}>
                 Formats
               </p>
               <ul className="space-y-3">
                 {[
                   "Client Success Stories",
                   "Social Posts · IG / LI / FB / X",
-                  "Email Campaigns",
+                  "Newsletters",
                   "Workshop Recaps",
                   "Press Releases",
                 ].map((feat) => (
                   <li
                     key={feat}
-                    className="font-sans text-white/80 flex items-baseline gap-4 py-2 border-b border-white/[0.08]"
+                    className="font-sans text-navy/80 flex items-baseline gap-4 py-2 border-b border-navy/[0.12]"
                     style={{ fontSize: "16px", fontWeight: 400 }}
                   >
-                    <span className="font-label text-white/30 text-[11px] tracking-[0.22em]">·</span>
+                    <span className="font-label text-navy/40 text-[11px] tracking-[0.22em]">·</span>
                     {feat}
                   </li>
                 ))}
@@ -210,19 +304,19 @@ export default function ContentPage() {
         </div>
       </section>
 
-      {/* ── SOCIAL PRINCIPLES — 3 big things ── */}
-      <section className="bg-[#0f1c2e] relative overflow-hidden border-t border-white/[0.06]">
+      {/* ── SOCIAL PRINCIPLES — 3 big things on cream ── */}
+      <section className="relative overflow-hidden border-t border-navy/[0.08]" style={{ backgroundColor: "#f5f4f0" }}>
         <span
-          className="material-symbols-outlined absolute -right-8 -top-6 text-white/[0.025] pointer-events-none select-none"
+          className="material-symbols-outlined absolute -right-8 -top-6 text-navy/[0.035] pointer-events-none select-none"
           style={{ fontSize: "min(50vw, 500px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
           aria-hidden="true"
         >
           forum
         </span>
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
-          <SectionLabelLight eyebrow="Social Media · Principles" title="Three things, always." />
+          <SectionLabel eyebrow="Social Media · Principles" title="Three things, always." />
 
-          <p className="font-sans text-white/60 leading-[1.6] mb-16 max-w-[680px]"
+          <p className="font-sans text-navy/70 leading-[1.6] mb-16 max-w-[680px] -mt-6"
             style={{ fontSize: "clamp(17px, 1.6vw, 20px)", fontWeight: 400 }}>
             We build our social media presence on content that&rsquo;s relevant
             and authentic. Every post reflects who we are.
@@ -231,16 +325,15 @@ export default function ContentPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-14">
             {socialPrinciples.map((p, i) => (
               <div key={p.title}>
-                <p className="font-label uppercase text-[#c4543a]/70"
+                <p className="font-label uppercase text-[#1D5AA7]"
                   style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
                   0{i + 1}
                 </p>
                 <h3
-                  className="mt-4 italic"
+                  className="mt-4 italic text-navy"
                   style={{
                     fontFamily: "var(--serif)",
                     fontSize: "clamp(48px, 5.8vw, 84px)",
-                    color: "#f5f4f0",
                     letterSpacing: "-0.04em",
                     lineHeight: 0.96,
                     fontWeight: 400,
@@ -249,7 +342,7 @@ export default function ContentPage() {
                   {p.title}.
                 </h3>
                 <p
-                  className="mt-6 font-sans text-white/70 leading-[1.55]"
+                  className="mt-6 font-sans text-navy/70 leading-[1.55]"
                   style={{ fontSize: "16px", fontWeight: 400 }}
                 >
                   {p.desc}
@@ -260,8 +353,8 @@ export default function ContentPage() {
         </div>
       </section>
 
-      {/* ── SOCIAL MEDIA KIT — full typographic range, bigger, client images ── */}
-      <section className="bg-cream py-20 md:py-28 relative overflow-hidden">
+      {/* ── SOCIAL MEDIA KIT — cream ── */}
+      <section className="py-20 md:py-28 relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 relative z-10">
           <SectionLabel eyebrow="Ready-to-Post Templates" title="Social Media Kit" />
 
@@ -317,11 +410,11 @@ export default function ContentPage() {
               </div>
             </div>
 
-            {/* 2 — Wide display stat on coral */}
+            {/* 2 — Wide display stat on berry */}
             <div className="flex flex-col">
               <div
                 className="aspect-square relative overflow-hidden flex flex-col justify-between p-8 md:p-10 shadow-sm"
-                style={{ backgroundColor: "#c4543a", color: "#f5f4f0" }}
+                style={{ backgroundColor: "#A73B44", color: "#f5f4f0" }}
               >
                 <div className="flex justify-between items-start">
                   <p className="font-label uppercase"
@@ -498,11 +591,11 @@ export default function ContentPage() {
               </div>
             </div>
 
-            {/* 6 — Cream with coral italic, mono label stack */}
+            {/* 6 — Cream with berry italic, mono label stack */}
             <div className="flex flex-col">
               <div
                 className="aspect-square relative overflow-hidden flex flex-col justify-between p-8 md:p-10 shadow-sm border border-navy/[0.08]"
-                style={{ backgroundColor: "#f5f4f0", color: "#0f1c2e" }}
+                style={{ backgroundColor: "#ffffff", color: "#0f1c2e" }}
               >
                 <div className="flex justify-between items-start">
                   <p className="font-label uppercase"
@@ -516,7 +609,7 @@ export default function ContentPage() {
                 </div>
                 <div>
                   <p className="font-label uppercase mb-3"
-                    style={{ fontSize: "11px", letterSpacing: "0.22em", color: "#c4543a" }}>
+                    style={{ fontSize: "11px", letterSpacing: "0.22em", color: "#A73B44" }}>
                     Capital Education
                   </p>
                   <p
@@ -531,7 +624,7 @@ export default function ContentPage() {
                     }}
                   >
                     Every consultation is{" "}
-                    <span style={{ color: "#c4543a" }}>no-fee</span>.
+                    <span style={{ color: "#A73B44" }}>no-fee</span>.
                     <br />
                     Today &amp; always.
                   </p>
@@ -550,153 +643,53 @@ export default function ContentPage() {
         </div>
       </section>
 
-      {/* ── SOCIAL MEDIA BEST PRACTICE — steel bg, big, hover for tone ── */}
+      {/* ── SOCIAL MEDIA BEST PRACTICE — steel bg, giant platform tiles ── */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "#5684BA" }}>
         <div className="w-full h-[2px] bg-[#0f1c2e]/20" />
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
-          <div className="border-t border-white/25 pt-6 mb-12">
-            <p className="font-label uppercase text-white/80 mb-3"
-              style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-              Platforms · Channels
-            </p>
-            <h2 className="font-sans text-white tracking-[-0.015em]"
-              style={{ fontSize: "clamp(28px, 3.2vw, 40px)", fontWeight: 500, lineHeight: 1.05 }}>
-              Social Media Best Practice
-            </h2>
-          </div>
+          <SectionLabelLight eyebrow="Platforms · Channels" title="Social Media Best Practice" />
 
           <p className="font-sans text-white leading-[1.6] mb-14 max-w-[680px]"
             style={{ fontSize: "clamp(17px, 1.6vw, 20px)", fontWeight: 400 }}>
             Four platforms, four cadences, one voice.
-            Hover a platform to see the tone we use there.
+            Tap a platform to see the tone, focus, and cadence we use there.
           </p>
 
-          <div className="space-y-0 border-t border-white/25">
-            {platformGuidance.map((row) => (
-              <details
-                key={row.platform}
-                className="group border-b border-white/25 open:bg-white/[0.06]"
-              >
-                <summary
-                  className="grid grid-cols-[1fr_auto] md:grid-cols-[320px_1fr_180px_56px] items-center py-8 md:py-10 cursor-pointer list-none gap-6"
-                  title={`Tone: ${row.tone}`}
-                >
-                  {/* Platform icon + name */}
-                  <div className="flex items-center gap-5">
-                    <span className="text-white/95">
-                      <SocialIcon name={row.icon} size={36} className="" />
-                    </span>
-                    <span className="font-sans text-white"
-                      style={{ fontSize: "clamp(24px, 2.6vw, 34px)", fontWeight: 500, letterSpacing: "-0.015em" }}>
-                      {row.platform}
-                    </span>
-                  </div>
-
-                  {/* Focus (hidden on mobile) */}
-                  <p className="hidden md:block font-sans text-white/90 leading-[1.5]"
-                    style={{ fontSize: "16px", fontWeight: 400 }}>
-                    {row.focus}
-                  </p>
-
-                  {/* Frequency */}
-                  <p className="hidden md:block font-sans text-white/85 text-right"
-                    style={{ fontSize: "15px", fontWeight: 500, letterSpacing: "-0.005em" }}>
-                    {row.frequency}
-                  </p>
-
-                  {/* Disclosure chevron */}
-                  <span
-                    className="material-symbols-outlined text-white/80 transition-transform group-open:rotate-45 justify-self-end"
-                    style={{ fontSize: "28px" }}
-                    aria-hidden="true"
-                  >
-                    add
-                  </span>
-                </summary>
-
-                {/* Expanded tone panel */}
-                <div className="pb-10 pl-0 md:pl-[60px] pr-6 grid grid-cols-1 md:grid-cols-[320px_1fr] gap-6 md:gap-10">
-                  <div>
-                    <p className="font-label uppercase text-white/70 mb-2"
-                      style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                      Tone
-                    </p>
-                    <p className="italic text-white"
-                      style={{
-                        fontFamily: "var(--serif)",
-                        fontSize: "clamp(24px, 2.8vw, 34px)",
-                        letterSpacing: "-0.02em",
-                        lineHeight: 1.15,
-                        fontWeight: 400,
-                      }}>
-                      {row.tone}.
-                    </p>
-                  </div>
-                  <div className="md:hidden">
-                    <p className="font-label uppercase text-white/70 mb-2"
-                      style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                      Focus
-                    </p>
-                    <p className="font-sans text-white/95 leading-[1.5]"
-                      style={{ fontSize: "16px", fontWeight: 400 }}>
-                      {row.focus}
-                    </p>
-                    <p className="font-label uppercase text-white/70 mt-4 mb-2"
-                      style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                      Cadence
-                    </p>
-                    <p className="font-sans text-white"
-                      style={{ fontSize: "16px", fontWeight: 500 }}>
-                      {row.frequency}
-                    </p>
-                  </div>
-                </div>
-              </details>
-            ))}
-          </div>
-
-          {/* Desktop hover hint */}
-          <style>{`
-            @media (hover: hover) and (min-width: 768px) {
-              details summary:hover {
-                background: rgba(255,255,255,0.06);
-              }
-            }
-          `}</style>
+          <PlatformTiles />
         </div>
       </section>
 
-      {/* ── CONTENT CADENCE → "Posting Rhythm" ── */}
-      <section className="bg-[#0f1c2e] relative overflow-hidden">
-        <div className="w-full h-[2px] bg-[#c4543a]" />
+      {/* ── CONTENT CADENCE → Posting Rhythm — cream ── */}
+      <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
+        <div className="w-full h-[2px] bg-[#1D5AA7]" />
         <SbdcWatermark
-          className="absolute -right-[8%] top-[5%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none"
-          opacity={0.03}
+          className="absolute -right-[8%] top-[5%] w-[40vw] max-w-[500px] text-navy pointer-events-none select-none"
+          opacity={0.04}
         />
         <span
-          className="material-symbols-outlined absolute -right-10 top-[2%] text-white/[0.025] pointer-events-none select-none"
+          className="material-symbols-outlined absolute -right-10 top-[2%] text-navy/[0.035] pointer-events-none select-none"
           style={{ fontSize: "min(50vw, 500px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
           aria-hidden="true"
         >
           calendar_month
         </span>
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
-          <SectionLabelLight eyebrow="Year-Round Rhythm" title="Posting Rhythm" />
+          <SectionLabel eyebrow="Year-Round Rhythm" title="Posting Rhythm" />
 
-          <p className="font-sans text-white/70 leading-[1.6] mb-14 max-w-[680px] -mt-6"
+          <p className="font-sans text-navy/70 leading-[1.6] mb-14 max-w-[680px] -mt-6"
             style={{ fontSize: "clamp(17px, 1.6vw, 20px)", fontWeight: 400 }}>
             Weekly, bi-weekly, and quarterly anchors — rotating our three pillars so every client sees the full story.
           </p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-px border border-white/[0.10] overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-px border border-navy/[0.12] overflow-hidden bg-navy/10">
             {[
               {
                 freq: "Weekly",
                 title: "Social Posts",
                 items: [
-                  { tag: "People", tagColor: "bg-[#004290]/25 text-[#8FC5D9]", text: "Advisor spotlight or team moment" },
-                  { tag: "Funded", tagColor: "bg-[#A73B44]/25 text-[#e88f7a]", text: "Capital stat, lending tip, or client win" },
-                  { tag: "Connected", tagColor: "bg-white/[0.08] text-white/75", text: "Event promo, workshop recap, or partner shout-out" },
+                  { tag: "People", tagColor: "bg-[#004290]/15 text-[#004290]", text: "Advisor spotlight or team moment" },
+                  { tag: "Funded", tagColor: "bg-[#A73B44]/15 text-[#A73B44]", text: "Capital stat, lending tip, or client win" },
+                  { tag: "Connected", tagColor: "bg-navy/10 text-navy/75", text: "Event promo, workshop recap, or partner shout-out" },
                 ],
                 note: "Rotate pillars weekly — never post the same pillar twice in a row.",
               },
@@ -704,9 +697,9 @@ export default function ContentPage() {
                 freq: "Bi-Weekly",
                 title: "Newsletter",
                 items: [
-                  { tag: "People", tagColor: "bg-[#004290]/25 text-[#8FC5D9]", text: "Lead story: client or advisor profile" },
-                  { tag: "Funded", tagColor: "bg-[#A73B44]/25 text-[#e88f7a]", text: "Quick tip: capital access or SBA update" },
-                  { tag: "Connected", tagColor: "bg-white/[0.08] text-white/75", text: "Program spotlight + upcoming events" },
+                  { tag: "People", tagColor: "bg-[#004290]/15 text-[#004290]", text: "Lead story: client or advisor profile" },
+                  { tag: "Funded", tagColor: "bg-[#A73B44]/15 text-[#A73B44]", text: "Quick tip: capital access or SBA update" },
+                  { tag: "Connected", tagColor: "bg-navy/10 text-navy/75", text: "Program spotlight + upcoming events" },
                 ],
                 note: "Each issue features one pillar lead, two supporting.",
               },
@@ -714,24 +707,24 @@ export default function ContentPage() {
                 freq: "Quarterly",
                 title: "Anchor Content",
                 items: [
-                  { tag: "People", tagColor: "bg-[#004290]/25 text-[#8FC5D9]", text: "Signature client success story (long-form)" },
-                  { tag: "Funded", tagColor: "bg-[#A73B44]/25 text-[#e88f7a]", text: "Capital impact report or lender feature" },
-                  { tag: "Connected", tagColor: "bg-white/[0.08] text-white/75", text: "Event recap video or regional snapshot" },
+                  { tag: "People", tagColor: "bg-[#004290]/15 text-[#004290]", text: "Signature client success story (long-form)" },
+                  { tag: "Funded", tagColor: "bg-[#A73B44]/15 text-[#A73B44]", text: "Capital impact report or lender feature" },
+                  { tag: "Connected", tagColor: "bg-navy/10 text-navy/75", text: "Event recap video or regional snapshot" },
                 ],
                 note: "Anchor content feeds 4–6 weeks of derivative posts.",
               },
             ].map((col) => (
-              <div key={col.freq} className="bg-[#0f1c2e] p-8 md:p-10">
-                <p className="font-label uppercase text-[#c4543a] mb-2"
+              <div key={col.freq} className="bg-cream p-8 md:p-10">
+                <p className="font-label uppercase text-[#1D5AA7] mb-2"
                   style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
                   {col.freq}
                 </p>
-                <h3 className="font-sans text-white tracking-[-0.015em] mb-6"
+                <h3 className="font-sans text-navy tracking-[-0.015em] mb-6"
                   style={{ fontSize: "clamp(22px, 2.2vw, 28px)", fontWeight: 500, lineHeight: 1.15 }}>
                   {col.title}
                 </h3>
                 {col.items.map((item) => (
-                  <div key={item.text} className="py-4 border-b border-white/[0.10] last:border-b-0 font-sans text-white/85 leading-[1.5]"
+                  <div key={item.text} className="py-4 border-b border-navy/[0.10] last:border-b-0 font-sans text-navy/85 leading-[1.5]"
                     style={{ fontSize: "15px", fontWeight: 400 }}>
                     <span className={`inline-block font-label uppercase px-2 py-0.5 mr-2 ${item.tagColor}`}
                       style={{ fontSize: "10px", letterSpacing: "0.14em", fontWeight: 500 }}>
@@ -740,7 +733,7 @@ export default function ContentPage() {
                     {item.text}
                   </div>
                 ))}
-                <p className="font-sans italic text-white/55 mt-6 leading-[1.5]"
+                <p className="font-sans italic text-navy/55 mt-6 leading-[1.5]"
                   style={{ fontSize: "14px" }}>
                   {col.note}
                 </p>
@@ -748,18 +741,18 @@ export default function ContentPage() {
             ))}
           </div>
 
-          <div className="mt-6 p-6 border border-white/[0.10] font-sans text-white/80 leading-[1.6]"
+          <div className="mt-6 p-6 border border-navy/[0.15] bg-white font-sans text-navy/80 leading-[1.6]"
             style={{ fontSize: "15px" }}>
-            <strong className="text-white" style={{ fontWeight: 500 }}>Pillar Rotation Rule:</strong>{" "}
+            <strong className="text-navy" style={{ fontWeight: 500 }}>Pillar Rotation Rule:</strong>{" "}
             Each month, one pillar leads. The other two support. January = People-led. February = Funded-led. March = Connected-led. Repeat.
           </div>
         </div>
       </section>
 
-      {/* ── RESPONDING TO COMMENTS ── */}
+      {/* ── RESPONDING TO COMMENTS — cream ── */}
       <section className="py-20 md:py-28 relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
         <span
-          className="material-symbols-outlined absolute -left-6 bottom-[-4%] text-navy/[0.025] pointer-events-none select-none"
+          className="material-symbols-outlined absolute -left-6 bottom-[-4%] text-navy/[0.035] pointer-events-none select-none"
           style={{ fontSize: "min(40vw, 380px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
           aria-hidden="true"
         >
@@ -782,7 +775,7 @@ export default function ContentPage() {
                     Template Response
                   </p>
                 </div>
-                <div className="px-7 py-7 border-l-2 border-[#c4543a]">
+                <div className="px-7 py-7 border-l-2 border-[#1D5AA7]">
                   <p className="font-sans italic text-navy leading-[1.5]"
                     style={{ fontFamily: "var(--serif)", fontSize: "clamp(19px, 1.8vw, 23px)", fontWeight: 400, letterSpacing: "-0.01em" }}>
                     &ldquo;We are so sorry you&rsquo;ve had a negative experience. Please
@@ -814,158 +807,7 @@ export default function ContentPage() {
         </div>
       </section>
 
-      {/* ── EMAIL COMMUNICATIONS ── */}
-      <section className="bg-[#0f1c2e] relative overflow-hidden">
-        <div className="w-full h-[2px] bg-[#c4543a]" />
-        <span
-          className="material-symbols-outlined absolute -right-10 top-[5%] text-white/[0.025] pointer-events-none select-none"
-          style={{ fontSize: "min(50vw, 500px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
-          aria-hidden="true"
-        >
-          mail
-        </span>
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
-          <SectionLabelLight eyebrow="Email" title="Email Communications" />
-
-          <p className="font-sans text-white/75 leading-[1.6] mb-14 max-w-[680px] -mt-6"
-            style={{ fontSize: "clamp(17px, 1.6vw, 20px)", fontWeight: 400 }}>
-            Email is the most direct digital connection with our clients.
-            Treat it as a privilege.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px border border-white/[0.10] overflow-hidden mb-16">
-            {emailBestPractices.map((item, i) => (
-              <div key={item.title} className="p-8 bg-[#0f1c2e]">
-                <p className="font-label uppercase text-[#c4543a]/80 mb-4"
-                  style={{ fontSize: "11px", letterSpacing: "0.22em", fontWeight: 500 }}>
-                  {String(i + 1).padStart(2, "0")}
-                </p>
-                <h3 className="font-sans text-white mb-3 tracking-[-0.01em]"
-                  style={{ fontSize: "clamp(19px, 1.8vw, 22px)", fontWeight: 500, lineHeight: 1.2 }}>
-                  {item.title}
-                </h3>
-                <p className="font-sans text-white/75 leading-[1.6]"
-                  style={{ fontSize: "15px", fontWeight: 400 }}>
-                  {item.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="max-w-3xl">
-            <div className="flex items-center justify-between mb-5">
-              <p className="font-label uppercase text-white/75"
-                style={{ fontSize: "11px", letterSpacing: "0.22em", fontWeight: 500 }}>
-                Required SBA &amp; ADA Disclaimer
-              </p>
-              <CopyButton text={sbaDisclaimer} />
-            </div>
-            <div className="border-l-2 border-[#c4543a]/50 pl-6 py-2">
-              <p className="font-sans text-white/75 leading-[1.65] whitespace-pre-wrap"
-                style={{ fontSize: "15px", fontWeight: 400 }}>
-                {sbaDisclaimer}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── WELCOME DRIP SEQUENCE ── */}
-      <section className="py-20 md:py-28 relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
-        <span
-          className="material-symbols-outlined absolute -right-8 top-[5%] text-navy/[0.025] pointer-events-none select-none"
-          style={{ fontSize: "min(45vw, 460px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
-          aria-hidden="true"
-        >
-          mark_email_read
-        </span>
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 relative z-10">
-          <SectionLabel eyebrow="New Client Onboarding" title="Welcome Drip Sequence" />
-          <div className="p-6 bg-white border border-navy/[0.08] font-sans text-navy/75 leading-[1.6] mb-12 -mt-6"
-            style={{ fontSize: "15px", fontWeight: 400 }}>
-            <strong className="text-navy" style={{ fontWeight: 500 }}>3-email drip, automated after first consultation.</strong>{" "}
-            Each email introduces one pillar in sequence &mdash; People, then Funded, then Connected &mdash; so new clients understand the full scope. Suggested timing: Day 1, Day 7, Day 14.
-          </div>
-
-          <div className="space-y-10">
-            {[
-              {
-                label: "Drip 01 · Day 1 · People Pillar",
-                heading: "Welcome to\nNorCal SBDC",
-                preview: "You just gained a team — here\u2019s who\u2019s in your corner",
-                body: ["Hi [First Name],", "Thank you for meeting with us. That conversation you just had? It wasn\u2019t a one-time thing. You now have an advisor \u2014 a real person with real expertise \u2014 who\u2019s invested in your growth.", "Your advisor will follow up within [X] business days with a summary of your session and recommended next steps."],
-                bullets: ["Every consultation is no-fee \u2014 today and always", "You can schedule follow-ups as often as you need", "Your advisor connects you to specialists when your needs go deeper"],
-                cta: "Schedule Your Next Session",
-                signoff: "Welcome to the team,",
-              },
-              {
-                label: "Drip 02 · Day 7 · Funded Pillar",
-                heading: "Your Business, Funded",
-                preview: "Capital access is part of the deal \u2014 here\u2019s how it works",
-                body: ["Hi [First Name],", "NorCal SBDC has helped entrepreneurs across 36 counties access over $549M in funding. Whether you need capital now or want to be ready when the time comes, your advisor can help."],
-                bullets: ["Review your financials and identify funding readiness gaps", "Help you build a loan package lenders actually want to see", "Introduce you to the right lender from our 50+ partners", "Navigate SBA programs, grants, and alternative sources"],
-                cta: "Talk to Your Advisor About Capital",
-                signoff: "Invested in your growth,",
-              },
-              {
-                label: "Drip 03 · Day 14 · Connected Pillar",
-                heading: "Your Business, Connected",
-                preview: "You didn\u2019t just get an advisor \u2014 you got a network",
-                body: ["Hi [First Name],", "NorCal SBDC isn\u2019t just your advisor \u2014 it\u2019s a network of 14 centers, 63 advisors, and hundreds of partners across Northern California. And you\u2019re now part of it."],
-                bullets: ["200+ workshops and training events every year \u2014 most at no fee", "Partnerships with chambers, cities, and economic development orgs", "Direct introductions to lenders, industry partners, and collaborators", "Fellow entrepreneurs who\u2019ve been where you are"],
-                cta: "Browse Upcoming Events",
-                signoff: "Better together,",
-              },
-            ].map((email) => (
-              <div key={email.label}>
-                <p className="font-label uppercase text-navy/50 mb-3"
-                  style={{ fontSize: "11px", letterSpacing: "0.22em", fontWeight: 500 }}>
-                  {email.label}
-                </p>
-                <div className="bg-white shadow-md overflow-hidden max-w-[640px]">
-                  <div className="w-full h-[2px] bg-[#c4543a]" />
-                  <div className="bg-[#0f1c2e] text-white p-8 text-center">
-                    <h3 className="font-sans tracking-[-0.02em] mb-2 whitespace-pre-line"
-                      style={{ fontSize: "clamp(24px, 2.5vw, 30px)", fontWeight: 500, lineHeight: 1.15 }}>
-                      {email.heading}
-                    </h3>
-                    <p className="font-sans italic text-white/75"
-                      style={{ fontFamily: "var(--serif)", fontSize: "16px", fontWeight: 400 }}>
-                      {email.preview}
-                    </p>
-                  </div>
-                  <div className="p-8 font-sans text-navy leading-[1.65]"
-                    style={{ fontSize: "16px", fontWeight: 400 }}>
-                    {email.body.map((p, i) => <p key={i} className="mb-4">{p}</p>)}
-                    <ul className="list-disc pl-5 mb-5 space-y-2">
-                      {email.bullets.map((b) => <li key={b}>{b}</li>)}
-                    </ul>
-                    <div className="mt-6 mb-5">
-                      <span className="inline-block bg-[#004290] text-white font-sans px-6 py-3"
-                        style={{ fontSize: "15px", fontWeight: 500, letterSpacing: "0.01em" }}>
-                        {email.cta}
-                      </span>
-                    </div>
-                    <p className="mt-6 text-navy/75">
-                      {email.signoff}
-                      <br />
-                      <strong className="text-navy" style={{ fontWeight: 500 }}>NorCal SBDC</strong>
-                      <br />
-                      Your Business, Better.
-                    </p>
-                  </div>
-                  <div className="bg-cream px-8 py-4 text-center font-sans text-navy/50 border-t border-navy/[0.06]"
-                    style={{ fontSize: "13px", fontWeight: 400 }}>
-                    &copy; 2026 NorCal SBDC. All rights reserved.
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <NextSectionLink title="Calendar" href="/calendar" />
+      <NextSectionLink title="Email" href="/email" />
     </>
   );
 }

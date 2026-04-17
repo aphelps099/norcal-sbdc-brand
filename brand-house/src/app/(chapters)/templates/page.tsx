@@ -12,7 +12,7 @@ export default function TemplatesPage() {
   return (
     <>
       <InteriorHero
-        chapterNumber="08"
+        chapterNumber="09"
         category="tools"
         title="Templates"
         subtitle="Ready-to-use copy blocks for emails, presentations, and social channels."

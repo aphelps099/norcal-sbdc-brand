@@ -104,7 +104,7 @@ export default function StoriesPage() {
   return (
     <>
       <InteriorHero
-        chapterNumber="07"
+        chapterNumber="08"
         category="strategy"
         title="Stories"
         subtitle="Real businesses. Measurable impact. Organized by story tier to help you find the right client narrative for any audience."

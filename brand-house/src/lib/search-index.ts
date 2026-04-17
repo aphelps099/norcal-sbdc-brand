@@ -39,8 +39,14 @@ export const searchData: SearchItem[] = [
   {
     title: "Content",
     section: "Content",
-    content: "Social media guidelines, newsletter templates, content calendar, editorial standards, social posts",
+    content: "Social media guidelines, newsletter templates, content calendar, editorial standards, social posts, LinkedIn Facebook Instagram X Twitter, platform tone, posting rhythm",
     href: "/content",
+  },
+  {
+    title: "Email",
+    section: "Email",
+    content: "Email communications, welcome drip sequence, newsletter, SBA ADA disclaimer, subject lines, mobile first, client onboarding, drip campaign",
+    href: "/email",
   },
   {
     title: "Calendar",
