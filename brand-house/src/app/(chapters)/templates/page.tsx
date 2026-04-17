@@ -578,6 +578,7 @@ export default function TemplatesPage() {
           title="Templates"
           subtitle="Everything you need to sound like us and look like us. Approved copy blocks to paste, design templates to open and make your own."
           bgColor="transparent"
+          onDark
           showRule={false}
         />
 

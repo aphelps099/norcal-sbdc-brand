@@ -27,6 +27,8 @@ interface InteriorHeroProps {
   category?: ChapterCategory;
   /** Optional background color override. Defaults to cream. Use for chapter-themed heroes. */
   bgColor?: string;
+  /** Render hero text in cream/light palette for dark backdrops (e.g. dark grey / navy). */
+  onDark?: boolean;
   /**
    * Legacy props kept for compatibility with existing chapter pages that
    * still pass them. No-ops since we removed the animated hero rule.
@@ -41,7 +43,13 @@ export default function InteriorHero({
   chapterNumber,
   category = "visual",
   bgColor,
+  onDark = false,
 }: InteriorHeroProps) {
+  // Text palette — navy on light, cream on dark.
+  const titleColor = onDark ? "#f5f4f0" : "#0f1c2e";
+  const watermarkColor = onDark ? "rgba(245,244,240,0.07)" : "rgba(15, 28, 46, 0.075)";
+  const eyebrowColor = onDark ? "rgba(245,244,240,0.55)" : "rgba(15,28,46,0.45)";
+  const subtitleColor = onDark ? "rgba(245,244,240,0.82)" : "rgba(15,28,46,0.88)";
   const sectionRef = useRef<HTMLDivElement>(null);
   const cat = CATEGORY[category];
 
@@ -117,7 +125,7 @@ export default function InteriorHero({
             fontSize: "clamp(360px, 58vw, 880px)",
             lineHeight: 0.82,
             letterSpacing: "-0.04em",
-            color: "rgba(15, 28, 46, 0.075)",
+            color: watermarkColor,
             top: "clamp(40px, 6vw, 110px)",
             right: "-4vw",
             opacity: 0,
@@ -137,7 +145,7 @@ export default function InteriorHero({
             fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
             fontSize: "11px",
             letterSpacing: "0.22em",
-            color: "rgba(15,28,46,0.45)",
+            color: eyebrowColor,
           }}
         >
           {cascadeWords(
@@ -157,7 +165,7 @@ export default function InteriorHero({
             fontSize: "clamp(120px, 18vw, 280px)",
             letterSpacing: "-0.055em",
             lineHeight: 0.9,
-            color: "#0f1c2e",
+            color: titleColor,
             opacity: 0,
           }}
         >
@@ -176,7 +184,7 @@ export default function InteriorHero({
               fontSize: "clamp(18px, 1.5vw, 22px)",
               lineHeight: 1.5,
               letterSpacing: "-0.005em",
-              color: "rgba(15,28,46,0.88)",
+              color: subtitleColor,
             }}
           >
             {cascadeWords(subtitle, { initialY: 14 })}

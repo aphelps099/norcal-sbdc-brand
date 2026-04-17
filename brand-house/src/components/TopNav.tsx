@@ -103,13 +103,13 @@ export default function TopNav() {
 
   /* Dark-hero routes render their hero on navy — keep nav text light (cream) while above that hero.
      Homepage has its own dark hero; Voice chapter is navy-on-navy and needs the light variant too. */
-  const darkHeroRoutes = ["/voice"];
+  const darkHeroRoutes = ["/voice", "/templates"];
   const onDarkHero = darkHeroRoutes.includes(pathname);
   const isDark = ((isHome && !pastHero) || (onDarkHero && !pastHero)) && !menuOpen;
 
   /* Colored-hero routes render their hero on a mid-tone (steel/fog) — default
      nav tertiary gray gets lost. Force navy burger + wordmark for these. */
-  const coloredHeroRoutes = ["/content", "/templates"];
+  const coloredHeroRoutes = ["/content"];
   const onColoredHero = coloredHeroRoutes.includes(pathname);
 
   return (
