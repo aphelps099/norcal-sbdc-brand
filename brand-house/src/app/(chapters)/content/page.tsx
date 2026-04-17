@@ -226,6 +226,7 @@ export default function ContentPage() {
         category="strategy"
         title="Content"
         subtitle="Guidelines for social media and newsletters — so every center shows up with one unified voice."
+        bgColor="#5684BA"
       />
 
       {/* ── CONTENT GENERATOR — editorial hero, steel bg ── */}

@@ -24,6 +24,8 @@ interface InteriorHeroProps {
   chapterNumber?: string;
   /** Content category — drives top bar, eyebrow, and underline color. */
   category?: ChapterCategory;
+  /** Optional background color override. Defaults to cream. Use for chapter-themed heroes. */
+  bgColor?: string;
 }
 
 export default function InteriorHero({
@@ -31,6 +33,7 @@ export default function InteriorHero({
   subtitle,
   chapterNumber,
   category = "visual",
+  bgColor,
 }: InteriorHeroProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const cat = CATEGORY[category];
@@ -82,7 +85,11 @@ export default function InteriorHero({
   }, [subtitle]);
 
   return (
-    <section ref={sectionRef} className="relative bg-cream overflow-hidden">
+    <section
+      ref={sectionRef}
+      className={`relative overflow-hidden ${bgColor ? "" : "bg-cream"}`}
+      style={bgColor ? { backgroundColor: bgColor } : undefined}
+    >
       {/* Thin category top bar — matches /colors standard */}
       <div
         aria-hidden
