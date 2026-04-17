@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import HeroBottomRule from "./HeroBottomRule";
 
 /**
  * Editorial hero for the Logos page — mirrors the Colors and Typography
@@ -139,7 +138,6 @@ export default function LogosHero() {
         </p>
       </div>
 
-      <HeroBottomRule />
     </section>
   );
 }

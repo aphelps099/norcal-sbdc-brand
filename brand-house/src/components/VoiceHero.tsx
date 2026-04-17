@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { cascadeWords } from "./CascadeText";
-import HeroBottomRule from "./HeroBottomRule";
 
 /**
  * Voice chapter hero — navy background, steel accents.
@@ -65,7 +64,7 @@ export default function VoiceHero() {
     <section
       ref={rootRef}
       className="relative overflow-hidden"
-      style={{ backgroundColor: "#0f1c2e" }}
+      style={{ backgroundColor: "transparent" }}
     >
       {/* Coral category bar */}
       <div aria-hidden className="w-full" style={{ height: 3, background: "#A73B44" }} />
@@ -147,8 +146,6 @@ export default function VoiceHero() {
         </p>
       </div>
 
-      {/* Full-width animated bottom rule — fog for Voice */}
-      <HeroBottomRule color="#85A3C8" />
     </section>
   );
 }

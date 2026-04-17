@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import HeroBottomRule from "./HeroBottomRule";
 
 /**
  * Media chapter hero — cream background, matches Colors / Typography / Logos pattern.
@@ -146,7 +145,6 @@ export default function MediaHero() {
         </p>
       </div>
 
-      <HeroBottomRule />
     </section>
   );
 }

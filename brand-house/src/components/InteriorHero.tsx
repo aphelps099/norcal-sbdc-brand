@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { cascadeWords } from "./CascadeText";
-import HeroBottomRule from "./HeroBottomRule";
 
 /** Category drives top bar + eyebrow + animated underline color. */
 export type ChapterCategory = "visual" | "strategy" | "tools";
@@ -29,16 +28,10 @@ interface InteriorHeroProps {
   /** Optional background color override. Defaults to cream. Use for chapter-themed heroes. */
   bgColor?: string;
   /**
-   * Show the animated 2px full-width rule at the bottom of the hero.
-   * Default true. Set false when:
-   *   - the next section has a different bg color (color change already separates)
-   *   - the next section renders its own top rule (prevents double-rule "railway track")
+   * Legacy props kept for compatibility with existing chapter pages that
+   * still pass them. No-ops since we removed the animated hero rule.
    */
   showRule?: boolean;
-  /**
-   * Color of the bottom rule. Defaults to navy #0f1c2e.
-   * Use chapter-specific overrides (e.g. black/grey-black for Content).
-   */
   ruleColor?: string;
 }
 
@@ -48,8 +41,6 @@ export default function InteriorHero({
   chapterNumber,
   category = "visual",
   bgColor,
-  showRule = true,
-  ruleColor = "#0f1c2e",
 }: InteriorHeroProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const cat = CATEGORY[category];
@@ -98,7 +89,7 @@ export default function InteriorHero({
       }, sectionRef.current);
     }
     init();
-  }, [subtitle, showRule]);
+  }, [subtitle]);
 
   return (
     <section
@@ -193,10 +184,6 @@ export default function InteriorHero({
         )}
       </div>
 
-      {/* Full-width animated 2px bottom rule — global hero standard.
-          Opt-out via showRule=false when the next section has a different bg
-          (color change separates) or renders its own top rule. */}
-      {showRule && <HeroBottomRule color={ruleColor} />}
     </section>
   );
 }

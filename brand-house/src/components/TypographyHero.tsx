@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { cascadeWords } from "./CascadeText";
-import HeroBottomRule from "./HeroBottomRule";
 
 /**
  * Editorial hero for the Typography page — mirrors the ColorsHero treatment.
@@ -145,7 +144,6 @@ export default function TypographyHero() {
         </p>
       </div>
 
-      <HeroBottomRule />
     </section>
   );
 }

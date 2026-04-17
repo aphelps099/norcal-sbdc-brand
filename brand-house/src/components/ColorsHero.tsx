@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import HeroBottomRule from "./HeroBottomRule";
 
 /**
  * Editorial hero for the Colors page — oversized Turnip serif title with a
@@ -139,8 +138,6 @@ export default function ColorsHero() {
           Our palette is built for contrast, accessibility, and editorial impact.
         </p>
       </div>
-
-      <HeroBottomRule />
     </section>
   );
 }

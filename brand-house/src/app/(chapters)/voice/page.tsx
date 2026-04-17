@@ -295,26 +295,77 @@ function TaglineCarousel() {
 export default function VoicePage() {
   return (
     <div style={{ backgroundColor: C.navy, position: "relative" }}>
-      {/* ── HERO ── */}
-      <VoiceHero />
-
-      {/* ═══ FIXED ATMOSPHERIC BACKGROUND — subtle grain only ═══ */}
+      {/* ═══ FIXED BACKDROP — dark-navy milky gradient + layered film grain ═══
+         Mirrors the /content page pattern but shifted into the deep-navy range
+         so the Voice chapter reads as its own atmospheric space.
+         Grain strategy: 3 stacked fractal-noise layers at different frequencies
+         to avoid the "digital noise" look and feel like real film/paper. */}
       <div
         aria-hidden
+        className="fixed inset-0 pointer-events-none"
         style={{
-          position: "fixed",
-          inset: 0,
           zIndex: 0,
-          pointerEvents: "none",
-          backgroundImage:
-            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.38 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
-          opacity: 0.05,
-          mixBlendMode: "overlay",
+          background:
+            "linear-gradient(180deg, #0f1c2e 0%, #152a44 45%, #0b1728 100%)",
         }}
-      />
+      >
+        {/* Layer 1 — fine grain, the "paper tooth". High frequency, soft-light blend. */}
+        <svg
+          aria-hidden
+          className="absolute inset-0 w-full h-full"
+          style={{ opacity: 0.22, mixBlendMode: "soft-light" }}
+        >
+          <filter id="voice-grain-fine">
+            <feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="3" stitchTiles="stitch" seed="4" />
+            <feColorMatrix type="saturate" values="0" />
+            <feComponentTransfer>
+              <feFuncA type="linear" slope="1.2" intercept="-0.1" />
+            </feComponentTransfer>
+          </filter>
+          <rect width="100%" height="100%" filter="url(#voice-grain-fine)" />
+        </svg>
+
+        {/* Layer 2 — medium grain for body. Overlay blend gives highlight/shadow speckle. */}
+        <svg
+          aria-hidden
+          className="absolute inset-0 w-full h-full"
+          style={{ opacity: 0.14, mixBlendMode: "overlay" }}
+        >
+          <filter id="voice-grain-mid">
+            <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" stitchTiles="stitch" seed="9" />
+            <feColorMatrix type="saturate" values="0" />
+          </filter>
+          <rect width="100%" height="100%" filter="url(#voice-grain-mid)" />
+        </svg>
+
+        {/* Layer 3 — coarse, low-frequency for organic unevenness (not flat digital). */}
+        <svg
+          aria-hidden
+          className="absolute inset-0 w-full h-full"
+          style={{ opacity: 0.09, mixBlendMode: "multiply" }}
+        >
+          <filter id="voice-grain-coarse">
+            <feTurbulence type="fractalNoise" baseFrequency="0.22" numOctaves="1" stitchTiles="stitch" seed="17" />
+            <feColorMatrix type="saturate" values="0" />
+          </filter>
+          <rect width="100%" height="100%" filter="url(#voice-grain-coarse)" />
+        </svg>
+
+        {/* Subtle vignette — corners deepen slightly, adds depth without heaviness */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 55%, rgba(5,11,22,0.35) 100%)",
+          }}
+        />
+      </div>
 
       {/* ── CONTENT — sits above fixed layers ── */}
       <div style={{ position: "relative", zIndex: 2 }}>
+        {/* ── HERO ── */}
+        <VoiceHero />
+
         {/* ── BRAND FILM ── */}
         <section
           className="relative"
