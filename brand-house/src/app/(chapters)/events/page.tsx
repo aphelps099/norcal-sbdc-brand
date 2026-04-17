@@ -237,6 +237,7 @@ export default function EventsPage() {
         category="tools"
         title="Events"
         subtitle="Templates, live samples, and guidelines for creating on-brand event collateral — from workshop flyers and banners to name badges and social graphics."
+        showRule={false}
       />
 
       {/* Hero stats band */}

@@ -27,6 +27,13 @@ interface InteriorHeroProps {
   category?: ChapterCategory;
   /** Optional background color override. Defaults to cream. Use for chapter-themed heroes. */
   bgColor?: string;
+  /**
+   * Show the animated 2px container-width rule at the bottom of the hero.
+   * Default true. Set false when:
+   *   - the next section has a different bg color (color change already separates)
+   *   - the next section renders its own top rule (prevents double-rule "railway track")
+   */
+  showRule?: boolean;
 }
 
 export default function InteriorHero({
@@ -35,6 +42,7 @@ export default function InteriorHero({
   chapterNumber,
   category = "visual",
   bgColor,
+  showRule = true,
 }: InteriorHeroProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const cat = CATEGORY[category];
@@ -82,13 +90,15 @@ export default function InteriorHero({
           });
         }
 
-        gsap.fromTo(".interior-hero-line",
-          { scaleX: 0 },
-          { scaleX: 1, duration: 1.0, ease: "power3.out", delay: 0.95 });
+        if (showRule) {
+          gsap.fromTo(".interior-hero-line",
+            { scaleX: 0 },
+            { scaleX: 1, duration: 1.0, ease: "power3.out", delay: 0.95 });
+        }
       }, sectionRef.current);
     }
     init();
-  }, [subtitle]);
+  }, [subtitle, showRule]);
 
   return (
     <section
@@ -182,19 +192,23 @@ export default function InteriorHero({
         )}
       </div>
 
-      {/* Container-width 2px rule — matches /colors */}
-      <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
-        <div
-          className="interior-hero-line"
-          aria-hidden
-          style={{
-            height: "2px",
-            background: "rgba(15,28,46,0.18)",
-            transformOrigin: "left center",
-            transform: "scaleX(0)",
-          }}
-        />
-      </div>
+      {/* Container-width 2px rule — matches /colors. Opt-out via showRule=false
+          when the next section has a different bg (color change separates) or
+          renders its own top rule (prevents double-rule "railway track"). */}
+      {showRule && (
+        <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
+          <div
+            className="interior-hero-line"
+            aria-hidden
+            style={{
+              height: "2px",
+              background: "rgba(15,28,46,0.18)",
+              transformOrigin: "left center",
+              transform: "scaleX(0)",
+            }}
+          />
+        </div>
+      )}
     </section>
   );
 }

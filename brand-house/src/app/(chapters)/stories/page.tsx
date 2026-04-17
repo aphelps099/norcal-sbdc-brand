@@ -119,6 +119,7 @@ export default function StoriesPage() {
   return (
     <>
       <InteriorHero
+        showRule={false}
         chapterNumber="08"
         category="strategy"
         title="Stories"

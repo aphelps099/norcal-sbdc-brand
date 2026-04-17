@@ -62,11 +62,12 @@ export default function EmailPage() {
         category="strategy"
         title="Email"
         subtitle="Email is the most direct digital connection with our clients. Treat it as a privilege."
+        showRule={false}
       />
 
       {/* ── EMAIL PRINCIPLES — cream ── */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
-        <div className="w-full h-[2px] bg-[#1D5AA7]" />
+
         <span
           className="material-symbols-outlined absolute -right-10 top-[5%] text-navy/[0.04] pointer-events-none select-none"
           style={{ fontSize: "min(50vw, 500px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}

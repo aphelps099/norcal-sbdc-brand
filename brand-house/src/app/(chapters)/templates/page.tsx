@@ -12,6 +12,7 @@ export default function TemplatesPage() {
   return (
     <>
       <InteriorHero
+        showRule={false}
         chapterNumber="09"
         category="tools"
         title="Templates"

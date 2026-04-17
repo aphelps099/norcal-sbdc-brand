@@ -101,6 +101,7 @@ export default function SavedColorsPage() {
         category="visual"
         title="Saved Colors"
         subtitle="Archived gradient definitions from the original Brand House heroes. Available for reuse in presentations, social, and marketing materials."
+        showRule={false}
       />
 
       <div className="bg-[#0f1c2e] py-16 md:py-24">

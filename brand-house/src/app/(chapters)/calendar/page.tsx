@@ -338,6 +338,7 @@ export default function CalendarPage() {
         category="tools"
         title="Calendar"
         subtitle="Campaign themes and key dates — a coordinated messaging framework so all sixteen centers move together."
+        showRule={false}
       />
 
       {/* ── EDITORIAL HERO MOMENT — navy ── */}

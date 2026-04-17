@@ -295,11 +295,12 @@ export default function ContentPage() {
         title="Content"
         subtitle="Guidelines for social media and newsletters — so every center shows up with one unified voice."
         bgColor="transparent"
+        showRule={false}
       />
 
       {/* ── CONTENT GENERATOR — editorial hero, steel bg ── */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "transparent" }}>
-        <div className="w-full h-[2px] bg-navy/25" />
+
         <SbdcWatermark
           className="absolute -right-[6%] top-[10%] w-[38vw] max-w-[460px] text-white pointer-events-none select-none"
           opacity={0.08}
