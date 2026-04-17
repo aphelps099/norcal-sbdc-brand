@@ -140,7 +140,7 @@ export default function TopNav() {
         }
 
         .sbdc-star-svg {
-          opacity: .3;
+          opacity: .1;
         }
 
         /* Ghost: faint static outline */
@@ -271,42 +271,8 @@ export default function TopNav() {
             transition: "clip-path 0.7s cubic-bezier(0.25, 0.1, 0.25, 1)",
           }}
         >
-          {/* BG — clean navy with subtle concentric ring watermark */}
+          {/* BG — flat navy, no gradient, no rings */}
           <div className="absolute inset-0" style={{ backgroundColor: "#0f1c2e" }} />
-          <div
-            className="absolute inset-0 pointer-events-none"
-            aria-hidden
-            style={{
-              background:
-                "radial-gradient(circle at 50% 38%, rgba(86,132,186,0.09) 0%, rgba(86,132,186,0.055) 22%, rgba(86,132,186,0.03) 38%, rgba(15,28,46,0) 60%)",
-            }}
-          />
-          {/* Concentric ring pattern behind the star */}
-          <svg
-            className="absolute pointer-events-none"
-            aria-hidden
-            style={{
-              left: "50%",
-              top: "38%",
-              transform: "translate(-50%, -50%)",
-              width: "min(62vw, 780px)",
-              height: "min(62vw, 780px)",
-              opacity: 0.35,
-            }}
-            viewBox="0 0 600 600"
-          >
-            {[280, 240, 200, 160, 120, 80, 40].map((r) => (
-              <circle
-                key={r}
-                cx="300"
-                cy="300"
-                r={r}
-                fill="none"
-                stroke="rgba(133,163,200,0.10)"
-                strokeWidth="1"
-              />
-            ))}
-          </svg>
 
           {/* ── Star watermark (30% opacity per brand — kept as signature mark) ── */}
           <div
