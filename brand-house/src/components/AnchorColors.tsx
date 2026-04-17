@@ -111,14 +111,14 @@ export default function AnchorColors() {
             </span>
           </h2>
           <p
-            className="text-navy/70"
             style={{
               fontFamily: "proxima-sera, var(--serif)",
-              fontWeight: 300,
-              fontSize: "clamp(17px, 1.5vw, 22px)",
+              fontWeight: 400,
+              fontSize: "clamp(18px, 1.55vw, 23px)",
               lineHeight: 1.4,
               letterSpacing: "-0.005em",
-              maxWidth: "460px",
+              maxWidth: "480px",
+              color: "rgba(15,28,46,0.85)",
             }}
           >
             Three colors carry the brand. Navy holds the dark. Cobalt does the work.

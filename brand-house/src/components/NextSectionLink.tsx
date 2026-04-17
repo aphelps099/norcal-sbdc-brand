@@ -69,6 +69,10 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
 
   const FOG = "#85A3C8";
   const WHITE = "#ffffff";
+  // Default: Fog @ 80% opacity
+  // Hover:   text -> full white;  arrow -> white but stays at 80% opacity
+  const defaultColor = FOG;
+  const defaultOpacity = 0.8;
 
   return (
     <div ref={containerRef} className="relative overflow-hidden bg-[#192d4c]">
@@ -90,8 +94,9 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
           <p
             className="next-eyebrow font-label text-[10px] uppercase tracking-[0.22em] mb-5 md:mb-6"
             style={{
-              color: hovered ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.28)",
-              transition: "color 0.5s ease",
+              color: hovered ? WHITE : FOG,
+              opacity: hovered ? 0.9 : 0.8,
+              transition: "color 0.45s ease, opacity 0.45s ease",
             }}
           >
             Next
@@ -107,11 +112,12 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
                 fontSize: "clamp(56px, 10vw, 132px)",
                 lineHeight: 1,
                 letterSpacing: "-0.02em",
-                color: hovered ? FOG : WHITE,
+                color: hovered ? WHITE : defaultColor,
+                opacity: hovered ? 1 : defaultOpacity,
                 transform: hovered ? "scale(1.035)" : "scale(1)",
                 transformOrigin: "left center",
                 transition:
-                  "color 0.45s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+                  "color 0.45s ease, opacity 0.45s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
                 display: "inline-block",
               }}
             >
@@ -119,7 +125,8 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
             </h2>
           </div>
 
-          {/* Giant material-symbol arrow (line_end_arrow_notch) */}
+          {/* Giant material-symbol arrow (line_end_arrow_notch)
+              Default — Fog @ 80%.  Hover — turns white but stays @ 80%. */}
           <span
             aria-hidden="true"
             className="material-symbols-outlined next-arrow absolute right-4 md:right-8 top-1/2"
@@ -128,13 +135,13 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
               lineHeight: 1,
               fontVariationSettings:
                 "'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 48",
-              color: hovered ? FOG : WHITE,
-              opacity: hovered ? 0.95 : 0.85,
+              color: hovered ? WHITE : defaultColor,
+              opacity: 0.8,
               transform: hovered
                 ? "translateY(-50%) translateX(10px)"
                 : "translateY(-50%)",
               transition:
-                "transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), color 0.45s ease, opacity 0.45s ease",
+                "transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), color 0.45s ease",
             }}
           >
             line_end_arrow_notch

@@ -3,12 +3,12 @@
 /**
  * COLOR PAIRINGS — "the brand-sanctioned combinations"
  *
- * 4 × 2 grid of editorial sample cards.  Each tile:
- *   · corner label (role)            upper-left
- *   · color names                    upper-right ("CREAM · NAVY")
- *   · sample copy w/ italic emphasis centered in card
- *   · WCAG contrast ratio            lower-left
- *   · grade badge (AAA / AA / Display only)
+ * 4 × 2 grid of editorial sample cards.  On default each tile shows ONLY the
+ * sample phrase with italic emphasis.  Hovering the tile reveals:
+ *   · corner role label (upper-left)
+ *   · color-pair label  (upper-right)
+ *   · contrast ratio    (lower-left)
+ *   · WCAG grade badge  (lower-right)
  */
 
 type Pairing = {
@@ -16,10 +16,10 @@ type Pairing = {
   pair: string;
   bg: string;
   fg: string;
-  accent?: string;       // italic-emphasis color (defaults to Berry)
+  accent?: string;            // italic-emphasis color (defaults to Berry)
   sample: React.ReactNode;
   ratio: string;
-  grade: "AAA" | "AA" | "Display only";
+  grade: "AAA" | "AA";
 };
 
 const BERRY = "#A73B44";
@@ -27,6 +27,7 @@ const NAVY = "#0f1c2e";
 const COBALT = "#004290";
 const CREAM = "#f5f4f0";
 const FOG = "#85A3C8";
+const EVERGREEN = "#00685E";
 
 const PAIRINGS: Pairing[] = [
   {
@@ -126,20 +127,20 @@ const PAIRINGS: Pairing[] = [
     grade: "AA",
   },
   {
-    role: "PULL QUOTE",
-    pair: "NAVY · BERRY",
-    bg: NAVY,
-    fg: BERRY,
-    accent: BERRY,
+    role: "SUCCESS",
+    pair: "CREAM · EVERGREEN",
+    bg: CREAM,
+    fg: EVERGREEN,
+    accent: EVERGREEN,
     sample: (
       <>
-        A <em>recipe</em> and a
+        Small business,
         <br />
-        <em>dream.</em>
+        <em>growing.</em>
       </>
     ),
-    ratio: "2.6:1",
-    grade: "Display only",
+    ratio: "6.7:1",
+    grade: "AA",
   },
   {
     role: "META",
@@ -159,40 +160,29 @@ const PAIRINGS: Pairing[] = [
   },
 ];
 
-function GradeBadge({ grade, fg }: { grade: Pairing["grade"]; fg: string }) {
-  const isWarn = grade === "Display only";
-  return (
-    <span
-      className="font-label uppercase"
-      style={{
-        fontSize: "10px",
-        letterSpacing: "0.08em",
-        padding: "4px 8px",
-        color: isWarn ? "#ffffff" : fg,
-        backgroundColor: isWarn ? BERRY : "rgba(133,163,200,0.22)",
-        border: isWarn ? "none" : `1px solid ${fg}22`,
-      }}
-    >
-      {grade}
-    </span>
-  );
+function slug(s: string) {
+  return s.replace(/\s+/g, "-").toLowerCase();
 }
 
 function PairCard({ p }: { p: Pairing }) {
+  const id = `${slug(p.role)}-${slug(p.pair)}`;
   return (
     <div
-      className="relative flex flex-col justify-between"
-      style={{
-        backgroundColor: p.bg,
-        color: p.fg,
-        aspectRatio: "1 / 1.02",
-        padding: "clamp(16px, 1.6vw, 22px)",
-        boxShadow:
-          "0 1px 2px rgba(15,28,46,0.04), 0 10px 32px -14px rgba(15,28,46,0.16)",
-      }}
+      className="pair-card relative flex flex-col justify-between group"
+      style={
+        {
+          backgroundColor: p.bg,
+          color: p.fg,
+          aspectRatio: "1 / 1.02",
+          padding: "clamp(16px, 1.6vw, 22px)",
+          boxShadow:
+            "0 1px 2px rgba(15,28,46,0.04), 0 10px 32px -14px rgba(15,28,46,0.16)",
+          ["--fg" as string]: p.fg,
+        } as React.CSSProperties
+      }
     >
-      {/* top row: role + color pair */}
-      <div className="flex items-start justify-between gap-3">
+      {/* top row: role + color pair (hover-only) */}
+      <div className="pair-chrome flex items-start justify-between gap-3">
         <span
           className="font-label uppercase"
           style={{
@@ -231,21 +221,19 @@ function PairCard({ p }: { p: Pairing }) {
       >
         <div>
           <style>{`
-            .pair-sample-${p.role.replace(/\s+/g, "-").toLowerCase()} em {
+            .pair-sample-${id} em {
               font-family: proxima-sera, var(--serif);
               font-style: italic;
               font-weight: 400;
               color: ${p.accent ?? BERRY};
             }
           `}</style>
-          <span className={`pair-sample-${p.role.replace(/\s+/g, "-").toLowerCase()}`}>
-            {p.sample}
-          </span>
+          <span className={`pair-sample-${id}`}>{p.sample}</span>
         </div>
       </div>
 
-      {/* bottom row: ratio + grade */}
-      <div className="flex items-end justify-between gap-3">
+      {/* bottom row: ratio + grade (hover-only) */}
+      <div className="pair-chrome flex items-end justify-between gap-3">
         <span
           className="font-mono"
           style={{
@@ -257,7 +245,18 @@ function PairCard({ p }: { p: Pairing }) {
         >
           {p.ratio}
         </span>
-        <GradeBadge grade={p.grade} fg={p.fg} />
+        <span
+          className="font-label uppercase"
+          style={{
+            fontSize: "10px",
+            letterSpacing: "0.08em",
+            padding: "4px 8px",
+            color: p.fg,
+            border: `1px solid ${p.fg}33`,
+          }}
+        >
+          {p.grade}
+        </span>
       </div>
     </div>
   );
@@ -266,6 +265,19 @@ function PairCard({ p }: { p: Pairing }) {
 export default function ColorPairings() {
   return (
     <section className="bg-cream pt-16 md:pt-24 pb-8 md:pb-12">
+      {/* Scoped hover rule — chrome (corner labels + ratio) fades in on hover.
+         Kept inside the component so it doesn't leak to other sections. */}
+      <style>{`
+        .pair-card .pair-chrome {
+          opacity: 0;
+          transition: opacity 0.35s ease;
+        }
+        .pair-card:hover .pair-chrome,
+        .pair-card:focus-within .pair-chrome {
+          opacity: 1;
+        }
+      `}</style>
+
       <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
         {/* Top rule + eyebrow / tagline */}
         <div className="flex items-center gap-6 mb-8 md:mb-10">
@@ -311,14 +323,14 @@ export default function ColorPairings() {
             </span>
           </h2>
           <p
-            className="text-navy/70"
             style={{
               fontFamily: "proxima-sera, var(--serif)",
-              fontWeight: 300,
-              fontSize: "clamp(17px, 1.5vw, 22px)",
+              fontWeight: 400,
+              fontSize: "clamp(18px, 1.55vw, 23px)",
               lineHeight: 1.4,
               letterSpacing: "-0.005em",
-              maxWidth: "460px",
+              maxWidth: "480px",
+              color: "rgba(15,28,46,0.85)",
             }}
           >
             Eight combinations cover 95% of real-world use. Each has been tested for
@@ -328,7 +340,7 @@ export default function ColorPairings() {
 
         {/* Note */}
         <p
-          className="mt-10 md:mt-12 text-navy/65 max-w-[760px]"
+          className="mt-10 md:mt-12 max-w-[760px]"
           style={{
             fontFamily: "proxima-sera, var(--serif)",
             fontStyle: "italic",
@@ -336,6 +348,7 @@ export default function ColorPairings() {
             fontSize: "17px",
             lineHeight: 1.5,
             letterSpacing: "-0.005em",
+            color: "rgba(15,28,46,0.65)",
           }}
         >
           Italic emphasis always carries color. Berry on cream, Berry on navy, Fog on
@@ -343,8 +356,8 @@ export default function ColorPairings() {
           non-anchor background.
         </p>
 
-        {/* Grid — 8 cards in 4 × 2 */}
-        <div className="mt-10 md:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+        {/* Grid — 8 cards in 4 × 2, tightened spacing */}
+        <div className="mt-10 md:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-2.5">
           {PAIRINGS.map((p) => (
             <PairCard key={`${p.role}-${p.pair}`} p={p} />
           ))}

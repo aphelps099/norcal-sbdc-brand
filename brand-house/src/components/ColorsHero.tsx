@@ -23,8 +23,6 @@ export default function ColorsHero() {
             n.style.opacity = "1";
             n.style.transform = "translate(0, 0)";
           });
-        const line = rootRef.current?.querySelector<HTMLElement>("[data-line]");
-        if (line) line.style.transform = "scaleX(1)";
         return;
       }
 
@@ -51,11 +49,6 @@ export default function ColorsHero() {
           "[data-reveal='helper']",
           { opacity: 0, y: 10 },
           { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", delay: 0.55 }
-        );
-        gsap.fromTo(
-          "[data-line]",
-          { scaleX: 0 },
-          { scaleX: 1, duration: 1.1, ease: "power3.out", delay: 0.85 }
         );
       }, rootRef);
     }
@@ -127,36 +120,23 @@ export default function ColorsHero() {
           Color
         </h1>
 
-        {/* Quiet helper line */}
+        {/* Quiet helper line — Sera italic subtitle */}
         <p
           data-reveal="helper"
-          className="mt-6 md:mt-8 max-w-[560px]"
+          className="mt-6 md:mt-8 max-w-[640px]"
           style={{
-            fontFamily: "var(--sans)",
-            fontWeight: 500,
-            fontSize: "clamp(15px, 1.1vw, 16px)",
-            lineHeight: 1.55,
+            fontFamily: "proxima-sera, var(--serif)",
+            fontWeight: 400,
+            fontStyle: "italic",
+            fontSize: "clamp(19px, 1.6vw, 24px)",
+            lineHeight: 1.45,
             letterSpacing: "-0.005em",
-            color: "rgba(15,28,46,0.55)",
+            color: "rgba(15,28,46,0.65)",
             opacity: 0,
           }}
         >
           Our palette is built for contrast, accessibility, and editorial impact.
         </p>
-      </div>
-
-      {/* Container-width 2px rule (matches nav underline weight) */}
-      <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
-        <div
-          data-line
-          aria-hidden
-          style={{
-            height: 2,
-            background: "rgba(15,28,46,0.18)",
-            transformOrigin: "left center",
-            transform: "scaleX(0)",
-          }}
-        />
       </div>
     </section>
   );
