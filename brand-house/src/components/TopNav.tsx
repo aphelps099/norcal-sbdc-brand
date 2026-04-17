@@ -213,7 +213,22 @@ export default function TopNav() {
               letterSpacing: "0.22em",
             }}
           >
-            Brand
+            NORCAL SBDC
+            <span
+              aria-hidden
+              style={{
+                display: "inline-block",
+                margin: "0 0.6em",
+                fontSize: "9px",
+                fontWeight: 700,
+                verticalAlign: "middle",
+                transform: "translateY(-1px)",
+                letterSpacing: 0,
+              }}
+            >
+              •
+            </span>
+            BRAND
           </a>
 
           <div className="flex items-center gap-5">

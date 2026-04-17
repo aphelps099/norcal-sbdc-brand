@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { cascadeWords } from "./CascadeText";
+import HeroBottomRule from "./HeroBottomRule";
 
 /**
  * Voice chapter hero — navy background, steel accents.
@@ -28,8 +29,6 @@ export default function VoiceHero() {
             n.style.opacity = "1";
             n.style.transform = "translate(0, 0)";
           });
-        const line = rootRef.current?.querySelector<HTMLElement>("[data-line]");
-        if (line) line.style.transform = "scaleX(1)";
         return;
       }
 
@@ -55,11 +54,6 @@ export default function VoiceHero() {
           opacity: 1, y: 0, duration: 0.75, ease: "power3.out",
           stagger: 0.028, delay: 0.6,
         });
-        gsap.fromTo(
-          "[data-line]",
-          { scaleX: 0 },
-          { scaleX: 1, duration: 1.1, ease: "power3.out", delay: 0.95 }
-        );
       }, rootRef);
     }
 
@@ -153,19 +147,8 @@ export default function VoiceHero() {
         </p>
       </div>
 
-      {/* Container-width 2px rule — steel */}
-      <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
-        <div
-          data-line
-          aria-hidden
-          style={{
-            height: 2,
-            background: "#5684BA",
-            transformOrigin: "left center",
-            transform: "scaleX(0)",
-          }}
-        />
-      </div>
+      {/* Full-width animated bottom rule — fog for Voice */}
+      <HeroBottomRule color="#85A3C8" />
     </section>
   );
 }

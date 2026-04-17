@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { cascadeWords } from "./CascadeText";
+import HeroBottomRule from "./HeroBottomRule";
 
 /** Category drives top bar + eyebrow + animated underline color. */
 export type ChapterCategory = "visual" | "strategy" | "tools";
@@ -28,12 +29,17 @@ interface InteriorHeroProps {
   /** Optional background color override. Defaults to cream. Use for chapter-themed heroes. */
   bgColor?: string;
   /**
-   * Show the animated 2px container-width rule at the bottom of the hero.
+   * Show the animated 2px full-width rule at the bottom of the hero.
    * Default true. Set false when:
    *   - the next section has a different bg color (color change already separates)
    *   - the next section renders its own top rule (prevents double-rule "railway track")
    */
   showRule?: boolean;
+  /**
+   * Color of the bottom rule. Defaults to navy #0f1c2e.
+   * Use chapter-specific overrides (e.g. black/grey-black for Content).
+   */
+  ruleColor?: string;
 }
 
 export default function InteriorHero({
@@ -43,6 +49,7 @@ export default function InteriorHero({
   category = "visual",
   bgColor,
   showRule = true,
+  ruleColor = "#0f1c2e",
 }: InteriorHeroProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const cat = CATEGORY[category];
@@ -58,8 +65,6 @@ export default function InteriorHero({
           n.style.opacity = "1";
           n.style.transform = "translate(0, 0)";
         });
-        const line = el.querySelector<HTMLElement>(".interior-hero-line");
-        if (line) line.style.transform = "scaleX(1)";
         return;
       }
 
@@ -90,11 +95,6 @@ export default function InteriorHero({
           });
         }
 
-        if (showRule) {
-          gsap.fromTo(".interior-hero-line",
-            { scaleX: 0 },
-            { scaleX: 1, duration: 1.0, ease: "power3.out", delay: 0.95 });
-        }
       }, sectionRef.current);
     }
     init();
@@ -193,23 +193,10 @@ export default function InteriorHero({
         )}
       </div>
 
-      {/* Container-width 2px rule — matches /colors. Opt-out via showRule=false
-          when the next section has a different bg (color change separates) or
-          renders its own top rule (prevents double-rule "railway track"). */}
-      {showRule && (
-        <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
-          <div
-            className="interior-hero-line"
-            aria-hidden
-            style={{
-              height: "2px",
-              background: "rgba(15,28,46,0.18)",
-              transformOrigin: "left center",
-              transform: "scaleX(0)",
-            }}
-          />
-        </div>
-      )}
+      {/* Full-width animated 2px bottom rule — global hero standard.
+          Opt-out via showRule=false when the next section has a different bg
+          (color change separates) or renders its own top rule. */}
+      {showRule && <HeroBottomRule color={ruleColor} />}
     </section>
   );
 }

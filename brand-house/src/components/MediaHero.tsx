@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import HeroBottomRule from "./HeroBottomRule";
 
 /**
  * Media chapter hero — cream background, matches Colors / Typography / Logos pattern.
@@ -24,8 +25,6 @@ export default function MediaHero() {
             n.style.opacity = "1";
             n.style.transform = "translate(0, 0)";
           });
-        const line = rootRef.current?.querySelector<HTMLElement>("[data-line]");
-        if (line) line.style.transform = "scaleX(1)";
         return;
       }
 
@@ -52,11 +51,6 @@ export default function MediaHero() {
           "[data-reveal='helper']",
           { opacity: 0, y: 10 },
           { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", delay: 0.55 }
-        );
-        gsap.fromTo(
-          "[data-line]",
-          { scaleX: 0 },
-          { scaleX: 1, duration: 1.1, ease: "power3.out", delay: 0.85 }
         );
       }, rootRef);
     }
@@ -152,19 +146,7 @@ export default function MediaHero() {
         </p>
       </div>
 
-      {/* Container-width 2px rule */}
-      <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
-        <div
-          data-line
-          aria-hidden
-          style={{
-            height: 2,
-            background: "rgba(15,28,46,0.18)",
-            transformOrigin: "left center",
-            transform: "scaleX(0)",
-          }}
-        />
-      </div>
+      <HeroBottomRule />
     </section>
   );
 }
