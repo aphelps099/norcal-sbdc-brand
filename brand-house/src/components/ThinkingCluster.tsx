@@ -101,19 +101,6 @@ export default function ThinkingCluster({
         transformOrigin: "50% 50%",
       });
 
-      // Tiny dot: blink-pulse (the "thinking" beat)
-      gsap.to(".tc-dot", {
-        opacity: 0.9,
-        scale: 1.4,
-        duration: 1.4,
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: -1,
-        delay: 0.2,
-        transformOrigin: "50% 50%",
-      });
-
-
     }, ref);
 
     return () => ctx.revert();
@@ -142,23 +129,28 @@ export default function ThinkingCluster({
           </radialGradient>
         </defs>
 
-        <g className="tc-cluster" style={{ transformOrigin: "100px 100px" }}>
+        {/* Cluster-wide opacity softens everything in one place */}
+        <g className="tc-cluster" style={{ transformOrigin: "100px 100px", opacity: 0.7 }}>
           {/* soft halo behind hero */}
-          <circle cx="100" cy="100" r="60" fill="url(#tc-halo)" />
+          <circle cx="100" cy="100" r="60" fill="url(#tc-halo)" opacity="0.6" />
 
-          {/* Hero asterisk — 6-arm radial, big and centered, slow spin */}
+          {/* Hero asterisk — 12-spoke radial fan in white, slow spin */}
           <g className="tc-hero" style={{ transformOrigin: "100px 100px" }}>
-            <g stroke="#1D5AA7" strokeWidth="2" strokeLinecap="round" opacity="0.85">
+            <g stroke="#ffffff" strokeWidth="2" strokeLinecap="round" opacity="0.85">
+              {/* 6 lines × 2 arms each = 12 spokes. Rotations every 30°. */}
               <line x1="100" y1="50" x2="100" y2="150" />
+              <line x1="100" y1="50" x2="100" y2="150" transform="rotate(30 100 100)" />
               <line x1="100" y1="50" x2="100" y2="150" transform="rotate(60 100 100)" />
+              <line x1="100" y1="50" x2="100" y2="150" transform="rotate(90 100 100)" />
               <line x1="100" y1="50" x2="100" y2="150" transform="rotate(120 100 100)" />
+              <line x1="100" y1="50" x2="100" y2="150" transform="rotate(150 100 100)" />
             </g>
           </g>
 
           {/* Small plus 1 — top-right */}
           <g
             className="tc-p1"
-            style={{ transformOrigin: "152px 56px", opacity: 0.85 }}
+            style={{ transformOrigin: "152px 56px", opacity: 0.6 }}
           >
             <path
               d="M152 44 L152 68 M140 56 L164 56"
@@ -168,10 +160,10 @@ export default function ThinkingCluster({
             />
           </g>
 
-          {/* Small plus 2 — bottom-left, will rotate -45° to feel like an x */}
+          {/* Small plus 2 — bottom-left, slow rotation toward -45° */}
           <g
             className="tc-p2"
-            style={{ transformOrigin: "52px 148px", opacity: 0.7 }}
+            style={{ transformOrigin: "52px 148px", opacity: 0.5 }}
           >
             <path
               d="M52 138 L52 158 M42 148 L62 148"
@@ -181,24 +173,13 @@ export default function ThinkingCluster({
             />
           </g>
 
-          {/* Tiny dot — top-left, the heartbeat */}
-          <circle
-            className="tc-dot"
-            cx="44"
-            cy="60"
-            r="3"
-            fill="#0f1c2e"
-            opacity="0.5"
-            style={{ transformOrigin: "44px 60px" }}
-          />
-
           {/* Tiny static plus — bottom-right, breathes via cluster only */}
           <path
             d="M156 144 L156 158 M149 151 L163 151"
             stroke="#5684BA"
             strokeWidth="2.5"
             strokeLinecap="round"
-            opacity="0.55"
+            opacity="0.4"
           />
         </g>
       </svg>
