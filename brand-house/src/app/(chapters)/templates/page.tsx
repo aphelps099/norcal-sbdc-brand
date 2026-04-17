@@ -292,7 +292,7 @@ const templates: Template[] = [
       eyebrowColor: T.cobalt,
       headline: (
         <>
-          The <em>messy middle.</em>
+          The <em>Bulletin.</em>
         </>
       ),
       customHeadlineSize: "clamp(22px, 2.8vw, 36px)",
@@ -673,7 +673,7 @@ export default function TemplatesPage() {
                 return (
                   <article
                     key={block.num}
-                    className={`${isSpan6 ? "md:col-span-6" : "md:col-span-4"} flex flex-col p-8 md:p-10`}
+                    className={`group ${isSpan6 ? "md:col-span-6" : "md:col-span-4"} flex flex-col p-8 md:p-10`}
                     style={{
                       borderRight:
                         !isLastInRowSpan6 && !isLastInRowSpan4
@@ -717,7 +717,7 @@ export default function TemplatesPage() {
                         </h3>
                       </div>
                       <span
-                        className="uppercase"
+                        className="uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         style={{
                           fontFamily: "var(--sans-label)",
                           fontSize: 9,
@@ -758,8 +758,7 @@ export default function TemplatesPage() {
                     </div>
 
                     <footer
-                      className="flex justify-between items-center gap-4 pt-4"
-                      style={{ borderTop: "1px dashed rgba(15,28,46,0.15)" }}
+                      className="flex justify-between items-center gap-4 pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                     >
                       <span
                         style={{
