@@ -1,6 +1,7 @@
 import InteriorHero from "@/components/InteriorHero";
 import CopyButton from "@/components/CopyButton";
 import NextSectionLink from "@/components/NextSectionLink";
+import GrainBackdrop from "@/components/GrainBackdrop";
 
 const emailBestPractices = [
   { title: "One Clear Call to Action", desc: "Every email should have one primary goal. Don't split attention across five different asks." },
@@ -54,6 +55,8 @@ const drip = [
 export default function EmailPage() {
   return (
     <>
+      <GrainBackdrop />
+      <div className="relative" style={{ zIndex: 1 }}>
       <InteriorHero
         chapterNumber="07"
         category="strategy"
@@ -185,6 +188,7 @@ export default function EmailPage() {
       </section>
 
       <NextSectionLink title="Calendar" href="/calendar" />
+      </div>
     </>
   );
 }

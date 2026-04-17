@@ -1,6 +1,7 @@
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
+import GrainBackdrop from "@/components/GrainBackdrop";
 
 /* ─────────────────────────────  DATA  ───────────────────────────── */
 
@@ -330,6 +331,8 @@ function QuarterSection({ q, reverse }: { q: Quarter; reverse: boolean }) {
 export default function CalendarPage() {
   return (
     <>
+      <GrainBackdrop />
+      <div className="relative" style={{ zIndex: 1 }}>
       <InteriorHero
         chapterNumber="12"
         category="tools"
@@ -461,6 +464,7 @@ export default function CalendarPage() {
       </section>
 
       <NextSectionLink title="Stories" href="/stories" />
+      </div>
     </>
   );
 }

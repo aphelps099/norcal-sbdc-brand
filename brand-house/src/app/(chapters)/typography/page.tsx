@@ -1,6 +1,7 @@
 import NextSectionLink from "@/components/NextSectionLink";
 import TypographyHero from "@/components/TypographyHero";
 import TypographySpecimens from "@/components/TypographySpecimens";
+import GrainBackdrop from "@/components/GrainBackdrop";
 
 const COBALT = "#004290";
 const BERRY = "#A73B44";
@@ -210,6 +211,8 @@ const usageRows = [
 export default function TypographyPage() {
   return (
     <>
+      <GrainBackdrop />
+      <div className="relative" style={{ zIndex: 1 }}>
       <TypographyHero />
 
       <div className="bg-cream">
@@ -233,6 +236,7 @@ export default function TypographyPage() {
       </div>
 
       <NextSectionLink title="Logos" href="/logos" />
+      </div>
     </>
   );
 }
