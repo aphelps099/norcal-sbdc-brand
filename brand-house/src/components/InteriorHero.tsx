@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { cascadeWords } from "./CascadeText";
 
 /** Category drives top bar + eyebrow + animated underline color. */
 export type ChapterCategory = "visual" | "strategy" | "tools";
@@ -45,9 +46,9 @@ export default function InteriorHero({
       if (prefersReducedMotion) {
         const el = sectionRef.current;
         if (!el) return;
-        el.querySelectorAll<HTMLElement>("[data-reveal]").forEach((n) => {
+        el.querySelectorAll<HTMLElement>("[data-reveal], .cascade-word").forEach((n) => {
           n.style.opacity = "1";
-          n.style.transform = "translateY(0)";
+          n.style.transform = "translate(0, 0)";
         });
         const line = el.querySelector<HTMLElement>(".interior-hero-line");
         if (line) line.style.transform = "scaleX(1)";
@@ -58,27 +59,32 @@ export default function InteriorHero({
       if (!sectionRef.current) return;
 
       gsap.context(() => {
-        gsap.fromTo(".interior-hero-eyebrow",
-          { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", delay: 0.1 });
+        // Eyebrow — word cascade
+        gsap.to(".interior-hero-eyebrow .cascade-word", {
+          opacity: 1, y: 0, duration: 0.55, ease: "power3.out",
+          stagger: 0.025, delay: 0.1,
+        });
 
+        // Title — single block (display headlines read better whole)
         gsap.fromTo(".interior-hero-title",
           { opacity: 0, y: 28 },
-          { opacity: 1, y: 0, duration: 0.95, ease: "power3.out", delay: 0.2 });
+          { opacity: 1, y: 0, duration: 0.95, ease: "power3.out", delay: 0.25 });
 
         gsap.fromTo(".interior-hero-chapter",
           { opacity: 0, x: 40 },
           { opacity: 1, x: 0, duration: 1.6, ease: "power2.out", delay: 0.35 });
 
         if (subtitle) {
-          gsap.fromTo(".interior-hero-sub",
-            { opacity: 0, y: 12 },
-            { opacity: 1, y: 0, duration: 0.7, ease: "power2.out", delay: 0.6 });
+          // Subtitle — word cascade
+          gsap.to(".interior-hero-sub .cascade-word", {
+            opacity: 1, y: 0, duration: 0.75, ease: "power3.out",
+            stagger: 0.028, delay: 0.6,
+          });
         }
 
         gsap.fromTo(".interior-hero-line",
           { scaleX: 0 },
-          { scaleX: 1, duration: 1.0, ease: "power3.out", delay: 0.9 });
+          { scaleX: 1, duration: 1.0, ease: "power3.out", delay: 0.95 });
       }, sectionRef.current);
     }
     init();
@@ -131,10 +137,12 @@ export default function InteriorHero({
             fontSize: "11px",
             letterSpacing: "0.22em",
             color: "rgba(15,28,46,0.45)",
-            opacity: 0,
           }}
         >
-          {chapterNumber ? `Chapter ${chapterNumber} · ${cat.label}` : cat.label}
+          {cascadeWords(
+            chapterNumber ? `Chapter ${chapterNumber} · ${cat.label}` : cat.label,
+            { initialY: 10 }
+          )}
         </p>
 
         {/* Oversized page title — Turnip serif, upright, editorial */}
@@ -167,10 +175,9 @@ export default function InteriorHero({
               lineHeight: 1.55,
               letterSpacing: "-0.005em",
               color: "rgba(15,28,46,0.55)",
-              opacity: 0,
             }}
           >
-            {subtitle}
+            {cascadeWords(subtitle, { initialY: 14 })}
           </p>
         )}
       </div>
