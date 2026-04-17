@@ -301,22 +301,7 @@ export default function VoicePage() {
       {/* ── HERO ── */}
       <VoiceHero />
 
-      {/* ═══ FIXED ATMOSPHERIC BACKGROUND — bg-star + subtle grain ═══ */}
-      <div
-        aria-hidden
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: 0,
-          pointerEvents: "none",
-          backgroundImage: "url('/photos/bg-star.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center center",
-          backgroundRepeat: "no-repeat",
-          backgroundColor: C.navy,
-          opacity: 0.35,
-        }}
-      />
+      {/* ═══ FIXED ATMOSPHERIC BACKGROUND — subtle grain only ═══ */}
       <div
         aria-hidden
         style={{
@@ -326,35 +311,10 @@ export default function VoicePage() {
           pointerEvents: "none",
           backgroundImage:
             "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.38 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
-          opacity: 0.06,
+          opacity: 0.05,
           mixBlendMode: "overlay",
         }}
       />
-      {/* Star SVG watermark, cropped to right edge */}
-      <svg
-        aria-hidden
-        viewBox="0 0 2107 2003"
-        style={{
-          position: "fixed",
-          top: "50%",
-          right: "-18vw",
-          transform: "translateY(-50%)",
-          width: "min(95vh, 80vw)",
-          height: "auto",
-          pointerEvents: "none",
-          userSelect: "none",
-          zIndex: 0,
-          opacity: 0.08,
-        }}
-      >
-        <path
-          d="M1011.48501,11.2353369 L1169.72409,653.038218 L2091.60532,738.475943 L1226.23134,1130.98717 L1458.06865,1976.22037 L1218.31263,1579.03879 L1078.64652,1068.49933 L1637.1469,813.428761 L1067.25191,759.657045 L969.048512,364.4811 L788.430601,706.886932 L338.267364,625.263122 L26.9639197,467.282973 L10.0982009,446.966622 L717.102633,575.532031 L1011.48501,11.2353369 Z"
-          fill="none"
-          stroke={C.cream}
-          strokeWidth={6}
-          strokeLinejoin="round"
-        />
-      </svg>
 
       {/* ── CONTENT — sits above fixed layers ── */}
       <div style={{ position: "relative", zIndex: 2 }}>

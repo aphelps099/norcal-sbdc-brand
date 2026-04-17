@@ -112,16 +112,16 @@ export default function VoiceHero() {
           {cascadeWords("Chapter 04 · Brand Expression", { initialY: 10 })}
         </p>
 
-        {/* Oversized serif title — cream on navy */}
+        {/* Oversized serif title — proxima-sera light, global standard */}
         <h1
           data-reveal="title"
           className="mt-6 md:mt-8"
           style={{
-            fontFamily: "var(--serif)",
-            fontWeight: 400,
+            fontFamily: "proxima-sera, var(--serif)",
+            fontWeight: 300,
             fontStyle: "normal",
             fontSize: "clamp(120px, 18vw, 280px)",
-            letterSpacing: "-0.04em",
+            letterSpacing: "-0.055em",
             lineHeight: 0.9,
             color: "#f5f4f0",
             opacity: 0,
@@ -130,17 +130,18 @@ export default function VoiceHero() {
           Voice
         </h1>
 
-        {/* Quiet helper line — steel */}
+        {/* Section hero subtitle — proxima-sera 400, 22px per global standard */}
         <p
           data-reveal="helper"
-          className="mt-6 md:mt-8 max-w-[560px]"
+          className="mt-6 md:mt-8 max-w-[640px]"
           style={{
-            fontFamily: "var(--sans)",
-            fontWeight: 500,
-            fontSize: "clamp(15px, 1.1vw, 16px)",
-            lineHeight: 1.55,
+            fontFamily: "proxima-sera, var(--serif)",
+            fontWeight: 400,
+            fontStyle: "normal",
+            fontSize: "clamp(18px, 1.5vw, 22px)",
+            lineHeight: 1.5,
             letterSpacing: "-0.005em",
-            color: "rgba(133, 163, 200, 0.7)",
+            color: "rgba(245, 244, 240, 0.75)",
           }}
         >
           {cascadeWords(
