@@ -120,17 +120,18 @@ export default function LogosHero() {
           Logos
         </h1>
 
-        {/* Quiet helper line */}
+        {/* Editorial helper line — matches InteriorHero subtitle (proxima-sera 400) */}
         <p
           data-reveal="helper"
-          className="mt-6 md:mt-8 max-w-[560px]"
+          className="mt-6 md:mt-8 max-w-[640px]"
           style={{
-            fontFamily: "var(--sans)",
-            fontWeight: 500,
-            fontSize: "clamp(15px, 1.1vw, 16px)",
-            lineHeight: 1.55,
+            fontFamily: "proxima-sera, var(--serif)",
+            fontWeight: 400,
+            fontStyle: "normal",
+            fontSize: "clamp(18px, 1.5vw, 22px)",
+            lineHeight: 1.5,
             letterSpacing: "-0.005em",
-            color: "rgba(15,28,46,0.55)",
+            color: "rgba(15,28,46,0.88)",
             opacity: 0,
           }}
         >

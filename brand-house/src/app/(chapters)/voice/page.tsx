@@ -306,7 +306,7 @@ export default function VoicePage() {
         style={{
           zIndex: 0,
           background:
-            "linear-gradient(180deg, #0f1c2e 0%, #152a44 45%, #0b1728 100%)",
+            "linear-gradient(180deg, #152a44 0%, #0f1c2e 45%, #060d1a 100%)",
         }}
       >
         {/* Layer 1 — fine grain, the "paper tooth". High frequency, soft-light blend. */}
@@ -356,7 +356,7 @@ export default function VoicePage() {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at center, transparent 55%, rgba(5,11,22,0.35) 100%)",
+              "radial-gradient(ellipse at center, transparent 40%, rgba(3,7,16,0.55) 100%)",
           }}
         />
       </div>
