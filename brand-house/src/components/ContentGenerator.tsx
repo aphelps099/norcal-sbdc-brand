@@ -167,10 +167,10 @@ export default function ContentGenerator() {
                           <button
                             key={opt}
                             onClick={() => setAnswers((a) => ({ ...a, [q.id]: opt }))}
-                            className={`px-4 py-2.5 text-[13px] font-sans border rounded-lg transition-all ${
+                            className={`px-4 py-2.5 text-[13px] font-sans border-2 rounded-lg transition-all ${
                               answers[q.id] === opt
                                 ? "border-royal bg-royal/10 text-royal shadow-sm"
-                                : "border-navy/15 text-navy/70 hover:border-royal/40 hover:text-navy"
+                                : "border-navy/20 text-navy/70 hover:border-royal/40 hover:text-navy"
                             }`}
                           >
                             {opt}
@@ -183,7 +183,7 @@ export default function ContentGenerator() {
                         onChange={(e) => setAnswers((a) => ({ ...a, [q.id]: e.target.value }))}
                         placeholder={q.placeholder}
                         rows={3}
-                        className="w-full px-4 py-3.5 border border-navy/20 rounded-lg text-navy text-[14px] font-sans placeholder:text-navy/40 focus:outline-none focus:border-royal focus:ring-2 focus:ring-royal/15 transition-all resize-none"
+                        className="w-full px-4 py-3.5 border-2 border-navy/25 rounded-lg text-navy text-[14px] font-sans placeholder:text-navy/40 focus:outline-none focus:border-royal focus:ring-2 focus:ring-royal/15 transition-all resize-none"
                       />
                     ) : (
                       <input
@@ -191,7 +191,7 @@ export default function ContentGenerator() {
                         value={answers[q.id] || ""}
                         onChange={(e) => setAnswers((a) => ({ ...a, [q.id]: e.target.value }))}
                         placeholder={q.placeholder}
-                        className="w-full px-4 py-3.5 border border-navy/20 rounded-lg text-navy text-[14px] font-sans placeholder:text-navy/40 focus:outline-none focus:border-royal focus:ring-2 focus:ring-royal/15 transition-all"
+                        className="w-full px-4 py-3.5 border-2 border-navy/25 rounded-lg text-navy text-[14px] font-sans placeholder:text-navy/40 focus:outline-none focus:border-royal focus:ring-2 focus:ring-royal/15 transition-all"
                       />
                     )}
                   </div>
@@ -216,7 +216,7 @@ export default function ContentGenerator() {
             <div className="lg:col-span-7">
               <div
                 ref={outputRef}
-                className="relative border border-navy/25 rounded-xl bg-[#f7f7f5] min-h-[400px] flex flex-col overflow-hidden sticky top-8"
+                className="relative border-2 border-navy/30 rounded-xl bg-[#f7f7f5] min-h-[400px] flex flex-col overflow-hidden sticky top-8"
               >
                 {/* Header bar */}
                 <div className="px-6 md:px-8 pt-5 pb-3 border-b border-navy/15">
