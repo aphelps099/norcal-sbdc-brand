@@ -127,161 +127,276 @@ export default function StoriesPage() {
         subtitle="Real businesses. Measurable impact. Organized by tier so you can find the right client narrative for any audience."
       />
 
-      {/* ── SIGNATURE STORIES — Tier 01 ── */}
+      {/* ═══ TIER 01 · SIGNATURE — featured navy card + compact 5-up ═══ */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
-          <SectionLabel
-            noRule
-            eyebrow="Tier 01 · Signature"
-            title="Signature stories."
-            lead="Highest impact. Strong structure. Clear metrics and photography. Use these for annual reports, board presentations, lender pitches, and campaign hero stories."
-          />
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-24 relative z-10">
+          {/* Tier header — tag + title + desc, mockup's two-column header */}
+          <div className="tier-header grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-end mb-10 md:mb-12">
+            <div className="md:col-span-7">
+              <div className="inline-flex items-center gap-[10px] mb-5">
+                <span aria-hidden className="inline-block" style={{ width: 28, height: 2, background: "#0f1c2e" }} />
+                <span className="font-label uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.22em", color: "#0f1c2e" }}>Tier 01</span>
+                <span className="font-label uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.22em", color: "rgba(45,51,64,0.6)" }}>Signature Stories</span>
+              </div>
+              <h2 className="text-navy" style={{ fontFamily: "proxima-sera, var(--serif)", fontWeight: 300, fontSize: "clamp(40px, 5vw, 64px)", lineHeight: 1, letterSpacing: "-0.028em" }}>
+                Signature <em style={{ fontStyle: "italic", fontWeight: 300 }}>stories.</em>
+              </h2>
+            </div>
+            <div className="md:col-span-5">
+              <p style={{ fontFamily: "proxima-sera, var(--serif)", fontWeight: 400, fontSize: 17, lineHeight: 1.55, color: "#2D3340", maxWidth: 440 }}>
+                Highest impact. Strong structure. Clear metrics and photography. Annual reports, board presentations, lender pitches.
+              </p>
+            </div>
+          </div>
 
-          {/* Editorial stack — row hairlines between cards */}
-          <div className="mt-12 border-t border-navy/[0.12]">
-            {signatureStories.map((s) => (
+          {/* Featured card — navy, split two columns */}
+          {(() => {
+            const f = signatureStories[0];
+            return (
               <article
-                key={s.biz}
-                className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-12 md:py-14 border-b border-navy/[0.12]"
+                className="featured-card relative grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14"
+                style={{ background: "#0f1c2e", color: "#f5f4f0", padding: "56px clamp(28px, 4vw, 56px) 52px" }}
               >
-                <div className="md:col-span-3">
-                  <p className="font-label uppercase text-[#A73B44]" style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                    {s.center}
-                  </p>
-                  <h3 className="font-sans text-navy tracking-[-0.02em] mt-3" style={{ fontSize: "clamp(22px, 2.1vw, 28px)", fontWeight: 500, lineHeight: 1.1 }}>
-                    {s.biz}
+                <div className="absolute" style={{ top: 24, right: 28, display: "flex", alignItems: "center", gap: 10, fontFamily: "proxima-sera, var(--serif)", fontStyle: "italic", fontWeight: 300, fontSize: 13, color: "#85A3C8" }}>
+                  <span aria-hidden className="feat-pulse" style={{ width: 6, height: 6, borderRadius: "50%", background: "#A73B44", display: "inline-block" }} />
+                  Featured this quarter
+                </div>
+
+                <div className="flex flex-col gap-4">
+                  <div className="font-label uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.22em", color: "#85A3C8" }}>
+                    {f.center}
+                  </div>
+                  <h3 style={{ fontFamily: "proxima-sera, var(--serif)", fontWeight: 300, fontSize: "clamp(40px, 5vw, 60px)", lineHeight: 0.98, letterSpacing: "-0.025em", color: "#f5f4f0" }}>
+                    {f.biz}
                   </h3>
-                  <p className="font-sans text-navy/60 mt-2" style={{ fontSize: "clamp(14px, 1.05vw, 15px)" }}>
-                    {s.owner}
+                  <div style={{ fontFamily: "proxima-sera, var(--serif)", fontStyle: "italic", fontWeight: 300, fontSize: 17, color: "#85A3C8" }}>
+                    {f.owner}
+                  </div>
+                  <p className="mt-2" style={{ fontFamily: "proxima-sera, var(--serif)", fontWeight: 300, fontSize: 19, lineHeight: 1.45, color: "#85A3C8", maxWidth: 460 }}>
+                    {f.tagline}
                   </p>
                 </div>
 
-                <div className="md:col-span-6">
-                  <p className="font-sans italic text-navy/85 leading-[1.4]" style={{ fontFamily: "var(--serif)", fontSize: "clamp(20px, 2vw, 26px)", fontWeight: 400, letterSpacing: "-0.01em" }}>
-                    {s.tagline}
+                <div className="feat-right flex flex-col gap-6 md:border-l md:border-white/15 md:pl-10 lg:pl-14">
+                  <p style={{ fontFamily: "proxima-sera, var(--serif)", fontStyle: "italic", fontWeight: 300, fontSize: 18, lineHeight: 1.5, color: "rgba(245,244,240,0.9)", paddingLeft: 20, borderLeft: "2px solid #A73B44" }}>
+                    &ldquo;{f.quote}&rdquo;
                   </p>
-                  <p className="font-sans text-navy/70 leading-[1.6] mt-6" style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400 }}>
-                    &ldquo;{s.quote}&rdquo;
+                  <p style={{ fontSize: 12, lineHeight: 1.55, color: "rgba(133,163,200,0.85)", letterSpacing: "0.02em" }}>
+                    {f.highlights}
                   </p>
-                  <p className="font-label uppercase text-navy/55 mt-5" style={{ fontSize: "11px", letterSpacing: "0.18em" }}>
-                    Highlights · {s.highlights}
-                  </p>
-                </div>
-
-                <div className="md:col-span-3 md:text-right">
-                  <p className="font-sans text-navy leading-none tracking-[-0.03em]" style={{ fontSize: "clamp(44px, 5vw, 68px)", fontWeight: 500 }}>
-                    {s.metric}
-                  </p>
-                  <p className="font-label uppercase text-navy/55 mt-3" style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                    {s.metricLabel}
-                  </p>
-                  <a href={s.url} target="_blank" rel="noopener noreferrer"
-                    className="mt-6 inline-flex items-center gap-2 font-sans text-[#A73B44] hover:text-navy transition-colors no-underline"
-                    style={{ fontSize: "14px", fontWeight: 500 }}>
+                  <div className="flex items-baseline justify-between gap-4 mt-3">
+                    <span style={{ fontFamily: "proxima-sera, var(--serif)", fontWeight: 300, fontSize: "clamp(48px, 5.5vw, 64px)", lineHeight: 1, letterSpacing: "-0.025em", color: "#f5f4f0" }}>
+                      {f.metric}
+                    </span>
+                    <span className="font-label uppercase text-right" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.22em", color: "#85A3C8", lineHeight: 1.4 }}>
+                      {f.metricLabel.split(" ").map((w, i, arr) => (
+                        <span key={i}>{w}{i < arr.length - 1 ? <br /> : null}</span>
+                      ))}
+                    </span>
+                  </div>
+                  <a href={f.url} target="_blank" rel="noopener noreferrer"
+                    className="feat-cta inline-flex items-center gap-[10px] no-underline self-start mt-2"
+                    style={{ fontFamily: "var(--sans)", fontSize: 11, fontWeight: 600, letterSpacing: "0.16em", textTransform: "uppercase", color: "#f5f4f0" }}>
                     Read full story
-                    <span className="material-symbols-outlined" style={{ fontSize: 16 }}>arrow_forward</span>
+                    <span aria-hidden style={{ fontFamily: "proxima-sera, var(--serif)", fontSize: 14 }}>→</span>
                   </a>
                 </div>
               </article>
+            );
+          })()}
+
+          {/* Compact 5-up row — remaining signature stories */}
+          <div className="sig-compact-row grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 mt-10 md:mt-12">
+            {signatureStories.slice(1, 6).map((s, i, arr) => (
+              <a
+                key={s.biz}
+                href={s.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="sig-compact flex flex-col gap-3 no-underline"
+                style={{
+                  padding: i === 0 ? "4px 20px 4px 0" : i === arr.length - 1 ? "4px 0 4px 20px" : "4px 20px 4px 20px",
+                  borderRight: i < arr.length - 1 ? "1px solid rgba(15,28,46,0.1)" : "none",
+                  color: "inherit",
+                }}
+              >
+                <div className="font-label uppercase" style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.22em", color: "rgba(45,51,64,0.65)" }}>
+                  {s.center}
+                </div>
+                <h4 style={{ fontFamily: "proxima-sera, var(--serif)", fontWeight: 300, fontSize: 22, lineHeight: 1.08, letterSpacing: "-0.012em", color: "#0f1c2e" }}>
+                  {s.biz}
+                </h4>
+                <div style={{ fontFamily: "proxima-sera, var(--serif)", fontStyle: "italic", fontWeight: 300, fontSize: 12, color: "rgba(45,51,64,0.75)", marginTop: -4 }}>
+                  {s.owner.split(",")[0]}
+                </div>
+                <div className="flex items-baseline justify-between gap-2 mt-4">
+                  <span style={{ fontFamily: "proxima-sera, var(--serif)", fontWeight: 300, fontSize: 26, lineHeight: 1, letterSpacing: "-0.015em", color: "#0f1c2e" }}>
+                    {s.metric}
+                  </span>
+                  <span className="font-label uppercase text-right" style={{ fontSize: 8, fontWeight: 600, letterSpacing: "0.18em", color: "rgba(45,51,64,0.75)", lineHeight: 1.4 }}>
+                    {s.metricLabel.split(" ").map((w, j, wa) => (
+                      <span key={j}>{w}{j < wa.length - 1 ? <br /> : null}</span>
+                    ))}
+                  </span>
+                </div>
+              </a>
             ))}
+          </div>
+
+          {/* Signature footer */}
+          <div className="sig-foot flex flex-col md:flex-row md:justify-between md:items-center gap-4 mt-12">
+            <div style={{ fontFamily: "proxima-sera, var(--serif)", fontStyle: "italic", fontWeight: 300, fontSize: 17, color: "#2D3340" }}>
+              {signatureStories.length} signature stories in the 2026 library.
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── GROWTH STORIES — Tier 02 ── */}
+      {/* ═══ TIER 02 · GROWTH — line-item list ═══ */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
-          <SectionLabel
-            eyebrow="Tier 02 · Growth"
-            title="Growth stories."
-            lead="Good narrative, developing structure. These stories show real progress but may need tighter metrics or editing before use in formal presentations."
-          />
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-24 relative z-10 border-t border-navy/[0.15]">
+          <div className="tier-header grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-end mt-14 mb-10 md:mb-12">
+            <div className="md:col-span-7">
+              <div className="inline-flex items-center gap-[10px] mb-5">
+                <span aria-hidden className="inline-block" style={{ width: 28, height: 2, background: "#00685E" }} />
+                <span className="font-label uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.22em", color: "#00685E" }}>Tier 02</span>
+                <span className="font-label uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.22em", color: "rgba(45,51,64,0.6)" }}>Growth Stories</span>
+              </div>
+              <h2 className="text-navy" style={{ fontFamily: "proxima-sera, var(--serif)", fontWeight: 300, fontSize: "clamp(40px, 5vw, 64px)", lineHeight: 1, letterSpacing: "-0.028em" }}>
+                Growth <em style={{ fontStyle: "italic", fontWeight: 300, color: "#00685E" }}>stories.</em>
+              </h2>
+            </div>
+            <div className="md:col-span-5">
+              <p style={{ fontFamily: "proxima-sera, var(--serif)", fontWeight: 400, fontSize: 17, lineHeight: 1.55, color: "#2D3340", maxWidth: 440 }}>
+                Good narratives with real results. A working library that fuels regular content across social, newsletters, and partner updates.
+              </p>
+            </div>
+          </div>
 
-          <div className="mt-10 space-y-10 md:space-y-12">
-            {growthStories.map((g) => (
-              <article
+          <div className="gr-list" style={{ borderTop: "1px solid rgba(15,28,46,0.12)" }}>
+            {growthStories.map((g, i) => (
+              <a
                 key={g.biz}
-                className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10"
+                href={g.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="gr-item grid items-baseline no-underline"
+                style={{
+                  gridTemplateColumns: "60px 180px 1fr 180px 40px",
+                  gap: 24,
+                  padding: "28px 8px",
+                  borderBottom: "1px solid rgba(15,28,46,0.08)",
+                  color: "inherit",
+                }}
               >
-                <div className="md:col-span-4">
-                  <p className="font-label uppercase text-[#A73B44]" style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                    {g.center}
-                  </p>
-                  <h3 className="font-sans text-navy tracking-[-0.015em] mt-2" style={{ fontSize: "clamp(19px, 1.7vw, 22px)", fontWeight: 500, lineHeight: 1.2 }}>
+                <div style={{ fontFamily: "proxima-sera, var(--serif)", fontStyle: "italic", fontWeight: 300, fontSize: 22, color: "#00685E", opacity: 0.7 }}>
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+                <div className="font-label uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.2em", color: "rgba(45,51,64,0.7)" }}>
+                  {g.center}
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <div style={{ fontFamily: "proxima-sera, var(--serif)", fontWeight: 300, fontSize: 24, lineHeight: 1.1, letterSpacing: "-0.015em", color: "#0f1c2e" }}>
                     {g.biz}
-                  </h3>
-                  <p className="font-sans text-navy/60 mt-1" style={{ fontSize: "clamp(13px, 1vw, 14px)" }}>
-                    {g.owner}
-                  </p>
+                  </div>
+                  <div style={{ fontFamily: "proxima-sera, var(--serif)", fontStyle: "italic", fontWeight: 300, fontSize: 14, color: "rgba(45,51,64,0.8)", lineHeight: 1.45 }}>
+                    {g.owner} — {g.tagline}
+                  </div>
                 </div>
-                <div className="md:col-span-5">
-                  <p className="font-sans text-navy/80 leading-[1.55]" style={{ fontSize: "clamp(15px, 1.1vw, 16px)", fontWeight: 400 }}>
-                    {g.tagline}
-                  </p>
-                  <p className="font-sans italic text-navy/60 leading-[1.5] mt-3" style={{ fontFamily: "var(--serif)", fontSize: "clamp(14px, 1.05vw, 15px)" }}>
-                    &ldquo;{g.quote}&rdquo;
-                  </p>
+                <div className="text-right" style={{ fontSize: 12, lineHeight: 1.5, color: "#2D3340" }}>
+                  <strong style={{ color: "#00685E", fontWeight: 600, fontSize: 14, display: "block", marginBottom: 2 }}>
+                    {g.results.split(".")[0]}
+                  </strong>
+                  {g.results.split(".").slice(1).join(".").trim()}
                 </div>
-                <div className="md:col-span-3 flex flex-col justify-between">
-                  <p className="font-sans text-navy/75 leading-[1.55]" style={{ fontSize: "clamp(14px, 1.05vw, 15px)", fontWeight: 400 }}>
-                    {g.results}
-                  </p>
-                  <a href={g.url} target="_blank" rel="noopener noreferrer"
-                    className="mt-4 inline-flex items-center gap-1.5 font-sans text-[#A73B44] hover:text-navy transition-colors no-underline self-start"
-                    style={{ fontSize: "13px", fontWeight: 500 }}>
-                    Read
-                    <span className="material-symbols-outlined" style={{ fontSize: 15 }}>arrow_forward</span>
-                  </a>
+                <div className="gr-arrow text-right" aria-hidden style={{ fontFamily: "proxima-sera, var(--serif)", fontSize: 18, color: "rgba(45,51,64,0.4)" }}>
+                  →
                 </div>
-              </article>
+              </a>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── COMMUNITY SPOTLIGHTS — Tier 03 ── */}
+      {/* ═══ TIER 03 · SPOTLIGHTS — quote wall ═══ */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
-          <SectionLabel
-            eyebrow="Tier 03 · Spotlights"
-            title="Community spotlights."
-            lead="Inspiring personal stories with lighter economic impact. Best for social media highlights, newsletter human-interest pieces, and community engagement."
-          />
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-24 relative z-10 border-t border-navy/[0.15]">
+          <div className="tier-header grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-end mt-14 mb-10 md:mb-12">
+            <div className="md:col-span-7">
+              <div className="inline-flex items-center gap-[10px] mb-5">
+                <span aria-hidden className="inline-block" style={{ width: 28, height: 2, background: "#A73B44" }} />
+                <span className="font-label uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.22em", color: "#A73B44" }}>Tier 03</span>
+                <span className="font-label uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.22em", color: "rgba(45,51,64,0.6)" }}>Community Spotlights</span>
+              </div>
+              <h2 className="text-navy" style={{ fontFamily: "proxima-sera, var(--serif)", fontWeight: 300, fontSize: "clamp(40px, 5vw, 64px)", lineHeight: 1, letterSpacing: "-0.028em" }}>
+                Community <em style={{ fontStyle: "italic", fontWeight: 300, color: "#A73B44" }}>spotlights.</em>
+              </h2>
+            </div>
+            <div className="md:col-span-5">
+              <p style={{ fontFamily: "proxima-sera, var(--serif)", fontWeight: 400, fontSize: 17, lineHeight: 1.55, color: "#2D3340", maxWidth: 440 }}>
+                Human-interest stories that keep feeds warm and relatable. Not metrics-driven — about connection, community, and the human side of entrepreneurship.
+              </p>
+            </div>
+          </div>
 
-          <div className="mt-10 space-y-10 md:space-y-12">
+          <div className="spot-wall grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ columnGap: 56, rowGap: 64 }}>
             {spotlights.map((sp) => (
-              <article
+              <a
                 key={sp.biz}
-                className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10"
+                href={sp.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="spot-item flex flex-col gap-5 no-underline"
+                style={{ color: "inherit" }}
               >
-                <div className="md:col-span-4">
-                  <p className="font-label uppercase text-[#A73B44]" style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                    {sp.center}
-                  </p>
-                  <h3 className="font-sans text-navy tracking-[-0.015em] mt-2" style={{ fontSize: "clamp(19px, 1.7vw, 22px)", fontWeight: 500, lineHeight: 1.2 }}>
-                    {sp.biz}
-                  </h3>
-                  <p className="font-sans text-navy/60 mt-1" style={{ fontSize: "clamp(13px, 1vw, 14px)" }}>
+                <div aria-hidden style={{ fontFamily: "proxima-sera, var(--serif)", fontWeight: 300, fontSize: 72, lineHeight: 0.5, color: "#A73B44", opacity: 0.85, marginBottom: -4, marginLeft: -4 }}>
+                  &ldquo;
+                </div>
+                <p style={{ fontFamily: "proxima-sera, var(--serif)", fontStyle: "italic", fontWeight: 300, fontSize: 22, lineHeight: 1.35, color: "#0f1c2e", letterSpacing: "-0.012em" }}>
+                  {sp.desc}
+                </p>
+                <div className="spot-attr flex flex-col gap-1 mt-auto relative" style={{ paddingTop: 16 }}>
+                  <span aria-hidden style={{ position: "absolute", top: 0, left: 0, width: 40, height: 1, background: "#A73B44", opacity: 0.6 }} />
+                  <div style={{ fontFamily: "proxima-sera, var(--serif)", fontWeight: 400, fontSize: 15, color: "#0f1c2e", letterSpacing: "-0.005em" }}>
                     {sp.owner}
-                  </p>
+                  </div>
+                  <div style={{ fontFamily: "proxima-sera, var(--serif)", fontStyle: "italic", fontWeight: 300, fontSize: 13, color: "rgba(45,51,64,0.8)" }}>
+                    {sp.biz}
+                  </div>
+                  <div className="font-label uppercase mt-1" style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.22em", color: "rgba(45,51,64,0.55)" }}>
+                    {sp.center}
+                  </div>
                 </div>
-                <div className="md:col-span-6">
-                  <p className="font-sans text-navy/80 leading-[1.6]" style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400 }}>
-                    {sp.desc}
-                  </p>
-                </div>
-                <div className="md:col-span-2 flex items-start md:justify-end">
-                  <a href={sp.url} target="_blank" rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 font-sans text-[#A73B44] hover:text-navy transition-colors no-underline"
-                    style={{ fontSize: "13px", fontWeight: 500 }}>
-                    Read
-                    <span className="material-symbols-outlined" style={{ fontSize: 15 }}>arrow_forward</span>
-                  </a>
-                </div>
-              </article>
+              </a>
             ))}
           </div>
         </div>
+
+        {/* scoped styles — pulse animation + hover niceties */}
+        <style>{`
+          @keyframes storyPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+          .feat-pulse { animation: storyPulse 2s ease-in-out infinite; }
+          .feat-cta { transition: gap 0.25s ease, color 0.2s ease; }
+          .feat-cta:hover { color: #85A3C8; gap: 14px; }
+          .sig-compact { transition: opacity 0.3s ease; }
+          .sig-compact:hover { opacity: 0.72; }
+          .gr-item { transition: background 0.2s ease; }
+          .gr-item:hover { background: rgba(0,104,94,0.03); }
+          .gr-item:hover .gr-arrow { opacity: 1; transform: translateX(4px); color: #00685E; }
+          .gr-arrow { transition: all 0.25s ease; }
+          .spot-item { transition: transform 0.4s cubic-bezier(0.2,0.7,0.2,1); }
+          .spot-item:hover { transform: translateY(-3px); }
+          @media (max-width: 980px) {
+            .gr-item { grid-template-columns: 30px 1fr 30px !important; grid-template-areas: "num center arrow" "num main main" "num metric metric" !important; gap: 6px 16px !important; }
+            .gr-item > :nth-child(1) { grid-area: num; }
+            .gr-item > :nth-child(2) { grid-area: center; }
+            .gr-item > :nth-child(3) { grid-area: main; }
+            .gr-item > :nth-child(4) { grid-area: metric; text-align: left !important; }
+            .gr-item > :nth-child(5) { grid-area: arrow; }
+            .sig-compact { border-right: none !important; border-bottom: 1px solid rgba(15,28,46,0.1); padding: 0 0 20px 0 !important; }
+            .sig-compact:last-child { border-bottom: none; }
+          }
+        `}</style>
       </section>
 
       {/* ── DISTRIBUTION — navy hero moment ── */}
