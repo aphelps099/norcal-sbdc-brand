@@ -148,7 +148,7 @@ export default function ThinkingCluster({
 
           {/* Hero asterisk — 6-arm radial, big and centered, slow spin */}
           <g className="tc-hero" style={{ transformOrigin: "100px 100px" }}>
-            <g stroke="#1D5AA7" strokeWidth="7" strokeLinecap="round" opacity="0.9">
+            <g stroke="#1D5AA7" strokeWidth="2" strokeLinecap="round" opacity="0.85">
               <line x1="100" y1="50" x2="100" y2="150" />
               <line x1="100" y1="50" x2="100" y2="150" transform="rotate(60 100 100)" />
               <line x1="100" y1="50" x2="100" y2="150" transform="rotate(120 100 100)" />

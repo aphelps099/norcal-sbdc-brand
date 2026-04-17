@@ -13,7 +13,8 @@ export default function GeneratePage() {
           painted after). Both are fixed/pointer-events-none. Content sits
           above at zIndex 1. */}
       <BlueprintBackdrop />
-      <GrainBackdrop intensity={0.7} />
+      {/* Very light grain so the airy blue wash stays clean */}
+      <GrainBackdrop intensity={0.25} />
 
       <div className="relative" style={{ zIndex: 1 }}>
         <div className="relative">

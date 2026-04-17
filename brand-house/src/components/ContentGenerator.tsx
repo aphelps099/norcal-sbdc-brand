@@ -167,10 +167,10 @@ export default function ContentGenerator() {
                           <button
                             key={opt}
                             onClick={() => setAnswers((a) => ({ ...a, [q.id]: opt }))}
-                            className={`px-4 py-2.5 text-[13px] font-sans border-2 rounded-lg transition-all ${
+                            className={`px-4 py-2.5 text-[13px] font-sans rounded-lg transition-all ${
                               answers[q.id] === opt
-                                ? "border-royal bg-royal/10 text-royal shadow-sm"
-                                : "border-navy/20 text-navy/70 hover:border-royal/40 hover:text-navy"
+                                ? "bg-royal/15 text-royal shadow-sm"
+                                : "bg-white/70 text-navy/70 hover:bg-white hover:text-navy"
                             }`}
                           >
                             {opt}
@@ -183,7 +183,7 @@ export default function ContentGenerator() {
                         onChange={(e) => setAnswers((a) => ({ ...a, [q.id]: e.target.value }))}
                         placeholder={q.placeholder}
                         rows={3}
-                        className="w-full px-4 py-3.5 border-2 border-navy/25 rounded-lg text-navy text-[14px] font-sans placeholder:text-navy/40 focus:outline-none focus:border-royal focus:ring-2 focus:ring-royal/15 transition-all resize-none"
+                        className="w-full px-4 py-3.5 bg-white rounded-lg text-navy text-[14px] font-sans placeholder:text-navy/40 shadow-[0_1px_2px_rgba(15,28,46,0.04)] focus:outline-none focus:ring-2 focus:ring-royal/25 transition-all resize-none"
                       />
                     ) : (
                       <input
@@ -191,7 +191,7 @@ export default function ContentGenerator() {
                         value={answers[q.id] || ""}
                         onChange={(e) => setAnswers((a) => ({ ...a, [q.id]: e.target.value }))}
                         placeholder={q.placeholder}
-                        className="w-full px-4 py-3.5 border-2 border-navy/25 rounded-lg text-navy text-[14px] font-sans placeholder:text-navy/40 focus:outline-none focus:border-royal focus:ring-2 focus:ring-royal/15 transition-all"
+                        className="w-full px-4 py-3.5 bg-white rounded-lg text-navy text-[14px] font-sans placeholder:text-navy/40 shadow-[0_1px_2px_rgba(15,28,46,0.04)] focus:outline-none focus:ring-2 focus:ring-royal/25 transition-all"
                       />
                     )}
                   </div>
