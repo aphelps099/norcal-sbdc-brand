@@ -11,7 +11,7 @@
  * overlay: brand color key applied as a tinted overlay on each tile.
  *   "navy"   → #0f1c2e  (dark editorial)
  *   "royal"  → #1D5AA7  (brand blue)
- *   "coral"  → #c4543a  (warm accent)
+ *   "coral"  → #A73B44  (warm accent)
  *   "pool"   → #8FC5D9  (light teal)
  */
 

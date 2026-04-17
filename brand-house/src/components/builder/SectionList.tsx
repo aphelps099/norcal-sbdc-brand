@@ -16,7 +16,7 @@ const TYPE_COLORS: Record<string, string> = {
   nav: "#6366f1",
   splash: "#f59e0b",
   hero: "#1D5AA7",
-  manifesto: "#c4543a",
+  manifesto: "#A73B44",
   chapter: "#22c55e",
   custom: "#8b5cf6",
   footer: "#64748b",

@@ -218,7 +218,7 @@ export default function BrandVideoPlayer({ videoId }: { videoId: string }) {
           onClick={(e) => e.stopPropagation()}
         >
           {/* Coral accent line */}
-          <div className="w-full h-[2px] bg-[#c4543a]" />
+          <div className="w-full h-[2px] bg-[#A73B44]" />
 
           {/* 16:9 stage */}
           <div

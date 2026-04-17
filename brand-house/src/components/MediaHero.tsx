@@ -74,7 +74,7 @@ export default function MediaHero() {
       <div
         aria-hidden
         className="w-full"
-        style={{ height: 3, background: "#c4543a" }}
+        style={{ height: 3, background: "#A73B44" }}
       />
 
       {/* Giant translucent chapter "05" */}

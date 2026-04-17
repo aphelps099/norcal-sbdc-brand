@@ -21,7 +21,7 @@ export default function TemplatesPage() {
       {/* ── Main dark panel ── */}
       <div className="bg-[#0f1c2e] relative overflow-hidden">
         {/* Top coral keyline */}
-        <div className="w-full h-[2px] bg-[#c4543a]" />
+        <div className="w-full h-[2px] bg-[#A73B44]" />
 
         <div className="max-w-[960px] mx-auto px-8 md:px-12 py-16 md:py-20">
 
@@ -53,7 +53,7 @@ export default function TemplatesPage() {
           {/* ── 01 / Email Signature ── */}
           <div className="relative mb-16 overflow-hidden">
             {/* Coral rule + eyebrow */}
-            <div className="w-8 h-[2px] bg-[#c4543a] mb-4" />
+            <div className="w-8 h-[2px] bg-[#A73B44] mb-4" />
             <p
               className="font-label uppercase tracking-[0.1em] text-white/25 mb-2"
               style={{ fontSize: "10px" }}
@@ -88,7 +88,7 @@ export default function TemplatesPage() {
 
           {/* ── 02 / Social Bio ── */}
           <div className="relative mb-16 overflow-hidden">
-            <div className="w-8 h-[2px] bg-[#c4543a] mb-4" />
+            <div className="w-8 h-[2px] bg-[#A73B44] mb-4" />
             <div className="flex items-start justify-between gap-6 mb-6">
               <div>
                 <p
@@ -143,7 +143,7 @@ export default function TemplatesPage() {
 
           {/* ── 03 / Elevator Pitch ── */}
           <div className="relative overflow-hidden">
-            <div className="w-8 h-[2px] bg-[#c4543a] mb-4" />
+            <div className="w-8 h-[2px] bg-[#A73B44] mb-4" />
             <div className="flex items-start justify-between gap-6 mb-6">
               <div>
                 <p
@@ -197,7 +197,7 @@ export default function TemplatesPage() {
         </div>
 
         {/* Bottom coral keyline */}
-        <div className="w-full h-[2px] bg-[#c4543a]" />
+        <div className="w-full h-[2px] bg-[#A73B44]" />
       </div>
 
       <NextSectionLink title="Content" href="/content" />

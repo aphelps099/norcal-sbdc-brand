@@ -69,7 +69,7 @@ export default function ColorsPage() {
                     "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E\")",
                 }}
               />
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c4543a]" />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#A73B44]" />
               <div className="absolute -right-10 -bottom-10 w-[60%] opacity-[0.09] pointer-events-none">
                 <svg viewBox="0 0 2107 2003" aria-hidden="true">
                   <path d={STAR_PATH} fill="white" />
@@ -85,7 +85,7 @@ export default function ColorsPage() {
                   </span>
                 </div>
                 <div>
-                  <div className="w-8 h-[2px] bg-[#c4543a] mb-4" />
+                  <div className="w-8 h-[2px] bg-[#A73B44] mb-4" />
                   <h3
                     className="text-white/95 leading-[1.0] tracking-[-0.03em]"
                     style={{
@@ -111,7 +111,7 @@ export default function ColorsPage() {
             {/* ─── Poster 2 · TURNIP EDITORIAL ─── */}
             <PosterFrame caption="02 · Editorial — Sera on Cream">
               <div className="absolute inset-0" style={{ backgroundColor: "#f5f4f0" }} />
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c4543a]" />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#A73B44]" />
               <div className="relative h-full flex flex-col justify-between p-6 md:p-8">
                 <p className="font-label text-[9px] uppercase tracking-[0.18em] text-navy/40">
                   Client Story · 02
@@ -129,7 +129,7 @@ export default function ColorsPage() {
                     “I couldn’t have started this business without
                     <span style={{ color: "#A73B44" }}> the SBDC</span>.”
                   </p>
-                  <div className="w-8 h-[2px] bg-[#c4543a] mb-3" />
+                  <div className="w-8 h-[2px] bg-[#A73B44] mb-3" />
                   <p className="font-sans text-navy text-[12px]" style={{ fontWeight: 500 }}>
                     David Cruz, CEO
                   </p>
@@ -143,7 +143,7 @@ export default function ColorsPage() {
             {/* ─── Poster 3 · IMPACT STAT ─── */}
             <PosterFrame caption="03 · Impact Report — Navy anchor">
               <div className="absolute inset-0" style={{ backgroundColor: "#0f1c2e" }} />
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c4543a]" />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#A73B44]" />
               <div className="absolute -left-16 -bottom-16 w-[70%] opacity-[0.05] pointer-events-none">
                 <svg viewBox="0 0 2107 2003" aria-hidden="true">
                   <path d={STAR_PATH} fill="white" />
@@ -164,7 +164,7 @@ export default function ColorsPage() {
                   >
                     $847M
                   </p>
-                  <div className="w-8 h-[2px] bg-[#c4543a] my-4" />
+                  <div className="w-8 h-[2px] bg-[#A73B44] my-4" />
                   <p className="font-label text-[10px] uppercase tracking-[0.14em] text-white/60">
                     Capital Facilitated
                   </p>
@@ -197,7 +197,7 @@ export default function ColorsPage() {
                   <p className="font-label text-[9px] uppercase tracking-[0.14em] text-white/50">
                     @norcalsbdc
                   </p>
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#c4543a]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#A73B44]" />
                 </div>
                 <div>
                   <p
@@ -215,7 +215,7 @@ export default function ColorsPage() {
                       One advisor call at a time.
                     </span>
                   </p>
-                  <div className="w-6 h-[2px] bg-[#c4543a] mb-3" />
+                  <div className="w-6 h-[2px] bg-[#A73B44] mb-3" />
                   <p className="font-label text-[9px] uppercase tracking-[0.12em] text-white/40">
                     Rep It Out · Vallejo
                   </p>
@@ -260,7 +260,7 @@ export default function ColorsPage() {
                     </h4>
                   </div>
                   <div>
-                    <div className="w-6 h-[2px] bg-[#c4543a] mb-3" />
+                    <div className="w-6 h-[2px] bg-[#A73B44] mb-3" />
                     <p className="font-label text-[9px] uppercase tracking-[0.12em] text-navy/45">
                       Issue 04 · Quarterly
                     </p>
@@ -272,7 +272,7 @@ export default function ColorsPage() {
             {/* ─── Poster 6 · TAGLINE (Turnip closer) ─── */}
             <PosterFrame caption="06 · Tagline — Sera italic closer">
               <div className="absolute inset-0" style={{ backgroundColor: "#0f1c2e" }} />
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#c4543a]" />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#A73B44]" />
               <div className="absolute -right-12 -top-12 w-[70%] opacity-[0.06] pointer-events-none">
                 <svg viewBox="0 0 2107 2003" aria-hidden="true">
                   <path d={STAR_PATH} fill="white" />
@@ -304,7 +304,7 @@ export default function ColorsPage() {
                       Better.
                     </span>
                   </h3>
-                  <div className="w-8 h-[2px] bg-[#c4543a] mt-6 mb-3" />
+                  <div className="w-8 h-[2px] bg-[#A73B44] mt-6 mb-3" />
                   <p className="font-label text-[9px] uppercase tracking-[0.14em] text-white/45">
                     Navy anchor · Fog emphasis
                   </p>

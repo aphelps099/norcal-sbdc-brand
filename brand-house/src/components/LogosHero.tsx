@@ -70,7 +70,7 @@ export default function LogosHero() {
       className="relative bg-cream overflow-hidden"
     >
       {/* Coral category bar */}
-      <div aria-hidden className="w-full" style={{ height: 3, background: "#c4543a" }} />
+      <div aria-hidden className="w-full" style={{ height: 3, background: "#A73B44" }} />
 
       {/* Giant translucent chapter "03" */}
       <span

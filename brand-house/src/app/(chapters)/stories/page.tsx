@@ -97,7 +97,7 @@ const growthStories = [
 const spotlights = [
   { biz: "Cha-Cha Sweets", owner: "Angel Rodriguez", center: "Solano-Napa SBDC", desc: "18-year-old entrepreneur built a chamoy candy company from his bedroom to six-figure sales.", tags: ["Social Media", "Youth Entrepreneurship"], photo: "https://www.norcalsbdc.org/wp-content/uploads/sites/26/2025/11/Angel-Cha-Cha-Sweets-1-970x1200.jpeg", photoTint: "#1D5AA7", url: "https://www.norcalsbdc.org/shared/client-stories/cha-cha-sweets/" },
   { biz: "Glory Grove Organics", owner: "Linda Allivato", center: "Silicon Valley SBDC", desc: "Eco-conscious consumer products startup in patent and prototype phase.", tags: ["Newsletter", "Early-Stage"], photo: null, photoTint: "#0f1c2e", url: "https://www.norcalsbdc.org/shared/client-stories/glory-grove-organics/" },
-  { biz: "El Papalote Childcare Services", owner: "Carmen Jimenez Martinez", center: "San Francisco SBDC", desc: "Licensed in-home daycare in SF\u2019s Tenderloin, reached full capacity within months of launch.", tags: ["Social Media", "Community Impact"], photo: "https://www.norcalsbdc.org/wp-content/uploads/sites/13/2025/08/Carmen_Jimenez.png", photoTint: "#c4543a", url: "https://www.norcalsbdc.org/shared/client-stories/el-papalote-childcare-services/" },
+  { biz: "El Papalote Childcare Services", owner: "Carmen Jimenez Martinez", center: "San Francisco SBDC", desc: "Licensed in-home daycare in SF\u2019s Tenderloin, reached full capacity within months of launch.", tags: ["Social Media", "Community Impact"], photo: "https://www.norcalsbdc.org/wp-content/uploads/sites/13/2025/08/Carmen_Jimenez.png", photoTint: "#A73B44", url: "https://www.norcalsbdc.org/shared/client-stories/el-papalote-childcare-services/" },
 ];
 
 export default function StoriesPage() {
@@ -133,7 +133,7 @@ export default function StoriesPage() {
       <div className="bg-cream py-16 md:py-20">
         <div className="max-w-[1080px] mx-auto px-8 md:px-12">
           <div className="mb-12">
-            <div className="w-8 h-[2px] bg-[#c4543a] mb-5" />
+            <div className="w-8 h-[2px] bg-[#A73B44] mb-5" />
             <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Tier 01</p>
             <h2 className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>Signature Stories</h2>
             <p className="font-sans text-navy/50 text-[14px] leading-relaxed mt-2 max-w-[480px]">Highest impact. Strong structure. Clear metrics and photography. Use for annual reports, board presentations, lender pitches, and campaign hero stories.</p>
@@ -189,7 +189,7 @@ export default function StoriesPage() {
       <div className="bg-cream py-16 md:py-20">
         <div className="max-w-[1080px] mx-auto px-8 md:px-12">
           <div className="mb-10">
-            <div className="w-8 h-[2px] bg-[#c4543a] mb-5" />
+            <div className="w-8 h-[2px] bg-[#A73B44] mb-5" />
             <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Tier 02</p>
             <h2 className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>Growth Stories</h2>
             <p className="font-sans text-navy/50 text-[14px] leading-relaxed mt-2 max-w-[480px]">Good narrative, developing structure. These stories show real progress but may need tighter metrics or editing before use in formal presentations.</p>
@@ -207,7 +207,7 @@ export default function StoriesPage() {
                 <div className="min-w-0">
                   <p className="font-label text-[9px] text-navy/25 uppercase tracking-[0.08em] mb-2">Key Results</p>
                   {g.results.map((r) => (
-                    <p key={r} className="font-sans text-navy/60 text-[13px] leading-snug pl-3.5 relative mb-1 before:content-[''] before:absolute before:left-0 before:top-[7px] before:w-[4px] before:h-[4px] before:rounded-full before:bg-[#c4543a]/60">{r}</p>
+                    <p key={r} className="font-sans text-navy/60 text-[13px] leading-snug pl-3.5 relative mb-1 before:content-[''] before:absolute before:left-0 before:top-[7px] before:w-[4px] before:h-[4px] before:rounded-full before:bg-[#A73B44]/60">{r}</p>
                   ))}
                   <p className="font-sans text-navy/35 text-[13px] italic mt-3 pt-2.5 border-t border-navy/[0.05] leading-snug">&ldquo;{g.quote}&rdquo;</p>
                 </div>
@@ -227,7 +227,7 @@ export default function StoriesPage() {
       <div className="bg-cream py-16 md:py-20">
         <div className="max-w-[1080px] mx-auto px-8 md:px-12">
           <div className="mb-10">
-            <div className="w-8 h-[2px] bg-[#c4543a] mb-5" />
+            <div className="w-8 h-[2px] bg-[#A73B44] mb-5" />
             <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Tier 03</p>
             <h2 className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>Community Spotlights</h2>
             <p className="font-sans text-navy/50 text-[14px] leading-relaxed mt-2 max-w-[480px]">Inspiring personal stories with lighter economic impact. Best for social media highlights, newsletter human-interest pieces, and community engagement.</p>
@@ -270,7 +270,7 @@ export default function StoriesPage() {
         <SbdcWatermark className="absolute -right-[6%] top-[8%] w-[35vw] max-w-[420px] text-white pointer-events-none select-none" opacity={0.04} />
         <div className="max-w-[1080px] mx-auto px-8 md:px-12 relative z-10">
           <div className="mb-10">
-            <div className="w-full h-[2px] bg-[#c4543a] mb-6" />
+            <div className="w-full h-[2px] bg-[#A73B44] mb-6" />
             <p className="font-label text-[10px] uppercase tracking-[0.1em] text-white/30 mb-2">Distribution</p>
             <h2 className="font-sans text-white/95 tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>How to Promote Each Tier</h2>
             <p className="font-sans text-white/40 text-[14px] leading-relaxed mt-2 max-w-[480px]">Each story tier has a different distribution strategy. Signature stories are strategic assets. Growth stories fuel everyday content. Spotlights keep social feeds human.</p>
@@ -280,7 +280,7 @@ export default function StoriesPage() {
             {/* Signature */}
             <div className="bg-white/[0.06] p-6 flex flex-col">
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#c4543a]" />
+                <div className="w-1.5 h-1.5 rounded-full bg-[#A73B44]" />
                 <h3 className="font-sans text-white text-[14px]" style={{ fontWeight: 500 }}>Signature Stories</h3>
               </div>
               <p className="font-sans text-white/50 text-[13px] leading-relaxed mb-5">~15 per year. The highest-impact narratives &mdash; capital, expansion, innovation, and underserved communities. These become strategic tools for fundraising, stakeholder engagement, PR, and special events.</p>
@@ -371,7 +371,7 @@ export default function StoriesPage() {
           </div>
 
           {/* Topic range note */}
-          <div className="mt-6 p-5 bg-white/[0.06] border-l-2 border-[#c4543a] max-w-[540px]">
+          <div className="mt-6 p-5 bg-white/[0.06] border-l-2 border-[#A73B44] max-w-[540px]">
             <p className="font-label text-[9px] uppercase tracking-[0.08em] text-white/25 mb-1.5">Story Range</p>
             <p className="font-sans text-white/55 text-[13px] leading-relaxed">Signature stories should span capital access, business expansion, and innovation. Occasionally spotlight rural and underserved communities to reflect the full reach of the network.</p>
           </div>
@@ -382,7 +382,7 @@ export default function StoriesPage() {
       <div className="bg-cream py-16 md:py-20">
         <div className="max-w-[1080px] mx-auto px-8 md:px-12">
           <div className="mb-12">
-            <div className="w-8 h-[2px] bg-[#c4543a] mb-5" />
+            <div className="w-8 h-[2px] bg-[#A73B44] mb-5" />
             <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Evaluation</p>
             <h2 className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>Story Scoring Rubric</h2>
             <p className="font-sans text-navy/50 text-[14px] leading-relaxed mt-2 max-w-[480px]">Use this rubric to evaluate and classify new client stories. Every story should be scored before publishing.</p>
@@ -455,7 +455,7 @@ export default function StoriesPage() {
         </div>
         <div className="max-w-[1080px] mx-auto px-8 md:px-12 relative z-10">
           <div className="mb-12">
-            <div className="w-8 h-[2px] bg-[#c4543a] mb-5" />
+            <div className="w-8 h-[2px] bg-[#A73B44] mb-5" />
             <p className="font-label text-[10px] uppercase tracking-[0.1em] text-navy/30 mb-2">Templates</p>
             <h2 className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 500 }}>Story Toolkit</h2>
             <p className="font-sans text-navy/50 text-[14px] leading-relaxed mt-2 max-w-[480px]">Templates and guidelines for writing new success stories to the Signature standard.</p>

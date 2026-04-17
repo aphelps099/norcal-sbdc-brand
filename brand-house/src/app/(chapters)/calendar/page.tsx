@@ -178,7 +178,8 @@ function ThemeTitle({
   dark: boolean;
 }) {
   const base = dark ? "#f5f4f0" : "#0f1c2e";
-  // replace the accent word (case-insensitive) with a coral span
+  const accentColor = dark ? "#85A3C8" : "#A73B44";
+  // replace the accent word (case-insensitive) with a tinted span
   const parts = accent
     ? line2.split(new RegExp(`(${accent})`, "i"))
     : [line2];
@@ -187,9 +188,9 @@ function ThemeTitle({
       className="italic"
       style={{
         fontFamily: "var(--serif)",
-        fontSize: "clamp(64px, 9vw, 140px)",
+        fontSize: "clamp(40px, 5vw, 68px)",
         letterSpacing: "-0.04em",
-        lineHeight: 0.92,
+        lineHeight: 0.96,
         fontWeight: 400,
         color: base,
       }}
@@ -198,7 +199,7 @@ function ThemeTitle({
       <br />
       {parts.map((p, i) =>
         p.toLowerCase() === (accent ?? "").toLowerCase() ? (
-          <span key={i} style={{ color: "#c4543a" }}>
+          <span key={i} style={{ color: accentColor }}>
             {p}
           </span>
         ) : (
@@ -229,10 +230,10 @@ function QuarterSection({ q, reverse }: { q: Quarter; reverse: boolean }) {
         />
       )}
 
-      <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-28 md:py-40 relative z-10">
+      <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-16 md:py-24 relative z-10">
         {/* Quarter eyebrow */}
         <p
-          className={`font-label uppercase mb-10 ${mono}`}
+          className={`font-label uppercase mb-6 ${mono}`}
           style={{ fontSize: "11px", letterSpacing: "0.22em", fontWeight: 500 }}
         >
           {q.label} · {q.months}
@@ -240,7 +241,7 @@ function QuarterSection({ q, reverse }: { q: Quarter; reverse: boolean }) {
 
         {/* 5/7 asymmetric essay — reverse alternates direction for rhythm */}
         <div
-          className={`grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-start ${
+          className={`grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start ${
             reverse ? "md:[&>*:first-child]:order-2" : ""
           }`}
         >
@@ -255,8 +256,8 @@ function QuarterSection({ q, reverse }: { q: Quarter; reverse: boolean }) {
 
           <div className="md:col-span-6">
             <p
-              className={`font-sans leading-[1.55] ${primary}`}
-              style={{ fontSize: "clamp(18px, 1.7vw, 22px)", fontWeight: 400, letterSpacing: "-0.005em" }}
+              className={`font-sans leading-[1.6] ${primary}`}
+              style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400, letterSpacing: "-0.005em" }}
             >
               {q.intro}
             </p>
@@ -265,23 +266,23 @@ function QuarterSection({ q, reverse }: { q: Quarter; reverse: boolean }) {
 
         {/* Single container-width rule before the campaign list */}
         <div
-          className="mt-20 md:mt-28 mb-12"
+          className="mt-12 md:mt-16 mb-10"
           style={{ height: "2px", backgroundColor: ruleClr }}
         />
 
         {/* Stacked campaign rows — no boxes, no chip chrome */}
-        <div className="space-y-12 md:space-y-16">
+        <div className="space-y-8 md:space-y-10">
           {q.campaigns.map((c) => (
-            <div key={c.name} className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-10">
+            <div key={c.name} className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-8">
               <div className="md:col-span-4">
                 <p
                   className={`font-sans ${primary}`}
-                  style={{ fontSize: "clamp(20px, 1.9vw, 24px)", fontWeight: 500, letterSpacing: "-0.01em", lineHeight: 1.2 }}
+                  style={{ fontSize: "clamp(17px, 1.5vw, 19px)", fontWeight: 500, letterSpacing: "-0.01em", lineHeight: 1.25 }}
                 >
                   {c.name}
                 </p>
                 <p
-                  className={`font-label uppercase mt-3 ${soft}`}
+                  className={`font-label uppercase mt-2 ${soft}`}
                   style={{ fontSize: "11px", letterSpacing: "0.22em" }}
                 >
                   {c.timing}
@@ -293,9 +294,9 @@ function QuarterSection({ q, reverse }: { q: Quarter; reverse: boolean }) {
                   className={`italic ${primary}`}
                   style={{
                     fontFamily: "var(--serif)",
-                    fontSize: "clamp(22px, 2.4vw, 32px)",
+                    fontSize: "clamp(18px, 1.8vw, 22px)",
                     letterSpacing: "-0.02em",
-                    lineHeight: 1.22,
+                    lineHeight: 1.28,
                     fontWeight: 400,
                   }}
                 >
@@ -308,8 +309,8 @@ function QuarterSection({ q, reverse }: { q: Quarter; reverse: boolean }) {
 
         {/* Awareness — prose, not chips */}
         <p
-          className={`mt-20 md:mt-24 font-sans leading-[1.6] max-w-[820px] ${soft}`}
-          style={{ fontSize: "clamp(16px, 1.5vw, 18px)", fontWeight: 400 }}
+          className={`mt-12 md:mt-16 font-sans leading-[1.65] max-w-[780px] ${soft}`}
+          style={{ fontSize: "clamp(14px, 1.1vw, 16px)", fontWeight: 400 }}
         >
           <span
             className={`font-label uppercase mr-3 ${mono}`}
@@ -338,14 +339,14 @@ export default function CalendarPage() {
 
       {/* ── EDITORIAL HERO MOMENT — navy ── */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "#0f1c2e" }}>
-        <div className="w-full h-[2px] bg-[#c4543a]" />
+        <div className="w-full h-[2px] bg-[#85A3C8]" />
         <SbdcWatermark
-          className="absolute -right-[6%] top-[8%] w-[38vw] max-w-[460px] text-white pointer-events-none select-none"
+          className="absolute -right-[6%] top-[8%] w-[32vw] max-w-[380px] text-white pointer-events-none select-none"
           opacity={0.03}
         />
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-28 md:py-40 relative z-10">
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
           <p
-            className="font-label uppercase mb-10 text-[#85A3C8]"
+            className="font-label uppercase mb-6 text-[#85A3C8]"
             style={{ fontSize: "11px", letterSpacing: "0.22em", fontWeight: 500 }}
           >
             The Year, in Four Beats
@@ -355,20 +356,20 @@ export default function CalendarPage() {
             className="italic text-white"
             style={{
               fontFamily: "var(--serif)",
-              fontSize: "clamp(72px, 11vw, 180px)",
+              fontSize: "clamp(48px, 6vw, 82px)",
               letterSpacing: "-0.04em",
-              lineHeight: 0.9,
+              lineHeight: 0.95,
               fontWeight: 400,
             }}
           >
             Four quarters.
             <br />
-            One <span style={{ color: "#c4543a" }}>voice</span>.
+            One <span style={{ color: "#85A3C8" }}>voice</span>.
           </h2>
 
           <p
-            className="mt-14 md:mt-16 font-sans text-white/80 leading-[1.55] max-w-[720px]"
-            style={{ fontSize: "clamp(18px, 1.8vw, 22px)", fontWeight: 400, letterSpacing: "-0.005em" }}
+            className="mt-10 font-sans text-white/80 leading-[1.6] max-w-[640px]"
+            style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400, letterSpacing: "-0.005em" }}
           >
             Every quarter has a theme. Every theme drives coordinated messaging across
             all sixteen centers. When we speak together, we&rsquo;re louder — while leaving
@@ -384,23 +385,23 @@ export default function CalendarPage() {
 
       {/* ── ALWAYS-ON RHYTHM — cream, stacked rows ── */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-28 md:py-40 relative z-10">
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-16 md:py-24 relative z-10">
           <p
-            className="font-label uppercase mb-10 text-[#A73B44]"
+            className="font-label uppercase mb-6 text-[#A73B44]"
             style={{ fontSize: "11px", letterSpacing: "0.22em", fontWeight: 500 }}
           >
             Between the Beats
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
             <div className="md:col-span-5">
               <h2
                 className="italic text-navy"
                 style={{
                   fontFamily: "var(--serif)",
-                  fontSize: "clamp(56px, 7.2vw, 104px)",
+                  fontSize: "clamp(40px, 5vw, 68px)",
                   letterSpacing: "-0.04em",
-                  lineHeight: 0.92,
+                  lineHeight: 0.96,
                   fontWeight: 400,
                 }}
               >
@@ -411,8 +412,8 @@ export default function CalendarPage() {
             </div>
             <div className="md:col-span-7">
               <p
-                className="font-sans text-navy leading-[1.55]"
-                style={{ fontSize: "clamp(18px, 1.7vw, 22px)", fontWeight: 400, letterSpacing: "-0.005em" }}
+                className="font-sans text-navy leading-[1.6]"
+                style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400, letterSpacing: "-0.005em" }}
               >
                 Between the quarterly campaigns, five series keep our channels alive and
                 on-brand. These are the heartbeats — small, reliable, unmistakably us.
@@ -421,7 +422,7 @@ export default function CalendarPage() {
           </div>
 
           <div
-            className="mt-20 md:mt-28 mb-4"
+            className="mt-12 md:mt-16 mb-2"
             style={{ height: "2px", backgroundColor: "rgba(15,28,46,0.18)" }}
           />
 
@@ -429,17 +430,17 @@ export default function CalendarPage() {
             {alwaysOn.map((s) => (
               <div
                 key={s.title}
-                className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-10 py-10 md:py-12"
+                className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-8 py-7 md:py-8"
               >
                 <div className="md:col-span-4">
                   <p
                     className="font-sans text-navy"
-                    style={{ fontSize: "clamp(22px, 2.1vw, 28px)", fontWeight: 500, letterSpacing: "-0.01em", lineHeight: 1.2 }}
+                    style={{ fontSize: "clamp(17px, 1.5vw, 19px)", fontWeight: 500, letterSpacing: "-0.01em", lineHeight: 1.25 }}
                   >
                     {s.title}
                   </p>
                   <p
-                    className="font-label uppercase mt-3 text-[#c4543a]"
+                    className="font-label uppercase mt-2 text-[#A73B44]"
                     style={{ fontSize: "11px", letterSpacing: "0.22em", fontWeight: 500 }}
                   >
                     {s.cadence}
@@ -448,7 +449,7 @@ export default function CalendarPage() {
                 <div className="md:col-span-8">
                   <p
                     className="font-sans text-navy/75 leading-[1.6]"
-                    style={{ fontSize: "clamp(17px, 1.6vw, 19px)", fontWeight: 400 }}
+                    style={{ fontSize: "clamp(15px, 1.2vw, 16px)", fontWeight: 400 }}
                   >
                     {s.desc}
                   </p>
