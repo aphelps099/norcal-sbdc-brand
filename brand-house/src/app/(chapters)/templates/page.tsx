@@ -21,8 +21,10 @@ export default function TemplatesPage() {
 
       {/* ── Main dark panel ── */}
       <div className="bg-[#0f1c2e] relative overflow-hidden">
-        {/* Top coral keyline */}
-        <div className="w-full h-[2px] bg-[#A73B44]" />
+        {/* Top berry keyline — container-width (DESIGN.md §6) */}
+        <div className="max-w-[960px] mx-auto px-8 md:px-12">
+          <div className="h-[2px] bg-[#A73B44]" />
+        </div>
 
         <div className="max-w-[960px] mx-auto px-8 md:px-12 py-16 md:py-20">
 
@@ -197,8 +199,10 @@ export default function TemplatesPage() {
           </div>
         </div>
 
-        {/* Bottom coral keyline */}
-        <div className="w-full h-[2px] bg-[#A73B44]" />
+        {/* Bottom berry keyline — container-width */}
+        <div className="max-w-[960px] mx-auto px-8 md:px-12">
+          <div className="h-[2px] bg-[#A73B44]" />
+        </div>
       </div>
 
       <NextSectionLink title="Content" href="/content" />

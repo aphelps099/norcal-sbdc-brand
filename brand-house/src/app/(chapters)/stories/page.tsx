@@ -285,7 +285,9 @@ export default function StoriesPage() {
 
       {/* ── DISTRIBUTION — navy hero moment ── */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "#0f1c2e" }}>
-        <div className="w-full h-[2px] bg-[#85A3C8]" />
+        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
+          <div className="h-[2px] bg-[#5684BA]" />
+        </div>
         <SbdcWatermark
           className="absolute -right-[6%] top-[10%] w-[32vw] max-w-[380px] text-white pointer-events-none select-none"
           opacity={0.04}
