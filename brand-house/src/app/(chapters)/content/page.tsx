@@ -1165,140 +1165,288 @@ export default function ContentPage() {
         >
           calendar_month
         </span>
-        <Reveal className="max-w-[960px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
-          {/* Custom label — uses navy tints so it reads on both the steel bg
-             and the cream wash that fades in on scroll. */}
-          <div className="mb-10">
-            <p className="font-label uppercase text-navy/55 mb-3"
-              style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-              Year-Round Rhythm
-            </p>
-            <h2 className="font-sans text-navy tracking-[-0.015em]"
-              style={{ fontSize: "clamp(28px, 3.2vw, 40px)", fontWeight: 500, lineHeight: 1.05 }}>
-              Posting Rhythm
-            </h2>
-            <p className="font-sans text-navy/75 leading-[1.55] mt-5 max-w-[460px]"
-              style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400 }}>
-              Weekly, bi-weekly, and quarterly anchors — rotating our three pillars so every client sees the full story.
-            </p>
-          </div>
+        <Reveal className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
+          {(() => {
+            const PEOPLE = "#004290";
+            const FUNDED = "#00685E";
+            const CONNECTED = "#A73B44";
+            const NAVY = "#0f1c2e";
+            const SLATE = "#2D3340";
+            const pillars = [
+              { name: "People", color: PEOPLE },
+              { name: "Funded", color: FUNDED },
+              { name: "Connected", color: CONNECTED },
+            ];
+            const rows = [
+              {
+                freq: "Weekly",
+                titleLead: "Social ",
+                titleEm: "posts.",
+                rule: "Rotate pillars weekly — never the same pillar twice in a row.",
+                cells: [
+                  { body: "Advisor spotlight or team moment.", note: "Feed post · Reel · Story" },
+                  { body: "Capital stat, lending tip, or client win.", note: "Carousel · single image" },
+                  { body: "Event promo, workshop recap, or partner shout-out.", note: "Story series · Reel" },
+                ],
+              },
+              {
+                freq: "Bi-weekly",
+                titleLead: "News",
+                titleEm: "letter.",
+                rule: "One pillar leads the issue — the other two support in shorter reads.",
+                cells: [
+                  { body: "Lead story — client or advisor profile.", note: "~500 words · hero photo" },
+                  { body: "Quick tip on capital access or SBA updates.", note: "Sidebar · link block" },
+                  { body: "Program spotlight and upcoming events.", note: "Calendar strip · CTA" },
+                ],
+              },
+              {
+                freq: "Quarterly",
+                titleLead: "Anchor ",
+                titleEm: "content.",
+                rule: "One signature piece per quarter, broken into 4–6 weeks of derivative posts.",
+                cells: [
+                  { body: "Signature client success story, long-form.", note: "Case study · video cut" },
+                  { body: "Capital impact report or lender feature.", note: "Data report · infographics" },
+                  { body: "Event recap video or regional snapshot.", note: "Highlight reel · recap post" },
+                ],
+              },
+            ];
 
-          {/* Cadence × Pillar grid — each cadence is a row, pillars sit in a 3-up card grid */}
-          <div className="mt-14">
-            {(() => {
-              const PEOPLE = "#004290";
-              const FUNDED = "#00685E";
-              const CONNECTED = "#A73B44";
-              const rows = [
-                {
-                  freq: "Weekly",
-                  title: "Social posts",
-                  desc: "Rotate pillars weekly — never the same pillar twice in a row.",
-                  cards: [
-                    { name: "People", num: "01", color: PEOPLE, body: "Advisor spotlight or team moment." },
-                    { name: "Funded", num: "02", color: FUNDED, body: "Capital stat, lending tip, or client win." },
-                    { name: "Connected", num: "03", color: CONNECTED, body: "Event promo, workshop recap, or partner shout-out." },
-                  ],
-                },
-                {
-                  freq: "Bi-Weekly",
-                  title: "Newsletter",
-                  desc: "One pillar leads the issue. The other two support in shorter reads.",
-                  cards: [
-                    { name: "People", num: "01", color: PEOPLE, body: "Lead story — client or advisor profile." },
-                    { name: "Funded", num: "02", color: FUNDED, body: "Quick tip on capital access or SBA updates." },
-                    { name: "Connected", num: "03", color: CONNECTED, body: "Program spotlight and upcoming events." },
-                  ],
-                },
-                {
-                  freq: "Quarterly",
-                  title: "Anchor content",
-                  desc: "One signature piece, broken into 4–6 weeks of derivative posts.",
-                  cards: [
-                    { name: "People", num: "01", color: PEOPLE, body: "Signature client success story, long-form." },
-                    { name: "Funded", num: "02", color: FUNDED, body: "Capital impact report or lender feature." },
-                    { name: "Connected", num: "03", color: CONNECTED, body: "Event recap video or regional snapshot." },
-                  ],
-                },
-              ];
-              return rows.map((row, rowIdx) => (
-                <div
-                  key={row.freq}
-                  className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-8 md:gap-14 py-10 md:py-12"
-                  style={rowIdx > 0 ? { borderTop: "1px solid rgba(15,28,46,0.12)" } : undefined}
-                >
-                  {/* Cadence label */}
-                  <div className="flex flex-col gap-3">
-                    <p className="font-label uppercase text-navy/55"
-                      style={{ fontSize: "10px", letterSpacing: "0.22em", fontWeight: 600 }}>
-                      {row.freq}
-                    </p>
-                    <h3 className="text-navy tracking-[-0.01em]"
-                      style={{ fontFamily: "var(--serif)", fontWeight: 400, fontSize: "clamp(26px, 2.4vw, 32px)", lineHeight: 1.05 }}>
-                      {row.title}
-                    </h3>
-                    <p className="text-navy/75 leading-[1.55]"
-                      style={{ fontSize: "14px" }}>
-                      {row.desc}
+            return (
+              <>
+                {/* Editorial header */}
+                <header className="mb-14">
+                  <div className="flex items-center gap-4 mb-8">
+                    <span aria-hidden style={{ display: "inline-block", width: 28, height: 2, background: SLATE, opacity: 0.55 }} />
+                    <p className="font-label uppercase"
+                      style={{ fontSize: "10px", letterSpacing: "0.22em", fontWeight: 600, color: SLATE }}>
+                      Year-round rhythm
                     </p>
                   </div>
+                  <h2 className="tracking-[-0.028em]"
+                    style={{
+                      fontFamily: "proxima-sera, var(--serif)",
+                      fontWeight: 300,
+                      fontSize: "clamp(40px, 5.2vw, 68px)",
+                      lineHeight: 1.02,
+                      color: NAVY,
+                    }}>
+                    Posting <em style={{ fontStyle: "italic", fontWeight: 300 }}>rhythm.</em>
+                  </h2>
+                  <p className="mt-6 max-w-[56ch]"
+                    style={{
+                      fontFamily: "proxima-sera, var(--serif)",
+                      fontWeight: 300,
+                      fontSize: "19px",
+                      lineHeight: 1.55,
+                      color: SLATE,
+                    }}>
+                    A 3×3 system — three cadences down, three pillars across. Every client sees every pillar, every quarter, on repeat.
+                  </p>
+                </header>
 
-                  {/* Pillar cards — no borders, no dividers, just airy columns */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-8">
-                    {row.cards.map((c) => (
-                      <article
-                        key={c.name}
-                        className="group relative"
-                        style={{ padding: "4px 0 0" }}
-                      >
-                        <header className="flex items-baseline justify-between mb-5">
-                          <span className="relative inline-block font-label uppercase"
-                            style={{ fontSize: "10px", letterSpacing: "0.22em", fontWeight: 600, color: c.color, paddingBottom: 6 }}>
-                            {c.name}
-                            {/* Horizontal underline grows from left on hover */}
-                            <span
-                              aria-hidden
-                              className="absolute left-0 bottom-0 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)]"
-                              style={{ height: 2, width: "100%", background: c.color }}
-                            />
-                          </span>
-                          <span style={{ fontFamily: "var(--serif)", fontStyle: "italic", fontWeight: 400, fontSize: "22px", color: c.color, opacity: 0.7 }}>
-                            {c.num}
-                          </span>
-                        </header>
-                        <p className="text-navy"
-                          style={{ fontFamily: "var(--serif)", fontWeight: 400, fontSize: "17px", lineHeight: 1.45, letterSpacing: "-0.005em" }}>
-                          {c.body}
+                {/* 3×3 matrix */}
+                <div className="hidden md:block">
+                  {/* Column headers */}
+                  <div className="grid"
+                    style={{ gridTemplateColumns: "200px 1fr 1fr 1fr", columnGap: "40px" }}>
+                    <div />
+                    {pillars.map((p) => (
+                      <div key={p.name} className="flex items-center gap-3 pb-6"
+                        style={{ borderBottom: `1px solid rgba(15,28,46,0.16)` }}>
+                        <span aria-hidden style={{ display: "inline-block", width: 24, height: 2, background: p.color }} />
+                        <span className="font-label uppercase"
+                          style={{ fontSize: "10px", letterSpacing: "0.22em", fontWeight: 600, color: p.color }}>
+                          {p.name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Rows */}
+                  {rows.map((row) => (
+                    <div key={row.freq} className="grid py-10"
+                      style={{
+                        gridTemplateColumns: "200px 1fr 1fr 1fr",
+                        columnGap: "40px",
+                        borderBottom: "1px solid rgba(15,28,46,0.10)",
+                      }}>
+                      {/* Row label */}
+                      <div className="pr-4">
+                        <p className="font-label uppercase mb-3"
+                          style={{ fontSize: "10px", letterSpacing: "0.22em", fontWeight: 600, color: SLATE }}>
+                          {row.freq}
                         </p>
-                      </article>
+                        <h3 className="tracking-[-0.022em]"
+                          style={{
+                            fontFamily: "proxima-sera, var(--serif)",
+                            fontWeight: 300,
+                            fontSize: "clamp(28px, 2.8vw, 36px)",
+                            lineHeight: 1.05,
+                            color: NAVY,
+                          }}>
+                          {row.titleLead}<em style={{ fontStyle: "italic", fontWeight: 300 }}>{row.titleEm}</em>
+                        </h3>
+                        <p className="mt-4"
+                          style={{
+                            fontFamily: "var(--sans)",
+                            fontSize: "13px",
+                            lineHeight: 1.55,
+                            color: "rgba(15,28,46,0.65)",
+                          }}>
+                          {row.rule}
+                        </p>
+                      </div>
+
+                      {/* Cells */}
+                      {row.cells.map((cell, ci) => {
+                        const p = pillars[ci];
+                        return (
+                          <div key={ci} className="flex flex-col">
+                            <span className="font-label uppercase mb-4"
+                              style={{ fontSize: "9px", letterSpacing: "0.22em", fontWeight: 600, color: p.color }}>
+                              {p.name}
+                            </span>
+                            <p style={{
+                              fontFamily: "proxima-sera, var(--serif)",
+                              fontWeight: 400,
+                              fontSize: "19px",
+                              lineHeight: 1.4,
+                              letterSpacing: "-0.01em",
+                              color: NAVY,
+                            }}>
+                              {cell.body}
+                            </p>
+                            <p className="mt-4"
+                              style={{
+                                fontFamily: "var(--sans)",
+                                fontSize: "13px",
+                                lineHeight: 1.5,
+                                color: "rgba(15,28,46,0.55)",
+                              }}>
+                              {cell.note}
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Mobile stack */}
+                <div className="md:hidden space-y-10">
+                  {rows.map((row) => (
+                    <div key={row.freq} className="pb-8"
+                      style={{ borderBottom: "1px solid rgba(15,28,46,0.10)" }}>
+                      <p className="font-label uppercase mb-2"
+                        style={{ fontSize: "10px", letterSpacing: "0.22em", fontWeight: 600, color: SLATE }}>
+                        {row.freq}
+                      </p>
+                      <h3 style={{
+                        fontFamily: "proxima-sera, var(--serif)",
+                        fontWeight: 300,
+                        fontSize: "30px",
+                        lineHeight: 1.05,
+                        letterSpacing: "-0.022em",
+                        color: NAVY,
+                      }}>
+                        {row.titleLead}<em style={{ fontStyle: "italic", fontWeight: 300 }}>{row.titleEm}</em>
+                      </h3>
+                      <p className="mt-3 mb-6"
+                        style={{ fontFamily: "var(--sans)", fontSize: "13px", lineHeight: 1.55, color: "rgba(15,28,46,0.65)" }}>
+                        {row.rule}
+                      </p>
+                      <div className="space-y-5">
+                        {row.cells.map((cell, ci) => {
+                          const p = pillars[ci];
+                          return (
+                            <div key={ci} className="pl-4" style={{ borderLeft: `2px solid ${p.color}` }}>
+                              <span className="font-label uppercase block mb-2"
+                                style={{ fontSize: "9px", letterSpacing: "0.22em", fontWeight: 600, color: p.color }}>
+                                {p.name}
+                              </span>
+                              <p style={{
+                                fontFamily: "proxima-sera, var(--serif)",
+                                fontWeight: 400,
+                                fontSize: "18px",
+                                lineHeight: 1.4,
+                                letterSpacing: "-0.01em",
+                                color: NAVY,
+                              }}>
+                                {cell.body}
+                              </p>
+                              <p className="mt-2"
+                                style={{ fontFamily: "var(--sans)", fontSize: "12px", lineHeight: 1.5, color: "rgba(15,28,46,0.55)" }}>
+                                {cell.note}
+                              </p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Dashed-top footer — three rhythm rules */}
+                <div className="mt-16 pt-10"
+                  style={{ borderTop: "1px dashed rgba(15,28,46,0.28)" }}>
+                  <div className="flex items-center gap-4 mb-8">
+                    <span aria-hidden style={{ display: "inline-block", width: 28, height: 2, background: SLATE, opacity: 0.55 }} />
+                    <p className="font-label uppercase"
+                      style={{ fontSize: "10px", letterSpacing: "0.22em", fontWeight: 600, color: SLATE }}>
+                      Three rhythm rules
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    {[
+                      { num: "01", label: "Weekly", lead: "Rotate.", body: "Never let the same pillar headline two weeks in a row. If People led this week, Funded or Connected leads next." },
+                      { num: "02", label: "Bi-weekly", lead: "One leads.", body: "Pick a lead pillar for each newsletter. Supporting pillars appear as shorter sidebar reads or link blocks." },
+                      { num: "03", label: "Quarterly", lead: "Make it anchor.", body: "One signature piece per quarter earns 4–6 weeks of derivative posts across every channel." },
+                    ].map((r) => (
+                      <div key={r.num}>
+                        <div className="flex items-baseline gap-4 mb-3">
+                          <span style={{
+                            fontFamily: "proxima-sera, var(--serif)",
+                            fontStyle: "italic",
+                            fontWeight: 300,
+                            fontSize: "28px",
+                            color: "rgba(15,28,46,0.35)",
+                            letterSpacing: "-0.02em",
+                          }}>
+                            {r.num}
+                          </span>
+                          <span className="font-label uppercase"
+                            style={{ fontSize: "10px", letterSpacing: "0.22em", fontWeight: 600, color: SLATE }}>
+                            {r.label}
+                          </span>
+                        </div>
+                        <p className="mb-3" style={{
+                          fontFamily: "proxima-sera, var(--serif)",
+                          fontStyle: "italic",
+                          fontWeight: 400,
+                          fontSize: "22px",
+                          lineHeight: 1.2,
+                          letterSpacing: "-0.015em",
+                          color: NAVY,
+                        }}>
+                          {r.lead}
+                        </p>
+                        <p style={{
+                          fontFamily: "var(--sans)",
+                          fontSize: "14px",
+                          lineHeight: 1.6,
+                          color: "rgba(15,28,46,0.72)",
+                        }}>
+                          {r.body}
+                        </p>
+                      </div>
                     ))}
                   </div>
                 </div>
-              ));
-            })()}
-          </div>
-
-          {/* Rotation rule — paired with month chips */}
-          <div className="mt-16 pt-10 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-8 md:gap-14 items-start"
-            style={{ borderTop: "1px solid rgba(15,28,46,0.12)" }}>
-            <p className="font-label uppercase text-navy/55 mt-1"
-              style={{ fontSize: "10px", letterSpacing: "0.22em", fontWeight: 600 }}>
-              Pillar Rotation
-            </p>
-            <div>
-              <p className="text-navy/85 max-w-[620px]"
-                style={{ fontFamily: "var(--serif)", fontStyle: "italic", fontWeight: 400, fontSize: "clamp(17px, 1.5vw, 20px)", lineHeight: 1.55 }}>
-                Each month one pillar leads, the other two support. Then repeat.
-              </p>
-              <div className="mt-5 inline-flex flex-wrap font-label uppercase"
-                style={{ fontSize: "11px", letterSpacing: "0.16em", fontWeight: 500 }}>
-                <span className="pr-3.5" style={{ color: "#004290" }}>Jan · People</span>
-                <span className="px-3.5" style={{ color: "#00685E", borderLeft: "1px solid rgba(15,28,46,0.20)" }}>Feb · Funded</span>
-                <span className="px-3.5" style={{ color: "#A73B44", borderLeft: "1px solid rgba(15,28,46,0.20)" }}>Mar · Connected</span>
-                <span className="pl-3.5 text-navy/60" style={{ borderLeft: "1px solid rgba(15,28,46,0.20)" }}>→ Repeat</span>
-              </div>
-            </div>
-          </div>
+              </>
+            );
+          })()}
         </Reveal>
       </section>
 
