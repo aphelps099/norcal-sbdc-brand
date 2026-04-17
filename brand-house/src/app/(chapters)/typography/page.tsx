@@ -222,14 +222,10 @@ export default function TypographyPage() {
         <TypographySpecimens />
 
         {/* ============================================================
-            Type in Use — editorial asymmetric layout
+            Fonts in Practice — editorial asymmetric layout + mosaic
             (Uses the same full-bleed rule + section heading rhythm as Colors)
         ============================================================ */}
         <TypeInUse />
-
-        {/* ============================================================
-            Usage Reference
-        ============================================================ */}
         <UsageReference rows={usageRows} />
 
         <div style={{ height: "clamp(80px, 10vw, 120px)" }} />
@@ -260,10 +256,10 @@ function TypeInUse() {
             lineHeight: 1.05,
           }}
         >
-          Type in Use
+          Fonts in Practice
         </h2>
         <p
-          className="text-navy/55 mt-4 max-w-[560px]"
+          className="text-navy/55 mt-4 max-w-[640px]"
           style={{
             fontFamily: "var(--sans)",
             fontWeight: 500,
@@ -272,7 +268,7 @@ function TypeInUse() {
             lineHeight: 1.55,
           }}
         >
-          Real artifacts — reports, social posts, fliers, stories — rendered with the system&rsquo;s typefaces.
+          Real artifacts — reports, social posts, fliers, stories — rendered with the system&rsquo;s typefaces. Below, a reference mosaic where tile size equals speaking volume.
         </p>
       </div>
 
@@ -757,11 +753,12 @@ function UsageReference({ rows: _rows }: { rows: UsageRow[] }) {
           style={{
             fontFamily: "var(--font-wide), var(--sans)",
             fontWeight: 700,
-            fontSize: "clamp(32px, 5.2vw, 76px)",
-            letterSpacing: "-0.005em",
+            fontSize: "clamp(28px, 4.2vw, 58px)",
+            letterSpacing: "-0.01em",
             lineHeight: 0.9,
             textTransform: "uppercase",
             color: CREAM,
+            wordBreak: "break-word",
           }}
         >
           <div>NorCal</div>
@@ -1002,48 +999,32 @@ function UsageReference({ rows: _rows }: { rows: UsageRow[] }) {
   };
 
   return (
-    <section style={{ paddingTop: "clamp(80px, 10vw, 140px)", paddingBottom: "24px" }}>
-      {/* Section heading — matches page rhythm */}
-      <div className="max-w-[960px] mx-auto px-8 md:px-12 lg:px-16 mb-10 md:mb-14">
-        <h2
-          className="text-navy"
-          style={{
-            fontFamily: "var(--sans)",
-            fontWeight: 500,
-            fontSize: "clamp(28px, 3.2vw, 40px)",
-            letterSpacing: "-0.015em",
-            lineHeight: 1.05,
-          }}
-        >
-          Usage Reference
-        </h2>
+    <section style={{ paddingTop: "clamp(40px, 6vw, 72px)", paddingBottom: "24px" }}>
+      {/* Inline eyebrow for the mosaic — integrated into Fonts in Practice */}
+      <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 mb-6 md:mb-8">
         <p
-          className="text-navy/55 mt-4 max-w-[560px]"
           style={{
-            fontFamily: "var(--sans)",
-            fontWeight: 500,
-            fontSize: "clamp(15px, 1.1vw, 16px)",
-            letterSpacing: "-0.005em",
-            lineHeight: 1.55,
+            fontFamily: "var(--font-wide)",
+            fontWeight: 700,
+            fontSize: "10px",
+            letterSpacing: "0.24em",
+            textTransform: "uppercase",
+            color: "rgba(15,28,46,0.45)",
           }}
         >
-          Tile size equals speaking volume. The loudest voices get the biggest rooms — because type is hierarchy, and hierarchy is the whole point.
+          Reference Mosaic · Tile Size = Speaking Volume
         </p>
       </div>
 
-      <div className="max-w-[960px] mx-auto px-8 md:px-12 lg:px-16 mb-10 md:mb-14">
-        <div aria-hidden style={{ height: 2, background: "rgba(15,28,46,0.18)" }} />
-      </div>
-
-      {/* Mosaic grid — max 960 */}
-      <div className="max-w-[960px] mx-auto px-8 md:px-12 lg:px-16">
+      {/* Mosaic grid — matches editorial container width (1200) */}
+      <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
         <div
           className="mosaic-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(12, minmax(0, 1fr))",
-            gridAutoRows: "88px",
-            gap: 6,
+            gridAutoRows: "104px",
+            gap: 8,
           }}
         >
           {tiles.map((t) => {
