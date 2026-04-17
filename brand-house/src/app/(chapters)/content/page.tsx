@@ -128,7 +128,7 @@ function PlatformTiles() {
               </span>
               <span
                 className="font-sans text-white text-center px-4"
-                style={{ fontSize: "clamp(18px, 2vw, 24px)", fontWeight: 500, letterSpacing: "-0.015em" }}
+                style={{ fontSize: "clamp(16px, 1.6vw, 20px)", fontWeight: 500, letterSpacing: "-0.015em" }}
               >
                 {p.platform}
               </span>
@@ -154,7 +154,7 @@ function PlatformTiles() {
                 Platform
               </p>
               <p className="font-sans text-white"
-                style={{ fontSize: "clamp(22px, 2.2vw, 28px)", fontWeight: 500, letterSpacing: "-0.015em" }}>
+                style={{ fontSize: "clamp(19px, 1.7vw, 22px)", fontWeight: 500, letterSpacing: "-0.015em" }}>
                 {current.platform}
               </p>
               <p className="font-label uppercase text-white/70 mt-6 mb-2"
@@ -164,9 +164,9 @@ function PlatformTiles() {
               <p className="italic text-white"
                 style={{
                   fontFamily: "var(--serif)",
-                  fontSize: "clamp(22px, 2.4vw, 30px)",
+                  fontSize: "clamp(19px, 1.8vw, 24px)",
                   letterSpacing: "-0.02em",
-                  lineHeight: 1.15,
+                  lineHeight: 1.2,
                   fontWeight: 400,
                 }}>
                 {current.tone}.
@@ -178,8 +178,8 @@ function PlatformTiles() {
                 style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
                 Focus
               </p>
-              <p className="font-sans text-white/95 leading-[1.55]"
-                style={{ fontSize: "clamp(16px, 1.5vw, 18px)", fontWeight: 400 }}>
+              <p className="font-sans text-white/95 leading-[1.6]"
+                style={{ fontSize: "clamp(15px, 1.1vw, 16px)", fontWeight: 400 }}>
                 {current.focus}
               </p>
             </div>
@@ -190,7 +190,7 @@ function PlatformTiles() {
                 Cadence
               </p>
               <p className="font-sans text-white"
-                style={{ fontSize: "clamp(18px, 1.8vw, 22px)", fontWeight: 500 }}>
+                style={{ fontSize: "clamp(16px, 1.4vw, 18px)", fontWeight: 500 }}>
                 {current.frequency}
               </p>
             </div>
@@ -213,22 +213,22 @@ export default function ContentPage() {
 
       {/* ── CONTENT GENERATOR — editorial hero on cream ── */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
-        <div className="w-full h-[2px] bg-[#1D5AA7]" />
+        <div className="w-full h-[2px] bg-[#A73B44]" />
         <SbdcWatermark
           className="absolute -right-[6%] top-[10%] w-[38vw] max-w-[460px] text-navy pointer-events-none select-none"
           opacity={0.04}
         />
         <span
-          className="material-symbols-outlined absolute -right-12 -bottom-24 text-[#1D5AA7]/[0.07] pointer-events-none select-none"
+          className="material-symbols-outlined absolute -right-12 -bottom-24 text-[#A73B44]/[0.07] pointer-events-none select-none"
           style={{ fontSize: "min(80vw, 820px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
           aria-hidden="true"
         >
           auto_awesome
         </span>
 
-        <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-24 md:py-36">
-          <p className="font-label uppercase mb-8"
-            style={{ fontSize: "11px", letterSpacing: "0.22em", color: "#1D5AA7" }}>
+        <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28">
+          <p className="font-label uppercase mb-6"
+            style={{ fontSize: "11px", letterSpacing: "0.22em", color: "#A73B44" }}>
             Tool · AI-Powered
           </p>
 
@@ -236,8 +236,8 @@ export default function ContentPage() {
             className="italic tracking-[-0.04em] text-navy"
             style={{
               fontFamily: "var(--serif)",
-              fontSize: "clamp(72px, 11vw, 180px)",
-              lineHeight: 0.92,
+              fontSize: "clamp(48px, 6vw, 82px)",
+              lineHeight: 0.95,
               fontWeight: 400,
             }}
           >
@@ -246,19 +246,19 @@ export default function ContentPage() {
             Generator.
           </h2>
 
-          <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-start">
+          <div className="mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-start">
             <div className="md:col-span-7">
               <p
-                className="font-sans text-navy/80 leading-[1.45] max-w-[640px]"
-                style={{ fontSize: "clamp(22px, 2.1vw, 28px)", fontWeight: 400, letterSpacing: "-0.01em" }}
+                className="font-sans text-navy/80 leading-[1.55] max-w-[620px]"
+                style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400, letterSpacing: "-0.005em" }}
               >
                 Write on-brand success stories, social posts, newsletters, and workshop recaps — all trained on NorCal SBDC&rsquo;s voice, pillars, and messaging framework.
               </p>
 
               <Link
                 href="/generate"
-                className="inline-flex items-center gap-3 mt-10 bg-[#004290] hover:bg-[#003278] text-white font-sans px-7 py-4 transition-colors no-underline"
-                style={{ fontSize: "15px", fontWeight: 500, letterSpacing: "0.02em" }}
+                className="inline-flex items-center gap-3 mt-8 bg-[#004290] hover:bg-[#003278] text-white font-sans px-6 py-3.5 transition-colors no-underline"
+                style={{ fontSize: "14px", fontWeight: 500, letterSpacing: "0.02em" }}
               >
                 <span
                   className="material-symbols-outlined"
@@ -316,34 +316,34 @@ export default function ContentPage() {
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
           <SectionLabel eyebrow="Social Media · Principles" title="Three things, always." />
 
-          <p className="font-sans text-navy/70 leading-[1.6] mb-16 max-w-[680px] -mt-6"
-            style={{ fontSize: "clamp(17px, 1.6vw, 20px)", fontWeight: 400 }}>
+          <p className="font-sans text-navy/70 leading-[1.6] mb-14 max-w-[620px] -mt-6"
+            style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400 }}>
             We build our social media presence on content that&rsquo;s relevant
             and authentic. Every post reflects who we are.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-14">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
             {socialPrinciples.map((p, i) => (
               <div key={p.title}>
-                <p className="font-label uppercase text-[#1D5AA7]"
+                <p className="font-label uppercase text-[#A73B44]"
                   style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
                   0{i + 1}
                 </p>
                 <h3
-                  className="mt-4 italic text-navy"
+                  className="mt-3 italic text-navy"
                   style={{
                     fontFamily: "var(--serif)",
-                    fontSize: "clamp(48px, 5.8vw, 84px)",
-                    letterSpacing: "-0.04em",
-                    lineHeight: 0.96,
+                    fontSize: "clamp(36px, 4.5vw, 56px)",
+                    letterSpacing: "-0.035em",
+                    lineHeight: 0.98,
                     fontWeight: 400,
                   }}
                 >
                   {p.title}.
                 </h3>
                 <p
-                  className="mt-6 font-sans text-navy/70 leading-[1.55]"
-                  style={{ fontSize: "16px", fontWeight: 400 }}
+                  className="mt-5 font-sans text-navy/70 leading-[1.55]"
+                  style={{ fontSize: "clamp(15px, 1.1vw, 16px)", fontWeight: 400 }}
                 >
                   {p.desc}
                 </p>
@@ -358,8 +358,8 @@ export default function ContentPage() {
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 relative z-10">
           <SectionLabel eyebrow="Ready-to-Post Templates" title="Social Media Kit" />
 
-          <p className="font-sans text-navy/60 leading-[1.6] mb-14 max-w-[680px] -mt-6"
-            style={{ fontSize: "clamp(17px, 1.6vw, 19px)", fontWeight: 400 }}>
+          <p className="font-sans text-navy/60 leading-[1.6] mb-12 max-w-[620px] -mt-6"
+            style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400 }}>
             Six template formats showing the brand&rsquo;s full typographic and color range —
             editorial serif, wide display, monospace labels, and real client imagery.
           </p>
@@ -649,8 +649,8 @@ export default function ContentPage() {
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
           <SectionLabelLight eyebrow="Platforms · Channels" title="Social Media Best Practice" />
 
-          <p className="font-sans text-white leading-[1.6] mb-14 max-w-[680px]"
-            style={{ fontSize: "clamp(17px, 1.6vw, 20px)", fontWeight: 400 }}>
+          <p className="font-sans text-white leading-[1.6] mb-12 max-w-[620px]"
+            style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400 }}>
             Four platforms, four cadences, one voice.
             Tap a platform to see the tone, focus, and cadence we use there.
           </p>
@@ -661,7 +661,7 @@ export default function ContentPage() {
 
       {/* ── CONTENT CADENCE → Posting Rhythm — cream ── */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
-        <div className="w-full h-[2px] bg-[#1D5AA7]" />
+        <div className="w-full h-[2px] bg-[#A73B44]" />
         <SbdcWatermark
           className="absolute -right-[8%] top-[5%] w-[40vw] max-w-[500px] text-navy pointer-events-none select-none"
           opacity={0.04}
@@ -676,76 +676,92 @@ export default function ContentPage() {
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
           <SectionLabel eyebrow="Year-Round Rhythm" title="Posting Rhythm" />
 
-          <p className="font-sans text-navy/70 leading-[1.6] mb-14 max-w-[680px] -mt-6"
-            style={{ fontSize: "clamp(17px, 1.6vw, 20px)", fontWeight: 400 }}>
+          <p className="font-sans text-navy/70 leading-[1.6] mb-14 max-w-[620px] -mt-6"
+            style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400 }}>
             Weekly, bi-weekly, and quarterly anchors — rotating our three pillars so every client sees the full story.
           </p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-px border border-navy/[0.12] overflow-hidden bg-navy/10">
+          {/* Editorial rhythm rows — not a 3-col symmetric grid. Cadence | Item | Body. */}
+          <div className="border-t border-navy/[0.18]">
             {[
               {
                 freq: "Weekly",
                 title: "Social Posts",
-                items: [
-                  { tag: "People", tagColor: "bg-[#004290]/15 text-[#004290]", text: "Advisor spotlight or team moment" },
-                  { tag: "Funded", tagColor: "bg-[#A73B44]/15 text-[#A73B44]", text: "Capital stat, lending tip, or client win" },
-                  { tag: "Connected", tagColor: "bg-navy/10 text-navy/75", text: "Event promo, workshop recap, or partner shout-out" },
-                ],
-                note: "Rotate pillars weekly — never post the same pillar twice in a row.",
+                lead: "Rotate pillars weekly — never the same pillar twice in a row.",
+                people: "Advisor spotlight or team moment.",
+                funded: "Capital stat, lending tip, or client win.",
+                connected: "Event promo, workshop recap, or partner shout-out.",
               },
               {
                 freq: "Bi-Weekly",
                 title: "Newsletter",
-                items: [
-                  { tag: "People", tagColor: "bg-[#004290]/15 text-[#004290]", text: "Lead story: client or advisor profile" },
-                  { tag: "Funded", tagColor: "bg-[#A73B44]/15 text-[#A73B44]", text: "Quick tip: capital access or SBA update" },
-                  { tag: "Connected", tagColor: "bg-navy/10 text-navy/75", text: "Program spotlight + upcoming events" },
-                ],
-                note: "Each issue features one pillar lead, two supporting.",
+                lead: "One pillar leads the issue. The other two support in shorter reads.",
+                people: "Lead story — client or advisor profile.",
+                funded: "Quick tip on capital access or SBA updates.",
+                connected: "Program spotlight and upcoming events.",
               },
               {
                 freq: "Quarterly",
                 title: "Anchor Content",
-                items: [
-                  { tag: "People", tagColor: "bg-[#004290]/15 text-[#004290]", text: "Signature client success story (long-form)" },
-                  { tag: "Funded", tagColor: "bg-[#A73B44]/15 text-[#A73B44]", text: "Capital impact report or lender feature" },
-                  { tag: "Connected", tagColor: "bg-navy/10 text-navy/75", text: "Event recap video or regional snapshot" },
-                ],
-                note: "Anchor content feeds 4–6 weeks of derivative posts.",
+                lead: "One signature piece, broken into 4–6 weeks of derivative posts.",
+                people: "Signature client success story, long-form.",
+                funded: "Capital impact report or lender feature.",
+                connected: "Event recap video or regional snapshot.",
               },
-            ].map((col) => (
-              <div key={col.freq} className="bg-cream p-8 md:p-10">
-                <p className="font-label uppercase text-[#1D5AA7] mb-2"
-                  style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                  {col.freq}
-                </p>
-                <h3 className="font-sans text-navy tracking-[-0.015em] mb-6"
-                  style={{ fontSize: "clamp(22px, 2.2vw, 28px)", fontWeight: 500, lineHeight: 1.15 }}>
-                  {col.title}
-                </h3>
-                {col.items.map((item) => (
-                  <div key={item.text} className="py-4 border-b border-navy/[0.10] last:border-b-0 font-sans text-navy/85 leading-[1.5]"
-                    style={{ fontSize: "15px", fontWeight: 400 }}>
-                    <span className={`inline-block font-label uppercase px-2 py-0.5 mr-2 ${item.tagColor}`}
-                      style={{ fontSize: "10px", letterSpacing: "0.14em", fontWeight: 500 }}>
-                      {item.tag}
+            ].map((row) => (
+              <div
+                key={row.freq}
+                className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-8 md:py-10 border-b border-navy/[0.18]"
+              >
+                <div className="md:col-span-3">
+                  <p className="font-label uppercase text-[#A73B44]"
+                    style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
+                    {row.freq}
+                  </p>
+                  <h3 className="font-sans text-navy tracking-[-0.015em] mt-2"
+                    style={{ fontSize: "clamp(19px, 1.7vw, 22px)", fontWeight: 500, lineHeight: 1.2 }}>
+                    {row.title}
+                  </h3>
+                </div>
+                <div className="md:col-span-4">
+                  <p className="font-sans text-navy/80 leading-[1.55]"
+                    style={{ fontSize: "clamp(15px, 1.1vw, 16px)", fontWeight: 400 }}>
+                    {row.lead}
+                  </p>
+                </div>
+                <div className="md:col-span-5 space-y-2.5 font-sans text-navy/80 leading-[1.55]"
+                  style={{ fontSize: "clamp(14px, 1.05vw, 15px)" }}>
+                  <p>
+                    <span className="font-label uppercase text-[#004290] mr-2"
+                      style={{ fontSize: "10px", letterSpacing: "0.18em", fontWeight: 500 }}>
+                      People
                     </span>
-                    {item.text}
-                  </div>
-                ))}
-                <p className="font-sans italic text-navy/55 mt-6 leading-[1.5]"
-                  style={{ fontSize: "14px" }}>
-                  {col.note}
-                </p>
+                    {row.people}
+                  </p>
+                  <p>
+                    <span className="font-label uppercase text-[#A73B44] mr-2"
+                      style={{ fontSize: "10px", letterSpacing: "0.18em", fontWeight: 500 }}>
+                      Funded
+                    </span>
+                    {row.funded}
+                  </p>
+                  <p>
+                    <span className="font-label uppercase text-navy/70 mr-2"
+                      style={{ fontSize: "10px", letterSpacing: "0.18em", fontWeight: 500 }}>
+                      Connected
+                    </span>
+                    {row.connected}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
 
-          <div className="mt-6 p-6 border border-navy/[0.15] bg-white font-sans text-navy/80 leading-[1.6]"
-            style={{ fontSize: "15px" }}>
-            <strong className="text-navy" style={{ fontWeight: 500 }}>Pillar Rotation Rule:</strong>{" "}
-            Each month, one pillar leads. The other two support. January = People-led. February = Funded-led. March = Connected-led. Repeat.
-          </div>
+          <p className="mt-10 font-sans italic text-navy/70 leading-[1.5] max-w-[680px]"
+            style={{ fontFamily: "var(--serif)", fontSize: "clamp(17px, 1.5vw, 20px)", fontWeight: 400 }}>
+            Pillar rotation rule — each month one pillar leads, the other two support.
+            January People-led. February Funded-led. March Connected-led. Repeat.
+          </p>
         </div>
       </section>
 
@@ -763,8 +779,8 @@ export default function ContentPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14">
             <div>
-              <p className="font-sans text-navy/75 leading-[1.6] mb-10"
-                style={{ fontSize: "clamp(17px, 1.6vw, 19px)", fontWeight: 400 }}>
+              <p className="font-sans text-navy/75 leading-[1.6] mb-8"
+                style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400 }}>
                 Respond publicly to negative comments, then move the
                 discussion to a private space as quickly as possible.
               </p>
@@ -775,9 +791,9 @@ export default function ContentPage() {
                     Template Response
                   </p>
                 </div>
-                <div className="px-7 py-7 border-l-2 border-[#1D5AA7]">
-                  <p className="font-sans italic text-navy leading-[1.5]"
-                    style={{ fontFamily: "var(--serif)", fontSize: "clamp(19px, 1.8vw, 23px)", fontWeight: 400, letterSpacing: "-0.01em" }}>
+                <div className="px-7 py-7 border-l-2 border-[#A73B44]">
+                  <p className="font-sans italic text-navy leading-[1.4]"
+                    style={{ fontFamily: "var(--serif)", fontSize: "clamp(17px, 1.5vw, 20px)", fontWeight: 400, letterSpacing: "-0.01em" }}>
                     &ldquo;We are so sorry you&rsquo;ve had a negative experience. Please
                     private message us with your email address so we can help you
                     resolve the issue.&rdquo;
