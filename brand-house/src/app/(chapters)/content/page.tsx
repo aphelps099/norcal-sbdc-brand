@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import InteriorHero from "@/components/InteriorHero";
 import CopyButton from "@/components/CopyButton";
+import { SocialBrandRow } from "@/components/SocialIcons";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
 import ColorsInUseCarousel from "@/components/ColorsInUseCarousel";
@@ -376,19 +377,26 @@ export default function ContentPage() {
               </p>
               <ul className="space-y-0">
                 {[
-                  "Client Success Stories",
-                  "Social Posts · IG / LI / FB / X",
-                  "Newsletters",
-                  "Workshop Recaps",
-                  "Press Releases",
+                  { label: "Client Success Stories" },
+                  { label: "Social Posts", icons: true },
+                  { label: "Newsletters" },
+                  { label: "Workshop Recaps" },
+                  { label: "Press Releases" },
                 ].map((feat) => (
                   <li
-                    key={feat}
-                    className="font-sans text-white flex items-baseline gap-4 py-2 border-b border-white/25"
+                    key={feat.label}
+                    className="font-sans text-white flex items-center gap-4 py-2 border-b border-white/25"
                     style={{ fontSize: "16px", fontWeight: 400 }}
                   >
                     <span className="font-label text-white/55 text-[11px] tracking-[0.22em]">·</span>
-                    {feat}
+                    <span>{feat.label}</span>
+                    {feat.icons && (
+                      <SocialBrandRow
+                        size={14}
+                        gap={10}
+                        className="ml-2 text-white/85"
+                      />
+                    )}
                   </li>
                 ))}
               </ul>
@@ -934,10 +942,19 @@ export default function ContentPage() {
       </section>
 
       {/* ── RESPONDING TO COMMENTS — steel bg ── */}
-      <section className="py-20 md:py-28 relative" style={{ backgroundColor: "transparent" }}>
+      <section className="py-20 md:py-28 relative overflow-hidden" style={{ backgroundColor: "transparent" }}>
+        {/* Jumbo chat_bubble mark, bottom-left, fog/white wash */}
         <span
-          className="material-symbols-outlined absolute -left-8 bottom-0 pointer-events-none select-none"
-          style={{ fontSize: "min(42vw, 420px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1, color: "rgba(86,132,186,0.55)" }}
+          className="material-symbols-outlined absolute pointer-events-none select-none"
+          style={{
+            fontSize: "min(72vw, 720px)",
+            fontVariationSettings: "'FILL' 1, 'wght' 100, 'opsz' 48",
+            lineHeight: 1,
+            color: "rgba(133, 163, 200, 0.42)",
+            left: "-6vw",
+            bottom: "-8vw",
+            zIndex: 0,
+          }}
           aria-hidden="true"
         >
           chat_bubble

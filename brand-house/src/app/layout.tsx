@@ -37,7 +37,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=line_end_arrow_notch&family=Roboto+Mono:wght@400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=account_balance,arrow_forward,auto_awesome,badge,branding_watermark,calendar_month,calendar_today,cancel,chat_bubble,check_circle,close,description,expand_less,expand_more,forum,handshake,hub,image,line_end_arrow_notch,location_on,mail,palette,payments,person,rocket_launch,schedule,share,straighten,task_alt,text_fields,videocam&family=Roboto+Mono:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
