@@ -146,7 +146,7 @@ export default function InteriorHero({
             fontWeight: 400,
             fontStyle: "normal",
             fontSize: "clamp(120px, 18vw, 280px)",
-            letterSpacing: "-0.04em",
+            letterSpacing: "-0.055em",
             lineHeight: 0.9,
             color: "#0f1c2e",
             opacity: 0,

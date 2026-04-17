@@ -6,6 +6,7 @@ import CopyButton from "@/components/CopyButton";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
 import ColorsInUseCarousel from "@/components/ColorsInUseCarousel";
+import Reveal from "@/components/Reveal";
 import Link from "next/link";
 
 function SocialIcon({ name, size = 22, className }: { name: string; size?: number; className?: string }) {
@@ -221,16 +222,64 @@ function KitCard({ caption, meta, children }: { caption: string; meta: string; c
 export default function ContentPage() {
   return (
     <>
+      {/* ── FIXED BACKDROP — fog → steel gradient, star watermark, grain ──
+         position:fixed keeps the bg still as the page scrolls. All sections
+         below are transparent so this shows through. */}
+      <div
+        aria-hidden
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          zIndex: 0,
+          background: "linear-gradient(180deg, #85A3C8 0%, #5684BA 45%, #4d78a8 100%)",
+        }}
+      >
+        {/* Oversized star SVG — centered-right, subtle */}
+        <svg
+          aria-hidden
+          className="absolute"
+          viewBox="0 0 200 200"
+          preserveAspectRatio="xMidYMid meet"
+          style={{
+            right: "-15vw",
+            top: "50%",
+            transform: "translateY(-50%)",
+            width: "min(120vh, 1400px)",
+            height: "min(120vh, 1400px)",
+            opacity: 0.09,
+          }}
+        >
+          <path
+            d="M100 0 L118 82 L200 100 L118 118 L100 200 L82 118 L0 100 L82 82 Z"
+            fill="#f5f4f0"
+          />
+        </svg>
+        {/* Grain texture — SVG fractal noise for subtle film grain */}
+        <svg
+          aria-hidden
+          className="absolute inset-0 w-full h-full"
+          style={{ opacity: 0.06, mixBlendMode: "overlay" }}
+        >
+          <filter id="grain">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
+            <feColorMatrix type="saturate" values="0" />
+          </filter>
+          <rect width="100%" height="100%" filter="url(#grain)" />
+        </svg>
+      </div>
+
+      {/* Content wrapper — sits above the fixed backdrop */}
+      <div className="relative" style={{ zIndex: 1 }}>
+
       <InteriorHero
         chapterNumber="06"
         category="strategy"
         title="Content"
         subtitle="Guidelines for social media and newsletters — so every center shows up with one unified voice."
-        bgColor="#5684BA"
+        bgColor="transparent"
       />
 
       {/* ── CONTENT GENERATOR — editorial hero, steel bg ── */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: "#5684BA" }}>
+      <section className="relative overflow-hidden" style={{ backgroundColor: "transparent" }}>
         <div className="w-full h-[2px] bg-navy/25" />
         <SbdcWatermark
           className="absolute -right-[6%] top-[10%] w-[38vw] max-w-[460px] text-white pointer-events-none select-none"
@@ -244,7 +293,7 @@ export default function ContentPage() {
           auto_awesome
         </span>
 
-        <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28">
+        <Reveal className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28">
           <p className="font-label uppercase mb-6 text-white/85"
             style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
             Tool · AI-Powered
@@ -319,11 +368,11 @@ export default function ContentPage() {
               </ul>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* ── SOCIAL PRINCIPLES — 3 big things, steel bg ── */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: "#5684BA" }}>
+      <section className="relative overflow-hidden" style={{ backgroundColor: "transparent" }}>
         <span
           className="material-symbols-outlined absolute -right-8 -top-6 text-white/[0.08] pointer-events-none select-none"
           style={{ fontSize: "min(50vw, 500px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
@@ -331,7 +380,7 @@ export default function ContentPage() {
         >
           forum
         </span>
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
+        <Reveal className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
           <SectionLabel
             eyebrow="Social Media · Principles"
             title="Three things, always."
@@ -366,12 +415,12 @@ export default function ContentPage() {
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* ── SOCIAL MEDIA KIT — carousel, steel bg ── */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: "#5684BA" }}>
-        <div className="max-w-[1200px] mx-auto pl-8 md:pl-12 lg:pl-16 pr-0 py-20 md:py-28 relative z-10">
+      <section className="relative overflow-hidden" style={{ backgroundColor: "transparent" }}>
+        <Reveal className="max-w-[1200px] mx-auto pl-8 md:pl-12 lg:pl-16 pr-0 py-20 md:py-28 relative z-10">
           <div className="pr-8 md:pr-12 lg:pr-16">
             <SectionLabel
               eyebrow="Ready-to-Post Templates"
@@ -634,12 +683,12 @@ export default function ContentPage() {
               </KitCard>
             </ColorsInUseCarousel>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* ── SOCIAL MEDIA BEST PRACTICE — editorial roster, steel bg ── */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: "#5684BA" }}>
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
+      <section className="relative overflow-hidden" style={{ backgroundColor: "transparent" }}>
+        <Reveal className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
           <SectionLabel
             eyebrow="Platforms · Channels"
             title="Social Media Best Practice"
@@ -647,11 +696,11 @@ export default function ContentPage() {
           />
 
           <PlatformRoster />
-        </div>
+        </Reveal>
       </section>
 
       {/* ── POSTING RHYTHM — steel bg ── */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: "#5684BA" }}>
+      <section className="relative overflow-hidden" style={{ backgroundColor: "transparent" }}>
         <SbdcWatermark
           className="absolute -right-[8%] top-[5%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none"
           opacity={0.07}
@@ -663,8 +712,9 @@ export default function ContentPage() {
         >
           calendar_month
         </span>
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
+        <Reveal className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
           <SectionLabel
+            noRule
             eyebrow="Year-Round Rhythm"
             title="Posting Rhythm"
             lead="Weekly, bi-weekly, and quarterly anchors — rotating our three pillars so every client sees the full story."
@@ -751,11 +801,11 @@ export default function ContentPage() {
             Pillar rotation rule — each month one pillar leads, the other two support.
             January People-led. February Funded-led. March Connected-led. Repeat.
           </p>
-        </div>
+        </Reveal>
       </section>
 
       {/* ── RESPONDING TO COMMENTS — steel bg ── */}
-      <section className="py-20 md:py-28 relative overflow-hidden" style={{ backgroundColor: "#5684BA" }}>
+      <section className="py-20 md:py-28 relative overflow-hidden" style={{ backgroundColor: "transparent" }}>
         <span
           className="material-symbols-outlined absolute -left-6 bottom-[-4%] text-white/[0.07] pointer-events-none select-none"
           style={{ fontSize: "min(40vw, 380px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
@@ -763,7 +813,7 @@ export default function ContentPage() {
         >
           chat_bubble
         </span>
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 relative z-10">
+        <Reveal className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 relative z-10">
           <SectionLabel
             eyebrow="Community"
             title="Responding to Comments"
@@ -802,10 +852,12 @@ export default function ContentPage() {
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <NextSectionLink title="Email" href="/email" />
+
+      </div>
     </>
   );
 }
