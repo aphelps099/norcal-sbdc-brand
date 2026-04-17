@@ -1,98 +1,169 @@
-# Brand House — Design & UX Philosophy
+# NorCal SBDC Brand House — Design Instructions
 
-## Why This Exists
-
-The NorCal SBDC network spans 14 centers across 36 counties. Each center serves its community independently, but every email, flyer, social post, and presentation should feel like it comes from the same organization. The Brand House is the single source of truth that makes that possible.
-
-This isn't a PDF brand guide that gets saved to a shared drive and forgotten. It's a living, interactive platform — built to be used daily by center directors, advisors, and marketing staff who need to create on-brand materials quickly and confidently.
+_Working reference for page layout, typography, color, and composition. Written after the Typography / Voice / Media / Content / Logos redesigns. Treat this as the house style — every new page and every edit should pass these rules before shipping._
 
 ---
 
-## The Thinking Behind the Design
+## 1. First Principles
 
-Four influences shape every design and content decision in the Brand House:
-
-**Donald Miller's StoryBrand** — Our clients are the heroes of every story. The SBDC is the guide. This narrative structure runs through our success stories, email sequences, and social content. We never lead with ourselves. We lead with the business owner, the challenge they faced, and the measurable outcome. The advisor enters the story as the expert who showed up.
-
-**Marty Neumeier's ZAG** — Government-funded programs don't typically look like this. That's the point. When every other SBDC network defaults to clip art and bureaucratic templates, we zag toward editorial design, tight grids, and confident typography. The unexpected quality signals competence — the same competence our advisors bring to every consultation.
-
-**Al Ries & Jack Trout's Positioning** — "Your Business, Better" isn't a tagline we rotate. It's a position we own. Every page, every section, every design choice reinforces a single idea: NorCal SBDC makes your business better through People, Funding, and Connections. The three pillars aren't decoration — they're the organizing structure for all content across all channels.
-
-**Paula Scher & Pentagram** — The visual language draws from the world's most respected design studio. Typography does the heavy lifting. Color is restrained and intentional. Layout is precise. The aesthetic says "we take this seriously" without saying it out loud. When a center director hands a signature story PDF to a lender or legislator, the design quality speaks before anyone reads a word.
+1. **Editorial, not dashboard.** This is a Pentagram specimen book, an Aperture monograph, an annual report — not a SaaS settings panel. If a section starts to feel like a product UI (cards, chips, status rows, sidebars), stop and reconsider.
+2. **Minimalist.** Strip before you add. Fewer containers. Fewer rules. Fewer labels. Fewer columns. The page should feel quiet and confident, not busy.
+3. **Type does the work.** Scale, weight contrast, and the serif-italic pairing create hierarchy — not borders, not boxes, not background panels.
+4. **Whitespace is structure.** Generous top and bottom padding on every section. Let the background color transitions (cream → navy → steel → cream) do the dividing, not hairline rules.
+5. **One idea per section.** Each section has one headline, one supporting thought, and one piece of evidence. If a section is doing three jobs, split it.
+6. **Design for scroll, not for scanning.** Long vertical reading is a feature. We are not compressing the site into a dense reference grid.
 
 ---
 
-## How It Looks (and Why)
+## 2. What to Avoid (Anti-Patterns)
 
-### Typography
+These are things that kept creeping in during earlier rounds. Don't let them back.
 
-Two fonts. One weight each.
-
-- **Proxima Nova Medium** handles everything — page titles, section headings, body copy, buttons. Using a single weight across all sizes creates quiet consistency. Nothing shouts.
-- **Roboto Mono** appears only as metadata — labels, tags, timestamps, specs. The monospace texture creates visual hierarchy through contrast, not through making things bigger or bolder.
-
-This restraint is deliberate. When everything is the same weight, the content hierarchy comes from size, spacing, and opacity — not from visual noise.
-
-### Color
-
-The palette is small and each color has a job:
-
-- **Navy (#0f1c2e)** — The anchor. Dark sections, headlines, primary text.
-- **Cobalt (#004290)** — The action color. Buttons, links, interactive elements. When you see Cobalt, something is clickable or important.
-- **Steel (#5684BA) and Fog (#85A3C8)** — Supporting mid-tones. Accents, secondary information, subtle highlights.
-- **Berry (#A73B44)** — Alerts, emphasis, and the Funded pillar accent. Used sparingly.
-- **Cream (#f5f4f0) and Cloud (#F2F4F7)** — Background alternation. Sections breathe by switching between white, cream, and cloud.
-
-Most text sits at 40–70% opacity against its background. This softens the page without losing readability and lets the few full-opacity elements (headlines, metrics, CTAs) command attention naturally.
-
-### Layout
-
-The design borrows from editorial print — annual reports, exhibition catalogs, magazine layouts — not from typical websites or SaaS dashboards.
-
-- **Tight grids with minimal gaps.** Cards sit edge-to-edge with 1px separators instead of floating with large margins. This creates density and precision.
-- **Narrow content areas.** Most sections max out at 1080px. This keeps line lengths comfortable and the reading experience focused.
-- **Border-top section headers** with small monospace kicker labels replace decorative dividers. Every section announces itself the same way — clean, consistent, scannable.
-- **Oversized background icons** (cropped, 2–5% opacity, bleeding off container edges) give each section visual identity and mass without competing with content. They're invisible until you notice them — then they make the whole page feel considered.
-
-### Mini CSS Mockups
-
-Throughout the Brand House, you'll see rendered previews of event templates, social posts, email headers, and PDF layouts. These aren't screenshots — they're built entirely in code. A tiny navy header with a placeholder logo bar. A miniature flyer with body text lines. A social square with a stat and a hashtag.
-
-This approach keeps everything resolution-independent, always up to date, and visually consistent. It also reinforces the idea that design details matter at every scale.
+- **Cards.** No white-or-cream bordered boxes holding content. If content needs emphasis, use scale or a color block, not a card.
+- **3-column card grids.** Use vertically stacked rows or asymmetric layouts. A 3-col grid of equally-weighted cards is the default AI-design look we're moving away from.
+- **Divider lines everywhere.** One or two 2px container-width rules per page is plenty. Don't draw a line between every item.
+- **Pills as chips.** Tiny uppercase pill tags stacked in rows read like filter chips in a dashboard. Fine sparingly; not as a primary element.
+- **Sidebar labels on every row.** "CATEGORY · TYPE · TAG" eyebrows on every list item turn the page into a spec sheet.
+- **Accordion soup.** One focused accordion per page, maximum. They're a tool for progressive disclosure of optional detail, not the default layout.
+- **Utility-only reference sections.** "Weights we use," "Legislative Brief," anything that reads like a technical footnote — cut it unless it's genuinely needed for the audience.
+- **Duplicate intro blocks.** The InteriorHero already introduces the chapter. Don't restate the chapter description in the first content section.
+- **Orange / off-brand accents.** Coral `#c4543a` is the only warm accent. No orange, no amber, no random palette drift.
 
 ---
 
-## How Content Is Organized
+## 3. Page Architecture
 
-The Brand House is structured around what you need to do, not around abstract categories:
+Every chapter page follows this shape:
 
-| Page | What It Answers |
-|------|----------------|
-| **Colors** | What colors do I use? How do I pair them? |
-| **Typography** | What fonts, what sizes, what hierarchy? |
-| **Logos** | Which logo, how much space, what backgrounds? |
-| **Voice & Tone** | How do we sound? What's our strategy? What are the three pillars? |
-| **Photography** | What style of photos? What subjects? |
-| **Content** | What do I post, how often, on which platform? |
-| **Stories** | Which client stories do I use, and where? |
-| **Events** | What templates exist for event materials? |
-| **Templates** | Email signatures, social frames, presentation decks |
-| **Calendar** | What campaigns run when? |
-| **Glossary** | What does this acronym mean? |
-| **Generate** | I need on-brand copy right now |
+1. **InteriorHero** — chapter eyebrow + oversized serif title + helper copy on cream.
+2. **One editorial "hero moment"** — the page's defining idea, scaled up. Navy background, huge italic serif, or a full-bleed image with quote. This is the first thing after the hero and it should feel like a magazine spread opener.
+3. **2–4 supporting sections** — alternating cream and navy backgrounds for rhythm. Each section has its own character (stacked rows, 2-col essay, single pull quote, etc.) — do not repeat the same layout twice in a row.
+4. **One reference or "how we use it" section** — tactical detail, kept tight.
+5. **NextSectionLink footer** — unchanged pattern.
 
-The "Your Business, Better" campaign pillars — **People, Funded, Connected** — thread through Voice & Tone (where they're defined), Content (where they drive the publishing cadence), and Stories (where they organize client narratives by impact tier).
+Good pages have **visual rhythm**: the reader's eye moves from light to dark, from dense to open, from quiet to loud. If three sections in a row are the same background color and the same layout, the page is flat — break it up.
 
 ---
 
-## The Standard We're Setting
+## 4. Color System (Locked)
 
-Most small business development centers communicate with Word documents, stock photo flyers, and inconsistent social posts. The NorCal SBDC Brand House exists to make that impossible for our network. When every center has access to the same templates, the same stories, the same design system, and the same strategic framework — the brand becomes what it should be: a competitive advantage.
+| Role | Hex | Use |
+|---|---|---|
+| Navy | `#0f1c2e` | Editorial heroes, dominant section bg, primary text on cream |
+| Steel | `#5684BA` | Social media section bg, supporting tiles, accent type on navy |
+| Fog | `#85A3C8` | Secondary accent on navy |
+| Cream | `#f5f4f0` | Default page bg |
+| Coral | `#c4543a` | Primary CTA, 2-word accent type (e.g. "no-fee."), numbered labels |
+| Berry | `#A73B44` | Chapter eyebrow accent, sparing |
 
-The design quality isn't vanity. It's trust. A lender who receives a signature story PDF that looks this good takes the meeting. A legislator who sees our impact report designed to this standard remembers the numbers. A prospective client who finds our website and sees this level of care thinks: *these people know what they're doing.*
-
-That's the point.
+**Rules:**
+- Cream is the default. Navy is for the hero moment and one or two breaks. Steel is reserved for Social Media Best Practice. Coral appears in small, intentional doses — a button, a single italic word, a number.
+- Never put dark text on dark backgrounds or light-on-light. Check contrast on every screen.
+- Do not introduce new colors without updating this doc.
 
 ---
 
-*NorCal SBDC Brand House · Your Business, Better.*
+## 5. Typography
+
+**Families:**
+- **Proxima Nova** — body, labels, UI (sans)
+- **Proxima Sera** — display serif. Replaces the old Turnip everywhere. Use italic heavily for editorial moments.
+- **Roboto Mono** — eyebrow labels only (11px, 0.22em tracking, uppercase)
+- **Extra-wide display** — large impact stats ($549M, 3,723). Use in tiles and stat blocks, never for body.
+
+**Scale rules:**
+- **Minimum body text: 15px.** 16–17px is preferred for reading passages.
+- **Hero title (InteriorHero):** `clamp(120px, 18vw, 280px)`, `-0.04em` tracking, line-height `0.9`.
+- **Editorial italic serif (section heroes):** `clamp(72px, 11vw, 180px)` for hero-scale; `clamp(48px, 5.8vw, 84px)` for secondary editorial titles. Always italic, always `-0.04em` tracking, line-height `0.88–0.96`.
+- **Section heading (sans):** Proxima 500, `clamp(28px, 3.2vw, 40px)`, `-0.015em`, line-height `1.05`.
+- **Eyebrow:** Roboto Mono 11px, uppercase, 0.22em tracking. Pattern: `"Chapter 0X · Topic"` or `"Section · Qualifier"`.
+
+**Pairing rules:**
+- Serif italic for emotion, concept, story. Sans for structure, labels, UI.
+- Mix faces within a title only when intentional ("Your Business, *Better.*" — sans weight on left, steel italic serif on right).
+- Never typeset logos. Use the logo files.
+
+---
+
+## 6. Layout Grid & Rules
+
+- **Content column:** `max-w-[1200px]` centered, padded `px-8 md:px-12 lg:px-16`.
+- **Narrow column** (for dense text sections): `max-w-[960px]` inside the 1200px wrapper.
+- **Section rules (hairline dividers):** 2px tall, span the content column only — never full-bleed. Color: `rgba(15,28,46,0.18)` on cream pages; `#5684BA` on navy pages. Use sparingly — one or two per page.
+- **Vertical rhythm:** section padding `py-20 md:py-28 lg:py-36`. Hero moments get more — `py-28 md:py-40`.
+- **Grids:** default to stacked rows. When using columns, prefer asymmetric (5/7, 4/8) over symmetric (6/6, 4/4/4). A symmetric 3-col card grid is almost always the wrong choice.
+
+---
+
+## 7. Section Patterns (When to Use What)
+
+**Editorial hero moment** — Navy bg, massive italic serif title filling the column, short Proxima body in a narrow column below, one CTA if needed. This is how you say "this is important."
+
+**Stacked rows** — For comparing 3–6 items that each deserve breathing room (principles, platforms, rules). No card around each row — just the content with generous vertical spacing between.
+
+**2-col essay** — One serif italic pull-quote on the left, supporting Proxima body on the right. Asymmetric widths (5/7). No background change, no box.
+
+**Tile grid (rare)** — Used for the Social Media Kit only. 2-col grid of 6 tiles, each with a distinct background (client photo, coral, navy, steel, cream) and distinct typography treatment. This is the showcase moment — not a default pattern.
+
+**Stat block** — A single wide-display number on a colored background with one Roboto Mono label. Use when a number is the point.
+
+**Best-practice accordion** — One per page, maximum. Steel bg, white type, big platform/item titles with a plus-icon toggle. Tone/detail reveals as italic serif when opened.
+
+---
+
+## 8. Minimalism Checklist (Apply Before Shipping Any Page)
+
+Ask these questions. If you answer "yes" to any, fix it:
+
+- [ ] Does any section have a card/box around it that isn't essential?
+- [ ] Are there more than 2 divider rules on the page?
+- [ ] Are there 3 or more consecutive sections with the same background color?
+- [ ] Does any row have three or more small labels/chips attached to it?
+- [ ] Is there a 3-column symmetric grid of uniform cards?
+- [ ] Is there any text smaller than 15px?
+- [ ] Is the page restating information the InteriorHero already covered?
+- [ ] Is there a section that exists only as reference/utility detail the audience won't use?
+- [ ] Are divider lines full-bleed instead of column-width?
+- [ ] Does any hover/accent introduce a color not in the palette?
+
+If all clear — ship it.
+
+---
+
+## 9. Component-Level Rules
+
+**Pill / link chips:**
+- Sentence case, not UPPERCASE. 16px type.
+- `px-6 py-3.5`, `rounded-full`, `border border-navy/20`.
+- Right-arrow icon (half-opacity, full on hover).
+- Hover: navy fill, white text, 300ms transition.
+
+**Buttons (primary):**
+- Coral `#c4543a` bg, white text, Proxima 500, no rounded-full (slightly rounded or square corners).
+- Icon optional, always on the right or a sparkle on the left for AI tools.
+
+**Eyebrows:**
+- `"Chapter 0X · Topic"` pattern. Roboto Mono 11px, uppercase, 0.22em tracking, navy or fog color.
+
+**Rules (dividers):**
+- 2px, container-width only, `rgba(15,28,46,0.18)` on cream / `#5684BA` on navy. Never full-bleed.
+
+**Images:**
+- Prefer real client photos (bg-star, circosphere, marin-auto, rejoule, rep-it-out, seal-rock-dental) as full-bleed tile backgrounds with text overlaid in the lower corner.
+- No stock photography. No decorative illustrations that aren't part of the brand system.
+
+---
+
+## 10. Voice in Visual Form
+
+The writing voice is direct, confident, practical. The design voice mirrors it:
+
+- **Direct** → large type, one idea per section, no decorative filler.
+- **Confident** → generous whitespace, willingness to leave space empty.
+- **Practical** → content is the hero; chrome is minimal.
+
+When in doubt: **remove something**. The site gets better every time we cut, not when we add.
+
+---
+
+_Last updated: April 16, 2026. Update this file whenever a new pattern is locked in across pages._
