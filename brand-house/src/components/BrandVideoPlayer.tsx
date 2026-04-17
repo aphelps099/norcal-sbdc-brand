@@ -161,11 +161,13 @@ export default function BrandVideoPlayer({ videoId }: { videoId: string }) {
         role="button"
         aria-label="Play video"
       >
-        {/* Thumbnail */}
+        {/* Thumbnail — slight baseline zoom + raised focal point
+            crops out the YouTube red-dot watermark at bottom center */}
         <img
           src={thumbUrl}
           alt="Video thumbnail"
-          className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          style={{ transform: "scale(1.06)", objectPosition: "center 42%" }}
         />
         {/* Navy tint */}
         <div className="absolute inset-0 bg-[rgba(15,28,46,0.45)] transition-opacity duration-300 group-hover:bg-[rgba(15,28,46,0.30)]" />

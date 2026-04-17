@@ -158,20 +158,17 @@ function TaglineCarousel() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* Small coral-bracketed eyebrow */}
+      {/* Small eyebrow */}
       <div
         className="flex items-center uppercase"
         style={{
-          gap: 16,
           fontSize: 10,
           fontWeight: 600,
           letterSpacing: "0.3em",
           color: C.fog,
         }}
       >
-        <span aria-hidden style={{ width: 40, height: 1, background: C.berry }} />
         <span>Say it once. Say it everywhere.</span>
-        <span aria-hidden style={{ width: 40, height: 1, background: C.berry }} />
       </div>
 
       {/* Fixed-height stage */}
@@ -358,7 +355,6 @@ export default function VoicePage() {
               style={{
                 paddingTop: 16,
                 marginTop: 16,
-                borderTop: `1px solid ${C.ruleMed}`,
               }}
             >
               <span
@@ -431,7 +427,7 @@ export default function VoicePage() {
                     {t.word}
                   </div>
                   <div
-                    className="max-w-[360px] text-right"
+                    className="text-right"
                     style={{
                       fontFamily: "proxima-sera, var(--serif)",
                       fontStyle: "italic",
@@ -439,6 +435,9 @@ export default function VoicePage() {
                       fontSize: 18,
                       lineHeight: 1.45,
                       color: C.fog,
+                      maxWidth: 440,
+                      justifySelf: "end",
+                      textWrap: "balance",
                     }}
                   >
                     {t.gloss}
