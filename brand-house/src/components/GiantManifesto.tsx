@@ -2,13 +2,67 @@
 
 import { useEffect, useRef } from "react";
 
+/**
+ * Helper: split a React-ish string into word spans for GSAP stagger.
+ * Preserves inline emphasis spans passed as segments.
+ */
+type Segment = { text: string; accent?: boolean };
+
+const bodySegments: Segment[] = [
+  { text: "We believe small business owners deserve more than " },
+  { text: "generic advice", accent: true },
+  { text: ". We believe the best guidance happens " },
+  { text: "across a table", accent: true },
+  { text: " \u2014 not across a screen. We believe the right people, the right capital, and the right connections can " },
+  { text: "change what\u2019s possible", accent: true },
+  { text: " for a business." },
+];
+
+function renderBody() {
+  // Split every segment into words; each word wrapped in a span so GSAP can
+  // stagger their reveal. Accent segments get navy + slightly heavier weight.
+  const out: React.ReactNode[] = [];
+  let wordIdx = 0;
+  bodySegments.forEach((seg, segIdx) => {
+    // Split but keep leading/trailing whitespace preserved between words.
+    const parts = seg.text.split(/(\s+)/);
+    parts.forEach((p, pIdx) => {
+      if (/^\s+$/.test(p)) {
+        out.push(<span key={`s-${segIdx}-${pIdx}`}>{p}</span>);
+      } else if (p.length === 0) {
+        // skip empty
+      } else {
+        out.push(
+          <span
+            key={`w-${segIdx}-${pIdx}`}
+            className="m-word"
+            data-word-idx={wordIdx++}
+            style={{
+              display: "inline-block",
+              opacity: 0,
+              transform: "translateY(22px)",
+              willChange: "opacity, transform",
+              color: seg.accent ? "#0f1c2e" : undefined,
+              fontWeight: seg.accent ? 500 : undefined,
+              fontStyle: seg.accent ? "italic" : undefined,
+            }}
+          >
+            {p}
+          </span>
+        );
+      }
+    });
+  });
+  return out;
+}
+
 export default function GiantManifesto() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) {
-      sectionRef.current?.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
+      sectionRef.current?.querySelectorAll<HTMLElement>("[data-reveal], .m-word").forEach((el) => {
         el.style.opacity = "1";
         el.style.transform = "translateY(0)";
       });
@@ -24,19 +78,33 @@ export default function GiantManifesto() {
       if (!sectionRef.current) return;
 
       ctx = gsap.context(() => {
-        gsap.fromTo(".m-eyebrow", { opacity: 0 }, {
-          opacity: 0.8, duration: 0.9, ease: "power2.out", delay: 0.1,
-          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+        // Eyebrow — fine fade
+        gsap.fromTo(".m-eyebrow", { opacity: 0, y: 8 }, {
+          opacity: 0.85, y: 0, duration: 0.8, ease: "power2.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 78%" },
         });
 
-        gsap.fromTo(".m-body", { opacity: 0, y: 14 }, {
-          opacity: 0.96, y: 0, duration: 1.2, ease: "power3.out", delay: 0.5,
-          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+        // Canopy reveal — words cascade in, softly overlapping.
+        // Small y translate + opacity for calm, editorial motion (not bouncy).
+        gsap.to(".m-word", {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: "power3.out",
+          stagger: { each: 0.028, from: "start" },
+          delay: 0.25,
+          scrollTrigger: { trigger: sectionRef.current, start: "top 72%" },
         });
 
-        gsap.fromTo(".m-closer", { opacity: 0, y: 14 }, {
-          opacity: 1, y: 0, duration: 1, ease: "power3.out", delay: 1.6,
-          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+        // Our Promise — eyebrow + closer
+        gsap.fromTo(".m-promise-eyebrow", { opacity: 0, y: 8 }, {
+          opacity: 0.75, y: 0, duration: 0.7, ease: "power2.out",
+          scrollTrigger: { trigger: ".m-closer", start: "top 82%" },
+        });
+        gsap.fromTo(".m-promise-line .m-word-big", { opacity: 0, y: 28 }, {
+          opacity: 1, y: 0, duration: 1.1, ease: "power3.out",
+          stagger: 0.08, delay: 0.15,
+          scrollTrigger: { trigger: ".m-closer", start: "top 82%" },
         });
       }, sectionRef.current);
     }
@@ -46,70 +114,120 @@ export default function GiantManifesto() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-[#0f1c2e] text-white relative overflow-hidden" style={{ padding: "176px 0 184px" }}>
-      {/* Grain texture overlay */}
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden"
+      style={{
+        backgroundColor: "#5684BA",
+        color: "#0f1c2e",
+        padding: "176px 0 184px",
+      }}
+    >
+      {/* Grain texture overlay — navy-tinted for steel bg */}
       <div
         className="absolute inset-0 pointer-events-none z-[1] mix-blend-overlay"
         style={{
-          backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.4 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>")`,
+          backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.06  0 0 0 0 0.11  0 0 0 0 0.18  0 0 0 0.45 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>")`,
           backgroundSize: "220px 220px",
           opacity: 0.22,
         }}
       />
-      {/* Soft radial highlight */}
+      {/* Soft highlight from upper-left for depth */}
       <div
         className="absolute inset-0 pointer-events-none z-[1]"
         style={{
-          background: "radial-gradient(ellipse 85% 90% at 25% 35%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 60%)",
+          background:
+            "radial-gradient(ellipse 85% 90% at 25% 35%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 60%)",
+        }}
+      />
+      {/* Subtle vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none z-[1]"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, transparent 60%, rgba(15,28,46,0.10) 100%)",
         }}
       />
 
-      <div className="max-w-[1080px] mx-auto px-8 sm:px-12 relative z-[2]">
-        {/* Eyebrow — Proxima Nova Extra Wide, caps label */}
+      <div className="max-w-[1100px] mx-auto px-8 sm:px-12 relative z-[2]">
+        {/* Eyebrow */}
         <p
-          className="m-eyebrow text-[11px] uppercase tracking-[0.24em] text-white/80 mb-11 inline-flex items-center gap-3.5"
-          data-reveal
-          style={{ opacity: 0, fontFamily: "var(--font-wide)", fontWeight: 700 }}
+          className="m-eyebrow uppercase mb-12 inline-flex items-center gap-3.5"
+          style={{
+            opacity: 0,
+            fontFamily: "var(--font-wide)",
+            fontWeight: 700,
+            fontSize: "11px",
+            letterSpacing: "0.24em",
+            color: "rgba(15,28,46,0.85)",
+          }}
         >
-          <span className="w-7 h-px bg-white/70" />
+          <span className="w-7 h-px" style={{ backgroundColor: "rgba(15,28,46,0.6)" }} />
           Our Manifesto
         </p>
 
-        {/* Body — Turnip Book (editorial voice, manifesto prose) */}
+        {/* Body — bigger, navy on steel, word-by-word reveal */}
         <p
-          className="m-body leading-[1.55] tracking-[-0.004em] text-white/95 mb-20 md:mb-22"
-          data-reveal
+          className="m-body"
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: "clamp(22px, 2.4vw, 28px)",
+            fontSize: "clamp(26px, 3.1vw, 38px)",
             fontWeight: 300,
-            maxWidth: "60ch",
-            opacity: 0,
-            transform: "translateY(14px)",
+            lineHeight: 1.45,
+            letterSpacing: "-0.006em",
+            maxWidth: "62ch",
+            color: "#0f1c2e",
+            marginBottom: "clamp(96px, 10vw, 128px)",
           }}
         >
-          We believe small business owners deserve more than <span className="text-fog">generic advice</span>. We believe the best guidance happens <span className="text-fog">across a table</span> &mdash; not across a screen. We believe the right people, the right capital, and the right connections can <span className="text-fog">change what&rsquo;s possible</span> for a business.
+          {renderBody()}
         </p>
 
-        {/* Closer */}
-        <div className="m-closer" data-reveal style={{ opacity: 0, transform: "translateY(14px)" }}>
+        {/* Our Promise */}
+        <div className="m-closer">
           <p
-            className="text-[11px] uppercase tracking-[0.24em] text-white/70 mb-3.5 inline-flex items-center gap-3.5"
-            style={{ fontFamily: "var(--font-wide)", fontWeight: 700 }}
+            className="m-promise-eyebrow uppercase mb-4 inline-flex items-center gap-3.5"
+            style={{
+              opacity: 0,
+              fontFamily: "var(--font-wide)",
+              fontWeight: 700,
+              fontSize: "11px",
+              letterSpacing: "0.24em",
+              color: "rgba(15,28,46,0.75)",
+            }}
           >
-            <span className="w-7 h-px bg-white/70" />
+            <span className="w-7 h-px" style={{ backgroundColor: "rgba(15,28,46,0.55)" }} />
             Our Promise
           </p>
           <p
-            className="text-white tracking-[-0.018em]"
+            className="m-promise-line"
             style={{
               fontFamily: "var(--font-serif)",
-              fontSize: "clamp(36px, 4.4vw, 56px)",
+              fontSize: "clamp(40px, 4.8vw, 64px)",
               fontWeight: 400,
               lineHeight: 1.02,
+              letterSpacing: "-0.02em",
+              color: "#0f1c2e",
             }}
           >
-            Your business, <span className="italic">better.</span>
+            <span
+              className="m-word-big"
+              style={{ display: "inline-block", opacity: 0, transform: "translateY(28px)" }}
+            >
+              Your
+            </span>{" "}
+            <span
+              className="m-word-big"
+              style={{ display: "inline-block", opacity: 0, transform: "translateY(28px)" }}
+            >
+              business,
+            </span>{" "}
+            <span
+              className="m-word-big italic"
+              style={{ display: "inline-block", opacity: 0, transform: "translateY(28px)" }}
+            >
+              better.
+            </span>
           </p>
         </div>
       </div>
