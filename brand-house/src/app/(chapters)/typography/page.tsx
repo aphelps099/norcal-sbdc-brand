@@ -457,7 +457,11 @@ function TypeInUse() {
             </p>
           </figure>
 
-          <figure className="bg-navy text-cream p-7 md:p-8 flex flex-col" style={{ aspectRatio: "1 / 1" }}>
+          {/* Social Ad — fog blue background, navy copy, white tagline closer */}
+          <figure
+            className="p-7 md:p-8 flex flex-col"
+            style={{ aspectRatio: "1 / 1", backgroundColor: "#85A3C8", color: "#0f1c2e" }}
+          >
             <figcaption
               className="mb-5"
               style={{
@@ -466,7 +470,7 @@ function TypeInUse() {
                 fontSize: "10px",
                 letterSpacing: "0.24em",
                 textTransform: "uppercase",
-                color: "rgba(245,244,240,0.4)",
+                color: "rgba(15,28,46,0.5)",
               }}
             >
               Social Ad
@@ -479,7 +483,7 @@ function TypeInUse() {
                 fontSize: "10px",
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
-                color: "rgba(245,244,240,0.55)",
+                color: "rgba(15,28,46,0.7)",
               }}
             >
               For Small Business
@@ -492,7 +496,7 @@ function TypeInUse() {
                 fontSize: "clamp(28px, 4vw, 40px)",
                 letterSpacing: "-0.02em",
                 lineHeight: 1.05,
-                color: "rgba(245,244,240,0.95)",
+                color: "#ffffff",
               }}
             >
               Your business,{" "}
@@ -501,6 +505,7 @@ function TypeInUse() {
                   fontFamily: "var(--serif)",
                   fontStyle: "italic",
                   fontWeight: 400,
+                  color: "#0f1c2e",
                 }}
               >
                 better.
@@ -513,7 +518,7 @@ function TypeInUse() {
                   fontWeight: 500,
                   fontSize: "15px",
                   letterSpacing: "-0.005em",
-                  color: "rgba(245,244,240,0.55)",
+                  color: "rgba(15,28,46,0.65)",
                 }}
               >
                 Free advising ·{" "}
@@ -698,10 +703,308 @@ function TypeInUse() {
 
 type UsageRow = { role: string; spec: string; sample: React.ReactNode };
 
-function UsageReference({ rows }: { rows: UsageRow[] }) {
+/* Mosaic: tile size = speaking volume. Loudest voices get the biggest rooms.
+   All colors are brand tokens — navy, cream, sand, berry (coral accent), pool (soft accent). */
+function UsageReference({ rows: _rows }: { rows: UsageRow[] }) {
+  /* Brand color tokens local to this mosaic */
+  const NAVY = "#0f1c2e";
+  const CREAM = "#f5f4f0";
+  const SAND = "#ece7d9"; /* warmer off-cream for contrast between tiles */
+  const BERRY = "#A73B44";
+  const POOL = "#8FC5D9";
+  const INK_SOFT = "#1a2d4d";
+
+  type Tile = {
+    label: string;
+    num: string;
+    spec: string;
+    tone: "cream" | "sand" | "ink" | "inkSoft" | "berry" | "pool";
+    gridClass: string;
+    body: React.ReactNode;
+    decorativeQuote?: boolean;
+  };
+
+  const tiles: Tile[] = [
+    {
+      label: "Page Title / H1",
+      num: "01",
+      spec: "Proxima 500 · 48–72px · −0.03em",
+      tone: "cream",
+      gridClass: "col-span-8 row-span-3",
+      body: (
+        <div
+          style={{
+            fontFamily: "var(--sans)",
+            fontWeight: 500,
+            fontSize: "clamp(36px, 5.5vw, 72px)",
+            letterSpacing: "-0.035em",
+            lineHeight: 0.92,
+            color: NAVY,
+          }}
+        >
+          Brand Components
+        </div>
+      ),
+    },
+    {
+      label: "Display Wordmark",
+      num: "05",
+      spec: "Wide 700 caps · 56–160px",
+      tone: "berry",
+      gridClass: "col-span-4 row-span-6",
+      body: (
+        <div
+          style={{
+            fontFamily: "var(--font-wide), var(--sans)",
+            fontWeight: 700,
+            fontSize: "clamp(32px, 5.2vw, 76px)",
+            letterSpacing: "-0.005em",
+            lineHeight: 0.9,
+            textTransform: "uppercase",
+            color: CREAM,
+          }}
+        >
+          <div>NorCal</div>
+          <div>SBDC</div>
+          <span
+            aria-hidden
+            style={{
+              display: "inline-block",
+              width: "0.55em",
+              height: "0.1em",
+              background: POOL,
+              marginTop: "0.22em",
+            }}
+          />
+        </div>
+      ),
+    },
+    {
+      label: "Section Headline / H2",
+      num: "02",
+      spec: "Proxima 500 · 32–48px · −0.02em",
+      tone: "cream",
+      gridClass: "col-span-5 row-span-2",
+      body: (
+        <div
+          style={{
+            fontFamily: "var(--sans)",
+            fontWeight: 500,
+            fontSize: "clamp(22px, 2.6vw, 34px)",
+            letterSpacing: "-0.02em",
+            lineHeight: 1,
+            color: NAVY,
+          }}
+        >
+          Your business,{" "}
+          <em
+            style={{
+              fontFamily: "var(--serif)",
+              fontStyle: "italic",
+              fontWeight: 400,
+              color: BERRY,
+            }}
+          >
+            better.
+          </em>
+        </div>
+      ),
+    },
+    {
+      label: "Eyebrow / Kicker",
+      num: "04",
+      spec: "Wide 700 · 11px caps · +0.14em",
+      tone: "ink",
+      gridClass: "col-span-3 row-span-2",
+      body: (
+        <div
+          style={{
+            fontFamily: "var(--font-wide), var(--sans)",
+            fontWeight: 700,
+            fontSize: "clamp(12px, 1.4vw, 16px)",
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            lineHeight: 1.3,
+            color: CREAM,
+          }}
+        >
+          Our Manifesto
+        </div>
+      ),
+    },
+    {
+      label: "Pull Quote",
+      num: "06",
+      spec: "Serif 400 italic · 32–56px",
+      tone: "sand",
+      gridClass: "col-span-6 row-span-3",
+      decorativeQuote: true,
+      body: (
+        <div
+          style={{
+            fontFamily: "var(--serif)",
+            fontStyle: "italic",
+            fontWeight: 400,
+            fontSize: "clamp(20px, 2.4vw, 30px)",
+            letterSpacing: "-0.01em",
+            lineHeight: 1.18,
+            color: NAVY,
+            position: "relative",
+            zIndex: 2,
+          }}
+        >
+          <span style={{ color: BERRY }}>&ldquo;</span>
+          One business, one relationship at a time.
+          <span style={{ color: BERRY }}>&rdquo;</span>
+        </div>
+      ),
+    },
+    {
+      label: "Success Story Title",
+      num: "07",
+      spec: "Serif 400 · 40–64px",
+      tone: "cream",
+      gridClass: "col-span-6 row-span-3",
+      body: (
+        <div
+          style={{
+            fontFamily: "var(--serif)",
+            fontWeight: 400,
+            fontSize: "clamp(24px, 3.2vw, 40px)",
+            letterSpacing: "-0.012em",
+            lineHeight: 1,
+            color: NAVY,
+          }}
+        >
+          Dick Taylor Chocolates
+        </div>
+      ),
+    },
+    {
+      label: "Body Copy",
+      num: "03",
+      spec: "Proxima 500 · 15–18px · −0.01em",
+      tone: "cream",
+      gridClass: "col-span-7 row-span-3",
+      body: (
+        <div
+          style={{
+            fontFamily: "var(--sans)",
+            fontWeight: 400,
+            fontSize: "15px",
+            letterSpacing: "-0.005em",
+            lineHeight: 1.55,
+            maxWidth: "42ch",
+            color: NAVY,
+          }}
+        >
+          Advisors who show up, ask the right questions, and stay through the messy middle. The real work happens one table at a time, not on a slide.
+        </div>
+      ),
+    },
+    {
+      label: "Inline Emphasis",
+      num: "08",
+      spec: "Serif 400 italic · inside body",
+      tone: "pool",
+      gridClass: "col-span-5 row-span-3",
+      body: (
+        <div
+          style={{
+            fontFamily: "var(--sans)",
+            fontWeight: 400,
+            fontSize: "clamp(16px, 2vw, 22px)",
+            letterSpacing: "-0.01em",
+            lineHeight: 1.32,
+            color: NAVY,
+          }}
+        >
+          The real work happens{" "}
+          <em
+            style={{
+              fontFamily: "var(--serif)",
+              fontStyle: "italic",
+              fontWeight: 400,
+              color: BERRY,
+            }}
+          >
+            across a table
+          </em>
+          .
+        </div>
+      ),
+    },
+    {
+      label: "Manifesto Prose",
+      num: "09",
+      spec: "Serif 300 book · 22–28px",
+      tone: "inkSoft",
+      gridClass: "col-span-8 row-span-3",
+      body: (
+        <div
+          style={{
+            fontFamily: "var(--serif)",
+            fontWeight: 300,
+            fontSize: "clamp(20px, 2.4vw, 30px)",
+            letterSpacing: "-0.005em",
+            lineHeight: 1.3,
+            maxWidth: "24ch",
+            color: CREAM,
+          }}
+        >
+          We believe small business is the most{" "}
+          <em style={{ fontStyle: "italic", fontWeight: 400, color: POOL }}>
+            honest
+          </em>{" "}
+          form of work.
+        </div>
+      ),
+    },
+    {
+      label: "Tagline Closer",
+      num: "10",
+      spec: "Proxima 500 + Serif italic",
+      tone: "sand",
+      gridClass: "col-span-4 row-span-3",
+      body: (
+        <div
+          style={{
+            fontFamily: "var(--sans)",
+            fontWeight: 500,
+            fontSize: "clamp(22px, 2.8vw, 36px)",
+            letterSpacing: "-0.025em",
+            lineHeight: 1,
+            color: NAVY,
+          }}
+        >
+          Your business,{" "}
+          <em
+            style={{
+              fontFamily: "var(--serif)",
+              fontStyle: "italic",
+              fontWeight: 400,
+            }}
+          >
+            better.
+          </em>
+        </div>
+      ),
+    },
+  ];
+
+  const toneStyles: Record<Tile["tone"], { bg: string; fg: string; meta: string }> = {
+    cream: { bg: CREAM, fg: NAVY, meta: "rgba(15,28,46,0.55)" },
+    sand: { bg: SAND, fg: NAVY, meta: "rgba(15,28,46,0.55)" },
+    ink: { bg: NAVY, fg: CREAM, meta: "rgba(245,244,240,0.55)" },
+    inkSoft: { bg: INK_SOFT, fg: CREAM, meta: "rgba(245,244,240,0.55)" },
+    berry: { bg: BERRY, fg: CREAM, meta: "rgba(245,244,240,0.65)" },
+    pool: { bg: POOL, fg: NAVY, meta: "rgba(15,28,46,0.6)" },
+  };
+
   return (
     <section style={{ paddingTop: "clamp(80px, 10vw, 140px)", paddingBottom: "24px" }}>
-      <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 mb-10 md:mb-14">
+      {/* Section heading — matches page rhythm */}
+      <div className="max-w-[960px] mx-auto px-8 md:px-12 lg:px-16 mb-10 md:mb-14">
         <h2
           className="text-navy"
           style={{
@@ -724,50 +1027,157 @@ function UsageReference({ rows }: { rows: UsageRow[] }) {
             lineHeight: 1.55,
           }}
         >
-          Which face for which job. The short answer when you&rsquo;re unsure.
+          Tile size equals speaking volume. The loudest voices get the biggest rooms — because type is hierarchy, and hierarchy is the whole point.
         </p>
       </div>
 
-      <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 mb-12 md:mb-16">
+      <div className="max-w-[960px] mx-auto px-8 md:px-12 lg:px-16 mb-10 md:mb-14">
         <div aria-hidden style={{ height: 2, background: "rgba(15,28,46,0.18)" }} />
       </div>
 
-      <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
-        {rows.map((row, i) => (
-          <div
-            key={row.role}
-            className={`grid grid-cols-1 md:grid-cols-[200px_1fr_1.5fr] gap-4 md:gap-8 py-5 ${
-              i < rows.length - 1 ? "border-b border-navy/[0.08]" : ""
-            }`}
-          >
-            <p
-              className="text-navy"
-              style={{
-                fontFamily: "var(--sans)",
-                fontWeight: 500,
-                fontSize: "15px",
-                letterSpacing: "-0.01em",
-                lineHeight: 1.4,
-              }}
-            >
-              {row.role}
-            </p>
-            <p
-              className="text-navy/50"
-              style={{
-                fontFamily: "var(--font-wide)",
-                fontWeight: 400,
-                fontSize: "11px",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                lineHeight: 1.6,
-              }}
-            >
-              {row.spec}
-            </p>
-            <div className="text-navy self-center">{row.sample}</div>
-          </div>
-        ))}
+      {/* Mosaic grid — max 960 */}
+      <div className="max-w-[960px] mx-auto px-8 md:px-12 lg:px-16">
+        <div
+          className="mosaic-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(12, minmax(0, 1fr))",
+            gridAutoRows: "88px",
+            gap: 6,
+          }}
+        >
+          {tiles.map((t) => {
+            const c = toneStyles[t.tone];
+            return (
+              <div
+                key={t.num}
+                className={`mosaic-tile ${t.gridClass}`}
+                style={{
+                  position: "relative",
+                  overflow: "hidden",
+                  padding: "18px 22px",
+                  background: c.bg,
+                  color: c.fg,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  transition: "transform 0.3s cubic-bezier(0.2, 0, 0, 1)",
+                }}
+              >
+                {/* Decorative giant quote mark on pull-quote tile */}
+                {t.decorativeQuote && (
+                  <span
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      top: "-0.12em",
+                      right: "-0.05em",
+                      fontFamily: "var(--serif)",
+                      fontStyle: "italic",
+                      fontWeight: 400,
+                      fontSize: "clamp(200px, 30vw, 360px)",
+                      lineHeight: 0.8,
+                      color: BERRY,
+                      opacity: 0.1,
+                      pointerEvents: "none",
+                      zIndex: 1,
+                    }}
+                  >
+                    &ldquo;
+                  </span>
+                )}
+
+                {/* Meta row */}
+                <div
+                  className="flex items-start justify-between gap-3"
+                  style={{ position: "relative", zIndex: 2 }}
+                >
+                  <span
+                    style={{
+                      fontFamily: "var(--font-wide), var(--sans)",
+                      fontWeight: 700,
+                      fontSize: 10,
+                      letterSpacing: "0.18em",
+                      textTransform: "uppercase",
+                      lineHeight: 1.4,
+                      color: c.meta,
+                    }}
+                  >
+                    {t.label}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: "var(--serif)",
+                      fontStyle: "italic",
+                      fontWeight: 400,
+                      fontSize: 14,
+                      color: c.meta,
+                      fontVariantNumeric: "tabular-nums",
+                    }}
+                  >
+                    {t.num}
+                  </span>
+                </div>
+
+                {/* Sample body */}
+                <div
+                  style={{
+                    flex: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    padding: "14px 0",
+                    position: "relative",
+                    zIndex: 2,
+                  }}
+                >
+                  {t.body}
+                </div>
+
+                {/* Spec row */}
+                <div
+                  style={{
+                    fontFamily: "var(--sans)",
+                    fontWeight: 500,
+                    fontSize: 9.5,
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    lineHeight: 1.6,
+                    fontVariantNumeric: "tabular-nums",
+                    color: c.meta,
+                    position: "relative",
+                    zIndex: 2,
+                  }}
+                >
+                  {t.spec}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Responsive collapse for narrower viewports — plain <style> (this is a server component) */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              @media (max-width: 900px) {
+                .mosaic-grid .col-span-8,
+                .mosaic-grid .col-span-7,
+                .mosaic-grid .col-span-6,
+                .mosaic-grid .col-span-5,
+                .mosaic-grid .col-span-4,
+                .mosaic-grid .col-span-3 {
+                  grid-column: span 12 !important;
+                }
+              }
+              .mosaic-tile {
+                transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+              }
+              .mosaic-tile:hover {
+                transform: translateY(-2px);
+              }
+            `,
+          }}
+        />
       </div>
     </section>
   );
