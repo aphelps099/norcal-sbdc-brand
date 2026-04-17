@@ -157,8 +157,9 @@ function PlatformRoster() {
         </div>
       </div>
 
-      {/* Inactive rows — sparse list, navy numerals, quiet labels */}
-      <div className="border-t border-white/25">
+      {/* Inactive rows — sparse list, navy numerals, quiet labels.
+         No outer top/bottom rules; only inter-row dividers between buttons. */}
+      <div>
         {platformGuidance.map((p, idx) => {
           const isActive = p.platform === active;
           return (
@@ -166,7 +167,7 @@ function PlatformRoster() {
               key={p.platform}
               onClick={() => setActive(p.platform)}
               aria-pressed={isActive}
-              className={`w-full grid grid-cols-[44px_1fr_auto_40px] md:grid-cols-[64px_1fr_2fr_1fr_40px] gap-4 md:gap-8 items-center text-left py-5 md:py-6 border-b border-white/25 transition-colors duration-200 ${isActive ? "opacity-100" : "opacity-75 hover:opacity-100"}`}
+              className={`w-full grid grid-cols-[44px_1fr_auto_40px] md:grid-cols-[64px_1fr_2fr_1fr_40px] gap-4 md:gap-8 items-center text-left py-5 md:py-6 transition-colors duration-200 ${idx > 0 ? "border-t border-white/25" : ""} ${isActive ? "opacity-100" : "opacity-75 hover:opacity-100"}`}
             >
               <span className="font-label uppercase text-white/60"
                 style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
@@ -187,10 +188,10 @@ function PlatformRoster() {
                 style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
                 {p.frequency}
               </span>
-              <span className={`material-symbols-outlined transition-transform ${isActive ? "text-navy" : "text-white/60"}`}
-                style={{ fontSize: "20px", transform: isActive ? "rotate(90deg)" : "rotate(0)" }}
+              <span className={`material-symbols-outlined ${isActive ? "text-navy" : "text-white/60"}`}
+                style={{ fontSize: "22px", fontVariationSettings: "'wght' 300" }}
                 aria-hidden="true">
-                arrow_forward
+                {isActive ? "expand_less" : "expand_more"}
               </span>
             </button>
           );
@@ -678,7 +679,7 @@ export default function ContentPage() {
               </KitCard>
 
               {/* 5 — Cream with berry italic, mono label stack */}
-              <KitCard caption="Capital Education · Editorial" meta="LI / FB · Funded Pillar · Monthly">
+              <KitCard caption="Capital Readiness · Editorial" meta="LI / FB · Funded Pillar · Monthly">
                 <div
                   className="absolute inset-0 flex flex-col justify-between p-8 md:p-10 border border-navy/[0.08]"
                   style={{ backgroundColor: "#f5f4f0", color: "#0f1c2e" }}
@@ -696,7 +697,7 @@ export default function ContentPage() {
                   <div>
                     <p className="font-label uppercase mb-3"
                       style={{ fontSize: "11px", letterSpacing: "0.22em", color: "#A73B44" }}>
-                      Capital Education
+                      Capital Readiness
                     </p>
                     <p
                       className="italic"
@@ -793,7 +794,7 @@ export default function ContentPage() {
         >
           calendar_month
         </span>
-        <Reveal className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
+        <Reveal className="max-w-[960px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
           {/* Custom label — uses navy tints so it reads on both the steel bg
              and the cream wash that fades in on scroll. */}
           <div className="mb-10">
@@ -805,7 +806,7 @@ export default function ContentPage() {
               style={{ fontSize: "clamp(28px, 3.2vw, 40px)", fontWeight: 500, lineHeight: 1.05 }}>
               Posting Rhythm
             </h2>
-            <p className="font-sans text-navy/75 leading-[1.55] mt-5 max-w-[620px]"
+            <p className="font-sans text-navy/75 leading-[1.55] mt-5 max-w-[460px]"
               style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400 }}>
               Weekly, bi-weekly, and quarterly anchors — rotating our three pillars so every client sees the full story.
             </p>
@@ -934,7 +935,7 @@ export default function ContentPage() {
       <section className="py-20 md:py-28 relative overflow-hidden" style={{ backgroundColor: "transparent" }}>
         <span
           className="material-symbols-outlined absolute -left-6 bottom-[-4%] pointer-events-none select-none"
-          style={{ fontSize: "min(40vw, 380px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1, color: "rgba(86,132,186,0.18)" }}
+          style={{ fontSize: "min(40vw, 380px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1, color: "rgba(86,132,186,0.32)" }}
           aria-hidden="true"
         >
           chat_bubble
