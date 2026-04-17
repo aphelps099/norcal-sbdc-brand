@@ -726,7 +726,6 @@ export default function VoicePage() {
               style={{
                 gap: 0,
                 paddingTop: 32,
-                borderTop: `1px solid ${C.ruleMed}`,
               }}
             >
               {hashtags.map((h, i) => (
