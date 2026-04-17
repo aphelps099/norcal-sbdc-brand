@@ -44,34 +44,94 @@ const socialPrinciples = [
   },
 ];
 
-const platformGuidance = [
+type PlatformGuide = {
+  platform: string;
+  icon: string;
+  tone: string;
+  frequency: string;
+  focus: { headline: React.ReactNode; body: string };
+  voice: { body: React.ReactNode; hook: string };
+  cadence: { body: string };
+  dos: string[];
+  donts: string[];
+};
+
+const platformGuidance: PlatformGuide[] = [
   {
     platform: "LinkedIn",
     icon: "linkedin",
     tone: "Professional, data-driven",
     frequency: "2–3× / week",
-    focus: "Impact stats, advisor spotlights, success stories, event recaps.",
+    focus: {
+      headline: (<>Impact, <em style={{ fontStyle: "italic" }}>proof, partnerships.</em></>),
+      body: "Long-form posts on client milestones, capital raised, economic impact data. Thought leadership from advisors and directors. Lead with numbers.",
+    },
+    voice: {
+      body: (<><em style={{ fontStyle: "italic" }}>Credible. Substantive. Never corporate.</em> Write like the smartest advisor in the room — one who has receipts.</>),
+      hook: "A client raised $X this quarter. Here\u2019s how.",
+    },
+    cadence: {
+      body: "2\u20133× per week. Tuesday & Thursday mornings. Mix: 60% client wins, 30% advisor insights, 10% network news.",
+    },
+    dos: ["Lead with a number", "Tag advisor by name", "Link to full case study"],
+    donts: ["Corporate platitudes", "Long hashtag chains", "Stock imagery"],
   },
   {
     platform: "Facebook",
     icon: "facebook",
     tone: "Warm, community-focused",
     frequency: "3–5× / week",
-    focus: "Event promotion, client spotlights, behind-the-scenes, local highlights.",
+    focus: {
+      headline: (<>Neighbors, <em style={{ fontStyle: "italic" }}>events, stories.</em></>),
+      body: "Local event promos, client spotlights, advisor features. Where our clients\u2019 friends and family see us. Community bulletin energy.",
+    },
+    voice: {
+      body: (<><em style={{ fontStyle: "italic" }}>Warm. Specific. Genuinely local.</em> Like a neighbor sharing good news. First-name basis. No jargon.</>),
+      hook: "Free workshop Tuesday in Redding \u2014 come say hi.",
+    },
+    cadence: {
+      body: "3\u20135× per week. Spread across weekdays and Saturday mornings. Heavy on photos, short captions, local tags.",
+    },
+    dos: ["Tag local businesses", "Reply to every comment", "Use photos of real people"],
+    donts: ["Repost LinkedIn verbatim", "Long-form reports", "Emoji overload"],
   },
   {
     platform: "Instagram",
     icon: "instagram",
     tone: "Visual, aspirational",
     frequency: "3–4× / week",
-    focus: "Client photos, event moments, quote cards, reels with advisor tips.",
+    focus: {
+      headline: (<>Client photos, <em style={{ fontStyle: "italic" }}>moments, quote cards.</em></>),
+      body: "Behind-the-counter shots. Event reels. Advisor-client conversations. Quote cards in brand type. Carousel stories with a clear arc.",
+    },
+    voice: {
+      body: (<><em style={{ fontStyle: "italic" }}>Show the work, not the hype.</em> Aspirational but grounded. Every image is a real person doing real work.</>),
+      hook: "One business, one relationship at a time.",
+    },
+    cadence: {
+      body: "3\u20134× per week. Mix of feed posts, carousels, and reels. Stories daily for events and quick updates.",
+    },
+    dos: ["Natural light photos", "Reels under 30 sec", "Brand-type quote cards"],
+    donts: ["Stock photos, ever", "Posed group shots", "AI-generated people"],
   },
   {
     platform: "X / Twitter",
     icon: "x",
     tone: "Punchy, topical",
     frequency: "Daily",
-    focus: "Quick stats, event live-tweeting, resource links, industry news.",
+    focus: {
+      headline: (<>Quick takes, <em style={{ fontStyle: "italic" }}>news, replies.</em></>),
+      body: "Breaking grants, policy changes, deadlines. Replies to local entrepreneurs and partner orgs. Where we\u2019re responsive, not pre-produced.",
+    },
+    voice: {
+      body: (<><em style={{ fontStyle: "italic" }}>Sharp. Brief. Never smug.</em> One idea per tweet. Skip the thread culture unless it’s earned.</>),
+      hook: "New grant open. $50K. Deadline May 15. We can help you apply.",
+    },
+    cadence: {
+      body: "Daily. Real-time replies to partners and entrepreneurs. Reshare advisor posts. Use for time-sensitive alerts.",
+    },
+    dos: ["Reply fast & human", "Boost partner content", "Share deadlines"],
+    donts: ["Engagement bait", "Political pile-ons", "Cross-post unchanged"],
   },
 ];
 
@@ -98,105 +158,374 @@ function SectionLabel({ eyebrow, title, lead, noRule = false }: { eyebrow: strin
 }
 
 /* ───────── PLATFORM ROSTER ─────────
-   Editorial rows instead of 4 boxy tiles. Click a row to expand.
-   Hero row on top (active platform, big) — smaller rows below. */
+   Editorial inline accordion. Click a row to expand; detail panel slides
+   open in place beneath the header row. Editorial typography throughout
+   (proxima-sera for display + italic accents). Cream backdrop because this
+   section sits inside the post-generator wash. */
 function PlatformRoster() {
-  const [active, setActive] = useState<string>("LinkedIn");
-  const current = platformGuidance.find((p) => p.platform === active) ?? platformGuidance[0];
+  // Instagram open by default (mirrors the mock's demo state).
+  const [openIdx, setOpenIdx] = useState<number | null>(2);
+
+  // Brand pillar colors, lightened slightly for cream context.
+  const DO_COLOR = "#00685E"; // evergreen
+  const DONT_COLOR = "#A73B44"; // berry
+
+  const ruleStrong = "rgba(15,28,46,0.20)";
+  const ruleMid = "rgba(15,28,46,0.12)";
+  const ruleDashed = "rgba(15,28,46,0.15)";
+
+  const labelStyle: React.CSSProperties = {
+    fontFamily: "var(--sans)",
+    fontSize: "9.5px",
+    fontWeight: 600,
+    letterSpacing: "0.22em",
+    textTransform: "uppercase",
+    color: "rgba(45,51,64,0.7)",
+  };
 
   return (
-    <div className="mt-4">
-      {/* Active platform — featured editorial card, NO box outline */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 pb-12 md:pb-14">
-        <div className="md:col-span-5 flex flex-col justify-between">
-          <div>
-            <p className="font-label uppercase text-white/70 mb-4"
-              style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-              Now viewing
-            </p>
-            <div className="flex items-center gap-5">
-              <SocialIcon name={current.icon} size={56} className="text-white" />
-              <h3 className="font-sans text-navy tracking-[-0.02em]"
-                style={{ fontSize: "clamp(36px, 4.4vw, 60px)", fontWeight: 500, lineHeight: 0.95 }}>
-                {current.platform}
-              </h3>
-            </div>
-            <p className="italic text-navy/85 mt-8 max-w-[420px]"
-              style={{
-                fontFamily: "var(--serif)",
-                fontSize: "clamp(22px, 2.2vw, 30px)",
-                letterSpacing: "-0.02em",
-                lineHeight: 1.15,
-                fontWeight: 400,
-              }}>
-              {current.tone}.
-            </p>
-          </div>
-        </div>
-
-        <div className="md:col-span-4">
-          <p className="font-label uppercase text-white/70 mb-3"
-            style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-            Focus
-          </p>
-          <p className="font-sans text-white leading-[1.55]"
-            style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400 }}>
-            {current.focus}
-          </p>
-        </div>
-
-        <div className="md:col-span-3">
-          <p className="font-label uppercase text-white/70 mb-3"
-            style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-            Cadence
-          </p>
-          <p className="font-sans text-navy tracking-[-0.01em]"
-            style={{ fontSize: "clamp(24px, 2.4vw, 32px)", fontWeight: 500, lineHeight: 1.05 }}>
-            {current.frequency}
-          </p>
-        </div>
-      </div>
-
-      {/* Inactive rows — sparse list, navy numerals, quiet labels.
-         No outer top/bottom rules; only inter-row dividers between buttons. */}
-      <div>
-        {platformGuidance.map((p, idx) => {
-          const isActive = p.platform === active;
-          return (
+    <div
+      className="mt-4"
+      style={{
+        borderTop: `1px solid ${ruleStrong}`,
+        borderBottom: `1px solid ${ruleStrong}`,
+      }}
+    >
+      {platformGuidance.map((p, idx) => {
+        const isOpen = openIdx === idx;
+        const isLast = idx === platformGuidance.length - 1;
+        return (
+          <div
+            key={p.platform}
+            style={{
+              borderBottom: isLast ? "none" : `1px solid ${ruleMid}`,
+            }}
+          >
+            {/* Row header — clickable */}
             <button
-              key={p.platform}
-              onClick={() => setActive(p.platform)}
-              aria-pressed={isActive}
-              className={`w-full grid grid-cols-[44px_1fr_auto_40px] md:grid-cols-[64px_1fr_2fr_1fr_40px] gap-4 md:gap-8 items-center text-left py-5 md:py-6 transition-colors duration-200 ${idx > 0 ? "border-t border-white/25" : ""} ${isActive ? "opacity-100" : "opacity-75 hover:opacity-100"}`}
+              onClick={() => setOpenIdx(isOpen ? null : idx)}
+              aria-expanded={isOpen}
+              className="w-full text-left grid items-center transition-colors"
+              style={{
+                gridTemplateColumns: "48px minmax(180px, 240px) 1fr 140px 24px",
+                gap: "24px",
+                padding: "28px 0",
+                background: isOpen ? "rgba(15,28,46,0.02)" : "transparent",
+                fontFamily: "inherit",
+                color: "inherit",
+                border: "none",
+              }}
+              onMouseEnter={(e) => {
+                if (!isOpen) e.currentTarget.style.background = "rgba(15,28,46,0.02)";
+              }}
+              onMouseLeave={(e) => {
+                if (!isOpen) e.currentTarget.style.background = "transparent";
+              }}
             >
-              <span className="font-label uppercase text-white/60"
-                style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
+              {/* Number */}
+              <span
+                style={{
+                  fontFamily: "proxima-sera, var(--serif)",
+                  fontStyle: "italic",
+                  fontWeight: 300,
+                  fontSize: "16px",
+                  letterSpacing: "0.02em",
+                  color: "rgba(15,28,46,0.35)",
+                  fontVariantNumeric: "tabular-nums",
+                }}
+              >
                 0{idx + 1}
               </span>
+
+              {/* Icon + name */}
               <span className="flex items-center gap-4">
-                <SocialIcon name={p.icon} size={20} className="text-white/85" />
-                <span className={`font-sans tracking-[-0.01em] ${isActive ? "text-navy" : "text-white"}`}
-                  style={{ fontSize: "clamp(17px, 1.6vw, 22px)", fontWeight: 500 }}>
+                <span className="inline-flex items-center justify-center shrink-0 text-navy" style={{ width: 32, height: 32 }}>
+                  <SocialIcon name={p.icon} size={28} />
+                </span>
+                <span
+                  style={{
+                    fontFamily: "proxima-sera, var(--serif)",
+                    fontWeight: 300,
+                    fontSize: "26px",
+                    letterSpacing: "-0.018em",
+                    lineHeight: 1,
+                    color: "#0f1c2e",
+                  }}
+                >
                   {p.platform}
                 </span>
               </span>
-              <span className="hidden md:block italic text-white/80"
-                style={{ fontFamily: "var(--serif)", fontSize: "clamp(14px, 1.2vw, 17px)" }}>
+
+              {/* Tone (hidden on small) */}
+              <span
+                className="hidden md:block"
+                style={{
+                  fontFamily: "proxima-sera, var(--serif)",
+                  fontStyle: "italic",
+                  fontWeight: 300,
+                  fontSize: "18px",
+                  lineHeight: 1.3,
+                  letterSpacing: "-0.005em",
+                  color: "rgba(45,51,64,0.85)",
+                }}
+              >
                 {p.tone}.
               </span>
-              <span className="font-label uppercase text-white/75"
-                style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
+
+              {/* Cadence */}
+              <span
+                className="hidden md:inline-flex items-baseline gap-[10px] whitespace-nowrap"
+                style={{
+                  fontFamily: "var(--sans)",
+                  fontSize: "10px",
+                  fontWeight: 600,
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  color: "rgba(45,51,64,0.85)",
+                  fontVariantNumeric: "tabular-nums",
+                }}
+              >
+                <span
+                  aria-hidden
+                  style={{
+                    display: "inline-block",
+                    width: 20,
+                    height: "1.5px",
+                    background: "#0f1c2e",
+                    opacity: 0.3,
+                  }}
+                />
                 {p.frequency}
               </span>
-              <span className={`material-symbols-outlined ${isActive ? "text-navy" : "text-white/60"}`}
-                style={{ fontSize: "22px", fontVariationSettings: "'wght' 300" }}
-                aria-hidden="true">
-                {isActive ? "expand_less" : "expand_more"}
+
+              {/* Chevron */}
+              <span
+                aria-hidden
+                className="material-symbols-outlined"
+                style={{
+                  fontSize: "22px",
+                  fontVariationSettings: "'wght' 300",
+                  color: "rgba(45,51,64,0.85)",
+                  transition: "transform 0.3s ease",
+                  transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                  justifySelf: "end",
+                }}
+              >
+                expand_more
               </span>
             </button>
-          );
-        })}
-      </div>
+
+            {/* Detail panel — CSS grid-rows animation for open/close */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateRows: isOpen ? "1fr" : "0fr",
+                transition: "grid-template-rows 0.35s cubic-bezier(0.2,0,0,1)",
+              }}
+            >
+              <div style={{ overflow: "hidden" }}>
+                <div
+                  className="grid grid-cols-1 md:grid-cols-3"
+                  style={{
+                    gap: 0,
+                    padding: "12px 0 48px",
+                    borderTop: `1px dashed ${ruleDashed}`,
+                    marginTop: 0,
+                  }}
+                >
+                  {/* FOCUS */}
+                  <div
+                    className="flex flex-col gap-[14px] md:pr-10"
+                    style={{ paddingTop: "32px", borderRight: `1px solid ${ruleMid}` }}
+                  >
+                    <span style={labelStyle}>Focus</span>
+                    <h4
+                      style={{
+                        fontFamily: "proxima-sera, var(--serif)",
+                        fontWeight: 300,
+                        fontSize: "22px",
+                        lineHeight: 1.15,
+                        letterSpacing: "-0.015em",
+                        color: "#0f1c2e",
+                      }}
+                    >
+                      {p.focus.headline}
+                    </h4>
+                    <p
+                      style={{
+                        fontFamily: "var(--sans)",
+                        fontSize: "14px",
+                        lineHeight: 1.6,
+                        color: "rgba(45,51,64,0.95)",
+                      }}
+                    >
+                      {p.focus.body}
+                    </p>
+                  </div>
+
+                  {/* VOICE */}
+                  <div
+                    className="flex flex-col gap-[14px] md:px-10"
+                    style={{ paddingTop: "32px", borderRight: `1px solid ${ruleMid}` }}
+                  >
+                    <span style={labelStyle}>Voice</span>
+                    <p
+                      style={{
+                        fontFamily: "var(--sans)",
+                        fontSize: "14px",
+                        lineHeight: 1.6,
+                        color: "rgba(45,51,64,0.95)",
+                      }}
+                    >
+                      {p.voice.body}
+                    </p>
+                    <p
+                      style={{
+                        fontFamily: "var(--sans)",
+                        fontSize: "14px",
+                        lineHeight: 1.6,
+                        color: "rgba(45,51,64,0.95)",
+                        marginTop: 8,
+                      }}
+                    >
+                      <strong style={{ fontWeight: 500, color: "#0f1c2e" }}>Tagline hook:</strong>{" "}
+                      &ldquo;{p.voice.hook}&rdquo;
+                    </p>
+                  </div>
+
+                  {/* CADENCE & FORMAT + DO/DON'T */}
+                  <div
+                    className="flex flex-col gap-[14px] md:pl-10"
+                    style={{ paddingTop: "32px" }}
+                  >
+                    <span style={labelStyle}>Cadence &amp; Format</span>
+                    <p
+                      style={{
+                        fontFamily: "var(--sans)",
+                        fontSize: "14px",
+                        lineHeight: 1.6,
+                        color: "rgba(45,51,64,0.95)",
+                      }}
+                    >
+                      {p.cadence.body}
+                    </p>
+
+                    {/* DO / DON'T nested pair */}
+                    <div
+                      className="grid grid-cols-2"
+                      style={{
+                        paddingTop: 24,
+                        marginTop: 8,
+                        borderTop: `1px dashed ${ruleDashed}`,
+                      }}
+                    >
+                      <div className="pr-5">
+                        <div
+                          style={{
+                            ...labelStyle,
+                            color: DO_COLOR,
+                            opacity: 1,
+                            marginBottom: 12,
+                          }}
+                        >
+                          Do
+                        </div>
+                        <ul
+                          style={{
+                            listStyle: "none",
+                            padding: 0,
+                            margin: 0,
+                            fontFamily: "var(--sans)",
+                            fontSize: "13px",
+                            lineHeight: 1.65,
+                            color: "rgba(45,51,64,0.95)",
+                          }}
+                        >
+                          {p.dos.map((d) => (
+                            <li
+                              key={d}
+                              style={{
+                                paddingLeft: 18,
+                                position: "relative",
+                                marginBottom: 6,
+                              }}
+                            >
+                              <span
+                                aria-hidden
+                                style={{
+                                  position: "absolute",
+                                  left: 0,
+                                  top: 0,
+                                  color: DO_COLOR,
+                                  opacity: 0.6,
+                                }}
+                              >
+                                &mdash;
+                              </span>
+                              {d}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div
+                        className="pl-5"
+                        style={{ borderLeft: `1px solid ${ruleMid}` }}
+                      >
+                        <div
+                          style={{
+                            ...labelStyle,
+                            color: DONT_COLOR,
+                            opacity: 1,
+                            marginBottom: 12,
+                          }}
+                        >
+                          Don&rsquo;t
+                        </div>
+                        <ul
+                          style={{
+                            listStyle: "none",
+                            padding: 0,
+                            margin: 0,
+                            fontFamily: "var(--sans)",
+                            fontSize: "13px",
+                            lineHeight: 1.65,
+                            color: "rgba(45,51,64,0.95)",
+                          }}
+                        >
+                          {p.donts.map((d) => (
+                            <li
+                              key={d}
+                              style={{
+                                paddingLeft: 18,
+                                position: "relative",
+                                marginBottom: 6,
+                              }}
+                            >
+                              <span
+                                aria-hidden
+                                style={{
+                                  position: "absolute",
+                                  left: 0,
+                                  top: 0,
+                                  color: DONT_COLOR,
+                                  opacity: 0.6,
+                                }}
+                              >
+                                &mdash;
+                              </span>
+                              {d}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -772,14 +1101,56 @@ export default function ContentPage() {
         </Reveal>
       </section>
 
-      {/* ── SOCIAL MEDIA BEST PRACTICE — editorial roster, steel bg ── */}
+      {/* ── SOCIAL MEDIA BEST PRACTICE — editorial inline accordion ── */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "transparent" }}>
-        <Reveal className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
-          <SectionLabel
-            eyebrow="Platforms · Channels"
-            title="Social Media Best Practice"
-            lead="Four platforms, four cadences, one voice. Select a platform below to see the tone, focus, and cadence we use there."
-          />
+        <Reveal className="max-w-[1320px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
+          {/* Editorial section header — matches Principles/Templates register */}
+          <header className="mb-12 md:mb-14 max-w-[720px]">
+            <div
+              className="inline-flex items-center gap-[10px] mb-5"
+              style={{
+                fontFamily: "var(--sans)",
+                fontSize: "10px",
+                fontWeight: 600,
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                color: "#2D3340",
+              }}
+            >
+              <span
+                aria-hidden
+                style={{ width: 28, height: 2, background: "#0f1c2e" }}
+              />
+              <span>Platforms · Channels</span>
+            </div>
+            <h2
+              style={{
+                fontFamily: "proxima-sera, var(--serif)",
+                fontWeight: 300,
+                fontSize: "clamp(40px, 5.2vw, 68px)",
+                lineHeight: 1,
+                letterSpacing: "-0.028em",
+                color: "#0f1c2e",
+                marginBottom: "24px",
+              }}
+            >
+              Social media,{" "}
+              <em style={{ fontStyle: "italic" }}>by channel.</em>
+            </h2>
+            <p
+              style={{
+                fontFamily: "proxima-sera, var(--serif)",
+                fontWeight: 300,
+                fontSize: "19px",
+                lineHeight: 1.55,
+                color: "#2D3340",
+                maxWidth: "56ch",
+              }}
+            >
+              Four platforms. Four cadences. One voice. Open any row to see the
+              tone, focus, and do&rsquo;s and don&rsquo;ts we use there.
+            </p>
+          </header>
 
           <PlatformRoster />
         </Reveal>
