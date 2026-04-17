@@ -94,13 +94,14 @@ const spotlights = [
 
 /* ─────────────────────────────  SHARED  ───────────────────────────── */
 
-function SectionLabel({ eyebrow, title, lead, dark = false }: { eyebrow: string; title: string; lead?: string; dark?: boolean }) {
+function SectionLabel({ eyebrow, title, lead, dark = false, noRule = false }: { eyebrow: string; title: string; lead?: string; dark?: boolean; noRule?: boolean }) {
   const ruleColor = dark ? "border-white/20" : "border-navy/20";
   const eyebrowColor = dark ? "text-white/70" : "text-navy/65";
   const titleColor = dark ? "text-white" : "text-navy";
   const leadColor = dark ? "text-white/75" : "text-navy/70";
+  const wrapper = noRule ? "mb-10" : `border-t ${ruleColor} pt-6 mb-10`;
   return (
-    <div className={`border-t ${ruleColor} pt-6 mb-10`}>
+    <div className={wrapper}>
       <p className={`font-label text-[11px] uppercase tracking-[0.22em] ${eyebrowColor} mb-3`}>{eyebrow}</p>
       <h2 className={`font-sans ${titleColor} tracking-[-0.015em]`} style={{ fontSize: "clamp(28px, 3.2vw, 40px)", fontWeight: 500, lineHeight: 1.05 }}>{title}</h2>
       {lead && (
@@ -128,17 +129,18 @@ export default function StoriesPage() {
       <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
           <SectionLabel
+            noRule
             eyebrow="Tier 01 · Signature"
             title="Signature stories."
             lead="Highest impact. Strong structure. Clear metrics and photography. Use these for annual reports, board presentations, lender pitches, and campaign hero stories."
           />
 
-          {/* Editorial stack — spacing only, no row hairlines */}
-          <div className="mt-12 space-y-12 md:space-y-14">
+          {/* Editorial stack — row hairlines between cards */}
+          <div className="mt-12 border-t border-navy/[0.12]">
             {signatureStories.map((s) => (
               <article
                 key={s.biz}
-                className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10"
+                className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-12 md:py-14 border-b border-navy/[0.12]"
               >
                 <div className="md:col-span-3">
                   <p className="font-label uppercase text-[#A73B44]" style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
@@ -359,7 +361,38 @@ export default function StoriesPage() {
             lead="Score every story across five criteria before publishing. Totals map to the three tiers."
           />
 
-          <div className="mt-10 space-y-10 md:space-y-12">
+          {/* Color-blocked rubric — tier as vertical color density */}
+          <div className="mt-12 overflow-hidden">
+            {/* Column headers — tier bands */}
+            <div className="grid grid-cols-12 gap-0">
+              <div className="col-span-12 md:col-span-3" />
+              <div className="col-span-4 md:col-span-3 px-5 py-4" style={{ backgroundColor: "#0f1c2e" }}>
+                <p className="font-label uppercase text-white" style={{ fontSize: "11px", letterSpacing: "0.22em", fontWeight: 500 }}>
+                  Signature
+                </p>
+                <p className="font-label uppercase text-white/60 mt-1" style={{ fontSize: "10px", letterSpacing: "0.2em" }}>
+                  4–5 pts
+                </p>
+              </div>
+              <div className="col-span-4 md:col-span-3 px-5 py-4" style={{ backgroundColor: "#A73B44" }}>
+                <p className="font-label uppercase text-white" style={{ fontSize: "11px", letterSpacing: "0.22em", fontWeight: 500 }}>
+                  Growth
+                </p>
+                <p className="font-label uppercase text-white/65 mt-1" style={{ fontSize: "10px", letterSpacing: "0.2em" }}>
+                  2–3 pts
+                </p>
+              </div>
+              <div className="col-span-4 md:col-span-3 px-5 py-4" style={{ backgroundColor: "#85A3C8" }}>
+                <p className="font-label uppercase text-navy" style={{ fontSize: "11px", letterSpacing: "0.22em", fontWeight: 500 }}>
+                  Spotlight
+                </p>
+                <p className="font-label uppercase text-navy/60 mt-1" style={{ fontSize: "10px", letterSpacing: "0.2em" }}>
+                  0–1 pts
+                </p>
+              </div>
+            </div>
+
+            {/* Criteria rows */}
             {[
               {
                 criteria: "Economic Impact",
@@ -391,63 +424,66 @@ export default function StoriesPage() {
                 growth: "Works for newsletters, blog posts, partner updates with light editing.",
                 spotlight: "Best for social media posts and community engagement.",
               },
-            ].map((row) => (
-              <div key={row.criteria} className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10">
-                <div className="md:col-span-3">
-                  <p className="font-label uppercase text-[#A73B44]" style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                    Criteria
+            ].map((row, idx) => (
+              <div key={row.criteria} className="grid grid-cols-12 gap-0 border-t border-navy/10">
+                <div className="col-span-12 md:col-span-3 px-0 md:pr-6 py-5 md:py-6">
+                  <p className="font-label uppercase text-navy/50" style={{ fontSize: "10px", letterSpacing: "0.22em" }}>
+                    {String(idx + 1).padStart(2, "0")}
                   </p>
-                  <h3 className="font-sans text-navy tracking-[-0.015em] mt-2" style={{ fontSize: "clamp(19px, 1.7vw, 22px)", fontWeight: 500, lineHeight: 1.2 }}>
+                  <h3 className="font-sans text-navy tracking-[-0.015em] mt-1" style={{ fontSize: "clamp(18px, 1.5vw, 22px)", fontWeight: 500, lineHeight: 1.2 }}>
                     {row.criteria}
                   </h3>
                 </div>
-                <div className="md:col-span-3">
-                  <p className="font-label uppercase text-navy/55 mb-2" style={{ fontSize: "11px", letterSpacing: "0.18em" }}>
-                    Signature · 4–5 pts
-                  </p>
-                  <p className="font-sans text-navy/80 leading-[1.55]" style={{ fontSize: "clamp(14px, 1.05vw, 15px)" }}>
+                <div className="col-span-4 md:col-span-3 px-5 py-5 md:py-6" style={{ backgroundColor: "rgba(15,28,46,0.92)" }}>
+                  <p className="font-sans text-white leading-[1.55]" style={{ fontSize: "clamp(13px, 1vw, 15px)", fontWeight: 400 }}>
                     {row.signature}
                   </p>
                 </div>
-                <div className="md:col-span-3">
-                  <p className="font-label uppercase text-navy/55 mb-2" style={{ fontSize: "11px", letterSpacing: "0.18em" }}>
-                    Growth · 2–3 pts
-                  </p>
-                  <p className="font-sans text-navy/75 leading-[1.55]" style={{ fontSize: "clamp(14px, 1.05vw, 15px)" }}>
+                <div className="col-span-4 md:col-span-3 px-5 py-5 md:py-6" style={{ backgroundColor: "rgba(167,59,68,0.10)" }}>
+                  <p className="font-sans text-navy/85 leading-[1.55]" style={{ fontSize: "clamp(13px, 1vw, 15px)", fontWeight: 400 }}>
                     {row.growth}
                   </p>
                 </div>
-                <div className="md:col-span-3">
-                  <p className="font-label uppercase text-navy/55 mb-2" style={{ fontSize: "11px", letterSpacing: "0.18em" }}>
-                    Spotlight · 0–1 pts
-                  </p>
-                  <p className="font-sans text-navy/70 leading-[1.55]" style={{ fontSize: "clamp(14px, 1.05vw, 15px)" }}>
+                <div className="col-span-4 md:col-span-3 px-5 py-5 md:py-6" style={{ backgroundColor: "rgba(133,163,200,0.14)" }}>
+                  <p className="font-sans text-navy/70 leading-[1.55]" style={{ fontSize: "clamp(13px, 1vw, 15px)", fontWeight: 400 }}>
                     {row.spotlight}
                   </p>
                 </div>
               </div>
             ))}
-          </div>
 
-          {/* Score guide — inline editorial, not boxed */}
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-            {[
-              { range: "20–25", label: "Signature Story", desc: "Ready for prime time." },
-              { range: "12–19", label: "Growth Story", desc: "Needs tightening before formal use." },
-              { range: "0–11", label: "Community Spotlight", desc: "Use for social media and community content." },
-            ].map((s) => (
-              <div key={s.range}>
-                <p className="font-label uppercase text-[#A73B44]" style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                  Score {s.range}
-                </p>
-                <h4 className="font-sans text-navy tracking-[-0.015em] mt-2" style={{ fontSize: "clamp(19px, 1.7vw, 22px)", fontWeight: 500, lineHeight: 1.2 }}>
-                  {s.label}
-                </h4>
-                <p className="font-sans text-navy/70 leading-[1.55] mt-2" style={{ fontSize: "clamp(14px, 1.05vw, 15px)" }}>
-                  {s.desc}
+            {/* Totals footer */}
+            <div className="grid grid-cols-12 gap-0 border-t-2 border-navy/30">
+              <div className="col-span-12 md:col-span-3 px-0 md:pr-6 py-5 md:py-6">
+                <p className="font-label uppercase text-[#A73B44]" style={{ fontSize: "11px", letterSpacing: "0.22em", fontWeight: 500 }}>
+                  Total → Tier
                 </p>
               </div>
-            ))}
+              <div className="col-span-4 md:col-span-3 px-5 py-5 md:py-6" style={{ backgroundColor: "#0f1c2e" }}>
+                <p className="font-sans text-white tracking-[-0.02em]" style={{ fontSize: "clamp(28px, 2.6vw, 36px)", fontWeight: 500, lineHeight: 1 }}>
+                  20–25
+                </p>
+                <p className="font-sans text-white/70 leading-[1.4] mt-2" style={{ fontSize: "clamp(12px, 1vw, 14px)" }}>
+                  Ready for prime time.
+                </p>
+              </div>
+              <div className="col-span-4 md:col-span-3 px-5 py-5 md:py-6" style={{ backgroundColor: "#A73B44" }}>
+                <p className="font-sans text-white tracking-[-0.02em]" style={{ fontSize: "clamp(28px, 2.6vw, 36px)", fontWeight: 500, lineHeight: 1 }}>
+                  12–19
+                </p>
+                <p className="font-sans text-white/80 leading-[1.4] mt-2" style={{ fontSize: "clamp(12px, 1vw, 14px)" }}>
+                  Tighten before formal use.
+                </p>
+              </div>
+              <div className="col-span-4 md:col-span-3 px-5 py-5 md:py-6" style={{ backgroundColor: "#85A3C8" }}>
+                <p className="font-sans text-navy tracking-[-0.02em]" style={{ fontSize: "clamp(28px, 2.6vw, 36px)", fontWeight: 500, lineHeight: 1 }}>
+                  0–11
+                </p>
+                <p className="font-sans text-navy/75 leading-[1.4] mt-2" style={{ fontSize: "clamp(12px, 1vw, 14px)" }}>
+                  Social and community content.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
