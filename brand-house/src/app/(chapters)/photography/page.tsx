@@ -1,37 +1,8 @@
 
+import { Fragment } from "react";
 import MasonryGallery from "@/components/MasonryGallery";
 import MediaHero from "@/components/MediaHero";
 import NextSectionLink from "@/components/NextSectionLink";
-
-const doList = [
-  {
-    title: "Real people, real work.",
-    desc: "Photograph people doing their actual work — behind the counter, at the bench, on the floor. Never posed. Never stock.",
-  },
-  {
-    title: "Natural light, natural emotion.",
-    desc: "Use available light whenever possible. Capture pride, focus, determination, laughter — the feelings that can't be faked.",
-  },
-  {
-    title: "Advisor and client, together.",
-    desc: "When telling an SBDC story, show the relationship. Two people in conversation tells the whole thesis in a single frame.",
-  },
-];
-
-const dontList = [
-  {
-    title: "No suits shaking hands.",
-    desc: "Generic stock photography of business people in suits is the visual equivalent of jargon. Skip it.",
-  },
-  {
-    title: "No posed group shots.",
-    desc: "Everyone staring at the camera reads as staged, because it is. Find the moment before or after instead.",
-  },
-  {
-    title: "No AI-generated people.",
-    desc: "Authenticity is non-negotiable. If a client is in the frame, it's the actual client — or it's not there at all.",
-  },
-];
 
 // Shared 2px container-width rule
 function SectionRule() {
@@ -103,6 +74,239 @@ function SectionHeading({
   );
 }
 
+/* ──────── PRINCIPLES — paired Do / Don't grid, dark editorial ──────── */
+function PrinciplesSection() {
+  // Lightened accent colors for legibility on navy.
+  const DO = "#4FB39E";   // lightened evergreen
+  const DONT = "#E08A92"; // lightened berry
+  const ruleStrong = "rgba(245,244,240,0.25)";
+  const ruleMid = "rgba(245,244,240,0.15)";
+  const ruleSoft = "rgba(245,244,240,0.12)";
+
+  const headTagStyle: React.CSSProperties = {
+    fontFamily: "var(--sans)",
+    fontSize: "10px",
+    fontWeight: 600,
+    letterSpacing: "0.22em",
+    textTransform: "uppercase",
+  };
+
+  const numberStyle = (color: string): React.CSSProperties => ({
+    fontFamily: "proxima-sera, var(--serif)",
+    fontStyle: "italic",
+    fontWeight: 300,
+    fontSize: "15px",
+    letterSpacing: "0.02em",
+    color,
+    fontVariantNumeric: "tabular-nums",
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "10px",
+  });
+
+  const titleStyle: React.CSSProperties = {
+    fontFamily: "proxima-sera, var(--serif)",
+    fontWeight: 300,
+    fontSize: "clamp(24px, 2.6vw, 32px)",
+    lineHeight: 1.1,
+    letterSpacing: "-0.02em",
+    color: "#f5f4f0",
+  };
+
+  const descStyle: React.CSSProperties = {
+    fontFamily: "var(--sans)",
+    fontSize: "15px",
+    lineHeight: 1.6,
+    color: "rgba(245,244,240,0.72)",
+    maxWidth: "44ch",
+  };
+
+  const Dash = ({ color, width = 32 }: { color: string; width?: number }) => (
+    <span
+      aria-hidden
+      style={{
+        display: "inline-block",
+        width,
+        height: "1.5px",
+        background: color,
+        opacity: 0.45,
+      }}
+    />
+  );
+
+  // Data pairs so rows align horizontally.
+  const pairs = [
+    {
+      doTitle: (<>Real people, real work.</>),
+      doDesc:
+        "Photograph people doing their actual work \u2014 behind the counter, at the bench, on the floor. Never posed. Never stock.",
+      dontTitle: (<>No suits shaking hands.</>),
+      dontDesc:
+        "Generic stock photography of business people in suits is the visual equivalent of jargon. Skip it.",
+    },
+    {
+      doTitle: (<>Natural light, natural emotion.</>),
+      doDesc:
+        "Use available light whenever possible. Capture pride, focus, determination, laughter \u2014 the feelings that can't be faked.",
+      dontTitle: (<>No posed group shots.</>),
+      dontDesc:
+        "Everyone staring at the camera reads as staged, because it is. Find the moment before or after instead.",
+    },
+    {
+      doTitle: (<>Advisor and client, <em style={{ fontStyle: "italic" }}>together.</em></>),
+      doDesc:
+        "When telling an SBDC story, show the relationship. Two people in conversation tells the whole thesis in a single frame.",
+      dontTitle: (<>No AI-generated people.</>),
+      dontDesc:
+        "Authenticity is non-negotiable. If a client is in the frame, it's the actual client \u2014 or it's not there at all.",
+    },
+  ];
+
+  return (
+    <section
+      className="pt-20 md:pt-28 pb-24 md:pb-32"
+      style={{ backgroundColor: "#0f1c2e" }}
+    >
+      <div className="max-w-[1320px] mx-auto px-8 md:px-12 lg:px-16">
+        {/* Section header */}
+        <header className="mb-14 md:mb-[72px]">
+          <div
+            className="inline-flex items-center gap-[10px] mb-5"
+            style={{ ...headTagStyle, color: "#85A3C8" }}
+          >
+            <span
+              aria-hidden
+              style={{
+                width: 28,
+                height: 2,
+                background: "#85A3C8",
+                opacity: 0.5,
+              }}
+            />
+            <span>03 · Principles</span>
+          </div>
+          <h2
+            style={{
+              fontFamily: "proxima-sera, var(--serif)",
+              fontWeight: 300,
+              fontSize: "clamp(40px, 5.2vw, 68px)",
+              lineHeight: 1,
+              letterSpacing: "-0.028em",
+              color: "#f5f4f0",
+              maxWidth: "20ch",
+            }}
+          >
+            Three rules,{" "}
+            <em style={{ fontStyle: "italic" }}>three anti-rules.</em>
+          </h2>
+        </header>
+
+        {/* Paired grid — Do / Don't */}
+        <div
+          className="grid grid-cols-1 md:grid-cols-2"
+          style={{
+            borderTop: `1px solid ${ruleStrong}`,
+            borderBottom: `1px solid ${ruleStrong}`,
+          }}
+        >
+          {/* Column headers */}
+          <div
+            className="py-5 md:py-6"
+            style={{
+              ...headTagStyle,
+              color: DO,
+              borderBottom: `1px solid ${ruleMid}`,
+            }}
+          >
+            <span className="inline-flex items-center gap-[10px]">
+              <Dash color={DO} width={20} />
+              <span>Do</span>
+            </span>
+          </div>
+          <div
+            className="py-5 md:py-6 md:pl-12"
+            style={{
+              ...headTagStyle,
+              color: DONT,
+              borderBottom: `1px solid ${ruleMid}`,
+              borderLeft: `1px solid ${ruleMid}`,
+            }}
+          >
+            <span className="inline-flex items-center gap-[10px]">
+              <Dash color={DONT} width={20} />
+              <span>Don&rsquo;t</span>
+            </span>
+          </div>
+
+          {/* Pairs */}
+          {pairs.map((p, i) => {
+            const last = i === pairs.length - 1;
+            return (
+              <Fragment key={i}>
+                {/* DO cell */}
+                <div
+                  className="flex flex-col gap-3 py-10 md:pr-12"
+                  style={{
+                    borderBottom: last ? "none" : `1px solid ${ruleSoft}`,
+                  }}
+                >
+                  <div style={numberStyle(DO)}>
+                    <span>0{i + 1}</span>
+                    <Dash color={DO} />
+                  </div>
+                  <h3 style={titleStyle}>{p.doTitle}</h3>
+                  <p style={descStyle}>{p.doDesc}</p>
+                </div>
+                {/* DON'T cell */}
+                <div
+                  className="flex flex-col gap-3 py-10 md:pl-12"
+                  style={{
+                    borderBottom: last ? "none" : `1px solid ${ruleSoft}`,
+                    borderLeft: `1px solid ${ruleMid}`,
+                  }}
+                >
+                  <div style={numberStyle(DONT)}>
+                    <span>0{i + 1}</span>
+                    <Dash color={DONT} />
+                  </div>
+                  <h3 style={titleStyle}>{p.dontTitle}</h3>
+                  <p style={descStyle}>{p.dontDesc}</p>
+                </div>
+              </Fragment>
+            );
+          })}
+        </div>
+
+        {/* Editorial footer */}
+        <div
+          className="mt-10 pt-8 flex flex-col md:flex-row md:items-baseline md:justify-between gap-3 md:gap-6"
+          style={{
+            borderTop: `1px dashed rgba(245,244,240,0.2)`,
+            ...headTagStyle,
+            color: "#85A3C8",
+          }}
+        >
+          <span>The photography test</span>
+          <em
+            style={{
+              fontFamily: "proxima-sera, var(--serif)",
+              fontStyle: "italic",
+              fontWeight: 300,
+              fontSize: "16px",
+              letterSpacing: "-0.005em",
+              textTransform: "none",
+              color: "rgba(245,244,240,0.85)",
+            }}
+          >
+            If it could be anyone, anywhere, it&rsquo;s not us.
+          </em>
+          <span>03 / 03</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function PhotographyPage() {
   return (
     <>
@@ -167,121 +371,8 @@ export default function PhotographyPage() {
 
       <MasonryGallery />
 
-      {/* ── DO / DON'T — navy, bigger, 3 principles each ── */}
-      <section
-        className="pt-20 md:pt-28 pb-24 md:pb-32"
-        style={{ backgroundColor: "#0f1c2e" }}
-      >
-        <SectionHeading
-          eyebrow="03 · Principles"
-          title="Three rules, three anti-rules."
-          dark
-        />
-
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 mt-16 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-          {/* Do */}
-          <div>
-            <Eyebrow color="rgba(77, 184, 173, 0.85)">Do</Eyebrow>
-            <div className="mt-8 space-y-10">
-              {doList.map((item, i) => (
-                <div key={item.title} className="flex gap-5">
-                  <span
-                    className="shrink-0"
-                    style={{
-                      fontFamily:
-                        "var(--sans-label, 'Roboto Mono', monospace)",
-                      fontSize: "13px",
-                      letterSpacing: "0.12em",
-                      color: "rgba(77, 184, 173, 0.55)",
-                      lineHeight: 1.4,
-                      paddingTop: 4,
-                    }}
-                  >
-                    0{i + 1}
-                  </span>
-                  <div>
-                    <h3
-                      style={{
-                        fontFamily: "var(--sans)",
-                        fontWeight: 500,
-                        fontSize: "clamp(20px, 1.9vw, 24px)",
-                        letterSpacing: "-0.015em",
-                        lineHeight: 1.2,
-                        color: "#f5f4f0",
-                      }}
-                    >
-                      {item.title}
-                    </h3>
-                    <p
-                      className="mt-3"
-                      style={{
-                        fontFamily: "var(--sans)",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: 1.6,
-                        color: "rgba(245,244,240,0.7)",
-                      }}
-                    >
-                      {item.desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Don't */}
-          <div>
-            <Eyebrow color="rgba(217, 128, 136, 0.85)">Don&rsquo;t</Eyebrow>
-            <div className="mt-8 space-y-10">
-              {dontList.map((item, i) => (
-                <div key={item.title} className="flex gap-5">
-                  <span
-                    className="shrink-0"
-                    style={{
-                      fontFamily:
-                        "var(--sans-label, 'Roboto Mono', monospace)",
-                      fontSize: "13px",
-                      letterSpacing: "0.12em",
-                      color: "rgba(217, 128, 136, 0.55)",
-                      lineHeight: 1.4,
-                      paddingTop: 4,
-                    }}
-                  >
-                    0{i + 1}
-                  </span>
-                  <div>
-                    <h3
-                      style={{
-                        fontFamily: "var(--sans)",
-                        fontWeight: 500,
-                        fontSize: "clamp(20px, 1.9vw, 24px)",
-                        letterSpacing: "-0.015em",
-                        lineHeight: 1.2,
-                        color: "#f5f4f0",
-                      }}
-                    >
-                      {item.title}
-                    </h3>
-                    <p
-                      className="mt-3"
-                      style={{
-                        fontFamily: "var(--sans)",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: 1.6,
-                        color: "rgba(245,244,240,0.7)",
-                      }}
-                    >
-                      {item.desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ── DO / DON'T — paired grid on navy, with titles & editorial footer ── */}
+      <PrinciplesSection />
 
       {/* ── PHOTO LIBRARY ACCESS LINK — crisp card ── */}
       <section
