@@ -133,12 +133,12 @@ export default function StoriesPage() {
             lead="Highest impact. Strong structure. Clear metrics and photography. Use these for annual reports, board presentations, lender pitches, and campaign hero stories."
           />
 
-          {/* Editorial stack — each story is its own full-width row */}
-          <div className="mt-12 border-t border-navy/[0.18]">
+          {/* Editorial stack — spacing only, no row hairlines */}
+          <div className="mt-12 space-y-12 md:space-y-14">
             {signatureStories.map((s) => (
               <article
                 key={s.biz}
-                className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-10 md:py-12 border-b border-navy/[0.18]"
+                className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10"
               >
                 <div className="md:col-span-3">
                   <p className="font-label uppercase text-[#A73B44]" style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
@@ -185,7 +185,7 @@ export default function StoriesPage() {
       </section>
 
       {/* ── GROWTH STORIES — Tier 02 ── */}
-      <section className="relative overflow-hidden border-t border-navy/[0.08]" style={{ backgroundColor: "#f5f4f0" }}>
+      <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
           <SectionLabel
             eyebrow="Tier 02 · Growth"
@@ -193,11 +193,11 @@ export default function StoriesPage() {
             lead="Good narrative, developing structure. These stories show real progress but may need tighter metrics or editing before use in formal presentations."
           />
 
-          <div className="mt-10 border-t border-navy/[0.18]">
+          <div className="mt-10 space-y-10 md:space-y-12">
             {growthStories.map((g) => (
               <article
                 key={g.biz}
-                className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-8 md:py-10 border-b border-navy/[0.18]"
+                className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10"
               >
                 <div className="md:col-span-4">
                   <p className="font-label uppercase text-[#A73B44]" style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
@@ -236,7 +236,7 @@ export default function StoriesPage() {
       </section>
 
       {/* ── COMMUNITY SPOTLIGHTS — Tier 03 ── */}
-      <section className="relative overflow-hidden border-t border-navy/[0.08]" style={{ backgroundColor: "#f5f4f0" }}>
+      <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
           <SectionLabel
             eyebrow="Tier 03 · Spotlights"
@@ -244,11 +244,11 @@ export default function StoriesPage() {
             lead="Inspiring personal stories with lighter economic impact. Best for social media highlights, newsletter human-interest pieces, and community engagement."
           />
 
-          <div className="mt-10 border-t border-navy/[0.18]">
+          <div className="mt-10 space-y-10 md:space-y-12">
             {spotlights.map((sp) => (
               <article
                 key={sp.biz}
-                className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-8 md:py-10 border-b border-navy/[0.18]"
+                className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10"
               >
                 <div className="md:col-span-4">
                   <p className="font-label uppercase text-[#A73B44]" style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
@@ -295,7 +295,7 @@ export default function StoriesPage() {
             lead="Signature stories are strategic assets. Growth stories fuel everyday content. Spotlights keep social feeds human."
           />
 
-          <div className="mt-10 border-t border-white/[0.15]">
+          <div className="mt-10 space-y-10 md:space-y-12">
             {[
               {
                 tier: "Signature",
@@ -316,7 +316,7 @@ export default function StoriesPage() {
                 channels: "Instagram. Facebook. Community engagement moments.",
               },
             ].map((row) => (
-              <div key={row.tier} className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-8 md:py-10 border-b border-white/[0.15]">
+              <div key={row.tier} className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10">
                 <div className="md:col-span-3">
                   <p className="font-label uppercase text-[#85A3C8]" style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
                     {row.cadence}
@@ -359,7 +359,7 @@ export default function StoriesPage() {
             lead="Score every story across five criteria before publishing. Totals map to the three tiers."
           />
 
-          <div className="mt-10 border-t border-navy/[0.18]">
+          <div className="mt-10 space-y-10 md:space-y-12">
             {[
               {
                 criteria: "Economic Impact",
@@ -392,7 +392,7 @@ export default function StoriesPage() {
                 spotlight: "Best for social media posts and community engagement.",
               },
             ].map((row) => (
-              <div key={row.criteria} className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-8 md:py-10 border-b border-navy/[0.18]">
+              <div key={row.criteria} className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10">
                 <div className="md:col-span-3">
                   <p className="font-label uppercase text-[#A73B44]" style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
                     Criteria
@@ -453,7 +453,7 @@ export default function StoriesPage() {
       </section>
 
       {/* ── STORY TOOLKIT ── */}
-      <section className="relative overflow-hidden border-t border-navy/[0.08]" style={{ backgroundColor: "#f5f4f0" }}>
+      <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
           <SectionLabel
             eyebrow="Templates"
@@ -470,7 +470,7 @@ export default function StoriesPage() {
               Every signature story, top to bottom.
             </h3>
 
-            <div className="border-t border-navy/[0.18]">
+            <div className="space-y-5 md:space-y-6">
               {[
                 ["Kicker", "NorCal SBDC Success Story — appears above the headline, establishes context."],
                 ["Business Name", "Large, bold headline — the business name displayed prominently."],
@@ -482,7 +482,7 @@ export default function StoriesPage() {
                 ["The Results", "Lead with numbers. Three to four metrics displayed prominently."],
                 ["Partner CTA", "Link to the NorCal SBDC center that helped — drives visitors back to the network."],
               ].map(([label, desc]) => (
-                <div key={label} className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-5 md:py-6 border-b border-navy/[0.18]">
+                <div key={label} className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8">
                   <div className="md:col-span-3">
                     <p className="font-label uppercase text-navy/65" style={{ fontSize: "11px", letterSpacing: "0.22em", fontWeight: 500 }}>
                       {label}
@@ -560,7 +560,7 @@ export default function StoriesPage() {
               What to lead with.
             </h3>
 
-            <div className="border-t border-navy/[0.18] max-w-[780px]">
+            <div className="max-w-[780px] space-y-4">
               {[
                 ["01", "Capital Accessed", "$ amount", true],
                 ["02", "Jobs Created or Retained", "headcount", true],
@@ -571,7 +571,7 @@ export default function StoriesPage() {
                 ["07", "Clients / Customers Gained", "headcount", false],
                 ["08", "Social / Digital Growth", "followers, traffic", false],
               ].map(([num, name, detail, primary]) => (
-                <div key={name as string} className="grid grid-cols-[40px_1fr_auto] gap-4 md:gap-8 py-4 border-b border-navy/[0.18] items-baseline">
+                <div key={name as string} className="grid grid-cols-[40px_1fr_auto] gap-4 md:gap-8 items-baseline">
                   <span className="font-label uppercase text-navy/45" style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
                     {num}
                   </span>
@@ -614,11 +614,11 @@ export default function StoriesPage() {
               </p>
             </div>
             <div className="md:col-span-4 md:text-right">
-              <a href="mailto:phelps@norcalsbdc.org"
+              <a href="mailto:marketing@norcalsbdc.org"
                 className="inline-flex items-center gap-3 font-sans text-white hover:text-[#85A3C8] transition-colors no-underline"
                 style={{ fontSize: "clamp(15px, 1.3vw, 18px)", fontWeight: 500 }}>
                 <span className="material-symbols-outlined" style={{ fontSize: 18 }}>mail</span>
-                phelps@norcalsbdc.org
+                marketing@norcalsbdc.org
               </a>
             </div>
           </div>
