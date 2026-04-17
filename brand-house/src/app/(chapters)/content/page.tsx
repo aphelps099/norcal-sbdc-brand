@@ -222,9 +222,11 @@ function KitCard({ caption, meta, children }: { caption: string; meta: string; c
 export default function ContentPage() {
   return (
     <>
-      {/* ── FIXED BACKDROP — fog → steel gradient, star watermark, grain ──
+      {/* ── FIXED BACKDROP — fog→steel gradient + layered film grain ──
          position:fixed keeps the bg still as the page scrolls. All sections
-         below are transparent so this shows through. */}
+         below are transparent so this shows through.
+         Grain strategy: 3 stacked fractal-noise layers at different frequencies
+         to avoid the "digital noise" look and feel like real film/paper. */}
       <div
         aria-hidden
         className="fixed inset-0 pointer-events-none"
@@ -233,38 +235,55 @@ export default function ContentPage() {
           background: "linear-gradient(180deg, #85A3C8 0%, #5684BA 45%, #4d78a8 100%)",
         }}
       >
-        {/* Oversized star SVG — centered-right, subtle */}
-        <svg
-          aria-hidden
-          className="absolute"
-          viewBox="0 0 200 200"
-          preserveAspectRatio="xMidYMid meet"
-          style={{
-            right: "-15vw",
-            top: "50%",
-            transform: "translateY(-50%)",
-            width: "min(120vh, 1400px)",
-            height: "min(120vh, 1400px)",
-            opacity: 0.09,
-          }}
-        >
-          <path
-            d="M100 0 L118 82 L200 100 L118 118 L100 200 L82 118 L0 100 L82 82 Z"
-            fill="#f5f4f0"
-          />
-        </svg>
-        {/* Grain texture — SVG fractal noise for subtle film grain */}
+        {/* Layer 1 — fine grain, the "paper tooth". High frequency, soft-light blend. */}
         <svg
           aria-hidden
           className="absolute inset-0 w-full h-full"
-          style={{ opacity: 0.06, mixBlendMode: "overlay" }}
+          style={{ opacity: 0.22, mixBlendMode: "soft-light" }}
         >
-          <filter id="grain">
-            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
+          <filter id="grain-fine">
+            <feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="3" stitchTiles="stitch" seed="4" />
+            <feColorMatrix type="saturate" values="0" />
+            <feComponentTransfer>
+              <feFuncA type="linear" slope="1.2" intercept="-0.1" />
+            </feComponentTransfer>
+          </filter>
+          <rect width="100%" height="100%" filter="url(#grain-fine)" />
+        </svg>
+
+        {/* Layer 2 — medium grain for body. Overlay blend gives highlight/shadow speckle. */}
+        <svg
+          aria-hidden
+          className="absolute inset-0 w-full h-full"
+          style={{ opacity: 0.12, mixBlendMode: "overlay" }}
+        >
+          <filter id="grain-mid">
+            <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" stitchTiles="stitch" seed="9" />
             <feColorMatrix type="saturate" values="0" />
           </filter>
-          <rect width="100%" height="100%" filter="url(#grain)" />
+          <rect width="100%" height="100%" filter="url(#grain-mid)" />
         </svg>
+
+        {/* Layer 3 — coarse, low-frequency for organic unevenness (not flat digital). */}
+        <svg
+          aria-hidden
+          className="absolute inset-0 w-full h-full"
+          style={{ opacity: 0.08, mixBlendMode: "multiply" }}
+        >
+          <filter id="grain-coarse">
+            <feTurbulence type="fractalNoise" baseFrequency="0.22" numOctaves="1" stitchTiles="stitch" seed="17" />
+            <feColorMatrix type="saturate" values="0" />
+          </filter>
+          <rect width="100%" height="100%" filter="url(#grain-coarse)" />
+        </svg>
+
+        {/* Subtle vignette — corners darken slightly, adds depth without heaviness */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "radial-gradient(ellipse at center, transparent 55%, rgba(15,28,46,0.12) 100%)",
+          }}
+        />
       </div>
 
       {/* Content wrapper — sits above the fixed backdrop */}
