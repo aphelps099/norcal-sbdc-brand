@@ -73,7 +73,7 @@ const quarters: Quarter[] = [
       },
     ],
     awarenessLine:
-      "SBA National Small Business Week in early May, AAPI Heritage Month through May, and LGBTQ+ Pride Month across June.",
+      "SBA National Small Business Week in early May, AAPI Heritage Month through May, and Micro-, Small & Medium-sized Enterprises Day on June 27.",
     dark: true,
   },
   {
