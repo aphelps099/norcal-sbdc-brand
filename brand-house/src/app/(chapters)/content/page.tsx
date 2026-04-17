@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import InteriorHero from "@/components/InteriorHero";
 import CopyButton from "@/components/CopyButton";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
 import ColorsInUseCarousel from "@/components/ColorsInUseCarousel";
 import Reveal from "@/components/Reveal";
+import ScrollFadeBackground from "@/components/ScrollFadeBackground";
 import Link from "next/link";
 
 function SocialIcon({ name, size = 22, className }: { name: string; size?: number; className?: string }) {
@@ -220,6 +221,7 @@ function KitCard({ caption, meta, children }: { caption: string; meta: string; c
 }
 
 export default function ContentPage() {
+  const postingRhythmRef = useRef<HTMLElement | null>(null);
   return (
     <>
       {/* ── FIXED BACKDROP — fog→steel gradient + layered film grain ──
@@ -719,8 +721,19 @@ export default function ContentPage() {
         </Reveal>
       </section>
 
-      {/* ── POSTING RHYTHM — steel bg ── */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: "transparent" }}>
+      {/* ── Scroll-linked cream wash that fades in over Posting Rhythm ──
+         Sits above the fixed steel gradient (zIndex 0) but below content (zIndex 10+).
+         Opacity tracks the section's viewport position. */}
+      <ScrollFadeBackground
+        targetRef={postingRhythmRef}
+        color="#f5f4f0"
+        fadeInPx={500}
+        fadeOutPx={500}
+        zIndex={1}
+      />
+
+      {/* ── POSTING RHYTHM — steel bg with scroll-linked cream wash ── */}
+      <section ref={postingRhythmRef} className="relative overflow-hidden" style={{ backgroundColor: "transparent" }}>
         <SbdcWatermark
           className="absolute -right-[8%] top-[5%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none"
           opacity={0.07}
@@ -733,12 +746,22 @@ export default function ContentPage() {
           calendar_month
         </span>
         <Reveal className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
-          <SectionLabel
-            noRule
-            eyebrow="Year-Round Rhythm"
-            title="Posting Rhythm"
-            lead="Weekly, bi-weekly, and quarterly anchors — rotating our three pillars so every client sees the full story."
-          />
+          {/* Custom label — uses navy tints so it reads on both the steel bg
+             and the cream wash that fades in on scroll. */}
+          <div className="mb-10">
+            <p className="font-label uppercase text-navy/55 mb-3"
+              style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
+              Year-Round Rhythm
+            </p>
+            <h2 className="font-sans text-navy tracking-[-0.015em]"
+              style={{ fontSize: "clamp(28px, 3.2vw, 40px)", fontWeight: 500, lineHeight: 1.05 }}>
+              Posting Rhythm
+            </h2>
+            <p className="font-sans text-navy/75 leading-[1.55] mt-5 max-w-[620px]"
+              style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400 }}>
+              Weekly, bi-weekly, and quarterly anchors — rotating our three pillars so every client sees the full story.
+            </p>
+          </div>
 
           {/* Cadence × Pillar grid — each cadence is a row, pillars sit in a 3-up card grid */}
           <div className="mt-14">
@@ -783,13 +806,15 @@ export default function ContentPage() {
                   key={row.freq}
                   className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-8 md:gap-14 py-12 md:py-14"
                   style={{
-                    borderTop: i === 0 ? "1px solid rgba(255,255,255,0.20)" : "none",
-                    borderBottom: "1px solid rgba(255,255,255,0.20)",
+                    borderTop: i === 0 ? "1px solid rgba(15,28,46,0.10)" : "none",
+                    // Only draw between-row dividers; skip the last one so it
+                    // doesn’t double up with the rotation-rule border-top.
+                    borderBottom: i < rows.length - 1 ? "1px solid rgba(15,28,46,0.10)" : "none",
                   }}
                 >
                   {/* Cadence label */}
                   <div className="flex flex-col gap-3">
-                    <p className="font-label uppercase text-white/65"
+                    <p className="font-label uppercase text-navy/55"
                       style={{ fontSize: "10px", letterSpacing: "0.22em", fontWeight: 600 }}>
                       {row.freq}
                     </p>
@@ -842,8 +867,8 @@ export default function ContentPage() {
 
           {/* Rotation rule — paired with month chips */}
           <div className="mt-20 pt-10 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-8 md:gap-14 items-start"
-            style={{ borderTop: "1px solid rgba(255,255,255,0.30)" }}>
-            <p className="font-label uppercase text-white/65 mt-1"
+            style={{ borderTop: "1px solid rgba(15,28,46,0.15)" }}>
+            <p className="font-label uppercase text-navy/55 mt-1"
               style={{ fontSize: "10px", letterSpacing: "0.22em", fontWeight: 600 }}>
               Pillar Rotation
             </p>
