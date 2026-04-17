@@ -394,7 +394,7 @@ export default function VoicePage() {
                   key={t.word}
                   className="trait-line grid items-baseline"
                   style={{
-                    gridTemplateColumns: "80px 1fr auto",
+                    gridTemplateColumns: "80px 1fr 520px",
                     gap: 40,
                     padding: "20px 0",
                     borderBottom:
@@ -435,7 +435,6 @@ export default function VoicePage() {
                       fontSize: 18,
                       lineHeight: 1.45,
                       color: C.fog,
-                      maxWidth: 440,
                       justifySelf: "end",
                       textWrap: "balance",
                     }}
