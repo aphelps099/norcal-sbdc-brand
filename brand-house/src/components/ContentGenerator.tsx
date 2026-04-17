@@ -5,23 +5,32 @@ import ReactMarkdown from "react-markdown";
 import { CONTENT_FORMATS, type ContentFormat } from "@/lib/content-formats";
 
 export default function ContentGenerator() {
-  const [selectedFormat, setSelectedFormat] = useState<ContentFormat | null>(null);
+  // Open the first tab (Success Story) by default so the page doesn't feel empty.
+  const [selectedFormat, setSelectedFormat] = useState<ContentFormat | null>(
+    CONTENT_FORMATS[0] ?? null
+  );
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
   const [generating, setGenerating] = useState(false);
-  const formRef = useRef<HTMLDivElement>(null);
+  // Track whether a tab click was user-initiated (so we only scroll on click,
+  // not on initial mount with the default selection).
+  const userInitiated = useRef(false);
+  const tabsRef = useRef<HTMLDivElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
 
-  // Scroll to form section when a tab is selected
+  // Scroll the TABS (not the form) into view when a tab is clicked. The tabs
+  // sit at the top of the tool so the user can see their selection + the form
+  // below. scroll-margin-top on the tabs wrapper handles the fixed TopNav.
   useEffect(() => {
-    if (selectedFormat && formRef.current) {
-      formRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (userInitiated.current && selectedFormat && tabsRef.current) {
+      tabsRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }, [selectedFormat]);
 
   const handleSelectFormat = (format: ContentFormat) => {
+    userInitiated.current = true;
     setSelectedFormat(format);
     setAnswers({});
     setOutput("");
@@ -89,7 +98,9 @@ export default function ContentGenerator() {
   return (
     <div>
       {/* ── M3-style Tabs ── */}
-      <div className="relative mb-12">
+      {/* scroll-mt accounts for the fixed TopNav (~72px) + breathing room
+          so the tabs don't hide under the nav when scrollIntoView fires. */}
+      <div ref={tabsRef} className="relative mb-12 scroll-mt-[120px]">
         {/* Tab track line */}
         <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-navy/8" />
 
@@ -132,7 +143,7 @@ export default function ContentGenerator() {
 
       {/* ── Form + Output (two-column, shown when a format is selected) ── */}
       {selectedFormat && (
-        <div ref={formRef} className="scroll-mt-32">
+        <div>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
             {/* ── Left: Form ── */}
             <div className="lg:col-span-5">
