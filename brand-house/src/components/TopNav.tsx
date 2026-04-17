@@ -109,7 +109,7 @@ export default function TopNav() {
 
   /* Colored-hero routes render their hero on a mid-tone (steel/fog) — default
      nav tertiary gray gets lost. Force navy burger + wordmark for these. */
-  const coloredHeroRoutes = ["/content"];
+  const coloredHeroRoutes = ["/content", "/templates"];
   const onColoredHero = coloredHeroRoutes.includes(pathname);
 
   return (
