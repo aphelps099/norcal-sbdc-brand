@@ -1,6 +1,7 @@
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
+import StoryStructureExplorer from "@/components/StoryStructureExplorer";
 
 /* ─────────────────────────────  DATA  ───────────────────────────── */
 
@@ -500,41 +501,19 @@ export default function StoriesPage() {
             lead="Structure, rules, and metric priorities for writing new success stories to the Signature standard."
           />
 
-          {/* A. Structure */}
+          {/* A. Structure — interactive label↔card explorer */}
           <div className="mt-12">
             <p className="font-label uppercase text-[#A73B44] mb-4" style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
               A · Structure
             </p>
-            <h3 className="font-sans text-navy tracking-[-0.015em] mb-8" style={{ fontSize: "clamp(22px, 2vw, 28px)", fontWeight: 500, lineHeight: 1.15 }}>
+            <h3 className="font-sans text-navy tracking-[-0.015em] mb-4" style={{ fontSize: "clamp(22px, 2vw, 28px)", fontWeight: 500, lineHeight: 1.15 }}>
               Every signature story, top to bottom.
             </h3>
+            <p className="font-sans text-navy/55 mb-10" style={{ fontSize: "13px", letterSpacing: "0.02em" }}>
+              Hover any label or card element to highlight its match. Click + to expand writing rules and examples.
+            </p>
 
-            <div className="space-y-5 md:space-y-6">
-              {[
-                ["Kicker", "NorCal SBDC Success Story — appears above the headline, establishes context."],
-                ["Business Name", "Large, bold headline — the business name displayed prominently."],
-                ["Tagline", "One sentence describing what the business does — clear and concise."],
-                ["Hero Metric", "The single most impressive number, displayed large — this is the anchor of the story."],
-                ["Quote", "Direct quote from the business owner — specific and mentioning SBDC."],
-                ["The Challenge", "Two to three sentences max. What was the obstacle?"],
-                ["The Solution", "Two to three sentences max. What did SBDC do specifically?"],
-                ["The Results", "Lead with numbers. Three to four metrics displayed prominently."],
-                ["Partner CTA", "Link to the NorCal SBDC center that helped — drives visitors back to the network."],
-              ].map(([label, desc]) => (
-                <div key={label} className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8">
-                  <div className="md:col-span-3">
-                    <p className="font-label uppercase text-navy/65" style={{ fontSize: "11px", letterSpacing: "0.22em", fontWeight: 500 }}>
-                      {label}
-                    </p>
-                  </div>
-                  <div className="md:col-span-9">
-                    <p className="font-sans text-navy/80 leading-[1.6]" style={{ fontSize: "clamp(15px, 1.2vw, 17px)" }}>
-                      {desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <StoryStructureExplorer />
           </div>
 
           {/* B. Writing Rules */}
