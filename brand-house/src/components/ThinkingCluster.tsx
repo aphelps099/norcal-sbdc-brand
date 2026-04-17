@@ -49,16 +49,16 @@ export default function ThinkingCluster({
         repeat: -1,
       });
 
-      // Hero plus (the big one): slow rotation + breathing scale
+      // Hero asterisk: continuous slow spin + gentle breathing scale
       gsap.to(".tc-hero", {
         rotation: 360,
-        duration: 22,
+        duration: 14,
         ease: "none",
         repeat: -1,
         transformOrigin: "50% 50%",
       });
       gsap.to(".tc-hero", {
-        scale: 1.08,
+        scale: 1.06,
         duration: 3.2,
         ease: "sine.inOut",
         yoyo: true,
@@ -113,24 +113,7 @@ export default function ThinkingCluster({
         transformOrigin: "50% 50%",
       });
 
-      // Shape morph: hero plus has a second "sparkle" path that fades in/out
-      // creating the illusion of plus → 4-point star → plus
-      gsap.to(".tc-morph", {
-        opacity: 0.85,
-        duration: 2.6,
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: -1,
-        delay: 1.1,
-      });
-      gsap.to(".tc-morph", {
-        rotation: 90,
-        duration: 5.2,
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: -1,
-        transformOrigin: "50% 50%",
-      });
+
     }, ref);
 
     return () => ctx.revert();
@@ -163,29 +146,12 @@ export default function ThinkingCluster({
           {/* soft halo behind hero */}
           <circle cx="100" cy="100" r="60" fill="url(#tc-halo)" />
 
-          {/* Hero plus — big, centered. Has a morphing sparkle layered on top. */}
+          {/* Hero asterisk — 6-arm radial, big and centered, slow spin */}
           <g className="tc-hero" style={{ transformOrigin: "100px 100px" }}>
-            {/* 4-arm plus */}
-            <path
-              d="M100 70 L100 130 M70 100 L130 100"
-              stroke="#1D5AA7"
-              strokeWidth="6"
-              strokeLinecap="round"
-              opacity="0.85"
-            />
-            {/* morph layer: same center, but rotated 45° to read as a star
-                when both layers are visible at once */}
-            <g
-              className="tc-morph"
-              style={{ transformOrigin: "100px 100px", opacity: 0 }}
-            >
-              <path
-                d="M100 78 L100 122 M78 100 L122 100"
-                stroke="#1D5AA7"
-                strokeWidth="5"
-                strokeLinecap="round"
-                transform="rotate(45 100 100)"
-              />
+            <g stroke="#1D5AA7" strokeWidth="7" strokeLinecap="round" opacity="0.9">
+              <line x1="100" y1="50" x2="100" y2="150" />
+              <line x1="100" y1="50" x2="100" y2="150" transform="rotate(60 100 100)" />
+              <line x1="100" y1="50" x2="100" y2="150" transform="rotate(120 100 100)" />
             </g>
           </g>
 
