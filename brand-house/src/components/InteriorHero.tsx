@@ -83,14 +83,14 @@ export default function InteriorHero({
 
   return (
     <section ref={sectionRef} className="relative bg-cream overflow-hidden">
-      {/* 5px category top bar */}
+      {/* Thin category top bar — matches /colors standard */}
       <div
         aria-hidden
         className="w-full"
-        style={{ height: "5px", background: cat.color }}
+        style={{ height: "3px", background: cat.color }}
       />
 
-      {/* Oversized Turnip chapter number — BG hero accent, bleeds off the right edge */}
+      {/* Oversized Turnip chapter number — italic watermark, bleeds off right */}
       {chapterNumber && (
         <span
           aria-hidden
@@ -100,12 +100,12 @@ export default function InteriorHero({
             fontFamily: "var(--serif)",
             fontWeight: 400,
             fontStyle: "italic",
-            fontSize: "clamp(420px, 62vw, 960px)",
+            fontSize: "clamp(360px, 58vw, 880px)",
             lineHeight: 0.82,
             letterSpacing: "-0.04em",
-            color: "rgba(15, 28, 46, 0.08)",
-            top: "clamp(20px, 3vw, 64px)",
-            right: "-6vw",
+            color: "rgba(15, 28, 46, 0.075)",
+            top: "clamp(40px, 6vw, 110px)",
+            right: "-4vw",
             opacity: 0,
           }}
         >
@@ -113,33 +113,33 @@ export default function InteriorHero({
         </span>
       )}
 
-      {/* Content container */}
-      <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 pt-40 md:pt-56 pb-[150px] md:pb-[200px]">
-        {/* Eyebrow: Chapter NN · Category — category color */}
+      {/* Content container — tighter padding to match /colors */}
+      <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 pt-28 md:pt-36 pb-10 md:pb-14">
+        {/* Eyebrow: Chapter NN · Category — mono 11px, navy/45 */}
         <p
           className="interior-hero-eyebrow uppercase"
           data-reveal
           style={{
-            fontFamily: "var(--font-wide)",
-            fontWeight: 700,
-            fontSize: "clamp(11px, 1vw, 13px)",
-            letterSpacing: "0.24em",
-            color: cat.color,
+            fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+            fontSize: "11px",
+            letterSpacing: "0.22em",
+            color: "rgba(15,28,46,0.45)",
             opacity: 0,
           }}
         >
           {chapterNumber ? `Chapter ${chapterNumber} · ${cat.label}` : cat.label}
         </p>
 
-        {/* Oversized page title — Proxima Nova Light, XXXXL */}
+        {/* Oversized page title — Turnip serif, upright, editorial */}
         <h1
-          className="interior-hero-title mt-6"
+          className="interior-hero-title mt-6 md:mt-8"
           data-reveal
           style={{
-            fontFamily: "var(--sans)",
-            fontWeight: 300,
-            fontSize: "clamp(112px, 17vw, 260px)",
-            letterSpacing: "-0.035em",
+            fontFamily: "var(--serif)",
+            fontWeight: 400,
+            fontStyle: "normal",
+            fontSize: "clamp(120px, 18vw, 280px)",
+            letterSpacing: "-0.04em",
             lineHeight: 0.9,
             color: "#0f1c2e",
             opacity: 0,
@@ -148,18 +148,18 @@ export default function InteriorHero({
           {title}
         </h1>
 
-        {/* Short summary */}
+        {/* Quiet helper line */}
         {subtitle && (
           <p
-            className="interior-hero-sub mt-10 max-w-[620px]"
+            className="interior-hero-sub mt-6 md:mt-8 max-w-[560px]"
             data-reveal
             style={{
               fontFamily: "var(--sans)",
               fontWeight: 500,
-              fontSize: "clamp(17px, 1.5vw, 21px)",
+              fontSize: "clamp(15px, 1.1vw, 16px)",
               lineHeight: 1.55,
-              letterSpacing: "-0.01em",
-              color: "#4a4a4a",
+              letterSpacing: "-0.005em",
+              color: "rgba(15,28,46,0.55)",
               opacity: 0,
             }}
           >
@@ -168,14 +168,14 @@ export default function InteriorHero({
         )}
       </div>
 
-      {/* Animated category underline — spans container, transitions into page content */}
+      {/* Container-width 2px rule — matches /colors */}
       <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
         <div
           className="interior-hero-line"
           aria-hidden
           style={{
-            height: "3px",
-            background: cat.color,
+            height: "2px",
+            background: "rgba(15,28,46,0.18)",
             transformOrigin: "left center",
             transform: "scaleX(0)",
           }}
