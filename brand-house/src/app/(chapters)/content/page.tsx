@@ -207,7 +207,7 @@ function KitCard({ caption, meta, children }: { caption: string; meta: string; c
   return (
     <div className="shrink-0 flex flex-col" style={{ scrollSnapAlign: "start" }}>
       <div
-        className="relative overflow-hidden"
+        className="relative overflow-hidden kit-card-canvas"
         style={{ width: "clamp(280px, 34vw, 420px)", aspectRatio: "1 / 1" }}
       >
         {children}
@@ -431,6 +431,23 @@ export default function ContentPage() {
         }
         .post-generator-wash .text-white\/\[0\.08\],
         .post-generator-wash .text-white\/\[0\.07\] { color: rgba(15,28,46,0.06); }
+        /* Kit cards live on saturated photo / berry / navy backgrounds — keep their
+           native white text + borders. Higher-specificity overrides reset everything
+           the wash remap touched. */
+        .post-generator-wash .kit-card-canvas .text-white { color: #ffffff; }
+        .post-generator-wash .kit-card-canvas .text-white\/90 { color: rgba(255,255,255,0.90); }
+        .post-generator-wash .kit-card-canvas .text-white\/85 { color: rgba(255,255,255,0.85); }
+        .post-generator-wash .kit-card-canvas .text-white\/80 { color: rgba(255,255,255,0.80); }
+        .post-generator-wash .kit-card-canvas .text-white\/75 { color: rgba(255,255,255,0.75); }
+        .post-generator-wash .kit-card-canvas .text-white\/70 { color: rgba(255,255,255,0.70); }
+        .post-generator-wash .kit-card-canvas .text-white\/65 { color: rgba(255,255,255,0.65); }
+        .post-generator-wash .kit-card-canvas .text-white\/60 { color: rgba(255,255,255,0.60); }
+        .post-generator-wash .kit-card-canvas .text-white\/55 { color: rgba(255,255,255,0.55); }
+        .post-generator-wash .kit-card-canvas .text-white\/50 { color: rgba(255,255,255,0.50); }
+        .post-generator-wash .kit-card-canvas .text-white\/40 { color: rgba(255,255,255,0.40); }
+        .post-generator-wash .kit-card-canvas .border-white\/30 { border-color: rgba(255,255,255,0.30); }
+        .post-generator-wash .kit-card-canvas .border-white\/25 { border-color: rgba(255,255,255,0.25); }
+        .post-generator-wash .kit-card-canvas .border-white\/20 { border-color: rgba(255,255,255,0.20); }
       `}</style>
 
       <div ref={postGeneratorRef} className="post-generator-wash">
@@ -494,7 +511,7 @@ export default function ContentPage() {
           </div>
 
           <div className="pt-6">
-            <ColorsInUseCarousel bgColor="#5684BA">
+            <ColorsInUseCarousel bgColor="#f5f4f0">
               {/* 1 — Client image BG with editorial serif overlay */}
               <KitCard caption="Client Testimonial · Serif" meta="IG / FB · Connected Pillar · Bi-Weekly">
                 <div
@@ -832,16 +849,10 @@ export default function ContentPage() {
                   ],
                 },
               ];
-              return rows.map((row, i) => (
+              return rows.map((row) => (
                 <div
                   key={row.freq}
-                  className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-8 md:gap-14 py-12 md:py-14"
-                  style={{
-                    borderTop: i === 0 ? "1px solid rgba(15,28,46,0.10)" : "none",
-                    // Only draw between-row dividers; skip the last one so it
-                    // doesn’t double up with the rotation-rule border-top.
-                    borderBottom: i < rows.length - 1 ? "1px solid rgba(15,28,46,0.10)" : "none",
-                  }}
+                  className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-8 md:gap-14 py-10 md:py-12"
                 >
                   {/* Cadence label */}
                   <div className="flex flex-col gap-3">
@@ -859,26 +870,24 @@ export default function ContentPage() {
                     </p>
                   </div>
 
-                  {/* Pillar cards */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-[2px]"
-                    style={{ background: "rgba(15,28,46,0.10)", border: "1px solid rgba(15,28,46,0.10)" }}>
+                  {/* Pillar cards — no borders, no dividers, just airy columns */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-8">
                     {row.cards.map((c) => (
                       <article
                         key={c.name}
-                        className="group relative bg-cream transition-colors duration-300"
-                        style={{ padding: "32px 28px 36px" }}
+                        className="group relative"
+                        style={{ padding: "4px 0 0" }}
                       >
-                        {/* Left accent bar grows on hover */}
-                        <span
-                          aria-hidden
-                          className="absolute left-0 top-0 bottom-0 origin-top transition-transform duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)] scale-y-[0.18] group-hover:scale-y-100"
-                          style={{ width: 2, background: c.color }}
-                        />
-                        <header className="flex items-baseline justify-between mb-4 pb-3.5"
-                          style={{ borderBottom: "1px solid rgba(15,28,46,0.10)" }}>
-                          <span className="font-label uppercase"
-                            style={{ fontSize: "10px", letterSpacing: "0.22em", fontWeight: 600, color: c.color }}>
+                        <header className="flex items-baseline justify-between mb-5">
+                          <span className="relative inline-block font-label uppercase"
+                            style={{ fontSize: "10px", letterSpacing: "0.22em", fontWeight: 600, color: c.color, paddingBottom: 6 }}>
                             {c.name}
+                            {/* Horizontal underline grows from left on hover */}
+                            <span
+                              aria-hidden
+                              className="absolute left-0 bottom-0 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)]"
+                              style={{ height: 2, width: "100%", background: c.color }}
+                            />
                           </span>
                           <span style={{ fontFamily: "var(--serif)", fontStyle: "italic", fontWeight: 400, fontSize: "22px", color: c.color, opacity: 0.7 }}>
                             {c.num}
@@ -897,8 +906,8 @@ export default function ContentPage() {
           </div>
 
           {/* Rotation rule — paired with month chips */}
-          <div className="mt-20 pt-10 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-8 md:gap-14 items-start"
-            style={{ borderTop: "1px solid rgba(15,28,46,0.15)" }}>
+          <div className="mt-16 pt-10 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-8 md:gap-14 items-start"
+            style={{ borderTop: "1px solid rgba(15,28,46,0.12)" }}>
             <p className="font-label uppercase text-navy/55 mt-1"
               style={{ fontSize: "10px", letterSpacing: "0.22em", fontWeight: 600 }}>
               Pillar Rotation
