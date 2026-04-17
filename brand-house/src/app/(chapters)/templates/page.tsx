@@ -502,14 +502,14 @@ export default function TemplatesPage() {
 
   return (
     <>
-      {/* ── FIXED BACKDROP — Berry gradient + film grain.
-         Mirrors the Content page treatment, in the Berry/coral register. ── */}
+      {/* ── FIXED BACKDROP — Evergreen gradient + film grain.
+         Mirrors the Content page treatment, in the evergreen register. ── */}
       <div
         aria-hidden
         className="fixed inset-0 pointer-events-none"
         style={{
           zIndex: 0,
-          background: "linear-gradient(180deg, #C26470 0%, #A73B44 45%, #7A2832 100%)",
+          background: "linear-gradient(180deg, #3E8A80 0%, #00685E 45%, #00453E 100%)",
         }}
       >
         {/* Layer 1 — fine paper tooth */}
@@ -556,7 +556,7 @@ export default function TemplatesPage() {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at center, transparent 40%, rgba(60,14,22,0.45) 100%)",
+              "radial-gradient(ellipse at center, transparent 40%, rgba(0,40,35,0.5) 100%)",
           }}
         />
       </div>
