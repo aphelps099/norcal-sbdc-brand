@@ -5,7 +5,6 @@ import InteriorHero from "@/components/InteriorHero";
 import CopyButton from "@/components/CopyButton";
 import { SocialBrandRow } from "@/components/SocialIcons";
 import NextSectionLink from "@/components/NextSectionLink";
-import SbdcWatermark from "@/components/SbdcWatermark";
 import ColorsInUseCarousel from "@/components/ColorsInUseCarousel";
 import Reveal from "@/components/Reveal";
 import ScrollFadeBackground from "@/components/ScrollFadeBackground";
@@ -307,10 +306,6 @@ export default function ContentPage() {
       {/* ── CONTENT GENERATOR — editorial hero, steel bg ── */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "transparent" }}>
 
-        <SbdcWatermark
-          className="absolute -right-[6%] top-[10%] w-[38vw] max-w-[460px] text-white pointer-events-none select-none"
-          opacity={0.08}
-        />
         <span
           className="material-symbols-outlined absolute -right-12 -bottom-24 text-white/[0.09] pointer-events-none select-none"
           style={{ fontSize: "min(80vw, 820px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
@@ -792,10 +787,6 @@ export default function ContentPage() {
 
       {/* ── POSTING RHYTHM ── */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "transparent" }}>
-        <SbdcWatermark
-          className="absolute -right-[8%] top-[5%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none"
-          opacity={0.07}
-        />
         <span
           className="material-symbols-outlined absolute -right-10 top-[2%] text-white/[0.07] pointer-events-none select-none"
           style={{ fontSize: "min(50vw, 500px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
