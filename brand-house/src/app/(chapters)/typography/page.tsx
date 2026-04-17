@@ -747,7 +747,7 @@ function UsageReference({ rows: _rows }: { rows: UsageRow[] }) {
       num: "05",
       spec: "Wide 700 caps · 56–160px",
       tone: "berry",
-      gridClass: "col-span-4 row-span-6",
+      gridClass: "col-span-4 row-span-3",
       body: (
         <div
           style={{
@@ -834,7 +834,7 @@ function UsageReference({ rows: _rows }: { rows: UsageRow[] }) {
       num: "06",
       spec: "Serif 400 italic · 32–56px",
       tone: "sand",
-      gridClass: "col-span-6 row-span-3",
+      gridClass: "col-span-4 row-span-2",
       decorativeQuote: true,
       body: (
         <div
@@ -904,7 +904,7 @@ function UsageReference({ rows: _rows }: { rows: UsageRow[] }) {
       num: "08",
       spec: "Serif 400 italic · inside body",
       tone: "pool",
-      gridClass: "col-span-5 row-span-3",
+      gridClass: "col-span-6 row-span-3",
       body: (
         <div
           style={{
@@ -936,7 +936,7 @@ function UsageReference({ rows: _rows }: { rows: UsageRow[] }) {
       num: "09",
       spec: "Serif 300 book · 22–28px",
       tone: "inkSoft",
-      gridClass: "col-span-8 row-span-3",
+      gridClass: "col-span-12 row-span-3",
       body: (
         <div
           style={{
@@ -962,7 +962,7 @@ function UsageReference({ rows: _rows }: { rows: UsageRow[] }) {
       num: "10",
       spec: "Proxima 500 + Serif italic",
       tone: "sand",
-      gridClass: "col-span-4 row-span-3",
+      gridClass: "col-span-5 row-span-3",
       body: (
         <div
           style={{
@@ -999,32 +999,18 @@ function UsageReference({ rows: _rows }: { rows: UsageRow[] }) {
   };
 
   return (
-    <section style={{ paddingTop: "clamp(40px, 6vw, 72px)", paddingBottom: "24px" }}>
-      {/* Inline eyebrow for the mosaic — integrated into Fonts in Practice */}
-      <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 mb-6 md:mb-8">
-        <p
-          style={{
-            fontFamily: "var(--font-wide)",
-            fontWeight: 700,
-            fontSize: "10px",
-            letterSpacing: "0.24em",
-            textTransform: "uppercase",
-            color: "rgba(15,28,46,0.45)",
-          }}
-        >
-          Reference Mosaic · Tile Size = Speaking Volume
-        </p>
-      </div>
-
-      {/* Mosaic grid — matches editorial container width (1200) */}
+    <section style={{ paddingTop: "20px", paddingBottom: "24px" }}>
+      {/* Master mosaic grid — continues the editorial row cadence:
+         same 1200 container, same 20px gap (gap-5), same figure padding */}
       <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
         <div
           className="mosaic-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(12, minmax(0, 1fr))",
-            gridAutoRows: "104px",
-            gap: 8,
+            gridAutoRows: "140px",
+            gridAutoFlow: "dense",
+            gap: 20,
           }}
         >
           {tiles.map((t) => {
@@ -1036,49 +1022,26 @@ function UsageReference({ rows: _rows }: { rows: UsageRow[] }) {
                 style={{
                   position: "relative",
                   overflow: "hidden",
-                  padding: "18px 22px",
                   background: c.bg,
                   color: c.fg,
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent: "space-between",
                   transition: "transform 0.3s cubic-bezier(0.2, 0, 0, 1)",
                 }}
               >
-                {/* Decorative giant quote mark on pull-quote tile */}
-                {t.decorativeQuote && (
-                  <span
-                    aria-hidden
-                    style={{
-                      position: "absolute",
-                      top: "-0.12em",
-                      right: "-0.05em",
-                      fontFamily: "var(--serif)",
-                      fontStyle: "italic",
-                      fontWeight: 400,
-                      fontSize: "clamp(200px, 30vw, 360px)",
-                      lineHeight: 0.8,
-                      color: BERRY,
-                      opacity: 0.1,
-                      pointerEvents: "none",
-                      zIndex: 1,
-                    }}
-                  >
-                    &ldquo;
-                  </span>
-                )}
-
-                {/* Meta row */}
+                {/* Editorial figure layout — mirrors the padding/eyebrow/spec rhythm of Row 1–3 figures above */}
                 <div
-                  className="flex items-start justify-between gap-3"
-                  style={{ position: "relative", zIndex: 2 }}
+                  className="p-7 md:p-8 flex flex-col"
+                  style={{ flex: 1, position: "relative", zIndex: 2 }}
                 >
+                  {/* Eyebrow — same 10px wide-700 uppercase as Signature Story / Social Ad figcaptions */}
                   <span
+                    className="mb-5"
                     style={{
                       fontFamily: "var(--font-wide), var(--sans)",
                       fontWeight: 700,
                       fontSize: 10,
-                      letterSpacing: "0.18em",
+                      letterSpacing: "0.24em",
                       textTransform: "uppercase",
                       lineHeight: 1.4,
                       color: c.meta,
@@ -1086,50 +1049,34 @@ function UsageReference({ rows: _rows }: { rows: UsageRow[] }) {
                   >
                     {t.label}
                   </span>
-                  <span
+
+                  {/* Sample body */}
+                  <div
                     style={{
-                      fontFamily: "var(--serif)",
-                      fontStyle: "italic",
-                      fontWeight: 400,
-                      fontSize: 14,
-                      color: c.meta,
-                      fontVariantNumeric: "tabular-nums",
+                      flex: 1,
+                      display: "flex",
+                      alignItems: "center",
                     }}
                   >
-                    {t.num}
-                  </span>
-                </div>
+                    {t.body}
+                  </div>
 
-                {/* Sample body */}
-                <div
-                  style={{
-                    flex: 1,
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "14px 0",
-                    position: "relative",
-                    zIndex: 2,
-                  }}
-                >
-                  {t.body}
-                </div>
-
-                {/* Spec row */}
-                <div
-                  style={{
-                    fontFamily: "var(--sans)",
-                    fontWeight: 500,
-                    fontSize: 9.5,
-                    letterSpacing: "0.14em",
-                    textTransform: "uppercase",
-                    lineHeight: 1.6,
-                    fontVariantNumeric: "tabular-nums",
-                    color: c.meta,
-                    position: "relative",
-                    zIndex: 2,
-                  }}
-                >
-                  {t.spec}
+                  {/* Spec row — matches the ‘— Adam & Dustin, co-founders’ foot caption style */}
+                  <div
+                    className="mt-auto pt-6"
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontWeight: 500,
+                      fontSize: 10,
+                      letterSpacing: "0.14em",
+                      textTransform: "uppercase",
+                      lineHeight: 1.6,
+                      fontVariantNumeric: "tabular-nums",
+                      color: c.meta,
+                    }}
+                  >
+                    {t.spec}
+                  </div>
                 </div>
               </div>
             );
