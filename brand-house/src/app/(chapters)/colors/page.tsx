@@ -1,5 +1,6 @@
 import ColorsHero from "@/components/ColorsHero";
-import ColorsTabs from "@/components/ColorsTabs";
+import AnchorColors from "@/components/AnchorColors";
+import ColorPairings from "@/components/ColorPairings";
 import ApplicationsHeader from "@/components/ApplicationsHeader";
 import ColorsInUseCarousel from "@/components/ColorsInUseCarousel";
 import NextSectionLink from "@/components/NextSectionLink";
@@ -39,10 +40,11 @@ export default function ColorsPage() {
     <>
       <ColorsHero />
 
-      {/* ───────────── BRAND COLORS (tabs) ───────────── */}
-      <div className="bg-cream pt-16 md:pt-24 pb-20 md:pb-28">
-        <ColorsTabs />
-      </div>
+      {/* ───────────── ANCHOR COLORS ───────────── */}
+      <AnchorColors />
+
+      {/* ───────────── PAIRINGS ───────────── */}
+      <ColorPairings />
 
       {/* ───────────── APPLICATIONS (trophy gallery) ───────────── */}
       <div className="bg-cream pb-24 md:pb-32">
@@ -307,6 +309,215 @@ export default function ColorsPage() {
                   <div className="w-8 h-[2px] bg-[#A73B44] mt-6 mb-3" />
                   <p className="font-label text-[9px] uppercase tracking-[0.14em] text-white/45">
                     Navy anchor · Fog emphasis
+                  </p>
+                </div>
+              </div>
+            </PosterFrame>
+
+            {/* ─── Poster 7 · EVENT POSTER — Cobalt field ─── */}
+            <PosterFrame caption="07 · Event poster — Cobalt field">
+              <div className="absolute inset-0" style={{ backgroundColor: "#004290" }} />
+              <div
+                className="absolute inset-0 opacity-[0.06] mix-blend-overlay"
+                style={{
+                  backgroundImage:
+                    "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+                }}
+              />
+              <div className="absolute -left-16 -top-16 w-[75%] opacity-[0.08] pointer-events-none">
+                <svg viewBox="0 0 2107 2003" aria-hidden="true">
+                  <path d={STAR_PATH} fill="#f5f4f0" />
+                </svg>
+              </div>
+              <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-7">
+                <div className="flex items-center justify-between">
+                  <p className="font-label text-[9px] uppercase tracking-[0.18em] text-white/55">
+                    Workshop · May 14
+                  </p>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#A73B44]" />
+                </div>
+                <div>
+                  <h3
+                    className="leading-[0.96] tracking-[-0.025em] mb-4"
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontWeight: 500,
+                      fontSize: "clamp(32px, 3.8vw, 48px)",
+                      color: "#f5f4f0",
+                    }}
+                  >
+                    Funding
+                    <br />
+                    <span
+                      style={{
+                        fontFamily: "var(--serif)",
+                        fontStyle: "italic",
+                        fontWeight: 400,
+                        color: "#f5f4f0",
+                      }}
+                    >
+                      fundamentals.
+                    </span>
+                  </h3>
+                  <div className="w-8 h-[2px] bg-[#A73B44] mb-3" />
+                  <p className="font-label text-[9px] uppercase tracking-[0.14em] text-white/55">
+                    Sacramento · 6 PM
+                  </p>
+                </div>
+              </div>
+            </PosterFrame>
+
+            {/* ─── Poster 8 · DATA CARD — Cloud ground ─── */}
+            <PosterFrame caption="08 · Data card — Cloud ground">
+              <div className="absolute inset-0" style={{ backgroundColor: "#F2F4F7" }} />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#004290]" />
+              <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-7">
+                <div className="flex items-start justify-between">
+                  <p className="font-label text-[9px] uppercase tracking-[0.18em] text-navy/50">
+                    Q1 · 2026 Dashboard
+                  </p>
+                  <span className="font-mono text-[10px] text-navy/45">01 / 12</span>
+                </div>
+                <div>
+                  {/* Bar row */}
+                  <div className="flex items-end gap-1.5 mb-6 h-24">
+                    {[0.35, 0.55, 0.45, 0.72, 0.62, 0.88, 0.78].map((h, i) => (
+                      <div
+                        key={i}
+                        className="flex-1"
+                        style={{
+                          height: `${h * 100}%`,
+                          backgroundColor: i === 5 ? "#004290" : "#5684BA",
+                          opacity: i === 5 ? 1 : 0.55,
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <p
+                    className="text-navy leading-[0.98] tracking-[-0.025em] mb-4"
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontWeight: 500,
+                      fontSize: "clamp(30px, 3.6vw, 44px)",
+                    }}
+                  >
+                    +34%{" "}
+                    <span
+                      style={{
+                        fontFamily: "var(--serif)",
+                        fontStyle: "italic",
+                        fontWeight: 400,
+                        color: "#00685E",
+                      }}
+                    >
+                      growth.
+                    </span>
+                  </p>
+                  <div className="w-8 h-[2px] bg-[#00685E] mb-3" />
+                  <p className="font-label text-[9px] uppercase tracking-[0.14em] text-navy/50">
+                    New clients · Year over year
+                  </p>
+                </div>
+              </div>
+            </PosterFrame>
+
+            {/* ─── Poster 9 · SERVICE AD — Berry field ─── */}
+            <PosterFrame caption="09 · Service ad — Berry field">
+              <div className="absolute inset-0" style={{ backgroundColor: "#A73B44" }} />
+              <div
+                className="absolute inset-0 opacity-[0.05] mix-blend-overlay"
+                style={{
+                  backgroundImage:
+                    "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+                }}
+              />
+              <div className="absolute -right-14 -bottom-14 w-[65%] opacity-[0.09] pointer-events-none">
+                <svg viewBox="0 0 2107 2003" aria-hidden="true">
+                  <path d={STAR_PATH} fill="#f5f4f0" />
+                </svg>
+              </div>
+              <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-7">
+                <p className="font-label text-[9px] uppercase tracking-[0.14em] text-white/65">
+                  Free · No cost to you
+                </p>
+                <div>
+                  <h3
+                    className="text-white leading-[0.96] tracking-[-0.025em] mb-5"
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontWeight: 500,
+                      fontSize: "clamp(30px, 3.6vw, 44px)",
+                    }}
+                  >
+                    One-on-one{" "}
+                    <span
+                      style={{
+                        fontFamily: "var(--serif)",
+                        fontStyle: "italic",
+                        fontWeight: 400,
+                      }}
+                    >
+                      advising.
+                    </span>
+                  </h3>
+                  <div
+                    className="inline-flex items-center gap-2 px-3 py-1.5"
+                    style={{
+                      backgroundColor: "#f5f4f0",
+                      color: "#A73B44",
+                    }}
+                  >
+                    <span className="font-label text-[10px] uppercase tracking-[0.14em]">
+                      Book today →
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </PosterFrame>
+
+            {/* ─── Poster 10 · ANNUAL REPORT COVER — Cream ─── */}
+            <PosterFrame caption="10 · Annual report cover">
+              <div className="absolute inset-0" style={{ backgroundColor: "#f5f4f0" }} />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#0f1c2e]" />
+              <div className="absolute -right-10 -bottom-10 w-[60%] opacity-[0.06] pointer-events-none">
+                <svg viewBox="0 0 2107 2003" aria-hidden="true">
+                  <path d={STAR_PATH} fill="#0f1c2e" />
+                </svg>
+              </div>
+              <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-8">
+                <div>
+                  <p className="font-label text-[9px] uppercase tracking-[0.18em] text-navy/50 mb-2">
+                    2025 · Annual Report
+                  </p>
+                  <p className="font-mono text-[11px] text-navy/45">Vol. 04</p>
+                </div>
+                <div>
+                  <h3
+                    className="text-navy leading-[0.96] tracking-[-0.03em] mb-3"
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontWeight: 500,
+                      fontSize: "clamp(34px, 4.2vw, 56px)",
+                    }}
+                  >
+                    Small
+                    <br />
+                    businesses.
+                    <br />
+                    <span
+                      style={{
+                        fontFamily: "var(--serif)",
+                        fontStyle: "italic",
+                        fontWeight: 400,
+                        color: "#A73B44",
+                      }}
+                    >
+                      Big movement.
+                    </span>
+                  </h3>
+                  <div className="w-8 h-[2px] bg-[#A73B44] mt-6 mb-3" />
+                  <p className="font-label text-[9px] uppercase tracking-[0.14em] text-navy/50">
+                    NorCal SBDC Network
                   </p>
                 </div>
               </div>
