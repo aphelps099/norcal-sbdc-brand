@@ -205,17 +205,35 @@ function LogoCard({ logo }: { logo: LogoAsset }) {
 function SectionNav() {
   return (
     <div>
-      <p className="font-sans text-sm text-text-secondary mb-5">
+      <h3
+        className="font-serif italic text-navy mb-8"
+        style={{
+          fontSize: "clamp(32px, 3.6vw, 48px)",
+          lineHeight: 1.05,
+          letterSpacing: "-0.025em",
+        }}
+      >
         Find what logo you need.
-      </p>
-      <nav className="flex flex-wrap gap-2.5">
+      </h3>
+      <nav className="flex flex-wrap gap-3">
         {SECTIONS.map((s) => (
           <a
             key={s.id}
             href={`#${s.id}`}
-            className="inline-block px-4 py-2 rounded-full border-2 border-navy/12 font-label text-[11px] uppercase tracking-[0.12em] text-navy/40 hover:bg-navy hover:border-navy hover:text-white transition-all duration-300"
+            className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-navy/20 font-sans text-[16px] text-navy hover:bg-navy hover:border-navy hover:text-white transition-all duration-300"
           >
-            {s.label}
+            <span>{s.label}</span>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              className="opacity-50 group-hover:opacity-100 transition-opacity duration-300"
+            >
+              <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </a>
         ))}
       </nav>
@@ -255,25 +273,9 @@ export default function LogoPageContent() {
 
   return (
     <div ref={contentRef} className="bg-cream">
-      {/* ═══ Intro section — offset 2-column ═══ */}
+      {/* ═══ Intro section — section jump nav ═══ */}
       <section className="logo-section py-16 md:py-24">
-        <div className={COL_WIDE}>
-          <div className="grid grid-cols-1 md:grid-cols-[5fr_7fr] gap-10 md:gap-14 items-start">
-            {/* Left — logo carousel */}
-            <LogoCarousel />
-
-            {/* Right — logo intro text */}
-            <div className="flex flex-col justify-center">
-              <p className="font-sans text-base md:text-lg text-navy/65 leading-relaxed">
-                Our logo is the most recognizable element of our brand. Always use
-                official logo files — never recreate or typeset.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Section jump nav — tight column */}
-        <div className={`${COL_NARROW} mt-14 pt-7 border-t border-navy/8`}>
+        <div className={COL_NARROW}>
           <SectionNav />
         </div>
       </section>
