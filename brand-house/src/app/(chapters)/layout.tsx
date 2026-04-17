@@ -12,7 +12,9 @@ export default function ChaptersLayout({
       <div className="min-h-screen bg-white">
         {children}
       </div>
-      <SiteFooter />
+      <div className="relative z-[2]">
+        <SiteFooter />
+      </div>
     </>
   );
 }

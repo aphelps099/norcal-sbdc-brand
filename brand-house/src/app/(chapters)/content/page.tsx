@@ -410,44 +410,44 @@ export default function ContentPage() {
          navy tints so every section stays readable on cream. */}
       <style>{`
         .post-generator-wash .text-white { color: #0f1c2e; }
-        .post-generator-wash .text-white\/90 { color: rgba(15,28,46,0.85); }
-        .post-generator-wash .text-white\/85 { color: rgba(15,28,46,0.80); }
-        .post-generator-wash .text-white\/80 { color: rgba(15,28,46,0.70); }
-        .post-generator-wash .text-white\/75 { color: rgba(15,28,46,0.65); }
-        .post-generator-wash .text-white\/70 { color: rgba(15,28,46,0.60); }
-        .post-generator-wash .text-white\/65 { color: rgba(15,28,46,0.55); }
-        .post-generator-wash .text-white\/60 { color: rgba(15,28,46,0.55); }
-        .post-generator-wash .text-white\/55 { color: rgba(15,28,46,0.50); }
-        .post-generator-wash .text-white\/50 { color: rgba(15,28,46,0.45); }
-        .post-generator-wash .text-white\/40 { color: rgba(15,28,46,0.40); }
-        .post-generator-wash .border-white\/30 { border-color: rgba(15,28,46,0.15); }
-        .post-generator-wash .border-white\/25 { border-color: rgba(15,28,46,0.12); }
-        .post-generator-wash .border-white\/20 { border-color: rgba(15,28,46,0.10); }
+        .post-generator-wash .text-white\\/90 { color: rgba(15,28,46,0.85); }
+        .post-generator-wash .text-white\\/85 { color: rgba(15,28,46,0.80); }
+        .post-generator-wash .text-white\\/80 { color: rgba(15,28,46,0.70); }
+        .post-generator-wash .text-white\\/75 { color: rgba(15,28,46,0.65); }
+        .post-generator-wash .text-white\\/70 { color: rgba(15,28,46,0.60); }
+        .post-generator-wash .text-white\\/65 { color: rgba(15,28,46,0.55); }
+        .post-generator-wash .text-white\\/60 { color: rgba(15,28,46,0.55); }
+        .post-generator-wash .text-white\\/55 { color: rgba(15,28,46,0.50); }
+        .post-generator-wash .text-white\\/50 { color: rgba(15,28,46,0.45); }
+        .post-generator-wash .text-white\\/40 { color: rgba(15,28,46,0.40); }
+        .post-generator-wash .border-white\\/30 { border-color: rgba(15,28,46,0.15); }
+        .post-generator-wash .border-white\\/25 { border-color: rgba(15,28,46,0.12); }
+        .post-generator-wash .border-white\\/20 { border-color: rgba(15,28,46,0.10); }
         /* Oversized decorative icons — keep them as subtle ghosts */
-        .post-generator-wash .material-symbols-outlined.text-white\/\[0\.09\],
-        .post-generator-wash .material-symbols-outlined.text-white\/\[0\.08\],
-        .post-generator-wash .material-symbols-outlined.text-white\/\[0\.07\] {
+        .post-generator-wash .material-symbols-outlined.text-white\\/\\[0\\.09\\],
+        .post-generator-wash .material-symbols-outlined.text-white\\/\\[0\\.08\\],
+        .post-generator-wash .material-symbols-outlined.text-white\\/\\[0\\.07\\] {
           color: rgba(15,28,46,0.06);
         }
-        .post-generator-wash .text-white\/\[0\.08\],
-        .post-generator-wash .text-white\/\[0\.07\] { color: rgba(15,28,46,0.06); }
+        .post-generator-wash .text-white\\/\\[0\\.08\\],
+        .post-generator-wash .text-white\\/\\[0\\.07\\] { color: rgba(15,28,46,0.06); }
         /* Kit cards live on saturated photo / berry / navy backgrounds — keep their
            native white text + borders. Higher-specificity overrides reset everything
            the wash remap touched. */
         .post-generator-wash .kit-card-canvas .text-white { color: #ffffff; }
-        .post-generator-wash .kit-card-canvas .text-white\/90 { color: rgba(255,255,255,0.90); }
-        .post-generator-wash .kit-card-canvas .text-white\/85 { color: rgba(255,255,255,0.85); }
-        .post-generator-wash .kit-card-canvas .text-white\/80 { color: rgba(255,255,255,0.80); }
-        .post-generator-wash .kit-card-canvas .text-white\/75 { color: rgba(255,255,255,0.75); }
-        .post-generator-wash .kit-card-canvas .text-white\/70 { color: rgba(255,255,255,0.70); }
-        .post-generator-wash .kit-card-canvas .text-white\/65 { color: rgba(255,255,255,0.65); }
-        .post-generator-wash .kit-card-canvas .text-white\/60 { color: rgba(255,255,255,0.60); }
-        .post-generator-wash .kit-card-canvas .text-white\/55 { color: rgba(255,255,255,0.55); }
-        .post-generator-wash .kit-card-canvas .text-white\/50 { color: rgba(255,255,255,0.50); }
-        .post-generator-wash .kit-card-canvas .text-white\/40 { color: rgba(255,255,255,0.40); }
-        .post-generator-wash .kit-card-canvas .border-white\/30 { border-color: rgba(255,255,255,0.30); }
-        .post-generator-wash .kit-card-canvas .border-white\/25 { border-color: rgba(255,255,255,0.25); }
-        .post-generator-wash .kit-card-canvas .border-white\/20 { border-color: rgba(255,255,255,0.20); }
+        .post-generator-wash .kit-card-canvas .text-white\\/90 { color: rgba(255,255,255,0.90); }
+        .post-generator-wash .kit-card-canvas .text-white\\/85 { color: rgba(255,255,255,0.85); }
+        .post-generator-wash .kit-card-canvas .text-white\\/80 { color: rgba(255,255,255,0.80); }
+        .post-generator-wash .kit-card-canvas .text-white\\/75 { color: rgba(255,255,255,0.75); }
+        .post-generator-wash .kit-card-canvas .text-white\\/70 { color: rgba(255,255,255,0.70); }
+        .post-generator-wash .kit-card-canvas .text-white\\/65 { color: rgba(255,255,255,0.65); }
+        .post-generator-wash .kit-card-canvas .text-white\\/60 { color: rgba(255,255,255,0.60); }
+        .post-generator-wash .kit-card-canvas .text-white\\/55 { color: rgba(255,255,255,0.55); }
+        .post-generator-wash .kit-card-canvas .text-white\\/50 { color: rgba(255,255,255,0.50); }
+        .post-generator-wash .kit-card-canvas .text-white\\/40 { color: rgba(255,255,255,0.40); }
+        .post-generator-wash .kit-card-canvas .border-white\\/30 { border-color: rgba(255,255,255,0.30); }
+        .post-generator-wash .kit-card-canvas .border-white\\/25 { border-color: rgba(255,255,255,0.25); }
+        .post-generator-wash .kit-card-canvas .border-white\\/20 { border-color: rgba(255,255,255,0.20); }
       `}</style>
 
       <div ref={postGeneratorRef} className="post-generator-wash">
@@ -849,10 +849,11 @@ export default function ContentPage() {
                   ],
                 },
               ];
-              return rows.map((row) => (
+              return rows.map((row, rowIdx) => (
                 <div
                   key={row.freq}
                   className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-8 md:gap-14 py-10 md:py-12"
+                  style={rowIdx > 0 ? { borderTop: "1px solid rgba(15,28,46,0.12)" } : undefined}
                 >
                   {/* Cadence label */}
                   <div className="flex flex-col gap-3">
@@ -932,8 +933,8 @@ export default function ContentPage() {
       {/* ── RESPONDING TO COMMENTS — steel bg ── */}
       <section className="py-20 md:py-28 relative overflow-hidden" style={{ backgroundColor: "transparent" }}>
         <span
-          className="material-symbols-outlined absolute -left-6 bottom-[-4%] text-white/[0.07] pointer-events-none select-none"
-          style={{ fontSize: "min(40vw, 380px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
+          className="material-symbols-outlined absolute -left-6 bottom-[-4%] pointer-events-none select-none"
+          style={{ fontSize: "min(40vw, 380px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1, color: "rgba(86,132,186,0.18)" }}
           aria-hidden="true"
         >
           chat_bubble
@@ -983,7 +984,11 @@ export default function ContentPage() {
       </div>
       {/* end .post-generator-wash */}
 
-      <NextSectionLink title="Email" href="/email" />
+      {/* Lift the next-section CTA + site footer above the fixed cream wash
+         (which has zIndex 1 and would otherwise tint these dark sections). */}
+      <div className="relative z-[2]">
+        <NextSectionLink title="Email" href="/email" />
+      </div>
 
       </div>
     </>
