@@ -80,7 +80,7 @@ export default function ColorsInUseCarousel({ children, bgColor = "#f5f4f0" }: C
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={`relative z-10 transition-colors duration-200 ${canPrev ? "text-white" : "text-navy/30"}`}
+            className={`carousel-nav-icon relative z-10 transition-colors duration-200 ${canPrev ? "text-white" : "text-navy/30"}`}
           >
             <path d="m15 18-6-6 6-6" />
           </svg>
@@ -108,7 +108,7 @@ export default function ColorsInUseCarousel({ children, bgColor = "#f5f4f0" }: C
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={`relative z-10 transition-colors duration-200 ${canNext ? "text-white" : "text-navy/30"}`}
+            className={`carousel-nav-icon relative z-10 transition-colors duration-200 ${canNext ? "text-white" : "text-navy/30"}`}
           >
             <path d="m9 18 6-6-6-6" />
           </svg>

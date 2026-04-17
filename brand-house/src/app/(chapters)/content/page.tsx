@@ -449,6 +449,8 @@ export default function ContentPage() {
         .post-generator-wash .kit-card-canvas .border-white\\/30 { border-color: rgba(255,255,255,0.30); }
         .post-generator-wash .kit-card-canvas .border-white\\/25 { border-color: rgba(255,255,255,0.25); }
         .post-generator-wash .kit-card-canvas .border-white\\/20 { border-color: rgba(255,255,255,0.20); }
+        /* Carousel nav arrows sit on a dark filled pill — keep their white stroke. */
+        .post-generator-wash .carousel-nav-icon.text-white { color: #ffffff; }
       `}</style>
 
       <div ref={postGeneratorRef} className="post-generator-wash">
@@ -932,10 +934,10 @@ export default function ContentPage() {
       </section>
 
       {/* ── RESPONDING TO COMMENTS — steel bg ── */}
-      <section className="py-20 md:py-28 relative overflow-hidden" style={{ backgroundColor: "transparent" }}>
+      <section className="py-20 md:py-28 relative" style={{ backgroundColor: "transparent" }}>
         <span
-          className="material-symbols-outlined absolute -left-6 bottom-[-4%] pointer-events-none select-none"
-          style={{ fontSize: "min(40vw, 380px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1, color: "rgba(86,132,186,0.32)" }}
+          className="material-symbols-outlined absolute -left-8 bottom-0 pointer-events-none select-none"
+          style={{ fontSize: "min(42vw, 420px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1, color: "rgba(86,132,186,0.55)" }}
           aria-hidden="true"
         >
           chat_bubble
