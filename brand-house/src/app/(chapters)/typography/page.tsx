@@ -1,7 +1,7 @@
 import NextSectionLink from "@/components/NextSectionLink";
 import TypographyHero from "@/components/TypographyHero";
 import TypographySpecimens from "@/components/TypographySpecimens";
-import GrainBackdrop from "@/components/GrainBackdrop";
+import CreamPaperBackdrop from "@/components/CreamPaperBackdrop";
 
 const COBALT = "#004290";
 const BERRY = "#A73B44";
@@ -211,11 +211,11 @@ const usageRows = [
 export default function TypographyPage() {
   return (
     <>
-      <GrainBackdrop />
+      <CreamPaperBackdrop />
       <div className="relative" style={{ zIndex: 1 }}>
       <TypographyHero />
 
-      <div className="bg-cream">
+      <div>
         {/* ============================================================
             Brand Fonts — 2 centered rows (matches Colors page section rhythm)
         ============================================================ */}
