@@ -290,8 +290,7 @@ export default function PhotographyPage() {
       >
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
           <div
-            className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 md:gap-12 pt-10 md:pt-12 border-t"
-            style={{ borderColor: "rgba(15,28,46,0.18)" }}
+            className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 md:gap-12 pt-10 md:pt-12"
           >
             <div className="max-w-[640px]">
               <Eyebrow>04 · Access</Eyebrow>
@@ -318,7 +317,9 @@ export default function PhotographyPage() {
                 }}
               >
                 Client portraits, event coverage, brand film, and approved
-                stock. Centralized, rights-cleared, ready to use.
+                stock.
+                <br />
+                Centralized, rights-cleared, ready to use.
               </p>
             </div>
 
@@ -340,18 +341,20 @@ export default function PhotographyPage() {
             >
               Open Library
               <svg
-                width="14"
-                height="14"
+                width="16"
+                height="16"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                strokeWidth="1.75"
+                strokeLinecap="square"
+                strokeLinejoin="miter"
+                className="transition-transform duration-300 group-hover:rotate-90"
               >
-                <path d="M7 17 17 7" />
-                <path d="M7 7h10v10" />
+                {/* plus-in-box */}
+                <rect x="3" y="3" width="18" height="18" />
+                <path d="M12 8v8" />
+                <path d="M8 12h8" />
               </svg>
             </a>
           </div>
