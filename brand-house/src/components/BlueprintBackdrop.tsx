@@ -68,12 +68,33 @@ export default function BlueprintBackdrop({
         <rect width="100%" height="100%" fill="url(#blueprint-tick)" />
       </svg>
 
-      {/* Very soft vignette — just a hint of depth, does not darken. */}
+      {/* Broad center spotlight — creamy-white pool of light behind the tool
+         so text and form elements sit on a bright, calm surface. Anchored
+         slightly below viewport center so it warms the content area (the
+         generator) rather than the hero. */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 55%, rgba(29,90,167,0.08) 100%)",
+            "radial-gradient(ellipse 70% 55% at 50% 62%, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.45) 30%, rgba(255,255,255,0.18) 55%, rgba(255,255,255,0) 75%)",
+          mixBlendMode: "screen",
+        }}
+      />
+
+      {/* Edge vignette — deeper blue cornering that frames the bright center.
+         Two stacked radials: a gentle wide falloff + a punchier corner darken. */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 85% 80% at 50% 50%, transparent 45%, rgba(29,90,167,0.22) 100%)",
+        }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 120% 100% at 50% 50%, transparent 60%, rgba(15,28,46,0.14) 100%)",
         }}
       />
     </div>
