@@ -7,10 +7,19 @@ interface NextSectionLinkProps {
   href: string;
 }
 
+/**
+ * Footer "Next Chapter" link.
+ *
+ *  · Background:  #192d4c (shared with SiteFooter for a seamless dark band)
+ *  · Label:       proxima-sera · thin (300) · italic · oversized display scale
+ *  · Hover:       text white → fog (#85A3C8) + slight scale-up
+ *                 (no sliding color sweep)
+ *  · Arrow:       giant Material Symbols "line_end_arrow_notch" replacing
+ *                 the old chevron SVG
+ */
 export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
-  const [hasHovered, setHasHovered] = useState(false);
 
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -58,31 +67,17 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
     return () => ctx?.revert();
   }, []);
 
+  const FOG = "#85A3C8";
+  const WHITE = "#ffffff";
+
   return (
-    <div ref={containerRef} className="relative overflow-hidden bg-[#0f1c2e]">
+    <div ref={containerRef} className="relative overflow-hidden bg-[#192d4c]">
       <a
         href={href}
         className="block no-underline relative"
-        onMouseEnter={() => {
-          setHovered(true);
-          setHasHovered(true);
-        }}
+        onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        {/* Cobalt sweep — slides up from bottom on hover, slides down on leave */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "#004290",
-            clipPath: hovered
-              ? "inset(0 0 0 0)"
-              : hasHovered
-                ? "inset(100% 0 0 0)"
-                : "inset(100% 0 0 0)",
-            transition: "clip-path 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)",
-          }}
-        />
-
         {/* Top border */}
         <div className="absolute top-0 left-0 right-0 z-20">
           <div className="max-w-[1200px] mx-auto px-8 md:px-12">
@@ -95,50 +90,55 @@ export default function NextSectionLink({ title, href }: NextSectionLinkProps) {
           <p
             className="next-eyebrow font-label text-[10px] uppercase tracking-[0.22em] mb-5 md:mb-6"
             style={{
-              color: hovered ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.25)",
-              transition: "color 0.6s",
+              color: hovered ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.28)",
+              transition: "color 0.5s ease",
             }}
           >
             Next
           </p>
 
-          {/* Section title */}
+          {/* Section title — proxima-sera, thin, italic, oversized */}
           <div className="next-title">
             <h2
-              className="tracking-[-0.03em] leading-[1] transition-colors duration-600"
               style={{
-                fontFamily: "var(--sans)",
-                fontWeight: 500,
-                fontSize: "clamp(36px, 6vw, 76px)",
-                color: hovered ? "#f5f4f0" : "rgba(255,255,255,0.8)",
+                fontFamily: "proxima-sera, var(--serif)",
+                fontWeight: 300,
+                fontStyle: "italic",
+                fontSize: "clamp(56px, 10vw, 132px)",
+                lineHeight: 1,
+                letterSpacing: "-0.02em",
+                color: hovered ? FOG : WHITE,
+                transform: hovered ? "scale(1.035)" : "scale(1)",
+                transformOrigin: "left center",
+                transition:
+                  "color 0.45s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+                display: "inline-block",
               }}
             >
               {title}
             </h2>
           </div>
 
-          {/* Oversized arrow icon — fills right side as ambient element */}
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="0.4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="next-arrow absolute right-4 md:right-8 top-1/2 transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+          {/* Giant material-symbol arrow (line_end_arrow_notch) */}
+          <span
+            aria-hidden="true"
+            className="material-symbols-outlined next-arrow absolute right-4 md:right-8 top-1/2"
             style={{
-              width: "clamp(120px, 18vw, 260px)",
-              height: "clamp(120px, 18vw, 260px)",
-              color: hovered
-                ? "rgba(255,255,255,0.08)"
-                : "rgba(255,255,255,0.04)",
+              fontSize: "clamp(160px, 22vw, 320px)",
+              lineHeight: 1,
+              fontVariationSettings:
+                "'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 48",
+              color: hovered ? FOG : WHITE,
+              opacity: hovered ? 0.95 : 0.85,
               transform: hovered
-                ? "translateY(-50%) translateX(6px)"
+                ? "translateY(-50%) translateX(10px)"
                 : "translateY(-50%)",
+              transition:
+                "transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), color 0.45s ease, opacity 0.45s ease",
             }}
           >
-            <path d="m9 18 6-6-6-6" />
-          </svg>
+            line_end_arrow_notch
+          </span>
         </div>
       </a>
     </div>

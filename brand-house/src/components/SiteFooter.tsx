@@ -2,7 +2,7 @@ import SbdcWatermark from "./SbdcWatermark";
 
 export default function SiteFooter() {
   return (
-    <footer className="relative bg-navy-deep overflow-hidden">
+    <footer className="relative overflow-hidden" style={{ background: "#192d4c" }}>
       {/* Star watermark */}
       <SbdcWatermark
         className="absolute -right-[10%] -bottom-[15%] w-[50vw] max-w-[600px] text-white pointer-events-none select-none"
