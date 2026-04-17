@@ -144,8 +144,10 @@ export default function VoiceHero() {
             color: "rgba(245, 244, 240, 0.75)",
           }}
         >
+          {cascadeWords("How we sound when we write.", { initialY: 14 })}
+          <br />
           {cascadeWords(
-            "How we sound when we write. Direct, human, knowing, optimistic \u2014 and never institutional.",
+            "Direct, human, knowing, optimistic \u2014 and never institutional.",
             { initialY: 14 }
           )}
         </p>

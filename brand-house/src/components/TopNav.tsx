@@ -101,8 +101,11 @@ export default function TopNav() {
     return () => window.removeEventListener("keydown", onKey);
   }, [menuOpen]);
 
-  /* Only the homepage hero is dark. Interior pages render on cream — always use dark nav text there. */
-  const isDark = isHome && !pastHero && !menuOpen;
+  /* Dark-hero routes render their hero on navy — keep nav text light (cream) while above that hero.
+     Homepage has its own dark hero; Voice chapter is navy-on-navy and needs the light variant too. */
+  const darkHeroRoutes = ["/voice"];
+  const onDarkHero = darkHeroRoutes.includes(pathname);
+  const isDark = ((isHome && !pastHero) || (onDarkHero && !pastHero)) && !menuOpen;
 
   return (
     <>
@@ -185,9 +188,11 @@ export default function TopNav() {
           menuOpen
             ? "bg-transparent"
             : scrolled
-              ? !isHome || pastHero
-                ? "bg-white/90 backdrop-blur-2xl border-b border-black/[0.06]"
-                : "bg-black/30 backdrop-blur-2xl"
+              ? onDarkHero && !pastHero
+                ? "bg-[#0f1c2e]/80 backdrop-blur-2xl border-b border-white/[0.06]"
+                : !isHome || pastHero
+                  ? "bg-white/90 backdrop-blur-2xl border-b border-black/[0.06]"
+                  : "bg-black/30 backdrop-blur-2xl"
               : "bg-transparent"
         }`}
       >
