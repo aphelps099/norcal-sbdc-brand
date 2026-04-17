@@ -3,324 +3,641 @@ import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
 import GrainBackdrop from "@/components/GrainBackdrop";
 
+/* ─────────────────────────────  TOKENS  ─────────────────────────────
+   Quarter palette mapped to existing brand tokens from globals.css:
+     Q1 (winter / intent)      → royal
+     Q2 (growth / loudest)     → pool-deep (teal-leaning green from navy+pool)
+     Q3 (course-correction)    → coral
+     Q4 (impact / year-end)    → navy
+   All four read as the same family — saturated, editorial, non-party.    */
+
+const Q = {
+  q1: "#1D5AA7", // --royal
+  q2: "#00685E", // evergreen — complements the rest, matches the mockup's Q2
+  q3: "#A73B44", // --coral
+  q4: "#0f1c2e", // --navy
+  navy: "#0f1c2e",
+  slate: "#2D3340",
+  cream: "#f5f4f0",
+  rule: "rgba(15,28,46,0.15)",
+  ruleSoft: "rgba(15,28,46,0.10)",
+};
+
 /* ─────────────────────────────  DATA  ───────────────────────────── */
 
+type QuarterKey = "q1" | "q2" | "q3" | "q4";
+
+type Campaign = {
+  name: string;
+  timing: string;
+  message: string;
+  // grid-column span on the 12-month spine (1-indexed month start / end+1)
+  span: [number, number];
+};
+
 type Quarter = {
-  label: string;        // Q1
-  months: string;       // January – March
-  themeLine1: string;   // "New Year,"
-  themeLine2: string;   // "New Business."   ← italic serif, second line gets coral on one word
-  themeAccent?: string; // which word in themeLine2 to paint coral (optional)
-  intro: string;        // narrative 2–3 sentences
-  campaigns: { name: string; timing: string; message: string }[];
-  awarenessLine: string; // prose sentence, not chips
-  dark: boolean;
+  key: QuarterKey;
+  label: string;
+  movement: string;       // "Movement I"
+  months: string;         // "January – March"
+  themeLine1: string;
+  themeLine2: string;     // italic line
+  intro: string;
+  campaigns: Campaign[];
 };
 
 const quarters: Quarter[] = [
   {
+    key: "q1",
     label: "Q1",
+    movement: "Movement I",
     months: "January – March",
     themeLine1: "New year,",
     themeLine2: "new business.",
-    themeAccent: "new",
     intro:
-      "Q1 opens every year on intent. Clients are making resolutions, the state is finalizing budgets, and every chamber is planning its calendar. Our job is to meet that energy with one clear invitation: if you've been thinking about starting, scaling, or planning — start here.",
+      "Q1 opens every year on intent. Clients are making resolutions, the state is finalizing budgets, and every chamber is planning its calendar. Our job: meet that energy with one clear invitation.",
     campaigns: [
       {
         name: "New Year Resolution Campaign",
         timing: "January",
         message: "Start the business you've been thinking about. We'll show you how.",
+        span: [1, 2],
       },
       {
         name: "Tax Season Prep",
         timing: "February – March",
         message: "Free workshops on small business tax planning and financial readiness.",
+        span: [2, 4],
       },
       {
         name: "Women's History Month",
         timing: "March",
         message: "Spotlighting women-owned businesses across Northern California.",
+        span: [3, 4],
       },
     ],
-    awarenessLine:
-      "National Mentoring Month in January, Black History Month in February, Women's History Month in March, and prep for SBA Small Business Week begins.",
-    dark: false,
   },
   {
+    key: "q2",
     label: "Q2",
+    movement: "Movement II",
     months: "April – June",
     themeLine1: "Growth",
     themeLine2: "season.",
-    themeAccent: "season",
     intro:
-      "Q2 is our loudest quarter. SBA National Small Business Week is the flagship, seasonal businesses are gearing up, and clients are actively shopping for capital. Messaging goes outward — workshops, partner events, lender showcases — and every center is on the same drumbeat.",
+      "Our loudest quarter. SBA National Small Business Week is the flagship, seasonal businesses are gearing up, capital is moving. Every center on the same drumbeat.",
     campaigns: [
       {
         name: "SBA National Small Business Week",
         timing: "Early May",
         message: "Celebrate small business. Free workshops, networking, and advisor meetups.",
+        span: [5, 6],
       },
       {
         name: "Summer Prep for Seasonal Businesses",
         timing: "May – June",
         message: "Get your business ready for the summer rush. Free planning sessions available.",
+        span: [5, 7],
       },
       {
         name: "Access to Capital Drive",
         timing: "April – June",
         message: "Need funding? Our advisors have helped clients raise $549M in the last year alone.",
+        span: [4, 7],
       },
     ],
-    awarenessLine:
-      "SBA National Small Business Week in early May, AAPI Heritage Month through May, and Micro-, Small & Medium-sized Enterprises Day on June 27.",
-    dark: true,
   },
   {
+    key: "q3",
     label: "Q3",
+    movement: "Movement III",
     months: "July – September",
     themeLine1: "Back to",
     themeLine2: "business.",
-    themeAccent: "business",
     intro:
-      "Q3 is the course-correction quarter. Clients are halfway through the year and looking at what's working, what's not, and how to finish strong. We lean into mid-year reviews, fall strategic planning, and the Hispanic Heritage Month spotlight that bridges September and October.",
+      "The course-correction quarter. Clients are halfway through the year and asking what's working. We lean into mid-year reviews, fall strategic planning, and Hispanic Heritage spotlights.",
     campaigns: [
       {
         name: "Mid-Year Business Health Check",
         timing: "July",
         message: "Halfway through the year. Let's review your goals and course-correct.",
+        span: [7, 8],
       },
       {
         name: "Back-to-Business Fall Push",
         timing: "August – September",
         message: "Set your business up for a strong Q4. Free strategic planning sessions.",
+        span: [8, 10],
       },
       {
         name: "Hispanic Heritage Month Spotlights",
         timing: "Sep 15 – Oct 15",
         message: "Celebrating Hispanic and Latino-owned businesses and the advisors who serve them.",
+        span: [9, 11],
       },
     ],
-    awarenessLine:
-      "Hispanic Heritage Month opens September 15, and National Preparedness Month runs all of September.",
-    dark: false,
   },
   {
+    key: "q4",
     label: "Q4",
+    movement: "Movement IV",
     months: "October – December",
     themeLine1: "Impact &",
     themeLine2: "year-end.",
-    themeAccent: "year-end",
     intro:
-      "Q4 is where the year's numbers become the story. The annual impact report lands in October and November, Small Business Saturday rallies the community, and year-end planning workshops help clients set up for the year ahead. Less new — more evidence.",
+      "Where the year's numbers become the story. Annual impact report lands in October. Small Business Saturday rallies the community. Less new — more evidence.",
     campaigns: [
       {
         name: "Annual Impact Report",
         timing: "October – November",
         message:
           "Our numbers tell the story. $549M in capital accessed. 3,723 jobs created. Here's the full picture.",
+        span: [10, 12],
       },
       {
         name: "Small Business Saturday",
         timing: "Late November",
         message: "Shop local. Support the businesses that make our communities what they are.",
+        span: [11, 12],
       },
       {
         name: "Year-End Planning Workshops",
         timing: "November – December",
         message: "Close the year strong. Tax prep, financial review, and next-year goal setting.",
+        span: [11, 13],
       },
     ],
-    awarenessLine:
-      "Disability Employment Awareness Month in October, Native American Heritage Month in November, Small Business Saturday the Saturday after Thanksgiving, and Giving Tuesday after that.",
-    dark: true,
   },
+];
+
+/* Cultural + business observances shown as thin ticks below the spine.
+   Each tick is anchored to its start month (1-indexed, 1 = January).
+   NOTE: LGBTQ+ Pride Month (June) was removed per federal recognition
+   guidance. Replaced with Micro-, Small & Medium-sized Enterprises Day
+   (UN-designated, June 27) — a mission-aligned June observance. */
+const observances: { month: number; label: string }[] = [
+  { month: 1, label: "National Mentoring Month" },
+  { month: 2, label: "Black History Month" },
+  { month: 5, label: "AAPI Heritage Month" },
+  { month: 6, label: "MSME Day · Jun 27" },
+  { month: 9, label: "National Preparedness Month" },
+  { month: 10, label: "Native American Heritage" },
+  { month: 11, label: "Giving Tuesday" },
 ];
 
 const alwaysOn = [
   {
-    title: "Client Spotlight",
     cadence: "Bi-weekly",
+    title: "Client Spotlight",
     desc: "A client success story with photo, quote, and one impact stat. Uses the Success Story template.",
   },
   {
-    title: "Advisor Tip",
     cadence: "Weekly",
+    title: "Advisor Tip",
     desc: "A short, actionable piece of advice from an advisor. Under 200 words. Name and headshot included.",
   },
   {
-    title: "By the Numbers",
     cadence: "Monthly",
+    title: "By the Numbers",
     desc: "One compelling stat with context — $12M in capital accessed by NorCal businesses in March alone.",
   },
   {
-    title: "Event Promotion",
     cadence: "Rolling",
-    desc: "Starts two weeks before every event. Frequency steps up in the final three days. Includes date, time, registration, and what attendees will leave with.",
+    title: "Event Promotion",
+    desc: "Starts two weeks before every event. Frequency steps up in the final three days. Date, time, registration.",
   },
   {
-    title: "Partner Shoutout",
     cadence: "Monthly",
-    desc: "A thank-you to lending partners, host institutions, and community organizations. Strengthens relationships and extends our reach.",
+    title: "Partner Shoutout",
+    desc: "A thank-you to lending partners, host institutions, and community organizations. Extends our reach.",
   },
 ];
 
 /* ─────────────────────────────  COMPONENTS  ───────────────────────────── */
 
-function ThemeTitle({
-  line1,
-  line2,
-  accent,
-  dark,
-}: {
-  line1: string;
-  line2: string;
-  accent?: string;
-  dark: boolean;
-}) {
-  const base = dark ? "#f5f4f0" : "#0f1c2e";
-  const accentColor = dark ? "#85A3C8" : "#A73B44";
-  // replace the accent word (case-insensitive) with a tinted span
-  const parts = accent
-    ? line2.split(new RegExp(`(${accent})`, "i"))
-    : [line2];
-  return (
-    <h2
-      className="italic"
-      style={{
-        fontFamily: "var(--serif)",
-        fontSize: "clamp(40px, 5vw, 68px)",
-        letterSpacing: "-0.04em",
-        lineHeight: 0.96,
-        fontWeight: 400,
-        color: base,
-      }}
-    >
-      {line1}
-      <br />
-      {parts.map((p, i) =>
-        p.toLowerCase() === (accent ?? "").toLowerCase() ? (
-          <span key={i} style={{ color: accentColor }}>
-            {p}
-          </span>
-        ) : (
-          <span key={i}>{p}</span>
-        )
-      )}
-    </h2>
-  );
-}
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-function QuarterSection({ q, reverse }: { q: Quarter; reverse: boolean }) {
-  const bg = q.dark ? "#0f1c2e" : "#f5f4f0";
-  const primary = q.dark ? "text-white" : "text-navy";
-  const soft = q.dark ? "text-white/70" : "text-navy/70";
-  const mono = q.dark ? "text-[#85A3C8]" : "text-[#A73B44]";
-  const ruleClr = q.dark ? "rgba(86,132,186,0.35)" : "rgba(15,28,46,0.18)";
+function YearSpine() {
+  // 12 month columns + leading label column
+  const gridCols = "120px repeat(12, 1fr)";
+
+  const eyebrow = {
+    fontFamily: "var(--sans-label)",
+    fontSize: 10,
+    fontWeight: 600,
+    letterSpacing: "0.22em",
+    textTransform: "uppercase" as const,
+    color: Q.slate,
+    opacity: 0.6,
+  };
+
+  // Flatten campaigns with quarter color so we can render one row each.
+  const tracks = quarters.flatMap((q) =>
+    q.campaigns.map((c) => ({ ...c, color: Q[q.key] }))
+  );
 
   return (
     <section
-      className="relative overflow-hidden"
-      style={{ backgroundColor: bg }}
-      aria-label={`${q.label} — ${q.themeLine1} ${q.themeLine2}`}
+      aria-label="Year at a glance"
+      style={{ backgroundColor: Q.cream, padding: "64px 0 88px" }}
     >
-      {q.dark && (
-        <SbdcWatermark
-          className="absolute -left-[6%] bottom-[8%] w-[32vw] max-w-[380px] text-white pointer-events-none select-none"
-          opacity={0.025}
-        />
-      )}
-
-      <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-16 md:py-24 relative z-10">
-        {/* Quarter eyebrow */}
-        <p
-          className={`font-label uppercase mb-6 ${mono}`}
-          style={{ fontSize: "11px", letterSpacing: "0.22em", fontWeight: 500 }}
-        >
-          {q.label} · {q.months}
-        </p>
-
-        {/* 5/7 asymmetric essay — reverse alternates direction for rhythm */}
-        <div
-          className={`grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start ${
-            reverse ? "md:[&>*:first-child]:order-2" : ""
-          }`}
-        >
-          <div className="md:col-span-6">
-            <ThemeTitle
-              line1={q.themeLine1}
-              line2={q.themeLine2}
-              accent={q.themeAccent}
-              dark={q.dark}
-            />
-          </div>
-
-          <div className="md:col-span-6">
-            <p
-              className={`font-sans leading-[1.6] ${primary}`}
-              style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400, letterSpacing: "-0.005em" }}
+      <div
+        style={{
+          maxWidth: 1320,
+          margin: "0 auto",
+          padding: "0 clamp(24px, 5vw, 48px)",
+        }}
+      >
+        <div style={{ overflowX: "auto", paddingBottom: 8 }}>
+          <div style={{ minWidth: 1080 }}>
+            {/* Month row */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: gridCols,
+                alignItems: "end",
+                borderBottom: `1px solid ${Q.navy}`,
+                paddingBottom: 10,
+                marginBottom: 14,
+              }}
             >
-              {q.intro}
-            </p>
-          </div>
-        </div>
-
-        {/* Single container-width rule before the campaign list */}
-        <div
-          className="mt-12 md:mt-16 mb-10"
-          style={{ height: "2px", backgroundColor: ruleClr }}
-        />
-
-        {/* Stacked campaign rows — no boxes, no chip chrome */}
-        <div className="space-y-8 md:space-y-10">
-          {q.campaigns.map((c) => (
-            <div key={c.name} className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-8">
-              <div className="md:col-span-4">
-                <p
-                  className={`font-sans ${primary}`}
-                  style={{ fontSize: "clamp(17px, 1.5vw, 19px)", fontWeight: 500, letterSpacing: "-0.01em", lineHeight: 1.25 }}
-                >
-                  {c.name}
-                </p>
-                <p
-                  className={`font-label uppercase mt-2 ${soft}`}
-                  style={{ fontSize: "11px", letterSpacing: "0.22em" }}
-                >
-                  {c.timing}
-                </p>
-              </div>
-
-              <div className="md:col-span-8">
-                <p
-                  className={`italic ${primary}`}
+              <div style={eyebrow}>The Year</div>
+              {MONTHS.map((m) => (
+                <div
+                  key={m}
                   style={{
                     fontFamily: "var(--serif)",
-                    fontSize: "clamp(18px, 1.8vw, 22px)",
-                    letterSpacing: "-0.02em",
-                    lineHeight: 1.28,
+                    fontStyle: "italic",
                     fontWeight: 400,
+                    fontSize: 14,
+                    color: Q.navy,
+                    textAlign: "center",
+                  }}
+                >
+                  {m}
+                </div>
+              ))}
+            </div>
+
+            {/* Quarter color bands */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: gridCols,
+                gap: 2,
+                marginBottom: 28,
+              }}
+            >
+              <div style={eyebrow}>Quarters</div>
+              {(["q1", "q2", "q3", "q4"] as QuarterKey[]).map((k) => (
+                <div
+                  key={k}
+                  style={{
+                    height: 4,
+                    gridColumn: "span 3",
+                    backgroundColor: Q[k],
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Campaign tracks */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: gridCols,
+                rowGap: 10,
+                alignItems: "center",
+              }}
+            >
+              <div style={eyebrow}>Campaigns</div>
+              {tracks.map((t, i) => (
+                <div
+                  key={`${t.name}-${i}`}
+                  style={{
+                    // shift by +1 because the first grid column is the label
+                    gridColumn: `${t.span[0] + 1} / ${t.span[1] + 1}`,
+                    height: 28,
+                    borderRadius: 2,
+                    backgroundColor: t.color,
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    padding: "0 12px",
+                    fontFamily: "var(--sans)",
+                    fontSize: 11,
+                    fontWeight: 500,
+                    letterSpacing: "0.01em",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {t.name}
+                </div>
+              ))}
+            </div>
+
+            {/* Observance tick row */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: gridCols,
+                marginTop: 20,
+                paddingTop: 16,
+                borderTop: `1px solid ${Q.ruleSoft}`,
+                rowGap: 8,
+                alignItems: "start",
+              }}
+            >
+              <div style={eyebrow}>Also Observed</div>
+              {observances.map((o) => (
+                <div
+                  key={o.label}
+                  style={{
+                    gridColumn: `${o.month + 1} / ${o.month + 2}`,
+                    fontFamily: "var(--serif)",
+                    fontStyle: "italic",
+                    fontWeight: 400,
+                    fontSize: 12,
+                    color: Q.slate,
+                    lineHeight: 1.3,
+                    padding: "0 8px",
+                    borderLeft: `1px solid rgba(15,28,46,0.25)`,
+                  }}
+                >
+                  {o.label}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Movement({ q }: { q: Quarter }) {
+  const accent = Q[q.key];
+  return (
+    <section
+      style={{
+        backgroundColor: Q.cream,
+        borderTop: `1px solid ${Q.rule}`,
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 1320,
+          margin: "0 auto",
+          padding: "64px clamp(24px, 5vw, 48px) 80px",
+          display: "grid",
+          gridTemplateColumns: "minmax(0, 1.1fr) minmax(0, 1fr)",
+          gap: 80,
+        }}
+        className="movement-grid"
+      >
+        {/* Left: meta */}
+        <div>
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
+              marginBottom: 24,
+              fontFamily: "var(--sans-label)",
+              fontSize: 10,
+              fontWeight: 600,
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+            }}
+          >
+            <span style={{ width: 28, height: 2, backgroundColor: accent }} />
+            <span style={{ color: accent }}>
+              {q.label} · {q.movement}
+            </span>
+            <span style={{ color: Q.slate, opacity: 0.6 }}>{q.months}</span>
+          </div>
+
+          <h2
+            style={{
+              fontFamily: "var(--serif)",
+              fontWeight: 400,
+              fontSize: "clamp(44px, 5.5vw, 76px)",
+              lineHeight: 0.98,
+              letterSpacing: "-0.028em",
+              color: Q.navy,
+              marginBottom: 28,
+            }}
+          >
+            {q.themeLine1}
+            <br />
+            <em style={{ fontStyle: "italic", fontWeight: 400, color: accent }}>
+              {q.themeLine2}
+            </em>
+          </h2>
+
+          <p
+            style={{
+              fontFamily: "var(--serif)",
+              fontWeight: 400,
+              fontSize: 18,
+              lineHeight: 1.55,
+              color: Q.slate,
+              maxWidth: 440,
+            }}
+          >
+            {q.intro}
+          </p>
+        </div>
+
+        {/* Right: campaigns */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+          {q.campaigns.map((c, i) => (
+            <article
+              key={c.name}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "90px 1fr",
+                gap: 24,
+                paddingBottom: i === q.campaigns.length - 1 ? 0 : 24,
+                borderBottom:
+                  i === q.campaigns.length - 1
+                    ? "none"
+                    : `1px solid ${Q.ruleSoft}`,
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: "var(--serif)",
+                  fontStyle: "italic",
+                  fontWeight: 400,
+                  fontSize: 32,
+                  color: accent,
+                  opacity: 0.75,
+                  lineHeight: 1,
+                }}
+              >
+                {String(i + 1).padStart(2, "0")}
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <div
+                  style={{
+                    fontFamily: "var(--sans-label)",
+                    fontSize: 10,
+                    fontWeight: 600,
+                    letterSpacing: "0.2em",
+                    textTransform: "uppercase",
+                    color: Q.slate,
+                    opacity: 0.6,
+                  }}
+                >
+                  {c.timing}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--sans)",
+                    fontSize: 15,
+                    fontWeight: 600,
+                    letterSpacing: "-0.005em",
+                    color: Q.navy,
+                    lineHeight: 1.3,
+                  }}
+                >
+                  {c.name}
+                </div>
+                <p
+                  style={{
+                    fontFamily: "var(--serif)",
+                    fontStyle: "italic",
+                    fontWeight: 400,
+                    fontSize: 17,
+                    lineHeight: 1.45,
+                    color: Q.slate,
+                    marginTop: 6,
+                    letterSpacing: "-0.005em",
                   }}
                 >
                   &ldquo;{c.message}&rdquo;
                 </p>
               </div>
-            </div>
+            </article>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
 
-        {/* Awareness — prose, not chips */}
-        <p
-          className={`mt-12 md:mt-16 font-sans leading-[1.65] max-w-[780px] ${soft}`}
-          style={{ fontSize: "clamp(14px, 1.1vw, 16px)", fontWeight: 400 }}
+function AlwaysOn() {
+  return (
+    <section style={{ backgroundColor: Q.cream }}>
+      <div
+        style={{
+          maxWidth: 1320,
+          margin: "0 auto",
+          padding: "80px clamp(24px, 5vw, 48px) 120px",
+          borderTop: `2px solid ${Q.navy}`,
+        }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(0, 1.1fr) minmax(0, 1fr)",
+            gap: 80,
+            marginBottom: 56,
+            alignItems: "end",
+            paddingTop: 64,
+          }}
+          className="movement-grid"
         >
-          <span
-            className={`font-label uppercase mr-3 ${mono}`}
-            style={{ fontSize: "11px", letterSpacing: "0.22em", fontWeight: 500 }}
+          <h2
+            style={{
+              fontFamily: "var(--serif)",
+              fontWeight: 400,
+              fontSize: "clamp(44px, 5.5vw, 76px)",
+              lineHeight: 0.98,
+              letterSpacing: "-0.028em",
+              color: Q.navy,
+            }}
           >
-            Also this quarter
-          </span>
-          {q.awarenessLine}
-        </p>
+            Always-on <em style={{ fontStyle: "italic", fontWeight: 400 }}>rhythm.</em>
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--serif)",
+              fontWeight: 400,
+              fontSize: 18,
+              lineHeight: 1.55,
+              color: Q.slate,
+              maxWidth: 440,
+            }}
+          >
+            Between the quarterly campaigns, five series keep our channels alive and on-brand. The
+            heartbeats — small, reliable, unmistakably us.
+          </p>
+        </div>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(5, minmax(0, 1fr))",
+            gap: 1,
+            backgroundColor: "rgba(15,28,46,0.12)",
+            border: "1px solid rgba(15,28,46,0.12)",
+          }}
+          className="heartbeat-grid"
+        >
+          {alwaysOn.map((h) => (
+            <article
+              key={h.title}
+              style={{
+                backgroundColor: Q.cream,
+                padding: "32px 24px 36px",
+                display: "flex",
+                flexDirection: "column",
+                gap: 16,
+              }}
+            >
+              <div style={{ width: 40, height: 2, backgroundColor: Q.navy }} />
+              <div
+                style={{
+                  fontFamily: "var(--sans-label)",
+                  fontSize: 10,
+                  fontWeight: 600,
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  color: Q.slate,
+                  opacity: 0.6,
+                }}
+              >
+                {h.cadence}
+              </div>
+              <h3
+                style={{
+                  fontFamily: "var(--serif)",
+                  fontWeight: 400,
+                  fontSize: 24,
+                  lineHeight: 1.1,
+                  letterSpacing: "-0.015em",
+                  color: Q.navy,
+                }}
+              >
+                {h.title}
+              </h3>
+              <p
+                style={{
+                  fontFamily: "var(--sans)",
+                  fontSize: 13,
+                  lineHeight: 1.55,
+                  color: Q.slate,
+                }}
+              >
+                {h.desc}
+              </p>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -333,138 +650,79 @@ export default function CalendarPage() {
     <>
       <GrainBackdrop />
       <div className="relative" style={{ zIndex: 1 }}>
-      <InteriorHero
-        chapterNumber="12"
-        category="tools"
-        title="Calendar"
-        subtitle="Campaign themes and key dates — a coordinated messaging framework so all sixteen centers move together."
-        showRule={false}
-      />
-
-      {/* ── EDITORIAL HERO MOMENT — navy ── */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: "#0f1c2e" }}>
-        <div className="w-full h-[2px] bg-[#85A3C8]" />
-        <SbdcWatermark
-          className="absolute -right-[6%] top-[8%] w-[32vw] max-w-[380px] text-white pointer-events-none select-none"
-          opacity={0.03}
+        <InteriorHero
+          chapterNumber="12"
+          category="tools"
+          title="Calendar"
+          subtitle="Campaign themes and key dates — a coordinated messaging framework so all sixteen centers move together. When we speak together, we're louder."
+          showRule={false}
         />
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
-          <p
-            className="font-label uppercase mb-6 text-[#85A3C8]"
-            style={{ fontSize: "11px", letterSpacing: "0.22em", fontWeight: 500 }}
-          >
-            The Year, in Four Beats
-          </p>
 
-          <h2
-            className="italic text-white"
+        {/* Optional: meta strip like the mockup's masthead right column */}
+        <section
+          style={{
+            backgroundColor: Q.cream,
+            borderTop: `1px solid ${Q.navy}`,
+          }}
+        >
+          <div
             style={{
-              fontFamily: "var(--serif)",
-              fontSize: "clamp(48px, 6vw, 82px)",
-              letterSpacing: "-0.04em",
-              lineHeight: 0.95,
-              fontWeight: 400,
+              maxWidth: 1320,
+              margin: "0 auto",
+              padding: "28px clamp(24px, 5vw, 48px)",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "baseline",
+              flexWrap: "wrap",
+              gap: 16,
+              color: Q.slate,
+              fontFamily: "var(--sans-label)",
+              fontSize: 11,
+              letterSpacing: "0.16em",
+              textTransform: "uppercase",
             }}
           >
-            Four quarters.
-            <br />
-            One <span style={{ color: "#85A3C8" }}>voice</span>.
-          </h2>
-
-          <p
-            className="mt-10 font-sans text-white/80 leading-[1.6] max-w-[640px]"
-            style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400, letterSpacing: "-0.005em" }}
-          >
-            Every quarter has a theme. Every theme drives coordinated messaging across
-            all sixteen centers. When we speak together, we&rsquo;re louder — while leaving
-            room for local flavor.
-          </p>
-        </div>
-      </section>
-
-      {/* ── FOUR QUARTERS — alternating bg, alternating direction ── */}
-      {quarters.map((q, i) => (
-        <QuarterSection key={q.label} q={q} reverse={i % 2 === 1} />
-      ))}
-
-      {/* ── ALWAYS-ON RHYTHM — cream, stacked rows ── */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-16 md:py-24 relative z-10">
-          <p
-            className="font-label uppercase mb-6 text-[#A73B44]"
-            style={{ fontSize: "11px", letterSpacing: "0.22em", fontWeight: 500 }}
-          >
-            Between the Beats
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
-            <div className="md:col-span-5">
-              <h2
-                className="italic text-navy"
+            <span>Chapter 12 · Tools &amp; Resources</span>
+            <span>
+              <strong
                 style={{
                   fontFamily: "var(--serif)",
-                  fontSize: "clamp(40px, 5vw, 68px)",
-                  letterSpacing: "-0.04em",
-                  lineHeight: 0.96,
+                  fontStyle: "italic",
                   fontWeight: 400,
+                  fontSize: 22,
+                  letterSpacing: "-0.01em",
+                  textTransform: "none",
+                  color: Q.navy,
+                  marginRight: 12,
                 }}
               >
-                Always-on
-                <br />
-                rhythm.
-              </h2>
-            </div>
-            <div className="md:col-span-7">
-              <p
-                className="font-sans text-navy leading-[1.6]"
-                style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400, letterSpacing: "-0.005em" }}
-              >
-                Between the quarterly campaigns, five series keep our channels alive and
-                on-brand. These are the heartbeats — small, reliable, unmistakably us.
-              </p>
-            </div>
+                2026
+              </strong>
+              Sixteen centers · One drumbeat
+            </span>
           </div>
+        </section>
 
-          <div
-            className="mt-12 md:mt-16 mb-2"
-            style={{ height: "2px", backgroundColor: "rgba(15,28,46,0.18)" }}
-          />
+        <YearSpine />
 
-          <div className="divide-y divide-navy/[0.12]">
-            {alwaysOn.map((s) => (
-              <div
-                key={s.title}
-                className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-8 py-7 md:py-8"
-              >
-                <div className="md:col-span-4">
-                  <p
-                    className="font-sans text-navy"
-                    style={{ fontSize: "clamp(17px, 1.5vw, 19px)", fontWeight: 500, letterSpacing: "-0.01em", lineHeight: 1.25 }}
-                  >
-                    {s.title}
-                  </p>
-                  <p
-                    className="font-label uppercase mt-2 text-[#A73B44]"
-                    style={{ fontSize: "11px", letterSpacing: "0.22em", fontWeight: 500 }}
-                  >
-                    {s.cadence}
-                  </p>
-                </div>
-                <div className="md:col-span-8">
-                  <p
-                    className="font-sans text-navy/75 leading-[1.6]"
-                    style={{ fontSize: "clamp(15px, 1.2vw, 16px)", fontWeight: 400 }}
-                  >
-                    {s.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        {quarters.map((q) => (
+          <Movement key={q.key} q={q} />
+        ))}
 
-      <NextSectionLink title="Stories" href="/stories" />
+        <AlwaysOn />
+
+        <NextSectionLink title="Stories" href="/stories" />
+
+        {/* Responsive fallback for narrow viewports — single column */}
+        <style>{`
+          @media (max-width: 980px) {
+            .movement-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+            .heartbeat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+          }
+          @media (max-width: 540px) {
+            .heartbeat-grid { grid-template-columns: 1fr !important; }
+          }
+        `}</style>
       </div>
     </>
   );
