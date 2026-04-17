@@ -1,0 +1,241 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+
+/**
+ * ThinkingCluster
+ * A small cluster of "+" marks that hovers gently and morphs.
+ *
+ * Inspired by Claude's chat "thinking" micro-animation: subtle hover,
+ * scale breathing, and one element that rotates / shape-shifts between
+ * plus → asterisk → 4-point sparkle. Designed to live in the hero
+ * column next to "Generate".
+ *
+ * Restraint > spectacle: low contrast, slow easing, never distracts.
+ */
+export default function ThinkingCluster({
+  size = 220,
+  className = "",
+}: {
+  size?: number;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      // Whole cluster: gentle vertical hover (4s sine in/out)
+      gsap.to(".tc-cluster", {
+        y: -6,
+        duration: 4.0,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+      });
+
+      // Cluster: micro horizontal sway (different period for organic feel)
+      gsap.to(".tc-cluster", {
+        x: 3,
+        duration: 5.7,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+      });
+
+      // Hero plus (the big one): slow rotation + breathing scale
+      gsap.to(".tc-hero", {
+        rotation: 360,
+        duration: 22,
+        ease: "none",
+        repeat: -1,
+        transformOrigin: "50% 50%",
+      });
+      gsap.to(".tc-hero", {
+        scale: 1.08,
+        duration: 3.2,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+        transformOrigin: "50% 50%",
+      });
+
+      // Small plus #1: independent bob + pulse
+      gsap.to(".tc-p1", {
+        y: -4,
+        duration: 2.8,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+        delay: 0.4,
+      });
+      gsap.to(".tc-p1", {
+        opacity: 0.55,
+        duration: 2.2,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+      });
+
+      // Small plus #2: opposite bob + slow rotation
+      gsap.to(".tc-p2", {
+        y: 5,
+        duration: 3.4,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+        delay: 0.8,
+      });
+      gsap.to(".tc-p2", {
+        rotation: -45,
+        duration: 9,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+        transformOrigin: "50% 50%",
+      });
+
+      // Tiny dot: blink-pulse (the "thinking" beat)
+      gsap.to(".tc-dot", {
+        opacity: 0.9,
+        scale: 1.4,
+        duration: 1.4,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+        delay: 0.2,
+        transformOrigin: "50% 50%",
+      });
+
+      // Shape morph: hero plus has a second "sparkle" path that fades in/out
+      // creating the illusion of plus → 4-point star → plus
+      gsap.to(".tc-morph", {
+        opacity: 0.85,
+        duration: 2.6,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+        delay: 1.1,
+      });
+      gsap.to(".tc-morph", {
+        rotation: 90,
+        duration: 5.2,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+        transformOrigin: "50% 50%",
+      });
+    }, ref);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      aria-hidden
+      className={`pointer-events-none ${className}`}
+      style={{ width: size, height: size }}
+    >
+      <svg
+        viewBox="0 0 200 200"
+        width="100%"
+        height="100%"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          {/* soft halo gradient behind hero plus */}
+          <radialGradient id="tc-halo" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#1D5AA7" stopOpacity="0.10" />
+            <stop offset="60%" stopColor="#5684BA" stopOpacity="0.05" />
+            <stop offset="100%" stopColor="#5684BA" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+
+        <g className="tc-cluster" style={{ transformOrigin: "100px 100px" }}>
+          {/* soft halo behind hero */}
+          <circle cx="100" cy="100" r="60" fill="url(#tc-halo)" />
+
+          {/* Hero plus — big, centered. Has a morphing sparkle layered on top. */}
+          <g className="tc-hero" style={{ transformOrigin: "100px 100px" }}>
+            {/* 4-arm plus */}
+            <path
+              d="M100 70 L100 130 M70 100 L130 100"
+              stroke="#1D5AA7"
+              strokeWidth="6"
+              strokeLinecap="round"
+              opacity="0.85"
+            />
+            {/* morph layer: same center, but rotated 45° to read as a star
+                when both layers are visible at once */}
+            <g
+              className="tc-morph"
+              style={{ transformOrigin: "100px 100px", opacity: 0 }}
+            >
+              <path
+                d="M100 78 L100 122 M78 100 L122 100"
+                stroke="#1D5AA7"
+                strokeWidth="5"
+                strokeLinecap="round"
+                transform="rotate(45 100 100)"
+              />
+            </g>
+          </g>
+
+          {/* Small plus 1 — top-right */}
+          <g
+            className="tc-p1"
+            style={{ transformOrigin: "152px 56px", opacity: 0.85 }}
+          >
+            <path
+              d="M152 44 L152 68 M140 56 L164 56"
+              stroke="#5684BA"
+              strokeWidth="3.5"
+              strokeLinecap="round"
+            />
+          </g>
+
+          {/* Small plus 2 — bottom-left, will rotate -45° to feel like an x */}
+          <g
+            className="tc-p2"
+            style={{ transformOrigin: "52px 148px", opacity: 0.7 }}
+          >
+            <path
+              d="M52 138 L52 158 M42 148 L62 148"
+              stroke="#A73B44"
+              strokeWidth="3"
+              strokeLinecap="round"
+            />
+          </g>
+
+          {/* Tiny dot — top-left, the heartbeat */}
+          <circle
+            className="tc-dot"
+            cx="44"
+            cy="60"
+            r="3"
+            fill="#0f1c2e"
+            opacity="0.5"
+            style={{ transformOrigin: "44px 60px" }}
+          />
+
+          {/* Tiny static plus — bottom-right, breathes via cluster only */}
+          <path
+            d="M156 144 L156 158 M149 151 L163 151"
+            stroke="#5684BA"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            opacity="0.55"
+          />
+        </g>
+      </svg>
+    </div>
+  );
+}

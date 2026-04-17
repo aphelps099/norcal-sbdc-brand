@@ -3,7 +3,7 @@ import NextSectionLink from "@/components/NextSectionLink";
 import ContentGenerator from "@/components/ContentGenerator";
 import BlueprintBackdrop from "@/components/BlueprintBackdrop";
 import GrainBackdrop from "@/components/GrainBackdrop";
-import AmbientSparkles from "@/components/AmbientSparkles";
+import ThinkingCluster from "@/components/ThinkingCluster";
 
 
 export default function GeneratePage() {
@@ -13,17 +13,23 @@ export default function GeneratePage() {
           painted after). Both are fixed/pointer-events-none. Content sits
           above at zIndex 1. */}
       <BlueprintBackdrop />
-      <AmbientSparkles zIndex={0} />
       <GrainBackdrop intensity={0.7} />
 
       <div className="relative" style={{ zIndex: 1 }}>
-        <InteriorHero
-          chapterNumber="11"
-          category="tools"
-          title="Generate"
-          subtitle="Create on-brand content in seconds. Select a format, answer a few questions, and get copy that sounds like us."
-          bgColor="transparent"
-        />
+        <div className="relative">
+          <InteriorHero
+            chapterNumber="11"
+            category="tools"
+            title="Generate"
+            subtitle="Create on-brand content in seconds. Select a format, answer a few questions, and get copy that sounds like us."
+            bgColor="transparent"
+          />
+          {/* Claude-style "thinking" cluster — hovers next to the title.
+              Positioned in the hero's right column, above the rule. */}
+          <div className="pointer-events-none absolute right-[6vw] md:right-[8vw] lg:right-[10vw] top-[clamp(180px,24vw,360px)] hidden md:block z-20">
+            <ThinkingCluster size={200} />
+          </div>
+        </div>
 
         <div className="py-16 md:py-24" style={{ backgroundColor: "transparent" }}>
           <div className="max-w-[1200px] mx-auto px-8 md:px-12">
@@ -47,6 +53,7 @@ export default function GeneratePage() {
 
         <NextSectionLink title="Content" href="/content" />
       </div>
+
     </>
   );
 }
