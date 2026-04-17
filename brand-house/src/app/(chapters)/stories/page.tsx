@@ -273,7 +273,7 @@ export default function StoriesPage() {
             </div>
           </div>
 
-          <div className="gr-list" style={{ borderTop: "1px solid rgba(15,28,46,0.12)" }}>
+          <div className="gr-list">
             {growthStories.map((g, i) => (
               <a
                 key={g.biz}
@@ -285,7 +285,10 @@ export default function StoriesPage() {
                   gridTemplateColumns: "60px 180px 1fr 180px 40px",
                   gap: 24,
                   padding: "28px 8px",
-                  borderBottom: "1px solid rgba(15,28,46,0.08)",
+                  borderBottom:
+                    i === growthStories.length - 1
+                      ? "none"
+                      : "1px solid rgba(15,28,46,0.08)",
                   color: "inherit",
                 }}
               >

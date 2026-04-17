@@ -662,7 +662,6 @@ export default function CalendarPage() {
         <section
           style={{
             backgroundColor: Q.cream,
-            borderTop: `1px solid ${Q.navy}`,
           }}
         >
           <div
