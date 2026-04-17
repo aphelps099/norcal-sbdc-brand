@@ -5,6 +5,7 @@ import InteriorHero from "@/components/InteriorHero";
 import CopyButton from "@/components/CopyButton";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
+import ColorsInUseCarousel from "@/components/ColorsInUseCarousel";
 import Link from "next/link";
 
 function SocialIcon({ name, size = 22, className }: { name: string; size?: number; className?: string }) {
@@ -74,129 +75,145 @@ const platformGuidance = [
 
 const commentPolicy = `The [Center Name] SBDC has created this page with the intention of providing a format for discussion about news and events related to [subject matter]. [Center Name] SBDC reserves the right to remove any content that is deemed, in our sole view, commercial, harmful, inappropriate, erroneous, harassing, libelous, threatening, discriminatory, or wildly off-topic. [Center Name] SBDC reserves the right to remove you from the community/block you from posting after the second offense. [Center Name] SBDC is not responsible for the content posted by others on this page; please note that community-contributed content is the opinion of the specific author and does not necessarily represent the opinions of [Center Name] SBDC.\n\nThank you for your participation and for your role in creating a safe and dynamic environment for our online community.`;
 
-/** Shared section heading style — consistent scale throughout */
-function SectionLabel({ eyebrow, title }: { eyebrow: string; title: string }) {
-  return (
-    <div className="border-t border-navy/20 pt-6 mb-12">
-      <p className="font-label text-[11px] uppercase tracking-[0.22em] text-navy/65 mb-3">{eyebrow}</p>
-      <h2 className="font-sans text-navy tracking-[-0.015em]" style={{ fontSize: "clamp(28px, 3.2vw, 40px)", fontWeight: 500, lineHeight: 1.05 }}>{title}</h2>
-    </div>
-  );
-}
+/* ─────────────────────────────  SHARED  ─────────────────────────────
+   Everything below sits on steel (#5684BA). Headlines = navy (anchor
+   weight). Body/eyebrow/meta = white (airy). No boxy panels. */
 
-function SectionLabelLight({ eyebrow, title }: { eyebrow: string; title: string }) {
+/** SectionLabel — steel version. Navy title, white lead, white rule. */
+function SectionLabel({ eyebrow, title, lead, noRule = false }: { eyebrow: string; title: string; lead?: string; noRule?: boolean }) {
+  const wrapper = noRule ? "mb-10" : "border-t border-white/30 pt-6 mb-10";
   return (
-    <div className="border-t border-white/30 pt-6 mb-12">
+    <div className={wrapper}>
       <p className="font-label text-[11px] uppercase tracking-[0.22em] text-white/80 mb-3">{eyebrow}</p>
-      <h2 className="font-sans text-white tracking-[-0.015em]" style={{ fontSize: "clamp(28px, 3.2vw, 40px)", fontWeight: 500, lineHeight: 1.05 }}>{title}</h2>
+      <h2 className="font-sans text-navy tracking-[-0.015em]" style={{ fontSize: "clamp(28px, 3.2vw, 40px)", fontWeight: 500, lineHeight: 1.05 }}>{title}</h2>
+      {lead && (
+        <p className="font-sans text-white/90 leading-[1.55] mt-5 max-w-[620px]" style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400 }}>
+          {lead}
+        </p>
+      )}
     </div>
   );
 }
 
-/* ───────── PLATFORM TILES ─────────
-   Giant logo squares. Click one to reveal tone/focus/cadence inline below. */
-function PlatformTiles() {
-  const [active, setActive] = useState<string | null>("LinkedIn");
-  const current = platformGuidance.find((p) => p.platform === active) ?? null;
-
-  // brand colors for each platform for a tasteful, on-palette hover hint
-  const tint: Record<string, string> = {
-    LinkedIn: "#0f1c2e",
-    Facebook: "#004290",
-    Instagram: "#A73B44",
-    "X / Twitter": "#0f1c2e",
-  };
+/* ───────── PLATFORM ROSTER ─────────
+   Editorial rows instead of 4 boxy tiles. Click a row to expand.
+   Hero row on top (active platform, big) — smaller rows below. */
+function PlatformRoster() {
+  const [active, setActive] = useState<string>("LinkedIn");
+  const current = platformGuidance.find((p) => p.platform === active) ?? platformGuidance[0];
 
   return (
-    <div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
-        {platformGuidance.map((p) => {
-          const isActive = active === p.platform;
+    <div className="mt-4">
+      {/* Active platform — featured editorial card, NO box outline */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 pb-12 md:pb-14">
+        <div className="md:col-span-5 flex flex-col justify-between">
+          <div>
+            <p className="font-label uppercase text-white/70 mb-4"
+              style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
+              Now viewing
+            </p>
+            <div className="flex items-center gap-5">
+              <SocialIcon name={current.icon} size={56} className="text-white" />
+              <h3 className="font-sans text-navy tracking-[-0.02em]"
+                style={{ fontSize: "clamp(36px, 4.4vw, 60px)", fontWeight: 500, lineHeight: 0.95 }}>
+                {current.platform}
+              </h3>
+            </div>
+            <p className="italic text-navy/85 mt-8 max-w-[420px]"
+              style={{
+                fontFamily: "var(--serif)",
+                fontSize: "clamp(22px, 2.2vw, 30px)",
+                letterSpacing: "-0.02em",
+                lineHeight: 1.15,
+                fontWeight: 400,
+              }}>
+              {current.tone}.
+            </p>
+          </div>
+        </div>
+
+        <div className="md:col-span-4">
+          <p className="font-label uppercase text-white/70 mb-3"
+            style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
+            Focus
+          </p>
+          <p className="font-sans text-white leading-[1.55]"
+            style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400 }}>
+            {current.focus}
+          </p>
+        </div>
+
+        <div className="md:col-span-3">
+          <p className="font-label uppercase text-white/70 mb-3"
+            style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
+            Cadence
+          </p>
+          <p className="font-sans text-navy tracking-[-0.01em]"
+            style={{ fontSize: "clamp(24px, 2.4vw, 32px)", fontWeight: 500, lineHeight: 1.05 }}>
+            {current.frequency}
+          </p>
+        </div>
+      </div>
+
+      {/* Inactive rows — sparse list, navy numerals, quiet labels */}
+      <div className="border-t border-white/25">
+        {platformGuidance.map((p, idx) => {
+          const isActive = p.platform === active;
           return (
             <button
               key={p.platform}
-              onClick={() => setActive(isActive ? null : p.platform)}
-              aria-expanded={isActive}
-              className="group relative aspect-square flex flex-col items-center justify-center gap-6 transition-all duration-200 focus:outline-none"
-              style={{
-                backgroundColor: isActive ? tint[p.platform] : "rgba(255,255,255,0.10)",
-                border: isActive ? "1px solid rgba(255,255,255,0.35)" : "1px solid rgba(255,255,255,0.20)",
-              }}
+              onClick={() => setActive(p.platform)}
+              aria-pressed={isActive}
+              className={`w-full grid grid-cols-[44px_1fr_auto_40px] md:grid-cols-[64px_1fr_2fr_1fr_40px] gap-4 md:gap-8 items-center text-left py-5 md:py-6 border-b border-white/25 transition-colors duration-200 ${isActive ? "opacity-100" : "opacity-75 hover:opacity-100"}`}
             >
-              <span className="text-white">
-                <SocialIcon name={p.icon} size={72} className="text-white" />
+              <span className="font-label uppercase text-white/60"
+                style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
+                0{idx + 1}
               </span>
-              <span
-                className="font-sans text-white text-center px-4"
-                style={{ fontSize: "clamp(16px, 1.6vw, 20px)", fontWeight: 500, letterSpacing: "-0.015em" }}
-              >
-                {p.platform}
+              <span className="flex items-center gap-4">
+                <SocialIcon name={p.icon} size={20} className="text-white/85" />
+                <span className={`font-sans tracking-[-0.01em] ${isActive ? "text-navy" : "text-white"}`}
+                  style={{ fontSize: "clamp(17px, 1.6vw, 22px)", fontWeight: 500 }}>
+                  {p.platform}
+                </span>
               </span>
-              <span
-                className="material-symbols-outlined absolute top-3 right-3 text-white/70 transition-transform"
-                style={{ fontSize: "22px", transform: isActive ? "rotate(45deg)" : "rotate(0)" }}
-                aria-hidden="true"
-              >
-                add
+              <span className="hidden md:block italic text-white/80"
+                style={{ fontFamily: "var(--serif)", fontSize: "clamp(14px, 1.2vw, 17px)" }}>
+                {p.tone}.
+              </span>
+              <span className="font-label uppercase text-white/75"
+                style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
+                {p.frequency}
+              </span>
+              <span className={`material-symbols-outlined transition-transform ${isActive ? "text-navy" : "text-white/60"}`}
+                style={{ fontSize: "20px", transform: isActive ? "rotate(90deg)" : "rotate(0)" }}
+                aria-hidden="true">
+                arrow_forward
               </span>
             </button>
           );
         })}
       </div>
+    </div>
+  );
+}
 
-      {/* Detail panel — shown when a platform is active */}
-      {current && (
-        <div className="mt-6 md:mt-8 bg-white/[0.08] border border-white/25 p-8 md:p-10">
-          <div className="grid grid-cols-1 md:grid-cols-[240px_1fr_160px] gap-8 md:gap-10 items-start">
-            <div>
-              <p className="font-label uppercase text-white/70 mb-2"
-                style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                Platform
-              </p>
-              <p className="font-sans text-white"
-                style={{ fontSize: "clamp(19px, 1.7vw, 22px)", fontWeight: 500, letterSpacing: "-0.015em" }}>
-                {current.platform}
-              </p>
-              <p className="font-label uppercase text-white/70 mt-6 mb-2"
-                style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                Tone
-              </p>
-              <p className="italic text-white"
-                style={{
-                  fontFamily: "var(--serif)",
-                  fontSize: "clamp(19px, 1.8vw, 24px)",
-                  letterSpacing: "-0.02em",
-                  lineHeight: 1.2,
-                  fontWeight: 400,
-                }}>
-                {current.tone}.
-              </p>
-            </div>
-
-            <div>
-              <p className="font-label uppercase text-white/70 mb-2"
-                style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                Focus
-              </p>
-              <p className="font-sans text-white/95 leading-[1.6]"
-                style={{ fontSize: "clamp(15px, 1.1vw, 16px)", fontWeight: 400 }}>
-                {current.focus}
-              </p>
-            </div>
-
-            <div>
-              <p className="font-label uppercase text-white/70 mb-2"
-                style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                Cadence
-              </p>
-              <p className="font-sans text-white"
-                style={{ fontSize: "clamp(16px, 1.4vw, 18px)", fontWeight: 500 }}>
-                {current.frequency}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+/* ─────────────────────────────  KIT CARD  ─────────────────────────────
+   Each carousel tile in the Social Media Kit. Fixed width so the scroll
+   behavior matches the /colors poster carousel. */
+function KitCard({ caption, meta, children }: { caption: string; meta: string; children: React.ReactNode }) {
+  return (
+    <div className="shrink-0 flex flex-col" style={{ scrollSnapAlign: "start" }}>
+      <div
+        className="relative overflow-hidden"
+        style={{ width: "clamp(280px, 34vw, 420px)", aspectRatio: "1 / 1" }}
+      >
+        {children}
+      </div>
+      <div className="mt-3" style={{ width: "clamp(280px, 34vw, 420px)" }}>
+        <p className="font-sans text-navy text-[15px]" style={{ fontWeight: 500 }}>{caption}</p>
+        <p className="font-label text-[11px] text-white/75 uppercase tracking-[0.12em] mt-1">{meta}</p>
+      </div>
     </div>
   );
 }
@@ -211,15 +228,15 @@ export default function ContentPage() {
         subtitle="Guidelines for social media and newsletters — so every center shows up with one unified voice."
       />
 
-      {/* ── CONTENT GENERATOR — editorial hero on cream ── */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
-        <div className="w-full h-[2px] bg-[#A73B44]" />
+      {/* ── CONTENT GENERATOR — editorial hero, steel bg ── */}
+      <section className="relative overflow-hidden" style={{ backgroundColor: "#5684BA" }}>
+        <div className="w-full h-[2px] bg-navy/25" />
         <SbdcWatermark
-          className="absolute -right-[6%] top-[10%] w-[38vw] max-w-[460px] text-navy pointer-events-none select-none"
-          opacity={0.04}
+          className="absolute -right-[6%] top-[10%] w-[38vw] max-w-[460px] text-white pointer-events-none select-none"
+          opacity={0.08}
         />
         <span
-          className="material-symbols-outlined absolute -right-12 -bottom-24 text-[#A73B44]/[0.07] pointer-events-none select-none"
+          className="material-symbols-outlined absolute -right-12 -bottom-24 text-white/[0.09] pointer-events-none select-none"
           style={{ fontSize: "min(80vw, 820px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
           aria-hidden="true"
         >
@@ -227,8 +244,8 @@ export default function ContentPage() {
         </span>
 
         <div className="relative z-10 max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28">
-          <p className="font-label uppercase mb-6"
-            style={{ fontSize: "11px", letterSpacing: "0.22em", color: "#A73B44" }}>
+          <p className="font-label uppercase mb-6 text-white/85"
+            style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
             Tool · AI-Powered
           </p>
 
@@ -249,7 +266,7 @@ export default function ContentPage() {
           <div className="mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-start">
             <div className="md:col-span-7">
               <p
-                className="font-sans text-navy/80 leading-[1.55] max-w-[620px]"
+                className="font-sans text-white leading-[1.55] max-w-[620px]"
                 style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400, letterSpacing: "-0.005em" }}
               >
                 Write on-brand success stories, social posts, newsletters, and workshop recaps — all trained on NorCal SBDC&rsquo;s voice, pillars, and messaging framework.
@@ -257,7 +274,7 @@ export default function ContentPage() {
 
               <Link
                 href="/generate"
-                className="inline-flex items-center gap-3 mt-8 bg-[#004290] hover:bg-[#003278] text-white font-sans px-6 py-3.5 transition-colors no-underline"
+                className="inline-flex items-center gap-3 mt-8 bg-navy hover:bg-[#1D5AA7] text-white font-sans px-6 py-3.5 transition-colors no-underline"
                 style={{ fontSize: "14px", fontWeight: 500, letterSpacing: "0.02em" }}
               >
                 <span
@@ -277,11 +294,11 @@ export default function ContentPage() {
             </div>
 
             <div className="md:col-span-5 md:pt-4">
-              <p className="font-label uppercase mb-5"
-                style={{ fontSize: "11px", letterSpacing: "0.22em", color: "rgba(15,28,46,0.55)" }}>
+              <p className="font-label uppercase mb-5 text-white/80"
+                style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
                 Formats
               </p>
-              <ul className="space-y-3">
+              <ul className="space-y-0">
                 {[
                   "Client Success Stories",
                   "Social Posts · IG / LI / FB / X",
@@ -291,10 +308,10 @@ export default function ContentPage() {
                 ].map((feat) => (
                   <li
                     key={feat}
-                    className="font-sans text-navy/80 flex items-baseline gap-4 py-2 border-b border-navy/[0.12]"
+                    className="font-sans text-white flex items-baseline gap-4 py-2 border-b border-white/25"
                     style={{ fontSize: "16px", fontWeight: 400 }}
                   >
-                    <span className="font-label text-navy/40 text-[11px] tracking-[0.22em]">·</span>
+                    <span className="font-label text-white/55 text-[11px] tracking-[0.22em]">·</span>
                     {feat}
                   </li>
                 ))}
@@ -304,28 +321,26 @@ export default function ContentPage() {
         </div>
       </section>
 
-      {/* ── SOCIAL PRINCIPLES — 3 big things on cream ── */}
-      <section className="relative overflow-hidden border-t border-navy/[0.08]" style={{ backgroundColor: "#f5f4f0" }}>
+      {/* ── SOCIAL PRINCIPLES — 3 big things, steel bg ── */}
+      <section className="relative overflow-hidden" style={{ backgroundColor: "#5684BA" }}>
         <span
-          className="material-symbols-outlined absolute -right-8 -top-6 text-navy/[0.035] pointer-events-none select-none"
+          className="material-symbols-outlined absolute -right-8 -top-6 text-white/[0.08] pointer-events-none select-none"
           style={{ fontSize: "min(50vw, 500px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
           aria-hidden="true"
         >
           forum
         </span>
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
-          <SectionLabel eyebrow="Social Media · Principles" title="Three things, always." />
+          <SectionLabel
+            eyebrow="Social Media · Principles"
+            title="Three things, always."
+            lead="We build our social media presence on content that's relevant and authentic. Every post reflects who we are."
+          />
 
-          <p className="font-sans text-navy/70 leading-[1.6] mb-14 max-w-[620px] -mt-6"
-            style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400 }}>
-            We build our social media presence on content that&rsquo;s relevant
-            and authentic. Every post reflects who we are.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 mt-14">
             {socialPrinciples.map((p, i) => (
               <div key={p.title}>
-                <p className="font-label uppercase text-[#A73B44]"
+                <p className="font-label uppercase text-white/75"
                   style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
                   0{i + 1}
                 </p>
@@ -342,7 +357,7 @@ export default function ContentPage() {
                   {p.title}.
                 </h3>
                 <p
-                  className="mt-5 font-sans text-navy/70 leading-[1.55]"
+                  className="mt-5 font-sans text-white leading-[1.55]"
                   style={{ fontSize: "clamp(15px, 1.1vw, 16px)", fontWeight: 400 }}
                 >
                   {p.desc}
@@ -353,336 +368,309 @@ export default function ContentPage() {
         </div>
       </section>
 
-      {/* ── SOCIAL MEDIA KIT — cream ── */}
-      <section className="py-20 md:py-28 relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
-        <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 relative z-10">
-          <SectionLabel eyebrow="Ready-to-Post Templates" title="Social Media Kit" />
+      {/* ── SOCIAL MEDIA KIT — carousel, steel bg ── */}
+      <section className="relative overflow-hidden" style={{ backgroundColor: "#5684BA" }}>
+        <div className="max-w-[1200px] mx-auto pl-8 md:pl-12 lg:pl-16 pr-0 py-20 md:py-28 relative z-10">
+          <div className="pr-8 md:pr-12 lg:pr-16">
+            <SectionLabel
+              eyebrow="Ready-to-Post Templates"
+              title="Social Media Kit"
+              lead="Six template formats showing the brand's full typographic and color range — editorial serif, wide display, monospace labels, and real client imagery."
+            />
+          </div>
 
-          <p className="font-sans text-navy/60 leading-[1.6] mb-12 max-w-[620px] -mt-6"
-            style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400 }}>
-            Six template formats showing the brand&rsquo;s full typographic and color range —
-            editorial serif, wide display, monospace labels, and real client imagery.
-          </p>
+          <div className="pt-6">
+            <ColorsInUseCarousel bgColor="#5684BA">
+              {/* 1 — Client image BG with editorial serif overlay */}
+              <KitCard caption="Client Testimonial · Serif" meta="IG / FB · Connected Pillar · Bi-Weekly">
+                <div
+                  className="absolute inset-0 text-white flex flex-col justify-between p-8 md:p-10"
+                  style={{
+                    backgroundImage: "linear-gradient(180deg, rgba(15,28,46,0.15) 0%, rgba(15,28,46,0.75) 100%), url('/photos/rejoule.jpg')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                >
+                  <div className="flex justify-between items-start">
+                    <p className="font-label uppercase text-white/90"
+                      style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
+                      NorCal SBDC
+                    </p>
+                    <p className="font-label uppercase text-white/60"
+                      style={{ fontSize: "10px", letterSpacing: "0.18em" }}>
+                      Client Story
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      className="italic"
+                      style={{
+                        fontFamily: "var(--serif)",
+                        fontSize: "clamp(22px, 2.6vw, 34px)",
+                        fontWeight: 400,
+                        letterSpacing: "-0.03em",
+                        lineHeight: 1.08,
+                      }}
+                    >
+                      &ldquo;They helped me build something that lasts.&rdquo;
+                    </p>
+                    <p className="font-label uppercase mt-5 text-white/75"
+                      style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
+                      ReJoule · Bay Area
+                    </p>
+                  </div>
+                </div>
+              </KitCard>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            {/* 1 — Client image BG with editorial serif overlay */}
-            <div className="flex flex-col">
-              <div
-                className="aspect-square relative overflow-hidden text-white flex flex-col justify-between p-8 md:p-10 shadow-sm"
-                style={{
-                  backgroundImage: "linear-gradient(180deg, rgba(15,28,46,0.15) 0%, rgba(15,28,46,0.75) 100%), url('/photos/rejoule.jpg')",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              >
-                <div className="flex justify-between items-start">
+              {/* 2 — Wide display stat on berry */}
+              <KitCard caption="Impact Stat · Wide Display" meta="LI / FB · Funded Pillar · Monthly">
+                <div
+                  className="absolute inset-0 flex flex-col justify-between p-8 md:p-10"
+                  style={{ backgroundColor: "#A73B44", color: "#f5f4f0" }}
+                >
+                  <div className="flex justify-between items-start">
+                    <p className="font-label uppercase"
+                      style={{ fontSize: "11px", letterSpacing: "0.22em", color: "rgba(245,244,240,0.85)" }}>
+                      NorCal SBDC
+                    </p>
+                    <p className="font-label uppercase"
+                      style={{ fontSize: "10px", letterSpacing: "0.18em", color: "rgba(245,244,240,0.6)" }}>
+                      Capital Impact
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-label uppercase mb-3"
+                      style={{ fontSize: "11px", letterSpacing: "0.22em", color: "rgba(245,244,240,0.7)" }}>
+                      Total Capital Accessed
+                    </p>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-wide)",
+                        fontSize: "clamp(56px, 7.5vw, 96px)",
+                        fontWeight: 700,
+                        letterSpacing: "-0.03em",
+                        lineHeight: 0.86,
+                      }}
+                    >
+                      $549M
+                    </p>
+                    <p className="font-label uppercase mt-4"
+                      style={{ fontSize: "11px", letterSpacing: "0.22em", color: "rgba(245,244,240,0.85)" }}>
+                      #YourBusinessBetter
+                    </p>
+                  </div>
+                </div>
+              </KitCard>
+
+              {/* 3 — Client image BG, wide + serif combo */}
+              <KitCard caption="Advisor Spotlight · Mixed Type" meta="IG / LI · People Pillar · Weekly">
+                <div
+                  className="absolute inset-0 text-white flex flex-col justify-between p-8 md:p-10"
+                  style={{
+                    backgroundImage: "linear-gradient(180deg, rgba(15,28,46,0.25) 0%, rgba(15,28,46,0.85) 100%), url('/photos/marin-auto.jpg')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                >
                   <p className="font-label uppercase text-white/90"
                     style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
                     NorCal SBDC
                   </p>
-                  <p className="font-label uppercase text-white/60"
-                    style={{ fontSize: "10px", letterSpacing: "0.18em" }}>
-                    Client Story
-                  </p>
+                  <div>
+                    <p className="italic text-white/85"
+                      style={{ fontFamily: "var(--serif)", fontSize: "clamp(16px, 1.6vw, 20px)", lineHeight: 1.3 }}>
+                      Meet your
+                    </p>
+                    <p
+                      className="uppercase mt-2"
+                      style={{
+                        fontFamily: "var(--font-wide)",
+                        fontSize: "clamp(32px, 3.8vw, 52px)",
+                        fontWeight: 700,
+                        letterSpacing: "0.005em",
+                        lineHeight: 0.95,
+                        color: "#f5f4f0",
+                      }}
+                    >
+                      SBDC
+                      <br />
+                      Advisor.
+                    </p>
+                    <p className="font-label uppercase mt-5 text-white/70"
+                      style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
+                      People Pillar · Weekly
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p
-                    className="italic"
-                    style={{
-                      fontFamily: "var(--serif)",
-                      fontSize: "clamp(26px, 3.4vw, 42px)",
-                      fontWeight: 400,
-                      letterSpacing: "-0.03em",
-                      lineHeight: 1.08,
-                    }}
-                  >
-                    &ldquo;They helped me build something that lasts.&rdquo;
-                  </p>
-                  <p className="font-label uppercase mt-5 text-white/75"
-                    style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                    ReJoule · Bay Area
-                  </p>
-                </div>
-              </div>
-              <div className="mt-3">
-                <p className="font-sans text-navy text-[15px]" style={{ fontWeight: 500 }}>Client Testimonial · Serif</p>
-                <p className="font-label text-[11px] text-navy/40 uppercase tracking-[0.12em] mt-1">IG / FB · Connected Pillar · Bi-Weekly</p>
-              </div>
-            </div>
+              </KitCard>
 
-            {/* 2 — Wide display stat on berry */}
-            <div className="flex flex-col">
-              <div
-                className="aspect-square relative overflow-hidden flex flex-col justify-between p-8 md:p-10 shadow-sm"
-                style={{ backgroundColor: "#A73B44", color: "#f5f4f0" }}
-              >
-                <div className="flex justify-between items-start">
-                  <p className="font-label uppercase"
-                    style={{ fontSize: "11px", letterSpacing: "0.22em", color: "rgba(245,244,240,0.85)" }}>
-                    NorCal SBDC
-                  </p>
-                  <p className="font-label uppercase"
-                    style={{ fontSize: "10px", letterSpacing: "0.18em", color: "rgba(245,244,240,0.6)" }}>
-                    Capital Impact
-                  </p>
+              {/* 4 — Navy, big italic serif headline */}
+              <KitCard caption="Brand Anthem · Editorial Serif" meta="IG / LI / FB / X · Evergreen">
+                <div
+                  className="absolute inset-0 flex flex-col justify-between p-8 md:p-10"
+                  style={{ backgroundColor: "#0f1c2e", color: "#f5f4f0" }}
+                >
+                  <div className="flex justify-between items-start">
+                    <p className="font-label uppercase"
+                      style={{ fontSize: "11px", letterSpacing: "0.22em", color: "rgba(133,163,200,0.7)" }}>
+                      NorCal SBDC
+                    </p>
+                    <p className="font-label uppercase"
+                      style={{ fontSize: "10px", letterSpacing: "0.18em", color: "rgba(133,163,200,0.5)" }}>
+                      Brand Anthem
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      className="italic"
+                      style={{
+                        fontFamily: "var(--serif)",
+                        fontSize: "clamp(36px, 4.8vw, 64px)",
+                        color: "#f5f4f0",
+                        letterSpacing: "-0.04em",
+                        lineHeight: 0.92,
+                        fontWeight: 400,
+                      }}
+                    >
+                      Your
+                      <br />
+                      Business,
+                      <br />
+                      <span style={{ color: "#85A3C8" }}>Better.</span>
+                    </p>
+                    <p className="font-label uppercase mt-6"
+                      style={{ fontSize: "11px", letterSpacing: "0.22em", color: "rgba(133,163,200,0.6)" }}>
+                      #PeopleFundedConnected
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-label uppercase mb-3"
-                    style={{ fontSize: "11px", letterSpacing: "0.22em", color: "rgba(245,244,240,0.7)" }}>
-                    Total Capital Accessed
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-wide)",
-                      fontSize: "clamp(64px, 9vw, 120px)",
-                      fontWeight: 700,
-                      letterSpacing: "-0.03em",
-                      lineHeight: 0.86,
-                    }}
-                  >
-                    $549M
-                  </p>
-                  <p className="font-label uppercase mt-4"
-                    style={{ fontSize: "11px", letterSpacing: "0.22em", color: "rgba(245,244,240,0.85)" }}>
-                    #YourBusinessBetter
-                  </p>
-                </div>
-              </div>
-              <div className="mt-3">
-                <p className="font-sans text-navy text-[15px]" style={{ fontWeight: 500 }}>Impact Stat · Wide Display</p>
-                <p className="font-label text-[11px] text-navy/40 uppercase tracking-[0.12em] mt-1">LI / FB · Funded Pillar · Monthly</p>
-              </div>
-            </div>
+              </KitCard>
 
-            {/* 3 — Client image BG, wide + serif combo */}
-            <div className="flex flex-col">
-              <div
-                className="aspect-square relative overflow-hidden text-white flex flex-col justify-between p-8 md:p-10 shadow-sm"
-                style={{
-                  backgroundImage: "linear-gradient(180deg, rgba(15,28,46,0.25) 0%, rgba(15,28,46,0.85) 100%), url('/photos/marin-auto.jpg')",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              >
-                <p className="font-label uppercase text-white/90"
-                  style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                  NorCal SBDC
-                </p>
-                <div>
-                  <p className="italic text-white/85"
-                    style={{ fontFamily: "var(--serif)", fontSize: "clamp(18px, 1.8vw, 22px)", lineHeight: 1.3 }}>
-                    Meet your
-                  </p>
-                  <p
-                    className="uppercase mt-2"
-                    style={{
-                      fontFamily: "var(--font-wide)",
-                      fontSize: "clamp(38px, 4.6vw, 64px)",
-                      fontWeight: 700,
-                      letterSpacing: "0.005em",
-                      lineHeight: 0.95,
-                      color: "#f5f4f0",
-                    }}
-                  >
-                    SBDC
-                    <br />
-                    Advisor.
-                  </p>
-                  <p className="font-label uppercase mt-5 text-white/70"
-                    style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                    People Pillar · Weekly
-                  </p>
+              {/* 5 — Cream with berry italic, mono label stack */}
+              <KitCard caption="Capital Education · Editorial" meta="LI / FB · Funded Pillar · Monthly">
+                <div
+                  className="absolute inset-0 flex flex-col justify-between p-8 md:p-10 border border-navy/[0.08]"
+                  style={{ backgroundColor: "#f5f4f0", color: "#0f1c2e" }}
+                >
+                  <div className="flex justify-between items-start">
+                    <p className="font-label uppercase"
+                      style={{ fontSize: "11px", letterSpacing: "0.22em", color: "rgba(15,28,46,0.55)" }}>
+                      NorCal SBDC
+                    </p>
+                    <p className="font-label uppercase"
+                      style={{ fontSize: "10px", letterSpacing: "0.18em", color: "rgba(15,28,46,0.4)" }}>
+                      Did You Know?
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-label uppercase mb-3"
+                      style={{ fontSize: "11px", letterSpacing: "0.22em", color: "#A73B44" }}>
+                      Capital Education
+                    </p>
+                    <p
+                      className="italic"
+                      style={{
+                        fontFamily: "var(--serif)",
+                        fontSize: "clamp(22px, 2.6vw, 32px)",
+                        color: "#0f1c2e",
+                        letterSpacing: "-0.03em",
+                        lineHeight: 1.08,
+                        fontWeight: 400,
+                      }}
+                    >
+                      Every consultation is{" "}
+                      <span style={{ color: "#A73B44" }}>no-fee</span>.
+                      <br />
+                      Today &amp; always.
+                    </p>
+                    <p className="font-sans mt-5 text-navy/65 max-w-[260px]"
+                      style={{ fontSize: "13px", fontWeight: 400, lineHeight: 1.5 }}>
+                      Your advisor helps you prepare loan packages, navigate SBA programs, and connect with the right lender.
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="mt-3">
-                <p className="font-sans text-navy text-[15px]" style={{ fontWeight: 500 }}>Advisor Spotlight · Mixed Type</p>
-                <p className="font-label text-[11px] text-navy/40 uppercase tracking-[0.12em] mt-1">IG / LI · People Pillar · Weekly</p>
-              </div>
-            </div>
+              </KitCard>
 
-            {/* 4 — Navy, big italic serif headline */}
-            <div className="flex flex-col">
-              <div
-                className="aspect-square relative overflow-hidden flex flex-col justify-between p-8 md:p-10 shadow-sm"
-                style={{ backgroundColor: "#0f1c2e", color: "#f5f4f0" }}
-              >
-                <div className="flex justify-between items-start">
-                  <p className="font-label uppercase"
-                    style={{ fontSize: "11px", letterSpacing: "0.22em", color: "rgba(133,163,200,0.7)" }}>
-                    NorCal SBDC
-                  </p>
-                  <p className="font-label uppercase"
-                    style={{ fontSize: "10px", letterSpacing: "0.18em", color: "rgba(133,163,200,0.5)" }}>
-                    Brand Anthem
-                  </p>
+              {/* 6 — Jobs stat on navy, for variety */}
+              <KitCard caption="Jobs Stat · Wide Display" meta="LI / X · People Pillar · Quarterly">
+                <div
+                  className="absolute inset-0 flex flex-col justify-between p-8 md:p-10"
+                  style={{ backgroundColor: "#0f1c2e", color: "#f5f4f0" }}
+                >
+                  <div className="flex justify-between items-start">
+                    <p className="font-label uppercase"
+                      style={{ fontSize: "11px", letterSpacing: "0.22em", color: "rgba(245,244,240,0.9)" }}>
+                      NorCal SBDC
+                    </p>
+                    <p className="font-label uppercase"
+                      style={{ fontSize: "10px", letterSpacing: "0.18em", color: "rgba(133,163,200,0.7)" }}>
+                      Jobs Created
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-wide)",
+                        fontSize: "clamp(58px, 8vw, 108px)",
+                        fontWeight: 700,
+                        letterSpacing: "-0.03em",
+                        lineHeight: 0.86,
+                        color: "#85A3C8",
+                      }}
+                    >
+                      3,723
+                    </p>
+                    <p className="font-sans mt-5 text-white max-w-[240px]"
+                      style={{ fontSize: "14px", fontWeight: 500, lineHeight: 1.35 }}>
+                      jobs created with NorCal SBDC support in 2025.
+                    </p>
+                    <p className="font-label uppercase mt-4"
+                      style={{ fontSize: "11px", letterSpacing: "0.22em", color: "rgba(245,244,240,0.7)" }}>
+                      #NorCalSBDC
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p
-                    className="italic"
-                    style={{
-                      fontFamily: "var(--serif)",
-                      fontSize: "clamp(42px, 5.6vw, 76px)",
-                      color: "#f5f4f0",
-                      letterSpacing: "-0.04em",
-                      lineHeight: 0.92,
-                      fontWeight: 400,
-                    }}
-                  >
-                    Your
-                    <br />
-                    Business,
-                    <br />
-                    <span style={{ color: "#85A3C8" }}>Better.</span>
-                  </p>
-                  <p className="font-label uppercase mt-6"
-                    style={{ fontSize: "11px", letterSpacing: "0.22em", color: "rgba(133,163,200,0.6)" }}>
-                    #PeopleFundedConnected
-                  </p>
-                </div>
-              </div>
-              <div className="mt-3">
-                <p className="font-sans text-navy text-[15px]" style={{ fontWeight: 500 }}>Brand Anthem · Editorial Serif</p>
-                <p className="font-label text-[11px] text-navy/40 uppercase tracking-[0.12em] mt-1">IG / LI / FB / X · Evergreen</p>
-              </div>
-            </div>
-
-            {/* 5 — Steel bg, wide display stat */}
-            <div className="flex flex-col">
-              <div
-                className="aspect-square relative overflow-hidden flex flex-col justify-between p-8 md:p-10 shadow-sm"
-                style={{ backgroundColor: "#5684BA", color: "#f5f4f0" }}
-              >
-                <div className="flex justify-between items-start">
-                  <p className="font-label uppercase"
-                    style={{ fontSize: "11px", letterSpacing: "0.22em", color: "rgba(245,244,240,0.9)" }}>
-                    NorCal SBDC
-                  </p>
-                  <p className="font-label uppercase"
-                    style={{ fontSize: "10px", letterSpacing: "0.18em", color: "rgba(245,244,240,0.65)" }}>
-                    Jobs Created
-                  </p>
-                </div>
-                <div>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-wide)",
-                      fontSize: "clamp(68px, 9.5vw, 128px)",
-                      fontWeight: 700,
-                      letterSpacing: "-0.03em",
-                      lineHeight: 0.86,
-                      color: "#f5f4f0",
-                    }}
-                  >
-                    3,723
-                  </p>
-                  <p className="font-sans mt-5 text-white max-w-[240px]"
-                    style={{ fontSize: "16px", fontWeight: 500, lineHeight: 1.35 }}>
-                    jobs created with NorCal SBDC support in 2025.
-                  </p>
-                  <p className="font-label uppercase mt-4"
-                    style={{ fontSize: "11px", letterSpacing: "0.22em", color: "rgba(245,244,240,0.8)" }}>
-                    #NorCalSBDC
-                  </p>
-                </div>
-              </div>
-              <div className="mt-3">
-                <p className="font-sans text-navy text-[15px]" style={{ fontWeight: 500 }}>Jobs Stat · Wide Display</p>
-                <p className="font-label text-[11px] text-navy/40 uppercase tracking-[0.12em] mt-1">LI / X · People Pillar · Quarterly</p>
-              </div>
-            </div>
-
-            {/* 6 — Cream with berry italic, mono label stack */}
-            <div className="flex flex-col">
-              <div
-                className="aspect-square relative overflow-hidden flex flex-col justify-between p-8 md:p-10 shadow-sm border border-navy/[0.08]"
-                style={{ backgroundColor: "#ffffff", color: "#0f1c2e" }}
-              >
-                <div className="flex justify-between items-start">
-                  <p className="font-label uppercase"
-                    style={{ fontSize: "11px", letterSpacing: "0.22em", color: "rgba(15,28,46,0.55)" }}>
-                    NorCal SBDC
-                  </p>
-                  <p className="font-label uppercase"
-                    style={{ fontSize: "10px", letterSpacing: "0.18em", color: "rgba(15,28,46,0.4)" }}>
-                    Did You Know?
-                  </p>
-                </div>
-                <div>
-                  <p className="font-label uppercase mb-3"
-                    style={{ fontSize: "11px", letterSpacing: "0.22em", color: "#A73B44" }}>
-                    Capital Education
-                  </p>
-                  <p
-                    className="italic"
-                    style={{
-                      fontFamily: "var(--serif)",
-                      fontSize: "clamp(26px, 3.2vw, 38px)",
-                      color: "#0f1c2e",
-                      letterSpacing: "-0.03em",
-                      lineHeight: 1.08,
-                      fontWeight: 400,
-                    }}
-                  >
-                    Every consultation is{" "}
-                    <span style={{ color: "#A73B44" }}>no-fee</span>.
-                    <br />
-                    Today &amp; always.
-                  </p>
-                  <p className="font-sans mt-5 text-navy/65 max-w-[260px]"
-                    style={{ fontSize: "14px", fontWeight: 400, lineHeight: 1.5 }}>
-                    Your advisor helps you prepare loan packages, navigate SBA programs, and connect with the right lender.
-                  </p>
-                </div>
-              </div>
-              <div className="mt-3">
-                <p className="font-sans text-navy text-[15px]" style={{ fontWeight: 500 }}>Capital Education · Editorial</p>
-                <p className="font-label text-[11px] text-navy/40 uppercase tracking-[0.12em] mt-1">LI / FB · Funded Pillar · Monthly</p>
-              </div>
-            </div>
+              </KitCard>
+            </ColorsInUseCarousel>
           </div>
         </div>
       </section>
 
-      {/* ── SOCIAL MEDIA BEST PRACTICE — steel bg, giant platform tiles ── */}
+      {/* ── SOCIAL MEDIA BEST PRACTICE — editorial roster, steel bg ── */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "#5684BA" }}>
-        <div className="w-full h-[2px] bg-[#0f1c2e]/20" />
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
-          <SectionLabelLight eyebrow="Platforms · Channels" title="Social Media Best Practice" />
+          <SectionLabel
+            eyebrow="Platforms · Channels"
+            title="Social Media Best Practice"
+            lead="Four platforms, four cadences, one voice. Select a platform below to see the tone, focus, and cadence we use there."
+          />
 
-          <p className="font-sans text-white leading-[1.6] mb-12 max-w-[620px]"
-            style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400 }}>
-            Four platforms, four cadences, one voice.
-            Tap a platform to see the tone, focus, and cadence we use there.
-          </p>
-
-          <PlatformTiles />
+          <PlatformRoster />
         </div>
       </section>
 
-      {/* ── CONTENT CADENCE → Posting Rhythm — cream ── */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
-        <div className="w-full h-[2px] bg-[#A73B44]" />
+      {/* ── POSTING RHYTHM — steel bg ── */}
+      <section className="relative overflow-hidden" style={{ backgroundColor: "#5684BA" }}>
         <SbdcWatermark
-          className="absolute -right-[8%] top-[5%] w-[40vw] max-w-[500px] text-navy pointer-events-none select-none"
-          opacity={0.04}
+          className="absolute -right-[8%] top-[5%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none"
+          opacity={0.07}
         />
         <span
-          className="material-symbols-outlined absolute -right-10 top-[2%] text-navy/[0.035] pointer-events-none select-none"
+          className="material-symbols-outlined absolute -right-10 top-[2%] text-white/[0.07] pointer-events-none select-none"
           style={{ fontSize: "min(50vw, 500px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
           aria-hidden="true"
         >
           calendar_month
         </span>
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
-          <SectionLabel eyebrow="Year-Round Rhythm" title="Posting Rhythm" />
+          <SectionLabel
+            eyebrow="Year-Round Rhythm"
+            title="Posting Rhythm"
+            lead="Weekly, bi-weekly, and quarterly anchors — rotating our three pillars so every client sees the full story."
+          />
 
-          <p className="font-sans text-navy/70 leading-[1.6] mb-14 max-w-[620px] -mt-6"
-            style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400 }}>
-            Weekly, bi-weekly, and quarterly anchors — rotating our three pillars so every client sees the full story.
-          </p>
-
-          {/* Editorial rhythm rows — not a 3-col symmetric grid. Cadence | Item | Body. */}
-          <div className="border-t border-navy/[0.18]">
+          {/* Editorial rhythm rows — Cadence | Item | Body | Pillars */}
+          <div className="mt-14 border-t border-white/25">
             {[
               {
                 freq: "Weekly",
@@ -711,10 +699,10 @@ export default function ContentPage() {
             ].map((row) => (
               <div
                 key={row.freq}
-                className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-8 md:py-10 border-b border-navy/[0.18]"
+                className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-8 md:py-10 border-b border-white/25"
               >
                 <div className="md:col-span-3">
-                  <p className="font-label uppercase text-[#A73B44]"
+                  <p className="font-label uppercase text-white/80"
                     style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
                     {row.freq}
                   </p>
@@ -724,29 +712,29 @@ export default function ContentPage() {
                   </h3>
                 </div>
                 <div className="md:col-span-4">
-                  <p className="font-sans text-navy/80 leading-[1.55]"
+                  <p className="font-sans text-white leading-[1.55]"
                     style={{ fontSize: "clamp(15px, 1.1vw, 16px)", fontWeight: 400 }}>
                     {row.lead}
                   </p>
                 </div>
-                <div className="md:col-span-5 space-y-2.5 font-sans text-navy/80 leading-[1.55]"
+                <div className="md:col-span-5 space-y-2.5 font-sans text-white leading-[1.55]"
                   style={{ fontSize: "clamp(14px, 1.05vw, 15px)" }}>
                   <p>
-                    <span className="font-label uppercase text-[#004290] mr-2"
+                    <span className="font-label uppercase text-white/65 mr-2"
                       style={{ fontSize: "10px", letterSpacing: "0.18em", fontWeight: 500 }}>
                       People
                     </span>
                     {row.people}
                   </p>
                   <p>
-                    <span className="font-label uppercase text-[#A73B44] mr-2"
+                    <span className="font-label uppercase text-white/65 mr-2"
                       style={{ fontSize: "10px", letterSpacing: "0.18em", fontWeight: 500 }}>
                       Funded
                     </span>
                     {row.funded}
                   </p>
                   <p>
-                    <span className="font-label uppercase text-navy/70 mr-2"
+                    <span className="font-label uppercase text-white/65 mr-2"
                       style={{ fontSize: "10px", letterSpacing: "0.18em", fontWeight: 500 }}>
                       Connected
                     </span>
@@ -757,7 +745,7 @@ export default function ContentPage() {
             ))}
           </div>
 
-          <p className="mt-10 font-sans italic text-navy/70 leading-[1.5] max-w-[680px]"
+          <p className="mt-10 font-sans italic text-navy/80 leading-[1.5] max-w-[680px]"
             style={{ fontFamily: "var(--serif)", fontSize: "clamp(17px, 1.5vw, 20px)", fontWeight: 400 }}>
             Pillar rotation rule — each month one pillar leads, the other two support.
             January People-led. February Funded-led. March Connected-led. Repeat.
@@ -765,58 +753,51 @@ export default function ContentPage() {
         </div>
       </section>
 
-      {/* ── RESPONDING TO COMMENTS — cream ── */}
-      <section className="py-20 md:py-28 relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
+      {/* ── RESPONDING TO COMMENTS — steel bg ── */}
+      <section className="py-20 md:py-28 relative overflow-hidden" style={{ backgroundColor: "#5684BA" }}>
         <span
-          className="material-symbols-outlined absolute -left-6 bottom-[-4%] text-navy/[0.035] pointer-events-none select-none"
+          className="material-symbols-outlined absolute -left-6 bottom-[-4%] text-white/[0.07] pointer-events-none select-none"
           style={{ fontSize: "min(40vw, 380px)", fontVariationSettings: "'FILL' 1, 'wght' 200", lineHeight: 1 }}
           aria-hidden="true"
         >
           chat_bubble
         </span>
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 relative z-10">
-          <SectionLabel eyebrow="Community" title="Responding to Comments" />
+          <SectionLabel
+            eyebrow="Community"
+            title="Responding to Comments"
+            lead="Respond publicly to negative comments, then move the discussion to a private space as quickly as possible."
+          />
 
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14 mt-14">
             <div>
-              <p className="font-sans text-navy/75 leading-[1.6] mb-8"
-                style={{ fontSize: "clamp(15px, 1.2vw, 17px)", fontWeight: 400 }}>
-                Respond publicly to negative comments, then move the
-                discussion to a private space as quickly as possible.
+              <p className="font-label uppercase text-white/75 mb-5"
+                style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
+                Template Response
               </p>
-              <div className="bg-white border border-navy/[0.07] overflow-hidden">
-                <div className="bg-navy px-6 py-4">
-                  <p className="font-label uppercase text-white/65"
-                    style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                    Template Response
-                  </p>
-                </div>
-                <div className="px-7 py-7 border-l-2 border-[#A73B44]">
-                  <p className="font-sans italic text-navy leading-[1.4]"
-                    style={{ fontFamily: "var(--serif)", fontSize: "clamp(17px, 1.5vw, 20px)", fontWeight: 400, letterSpacing: "-0.01em" }}>
-                    &ldquo;We are so sorry you&rsquo;ve had a negative experience. Please
-                    private message us with your email address so we can help you
-                    resolve the issue.&rdquo;
-                  </p>
-                </div>
+              <div className="border-l-2 border-navy pl-7">
+                <p className="font-sans italic text-navy leading-[1.35]"
+                  style={{ fontFamily: "var(--serif)", fontSize: "clamp(20px, 2vw, 26px)", fontWeight: 400, letterSpacing: "-0.015em" }}>
+                  &ldquo;We are so sorry you&rsquo;ve had a negative experience. Please
+                  private message us with your email address so we can help you
+                  resolve the issue.&rdquo;
+                </p>
               </div>
             </div>
 
             <div>
-              <div className="bg-white border border-navy/[0.07] overflow-hidden">
-                <div className="bg-navy px-6 py-4 flex items-center justify-between">
-                  <p className="font-label uppercase text-white/65"
-                    style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
-                    Facebook Comments Policy
-                  </p>
-                  <CopyButton text={commentPolicy} />
-                </div>
-                <div className="p-7 max-h-[320px] overflow-y-auto">
-                  <p className="font-sans text-navy/80 leading-[1.65] whitespace-pre-wrap"
-                    style={{ fontSize: "15px", fontWeight: 400 }}>
-                    {commentPolicy}
-                  </p>
-                </div>
+              <div className="flex items-center justify-between mb-5">
+                <p className="font-label uppercase text-white/75"
+                  style={{ fontSize: "11px", letterSpacing: "0.22em" }}>
+                  Facebook Comments Policy
+                </p>
+                <CopyButton text={commentPolicy} />
+              </div>
+              <div className="max-h-[320px] overflow-y-auto pr-3">
+                <p className="font-sans text-white leading-[1.65] whitespace-pre-wrap"
+                  style={{ fontSize: "14px", fontWeight: 400 }}>
+                  {commentPolicy}
+                </p>
               </div>
             </div>
           </div>
