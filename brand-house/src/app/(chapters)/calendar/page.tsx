@@ -698,7 +698,7 @@ export default function CalendarPage() {
               >
                 2026
               </strong>
-              Sixteen centers · One drumbeat
+              36 counties · One drumbeat
             </span>
           </div>
         </section>

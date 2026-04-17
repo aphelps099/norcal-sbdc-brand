@@ -22,8 +22,14 @@ export default function SiteFooter() {
               href="https://norcalsbdc.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-sans text-white/25 hover:text-white/45 transition-colors duration-500 uppercase no-underline"
-              style={{ fontSize: "0.58rem", letterSpacing: "0.12em" }}
+              className="text-white/45 hover:text-white/75 transition-colors duration-500 no-underline"
+              style={{
+                fontFamily: "proxima-sera, var(--serif)",
+                fontWeight: 300,
+                fontStyle: "italic",
+                fontSize: "15px",
+                letterSpacing: "-0.005em",
+              }}
             >
               norcalsbdc.org
             </a>
@@ -31,8 +37,14 @@ export default function SiteFooter() {
               href="https://www.californiasbdc.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-sans text-white/25 hover:text-white/45 transition-colors duration-500 uppercase no-underline"
-              style={{ fontSize: "0.58rem", letterSpacing: "0.12em" }}
+              className="text-white/45 hover:text-white/75 transition-colors duration-500 no-underline"
+              style={{
+                fontFamily: "proxima-sera, var(--serif)",
+                fontWeight: 300,
+                fontStyle: "italic",
+                fontSize: "15px",
+                letterSpacing: "-0.005em",
+              }}
             >
               californiasbdc.org
             </a>

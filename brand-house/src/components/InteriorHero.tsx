@@ -155,13 +155,13 @@ export default function InteriorHero({
           )}
         </p>
 
-        {/* Oversized page title — Turnip serif, upright, editorial */}
+        {/* Oversized page title — proxima-sera, light (300), upright. Global standard. */}
         <h1
           className="interior-hero-title mt-6 md:mt-8"
           data-reveal
           style={{
-            fontFamily: "var(--serif)",
-            fontWeight: 400,
+            fontFamily: "proxima-sera, var(--serif)",
+            fontWeight: 300,
             fontStyle: "normal",
             fontSize: "clamp(120px, 18vw, 280px)",
             letterSpacing: "-0.055em",
@@ -173,18 +173,19 @@ export default function InteriorHero({
           {title}
         </h1>
 
-        {/* Quiet helper line */}
+        {/* Section hero subtitle — proxima-sera 400 normal, bumped size for legibility. */}
         {subtitle && (
           <p
-            className="interior-hero-sub mt-6 md:mt-8 max-w-[560px]"
+            className="interior-hero-sub mt-6 md:mt-8 max-w-[640px]"
             data-reveal
             style={{
-              fontFamily: "var(--sans)",
-              fontWeight: 500,
-              fontSize: "clamp(15px, 1.1vw, 16px)",
-              lineHeight: 1.55,
+              fontFamily: "proxima-sera, var(--serif)",
+              fontWeight: 400,
+              fontStyle: "normal",
+              fontSize: "clamp(18px, 1.5vw, 22px)",
+              lineHeight: 1.5,
               letterSpacing: "-0.005em",
-              color: "rgba(15,28,46,0.55)",
+              color: "rgba(15,28,46,0.7)",
             }}
           >
             {cascadeWords(subtitle, { initialY: 14 })}
