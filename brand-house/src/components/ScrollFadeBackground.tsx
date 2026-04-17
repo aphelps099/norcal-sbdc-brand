@@ -23,12 +23,13 @@ export default function ScrollFadeBackground({
   targetRef,
   color = "#f5f4f0", // cream; use "#ffffff" for pure white
   fadeInPx = 400,
-  fadeOutPx = 400,
+  fadeOutPx = 0, // 0 = one-way fade (stays at full opacity once in)
   zIndex = 0,
 }: {
   targetRef: RefObject<HTMLElement | null>;
   color?: string;
   fadeInPx?: number;
+  /** If 0 or omitted, the fade is one-way: stays at full opacity past the section. */
   fadeOutPx?: number;
   zIndex?: number;
 }) {
@@ -44,25 +45,19 @@ export default function ScrollFadeBackground({
       const vh = window.innerHeight;
 
       // Distance the viewport BOTTOM has travelled past the section top.
-      // When 0 → section just reached bottom of viewport (start of fade in).
-      // When >= fadeInPx → fully faded in.
+      // 0 → section top just touched viewport bottom (fade-in starts).
+      // >= fadeInPx → fully faded in.
       const enter = vh - rect.top;
-      // Distance the viewport TOP has travelled past the section bottom.
-      // When <= 0 → section still has room below. When approaches fadeOutPx
-      // we start fading out; at >= fadeOutPx (bottom above viewport top) → 0.
-      const exit = -rect.bottom + 0; // positive once section bottom crosses top of viewport
-      // We want to begin the fade-out before the section fully exits:
-      // trigger when the section's remaining height on screen drops below fadeOutPx.
-      const remaining = rect.bottom; // px from viewport top to section bottom
-      // fade-in factor (0..1)
       const fin = Math.max(0, Math.min(1, enter / fadeInPx));
-      // fade-out factor (1..0) — starts reducing when `remaining` drops below fadeOutPx
-      const fout = Math.max(0, Math.min(1, remaining / fadeOutPx));
-      // Combined
-      const o = Math.max(0, Math.min(1, fin * fout));
-      setOpacity(o);
-      // silence unused var
-      void exit;
+
+      // One-way mode: once faded in, stay at full opacity forever.
+      let o = fin;
+      if (fadeOutPx > 0) {
+        const remaining = rect.bottom; // px from viewport top to section bottom
+        const fout = Math.max(0, Math.min(1, remaining / fadeOutPx));
+        o = fin * fout;
+      }
+      setOpacity(Math.max(0, Math.min(1, o)));
     };
 
     const onScroll = () => {

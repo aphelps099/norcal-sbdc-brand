@@ -221,7 +221,10 @@ function KitCard({ caption, meta, children }: { caption: string; meta: string; c
 }
 
 export default function ContentPage() {
-  const postingRhythmRef = useRef<HTMLElement | null>(null);
+  // Everything from Social Principles → Responding to Comments sits inside
+  // this wrapper. The cream wash fades in as the wrapper enters the viewport
+  // (i.e. as the user scrolls past the Content Generator) and holds to bottom.
+  const postGeneratorRef = useRef<HTMLDivElement | null>(null);
   return (
     <>
       {/* ── FIXED BACKDROP — fog→steel gradient + layered film grain ──
@@ -393,7 +396,46 @@ export default function ContentPage() {
         </Reveal>
       </section>
 
-      {/* ── SOCIAL PRINCIPLES — 3 big things, steel bg ── */}
+      {/* ── Scroll-linked cream wash that fades in as the viewport enters the
+         post-generator block and holds to the bottom of the page. ── */}
+      <ScrollFadeBackground
+        targetRef={postGeneratorRef}
+        color="#f5f4f0"
+        fadeInPx={600}
+        zIndex={1}
+      />
+
+      {/* Scoped tint remap: as the cream wash fades in, white text would
+         vanish. Remap the most common white tints inside this wrapper to
+         navy tints so every section stays readable on cream. */}
+      <style>{`
+        .post-generator-wash .text-white { color: #0f1c2e; }
+        .post-generator-wash .text-white\/90 { color: rgba(15,28,46,0.85); }
+        .post-generator-wash .text-white\/85 { color: rgba(15,28,46,0.80); }
+        .post-generator-wash .text-white\/80 { color: rgba(15,28,46,0.70); }
+        .post-generator-wash .text-white\/75 { color: rgba(15,28,46,0.65); }
+        .post-generator-wash .text-white\/70 { color: rgba(15,28,46,0.60); }
+        .post-generator-wash .text-white\/65 { color: rgba(15,28,46,0.55); }
+        .post-generator-wash .text-white\/60 { color: rgba(15,28,46,0.55); }
+        .post-generator-wash .text-white\/55 { color: rgba(15,28,46,0.50); }
+        .post-generator-wash .text-white\/50 { color: rgba(15,28,46,0.45); }
+        .post-generator-wash .text-white\/40 { color: rgba(15,28,46,0.40); }
+        .post-generator-wash .border-white\/30 { border-color: rgba(15,28,46,0.15); }
+        .post-generator-wash .border-white\/25 { border-color: rgba(15,28,46,0.12); }
+        .post-generator-wash .border-white\/20 { border-color: rgba(15,28,46,0.10); }
+        /* Oversized decorative icons — keep them as subtle ghosts */
+        .post-generator-wash .material-symbols-outlined.text-white\/\[0\.09\],
+        .post-generator-wash .material-symbols-outlined.text-white\/\[0\.08\],
+        .post-generator-wash .material-symbols-outlined.text-white\/\[0\.07\] {
+          color: rgba(15,28,46,0.06);
+        }
+        .post-generator-wash .text-white\/\[0\.08\],
+        .post-generator-wash .text-white\/\[0\.07\] { color: rgba(15,28,46,0.06); }
+      `}</style>
+
+      <div ref={postGeneratorRef} className="post-generator-wash">
+
+      {/* ── SOCIAL PRINCIPLES — 3 big things ── */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "transparent" }}>
         <span
           className="material-symbols-outlined absolute -right-8 -top-6 text-white/[0.08] pointer-events-none select-none"
@@ -721,19 +763,8 @@ export default function ContentPage() {
         </Reveal>
       </section>
 
-      {/* ── Scroll-linked cream wash that fades in over Posting Rhythm ──
-         Sits above the fixed steel gradient (zIndex 0) but below content (zIndex 10+).
-         Opacity tracks the section's viewport position. */}
-      <ScrollFadeBackground
-        targetRef={postingRhythmRef}
-        color="#f5f4f0"
-        fadeInPx={500}
-        fadeOutPx={500}
-        zIndex={1}
-      />
-
-      {/* ── POSTING RHYTHM — steel bg with scroll-linked cream wash ── */}
-      <section ref={postingRhythmRef} className="relative overflow-hidden" style={{ backgroundColor: "transparent" }}>
+      {/* ── POSTING RHYTHM ── */}
+      <section className="relative overflow-hidden" style={{ backgroundColor: "transparent" }}>
         <SbdcWatermark
           className="absolute -right-[8%] top-[5%] w-[40vw] max-w-[500px] text-white pointer-events-none select-none"
           opacity={0.07}
@@ -939,6 +970,9 @@ export default function ContentPage() {
           </div>
         </Reveal>
       </section>
+
+      </div>
+      {/* end .post-generator-wash */}
 
       <NextSectionLink title="Email" href="/email" />
 
