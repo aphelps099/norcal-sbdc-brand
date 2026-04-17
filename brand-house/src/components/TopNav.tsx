@@ -4,38 +4,38 @@ import { useEffect, useState, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { STAR_PATH } from "@/lib/brand-tokens";
 
-/* 4-column nav — mirrors CA SBDC Explore / About / Impact / Connect */
+/* 4-column editorial nav — Identity / Voice / Make / Library */
 const NAV_COLS = [
-  {
-    heading: "Explore",
-    links: [
-      { label: "Colors", href: "/colors" },
-      { label: "Typography", href: "/typography" },
-      { label: "Logos", href: "/logos" },
-    ],
-  },
   {
     heading: "Identity",
     links: [
-      { label: "Voice & Tone", href: "/voice" },
-      { label: "Media", href: "/photography" },
-      { label: "Stories", href: "/stories" },
+      { label: "Logos", href: "/logos" },
+      { label: "Colors", href: "/colors" },
+      { label: "Typography", href: "/typography" },
     ],
   },
   {
-    heading: "Resources",
+    heading: "Voice",
+    links: [
+      { label: "Voice & Tone", href: "/voice" },
+      { label: "Stories", href: "/stories" },
+      { label: "Glossary", href: "/glossary" },
+    ],
+  },
+  {
+    heading: "Make",
     links: [
       { label: "Templates", href: "/templates" },
-      { label: "Content", href: "/content" },
       { label: "Email", href: "/email" },
       { label: "Generate", href: "/generate" },
     ],
   },
   {
-    heading: "Reference",
+    heading: "Library",
     links: [
-      { label: "Glossary", href: "/glossary" },
+      { label: "Photography", href: "/photography" },
       { label: "Calendar", href: "/calendar" },
+      { label: "Content", href: "/content" },
     ],
   },
 ];
@@ -140,7 +140,7 @@ export default function TopNav() {
         }
 
         .sbdc-star-svg {
-          opacity: .2;
+          opacity: .3;
         }
 
         /* Ghost: faint static outline */
@@ -271,21 +271,47 @@ export default function TopNav() {
             transition: "clip-path 0.7s cubic-bezier(0.25, 0.1, 0.25, 1)",
           }}
         >
-          {/* BG */}
-          <div className="absolute inset-0" style={{ backgroundColor: "#0b1623" }} />
-          <div className="absolute inset-0 overflow-hidden">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/photos/bg-star.jpg"
-              alt=""
-              className="absolute inset-0 w-full h-full object-cover object-center"
-            />
-          </div>
+          {/* BG — clean navy with subtle concentric ring watermark */}
+          <div className="absolute inset-0" style={{ backgroundColor: "#0f1c2e" }} />
+          <div
+            className="absolute inset-0 pointer-events-none"
+            aria-hidden
+            style={{
+              background:
+                "radial-gradient(circle at 50% 38%, rgba(86,132,186,0.09) 0%, rgba(86,132,186,0.055) 22%, rgba(86,132,186,0.03) 38%, rgba(15,28,46,0) 60%)",
+            }}
+          />
+          {/* Concentric ring pattern behind the star */}
+          <svg
+            className="absolute pointer-events-none"
+            aria-hidden
+            style={{
+              left: "50%",
+              top: "38%",
+              transform: "translate(-50%, -50%)",
+              width: "min(62vw, 780px)",
+              height: "min(62vw, 780px)",
+              opacity: 0.35,
+            }}
+            viewBox="0 0 600 600"
+          >
+            {[280, 240, 200, 160, 120, 80, 40].map((r) => (
+              <circle
+                key={r}
+                cx="300"
+                cy="300"
+                r={r}
+                fill="none"
+                stroke="rgba(133,163,200,0.10)"
+                strokeWidth="1"
+              />
+            ))}
+          </svg>
 
-          {/* ── Star watermark (no glow, clean strokes) ── */}
+          {/* ── Star watermark (30% opacity per brand — kept as signature mark) ── */}
           <div
             className={`absolute overflow-hidden pointer-events-none hidden lg:block sbdc-star-wrap${starActive ? " star-active" : ""}`}
-            style={{ right: "-10%", top: "20%", width: "60%" }}
+            style={{ left: "50%", top: "38%", width: "min(52vw, 640px)", transform: "translate(-50%, -50%)" }}
           >
             <div style={{ paddingTop: "95.064072%" }} />
             <svg
@@ -311,14 +337,18 @@ export default function TopNav() {
             </svg>
           </div>
 
-          {/* ── Menu content ── */}
+          {/* ── Menu content ──
+             Note: the fixed top bar (wordmark + animated burger→X) sits above this overlay
+             at z-60, so we reserve space for it and let it play the role of the
+             wordmark/close row shown in the reference mock. */}
           <div className="relative z-10 h-full flex flex-col overflow-y-auto">
-            <div className="shrink-0 h-16" />
+            {/* Reserve space for the fixed top bar + push grid below the ring watermark */}
+            <div className="shrink-0" style={{ height: "clamp(240px, 42vh, 460px)" }} />
 
-            {/* 4-column nav grid */}
-            <div className="flex-1 flex flex-col justify-center px-6 sm:px-10 lg:px-16">
+            {/* 4-column editorial nav grid */}
+            <div className="px-6 sm:px-10 lg:px-16">
               <div className="max-w-[1400px] mx-auto w-full">
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 lg:gap-x-12 gap-y-10">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 lg:gap-x-12 gap-y-12">
                   {NAV_COLS.map((col, colIdx) => (
                     <div
                       key={col.heading}
@@ -331,17 +361,18 @@ export default function TopNav() {
                       }}
                     >
                       <h3
-                        className="text-white uppercase pb-3 mb-3 border-b-2 border-white"
+                        className="uppercase mb-6"
                         style={{
                           fontFamily: "var(--font-wide)",
                           fontWeight: 700,
-                          fontSize: "clamp(13px, 1.4vw, 16px)",
-                          letterSpacing: "0.22em",
+                          fontSize: "11px",
+                          letterSpacing: "0.24em",
+                          color: "rgba(133,163,200,0.75)",
                         }}
                       >
                         {col.heading}
                       </h3>
-                      <nav className="flex flex-col gap-2 mt-3">
+                      <nav className="flex flex-col gap-3">
                         {col.links.map((link, i) => (
                           <a
                             key={link.href}
@@ -357,13 +388,13 @@ export default function TopNav() {
                             }}
                           >
                             <span
-                              className="block text-white/75 transition-colors duration-200 group-hover/nav:text-white"
+                              className="block text-white/85 transition-colors duration-200 group-hover/nav:text-white"
                               style={{
-                                fontFamily: "var(--sans)",
-                                fontWeight: 500,
-                                fontSize: "clamp(1.25rem, 1.75vw, 1.5rem)",
-                                letterSpacing: "-0.015em",
-                                lineHeight: 1.3,
+                                fontFamily: "proxima-sera, var(--serif)",
+                                fontWeight: 300,
+                                fontSize: "clamp(1.75rem, 2.4vw, 2.25rem)",
+                                letterSpacing: "-0.02em",
+                                lineHeight: 1.15,
                               }}
                             >
                               {link.label}
@@ -377,9 +408,12 @@ export default function TopNav() {
               </div>
             </div>
 
-            {/* ── Bottom band — logo + tagline ── */}
+            {/* Flex filler pushes the footer to the bottom */}
+            <div className="flex-1" style={{ minHeight: "4rem" }} />
+
+            {/* ── Bottom band — editorial credit + tagline ── */}
             <div
-              className="shrink-0 border-t border-white/[0.1]"
+              className="shrink-0"
               style={{
                 opacity: menuOpen ? 1 : 0,
                 transform: menuOpen ? "translateY(0)" : "translateY(12px)",
@@ -389,31 +423,47 @@ export default function TopNav() {
               }}
             >
               <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 py-8 flex items-center justify-between gap-6">
-                {/* Logo */}
-                <div className="shrink-0">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/logos/NCN_Band_Logo_White.png"
-                    alt="NorCal SBDC"
-                    className="h-12 w-auto opacity-60"
-                  />
-                </div>
+                <p
+                  className="uppercase"
+                  style={{
+                    fontFamily: "var(--font-wide)",
+                    fontWeight: 700,
+                    fontSize: "11px",
+                    letterSpacing: "0.24em",
+                    color: "rgba(133,163,200,0.75)",
+                  }}
+                >
+                  AMERICA&rsquo;S SBDC
+                  <span
+                    aria-hidden
+                    style={{
+                      display: "inline-block",
+                      margin: "0 0.6em",
+                      fontSize: "9px",
+                      verticalAlign: "middle",
+                      transform: "translateY(-1px)",
+                      letterSpacing: 0,
+                    }}
+                  >
+                    •
+                  </span>
+                  CALIFORNIA
+                </p>
 
-                {/* Tagline — the one line that matters */}
                 <p
                   className="text-right text-white/80"
                   style={{
                     fontFamily: "var(--sans)",
                     fontWeight: 500,
-                    fontSize: "clamp(1rem, 1.6vw, 1.5rem)",
-                    letterSpacing: "-0.02em",
+                    fontSize: "clamp(1rem, 1.4vw, 1.25rem)",
+                    letterSpacing: "-0.015em",
                     lineHeight: 1.1,
                   }}
                 >
                   Your business,{" "}
                   <em
                     style={{
-                      fontFamily: "var(--serif)",
+                      fontFamily: "proxima-sera, var(--serif)",
                       fontStyle: "italic",
                       fontWeight: 400,
                     }}
