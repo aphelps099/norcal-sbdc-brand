@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { usePathname } from "next/navigation";
 import { STAR_PATH } from "@/lib/brand-tokens";
 
 /* 4-column editorial nav — Identity / Voice / Make / Library */
@@ -43,10 +42,6 @@ const NAV_COLS = [
 /* Star SVG path imported from brand-tokens */
 
 export default function TopNav() {
-  const pathname = usePathname();
-  const isHome = pathname === "/";
-  const [scrolled, setScrolled] = useState(false);
-  const [pastHero, setPastHero] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [closing, setClosing] = useState(false);
@@ -54,15 +49,6 @@ export default function TopNav() {
   const [starKey, setStarKey] = useState(0);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const starTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 40);
-      setPastHero(window.scrollY > window.innerHeight * 0.85);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     if (menuOpen) {
@@ -100,17 +86,6 @@ export default function TopNav() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [menuOpen]);
-
-  /* Dark-hero routes render their hero on navy — keep nav text light (cream) while above that hero.
-     Homepage has its own dark hero; Voice chapter is navy-on-navy and needs the light variant too. */
-  const darkHeroRoutes = ["/voice", "/templates"];
-  const onDarkHero = darkHeroRoutes.includes(pathname);
-  const isDark = ((isHome && !pastHero) || (onDarkHero && !pastHero)) && !menuOpen;
-
-  /* Colored-hero routes render their hero on a mid-tone (steel/fog) — default
-     nav tertiary gray gets lost. Force navy burger + wordmark for these. */
-  const coloredHeroRoutes = ["/content"];
-  const onColoredHero = coloredHeroRoutes.includes(pathname);
 
   return (
     <>
@@ -167,94 +142,47 @@ export default function TopNav() {
       <style jsx>{`
         .burger-bar {
           display: block;
-          height: 1.5px;
+          height: 2px;
           background: currentColor;
           transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
             width 0.5s cubic-bezier(0.16, 1, 0.3, 1),
             opacity 0.3s ease;
           transform-origin: center center;
         }
-        .burger-top { width: 22px; }
-        .burger-bottom { width: 14px; }
-        .burger-wrap:hover .burger-bottom { width: 22px; }
+        .burger-top { width: 32px; }
+        .burger-bottom { width: 20px; }
+        .burger-wrap:hover .burger-bottom { width: 32px; }
         .burger-wrap[data-open="true"] .burger-top {
-          transform: translateY(4.5px) rotate(45deg);
-          width: 18px;
+          transform: translateY(6px) rotate(45deg);
+          width: 26px;
         }
         .burger-wrap[data-open="true"] .burger-bottom {
-          transform: translateY(-4.5px) rotate(-45deg);
-          width: 18px;
+          transform: translateY(-6px) rotate(-45deg);
+          width: 26px;
         }
       `}</style>
 
-      {/* ── Fixed top bar ── */}
+      {/* ── Minimal floating burger ─ no bar, no wordmark, adaptive via mix-blend-difference ── */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
-          menuOpen
-            ? "bg-transparent"
-            : scrolled
-              ? onDarkHero && !pastHero
-                ? "bg-[#0f1c2e]/80 backdrop-blur-2xl border-b border-white/[0.06]"
-                : !isHome || pastHero
-                  ? "bg-white/90 backdrop-blur-2xl border-b border-black/[0.06]"
-                  : "bg-black/30 backdrop-blur-2xl"
-              : "bg-transparent"
-        }`}
+        className="fixed top-0 left-0 right-0 z-50 pointer-events-none"
+        aria-label="Primary"
       >
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 py-4 flex items-center justify-between relative z-[60]">
-          <a
-            href="/"
-            className={`uppercase transition-colors duration-500 no-underline ${
-              menuOpen
-                ? "text-white/70 hover:text-white"
-                : isDark
-                  ? "text-white/75 hover:text-white"
-                  : "text-navy hover:text-navy"
-            }`}
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 py-5 flex items-center justify-end relative z-[60]">
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="burger-wrap pointer-events-auto flex flex-col items-end justify-center gap-[10px] w-[36px] h-[36px] hover:opacity-80 transition-opacity"
             style={{
-              fontFamily: "var(--font-wide)",
-              fontWeight: 700,
-              fontSize: "14px",
-              letterSpacing: "0.22em",
+              /* Difference blend inverts against whatever's behind the icon,
+                 so it stays readable on both light and dark sections. */
+              color: "#ffffff",
+              mixBlendMode: menuOpen ? "normal" : "difference",
             }}
+            data-open={menuOpen}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
           >
-            NORCAL SBDC
-            <span
-              aria-hidden
-              style={{
-                display: "inline-block",
-                margin: "0 0.6em",
-                fontSize: "9px",
-                fontWeight: 700,
-                verticalAlign: "middle",
-                transform: "translateY(-1px)",
-                letterSpacing: 0,
-              }}
-            >
-              •
-            </span>
-            BRAND
-          </a>
-
-          <div className="flex items-center gap-5">
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className={`burger-wrap flex flex-col items-end justify-center gap-[7px] w-[24px] h-[24px] transition-colors duration-500 ${
-                menuOpen
-                  ? "text-white/50 hover:text-white"
-                  : isDark
-                    ? "text-white/40 hover:text-white"
-                    : onColoredHero
-                      ? "text-navy/70 hover:text-navy"
-                      : "text-text-tertiary hover:text-navy"
-              }`}
-              data-open={menuOpen}
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
-            >
-              <span className="burger-bar burger-top" />
-              <span className="burger-bar burger-bottom" />
-            </button>
-          </div>
+            <span className="burger-bar burger-top" />
+            <span className="burger-bar burger-bottom" />
+          </button>
         </div>
       </nav>
 
