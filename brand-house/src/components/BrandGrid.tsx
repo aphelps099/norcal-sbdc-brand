@@ -80,17 +80,22 @@ export default function BrandGrid() {
         {/* Header with legend */}
         <div className="brand-grid-header border-t border-navy pt-3.5 flex items-baseline justify-between flex-wrap gap-5">
           <div>
-            <p
-              className="text-[10px] uppercase tracking-[0.14em] text-navy/55 mb-1.5"
-              style={{ fontFamily: "var(--font-wide)", fontWeight: 700 }}
-            >
-              {pills.length} Chapters
-            </p>
             <h2
-              className="font-sans text-navy tracking-[-0.01em]"
+              className="text-navy tracking-[-0.01em]"
               style={{ fontSize: 28, fontWeight: 500 }}
             >
-              Brand Components
+              <em
+                style={{
+                  fontFamily: "proxima-sera, var(--serif)",
+                  fontStyle: "italic",
+                  fontWeight: 400,
+                }}
+              >
+                Brand
+              </em>{" "}
+              <span style={{ fontFamily: "var(--sans)", fontWeight: 500 }}>
+                Components
+              </span>
             </h2>
           </div>
           <div className="flex gap-6 items-center flex-wrap">

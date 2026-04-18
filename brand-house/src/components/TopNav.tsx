@@ -327,7 +327,7 @@ export default function TopNav() {
                     color: "rgba(133,163,200,0.75)",
                   }}
                 >
-                  AMERICA&rsquo;S SBDC
+                  NORCAL SBDC
                   <span
                     aria-hidden
                     style={{
@@ -341,7 +341,7 @@ export default function TopNav() {
                   >
                     •
                   </span>
-                  CALIFORNIA
+                  BRAND HOUSE
                 </p>
 
                 <p
