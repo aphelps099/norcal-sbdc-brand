@@ -88,12 +88,13 @@ export default function HeroEditorial() {
             className="inline-block text-center cursor-pointer bg-transparent border-none outline-none"
           >
             <h1
-              className="hero-brand text-white leading-[0.92] uppercase"
+              className="hero-brand text-white leading-[0.92]"
               style={{
-                fontFamily: "var(--font-wide)",
-                fontSize: "clamp(56px, 11vw, 160px)",
-                fontWeight: 700,
-                letterSpacing: "0",
+                fontFamily: "proxima-sera, var(--serif)",
+                fontStyle: "italic",
+                fontSize: "clamp(72px, 13vw, 200px)",
+                fontWeight: 400,
+                letterSpacing: "-0.02em",
                 opacity: 0,
               }}
             >
