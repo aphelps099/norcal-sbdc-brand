@@ -102,7 +102,7 @@ export default function InteriorHero({
   return (
     <section
       ref={sectionRef}
-      className={`relative overflow-hidden ${bgColor ? "" : "bg-cream"}`}
+      className="relative overflow-hidden"
       style={bgColor ? { backgroundColor: bgColor } : undefined}
     >
       {/* Thin category top bar — matches /colors standard */}

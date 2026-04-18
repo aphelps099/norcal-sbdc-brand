@@ -1,7 +1,7 @@
 import InteriorHero from "@/components/InteriorHero";
 import CopyButton from "@/components/CopyButton";
 import NextSectionLink from "@/components/NextSectionLink";
-import GrainBackdrop from "@/components/GrainBackdrop";
+import CreamPaperBackdrop from "@/components/CreamPaperBackdrop";
 
 /* ─────────────────────────────  TOKENS  ─────────────────────────────
    Pillar colors mapped to brand tokens, matching the mockup:
@@ -203,7 +203,7 @@ function SectionHeader({
 export default function EmailPage() {
   return (
     <>
-      <GrainBackdrop />
+      <CreamPaperBackdrop />
       <div className="relative" style={{ zIndex: 1 }}>
         <InteriorHero
           chapterNumber="07"

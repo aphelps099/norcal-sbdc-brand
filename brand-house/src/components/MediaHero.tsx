@@ -61,7 +61,7 @@ export default function MediaHero() {
   return (
     <section
       ref={rootRef}
-      className="relative bg-cream overflow-hidden"
+      className="relative overflow-hidden"
     >
       {/* Coral category bar */}
       <div

@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import MasonryGallery from "@/components/MasonryGallery";
 import MediaHero from "@/components/MediaHero";
 import NextSectionLink from "@/components/NextSectionLink";
+import CreamPaperBackdrop from "@/components/CreamPaperBackdrop";
 
 // Shared 2px container-width rule
 function SectionRule() {
@@ -310,13 +311,12 @@ function PrinciplesSection() {
 export default function PhotographyPage() {
   return (
     <>
+      <CreamPaperBackdrop />
+      <div className="relative" style={{ zIndex: 1 }}>
       <MediaHero />
 
       {/* ── RULE OF THUMB ── */}
-      <section
-        className="pt-16 md:pt-24 pb-20 md:pb-28"
-        style={{ backgroundColor: "#f5f4f0" }}
-      >
+      <section className="pt-16 md:pt-24 pb-20 md:pb-28">
         <SectionHeading
           eyebrow="01 · Rule of Thumb"
           title="People, not programs."
@@ -344,10 +344,7 @@ export default function PhotographyPage() {
       <SectionRule />
 
       {/* ── PHOTO & VIDEO LIBRARY — crisp gallery ── */}
-      <section
-        className="pt-16 md:pt-24 pb-16 md:pb-20"
-        style={{ backgroundColor: "#f5f4f0" }}
-      >
+      <section className="pt-16 md:pt-24 pb-16 md:pb-20">
         <SectionHeading
           eyebrow="02 · Library"
           title="Photo &amp; video library."
@@ -375,10 +372,7 @@ export default function PhotographyPage() {
       <PrinciplesSection />
 
       {/* ── PHOTO LIBRARY ACCESS LINK — crisp card ── */}
-      <section
-        className="pt-20 md:pt-28 pb-24 md:pb-32"
-        style={{ backgroundColor: "#f5f4f0" }}
-      >
+      <section className="pt-20 md:pt-28 pb-24 md:pb-32">
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16">
           <div
             className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 md:gap-12 pt-10 md:pt-12"
@@ -453,6 +447,7 @@ export default function PhotographyPage() {
       </section>
 
       <NextSectionLink title="Templates" href="/templates" />
+      </div>
     </>
   );
 }

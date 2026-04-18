@@ -272,7 +272,7 @@ export default function LogoPageContent() {
   }, []);
 
   return (
-    <div ref={contentRef} className="bg-cream">
+    <div ref={contentRef}>
       {/* ═══ Intro section — section jump nav ═══ */}
       <section className="logo-section py-16 md:py-24">
         <div className={COL_NARROW}>

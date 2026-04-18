@@ -1,7 +1,7 @@
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
-import GrainBackdrop from "@/components/GrainBackdrop";
+import CreamPaperBackdrop from "@/components/CreamPaperBackdrop";
 
 /* ─────────────────────────────  TOKENS  ─────────────────────────────
    Quarter palette mapped to existing brand tokens from globals.css:
@@ -648,7 +648,7 @@ function AlwaysOn() {
 export default function CalendarPage() {
   return (
     <>
-      <GrainBackdrop />
+      <CreamPaperBackdrop />
       <div className="relative" style={{ zIndex: 1 }}>
         <InteriorHero
           chapterNumber="12"

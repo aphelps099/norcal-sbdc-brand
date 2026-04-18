@@ -2,6 +2,7 @@ import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
 import StoryStructureExplorer from "@/components/StoryStructureExplorer";
+import CreamPaperBackdrop from "@/components/CreamPaperBackdrop";
 
 /* ─────────────────────────────  DATA  ───────────────────────────── */
 
@@ -119,6 +120,8 @@ function SectionLabel({ eyebrow, title, lead, dark = false, noRule = false }: { 
 export default function StoriesPage() {
   return (
     <>
+      <CreamPaperBackdrop />
+      <div className="relative" style={{ zIndex: 1 }}>
       <InteriorHero
         showRule={false}
         chapterNumber="08"
@@ -128,7 +131,7 @@ export default function StoriesPage() {
       />
 
       {/* ═══ TIER 01 · SIGNATURE — featured navy card + compact 5-up ═══ */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
+      <section className="relative overflow-hidden">
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-24 relative z-10">
           {/* Tier header — tag + title + desc, mockup's two-column header */}
           <div className="tier-header grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-end mb-10 md:mb-12">
@@ -253,7 +256,7 @@ export default function StoriesPage() {
       </section>
 
       {/* ═══ TIER 02 · GROWTH — line-item list ═══ */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
+      <section className="relative overflow-hidden">
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-24 relative z-10 border-t border-navy/[0.15]">
           <div className="tier-header grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-end mt-14 mb-10 md:mb-12">
             <div className="md:col-span-7">
@@ -322,7 +325,7 @@ export default function StoriesPage() {
       </section>
 
       {/* ═══ TIER 03 · SPOTLIGHTS — quote wall ═══ */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
+      <section className="relative overflow-hidden">
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-24 relative z-10 border-t border-navy/[0.15]">
           <div className="tier-header grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-end mt-14 mb-10 md:mb-12">
             <div className="md:col-span-7">
@@ -475,7 +478,7 @@ export default function StoriesPage() {
       </section>
 
       {/* ── SCORING RUBRIC ── */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
+      <section className="relative overflow-hidden">
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
           <SectionLabel
             eyebrow="Evaluation"
@@ -611,7 +614,7 @@ export default function StoriesPage() {
       </section>
 
       {/* ── STORY TOOLKIT ── */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: "#f5f4f0" }}>
+      <section className="relative overflow-hidden">
         <div className="max-w-[1200px] mx-auto px-8 md:px-12 lg:px-16 py-20 md:py-28 relative z-10">
           <SectionLabel
             eyebrow="Templates"
@@ -729,6 +732,7 @@ export default function StoriesPage() {
       </section>
 
       <NextSectionLink title="Glossary" href="/glossary" />
+      </div>
     </>
   );
 }

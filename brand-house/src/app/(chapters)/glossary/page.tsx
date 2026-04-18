@@ -2,6 +2,7 @@
 import InteriorHero from "@/components/InteriorHero";
 import NextSectionLink from "@/components/NextSectionLink";
 import SbdcWatermark from "@/components/SbdcWatermark";
+import CreamPaperBackdrop from "@/components/CreamPaperBackdrop";
 
 const glossarySections = [
   {
@@ -183,6 +184,8 @@ const glossarySections = [
 export default function GlossaryPage() {
   return (
     <>
+      <CreamPaperBackdrop />
+      <div className="relative" style={{ zIndex: 1 }}>
       <InteriorHero
         chapterNumber="13"
         category="tools"
@@ -190,7 +193,7 @@ export default function GlossaryPage() {
         subtitle="Terms, acronyms, and definitions used across the NorCal SBDC network. Keep this reference handy — consistent language builds trust."
       />
 
-      <div className="bg-cream py-12 md:py-16">
+      <div className="py-12 md:py-16">
         {/* Intro */}
         <div className="max-w-[780px] mx-auto px-8 md:px-12 mb-14">
           <h2 className="font-sans text-2xl md:text-3xl text-navy tracking-[-0.02em] mb-6">
@@ -218,8 +221,8 @@ export default function GlossaryPage() {
         </div>
       </div>
 
-      {/* Glossary Sections — cream bg */}
-      <div className="py-12 md:py-16" style={{ backgroundColor: "#f5f4f0" }}>
+      {/* Glossary Sections */}
+      <div className="py-12 md:py-16">
         <div className="max-w-[780px] mx-auto px-12 md:px-16">
           {glossarySections.map((section, sectionIdx) => (
             <div
@@ -333,6 +336,7 @@ export default function GlossaryPage() {
       </div>
 
       <NextSectionLink title="Colors" href="/colors" />
+      </div>
     </>
   );
 }

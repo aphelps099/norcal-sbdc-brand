@@ -60,7 +60,7 @@ export default function ColorsHero() {
   return (
     <section
       ref={rootRef}
-      className="relative bg-cream overflow-hidden"
+      className="relative overflow-hidden"
     >
       {/* Coral category bar */}
       <div aria-hidden className="w-full" style={{ height: 3, background: "#A73B44" }} />

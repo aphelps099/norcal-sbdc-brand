@@ -4,6 +4,7 @@ import ColorPairings from "@/components/ColorPairings";
 import ApplicationsHeader from "@/components/ApplicationsHeader";
 import ColorsInUseCarousel from "@/components/ColorsInUseCarousel";
 import NextSectionLink from "@/components/NextSectionLink";
+import CreamPaperBackdrop from "@/components/CreamPaperBackdrop";
 import { STAR_PATH } from "@/lib/brand-tokens";
 
 /** Uniform poster frame — consistent portrait aspect, subtle shadow. */
@@ -38,6 +39,8 @@ function PosterFrame({
 export default function ColorsPage() {
   return (
     <>
+      <CreamPaperBackdrop />
+      <div className="relative" style={{ zIndex: 1 }}>
       <ColorsHero />
 
       {/* ───────────── ANCHOR COLORS ───────────── */}
@@ -47,7 +50,7 @@ export default function ColorsPage() {
       <ColorPairings />
 
       {/* ───────────── APPLICATIONS (trophy gallery) ───────────── */}
-      <div className="bg-cream pb-24 md:pb-32">
+      <div className="pb-24 md:pb-32">
         <ApplicationsHeader
           title="Applications"
           lead="Northern California’s small business network. From navy to light — used across digital surfaces, reports, and campaign headers to convey depth and trust."
@@ -527,6 +530,7 @@ export default function ColorsPage() {
       </div>
 
       <NextSectionLink title="Typography" href="/typography" />
+      </div>
     </>
   );
 }
