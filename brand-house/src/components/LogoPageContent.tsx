@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import CopyButton from "./CopyButton";
 
 /* ─── Section anchor nav data ─── */
 const SECTIONS = [
@@ -69,6 +70,82 @@ const STAKEHOLDER_LOGOS: LogoAsset[] = [
   { name: "SBA", description: "U.S. Small Business Administration", preview: "/images/logos/stake-sba.png", variants: [{ label: "Color (PNG)", filename: "/downloads/logos/SBA-Color.png" }, { label: "Reverse (PNG)", filename: "/downloads/logos/SBA-Reverse.png" }] },
   { name: "California GoBiz", description: "Governor's Office of Business & Economic Development", preview: "/images/logos/stake-gobiz.png", variants: [{ label: "Color (PNG)", filename: "/downloads/logos/GoBiz-Color.png" }, { label: "Reverse (PNG)", filename: "/downloads/logos/GoBiz-Reverse.png" }] },
   { name: "America's SBDC", description: "National SBDC network", preview: "/images/logos/stake-americas.png", variants: [{ label: "Color (PNG)", filename: "/downloads/logos/Americas-Color.png" }, { label: "Reverse (PNG)", filename: "/downloads/logos/Americas-Reverse.png" }] },
+];
+
+/* ─── Compliance copy blocks ─── */
+const SBA_DISCLAIMER = `Funded in part through a cooperative agreement with the U.S. Small Business Administration. All opinions, conclusions or recommendations expressed are those of the author(s) and do not necessarily reflect the views of the SBA or Cal Poly Humboldt Sponsored Programs Foundation.`;
+
+const GOBIZ_ACK_PROJECT = `Funded in part through a Grant with the Governor's Office of Business and Economic Development.`;
+
+const GOBIZ_ACK_EDITORIAL = `Funded in part through a Grant with the California Office of the Small Business Advocate. All opinions, conclusions, and/or recommendations expressed herein are those of the author(s) and do not necessarily reflect the views of the California Office of the Small Business Advocate.`;
+
+const CAL_POLY_NOTE = `Cal Poly Humboldt serves as the Lead Center's regional host and is located in Arcata, CA.`;
+
+const ADA_STATEMENT = `Reasonable accommodations for persons with disabilities will be made if requested at least 72 hours in advance of this event; please send an email with the subject header ACCOMMODATION REQUEST to [@service center location/program name, phone + email contact].`;
+
+const ALL_FUNDER_ACK = `Funded in part through a cooperative agreement with the US Small Business Administration (SBA). Funded in part through a Grant with the California Office of the Small Business Advocate (GO-Biz). All opinions, conclusions, or recommendations expressed are those of the author(s) and do not necessarily reflect the views of the SBA, Go-Biz, or Cal Poly Humboldt sponsored programs.`;
+
+/* ─── Disclaimer & logo usage chart ───
+   Columns from PDF: SBA / GO-Biz / ADA / Cal Poly Humboldt.
+   "✓" = required, "—" = not required, "Always" = required every time. */
+const COMPLIANCE_COLUMNS = [
+  "SBA Logo + Disclaimer",
+  "GO-Biz Logo + Disclaimer",
+  "ADA Accommodation",
+  "Cal Poly Humboldt Disclaimer",
+] as const;
+
+const COMPLIANCE_MATRIX: { context: string; values: [string, string, string, string] }[] = [
+  { context: "Training Events in NeoSerra", values: ["✓", "✓", "✓", "—"] },
+  { context: "Event Flyer", values: ["✓", "✓", "✓", "—"] },
+  { context: "Newsletter Footer", values: ["✓", "✓", "✓", "—"] },
+  { context: "Website Event", values: ["✓", "✓", "✓", "—"] },
+  { context: "Zoom", values: ["✓", "✓", "✓", "—"] },
+  { context: "Social Media Events", values: ["✓", "✓", "✓", "—"] },
+  { context: "Social Media Commentary", values: ["—", "—", "—", "—"] },
+  { context: "PowerPoint Slide Decks", values: ["✓", "✓", "N/A", "Always"] },
+];
+
+/* ─── Funder blocks data ─── */
+interface Funder {
+  name: string;
+  preview: string;
+  blurb: string;
+  disclaimers: { label: string; text: string; heading?: string }[];
+}
+
+const FUNDERS: Funder[] = [
+  {
+    name: "U.S. Small Business Administration",
+    preview: "/images/logos/stake-sba.png",
+    blurb:
+      "Created in 1953, the SBA is the only cabinet-level federal agency fully dedicated to small businesses, providing counseling, capital, and contracting expertise.",
+    disclaimers: [{ label: "SBA Disclaimer", text: SBA_DISCLAIMER }],
+  },
+  {
+    name: "Governor's Office of Business & Economic Development (GO-Biz)",
+    preview: "/images/logos/stake-gobiz.png",
+    blurb:
+      "GO-Biz serves as California's leader for job growth, economic development, and business assistance efforts.",
+    disclaimers: [
+      {
+        label: "GO-Biz — Project Funds",
+        heading: "Materials produced with Project Funds",
+        text: GOBIZ_ACK_PROJECT,
+      },
+      {
+        label: "GO-Biz — Editorial",
+        heading: "Materials with editorial content",
+        text: GOBIZ_ACK_EDITORIAL,
+      },
+    ],
+  },
+  {
+    name: "Cal Poly Humboldt",
+    preview: "/images/logos/stake-calpoly.png",
+    blurb: CAL_POLY_NOTE,
+    disclaimers: [],
+  },
 ];
 
 /* ─── Center names ─── */
@@ -196,6 +273,102 @@ function LogoCard({ logo }: { logo: LogoAsset }) {
             {v.label}
           </a>
         ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Copy-ready disclaimer card ───
+   Navy utility card pattern lifted from the Email page disclaimer block.
+   Vertical label rail on desktop, horizontal label on mobile, CopyButton top-right. */
+function DisclaimerCard({
+  label,
+  text,
+  heading,
+}: {
+  label: string;
+  text: string;
+  heading?: string;
+}) {
+  return (
+    <div
+      className="grid gap-6 md:gap-10"
+      style={{
+        gridTemplateColumns: "auto minmax(0,1fr) auto",
+        backgroundColor: "#0f1c2e",
+        color: "#f5f4f0",
+        padding: "28px 32px 32px",
+        alignItems: "start",
+      }}
+    >
+      <div
+        className="hidden md:flex"
+        style={{
+          writingMode: "vertical-rl",
+          transform: "rotate(180deg)",
+          alignSelf: "stretch",
+          alignItems: "center",
+          paddingRight: 8,
+          borderRight: "1px solid rgba(255,255,255,0.15)",
+          fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+          fontSize: 10,
+          fontWeight: 600,
+          letterSpacing: "0.22em",
+          textTransform: "uppercase",
+          color: "#85A3C8",
+        }}
+      >
+        {label}
+      </div>
+
+      <div
+        className="md:hidden"
+        style={{
+          fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+          fontSize: 10,
+          fontWeight: 600,
+          letterSpacing: "0.22em",
+          textTransform: "uppercase",
+          color: "#85A3C8",
+          paddingBottom: 10,
+          borderBottom: "1px solid rgba(255,255,255,0.15)",
+          gridColumn: "1 / -1",
+        }}
+      >
+        {label}
+      </div>
+
+      <div
+        style={{
+          fontFamily: "proxima-sera, var(--serif)",
+          fontWeight: 300,
+          fontSize: 15,
+          lineHeight: 1.6,
+          color: "#f5f4f0",
+          opacity: 0.92,
+        }}
+      >
+        {heading && (
+          <div
+            style={{
+              fontFamily: "var(--sans-label, 'Roboto Mono', monospace)",
+              fontSize: 10,
+              fontWeight: 600,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "#85A3C8",
+              marginBottom: 10,
+              opacity: 0.9,
+            }}
+          >
+            {heading}
+          </div>
+        )}
+        <p>{text}</p>
+      </div>
+
+      <div className="self-start">
+        <CopyButton text={text} />
       </div>
     </div>
   );
@@ -373,38 +546,141 @@ export default function LogoPageContent() {
         </div>
       </section>
 
-      {/* ═══ Compliance Logos ═══ */}
+      {/* ═══ Compliance ═══ */}
       <section className="logo-section py-14">
         <div className={COL_NARROW}>
           <SectionHeading id="compliance" title="Compliance" />
-          <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-10 items-start">
-            <div>
-              <h3 className="font-label text-sm text-navy mb-3">ADA Compliance Logo</h3>
-              <p className="font-sans text-base text-text-secondary leading-relaxed mb-3">
-                The ADA compliance seal must be displayed on all public-facing digital
-                properties including websites, email templates, and downloadable documents.
-              </p>
-              <p className="font-sans text-base text-text-secondary leading-relaxed mb-5">
-                Place the compliance logo in the footer area of websites, and on the last
-                page of printed materials. Do not resize below 60px width for digital or
-                0.5 inches for print.
-              </p>
-              <div className="flex items-start gap-3 p-4 rounded-lg bg-coral/8 border border-coral/15">
-                <span className="text-coral text-sm font-label leading-none mt-0.5">!</span>
-                <p className="font-sans text-[13px] text-navy/55 leading-relaxed">
-                  Federal funding recipients are required to display accessibility
-                  compliance indicators. Failure to include this mark may affect
-                  grant compliance status.
-                </p>
+          <p className="font-sans text-base text-text-secondary leading-relaxed mb-10 max-w-lg">
+            Every client- and partner-facing piece must acknowledge our funders. Use the chart
+            below to confirm which logos and disclaimers a given format requires, then copy the
+            exact, approved language from the funder blocks that follow. When in doubt, include
+            all three.
+          </p>
+
+          {/* ── Disclaimer & Logo Chart ── */}
+          <h3 className="font-label text-sm text-navy mb-4 tracking-[0.08em] uppercase">
+            Disclaimer &amp; Logo Chart
+          </h3>
+          <div className="overflow-x-auto mb-14 border border-navy/10 rounded-lg">
+            <table className="w-full border-collapse min-w-[640px]">
+              <thead>
+                <tr className="bg-navy text-cream">
+                  <th
+                    scope="col"
+                    className="text-left px-4 py-3 font-label text-[11px] uppercase tracking-[0.1em]"
+                  >
+                    Context
+                  </th>
+                  {COMPLIANCE_COLUMNS.map((col) => (
+                    <th
+                      key={col}
+                      scope="col"
+                      className="text-center px-3 py-3 font-label text-[11px] uppercase tracking-[0.1em] border-l border-white/10"
+                    >
+                      {col}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {COMPLIANCE_MATRIX.map((row, i) => (
+                  <tr
+                    key={row.context}
+                    className={i % 2 === 1 ? "bg-navy/[0.02]" : undefined}
+                  >
+                    <th
+                      scope="row"
+                      className="text-left px-4 py-3 font-sans text-sm text-navy border-t border-navy/10 font-normal"
+                    >
+                      {row.context}
+                    </th>
+                    {row.values.map((v, j) => (
+                      <td
+                        key={j}
+                        className="text-center px-3 py-3 font-sans text-sm text-navy/70 border-t border-l border-navy/10"
+                      >
+                        {v}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* ── Funder blocks ── */}
+          <div className="space-y-14">
+            {FUNDERS.map((funder) => (
+              <div
+                key={funder.name}
+                className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-8 items-start"
+              >
+                <div>
+                  <div className="flex items-center justify-center bg-[#f7f7f5] rounded-lg border border-black/[0.05] p-6 min-h-[160px] mb-3">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={funder.preview}
+                      alt={funder.name}
+                      className="w-full max-w-[160px] h-auto"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <h3 className="font-label text-sm text-navy mb-2 tracking-[0.08em] uppercase">
+                    {funder.name}
+                  </h3>
+                  <p className="font-sans text-base text-text-secondary leading-relaxed mb-5">
+                    {funder.blurb}
+                  </p>
+                  {funder.disclaimers.length > 0 && (
+                    <div className="space-y-4">
+                      {funder.disclaimers.map((d) => (
+                        <DisclaimerCard
+                          key={d.label}
+                          label={d.label}
+                          heading={d.heading}
+                          text={d.text}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-            <div className="flex items-center justify-center bg-[#f7f7f5] rounded-lg border border-black/[0.05] p-10 min-h-[160px]">
-              <div className="w-[100px] h-[100px] bg-white rounded flex items-center justify-center">
-                <span className="font-sans text-[9px] font-label uppercase tracking-[0.1em] text-navy/18 text-center leading-tight">
-                  ADA<br />Compliance
-                </span>
-              </div>
-            </div>
+            ))}
+          </div>
+
+          {/* ── ADA Accommodation Statement ── */}
+          <div className="mt-14">
+            <h3 className="font-label text-sm text-navy mb-2 tracking-[0.08em] uppercase">
+              ADA Accommodation Statement
+            </h3>
+            <p className="font-sans text-base text-text-secondary leading-relaxed mb-5 max-w-lg">
+              Include on all event flyers, emails, newsletters, website events, and Zoom
+              registrations.
+            </p>
+            <DisclaimerCard label="ADA Accommodation" text={ADA_STATEMENT} />
+          </div>
+
+          {/* ── Combined funder acknowledgment ── */}
+          <div className="mt-14">
+            <h3 className="font-label text-sm text-navy mb-2 tracking-[0.08em] uppercase">
+              Sample of All-Funder Acknowledgment
+            </h3>
+            <p className="font-sans text-base text-text-secondary leading-relaxed mb-5 max-w-lg">
+              Safe default when a piece touches multiple funders. Paste as-is into footers
+              and closing slides.
+            </p>
+            <DisclaimerCard label="All-Funder Acknowledgment" text={ALL_FUNDER_ACK} />
+          </div>
+
+          {/* ── Stakes reminder ── */}
+          <div className="flex items-start gap-3 p-4 rounded-lg bg-coral/[0.08] border border-coral/15 mt-10">
+            <span className="text-coral text-sm font-label leading-none mt-0.5">!</span>
+            <p className="font-sans text-[13px] text-navy/55 leading-relaxed">
+              Federal and state funding recipients are required to display these
+              acknowledgments. Missing or modified language may affect grant compliance
+              status — copy the text here verbatim.
+            </p>
           </div>
         </div>
       </section>
